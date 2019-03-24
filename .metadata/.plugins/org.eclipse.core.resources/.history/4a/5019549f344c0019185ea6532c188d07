@@ -1,0 +1,13 @@
+#include "View.h"
+
+Model * viewmodel;
+
+        void View::View(Model* modelo) {
+           viewmodel = modelo;
+        }
+        void View::SetModel(Model * modelo) {
+            viewmodel = modelo;
+        }
+        void View::Render() {
+
+        }

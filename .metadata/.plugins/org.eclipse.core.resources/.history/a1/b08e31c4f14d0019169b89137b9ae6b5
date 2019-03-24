@@ -1,0 +1,18 @@
+#ifndef DISMINUIRVELOCIDADY_H
+#define DISMINUIRVELOCIDADY_H
+
+#include "../CommandCtrl.h"
+
+class Agachar : public CommandCtrl
+{
+public:
+	Agachar(Model* model);
+    char getCodigoComando();
+    virtual ~Agachar();
+    void execute();
+protected:
+
+private:
+};
+
+#endif // DISMINUIRVELOCIDADY_H

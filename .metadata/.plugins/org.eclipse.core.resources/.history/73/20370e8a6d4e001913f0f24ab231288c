@@ -1,0 +1,48 @@
+#include "View_Jugador.h"
+
+#include <sstream>
+#define DECVELX 0x00
+#define DECVELY 0x01
+#define INCVELX 0x02
+#define INCVELY 0x03
+#define AGACHAR 0x04
+#define SALTAR  0x05
+View_Jugador::View_Jugador() {
+}
+
+void View_Jugador::initialize(Jugador *model,
+		LTexture * texturaJugador) {
+	this->texturaJugador = texturaJugador;
+	this->model = model;
+	switch (this->model->personaje()) {
+		case SDLK_UP:
+
+			break;
+		case SDLK_DOWN:
+
+			break;
+		case SDLK_LEFT:
+
+			break;
+		case SDLK_RIGHT:
+
+			break;
+		}
+}
+
+void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
+
+	SDL_Rect* currentClip = &gSpriteClips[frame / MAXFRAMECAMINA];
+	if ((this->model->getVelX() != 0) || (this->model->getVelY() != 0)) {
+		++frame;
+
+	}
+	if (frame / MAXFRAMECAMINA >= MAXFRAMECAMINA) {
+		frame = MINFRAMECAMINA;
+	}
+	this->texturaJugador->render(this->model->getPosX() - camX,
+			this->model->getPosY() - camY, currentClip, 0, NULL,
+			this->model->getDireccion(), gRenderer);
+
+}
+

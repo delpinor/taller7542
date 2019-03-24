@@ -1,0 +1,36 @@
+#include "CaptainAmerica.h"
+
+CaptainAmerica::CaptainAmerica() {
+
+	gSpriteClips[0].x = 0;
+	gSpriteClips[0].y = 150;
+	gSpriteClips[0].w = 90;
+	gSpriteClips[0].h = 130;
+
+	gSpriteClips[1].x = 100;
+	gSpriteClips[1].y = 150;
+	gSpriteClips[1].w = 90;
+	gSpriteClips[1].h = 130;
+
+	gSpriteClips[2].x = 200;
+	gSpriteClips[2].y = 150;
+	gSpriteClips[2].w = 90;
+	gSpriteClips[2].h = 130;
+
+	gSpriteClips[3].x = 300;
+	gSpriteClips[3].y = 150;
+	gSpriteClips[3].w = 90;
+	gSpriteClips[3].h = 130;
+
+	gSpriteClips[4].x = 400;
+	gSpriteClips[4].y = 150;
+	gSpriteClips[4].w = 90;
+	gSpriteClips[4].h = 130;
+
+	gSpriteClips[5].x = 500;
+	gSpriteClips[5].y = 150;
+	gSpriteClips[5].w = 90;
+	gSpriteClips[5].h = 130;
+
+}
+

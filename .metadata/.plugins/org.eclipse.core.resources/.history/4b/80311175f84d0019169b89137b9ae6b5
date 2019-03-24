@@ -1,0 +1,45 @@
+#include "../Model/Activo.h"
+#include "LTexture.h"
+#define ANCHO_JUGADOR 62
+#define ALTO_JUGADOR 62
+
+Activo::Activo()
+{
+    //ctor
+}
+
+Activo::~Activo()
+{
+    //dtor
+}
+
+void Activo::move()
+{
+    this->mPosX += this->mVelX * aceleracion;
+    //If the dot went too far to the left or right
+    if( ( mPosX < 0 ) || ( mPosX + ANCHO_JUGADOR >= ANCHO_NIVEL) )
+    {
+        //Move back
+        mPosX -= mVelX*aceleracion;
+    }
+
+    //Move the dot up or down
+    mPosY += mVelY * aceleracion;
+    //If the dot went too far up or down
+    if( ( mPosY < 0 ) || ( mPosY + ALTO_JUGADOR >= ALTO_NIVEL ) )
+    {
+        //Move back
+        mPosY -= mVelY*aceleracion;
+    }
+    if (aceleracion>=1){
+    	aceleracion-=1;
+    }
+
+
+}
+bool Activo::estaActivo()
+{
+    return true;
+}
+
+

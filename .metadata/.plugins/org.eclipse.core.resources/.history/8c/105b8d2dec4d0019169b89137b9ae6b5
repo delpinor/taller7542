@@ -1,0 +1,69 @@
+#include "../View/View_Jugador.h"
+
+#include <sstream>
+
+View_Jugador::View_Jugador() {}
+
+void View_Jugador::initialize(Jugador *model,SDL_Renderer * gRenderer,LTexture * texturaJugador)
+{
+    this->texturaJugador=texturaJugador;
+    this->model = model;
+
+    gSpriteClips[ 0 ].x =   0;
+    gSpriteClips[ 0 ].y =   100;
+    gSpriteClips[ 0 ].w =  100;
+    gSpriteClips[ 0 ].h = 95;
+
+    gSpriteClips[ 1 ].x =  100;
+    gSpriteClips[ 1 ].y =  100;
+    gSpriteClips[ 1 ].w =  100;
+    gSpriteClips[ 1 ].h = 95;
+
+    gSpriteClips[ 2 ].x = 200;
+    gSpriteClips[ 2 ].y =   100;
+    gSpriteClips[ 2 ].w =  100;
+    gSpriteClips[ 2 ].h = 95;
+
+    gSpriteClips[ 3 ].x = 300;
+    gSpriteClips[ 3 ].y =   100;
+    gSpriteClips[ 3 ].w =  100;
+    gSpriteClips[ 3 ].h = 160;
+
+    gSpriteClips[ 4 ].x = 300;
+    gSpriteClips[ 4 ].y =   100;
+    gSpriteClips[ 4 ].w =  100;
+    gSpriteClips[ 4 ].h = 95;
+
+}
+
+void View_Jugador::SetModel( Jugador * model)
+{
+    this->model = model;
+}
+
+void View_Jugador::render( int camX, int camY,SDL_Renderer * gRenderer )
+{
+
+    SDL_Rect* currentClip = &gSpriteClips[frame / CANTSPRITECLIP ];
+    int velocidadX=this->model->getVelX();
+    int velocidadY=this->model->getVelY();
+    if((velocidadX!=0) || (velocidadY!=0))
+    {
+        if(frame<=MINFRAMECAMINA|| frame>=MAXFRAMECAMINA)
+        {
+            frame=MINFRAMECAMINA;
+        } ;
+        frame=frame + 1 ;
+    }
+
+
+    if (frame / CANTSPRITECLIP > CANTSPRITECLIP)
+    {
+        frame=0;
+    }
+    this->texturaJugador->render( this->model->getPosX() - camX, this->model->getPosY() - camY,currentClip,this->model->getDireccion(),NULL,SDL_FLIP_NONE,gRenderer);
+
+}
+
+
+

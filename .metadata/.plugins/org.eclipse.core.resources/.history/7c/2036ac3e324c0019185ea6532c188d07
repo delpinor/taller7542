@@ -1,0 +1,15 @@
+#include "View.h"
+
+        View::View(const Model &model) {
+            this->model = model;
+        }
+        View::View() {}
+        void View::SetModel(const Model &model) {
+            this->model = model;
+        }
+        void View::Render() {
+
+        }
+    private:
+        Model model;
+};

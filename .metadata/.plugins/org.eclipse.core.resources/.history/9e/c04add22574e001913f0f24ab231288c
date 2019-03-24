@@ -1,0 +1,86 @@
+#include "../Controller/Controller.h"
+
+#include "../Command/CommandCtrl/Agachar.h"
+#include "../Command/CommandCtrl/DisminuirVelocidadY.h"
+#include "../Command/CommandCtrl/AumentarVelocidadY.h"
+#include "../Command/CommandCtrl/DisminuirVelocidadX.h"
+#include "../Command/CommandCtrl/AumentarVelocidadX.h"
+#include "../Command/CommandCtrl/Saltar.h"
+
+Controller::Controller(Model* model)
+{
+    this->model = model;
+    this->commands = std::vector<CommandCtrl*>(CANTCOMMANDS);
+    this->commands[DECVELX] = new DisminuirVelocidadX(model);
+    this->commands[DECVELY] = new DisminuirVelocidadY(model);
+    this->commands[INCVELX] = new AumentarVelocidadX(model);
+    this->commands[INCVELY] = new AumentarVelocidadY(model);
+    this->commands[AGACHAR] = new AumentarVelocidadX(model);
+    this->commands[SALTAR] = new AumentarVelocidadY(model);
+    this->quit = false;
+}
+Controller::~Controller()
+{
+    for(unsigned i = 0; i < CANTCOMMANDS; ++i)
+    {
+        delete this->commands[i];
+    }
+}
+bool Controller::quitPressed()
+{
+    return this->quit;
+}
+void Controller::processInput()
+{
+        while( SDL_PollEvent( &(this->e) ) != 0 )
+        {
+            if( this->e.type == SDL_QUIT )
+            {
+                this->quit = true;
+            }
+            this->model->agregarCambio(this->handleEvent(this->e));
+        }
+    }
+Command* Controller::handleEvent(SDL_Event& e)
+{
+    Command* command = NULL;
+
+        if( e.type == SDL_KEYDOWN && e.key.repeat == 0 )
+        {
+            switch( e.key.keysym.sym )
+            {
+            case SDLK_UP:
+
+                break;
+            case SDLK_DOWN:
+
+                break;
+            case SDLK_LEFT:
+                command = this->commands[DECVELX];
+                break;
+            case SDLK_RIGHT:
+                command = this->commands[INCVELX];
+                break;
+            }
+        }
+        //If a key was released
+        else if( e.type == SDL_KEYUP && e.key.repeat == 0 )
+        {
+            switch( e.key.keysym.sym )
+            {
+            case SDLK_UP:
+
+                break;
+            case SDLK_DOWN:
+
+                break;
+            case SDLK_LEFT:
+                command = this->commands[INCVELX];
+                break;
+            case SDLK_RIGHT:
+                command = this->commands[DECVELX];
+                break;
+                }
+           }
+    return command;
+}

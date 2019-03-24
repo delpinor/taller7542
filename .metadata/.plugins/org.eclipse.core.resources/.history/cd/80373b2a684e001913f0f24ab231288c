@@ -1,0 +1,18 @@
+/*
+ * CaptainAmerica.cpp
+ *
+ *  Created on: 24 mar. 2019
+ *      Author: matias
+ */
+
+#include "CaptainAmerica.h"
+
+CaptainAmerica::CaptainAmerica() {
+	// TODO Auto-generated constructor stub
+
+}
+
+CaptainAmerica::~CaptainAmerica() {
+	// TODO Auto-generated destructor stub
+}
+

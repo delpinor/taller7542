@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include "Media.h"
+#include "Window.h"
+#include "View.h"
+#include "Model.h"
+#include "Controller.h"
+Window * window = NULL;
+Media * media1 = NULL;
+Model * model = NULL;
+View * view = NULL;
+char* file1 = "src/view/hello_world.bmp";
+int main( int argc, char* args[] )
+{
+	model  = new Model();
+	view = new View(model);
+
+	window = new Window();
+	media1 = new Media(file1);
+	bool quit = false;
+	SDL_Event e;
+	while( !quit )
+	{
+		//Handle events on queue
+		while( SDL_PollEvent( &e ) != 0 )
+		{
+		//User requests quit
+		if( e.type == SDL_QUIT )
+		{
+			quit = true;
+		}
+		window->LoadMedia(media1);
+		window->Update();
+		}
+	}
+	return 0;
+}

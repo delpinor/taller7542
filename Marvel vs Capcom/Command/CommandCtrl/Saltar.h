@@ -1,0 +1,17 @@
+#ifndef SALTAR_H
+#define SALTAR_H
+
+#include "../CommandCtrl.h"
+
+class Saltar: public CommandCtrl {
+public:
+	Saltar(Model* model);
+	virtual ~Saltar();
+	void execute();
+
+protected:
+
+private:
+};
+
+#endif // SALTAR_H

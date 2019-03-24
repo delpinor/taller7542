@@ -1,0 +1,17 @@
+/*
+ * Model.h
+ *
+ *  Created on: 21 mar. 2019
+ *      Author: matias
+ */
+
+#ifndef MODEL_MODEL_H_
+#define MODEL_MODEL_H_
+
+class Model {
+public:
+	Model();
+	virtual ~Model();
+};
+
+#endif /* MODEL_MODEL_H_ */

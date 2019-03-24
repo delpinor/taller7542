@@ -1,0 +1,13 @@
+#ifndef VIEW_VIEW_H_
+#define VIEW_VIEW_H_
+#include "Model.h"
+class View {
+public:
+	View(Model * );
+	View();
+	void SetModel( Model *);
+	virtual ~View();
+	void Render();
+};
+
+#endif /* VIEW_VIEW_H_ */

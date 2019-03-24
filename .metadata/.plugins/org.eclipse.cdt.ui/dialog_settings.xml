@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="org.eclipse.cdt.utils.ui.controls.FileListControl" value="SDL2_image"/>
+	<item key="LastUsedSourceTemplate" value="Default C++ test template"/>
+	<section name="completion_proposal_size">
+	</section>
+	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration">
+	</section>
+	<section name="CResourceRenameRefactoringInputPage">
+		<item key="updateReferences" value="true"/>
+	</section>
+	<section name="NewClassWizardPage">
+		<item key="namespaceSelected" value="false"/>
+		<item key="testFileSelected" value="true"/>
+		<item key="namespace" value=""/>
+		<item key="stubInline0" value="false"/>
+		<item key="stubSelected0" value="true"/>
+		<item key="stubVirtual1" value="true"/>
+		<item key="stubInline1" value="false"/>
+		<item key="stubSelected1" value="true"/>
+	</section>
+	<section name="org.eclipse.cdt.ui.OPEN_ACTION_SELECTION_DIALOG_SECTION">
+		<item key="DIALOG_X_ORIGIN" value="524"/>
+		<item key="DIALOG_Y_ORIGIN" value="80"/>
+		<item key="DIALOG_WIDTH" value="324"/>
+		<item key="DIALOG_HEIGHT" value="405"/>
+		<item key="DIALOG_FONT_NAME" value="1|Ubuntu|10.0|0|GTK|1|"/>
+	</section>
+</section>

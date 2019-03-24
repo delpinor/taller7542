@@ -1,0 +1,11 @@
+#ifndef VIEW_VIEW_H_
+#define VIEW_VIEW_H_
+#include "Model.h"
+class View {
+public:
+	View(const Model &model);
+	View();
+	virtual ~View();
+};
+
+#endif /* VIEW_VIEW_H_ */

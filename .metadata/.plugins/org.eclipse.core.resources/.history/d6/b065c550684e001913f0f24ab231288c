@@ -1,0 +1,17 @@
+/*
+ * CaptainAmerica.h
+ *
+ *  Created on: 24 mar. 2019
+ *      Author: matias
+ */
+
+#ifndef VIEW_CAPTAINAMERICA_H_
+#define VIEW_CAPTAINAMERICA_H_
+
+class CaptainAmerica : public View_Jugador {
+public:
+	CaptainAmerica();
+	virtual ~CaptainAmerica();
+};
+
+#endif /* VIEW_CAPTAINAMERICA_H_ */

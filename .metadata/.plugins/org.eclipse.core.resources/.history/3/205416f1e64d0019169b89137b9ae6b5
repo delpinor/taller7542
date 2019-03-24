@@ -1,0 +1,38 @@
+#ifndef VIEW_H
+#define VIEW_H
+
+#include "../View/ViewModel.h"
+#include "../Model/Model.h"
+#include "../Model/Model_Jugador.h"
+#include <string>
+
+#define ERR_CON 0x20
+#define ERR_ESP 0x21
+#define OK_CONTINUA 0x22
+
+class View
+{
+public:
+    View(Model* model);
+    virtual ~View();
+    void ajustarCamara();
+    void mostrarCartel();
+    void limpiarCartel();
+    void render();
+    bool inicializar();
+    void loadMedia();
+    void close();
+
+private:
+    Model* model;
+    Jugador* jugadorAnterior;
+    ViewModel* viewModel;
+    SDL_Rect* camara;
+    SDL_Rect camaraStatic;
+    SDL_Renderer* gRenderer;
+    SDL_Window* window;
+    LTexture texturaPantalla;
+    LTexture texturaCancha;
+};
+
+#endif // VIEW_H

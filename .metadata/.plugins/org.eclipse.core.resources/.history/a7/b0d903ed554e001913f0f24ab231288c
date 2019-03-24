@@ -1,0 +1,17 @@
+#include "AumentarVelocidadY.h"
+
+AumentarVelocidadX::AumentarVelocidadY(Model* model) : CommandCtrl(model)
+{
+}
+
+AumentarVelocidadX::~AumentarVelocidadY()
+{
+    //dtor
+}
+
+void AumentarVelocidadY::execute()
+{
+
+        this->model->jugadorActivoAumentaVelocidadEnY();
+
+}

@@ -1,0 +1,19 @@
+#ifndef AUMENTARVELOCIDADX_H
+#define AUMENTARVELOCIDADX_H
+
+#include "../CommandCtrl.h"
+
+
+class AumentarVelocidadX : public CommandCtrl
+{
+public:
+    AumentarVelocidadY(Model* model);
+    virtual ~AumentarVelocidadY();
+    void execute();
+
+protected:
+
+private:
+};
+
+#endif // AUMENTARVELOCIDADX_H

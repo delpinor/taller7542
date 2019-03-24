@@ -1,0 +1,18 @@
+#ifndef AUMENTARVELOCIDADY_H
+#define AUMENTARVELOCIDADY_H
+
+#include "../CommandCtrl.h"
+
+class Saltar : public CommandCtrl
+{
+public:
+	Saltar(Model* model);
+    virtual ~Saltar();
+    void execute();
+
+protected:
+
+private:
+};
+
+#endif // AUMENTARVELOCIDADY_H

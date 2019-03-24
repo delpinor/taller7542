@@ -1,0 +1,15 @@
+17:41:19 **** Incremental Build of configuration Debug for project Marvel vs Capcom ****
+make all 
+Building file: ../View/View_Jugador.cpp
+Invoking: Cross G++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"View/View_Jugador.d" -MT"View/View_Jugador.o" -o "View/View_Jugador.o" "../View/View_Jugador.cpp"
+Finished building: ../View/View_Jugador.cpp
+ 
+Building target: Marvel vs Capcom
+Invoking: Cross G++ Linker
+g++  -o "Marvel vs Capcom"  ./View/View.o ./View/ViewModel.o ./View/View_Jugador.o ./View/View_Pantalla.o  ./Model/Activo.o ./Model/Estado.o ./Model/Inactivo.o ./Model/LTexture.o ./Model/Model.o ./Model/Model_Jugador.o  ./Controller/Controller.o  ./Command/CommandCtrl/Agachar.o ./Command/CommandCtrl/AumentarVelocidadX.o ./Command/CommandCtrl/AumentarVelocidadY.o ./Command/CommandCtrl/DisminuirVelocidadX.o ./Command/CommandCtrl/DisminuirVelocidadY.o ./Command/CommandCtrl/Saltar.o  ./Command/Command.o ./Command/CommandCtrl.o  ./main.o   -lSDL2 -lSDL2_image -ljsoncpp
+Finished building target: Marvel vs Capcom
+ 
+17:41:25 **** Incremental Build of configuration Debug for project Marvel vs Capcom ****
+make all 
+make: No se hace nada para 'all'.

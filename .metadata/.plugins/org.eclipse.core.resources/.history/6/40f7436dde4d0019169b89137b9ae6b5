@@ -1,0 +1,114 @@
+#include "../Model/Model.h"
+#include "../View/ViewModel.h"
+#include <algorithm>
+#include <stdio.h>
+#include <stdlib.h>
+#include <vector>
+#include <list>
+#include <iostream>
+#include <string>
+#include <unistd.h>
+
+#define CANTJUGADORESTOTALES 1
+#define LOCALES 1
+
+Model::Model()
+{
+    this->jugadores = new Jugador[CANTJUGADORESTOTALES];
+    this->nroJugadorActivo = 0;
+   this->getJugadorActivo()->activar();
+}
+
+Model::~Model()
+{
+    delete[] this->jugadores;
+}
+
+Jugador* Model::getJugadorNro(int i)
+{
+    return &(this->jugadores[i]);
+}
+Jugador* Model::getJugadorActivo()
+{
+    return &(this->jugadores[this->nroJugadorActivo]);
+}
+
+void Model::agregarCambio(Command* cambio)
+{
+    this->cambios.push(cambio);
+}
+
+void Model::jugadorActivoCambia()
+{
+//    unsigned i = this->nroJugadorActivo+1;
+//    if (i == CANTJUGADORES)
+//    {
+//        i= 0;
+//    }
+//    bool encontrado = false;
+//    while ((i != this->nroJugadorActivo) && !encontrado)
+//    {
+//        if ((this->jugadoresLocales[i].collide(this->camara )) && (this->nroJugadorActivo!=i))
+//        {
+//            (this->jugadoresLocales[(this->nroJugadorActivo)]).desactivar();
+//            (this->jugadoresLocales[i]).activar();
+//            this->nroJugadorActivo = i;
+//            encontrado = true;
+//
+//        }
+//        ++i;
+//        if (i == CANTJUGADORES)
+//        {
+//            i= 0;
+//        }
+//    }
+}
+
+void Model::update()
+{
+    if((!this->cambios.empty() ))
+    {
+       // Command* cambio = this->cambios.front();
+       // cambio->execute();
+       // this->cambios.pop();
+       // delete cambio;
+    }
+    this->moverJuego();
+}
+
+void Model::moverJuego()
+{
+
+    for(int i = 0; i < CANTJUGADORESTOTALES; ++i)
+    {
+        this->jugadoresEnCancha[i].move();
+    }
+}
+
+void Model::setCamara(SDL_Rect * camara)
+{
+    this->camara = camara;
+}
+
+void Model::jugadorActivoAumentaVelocidadEnX()
+{
+    this->jugadoresLocales[this->nroJugadorActivo].aumentarVelocidadX();
+}
+
+void Model::jugadorActivoAumentaVelocidadEnY()
+{
+    this->jugadoresLocales[this->nroJugadorActivo].aumentarVelocidadY();
+}
+
+void Model::jugadorActivoDisminuyeVelocidadEnX()
+{
+    this->jugadoresLocales[this->nroJugadorActivo].disminuirVelocidadX();
+}
+
+
+void Model::jugadorActivoDisminuyeVelocidadEnY()
+{
+    this->jugadoresLocales[this->nroJugadorActivo].disminuirVelocidadY();
+}
+
+

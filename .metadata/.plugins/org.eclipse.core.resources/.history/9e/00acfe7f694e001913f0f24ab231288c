@@ -1,0 +1,11 @@
+#include "View_Jugador.h"
+#ifndef VIEW_CAPTAINAMERICA_H_
+#define VIEW_CAPTAINAMERICA_H_
+
+class CaptainAmerica : public View_Jugador {
+public:
+	CaptainAmerica();
+	virtual ~CaptainAmerica();
+};
+
+#endif /* VIEW_CAPTAINAMERICA_H_ */

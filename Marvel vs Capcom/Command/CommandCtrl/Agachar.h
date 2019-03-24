@@ -1,0 +1,16 @@
+#ifndef AGACHAR_H
+#define AGACHAR_H
+
+#include "../CommandCtrl.h"
+
+class Agachar: public CommandCtrl {
+public:
+	Agachar(Model* model);
+	virtual ~Agachar();
+	void execute();
+protected:
+
+private:
+};
+
+#endif // AGACHAR_H

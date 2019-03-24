@@ -1,0 +1,10 @@
+22:49:59 **** Incremental Build of configuration Debug for project test ****
+make all 
+Building target: test
+Invoking: Cross G++ Linker
+g++  -o "test"  ./src/test.o   -lSDL2 -ljsoncpp -lSDL2_image
+Finished building target: test
+ 
+
+22:50:00 Build Finished. 0 errors, 0 warnings. (took 879ms)
+
