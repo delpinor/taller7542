@@ -1,0 +1,31 @@
+
+*/.settings/lenguage.settings.xml
+*.cproject
+# Build -----------------------------------------------------------------------
+
+
+
+### CMake ###
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Makefile
+cmake_install.cmake
+install_manifest.txt
+
+# Language --------------------------------------------------------------------
+
+### C++ ###
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+/External/
+/Debug/
+/Docs/
+/Release/
+/build/
+/bin/
+/out/
+/cmake-build-*/
