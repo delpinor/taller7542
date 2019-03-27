@@ -5,8 +5,8 @@
 #include "../Model/Estado.h"
 #include "../Model/Activo.h"
 #include "../Model/Inactivo.h"
-#define VENOM 0x00
-#define CAPAMERICA 0x01
+#define VENOM 0x01
+#define CAPAMERICA 0x00
 
 class Jugador {
 public:
