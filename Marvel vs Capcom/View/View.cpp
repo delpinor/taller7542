@@ -16,7 +16,7 @@ View::View(Model* model) {
 		this->model->setCamara(this->camara);
 		this->viewModel = new ViewModel(this->model, this->gRenderer,
 				this->camara, &(this->texturaPantalla),
-				&(this->texturaJugador));
+				this->texturas);
 	}
 
 }
@@ -114,9 +114,11 @@ bool View::inicializar() {
 
 void View::loadMedia() {
 
-	texturaCaptainAmerica.loadFromFile("Images/Captain America.gif", gRenderer);
-	texturaVenom.loadFromFile("Images/Venom.png", gRenderer);
-	texturaJugador = texturaCaptainAmerica;// sacar cuando resuelva como guardarlas en una coleccion
+	texturas[0].loadFromFile("Images/Captain America.gif", gRenderer);
+	texturas[1].loadFromFile("Images/Venom.png", gRenderer);
+//	texturaCaptainAmerica.loadFromFile("Images/Captain America.gif", gRenderer);
+//	texturaVenom.loadFromFile("Images/Venom.png", gRenderer);
+//	texturaJugador = texturaCaptainAmerica;// sacar cuando resuelva como guardarlas en una coleccion
 	texturaPantalla.loadFromFile("Images/Background.gif", gRenderer);
 }
 void View::close() {

@@ -2,7 +2,7 @@
 #include <SDL2/SDL.h>
 
 ViewModel::ViewModel(Model* model, SDL_Renderer* gRenderer, SDL_Rect* camara,
-		LTexture * texturaPantalla, LTexture * texturaJugador) {
+		LTexture * texturaPantalla, LTexture texturaJugador[]) {
 	this->cantidadjugadores = model->getCantidadJugadores();
 	this->viewPantalla.initialize(gRenderer, texturaPantalla);
 	this->viewJugadores = new View_Jugador[cantidadjugadores];
@@ -11,7 +11,7 @@ ViewModel::ViewModel(Model* model, SDL_Renderer* gRenderer, SDL_Rect* camara,
 
 	for (int i = 0; i < cantidadjugadores; ++i) {
 		this->viewJugadores[i].initialize(model->getJugadorNro(i),
-				texturaJugador);
+				&texturaJugador[i]);
 	}
 }
 

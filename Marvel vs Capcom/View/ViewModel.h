@@ -8,7 +8,7 @@
 class ViewModel {
 public:
 	ViewModel(Model* model, SDL_Renderer* gRenderer, SDL_Rect* camara,
-			LTexture * texturaPantalla, LTexture * texturaJugador);
+			LTexture * texturaPantalla, LTexture texturaJugador[]);
 	virtual ~ViewModel();
 	void render();
 	bool hayAlgunJugadorActivoEnEspera();

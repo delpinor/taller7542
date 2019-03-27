@@ -29,6 +29,7 @@ private:
 	SDL_Rect camaraStatic;
 	SDL_Renderer* gRenderer;
 	SDL_Window* window;
+	LTexture texturas[2];
 	LTexture texturaCaptainAmerica;
 	LTexture texturaVenom;
 	LTexture texturaJugador;

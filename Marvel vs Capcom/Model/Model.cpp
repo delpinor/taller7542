@@ -14,8 +14,9 @@
 
 Model::Model() {
 	this->jugadores = new Jugador[CANTJUGADORESTOTALES];
-	this->jugadores[0].setPersonaje(1); //testing
-	this->nroJugadorActivo = 0;
+	this->jugadores[0].setPersonaje(0); //testing
+	this->jugadores[1].setPersonaje(1); //testing
+	this->nroJugadorActivo = 1;
 	this->getJugadorActivo()->activar();
 }
 
