@@ -3,24 +3,23 @@
 #include <SDL2/SDL.h>
 #include "../Model/LTexture.h"
 #include "../Model/Model_Jugador.h"
-#define CANTSPRITECLIP 6
+#define CANTSPRITECLIP 10
 #define MINFRAMECAMINA 0
-#define MAXFRAMECAMINA 6
+#define MAXFRAMECAMINA 9
 class View_Jugador {
 public:
 
 	View_Jugador(Jugador *model);
 	View_Jugador();
-	void initialize(Jugador *model,
-	LTexture * texturaJugador);
-	void render(int camX, int camY, SDL_Renderer * gRenderer);
+	virtual void initialize(Jugador *model, LTexture * texturaJugador);
+	virtual void render(int camX, int camY, SDL_Renderer * gRenderer);
 
-private:
-	SDL_Rect gSpriteClips[ CANTSPRITECLIP];
+protected:
 	Jugador *model;
 	LTexture * texturaJugador;
 	int frame = 0;
 	SDL_RendererFlip direccion;
+	void getSpritesCaminar();
 
 };
 
