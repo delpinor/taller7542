@@ -10,6 +10,7 @@ void View_Jugador_Venom::initialize(Jugador *model, LTexture * texturaJugador) {
 	this->model = model;
 
 	getSpritesCaminar();
+	getSpritesSaltar();
 }
 
 void View_Jugador_Venom::getSpritesCaminar() {
@@ -64,13 +65,91 @@ void View_Jugador_Venom::getSpritesCaminar() {
 	gSpriteCaminar[9].h = 133;
 }
 
+void View_Jugador_Venom::getSpritesSaltar() {
+	gSpriteSaltar[0].x = 2;
+	gSpriteSaltar[0].y = 5433;
+	gSpriteSaltar[0].w = 132;
+	gSpriteSaltar[0].h = 149;
+
+	gSpriteSaltar[1].x = 196;
+	gSpriteSaltar[1].y = 5405;
+	gSpriteSaltar[1].w = 149;
+	gSpriteSaltar[1].h = 170;
+
+	gSpriteSaltar[2].x = 355;
+	gSpriteSaltar[2].y = 5399;
+	gSpriteSaltar[2].w = 135;
+	gSpriteSaltar[2].h = 176;
+
+	gSpriteSaltar[3].x = 556;
+	gSpriteSaltar[3].y = 5405;
+	gSpriteSaltar[3].w = 159;
+	gSpriteSaltar[3].h = 137;
+
+	gSpriteSaltar[4].x = 719;
+	gSpriteSaltar[4].y = 5408;
+	gSpriteSaltar[4].w = 146;
+	gSpriteSaltar[4].h = 123;
+
+	gSpriteSaltar[5].x = 869;
+	gSpriteSaltar[5].y = 5414;
+	gSpriteSaltar[5].w = 132;
+	gSpriteSaltar[5].h = 101;
+
+	gSpriteSaltar[6].x = 1007;
+	gSpriteSaltar[6].y = 5409;
+	gSpriteSaltar[6].w = 140;
+	gSpriteSaltar[6].h = 122;
+
+	gSpriteSaltar[7].x = 16;
+	gSpriteSaltar[7].y = 5579;
+	gSpriteSaltar[7].w = 119;
+	gSpriteSaltar[7].h = 146;
+
+	gSpriteSaltar[8].x = 145;
+	gSpriteSaltar[8].y = 5583;
+	gSpriteSaltar[8].w = 135;
+	gSpriteSaltar[8].h = 144;
+
+	gSpriteSaltar[9].x = 422;
+	gSpriteSaltar[9].y = 5633;
+	gSpriteSaltar[9].w = 159;
+	gSpriteSaltar[9].h = 96;
+
+	gSpriteSaltar[10].x = 599;
+	gSpriteSaltar[10].y = 5634;
+	gSpriteSaltar[10].w = 114;
+	gSpriteSaltar[10].h = 101;
+}
+
 void View_Jugador_Venom::render(int camX, int camY, SDL_Renderer * gRenderer) {
+
+//	SDL_Rect* currentClip;
+//	int maxFrames;
+//	int minFrames;
+//	if (this->model->getPosY() < 480){
+//		currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
+//		minFrames = MINFRAMESALTA;
+//		maxFrames = MAXFRAMESALTA;
+//	}
+//	else{
+//		currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
+//		minFrames = MINFRAMECAMINA;
+//		maxFrames = MAXFRAMECAMINA;
+//	}
+//	if ((this->model->getVelX() != 0) || (this->model->getVelY() != 0)) {
+//		++frame;
+//
+//	}
+//	if (frame / maxFrames >= maxFrames) {
+//		frame = minFrames;
+//	}
 
 	SDL_Rect* currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
 	if ((this->model->getVelX() != 0) || (this->model->getVelY() != 0)) {
 		++frame;
-
 	}
+
 	if (frame / MAXFRAMECAMINA >= MAXFRAMECAMINA) {
 		frame = MINFRAMECAMINA;
 	}

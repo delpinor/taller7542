@@ -14,9 +14,11 @@ void Activo::move() {
 	if ((mPosX < 0) || (mPosX + ANCHO_JUGADOR >= ANCHO_NIVEL)) {
 		mPosX -= mVelX * aceleracion;
 	}
-	mPosY += mVelY * aceleracion;
+	mVelY -= aceleracion;
+	mPosY -= mVelY;
 	if ((mPosY < 0) || (mPosY + ALTO_JUGADOR >= ALTO_NIVEL)) {
-		mPosY -= mVelY * aceleracion;
+		mPosY += mVelY;
+		mVelY = 0;
 	}
 }
 bool Activo::estaActivo() {

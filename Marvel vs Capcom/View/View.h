@@ -15,8 +15,8 @@ public:
 	bool inicializar();
 	void loadMedia();
 	void close();
-#define ANCHO_JUGADOR 62
-#define ALTO_JUGADOR 62
+#define ANCHO_JUGADOR 146
+#define ALTO_JUGADOR 146
 #define ANCHO_VENTANA 800
 #define ALTO_VENTANA 600
 #define ANCHO_NIVEL 1000

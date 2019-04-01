@@ -5,6 +5,8 @@
 #define CANTSPRITECLIP 10
 #define MINFRAMECAMINA 0
 #define MAXFRAMECAMINA 9
+#define MINFRAMESALTA 0
+#define MAXFRAMESALTA 11
 
 class View_Jugador_Venom: public View_Jugador {
 public:
@@ -13,11 +15,12 @@ public:
 		LTexture * texturaJugador);
 
 	SDL_Rect gSpriteCaminar[ MAXFRAMECAMINA];
-	SDL_Rect gSpriteSaltar[ CANTSPRITECLIP];
+	SDL_Rect gSpriteSaltar[ MAXFRAMESALTA];
 	SDL_Rect gSpriteAgachar[ CANTSPRITECLIP];
 	SDL_Rect gSpriteGolpear[ CANTSPRITECLIP];
 private:
 	void getSpritesCaminar();
+	void getSpritesSaltar();
 	void render(int camX, int camY, SDL_Renderer * gRenderer);
 };
 

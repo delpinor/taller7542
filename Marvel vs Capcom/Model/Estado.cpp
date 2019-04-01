@@ -1,6 +1,7 @@
 #include "Estado.h"
 
 #define VELOCIDAD_JUGADOR 3
+#define VELOCIDAD_JUGADOR_SALTO 20
 
 Estado::Estado() {
 	this->posInitX = 0;
@@ -87,9 +88,11 @@ void Estado::aumentarVelocidadX() {
 	}
 }
 void Estado::aumentarVelocidadY() {
-	this->mVelY += VELOCIDAD_JUGADOR;
-	if (this->mVelY > VELOCIDAD_JUGADOR) {
-		this->mVelY = VELOCIDAD_JUGADOR;
+	if (this->mVelY != 0)
+		return;
+	this->mVelY += VELOCIDAD_JUGADOR_SALTO;
+	if (this->mVelY > VELOCIDAD_JUGADOR_SALTO) {
+		this->mVelY = VELOCIDAD_JUGADOR_SALTO;
 	}
 }
 void Estado::Saltar() {
