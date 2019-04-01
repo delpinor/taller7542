@@ -40,7 +40,7 @@ Command* Controller::handleEvent(SDL_Event& e) {
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
 		switch (e.key.keysym.sym) {
 		case SDLK_UP:
-
+			command = this->commands[INCVELY];
 			break;
 		case SDLK_DOWN:
 
