@@ -6,6 +6,8 @@
 #include <string>
 #include <cstdlib>
 
+#include "FondoParallax.h"
+
 class View {
 public:
 	View(Model* model);
@@ -29,6 +31,7 @@ private:
 	SDL_Rect camaraStatic;
 	SDL_Renderer* gRenderer;
 	SDL_Window* window;
+	FondoParallax * pantalla;
 	LTexture texturaCaptainAmerica;
 	LTexture texturaVenom;
 	LTexture texturaJugador;

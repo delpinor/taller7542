@@ -30,7 +30,7 @@ void Logger::Inicio(NIVEL_LOGGER nivelMensaje) {
 	//return instancia;
 }
 void Logger::Log(NIVEL_LOGGER nivelMensaje, std::string modulo,
-		const char * mensajeCadena, ...) {
+		std::string mensajeCadena) {
 	// Salida por consola
 	log4cpp::Appender* creadorDeArchivo = new log4cpp::OstreamAppender(	"console", &std::cout);
 
@@ -39,7 +39,7 @@ void Logger::Log(NIVEL_LOGGER nivelMensaje, std::string modulo,
 
 	//Layout de salida
 	log4cpp::PatternLayout* layoutSalida = new log4cpp::PatternLayout();
-	layoutSalida->setConversionPattern("[" + EntornoSistema::getUserName() + "][" + modulo + "][%d{%d-%m-%Y %H:%M:%S}][%p][%t][%m]%n");
+	layoutSalida->setConversionPattern("[" + EntornoSistema::getUserName() + "][%d{%d-%m-%Y %H:%M:%S}][%p][" + modulo + ":%m]%n");
 
 	//Seteo el layout al creador de archivo
 	creadorDeArchivo->setLayout(layoutSalida);
