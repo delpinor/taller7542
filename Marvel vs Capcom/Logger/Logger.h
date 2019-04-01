@@ -18,8 +18,7 @@ private:
 public:
 	static log4cpp::Category rootCat;
 	static void Inicio(NIVEL_LOGGER nivel);
-	static void Log(NIVEL_LOGGER nivelMensaje, std::string modulo, const char * stringFormat, ...);
-//	static void Log(NIVEL_LOGGER nivelMensaje, std::string modulo,const char* stringFormat, ...);
+	static void Log(NIVEL_LOGGER nivelMensaje, std::string modulo, std::string mensaje);
 	~Logger();
 
 };
