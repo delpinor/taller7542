@@ -41,9 +41,10 @@ public:
 	std::string datosString();
 	int Personaje();
 	void setPersonaje(int);
+	Estado* estado;
 private:
 	SDL_Rect mCollider;
-	Estado* estado;
+
 	Activo activo;
 	Inactivo inactivo;
 	SDL_RendererFlip direccion;

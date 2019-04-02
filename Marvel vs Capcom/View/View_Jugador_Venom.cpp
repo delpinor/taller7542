@@ -124,35 +124,37 @@ void View_Jugador_Venom::getSpritesSaltar() {
 
 void View_Jugador_Venom::render(int camX, int camY, SDL_Renderer * gRenderer) {
 
-//	SDL_Rect* currentClip;
-//	int maxFrames;
-//	int minFrames;
-//	if (this->model->getPosY() < 480){
-//		currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
-//		minFrames = MINFRAMESALTA;
-//		maxFrames = MAXFRAMESALTA;
-//	}
-//	else{
-//		currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
-//		minFrames = MINFRAMECAMINA;
-//		maxFrames = MAXFRAMECAMINA;
-//	}
-//	if ((this->model->getVelX() != 0) || (this->model->getVelY() != 0)) {
-//		++frame;
-//
-//	}
-//	if (frame / maxFrames >= maxFrames) {
-//		frame = minFrames;
-//	}
-
-	SDL_Rect* currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
+	SDL_Rect* currentClip;
+	int maxFrames;
+	int minFrames;
+	if (this->model->estado->getVelY() != 0){
+		currentClip = &gSpriteSaltar[frame*2 / MAXFRAMESALTA];
+		minFrames = MINFRAMESALTA;
+		maxFrames = MAXFRAMESALTA;
+		if (this->model->estado->getVelY() >= 18)
+			frame = 0;
+	}
+	else{
+		currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
+		minFrames = MINFRAMECAMINA;
+		maxFrames = MAXFRAMECAMINA;
+	}
 	if ((this->model->getVelX() != 0) || (this->model->getVelY() != 0)) {
 		++frame;
-	}
 
-	if (frame / MAXFRAMECAMINA >= MAXFRAMECAMINA) {
-		frame = MINFRAMECAMINA;
 	}
+	if (frame / maxFrames >= maxFrames) {
+		frame = minFrames;
+	}
+//
+//	SDL_Rect* currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
+//	if ((this->model->getVelX() != 0) || (this->model->getVelY() != 0)) {
+//		++frame;
+//	}
+//
+//	if (frame / MAXFRAMECAMINA >= MAXFRAMECAMINA) {
+//		frame = MINFRAMECAMINA;
+//	}
 	this->texturaJugador->render(this->model->getPosX() - camX,
 			this->model->getPosY() - camY, currentClip, 0, NULL,
 			this->model->getDireccion(), gRenderer);

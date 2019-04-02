@@ -13,9 +13,10 @@ public:
 	View_Jugador();
 	virtual void initialize(Jugador *model, LTexture * texturaJugador);
 	virtual void render(int camX, int camY, SDL_Renderer * gRenderer);
+	Jugador *model;
 
 protected:
-	Jugador *model;
+
 	LTexture * texturaJugador;
 	int frame = 0;
 	SDL_RendererFlip direccion;
