@@ -1,7 +1,7 @@
 #include "Estado.h"
 
 #define VELOCIDAD_JUGADOR 3
-#define VELOCIDAD_JUGADOR_SALTO 30
+#define VELOCIDAD_JUGADOR_SALTO 20
 
 Estado::Estado() {
 	this->posInitX = 0;

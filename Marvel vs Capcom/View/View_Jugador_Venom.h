@@ -6,7 +6,7 @@
 #define MINFRAMECAMINA 0
 #define MAXFRAMECAMINA 9
 #define MINFRAMESALTA 0
-#define MAXFRAMESALTA 11
+#define MAXFRAMESALTA 6
 
 class View_Jugador_Venom: public View_Jugador {
 public:
