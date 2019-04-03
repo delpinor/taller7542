@@ -31,7 +31,7 @@ void Controller::processInput() {
 		if (this->e.type == SDL_QUIT) {
 			this->quit = true;
 		}
-		this->model->agregarCambio(this->handleEvent(this->e));
+		handleEvent(this->e);
 	}
 }
 Command* Controller::handleEvent(SDL_Event& e) {
@@ -52,6 +52,7 @@ Command* Controller::handleEvent(SDL_Event& e) {
 			command = this->commands[INCVELX];
 			break;
 		}
+		this->model->equipos[0].agregarCambio(command);
 	}
 	//If a key was released
 	else if (e.type == SDL_KEYUP && e.key.repeat == 0) {
@@ -69,6 +70,44 @@ Command* Controller::handleEvent(SDL_Event& e) {
 			command = this->commands[DECVELX];
 			break;
 		}
+		this->model->equipos[0].agregarCambio(command);
 	}
+
+	if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
+			switch (e.key.keysym.sym) {
+			case SDLK_w:
+				command = this->commands[INCVELY];
+				break;
+			case SDLK_s:
+
+				break;
+			case SDLK_a:
+				command = this->commands[DECVELX];
+				break;
+			case SDLK_d:
+				command = this->commands[INCVELX];
+				break;
+			}
+			this->model->equipos[1].agregarCambio(command);
+		}
+		//If a key was released
+		else if (e.type == SDL_KEYUP && e.key.repeat == 0) {
+			switch (e.key.keysym.sym) {
+			case SDLK_w:
+				command = this->commands[INCVELY];
+				break;
+			case SDLK_s:
+
+				break;
+			case SDLK_a:
+				command = this->commands[INCVELX];
+				break;
+			case SDLK_d:
+				command = this->commands[DECVELX];
+				break;
+		}
+			this->model->equipos[1].agregarCambio(command);
+		}
+
 	return command;
 }

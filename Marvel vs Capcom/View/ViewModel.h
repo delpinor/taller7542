@@ -1,13 +1,10 @@
 #ifndef VIEWMODEL_H
 #define VIEWMODEL_H
 
-#include "View_Jugador.h"
-#include "View_Jugador_CapAmerica.h"
-#include "View_Jugador_Venom.h"
 #include "../Model/Model.h"
 #include "View_Pantalla.h"
-#include <vector>
-#define maxCantJugadores 2
+#include "ViewEquipo.h"
+
 
 using namespace std;
 class ViewModel {
@@ -20,12 +17,11 @@ public:
 protected:
 
 private:
-
-	View_Jugador* viewJugadores[maxCantJugadores];
+	ViewEquipo * viewEquipo[2];
 	View_Pantalla viewPantalla;
 	SDL_Rect* camara;
 	SDL_Renderer* gRenderer;
-	int cantidadjugadores;
+
 };
 
 #endif // VIEWMODEL_H

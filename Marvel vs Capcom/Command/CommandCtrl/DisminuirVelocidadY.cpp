@@ -8,9 +8,9 @@ DisminuirVelocidadY::~DisminuirVelocidadY() {
 	//dtor
 }
 
-void DisminuirVelocidadY::execute() {
+void DisminuirVelocidadY::execute(int i) {
 
-	this->model->jugadorActivoDisminuyeVelocidadEnY();
+	this->model->equipos[i].jugadorActivoDisminuyeVelocidadEnY();
 
 }
 

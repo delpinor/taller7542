@@ -8,8 +8,8 @@ AumentarVelocidadY::~AumentarVelocidadY() {
 	//dtor
 }
 
-void AumentarVelocidadY::execute() {
+void AumentarVelocidadY::execute(int i) {
 
-	this->model->jugadorActivoAumentaVelocidadEnY();
+	this->model->equipos[i].jugadorActivoAumentaVelocidadEnY();
 
 }

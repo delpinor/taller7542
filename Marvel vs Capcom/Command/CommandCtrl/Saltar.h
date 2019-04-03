@@ -7,7 +7,7 @@ class Saltar: public CommandCtrl {
 public:
 	Saltar(Model* model);
 	virtual ~Saltar();
-	void execute();
+	void execute(int i);
 
 protected:
 

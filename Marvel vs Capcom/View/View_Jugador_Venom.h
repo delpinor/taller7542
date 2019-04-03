@@ -11,7 +11,7 @@
 class View_Jugador_Venom: public View_Jugador {
 public:
 	View_Jugador_Venom();
-	void initialize(Jugador *model,
+	void initialize(Jugador * model,
 		LTexture * texturaJugador);
 
 	SDL_Rect gSpriteCaminar[ MAXFRAMECAMINA];

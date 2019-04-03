@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Model_Jugador.h"
+#include "Equipo.h"
 #include "../Command/Command.h"
 #include <queue>
 
@@ -14,28 +15,19 @@ public:
 	Model();
 	virtual ~Model();
 
-	virtual Jugador* getJugadorNro(int i);
-	virtual Jugador* getJugadorActivo();
 	virtual void setCamara(SDL_Rect * camara);
-
-	virtual void agregarCambio(Command* cambio);
-	virtual void jugadorActivoAumentaVelocidadEnX();
-	virtual void jugadorActivoAumentaVelocidadEnY();
-	virtual void jugadorActivoSalta();
-	virtual void jugadorActivoDisminuyeVelocidadEnX();
-	virtual void jugadorActivoDisminuyeVelocidadEnY();
-	virtual void jugadorActivoSeAgacha();
 	virtual void update();
+	Equipo* getEquipoNro(int i);
+
 	virtual void moverJuego();
-	int getCantidadJugadores();
+	Equipo * equipos;
 
 protected:
 
 private:
-	Jugador* jugadores;
+
 	SDL_Rect * camara;
-	unsigned int nroJugadorActivo;
-	std::queue<Command*> cambios;
+
 };
 
 #endif // MODEL_H

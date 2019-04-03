@@ -28,11 +28,13 @@ View::~View() {
 
 void View::ajustarCamara() {
 
-	this->camara->x = (model->getJugadorActivo()->getPosX() + 12 / 2)
-			- ANCHO_VENTANA / 2;
-	this->camara->y = (model->getJugadorActivo()->getPosY() + 12 / 2)
-			- ALTO_VENTANA / 2;
+	for (int i = 0; i < 2; ++i) {
 
+	this->camara->x = (model->getEquipoNro(i)->getJugadorActivo()->getPosX() + 12 / 2)
+			- ANCHO_VENTANA / 2;
+	this->camara->y = (model->getEquipoNro(i)->getJugadorActivo()->getPosY() + 12 / 2)
+			- ALTO_VENTANA / 2;
+	}
 	//Keep the this->camara->in bounds
 	if (this->camara->x < 0) {
 		this->camara->x = 0;

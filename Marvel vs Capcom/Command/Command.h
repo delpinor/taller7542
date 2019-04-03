@@ -11,7 +11,7 @@ class Command {
 public:
 	Command();
 	virtual ~Command();
-	virtual void execute() = 0;
+	virtual void execute(int i) = 0;
 protected:
 private:
 };
