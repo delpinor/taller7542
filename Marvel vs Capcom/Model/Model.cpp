@@ -14,6 +14,8 @@
 
 Model::Model() {
 	this->equipos = new Equipo[2];
+	this->equipos[0].setJugadorActivo(0);
+	this->equipos[1].setJugadorActivo(1);
 }
 
 Model::~Model() {

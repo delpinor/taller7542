@@ -22,6 +22,9 @@ public:
 
 	virtual Jugador* getJugadorNro(int i);
 	virtual Jugador* getJugadorActivo();
+	virtual Jugador* getJugadorInactivo();
+	virtual void setJugadorActivo(int i);
+
 
 	virtual void agregarCambio(Command* cambio);
 	virtual void jugadorActivoAumentaVelocidadEnX();

@@ -10,7 +10,7 @@ ViewModel::ViewModel(Model* model, SDL_Renderer* gRenderer, SDL_Rect* camara,
 	this->gRenderer = gRenderer;
 
 	for (int i = 0; i < 2; ++i) {
-			this->viewEquipo[i]->initialize(model->getEquipoNro(i),&texturaJugador[i]);
+			this->viewEquipo[i]->initialize(model->getEquipoNro(i),texturaJugador);
 		}
 
 }

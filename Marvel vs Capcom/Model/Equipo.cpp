@@ -27,6 +27,19 @@ Jugador* Equipo::getJugadorActivo() {
 	return &(this->jugadores[this->nroJugadorActivo]);
 }
 
+Jugador* Equipo::getJugadorInactivo() {
+	for (int i = 0; i < 2; ++i) {
+		if (i != this->nroJugadorActivo)
+			return &(this->jugadores[i]);
+	}
+}
+
+void Equipo::setJugadorActivo(int i) {
+	this->nroJugadorActivo = i;
+	this->getJugadorActivo()->activar();
+	this->getJugadorInactivo()->desactivar();
+}
+
 void Equipo::agregarCambio(Command* cambio) {
 	if (cambio != NULL)
 		this->cambios.push(cambio);
