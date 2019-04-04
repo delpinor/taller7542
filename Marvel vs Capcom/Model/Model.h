@@ -20,7 +20,7 @@ public:
 	Equipo* getEquipoNro(int i);
 
 	virtual void moverJuego();
-	Equipo * equipos;
+	Equipo * equipos; //deberia ser un atributo privado
 
 protected:
 
