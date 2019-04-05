@@ -1,43 +1,34 @@
 {
-"debug":"ERROR",
-"battlefield":
-[
-{"background":
-{
-"filepath":"file11.png",
-"zindex":3
-}
-},
-{"background":
-{
-"filepath":"file2.png",
-"zindex":2
-}
-},
-{"background":
-{
-"filepath":"file1.png",
-"zindex":1
-}
-}
-],
-"characters":
-[
-{"name":"ryu",
-"filepath" : "file55.png",
-"height":45,
-"width":20,
-"zindex":99
-},
-{"name":"spyderman",
-"filepath":"file56.png",
-"height":45,
-"width":20,
-"zindex":99
-}
-],
-"window":{
-"height":800,
-"width":600
-}
+	"ventana" : 
+	{
+		"alto" : 1,
+		"ancho" : 2
+	},
+	"personajes" :
+ 	[
+		{
+			"nombre" : "nombre1",
+			"alto" : 12,
+			"ancho" : 123,
+			"rutaArchivoImagen" : "rutaArchivoImagenPersonaje",
+			"zIndex" : 123
+		}
+	],
+	"fondosPantalla" :
+	[
+		{
+			"orden" : 12,
+			"rutaArchivoImagen" : "rutaArchivoFOndoPantalla",
+			"zIndex" : 123
+		}
+	],
+	"nivel" : 
+	{
+		"alto" : 12,
+		"ancho" : 13
+	},
+	"log" : 
+	{
+		"nivel" : "DEBUG"
+	}
 }

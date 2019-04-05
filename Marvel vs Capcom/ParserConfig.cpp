@@ -58,10 +58,10 @@ int ParserConfig::devolver_Map_Personajes(std::map<int, std::map<std::string, st
 
 int ParserConfig::devolver_Map_Fondo(std::map<int, std::map<std::string, std::string> > *mapBackground){
 
-	for(unsigned int i=0; i<this->configuracion["fondoPantalla"].size(); i++){
-		(*mapBackground)[i]["orden"]=this->configuracion["fondoPantalla"][i]["orden"].asString();
-		(*mapBackground)[i]["rutaArchivoImagen"]=this->configuracion["fondoPantalla"][i]["rutaArchivoImagen"].asString();
-		(*mapBackground)[i]["zIndex"]=this->configuracion["fondoPantalla"][i]["zIndex"].asString();
+	for(unsigned int i=0; i<this->configuracion["fondosPantalla"].size(); i++){
+		(*mapBackground)[i]["orden"]=this->configuracion["fondosPantalla"][i]["orden"].asString();
+		(*mapBackground)[i]["rutaArchivoImagen"]=this->configuracion["fondosPantalla"][i]["rutaArchivoImagen"].asString();
+		(*mapBackground)[i]["zIndex"]=this->configuracion["fondosPantalla"][i]["zIndex"].asString();
 	}
 
 
@@ -93,8 +93,8 @@ int ParserConfig::devolver_Tam_Imagen(int *ancho, int *alto){
 
 int ParserConfig::devolver_Map_Nivel(std::map<std::string, std::string>  *mapNivel){
 
-	(*mapNivel)["ancho"]=this->configuracion["fondoPantalla"]["ancho"].asString();
-	(*mapNivel)["alto"]=this->configuracion["fondoPantalla"]["alto"].asString();
+	(*mapNivel)["ancho"]=this->configuracion["nivel"]["ancho"].asString();
+	(*mapNivel)["alto"]=this->configuracion["nivel"]["alto"].asString();
 
 	return OK;
 }
