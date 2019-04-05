@@ -97,8 +97,8 @@ string ParserConfig::devolver_Tipo_Log(){
 int ParserConfig::devolver_Tam_Imagen(int *ancho, int *alto){
 
 
-*alto=this->configuracion["window"]["height"].asInt();
-	*ancho= this->configuracion["window"]["width"].asInt();
+	*alto=this->configuracion["ventana"]["alto"].asInt();
+	*ancho= this->configuracion["ventana"]["ancho"].asInt();
 return OK;
 
 }
