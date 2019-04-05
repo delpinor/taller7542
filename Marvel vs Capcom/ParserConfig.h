@@ -34,11 +34,11 @@ public:
 	ParserConfig();
 	int parsear_archivo(char* filepath);
 	Json::Value* getConfiguracion();
-	int devolver_Map_Personajes(std::map< std::string, std::map<std::string, std::string> > *mapPersonajes);
+	int devolver_Map_Personajes(std::map<int, std::map<std::string, std::string> > *mapPersonajes);
 	int devolver_Map_Fondo(std::map<int, std::map<std::string, std::string> > *mapBackground);
-	//funcion que devulve el tipo de log. Sino lo encuentra devuelve por default Debug
 	string devolver_Tipo_Log();
 	int devolver_Tam_Imagen(int *ancho, int *alto);
+	int devolver_Map_Nivel(std::map<std::string, std::string> *mapNivel);
 
 	virtual ~ParserConfig();
 

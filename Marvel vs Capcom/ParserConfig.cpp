@@ -43,21 +43,14 @@ Json::Value* ParserConfig::getConfiguracion(){
 
 }
 
-int ParserConfig::devolver_Map_Personajes(std::map< std::string, std::map<std::string, std::string> > *mapPersonajes){
+int ParserConfig::devolver_Map_Personajes(std::map<int, std::map<std::string, std::string> > *mapPersonajes){
 
-
-	Json::Value valor;
-
-
-	for (unsigned int i=0; i<this->configuracion["characters"].size(); i++){
-
-
-	string name=configuracion["characters"][i]["name"].asString();
-	(*mapPersonajes)[name]["filepath"]=configuracion["characters"][i]["filepath"].asString();
-	(*mapPersonajes)[name]["height"]=configuracion["characters"][i]["height"].asString();
-	(*mapPersonajes)[name]["width"]=configuracion["characters"][i]["width"].asString();
-	(*mapPersonajes)[name]["zindex"]=configuracion["characters"][i]["zindex"].asString();
-
+	for (unsigned int i=0; i<this->configuracion["personajes"].size(); i++){
+		(*mapPersonajes)[i]["nombre"]=configuracion["personajes"][i]["nombre"].asString();
+		(*mapPersonajes)[i]["alto"]=configuracion["personajes"][i]["alto"].asString();
+		(*mapPersonajes)[i]["ancho"]=configuracion["personajes"][i]["ancho"].asString();
+		(*mapPersonajes)[i]["rutaArchivoImagen"]=configuracion["personajes"][i]["rutaArchivoImagen"].asString();
+		(*mapPersonajes)[i]["zindex"]=configuracion["personajes"][i]["zindex"].asString();
 	}
 	return OK;
 
@@ -65,43 +58,47 @@ int ParserConfig::devolver_Map_Personajes(std::map< std::string, std::map<std::s
 
 int ParserConfig::devolver_Map_Fondo(std::map<int, std::map<std::string, std::string> > *mapBackground){
 
-
-
-	for(unsigned int i=0; i<this->configuracion["battlefield"].size(); i++){
-
-
-
-	(*mapBackground)[i]["filepath"]=this->configuracion["battlefield"][i]["background"]["filepath"].asString();
-	(*mapBackground)[i]["zindex"]=this->configuracion["battlefield"][i]["background"]["zindex"].asString();
-
+	for(unsigned int i=0; i<this->configuracion["fondoPantalla"].size(); i++){
+		(*mapBackground)[i]["orden"]=this->configuracion["fondoPantalla"][i]["orden"].asString();
+		(*mapBackground)[i]["rutaArchivoImagen"]=this->configuracion["fondoPantalla"][i]["rutaArchivoImagen"].asString();
+		(*mapBackground)[i]["zIndex"]=this->configuracion["fondoPantalla"][i]["zIndex"].asString();
 	}
 
 
 	return OK;
 
 }
-	//funcion que devulve el tipo de log. Sino lo encuentra devuelve por default Debug
 
 string ParserConfig::devolver_Tipo_Log(){
 
-	string valor= this->configuracion["debug"].asString();
+	/*string valor= this->configuracion["debug"].asString();
 
 	if ( (valor!="ERROR") && (valor!="DEBUG") && (valor!="INFO") ) {
 		return Log_Default;
 	}else{
 		return valor;
-	}
+	}*/
+	string valor= this->configuracion["log"]["nivel"].asString();
+	return valor;
 }
 
 
 int ParserConfig::devolver_Tam_Imagen(int *ancho, int *alto){
 
-
 	*alto=this->configuracion["ventana"]["alto"].asInt();
 	*ancho= this->configuracion["ventana"]["ancho"].asInt();
-return OK;
+	return OK;
 
 }
+
+int ParserConfig::devolver_Map_Nivel(std::map<std::string, std::string>  *mapNivel){
+
+	(*mapNivel)["ancho"]=this->configuracion["fondoPantalla"]["ancho"].asString();
+	(*mapNivel)["alto"]=this->configuracion["fondoPantalla"]["alto"].asString();
+
+	return OK;
+}
+
 
 ParserConfig::~ParserConfig() {
 	// TODO Auto-generated destructor stub

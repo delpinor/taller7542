@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
 		return ERROR;
 	}
 
-			std::map< std::string, std::map<std::string, std::string> > mapPersonajes;
+			std::map< int, std::map<std::string, std::string> > mapPersonajes;
 			std::map<int, std::map<std::string, std::string> > mapBackground;
 			string tipoLog;
 			int ancho, alto;
