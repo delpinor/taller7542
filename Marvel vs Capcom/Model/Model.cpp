@@ -14,8 +14,64 @@
 
 Model::Model() {
 	this->equipos = new Equipo[2];
+//this->equipos[0].setJugadorActivo(0);
+	//this->equipos[1].setJugadorActivo(1);
+}
+// mejorar , esta harcodeado la asignación
+
+void Model::set_Equipos(){
+// this->equipos[0].agregar_Jugador(0,jugadores[0]);
+	//cout<<"se agrego el jugador: "<< jugadores[0].get_nombre()<<endl;
+	//this->equipos[1].agregar_Jugador(0,jugadores[1]);
+	//cout<<"se agrego el jugador: "<< jugadores[1].get_nombre()<<endl;
+	//no se que hace lo siguiente revisar
 	this->equipos[0].setJugadorActivo(0);
 	this->equipos[1].setJugadorActivo(1);
+
+}
+std::string Model::get_pathImagenJugador( int indice_jugador){
+
+return jugadores[indice_jugador].get_path();
+
+}
+
+
+void Model::cargar_Jugadores (std::map< int, std::map<std::string, std::string> > &mapPersonajes){
+
+int ancho, alto, zindex;
+std::string nombre, path;
+
+	for (map <int, map<string, string>>::iterator it = mapPersonajes.begin(); it != mapPersonajes.end(); ++it){
+
+		   map<string, string> &internal_map = it->second;
+		   cout<< "id: "<<it->first<<endl;
+		  ancho=atoi((internal_map["ancho"]).c_str()); //
+		   cout<< "ancho: "<<internal_map["ancho"]<<endl;
+		   alto=atoi((internal_map["alto"]).c_str());
+		   zindex=atoi((internal_map["zindex"]).c_str());
+
+		   nombre=internal_map["nombre"];
+		   path=internal_map["rutaArchivoImagen"];
+
+
+	Jugador jugador(ancho,alto,zindex,nombre,path);
+
+		jugadores[it->first]=std::move(jugador);
+
+	}
+	cout << "mapa de personajes ************" << endl;
+		for (map <int, Jugador>::iterator it =this->jugadores.begin(); it != jugadores.end(); ++it){
+		    cout << "id: " << it->first << endl;
+
+		    cout<< "Nombre: "<<it->second.get_nombre()<<endl;
+		    cout<< "Alto: "<<it->second.get_alto()<<endl;
+		    cout<< "Ancho: "<<it->second.get_ancho()<<endl;
+		    cout<< "zindex: "<<it->second.get_zindex()<<endl;
+		    cout<< "Path: "<<it->second.get_path()<<endl;
+
+
+		    }
+
 }
 
 Model::~Model() {

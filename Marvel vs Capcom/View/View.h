@@ -13,7 +13,7 @@ public:
 	void ajustarCamara();
 	void render();
 	bool inicializar();
-	void loadMedia();
+	void loadMedia(Model *model);
 	void close();
 #define ANCHO_JUGADOR 146
 #define ALTO_JUGADOR 146

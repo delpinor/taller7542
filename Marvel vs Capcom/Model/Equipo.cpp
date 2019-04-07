@@ -9,12 +9,32 @@
 
 Equipo::Equipo() {
 	this->jugadores = new Jugador[2];
-	this->jugadores[0].setPersonaje(0); //testing
-	this->jugadores[1].setPersonaje(1); //testing
-	this->nroJugadorActivo = 1;
-	this->getJugadorActivo()->activar();
+	//this->jugadores[0].setPersonaje(0); //testing
+	//this->jugadores[1].setPersonaje(1); //testing
+	//this->nroJugadorActivo = 1;
+	//this->getJugadorActivo()->activar();
 }
 
+//revisar ,no usar!!
+Equipo::Equipo(Jugador &jugador){
+
+	agregar_Jugador(0,jugador);
+
+	//agregar_Jugador(1,jugador);
+
+	//this->jugadores[0].setPersonaje(0); //testing
+		//this->jugadores[1].setPersonaje(1); //testing
+		//this->nroJugadorActivo = 1;
+		//this->getJugadorActivo()->activar();
+
+}
+void Equipo::agregar_Jugador(int num, Jugador &jugador){
+
+this->jugadores[num]=jugador;
+this->nroJugadorActivo = num;
+
+		this->getJugadorActivo()->activar();
+}
 Equipo::~Equipo() {
 	delete[] this->jugadores;
 }

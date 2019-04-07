@@ -5,9 +5,39 @@ Jugador::Jugador() {
 	this->estado = &(this->inactivo);
 	this->mCollider.x = this->estado->getPosX();
 	this->mCollider.y = this->estado->getPosY();
-	this->mCollider.w = ANCHO_JUGADOR;
-	this->mCollider.h = ALTO_JUGADOR;
+	this->mCollider.w = width;
+	this->mCollider.h = height;
 	this->direccion = SDL_FLIP_NONE;
+}
+Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &path) {
+
+	this->width=ancho;
+	this->height=alto;
+	this->zindex= zind;
+	this->nombre=nom;
+	this->pathImagen=path;
+
+}
+int Jugador::get_alto(){
+
+	return height;
+}
+int Jugador::get_ancho(){
+	return width;
+
+}
+int Jugador::get_zindex(){
+	return zindex;
+
+
+}
+std::string Jugador::get_nombre(){
+
+	return nombre;
+}
+std::string Jugador::get_path(){
+	return pathImagen;
+
 }
 
 void Jugador::setPosInitX(int posX) {

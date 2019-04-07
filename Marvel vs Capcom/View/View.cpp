@@ -9,7 +9,7 @@ View::View(Model* model) {
 	if (!this->inicializar()) {
 		//error
 	} else {
-		this->loadMedia();
+		this->loadMedia(model);
 		this->model = model;
 		this->camaraStatic = {CAMARAPOSICIONINICIALX,CAMARAPOSICIONINICIALY, ANCHO_VENTANA, ALTO_VENTANA};
 		this->camara = &(this->camaraStatic);
@@ -114,10 +114,13 @@ bool View::inicializar() {
 	return exito;
 }
 
-void View::loadMedia() {
+//Mejoara, la asignacion de imagenes sigue harcodeada
+void View::loadMedia(Model *model) {
 
-	texturas[0].loadFromFile("Images/Captain America.gif", gRenderer);
-	texturas[1].loadFromFile("Images/Venom.png", gRenderer);
+	//texturas[0].loadFromFile("Images/Captain America.gif", gRenderer);
+	//texturas[1].loadFromFile("Images/Venom.png", gRenderer);
+	texturas[0].loadFromFile(model->get_pathImagenJugador(0), gRenderer);
+	texturas[1].loadFromFile(model->get_pathImagenJugador(1), gRenderer);
 //	texturaCaptainAmerica.loadFromFile("Images/Captain America.gif", gRenderer);
 //	texturaVenom.loadFromFile("Images/Venom.png", gRenderer);
 //	texturaJugador = texturaCaptainAmerica;// sacar cuando resuelva como guardarlas en una coleccion

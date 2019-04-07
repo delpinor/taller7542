@@ -1,43 +1,41 @@
 {
-"debug":"ERROR",
-"battlefield":
-[
-{"background":
-{
-"filepath":"file11.png",
-"zindex":3
-}
-},
-{"background":
-{
-"filepath":"file2.png",
-"zindex":2
-}
-},
-{"background":
-{
-"filepath":"file1.png",
-"zindex":1
-}
-}
-],
-"characters":
-[
-{"name":"ryu",
-"filepath" : "file55.png",
-"height":45,
-"width":20,
-"zindex":99
-},
-{"name":"spyderman",
-"filepath":"file56.png",
-"height":45,
-"width":20,
-"zindex":99
-}
-],
-"window":{
-"height":800,
-"width":600
-}
+	"ventana" : 
+	{
+		"alto" :600,
+		"ancho" :800
+	},
+	"personajes" :
+ 	[
+		{
+			"nombre" :"Captain America",
+			"alto" :45,
+			"ancho" :20,
+			"rutaArchivoImagen" : "Images/Captain America.gif",
+			"zIndex" : 99
+		},
+		{
+			"nombre":"Venom",
+			"rutaArchivoImagen" : "Images/Venom.png",
+			"alto":45,
+			"ancho":20,
+			"zindex":99
+		},
+	],
+	"fondosPantalla" :
+	[
+		{
+			"orden" : 12,
+			"rutaArchivoImagen" : "rutaArchivoFOndoPantalla",
+			"zIndex" : 123
+		}
+	],
+	"nivel" : 
+	{
+		"alto" : 12,
+		"ancho" : 13
+	},
+	"log" : 
+	{
+		"nivel" : "DEBUG"
+	}
 }

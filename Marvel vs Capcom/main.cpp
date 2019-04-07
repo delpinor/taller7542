@@ -5,10 +5,10 @@
 #include "Configuracion.h"
 int main(int argc, char* argv[]) {
 	int error;
-	//ParserConfig parser;
-	Configuracion appConfig("config.json");
+	ParserConfig parser;
+	//Configuracion appConfig("config.json");
 	try{
-		//error=parser.parsear_archivo(argv[1]);
+		error=parser.parsear_archivo(argv[1]);
 
 	}catch(Exception &e){
 		std::cout<<e.what();
@@ -22,10 +22,11 @@ int main(int argc, char* argv[]) {
 			int anchoVentana, altoVentana;
 
 
-			/*error=parser.devolver_Map_Personajes(&mapPersonajes);
-			error=parser.devolver_Map_Fondo(&mapBackground);
-			error=parser.devolver_Tam_Imagen(&ancho,&alto);
-			tipoLog=parser.devolver_Tipo_Log();*/
+			error=parser.devolver_Map_Personajes(&mapPersonajes);
+			error=parser.devolver_Map_Fondo( &mapFondoPantalla);
+			error=parser.devolver_Tam_Imagen(&anchoVentana,&altoVentana);
+			nivelLog=parser.devolver_Tipo_Log();
+			/*
 			mapPersonajes =  appConfig.get_Config_Personajes();
 			mapFondoPantalla =  appConfig.get_Config_FondosPantalla();
 			mapNivel =  appConfig.get_Config_Nivel();
@@ -34,7 +35,14 @@ int main(int argc, char* argv[]) {
 			altoVentana = 	appConfig.get_Config_AltoVentana();
 
 
+*/
+
 			Model model;
+			//metodo que carga los personales ( jugador =personaje)
+			model.cargar_Jugadores(mapPersonajes);
+			//metodo que setea los equipos
+			// solo asigna dos personajes , uno para cada equipo
+			model.set_Equipos();
 			View view(&model);
 			Controller controller(&model);
 

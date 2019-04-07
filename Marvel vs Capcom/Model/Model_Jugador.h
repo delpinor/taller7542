@@ -9,11 +9,34 @@
 #define CAPAMERICA 0x00
 
 class Jugador {
-public:
-	static const int ANCHO_JUGADOR = 90;
-	static const int ALTO_JUGADOR = 120;
+private:
+	// int ANCHO_JUGADOR = 90;
+	 //int ALTO_JUGADOR = 120;
+	 std:: string nombre;
+	 std:: string pathImagen;
+	 int height;
+	 int width;
+	 int zindex;
 	static const int VELOCIDAD_JUGADOR = 1;
+
+	SDL_Rect mCollider;
+
+	Activo activo;
+	Inactivo inactivo;
+	SDL_RendererFlip direccion;
+	int personaje;
+public:
+	Estado* estado;
+
 	Jugador();
+	Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &pathImagen);
+	int get_alto();
+	int get_ancho();
+	int get_zindex();
+	std::string get_nombre();
+	std::string get_path();
+
+
 	void move();
 	int getPosX();
 	int getPosY();
@@ -41,13 +64,8 @@ public:
 	std::string datosString();
 	int Personaje();
 	void setPersonaje(int);
-	Estado* estado;
-private:
-	SDL_Rect mCollider;
 
-	Activo activo;
-	Inactivo inactivo;
-	SDL_RendererFlip direccion;
-	int personaje;
+
+
 };
 #endif

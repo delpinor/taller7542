@@ -17,7 +17,20 @@
 
 class Equipo {
 public:
+		// jugador es el quivalente a persoanje
+		//equipo es quivalente a jugador
+
+	Jugador* jugadores;
+	unsigned int nroJugadorActivo;
+	std::queue<Command*> cambios;
+
+public:
 	Equipo();
+
+	Equipo(Jugador &jugador);
+	// Método que agregar jugadores al equipo
+		// con num se indica el indice
+	void agregar_Jugador(int num, Jugador &jugador);
 	virtual ~Equipo();
 
 	virtual Jugador* getJugadorNro(int i);
@@ -37,9 +50,6 @@ public:
 	virtual void update(int i);
 	virtual void move();
 
-	Jugador* jugadores;
-	unsigned int nroJugadorActivo;
-	std::queue<Command*> cambios;
 };
 
 #endif /* MODEL_EQUIPO_H_ */
