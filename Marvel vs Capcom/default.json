@@ -19,14 +19,24 @@
 			"alto":45,
 			"ancho":20,
 			"zindex":99
-		},
+		}
 	],
 	"fondosPantalla" :
 	[
 		{
-			"orden" : 12,
-			"rutaArchivoImagen" : "rutaArchivoFOndoPantalla",
-			"zIndex" : 123
+			"orden" : 1,
+			"rutaArchivoImagen" : "Images/z1.png",
+			"zIndex" : 1
+		},
+		{
+			"orden" : 2,
+			"rutaArchivoImagen" : "Images/z2.png",
+			"zIndex" : 2
+		},
+		{
+			"orden" : 3,
+			"rutaArchivoImagen" : "Images/z3.png",
+			"zIndex" : 3
 		}
 	],
 	"nivel" : 

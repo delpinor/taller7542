@@ -41,8 +41,7 @@ int main(int argc, char* argv[]) {
 						cout << internal_map["orden"] << endl;
 						cout << internal_map["rutaArchivoImagen"] << endl;
 						cout << internal_map["zIndex"] << endl;
-					}
-
+			}
 			Model model;
 			//metodo que carga los personales ( jugador =personaje)
 			model.cargar_Jugadores(mapPersonajes);
