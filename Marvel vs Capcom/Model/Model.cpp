@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 #include <unistd.h>
+#include "../Logger/Logger.h"
 
 #define CANTJUGADORESTOTALES 2
 #define LOCALES 1
@@ -34,8 +35,15 @@ std::string Model::get_pathImagenJugador( int indice_jugador){
 return jugadores[indice_jugador].get_path();
 
 }
-
-
+std::string Model::GetPathFondoParallax(int zIndex){
+	return fondos[zIndex];
+}
+void Model::CargarFondos(std::map<int, std::map<std::string, std::string> > &mapFondoPantalla){
+	for (map <int, map<string, string>>::iterator it = mapFondoPantalla.begin(); it != mapFondoPantalla.end(); ++it){
+							map<string, string> &internal_map = it->second;
+							fondos[std::stoi(internal_map["zIndex"])] =  internal_map["rutaArchivoImagen"];
+	}
+}
 void Model::cargar_Jugadores (std::map< int, std::map<std::string, std::string> > &mapPersonajes){
 
 int ancho, alto, zindex;
@@ -59,19 +67,16 @@ std::string nombre, path;
 		jugadores[it->first]=std::move(jugador);
 
 	}
-	cout << "mapa de personajes ************" << endl;
+		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Carga iniciada");
 		for (map <int, Jugador>::iterator it =this->jugadores.begin(); it != jugadores.end(); ++it){
-		    cout << "id: " << it->first << endl;
-
-		    cout<< "Nombre: "<<it->second.get_nombre()<<endl;
-		    cout<< "Alto: "<<it->second.get_alto()<<endl;
-		    cout<< "Ancho: "<<it->second.get_ancho()<<endl;
-		    cout<< "zindex: "<<it->second.get_zindex()<<endl;
-		    cout<< "Path: "<<it->second.get_path()<<endl;
-
-
-		    }
-
+		    Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "id: " + it->first );
+		    Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Nombre: " + it->second.get_nombre());
+		    Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Alto: " + it->second.get_alto());
+		    Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Ancho: " + it->second.get_ancho());
+		    Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "zindex: " + it->second.get_zindex());
+		    Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Path: " + it->second.get_path());
+		}
+		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Fin de carga");
 }
 
 Model::~Model() {

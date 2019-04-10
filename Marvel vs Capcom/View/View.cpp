@@ -6,7 +6,7 @@
 #define CAMARAPOSICIONINICIALY (((ALTO_NIVEL)/2)-((ALTO_VENTANA)/2))
 
 View::View(Model* model) {
-	if (!this->inicializar()) {
+	if (!this->inicializar(model)) {
 		//error
 	} else {
 		this->loadMedia(model);
@@ -60,7 +60,7 @@ void View::render() {
 
 }
 
-bool View::inicializar() {
+bool View::inicializar(Model *model) {
 	bool exito = true;
 
 	if (SDL_Init( SDL_INIT_VIDEO) < 0) {
@@ -93,8 +93,7 @@ bool View::inicializar() {
 
 				exito = false;
 			} else {
-
-				pantalla = new FondoParallax(window, gRenderer, "Images/z1.png", "Images/z2.png","Images/z3.png");
+				pantalla = new FondoParallax(window, gRenderer, model->GetPathFondoParallax(1), model->GetPathFondoParallax(2), model->GetPathFondoParallax(3));
 				//Initialize renderer color
 				SDL_SetRenderDrawColor(this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
@@ -124,7 +123,7 @@ void View::loadMedia(Model *model) {
 //	texturaCaptainAmerica.loadFromFile("Images/Captain America.gif", gRenderer);
 //	texturaVenom.loadFromFile("Images/Venom.png", gRenderer);
 //	texturaJugador = texturaCaptainAmerica;// sacar cuando resuelva como guardarlas en una coleccion
-	//texturaPantalla.loadFromFile("Images/Background.gif", gRenderer);
+
 }
 void View::close() {
 

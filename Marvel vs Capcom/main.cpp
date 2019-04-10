@@ -41,15 +41,11 @@ int main(int argc, char* argv[]) {
 
 
 */
-			for (map <int, map<string, string>>::iterator it = mapFondoPantalla.begin(); it != mapFondoPantalla.end(); ++it){
-						map<string, string> &internal_map = it->second;
-						cout << internal_map["orden"] << endl;
-						cout << internal_map["rutaArchivoImagen"] << endl;
-						cout << internal_map["zIndex"] << endl;
-			}
+
 			Model model;
 			//metodo que carga los personales ( jugador =personaje)
 			model.cargar_Jugadores(mapPersonajes);
+			model.CargarFondos(mapFondoPantalla);
 			//metodo que setea los equipos
 			// solo asigna dos personajes , uno para cada equipo
 			model.set_Equipos();

@@ -13,7 +13,7 @@ public:
 	virtual ~View();
 	void ajustarCamara();
 	void render();
-	bool inicializar();
+	bool inicializar(Model *model);
 	void loadMedia(Model *model);
 	void close();
 #define ANCHO_JUGADOR 146
