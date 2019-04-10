@@ -17,7 +17,7 @@
 using namespace std;
 #define Log_Default  "DEBUG"
 #define OK 0
-#define ERROR -1
+#define ERRORMSG -1
 #define archivo_default "default.json"
 class ParserConfig {
 

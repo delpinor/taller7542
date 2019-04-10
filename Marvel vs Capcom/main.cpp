@@ -3,6 +3,7 @@
 #include "Model/Model.h"
 #include "View/View.h"
 #include "Configuracion.h"
+#include "Logger/Logger.h"
 int main(int argc, char* argv[]) {
 	int error;
 	ParserConfig parser;
@@ -12,7 +13,7 @@ int main(int argc, char* argv[]) {
 
 	}catch(Exception &e){
 		std::cout<<e.what();
-		return ERROR;
+		return ERRORMSG;
 	}
 
 			std::map< int, std::map<std::string, std::string> > mapPersonajes;
@@ -26,6 +27,10 @@ int main(int argc, char* argv[]) {
 			error=parser.devolver_Map_Fondo( &mapFondoPantalla);
 			error=parser.devolver_Tam_Imagen(&anchoVentana,&altoVentana);
 			nivelLog=parser.devolver_Tipo_Log();
+
+			Logger::Inicio(LOGGER_NIVEL::DEBUG, LOGGER_SALIDA::CONSOLA);
+			Logger::Log(LOGGER_NIVEL::INFO, "INICIO","Iniciando el programa...");
+
 			/*
 			mapPersonajes =  appConfig.get_Config_Personajes();
 			mapFondoPantalla =  appConfig.get_Config_FondosPantalla();

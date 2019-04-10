@@ -33,7 +33,7 @@ int ParserConfig::parsear_archivo(char* filepath){
 		} else {
 
 			throw Exception("ERROR FATAL: no se pudo abrir default","","");
-			return ERROR;
+			return ERRORMSG;
 		}
 
 }

@@ -14,9 +14,7 @@ View::View(Model* model) {
 		this->camaraStatic = {CAMARAPOSICIONINICIALX,CAMARAPOSICIONINICIALY, ANCHO_VENTANA, ALTO_VENTANA};
 		this->camara = &(this->camaraStatic);
 		this->model->setCamara(this->camara);
-		this->viewModel = new ViewModel(this->model, this->gRenderer,
-				this->camara, &(this->texturaPantalla),
-				this->texturas);
+		this->viewModel = new ViewModel(this->model, this->gRenderer,this->camara, this->texturas);
 	}
 
 }
@@ -55,7 +53,7 @@ void View::render() {
 	this->ajustarCamara();
 	SDL_SetRenderDrawColor(this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(this->gRenderer);
-
+	pantalla->refrescarPosicion(camara);
 	this->viewModel->render();
 
 	SDL_RenderPresent(this->gRenderer);
@@ -95,6 +93,8 @@ bool View::inicializar() {
 
 				exito = false;
 			} else {
+
+				pantalla = new FondoParallax(window, gRenderer, "Images/z1.png", "Images/z2.png","Images/z3.png");
 				//Initialize renderer color
 				SDL_SetRenderDrawColor(this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
@@ -124,7 +124,7 @@ void View::loadMedia(Model *model) {
 //	texturaCaptainAmerica.loadFromFile("Images/Captain America.gif", gRenderer);
 //	texturaVenom.loadFromFile("Images/Venom.png", gRenderer);
 //	texturaJugador = texturaCaptainAmerica;// sacar cuando resuelva como guardarlas en una coleccion
-	texturaPantalla.loadFromFile("Images/Background.gif", gRenderer);
+	//texturaPantalla.loadFromFile("Images/Background.gif", gRenderer);
 }
 void View::close() {
 
