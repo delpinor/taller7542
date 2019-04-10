@@ -10,7 +10,7 @@ using namespace std;
 class ViewModel {
 public:
 	ViewModel(Model* model, SDL_Renderer* gRenderer, SDL_Rect* camara,
-			LTexture * texturaPantalla, LTexture texturaJugador[]);
+			LTexture * texturaPantalla, LTexture* texturaJugador1, LTexture* texturaJugador2);
 	virtual ~ViewModel();
 	void render();
 	bool hayAlgunJugadorActivoEnEspera();

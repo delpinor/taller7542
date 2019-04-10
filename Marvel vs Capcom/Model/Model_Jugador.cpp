@@ -120,6 +120,7 @@ void Jugador::activar() {
 void Jugador::desactivar() {
 	this->inactivo.copiarEstado(this->estado);
 	this->estado = &(this->inactivo);
+	this->detenerVelocidad();
 }
 bool Jugador::collide(SDL_Rect * camara) {
 

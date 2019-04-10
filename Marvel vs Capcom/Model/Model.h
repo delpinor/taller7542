@@ -19,15 +19,16 @@ public:// hay que pasar los parametros a pivados y generar los seters
 	Equipo * equipos;
 
 	SDL_Rect * camara;
-	std:: map<int, Jugador> jugadores;
+	std:: map<int, Jugador> jugadoresEquipo1;
+	//std:: map<int, Jugador> jugadoresEquipo2;
 
 public:
 	Model();
 	// meétodo que crea y carga los personajes en un map
 	void cargar_Jugadores (std::map< int, std::map<std::string, std::string> > &mapPersonajes);
-	void set_Equipos();
-	std::string get_pathImagenJugador( int indice_jugador);
-
+	void set_equipos_with_jugador(int equipo,int nroJugadorEquipo, int jugador);
+	std::string get_pathImagenJugador(int equipo, int indice_jugador);
+	void inicializar();
 	void cargar_Fondos(std::map<int, std::map<std::string, std::string> > &mapFondoPantalla);
 	virtual ~Model();
 
@@ -36,10 +37,6 @@ public:
 	Equipo* getEquipoNro(int i);
 
 	virtual void moverJuego();
-
-
-
-
 
 };
 

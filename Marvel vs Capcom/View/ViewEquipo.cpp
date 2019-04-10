@@ -14,9 +14,10 @@ ViewEquipo::ViewEquipo() {
 }
 
 
-void ViewEquipo::initialize(Equipo * equipo, LTexture texturaJugador[]) {
+void ViewEquipo::initialize(Equipo * equipo, LTexture texturaEquipo[]) {
+
 	for (int i = 0; i < cantidadjugadores; ++i) {
-			this->viewJugadores[i]->initialize(equipo->getJugadorNro(i),&texturaJugador[i]);
+			this->viewJugadores[i]->initialize(equipo->getJugadorNro(i),&texturaEquipo[i]);
 		}
 }
 
