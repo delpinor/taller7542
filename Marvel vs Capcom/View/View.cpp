@@ -64,6 +64,7 @@ bool View::inicializar(Model *model) {
 	bool exito = true;
 
 	if (SDL_Init( SDL_INIT_VIDEO) < 0) {
+		// esto deberia lanzar un excepcion que debería ser manejada por el logger
 		printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
 
 		exito = false;
@@ -93,7 +94,10 @@ bool View::inicializar(Model *model) {
 
 				exito = false;
 			} else {
-				pantalla = new FondoParallax(window, gRenderer, model->GetPathFondoParallax(1), model->GetPathFondoParallax(2), model->GetPathFondoParallax(3));
+				//pantalla = new FondoParallax(window, gRenderer, model->GetPathFondoParallax(1), model->GetPathFondoParallax(2), model->GetPathFondoParallax(3));
+
+				pantalla = new FondoParallax(window, gRenderer, model->GetPathFondoParallax(1), model->GetPathFondoParallax(2), model->GetPathFondoParallax(3),model->get_ancho_Pantalla(),model->get_alto_Pantalla());
+
 				//Initialize renderer color
 				SDL_SetRenderDrawColor(this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 

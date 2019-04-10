@@ -6,6 +6,8 @@
  */
 
 #include "ParserConfig.h"
+// defino los niveles de log para pasarle al parser
+//enum LOGGER_NIVEL{DEBUG = 5 , INFO = 4, ERROR = 65};
 
 ParserConfig::ParserConfig() {
 
@@ -32,7 +34,7 @@ int ParserConfig::parsear_archivo(char* filepath){
 		return OK;
 		} else {
 
-			throw Exception("ERROR FATAL: no se pudo abrir default","","");
+			//throw Error_Juego("ERROR FATAL: no se pudo abrir default");
 			return ERRORMSG;
 		}
 
@@ -69,17 +71,23 @@ int ParserConfig::devolver_Map_Fondo(std::map<int, std::map<std::string, std::st
 
 }
 
-string ParserConfig::devolver_Tipo_Log(){
+LOGGER_NIVEL ParserConfig::devolver_Tipo_Log(){
 
-	/*string valor= this->configuracion["debug"].asString();
-
-	if ( (valor!="ERROR") && (valor!="DEBUG") && (valor!="INFO") ) {
-		return Log_Default;
-	}else{
-		return valor;
-	}*/
 	string valor= this->configuracion["log"]["nivel"].asString();
-	return valor;
+	if (valor=="DEBUG") {
+		return DEBUG;
+	}else if(valor=="ERROR"){
+		return ERROR;
+
+	}else if (valor=="INFO"){
+		return INFO;
+	}else{
+		//const char* mensaje="ERROR: no se detecto el nivel de debug requerido, se setea en modo debug";
+		//throw Error_Juego("");
+
+		//std::cout<<"ERROR"<<std::endl;
+		return DEBUG;
+	}
 }
 
 

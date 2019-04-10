@@ -7,12 +7,13 @@
 
 #include "Exception.h"
 
-std::string Exception::what()  noexcept{
+/*
+ std::string Exception::what()  throw(){
 	 std::string mensaje =inicio + id  + fin;
 	 return mensaje;
 }
 
-Exception::~Exception() {
+Error_Juego::~Error_Juego() {
 	// TODO Auto-generated destructor stub
 }
-
+*/

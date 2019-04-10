@@ -7,21 +7,24 @@
 #include <cstdlib>
 #include "FondoParallax.h"
 
-class View {
-public:
-	View(Model* model);
-	virtual ~View();
-	void ajustarCamara();
-	void render();
-	bool inicializar(Model *model);
-	void loadMedia(Model *model);
-	void close();
 #define ANCHO_JUGADOR 146
 #define ALTO_JUGADOR 146
 #define ANCHO_VENTANA 800
 #define ALTO_VENTANA 600
 #define ANCHO_NIVEL 1000
 #define ALTO_NIVEL 626
+
+class View {
+public:
+	View(Model* model);
+
+	void ajustarCamara();
+	void render();
+	bool inicializar(Model *model);
+	void loadMedia(Model *model);
+	void close();
+	virtual ~View();
+
 private:
 	Model* model;
 	Jugador* jugadorAnterior;

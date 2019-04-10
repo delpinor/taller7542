@@ -4,6 +4,8 @@
  *  Created on: 26 mar. 2019
  *      Author: delpinor
  */
+#ifndef LOGGER_H_
+#define LOGGER_H_
 
 #include <plog/Log.h>
 #include "EntornoSistema.h"
@@ -53,5 +55,5 @@ namespace plog
     };
 }
 
-
+#endif
 

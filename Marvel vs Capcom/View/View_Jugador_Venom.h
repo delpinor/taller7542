@@ -18,10 +18,13 @@ public:
 	SDL_Rect gSpriteSaltar[ MAXFRAMESALTA];
 	SDL_Rect gSpriteAgachar[ CANTSPRITECLIP];
 	SDL_Rect gSpriteGolpear[ CANTSPRITECLIP];
+	~View_Jugador_Venom();
+
 private:
 	void getSpritesCaminar();
 	void getSpritesSaltar();
 	void render(int camX, int camY, SDL_Renderer * gRenderer);
+
 };
 
 #endif

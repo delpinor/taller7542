@@ -8,6 +8,19 @@ FondoParallax::FondoParallax(SDL_Window * ventana, SDL_Renderer * renderer,  std
 	fondoZ3 = NULL;
 	temp_surface = NULL;
 	SDL_GetWindowSize(ventana, &anchoPantalla, &altoPantalla);
+
+	cargaInicial(rutaZ1, rutaZ2, rutaZ3);
+}
+FondoParallax::FondoParallax(SDL_Window * ventana, SDL_Renderer * renderer,  std::string rutaZ1, std::string rutaZ2, std::string rutaZ3, int ancho, int alto) {
+	this->ventana = ventana;
+	this->renderer = renderer;
+	fondoZ1 = NULL;
+	fondoZ2 = NULL;
+	fondoZ3 = NULL;
+	temp_surface = NULL;
+	anchoPantalla=ancho;
+	altoPantalla=alto;
+
 	cargaInicial(rutaZ1, rutaZ2, rutaZ3);
 }
 FondoParallax::~FondoParallax() {

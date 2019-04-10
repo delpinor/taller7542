@@ -165,4 +165,8 @@ void View_Jugador_Venom::render(int camX, int camY, SDL_Renderer * gRenderer) {
 	}
 
 }
+View_Jugador_Venom::~View_Jugador_Venom(){
+
+
+}
 

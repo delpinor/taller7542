@@ -30,6 +30,18 @@ void Model::set_Equipos(){
 	this->equipos[1].setJugadorActivo(1);
 
 }
+void Model::cargar_Tam_Pantalla(int &ancho, int &alto){
+	this->alto_Pantalla=alto;
+	this->ancho_Pantalla=ancho;
+
+}
+int Model::get_alto_Pantalla(){
+	return  this->alto_Pantalla;
+}
+int Model::get_ancho_Pantalla(){
+	return  this->ancho_Pantalla;
+}
+
 std::string Model::get_pathImagenJugador( int indice_jugador){
 
 return jugadores[indice_jugador].get_path();
