@@ -35,8 +35,8 @@ Equipo::Equipo(std::map<int, Jugador> jugadores){
 		//this->getJugadorActivo()->activar();
 
 }
-void Equipo::agregar_Jugador(int num, Jugador jugador){
-	this->jugadores[num]=&jugador;
+void Equipo::agregar_Jugador(int num, Jugador * jugador){
+	this->jugadores[num]=jugador;
 	//	this->getJugadorActivo()->activar();
 }
 

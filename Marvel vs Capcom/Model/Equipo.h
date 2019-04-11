@@ -32,7 +32,7 @@ public:
 	// Método que agregar jugadores al equipo
 		// con num se indica el indice
 	void inicializar();
-	void agregar_Jugador(int num, Jugador jugador);
+	void agregar_Jugador(int num, Jugador * jugador);
 	virtual ~Equipo();
 
 	virtual Jugador* getJugadorNro(int i);

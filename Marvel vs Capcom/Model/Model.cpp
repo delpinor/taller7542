@@ -38,7 +38,7 @@ void Model::inicializar(){
 }
 
 std::string Model::get_pathImagenJugador(int equipo, int indice_jugador){
-	return jugadoresEquipo1[indice_jugador].get_path();
+	return jugadoresEquipo1[indice_jugador]->get_path();
 }
 
 
@@ -63,7 +63,7 @@ int i = 0;
 
 	//Jugador jugador(ancho,alto,zindex,nombre,path);
 
-	jugadoresEquipo1.insert(std::pair<int, Jugador>(i, Jugador(ancho,alto,zindex,nombre,path)));
+	jugadoresEquipo1.insert(std::make_pair(i, new Jugador(ancho,alto,zindex,nombre,path)));
 	//jugadoresEquipo2.insert(std::pair<int, Jugador>(i, jugador));
 //		jugadoresEquipo1[it->first]=std::move(jugador);
 //		jugadoresEquipo2[it->first]=std::move(jugador);

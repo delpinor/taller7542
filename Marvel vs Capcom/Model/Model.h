@@ -19,7 +19,7 @@ public:// hay que pasar los parametros a pivados y generar los seters
 	Equipo * equipos;
 
 	SDL_Rect * camara;
-	std:: map<int, Jugador> jugadoresEquipo1;
+	std:: map<int, Jugador*> jugadoresEquipo1;
 	//std:: map<int, Jugador> jugadoresEquipo2;
 
 public:
