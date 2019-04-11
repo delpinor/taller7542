@@ -32,8 +32,7 @@ int main(int argc, char* argv[]) {
 
 
 
-
-//			Logger::Inicio(nivelLog, LOGGER_SALIDA::CONSOLA);
+				Logger::Inicio(nivelLog, LOGGER_SALIDA::CONSOLA);
 			//Logger::Inicio(LOGGER_NIVEL::DEBUG, LOGGER_SALIDA::CONSOLA);
 			//Logger::Log(LOGGER_NIVEL::INFO, "INICIO","Iniciando el programa...");
 			Logger::Log(nivelLog, "INICIO","Iniciando el programa...");

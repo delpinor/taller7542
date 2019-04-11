@@ -18,6 +18,12 @@ Model::Model() {
 //this->equipos[0].setJugadorActivo(0);
 	//this->equipos[1].setJugadorActivo(1);
 }
+
+Model::Model(Logger *log){
+
+	this->logger=log;
+
+}
 // mejorar , esta harcodeado la asignación
 
 void Model::set_Equipos(){
@@ -30,6 +36,8 @@ void Model::set_Equipos(){
 	this->equipos[1].setJugadorActivo(1);
 
 }
+
+
 void Model::cargar_Tam_Pantalla(int &ancho, int &alto){
 	this->alto_Pantalla=alto;
 	this->ancho_Pantalla=ancho;

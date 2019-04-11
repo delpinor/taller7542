@@ -9,8 +9,8 @@
 
 #define ANCHO_JUGADOR 146
 #define ALTO_JUGADOR 146
-#define ANCHO_VENTANA 800
-#define ALTO_VENTANA 600
+//#define ANCHO_VENTANA 800
+//#define ALTO_VENTANA 600
 #define ANCHO_NIVEL 1000
 #define ALTO_NIVEL 626
 
@@ -38,6 +38,7 @@ private:
 	LTexture texturaCaptainAmerica;
 	LTexture texturaVenom;
 	LTexture texturaJugador;
+	int ancho_Pantalla, alto_Pantalla;
 
 };
 

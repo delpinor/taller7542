@@ -10,7 +10,7 @@
 #include "../Command/Command.h"
 #include <queue>
 #include <map>
-
+#include "../Logger/Logger.h"
 
 class Model {
 public:// hay que pasar los parametros a pivados y generar los seters
@@ -22,9 +22,11 @@ public:// hay que pasar los parametros a pivados y generar los seters
 	std:: map<int, Jugador> jugadores;
 	std::map <int, std::string> fondos;
 	int ancho_Pantalla, alto_Pantalla;
+	Logger *logger;
 
 public:
 	Model();
+	Model(Logger *log);
 	// metodo que crea y carga los personajes en un map
 	void cargar_Jugadores (std::map< int, std::map<std::string, std::string> > &mapPersonajes);
 	void set_Equipos();
