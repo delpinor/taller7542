@@ -64,6 +64,7 @@ public:
 	std::string datosString();
 	int Personaje();
 	void setPersonaje(int);
+	std::string getPathImagen();
 
 
 

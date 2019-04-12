@@ -189,3 +189,7 @@ void Jugador::setPersonaje(int p) {
 	this->personaje = p;
 }
 
+std::string Jugador::getPathImagen(){
+	return this->pathImagen;
+}
+

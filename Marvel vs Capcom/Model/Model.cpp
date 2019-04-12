@@ -39,7 +39,7 @@ void Model::inicializar(){
 }
 
 std::string Model::get_pathImagenJugador(int equipo, int indice_jugador){
-	return jugadoresEquipo1[indice_jugador]->get_path();
+	return this->equipos[equipo]->jugadores[indice_jugador]->getPathImagen();
 }
 
 
@@ -49,8 +49,8 @@ int ancho, alto, zindex;
 std::string nombre, path;
 int i = 0;
 	for (map <int, map<string, string>>::iterator it = mapPersonajes.begin(); it != mapPersonajes.end(); ++it){
-		if (i >= 2)
-			break;
+//		if (i >= 2)
+//			break;
 		   map<string, string> &internal_map = it->second;
 		   cout<< "id: "<<it->first<<endl;
 		  ancho=atoi((internal_map["ancho"]).c_str()); //
