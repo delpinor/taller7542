@@ -14,7 +14,8 @@
 
 Model::Model() {
 
-	this->equipos = new Equipo[2];
+	this->equipos[0] = new Equipo();
+	this->equipos[1] = new Equipo();
 }
 // mejorar , esta harcodeado la asignación
 
@@ -24,7 +25,7 @@ void Model::set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int nr
 	//this->equipos[1].agregar_Jugador(0,jugadores[1]);
 	//cout<<"se agrego el jugador: "<< jugadores[1].get_nombre()<<endl;
 	//no se que hace lo siguiente revisar
-	this->equipos[nroEquipo].agregar_Jugador(nroJugadorEquipo, jugadoresEquipo1[nroJugador]);
+	this->equipos[nroEquipo]->agregar_Jugador(nroJugadorEquipo, jugadoresEquipo1[nroJugador]);
 
 
 //	this->equipos[0]->setJugadorActivo(0);
@@ -33,7 +34,7 @@ void Model::set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int nr
 
 void Model::inicializar(){
 	for (int i = 0; i<2; i++){
-		this->equipos[i].inicializar();
+		this->equipos[i]->inicializar();
 	}
 }
 
@@ -104,7 +105,7 @@ Model::~Model() {
 
 void Model::update() {
 	for (int i = 0; i < 2; ++i) {
-		this->equipos[i].update(i);
+		this->equipos[i]->update(i);
 	}
 	this->moverJuego();
 }
@@ -113,7 +114,7 @@ void Model::update() {
 void Model::moverJuego() {
 
 	for (int i = 0; i < CANTJUGADORESTOTALES; ++i) {
-		this->equipos[i].move();
+		this->equipos[i]->move();
 	}
 }
 
@@ -122,7 +123,7 @@ void Model::setCamara(SDL_Rect * camara) {
 }
 
 Equipo* Model::getEquipoNro(int i) {
-	return &(this->equipos[i]);
+	return this->equipos[i];
 }
 
 

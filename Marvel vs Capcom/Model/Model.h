@@ -16,7 +16,7 @@ class Model {
 public:// hay que pasar los parametros a pivados y generar los seters
 
 
-	Equipo * equipos;
+	Equipo * equipos[2];
 
 	SDL_Rect * camara;
 	std:: map<int, Jugador*> jugadoresEquipo1;

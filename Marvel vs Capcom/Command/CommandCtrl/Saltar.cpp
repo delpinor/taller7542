@@ -10,7 +10,7 @@ Saltar::~Saltar() {
 
 void Saltar::execute(int i) {
 
-	this->model->equipos[i].jugadorActivoSalta();
+	this->model->equipos[i]->jugadorActivoSalta();
 
 }
 
