@@ -32,6 +32,13 @@ void Controller::processInput() {
 			this->quit = true;
 		}
 		handleEvent(this->e);
+		Logger::Log(LOGGER_NIVEL::DEBUG, "Controller::Event", "Personaje:" +this->model->getEquipoNro(0)->getJugadorActivo()->getNombre() +
+		 " Pos x:"+ std::to_string(this->model->getEquipoNro(0)->getJugadorActivo()->getPosX()) +
+		 " Pos y:" + std::to_string(this->model->getEquipoNro(0)->getJugadorActivo()->getPosY()));
+
+		Logger::Log(LOGGER_NIVEL::DEBUG, "Controller::Event", "Personaje:" +this->model->getEquipoNro(1)->getJugadorActivo()->getNombre() +
+				 " Pos x:"+ std::to_string(this->model->getEquipoNro(1)->getJugadorActivo()->getPosX()) +
+				 " Pos y:" + std::to_string(this->model->getEquipoNro(1)->getJugadorActivo()->getPosY()));
 	}
 }
 Command* Controller::handleEvent(SDL_Event& e) {
@@ -97,6 +104,7 @@ Command* Controller::handleEvent(SDL_Event& e) {
 		}
 		//If a key was released
 		else if (e.type == SDL_KEYUP && e.key.repeat == 0) {
+
 			switch (e.key.keysym.sym) {
 			case SDLK_w:
 				command = this->commands[INCVELY];

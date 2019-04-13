@@ -1,4 +1,5 @@
 #include "Model_Jugador.h"
+# include "../Logger/Logger.h"
 #define MARGENDESELECCION 0
 /*
 Jugador::Jugador() {
@@ -12,6 +13,7 @@ Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &
 	this->mCollider.w = width;
 	this->mCollider.h = height;
 	this->direccion = SDL_FLIP_NONE;
+	this->personaje = 0;
 
 	this->width=ancho;
 	this->height=alto;
@@ -44,6 +46,7 @@ std::string Jugador::getPathImagen(){
 
 void Jugador::setPosInitX(int posX) {
 	this->estado->setPosInitX(posX);
+
 }
 
 void Jugador::setPosInitY(int posY) {

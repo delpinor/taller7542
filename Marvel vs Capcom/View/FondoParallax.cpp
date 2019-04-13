@@ -16,7 +16,7 @@ FondoParallax::~FondoParallax() {
 	SDL_DestroyTexture(fondoZ1);
 	SDL_DestroyTexture(fondoZ2);
 	SDL_DestroyTexture(fondoZ3);
-	SDL_Quit();
+//	SDL_Quit();
 
 }
 // Mueve los fondos de acuerdo a la posicion de la camara.
