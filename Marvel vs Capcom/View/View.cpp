@@ -62,7 +62,6 @@ void View::render() {
 	SDL_RenderClear(this->gRenderer);
 	pantalla->refrescarPosicion(camara);
 	this->viewModel->render();
-
 	SDL_RenderPresent(this->gRenderer);
 
 }

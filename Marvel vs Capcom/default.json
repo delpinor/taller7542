@@ -46,6 +46,6 @@
 	},
 	"log" : 
 	{
-		"nivel" : "DE"
+		"nivel" : "DEBUG"
 	}
 }
