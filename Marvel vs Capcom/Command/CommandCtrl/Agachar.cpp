@@ -10,7 +10,7 @@ Agachar::~Agachar() {
 
 void Agachar::execute(int i) {
 
-	this->model->equipos[i].jugadorActivoSeAgacha();
+	this->model->equipos[i]->jugadorActivoSeAgacha();
 
 }
 

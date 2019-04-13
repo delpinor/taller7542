@@ -11,15 +11,17 @@
 #include "View_Jugador.h"
 #include "View_Jugador_CapAmerica.h"
 #include "View_Jugador_Venom.h"
+#include "View_Jugador_Default.h"
 #include <vector>
 #define maxCantJugadores 2
 
 
 class ViewEquipo {
 public:
-	ViewEquipo();
+	ViewEquipo(Equipo* Equipo);
 	virtual ~ViewEquipo();
 
+	View_Jugador * cargarVistaPersonaje(std::string nombrePersonaje);
 	bool hayAlgunJugadorActivoEnEspera();
 	void initialize(Equipo* equipo, LTexture texturaJugador[]);
 	void render(int camX, int camY, SDL_Renderer * gRenderer);

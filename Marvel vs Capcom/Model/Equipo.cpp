@@ -8,7 +8,7 @@
 #include "Equipo.h"
 
 Equipo::Equipo() {
-	this->jugadores = new Jugador[2];
+	//this->jugadores = new Jugador[2];
 	//this->jugadores[0].setPersonaje(0); //testing
 	//this->jugadores[1].setPersonaje(1); //testing
 	//this->nroJugadorActivo = 1;
@@ -16,41 +16,50 @@ Equipo::Equipo() {
 }
 
 //revisar ,no usar!!
-Equipo::Equipo(Jugador &jugador){
-
-	agregar_Jugador(0,jugador);
-
-	//agregar_Jugador(1,jugador);
-
-	//this->jugadores[0].setPersonaje(0); //testing
-		//this->jugadores[1].setPersonaje(1); //testing
-		//this->nroJugadorActivo = 1;
-		//this->getJugadorActivo()->activar();
-
+//Equipo::Equipo(std::map<int, Jugador> jugadores){
+////	int i = 0;
+////	for (std::map<int, Jugador>::iterator itr = jugadores.begin(); itr != jugadores.end(); itr++){
+////		if (i >= 2)
+////			break;
+////		agregar_Jugador(i,itr->second);
+////		i++;
+////	}
+//
+////	agregar_Jugador(0,jugador);
+////
+////	agregar_Jugador(1,jugador);
+//
+//	//this->jugadores[0].setPersonaje(0); //testing
+//		//this->jugadores[1].setPersonaje(1); //testing
+//		//this->nroJugadorActivo = 1;
+//		//this->getJugadorActivo()->activar();
+//
+//}
+void Equipo::agregar_Jugador(int num, Jugador * jugador){
+	this->jugadores[num]=jugador;
+	//	this->getJugadorActivo()->activar();
 }
-void Equipo::agregar_Jugador(int num, Jugador &jugador){
 
-this->jugadores[num]=jugador;
-this->nroJugadorActivo = num;
-
-		this->getJugadorActivo()->activar();
+void Equipo::inicializar(){
+	this->setJugadorActivo(0);
 }
+
 Equipo::~Equipo() {
-	delete[] this->jugadores;
+	delete this->jugadores;
 }
 
 
 Jugador* Equipo::getJugadorNro(int i) {
-	return &(this->jugadores[i]);
+	return (this->jugadores[i]);
 }
 Jugador* Equipo::getJugadorActivo() {
-	return &(this->jugadores[this->nroJugadorActivo]);
+	return (this->jugadores[this->nroJugadorActivo]);
 }
 
 Jugador* Equipo::getJugadorInactivo() {
 	for (int i = 0; i < 2; ++i) {
 		if (i != this->nroJugadorActivo)
-			return &(this->jugadores[i]);
+			return (this->jugadores[i]);
 	}
 }
 
@@ -75,33 +84,33 @@ void Equipo::update(int i) {
 
 void Equipo::move(){
 	for (int i = 0; i < 2; ++i) {
-		this->jugadores[i].move();
+		this->jugadores[i]->move();
 	}
 }
 
 
 void Equipo::jugadorActivoAumentaVelocidadEnX() {
-	this->jugadores[this->nroJugadorActivo].aumentarVelocidadX();
+	this->jugadores[this->nroJugadorActivo]->aumentarVelocidadX();
 }
 
 void Equipo::jugadorActivoAumentaVelocidadEnY() {
-	this->jugadores[this->nroJugadorActivo].aumentarVelocidadY();
+	this->jugadores[this->nroJugadorActivo]->aumentarVelocidadY();
 }
 
 void Equipo::jugadorActivoSalta() {
-	this->jugadores[this->nroJugadorActivo].Saltar();
+	this->jugadores[this->nroJugadorActivo]->Saltar();
 }
 
 void Equipo::jugadorActivoDisminuyeVelocidadEnX() {
-	this->jugadores[this->nroJugadorActivo].disminuirVelocidadX();
+	this->jugadores[this->nroJugadorActivo]->disminuirVelocidadX();
 }
 
 void Equipo::jugadorActivoDisminuyeVelocidadEnY() {
-	this->jugadores[this->nroJugadorActivo].disminuirVelocidadY();
+	this->jugadores[this->nroJugadorActivo]->disminuirVelocidadY();
 }
 
 void Equipo::jugadorActivoSeAgacha() {
-	this->jugadores[this->nroJugadorActivo].Agachar();
+	this->jugadores[this->nroJugadorActivo]->Agachar();
 }
 
 int Equipo::getCantidadJugadores() {

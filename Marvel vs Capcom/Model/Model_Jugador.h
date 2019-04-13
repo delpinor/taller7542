@@ -33,8 +33,8 @@ public:
 	int get_alto();
 	int get_ancho();
 	int get_zindex();
-	std::string get_nombre();
-	std::string get_path();
+	std::string getNombre();
+	std::string getPath();
 
 
 	void move();
@@ -64,6 +64,7 @@ public:
 	std::string datosString();
 	int Personaje();
 	void setPersonaje(int);
+	std::string getPathImagen();
 
 
 

@@ -14,23 +14,25 @@
 #include "Model_Jugador.h"
 #include "../Command/Command.h"
 #include <queue>
+#include <map>
 
 class Equipo {
 public:
 		// jugador es el quivalente a persoanje
 		//equipo es quivalente a jugador
 
-	Jugador* jugadores;
+	Jugador* jugadores[2];
 	unsigned int nroJugadorActivo;
 	std::queue<Command*> cambios;
 
 public:
 	Equipo();
 
-	Equipo(Jugador &jugador);
+	Equipo(std::map<int, Jugador> jugador);
 	// Método que agregar jugadores al equipo
 		// con num se indica el indice
-	void agregar_Jugador(int num, Jugador &jugador);
+	void inicializar();
+	void agregar_Jugador(int num, Jugador * jugador);
 	virtual ~Equipo();
 
 	virtual Jugador* getJugadorNro(int i);

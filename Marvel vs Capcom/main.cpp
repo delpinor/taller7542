@@ -38,11 +38,17 @@ int main(int argc, char* argv[]) {
 */
 
 			Model model;
-			//metodo que carga los personales ( jugador =personaje)
+			//metodo que carga los personajes ( jugador =personaje)
 			model.cargar_Jugadores(mapPersonajes);
-			//metodo que setea los equipos
-			// solo asigna dos personajes , uno para cada equipo
-			model.set_Equipos();
+			//seteo los jugadores en los equipos
+			model.set_equipos_with_jugador(0,0,0);
+			model.set_equipos_with_jugador(0,1,1);
+			model.set_equipos_with_jugador(1,0,2);
+			model.set_equipos_with_jugador(1,1,3);
+			//designo que jugadores van a estar activos
+			model.inicializar();
+			model.getEquipoNro(1)->setJugadorActivo(1);
+			model.getEquipoNro(0)->setJugadorActivo(0);
 			View view(&model);
 			Controller controller(&model);
 

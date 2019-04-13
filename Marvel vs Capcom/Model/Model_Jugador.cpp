@@ -2,14 +2,16 @@
 #define MARGENDESELECCION 0
 
 Jugador::Jugador() {
+
+}
+Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &path) {
+
 	this->estado = &(this->inactivo);
 	this->mCollider.x = this->estado->getPosX();
 	this->mCollider.y = this->estado->getPosY();
 	this->mCollider.w = width;
 	this->mCollider.h = height;
 	this->direccion = SDL_FLIP_NONE;
-}
-Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &path) {
 
 	this->width=ancho;
 	this->height=alto;
@@ -31,11 +33,11 @@ int Jugador::get_zindex(){
 
 
 }
-std::string Jugador::get_nombre(){
+std::string Jugador::getNombre(){
 
 	return nombre;
 }
-std::string Jugador::get_path(){
+std::string Jugador::getPathImagen(){
 	return pathImagen;
 
 }
@@ -120,6 +122,7 @@ void Jugador::activar() {
 void Jugador::desactivar() {
 	this->inactivo.copiarEstado(this->estado);
 	this->estado = &(this->inactivo);
+	this->detenerVelocidad();
 }
 bool Jugador::collide(SDL_Rect * camara) {
 

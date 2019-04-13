@@ -10,6 +10,6 @@ AumentarVelocidadY::~AumentarVelocidadY() {
 
 void AumentarVelocidadY::execute(int i) {
 
-	this->model->equipos[i].jugadorActivoAumentaVelocidadEnY();
+	this->model->equipos[i]->jugadorActivoAumentaVelocidadEnY();
 
 }
