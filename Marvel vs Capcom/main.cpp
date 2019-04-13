@@ -42,8 +42,12 @@ int main(int argc, char* argv[]) {
 	 nivelLog = 	appConfig.get_Config_NivelLog();
 	 anchoVentana = 	appConfig.get_Config_AnchoVentana();
 	 altoVentana = 	appConfig.get_Config_AltoVentana();
-
+ */
 			Model model;
+
+			model.cargar_Tam_Pantalla(anchoVentana, altoVentana);
+
+			model.CargarFondos(mapFondoPantalla);
 			//metodo que carga los personajes ( jugador =personaje)
 			model.cargar_Jugadores(mapPersonajes);
 			//seteo los jugadores en los equipos
@@ -58,19 +62,6 @@ int main(int argc, char* argv[]) {
 			View view(&model);
 			Controller controller(&model);
 
-	 */
-
-	Model model;
-	//metodo que carga los personales ( jugador =personaje)
-	model.cargar_Jugadores(mapPersonajes);
-	model.CargarFondos(mapFondoPantalla);
-	model.cargar_Tam_Pantalla(anchoVentana, altoVentana);
-
-	//metodo que setea los equipos
-	// solo asigna dos personajes , uno para cada equipo
-	model.set_Equipos();
-	View view(&model);
-	Controller controller(&model);
 
 	while (!controller.quitPressed()) {
 		controller.processInput();

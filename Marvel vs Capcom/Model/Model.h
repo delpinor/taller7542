@@ -35,8 +35,6 @@ public:
 	std::string get_pathImagenJugador(int equipo, int indice_jugador);
 	void inicializar();
 	void cargar_Fondos(std::map<int, std::map<std::string, std::string> > &mapFondoPantalla);
-	void set_Equipos();
-	std::string get_pathImagenJugador( int indice_jugador);
 	std::string GetPathFondoParallax(int indice_Z);
 	void cargar_Tam_Pantalla(int &ancho, int &alto);
 	int get_alto_Pantalla();

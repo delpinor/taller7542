@@ -44,14 +44,11 @@ void Model::cargar_Tam_Pantalla(int &ancho, int &alto) {
 	Logger::Log(LOGGER_NIVEL::DEBUG, "Mode::CargarTamañoPantalla", "Alto: " + std::to_string(alto));
 	this->alto_Pantalla = alto;
 	this->ancho_Pantalla = ancho;
+}
 void Model::inicializar(){
 	for (int i = 0; i<2; i++){
 		this->equipos[i]->inicializar();
 	}
-}
-
-std::string Model::get_pathImagenJugador(int equipo, int indice_jugador){
-	return this->equipos[equipo]->jugadores[indice_jugador]->getPathImagen();
 }
 int Model::get_alto_Pantalla() {
 	return this->alto_Pantalla;
@@ -60,10 +57,9 @@ int Model::get_ancho_Pantalla() {
 	return this->ancho_Pantalla;
 }
 
-std::string Model::get_pathImagenJugador(int indice_jugador) {
+std::string Model::get_pathImagenJugador(int equipo, int indice_jugador){
 
-	return jugadores[indice_jugador].get_path();
-
+	return this->equipos[equipo]->jugadores[indice_jugador]->getPathImagen();
 }
 std::string Model::GetPathFondoParallax(int zIndex) {
 	return fondos[zIndex];
@@ -87,19 +83,9 @@ void Model::cargar_Jugadores(
 
 	int ancho, alto, zindex;
 	std::string nombre, path;
+	int i = 0;
 	Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Carga iniciada");
-	for (map<int, map<string, string>>::iterator it = mapPersonajes.begin(); it != mapPersonajes.end(); ++it) {
-
-		map<string, string> &internal_map = it->second;
-		ancho = atoi((internal_map["ancho"]).c_str());
-		alto = atoi((internal_map["alto"]).c_str());
-		zindex = atoi((internal_map["zindex"]).c_str());
-int ancho, alto, zindex;
-std::string nombre, path;
-int i = 0;
 	for (map <int, map<string, string>>::iterator it = mapPersonajes.begin(); it != mapPersonajes.end(); ++it){
-//		if (i >= 2)
-//			break;
 		   map<string, string> &internal_map = it->second;
 		   cout<< "id: "<<it->first<<endl;
 		  ancho=atoi((internal_map["ancho"]).c_str()); //
@@ -112,15 +98,9 @@ int i = 0;
 
 		Jugador jugador(ancho, alto, zindex, nombre, path);
 
-	//Jugador jugador(ancho,alto,zindex,nombre,path);
-
 	jugadoresEquipo1.insert(std::make_pair(i, new Jugador(ancho,alto,zindex,nombre,path)));
-	//jugadoresEquipo2.insert(std::pair<int, Jugador>(i, jugador));
-//		jugadoresEquipo1[it->first]=std::move(jugador);
-//		jugadoresEquipo2[it->first]=std::move(jugador);
 	i++;
 	}
-//	cout << "mapa de personajes equipo2************" << endl;
 }
 
 Model::~Model() {

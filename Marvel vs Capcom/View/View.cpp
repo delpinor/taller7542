@@ -21,9 +21,7 @@ View::View(Model* model) {
 		this->camaraStatic = {CAMARAPOSICIONINICIALX,CAMARAPOSICIONINICIALY, ancho_Pantalla, alto_Pantalla};
 		this->camara = &(this->camaraStatic);
 		this->model->setCamara(this->camara);
-		this->viewModel = new ViewModel(this->model, this->gRenderer,
-				this->camara, &(this->texturaPantalla),
-				this->texturasEquipo1, this->texturasEquipo2);
+		this->viewModel = new ViewModel(this->model, this->gRenderer, this->camara,	this->texturasEquipo1, this->texturasEquipo2);
 	}
 
 }

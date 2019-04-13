@@ -6,7 +6,7 @@
 #define CANTSPRITECLIP 10
 #define MINFRAMECAMINA 0
 #define MAXFRAMECAMINA 9
-class View_Jugador {
+class View_Jugador { // @suppress("Class has a virtual method and non-virtual destructor")
 public:
 
 	View_Jugador(Jugador *model);
