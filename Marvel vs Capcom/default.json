@@ -14,11 +14,25 @@
 			"zIndex" : 99
 		},
 		{
-			"nombre":"Venom",
+			"nombre" : "Venom",
+			"alto" : 45,
+			"ancho" : 20,
 			"rutaArchivoImagen" : "Images/Venom.png",
-			"alto":45,
-			"ancho":20,
-			"zindex":99
+			"zIndex" : 99
+		},
+		{
+			"nombre" :"Captain America",
+			"alto" :45,
+			"ancho" :20,
+			"rutaArchivoImagen" : "Images/Captain America.gif",
+			"zIndex" : 99
+		},
+		{
+			"nombre" :"default",
+			"alto" :45,
+			"ancho" :20,
+			"rutaArchivoImagen" : "Images/default.png",
+			"zIndex" : 99
 		}
 	],
 	"fondosPantalla" :

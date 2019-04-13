@@ -19,8 +19,21 @@
 			"ancho" : 20,
 			"rutaArchivoImagen" : "Images/Venom.png",
 			"zIndex" : 99
+		},
+		{
+			"nombre" :"Captain America",
+			"alto" :45,
+			"ancho" :20,
+			"rutaArchivoImagen" : "Images/Captain America.gif",
+			"zIndex" : 99
+		},
+		{
+			"nombre" :"default",
+			"alto" :45,
+			"ancho" :20,
+			"rutaArchivoImagen" : "Images/default.png",
+			"zIndex" : 99
 		}
-		
 	],
 	"fondosPantalla" :
 	[

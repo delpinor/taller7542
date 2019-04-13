@@ -14,9 +14,9 @@
 #define LOCALES 1
 
 Model::Model() {
-	this->equipos = new Equipo[2];
-//this->equipos[0].setJugadorActivo(0);
-	//this->equipos[1].setJugadorActivo(1);
+
+	this->equipos[0] = new Equipo();
+	this->equipos[1] = new Equipo();
 }
 
 Model::Model(Logger *log) {
@@ -26,15 +26,17 @@ Model::Model(Logger *log) {
 }
 // mejorar , esta harcodeado la asignación
 
-void Model::set_Equipos() {
+void Model::set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int nroJugador){
 // this->equipos[0].agregar_Jugador(0,jugadores[0]);
 	//cout<<"se agrego el jugador: "<< jugadores[0].get_nombre()<<endl;
 	//this->equipos[1].agregar_Jugador(0,jugadores[1]);
 	//cout<<"se agrego el jugador: "<< jugadores[1].get_nombre()<<endl;
 	//no se que hace lo siguiente revisar
-	this->equipos[0].setJugadorActivo(0);
-	this->equipos[1].setJugadorActivo(1);
+	this->equipos[nroEquipo]->agregar_Jugador(nroJugadorEquipo, jugadoresEquipo1[nroJugador]);
 
+
+//	this->equipos[0]->setJugadorActivo(0);
+//	this->equipos[1]->setJugadorActivo(1);
 }
 
 void Model::cargar_Tam_Pantalla(int &ancho, int &alto) {
@@ -42,7 +44,14 @@ void Model::cargar_Tam_Pantalla(int &ancho, int &alto) {
 	Logger::Log(LOGGER_NIVEL::DEBUG, "Mode::CargarTamañoPantalla", "Alto: " + std::to_string(alto));
 	this->alto_Pantalla = alto;
 	this->ancho_Pantalla = ancho;
+void Model::inicializar(){
+	for (int i = 0; i<2; i++){
+		this->equipos[i]->inicializar();
+	}
+}
 
+std::string Model::get_pathImagenJugador(int equipo, int indice_jugador){
+	return this->equipos[equipo]->jugadores[indice_jugador]->getPathImagen();
 }
 int Model::get_alto_Pantalla() {
 	return this->alto_Pantalla;
@@ -85,22 +94,33 @@ void Model::cargar_Jugadores(
 		ancho = atoi((internal_map["ancho"]).c_str());
 		alto = atoi((internal_map["alto"]).c_str());
 		zindex = atoi((internal_map["zindex"]).c_str());
+int ancho, alto, zindex;
+std::string nombre, path;
+int i = 0;
+	for (map <int, map<string, string>>::iterator it = mapPersonajes.begin(); it != mapPersonajes.end(); ++it){
+//		if (i >= 2)
+//			break;
+		   map<string, string> &internal_map = it->second;
+		   cout<< "id: "<<it->first<<endl;
+		  ancho=atoi((internal_map["ancho"]).c_str()); //
+		   cout<< "ancho: "<<internal_map["ancho"]<<endl;
+		   alto=atoi((internal_map["alto"]).c_str());
+		   zindex=atoi((internal_map["zindex"]).c_str());
 
 		nombre = internal_map["nombre"];
 		path = internal_map["rutaArchivoImagen"];
 
 		Jugador jugador(ancho, alto, zindex, nombre, path);
 
-		jugadores[it->first] = std::move(jugador);
+	//Jugador jugador(ancho,alto,zindex,nombre,path);
 
-		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Nombre: " + nombre);
-		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Ruta: " + path);
-		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores",  "Ancho: " + std::to_string(ancho));
-		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Alto: " + std::to_string(alto));
-		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "ZIndex: " + std::to_string(zindex));
-
+	jugadoresEquipo1.insert(std::make_pair(i, new Jugador(ancho,alto,zindex,nombre,path)));
+	//jugadoresEquipo2.insert(std::pair<int, Jugador>(i, jugador));
+//		jugadoresEquipo1[it->first]=std::move(jugador);
+//		jugadoresEquipo2[it->first]=std::move(jugador);
+	i++;
 	}
-	Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Fin de carga");
+//	cout << "mapa de personajes equipo2************" << endl;
 }
 
 Model::~Model() {
@@ -109,7 +129,7 @@ Model::~Model() {
 
 void Model::update() {
 	for (int i = 0; i < 2; ++i) {
-		this->equipos[i].update(i);
+		this->equipos[i]->update(i);
 	}
 	this->moverJuego();
 }
@@ -117,7 +137,7 @@ void Model::update() {
 void Model::moverJuego() {
 
 	for (int i = 0; i < CANTJUGADORESTOTALES; ++i) {
-		this->equipos[i].move();
+		this->equipos[i]->move();
 	}
 }
 
@@ -126,6 +146,6 @@ void Model::setCamara(SDL_Rect * camara) {
 }
 
 Equipo* Model::getEquipoNro(int i) {
-	return &(this->equipos[i]);
+	return this->equipos[i];
 }
 

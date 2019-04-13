@@ -10,7 +10,7 @@ DisminuirVelocidadY::~DisminuirVelocidadY() {
 
 void DisminuirVelocidadY::execute(int i) {
 
-	this->model->equipos[i].jugadorActivoDisminuyeVelocidadEnY();
+	this->model->equipos[i]->jugadorActivoDisminuyeVelocidadEnY();
 
 }
 

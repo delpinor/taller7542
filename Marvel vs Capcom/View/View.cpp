@@ -1,5 +1,6 @@
 #include "View.h"
 #include <SDL2/SDL.h>
+#include <string>
 
 #define MARGEN 0
 //#define CAMARAPOSICIONINICIALX (((ANCHO_NIVEL)/2)-((ANCHO_VENTANA)/2))
@@ -20,8 +21,9 @@ View::View(Model* model) {
 		this->camaraStatic = {CAMARAPOSICIONINICIALX,CAMARAPOSICIONINICIALY, ancho_Pantalla, alto_Pantalla};
 		this->camara = &(this->camaraStatic);
 		this->model->setCamara(this->camara);
-		this->viewModel = new ViewModel(this->model, this->gRenderer,this->camara, this->texturas);
-
+		this->viewModel = new ViewModel(this->model, this->gRenderer,
+				this->camara, &(this->texturaPantalla),
+				this->texturasEquipo1, this->texturasEquipo2);
 	}
 
 }
@@ -115,11 +117,18 @@ return exito;
 
 //Mejoara, la asignacion de imagenes sigue harcodeada
 void View::loadMedia(Model *model) {
-
+	string path = model->get_pathImagenJugador(0,0);
+	texturasEquipo1[0].loadFromFile(path, gRenderer);
+	path = model->get_pathImagenJugador(0,1);
+	texturasEquipo1[1].loadFromFile(path, gRenderer);
+	path = model->get_pathImagenJugador(1,0);
+	texturasEquipo2[0].loadFromFile(path, gRenderer);
+	path = model->get_pathImagenJugador(1,1);
+	texturasEquipo2[1].loadFromFile(path, gRenderer);
 	//texturas[0].loadFromFile("Images/Captain America.gif", gRenderer);
 	//texturas[1].loadFromFile("Images/Venom.png", gRenderer);
-	texturas[0].loadFromFile(model->get_pathImagenJugador(0), gRenderer);
-	texturas[1].loadFromFile(model->get_pathImagenJugador(1), gRenderer);
+//	texturas[0].loadFromFile(model->get_pathImagenJugador(0), gRenderer);
+//	texturas[1].loadFromFile(model->get_pathImagenJugador(1), gRenderer);
 //	texturaCaptainAmerica.loadFromFile("Images/Captain America.gif", gRenderer);
 //	texturaVenom.loadFromFile("Images/Venom.png", gRenderer);
 //	texturaJugador = texturaCaptainAmerica;// sacar cuando resuelva como guardarlas en una coleccion

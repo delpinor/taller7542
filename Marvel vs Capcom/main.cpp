@@ -43,6 +43,20 @@ int main(int argc, char* argv[]) {
 	 anchoVentana = 	appConfig.get_Config_AnchoVentana();
 	 altoVentana = 	appConfig.get_Config_AltoVentana();
 
+			Model model;
+			//metodo que carga los personajes ( jugador =personaje)
+			model.cargar_Jugadores(mapPersonajes);
+			//seteo los jugadores en los equipos
+			model.set_equipos_with_jugador(0,0,0);
+			model.set_equipos_with_jugador(0,1,1);
+			model.set_equipos_with_jugador(1,0,2);
+			model.set_equipos_with_jugador(1,1,3);
+			//designo que jugadores van a estar activos
+			model.inicializar();
+			model.getEquipoNro(1)->setJugadorActivo(1);
+			model.getEquipoNro(0)->setJugadorActivo(0);
+			View view(&model);
+			Controller controller(&model);
 
 	 */
 
