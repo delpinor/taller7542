@@ -22,13 +22,11 @@ public:// hay que pasar los parametros a pivados y generar los seters
 	std:: map<int, Jugador> jugadores;
 	std::map <int, std::string> fondos;
 	int ancho_Pantalla, alto_Pantalla;
-	Logger *logger;
 	std:: map<int, Jugador*> jugadoresEquipo1;
 	//std:: map<int, Jugador> jugadoresEquipo2;
 
 public:
 	Model();
-	Model(Logger *log);
 	// metodo que crea y carga los personajes en un map
 	void cargar_Jugadores (std::map< int, std::map<std::string, std::string> > &mapPersonajes);
 	void set_equipos_with_jugador(int equipo,int nroJugadorEquipo, int jugador);

@@ -14,17 +14,12 @@
 #define LOCALES 1
 
 Model::Model() {
-
+	this->alto_Pantalla = 0;
+	this->ancho_Pantalla = 0;
+	this->camara = NULL;
 	this->equipos[0] = new Equipo();
 	this->equipos[1] = new Equipo();
 }
-
-Model::Model(Logger *log) {
-
-	this->logger = log;
-
-}
-// mejorar , esta harcodeado la asignación
 
 void Model::set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int nroJugador){
 // this->equipos[0].agregar_Jugador(0,jugadores[0]);
@@ -87,24 +82,27 @@ void Model::cargar_Jugadores(
 	Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Carga iniciada");
 	for (map <int, map<string, string>>::iterator it = mapPersonajes.begin(); it != mapPersonajes.end(); ++it){
 		   map<string, string> &internal_map = it->second;
-		   cout<< "id: "<<it->first<<endl;
 		  ancho=atoi((internal_map["ancho"]).c_str()); //
-		   cout<< "ancho: "<<internal_map["ancho"]<<endl;
 		   alto=atoi((internal_map["alto"]).c_str());
 		   zindex=atoi((internal_map["zindex"]).c_str());
 
 		nombre = internal_map["nombre"];
 		path = internal_map["rutaArchivoImagen"];
-
 		Jugador jugador(ancho, alto, zindex, nombre, path);
-
+		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Nombre: " + nombre);
+		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Path: " + path);
+		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Alto: " + std::to_string(alto));
+		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Ancho: " + std::to_string(ancho));
 	jugadoresEquipo1.insert(std::make_pair(i, new Jugador(ancho,alto,zindex,nombre,path)));
 	i++;
 	}
+	Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Carga Finalizada");
 }
 
 Model::~Model() {
-	delete[] this->equipos;
+	this->equipos[0] = NULL;
+	this->equipos[1] = NULL;
+
 }
 
 void Model::update() {

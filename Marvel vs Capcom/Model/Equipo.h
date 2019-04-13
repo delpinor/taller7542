@@ -22,7 +22,7 @@ public:
 		//equipo es quivalente a jugador
 
 	Jugador* jugadores[2];
-	unsigned int nroJugadorActivo;
+	 int nroJugadorActivo;
 	std::queue<Command*> cambios;
 
 public:

@@ -83,9 +83,6 @@ LOGGER_NIVEL ParserConfig::devolver_Tipo_Log(){
 		return INFO;
 	}else{
 		//const char* mensaje="ERROR: no se detecto el nivel de debug requerido, se setea en modo debug";
-		//throw Error_Juego("");
-
-		//std::cout<<"ERROR"<<std::endl;
 		return DEBUG;
 	}
 }
