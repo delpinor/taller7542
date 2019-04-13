@@ -19,14 +19,14 @@ Model::Model() {
 	//this->equipos[1].setJugadorActivo(1);
 }
 
-Model::Model(Logger *log){
+Model::Model(Logger *log) {
 
-	this->logger=log;
+	this->logger = log;
 
 }
 // mejorar , esta harcodeado la asignación
 
-void Model::set_Equipos(){
+void Model::set_Equipos() {
 // this->equipos[0].agregar_Jugador(0,jugadores[0]);
 	//cout<<"se agrego el jugador: "<< jugadores[0].get_nombre()<<endl;
 	//this->equipos[1].agregar_Jugador(0,jugadores[1]);
@@ -37,66 +37,63 @@ void Model::set_Equipos(){
 
 }
 
-
-void Model::cargar_Tam_Pantalla(int &ancho, int &alto){
-	this->alto_Pantalla=alto;
-	this->ancho_Pantalla=ancho;
-
-}
-int Model::get_alto_Pantalla(){
-	return  this->alto_Pantalla;
-}
-int Model::get_ancho_Pantalla(){
-	return  this->ancho_Pantalla;
-}
-
-std::string Model::get_pathImagenJugador( int indice_jugador){
-
-return jugadores[indice_jugador].get_path();
+void Model::cargar_Tam_Pantalla(int &ancho, int &alto) {
+	this->alto_Pantalla = alto;
+	this->ancho_Pantalla = ancho;
 
 }
-std::string Model::GetPathFondoParallax(int zIndex){
+int Model::get_alto_Pantalla() {
+	return this->alto_Pantalla;
+}
+int Model::get_ancho_Pantalla() {
+	return this->ancho_Pantalla;
+}
+
+std::string Model::get_pathImagenJugador(int indice_jugador) {
+
+	return jugadores[indice_jugador].get_path();
+
+}
+std::string Model::GetPathFondoParallax(int zIndex) {
 	return fondos[zIndex];
 }
-void Model::CargarFondos(std::map<int, std::map<std::string, std::string> > &mapFondoPantalla){
-	for (map <int, map<string, string>>::iterator it = mapFondoPantalla.begin(); it != mapFondoPantalla.end(); ++it){
-							map<string, string> &internal_map = it->second;
-							fondos[std::stoi(internal_map["zIndex"])] =  internal_map["rutaArchivoImagen"];
+void Model::CargarFondos(
+		std::map<int, std::map<std::string, std::string> > &mapFondoPantalla) {
+	for (map<int, map<string, string>>::iterator it = mapFondoPantalla.begin();
+			it != mapFondoPantalla.end(); ++it) {
+		map<string, string> &internal_map = it->second;
+		fondos[std::stoi(internal_map["zIndex"])] =
+				internal_map["rutaArchivoImagen"];
 	}
 }
-void Model::cargar_Jugadores (std::map< int, std::map<std::string, std::string> > &mapPersonajes){
+void Model::cargar_Jugadores(
+		std::map<int, std::map<std::string, std::string> > &mapPersonajes) {
 
-int ancho, alto, zindex;
-std::string nombre, path;
+	int ancho, alto, zindex;
+	std::string nombre, path;
+	Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Carga iniciada");
+	for (map<int, map<string, string>>::iterator it = mapPersonajes.begin(); it != mapPersonajes.end(); ++it) {
 
-	for (map <int, map<string, string>>::iterator it = mapPersonajes.begin(); it != mapPersonajes.end(); ++it){
+		map<string, string> &internal_map = it->second;
+		ancho = atoi((internal_map["ancho"]).c_str());
+		alto = atoi((internal_map["alto"]).c_str());
+		zindex = atoi((internal_map["zindex"]).c_str());
 
-		   map<string, string> &internal_map = it->second;
-		   cout<< "id: "<<it->first<<endl;
-		  ancho=atoi((internal_map["ancho"]).c_str()); //
-		   cout<< "ancho: "<<internal_map["ancho"]<<endl;
-		   alto=atoi((internal_map["alto"]).c_str());
-		   zindex=atoi((internal_map["zindex"]).c_str());
+		nombre = internal_map["nombre"];
+		path = internal_map["rutaArchivoImagen"];
 
-		   nombre=internal_map["nombre"];
-		   path=internal_map["rutaArchivoImagen"];
+		Jugador jugador(ancho, alto, zindex, nombre, path);
 
+		jugadores[it->first] = std::move(jugador);
 
-	Jugador jugador(ancho,alto,zindex,nombre,path);
-
-		jugadores[it->first]=std::move(jugador);
+		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Nombre: " + nombre);
+		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Ruta: " + path);
+		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores",  "Ancho: " + std::to_string(ancho));
+		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Alto: " + std::to_string(alto));
+		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "ZIndex: " + std::to_string(zindex));
 
 	}
-		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Carga iniciada");
-		for (map <int, Jugador>::iterator it =this->jugadores.begin(); it != jugadores.end(); ++it){
-		    Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "id: " + it->first );
-		    Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Nombre: " + it->second.get_nombre());
-		    Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Alto: " + it->second.get_alto());
-		    Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Ancho: " + it->second.get_ancho());
-		    Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "zindex: " + it->second.get_zindex());
-		    Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Path: " + it->second.get_path());
-		}
-		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Fin de carga");
+	Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Fin de carga");
 }
 
 Model::~Model() {
@@ -109,7 +106,6 @@ void Model::update() {
 	}
 	this->moverJuego();
 }
-
 
 void Model::moverJuego() {
 
@@ -125,5 +121,4 @@ void Model::setCamara(SDL_Rect * camara) {
 Equipo* Model::getEquipoNro(int i) {
 	return &(this->equipos[i]);
 }
-
 
