@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
 			//designo que jugadores van a estar activos
 			model.inicializar();
 			model.getEquipoNro(1)->setJugadorActivo(1);
-			model.getEquipoNro(0)->setJugadorActivo(1);
+			model.getEquipoNro(0)->setJugadorActivo(0);
 			View view(&model);
 			Controller controller(&model);
 

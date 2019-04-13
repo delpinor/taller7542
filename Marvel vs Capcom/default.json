@@ -28,10 +28,10 @@
 			"zIndex" : 99
 		},
 		{
-			"nombre" : "Venom",
-			"alto" : 45,
-			"ancho" : 20,
-			"rutaArchivoImagen" : "Images/Venom.png",
+			"nombre" :"default",
+			"alto" :45,
+			"ancho" :20,
+			"rutaArchivoImagen" : "Images/default.png",
 			"zIndex" : 99
 		}
 	],

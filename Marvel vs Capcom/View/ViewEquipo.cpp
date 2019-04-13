@@ -7,12 +7,22 @@
 #include "ViewEquipo.h"
 #include <SDL2/SDL.h>
 
-ViewEquipo::ViewEquipo() {
+ViewEquipo::ViewEquipo(Equipo* equipo) {
+
 	cantidadjugadores = 2;
-	this->viewJugadores[0] = new View_Jugador_CapAmerica();
-	this->viewJugadores[1] = new View_Jugador_Venom();
+	this->viewJugadores[0] = cargarVistaPersonaje(equipo->jugadores[0]->getNombre());
+	this->viewJugadores[1] = cargarVistaPersonaje(equipo->jugadores[1]->getNombre());
 }
 
+View_Jugador * ViewEquipo::cargarVistaPersonaje(std::string nombrePersonaje) {
+
+	if (nombrePersonaje == "Venom")
+		return new View_Jugador_Venom();
+	if (nombrePersonaje == "Captain America")
+		return new View_Jugador_CapAmerica();
+	if (nombrePersonaje == "default")
+		return new View_Jugador_Default();
+}
 
 void ViewEquipo::initialize(Equipo * equipo, LTexture texturaEquipo[]) {
 

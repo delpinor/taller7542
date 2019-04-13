@@ -33,11 +33,11 @@ int Jugador::get_zindex(){
 
 
 }
-std::string Jugador::get_nombre(){
+std::string Jugador::getNombre(){
 
 	return nombre;
 }
-std::string Jugador::get_path(){
+std::string Jugador::getPathImagen(){
 	return pathImagen;
 
 }
@@ -187,9 +187,5 @@ int Jugador::Personaje() {
 }
 void Jugador::setPersonaje(int p) {
 	this->personaje = p;
-}
-
-std::string Jugador::getPathImagen(){
-	return this->pathImagen;
 }
 

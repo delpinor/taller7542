@@ -4,8 +4,8 @@
 ViewModel::ViewModel(Model* model, SDL_Renderer* gRenderer, SDL_Rect* camara,
 		LTexture * texturaPantalla, LTexture texturasEquipo1[2], LTexture texturasEquipo2[2]) {
 	this->viewPantalla.initialize(gRenderer, texturaPantalla);
-	this->viewEquipo[0] = new ViewEquipo();
-	this->viewEquipo[1] = new ViewEquipo();
+	this->viewEquipo[0] = new ViewEquipo(model->equipos[0]);
+	this->viewEquipo[1] = new ViewEquipo(model->equipos[1]);
 	this->camara = camara;
 	this->gRenderer = gRenderer;
 
