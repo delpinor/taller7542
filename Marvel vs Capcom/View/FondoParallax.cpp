@@ -71,12 +71,12 @@ void FondoParallax::cargaInicial( std::string rutaZ1, std::string rutaZ2, std::s
 			fh = (float) h;
 
 			rectZ3_Hasta.w = anchoPantalla;
-			rectZ3_Hasta.h = altoPantalla * 1.3;
+			rectZ3_Hasta.h = altoPantalla*((altoPantalla/temp_surface->h) + 0.2);
+
 			rectZ3_Hasta.x = 0;
 			rectZ3_Hasta.y = -50;
 
-			rectZ3_Desde.w = roundf(
-					(float) anchoPantalla * ((fh / (float) rectZ3_Hasta.h)));
+			rectZ3_Desde.w = roundf((float) anchoPantalla * ((fh / (float) rectZ3_Hasta.h)));
 			rectZ3_Desde.h = h;
 			rectZ3_Desde.x = 20;
 			rectZ3_Desde.y = 0;
@@ -105,7 +105,7 @@ void FondoParallax::cargaInicial( std::string rutaZ1, std::string rutaZ2, std::s
 				rectZ2_Desde.w = roundf(
 						(float) anchoPantalla * ((fh / (float) rectZ2_Hasta.h)));
 				rectZ2_Desde.x = 0;
-				rectZ2_Desde.y = 20;
+				rectZ2_Desde.y = 0;
 				Logger::Log(LOGGER_NIVEL::INFO, "FondoParallax:CargaInicial",
 									"Carga fondo Z2: OK");
 		}
@@ -125,13 +125,12 @@ void FondoParallax::cargaInicial( std::string rutaZ1, std::string rutaZ2, std::s
 			fh = (float) h;
 
 			rectZ1_Hasta.w = anchoPantalla;
-			rectZ1_Hasta.h = altoPantalla * 0.8;
+			rectZ1_Hasta.h = altoPantalla * 0.9;
 			rectZ1_Hasta.x = 0;
-			rectZ1_Hasta.y = 130;
+			rectZ1_Hasta.y = 100;
 
 			rectZ1_Desde.h = h;
-			rectZ1_Desde.w = roundf(
-					(float) anchoPantalla * ((fh / (float) rectZ1_Hasta.h)));
+			rectZ1_Desde.w = roundf((float) anchoPantalla * ((fh / (float) rectZ1_Hasta.h)));
 			rectZ1_Desde.x = 0;
 			rectZ1_Desde.y = 0;
 			Logger::Log(LOGGER_NIVEL::INFO, "FondoParallax:CargaInicial",

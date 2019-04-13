@@ -38,6 +38,8 @@ void Model::set_Equipos() {
 }
 
 void Model::cargar_Tam_Pantalla(int &ancho, int &alto) {
+	Logger::Log(LOGGER_NIVEL::DEBUG, "Mode::CargarTamañoPantalla", "Ancho: " + std::to_string(ancho));
+	Logger::Log(LOGGER_NIVEL::DEBUG, "Mode::CargarTamañoPantalla", "Alto: " + std::to_string(alto));
 	this->alto_Pantalla = alto;
 	this->ancho_Pantalla = ancho;
 
@@ -57,14 +59,19 @@ std::string Model::get_pathImagenJugador(int indice_jugador) {
 std::string Model::GetPathFondoParallax(int zIndex) {
 	return fondos[zIndex];
 }
-void Model::CargarFondos(
-		std::map<int, std::map<std::string, std::string> > &mapFondoPantalla) {
-	for (map<int, map<string, string>>::iterator it = mapFondoPantalla.begin();
-			it != mapFondoPantalla.end(); ++it) {
+void Model::CargarFondos(std::map<int, std::map<std::string, std::string> > &mapFondoPantalla) {
+	Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaFondos", "Carga iniciada");
+	int zIndex;
+	std::string ruta;
+	for (map<int, map<string, string>>::iterator it = mapFondoPantalla.begin();	it != mapFondoPantalla.end(); ++it) {
 		map<string, string> &internal_map = it->second;
-		fondos[std::stoi(internal_map["zIndex"])] =
-				internal_map["rutaArchivoImagen"];
+		zIndex = std::stoi(internal_map["zIndex"]);
+		ruta = internal_map["rutaArchivoImagen"];
+		fondos[zIndex] =	ruta;
+		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaFondos", "Ruta: " + ruta);
+		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaFondos", "ZIndex: " + std::to_string(zIndex));
 	}
+	Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaFondos", "Carga finalizada");
 }
 void Model::cargar_Jugadores(
 		std::map<int, std::map<std::string, std::string> > &mapPersonajes) {

@@ -9,7 +9,7 @@ View::View(Model* model) {
 	this->alto_Pantalla=model->get_alto_Pantalla();
 	this->ancho_Pantalla=model->get_ancho_Pantalla();
 	if (!this->inicializar(model)) {
-		//error
+		Logger::Log(LOGGER_NIVEL::ERROR, "View::View", "Erro al inicializar la vista.");
 	} else {
 		this->loadMedia(model);
 		this->model = model;
@@ -71,13 +71,11 @@ bool View::inicializar(Model *model) {
 	bool exito = true;
 
 	if (SDL_Init( SDL_INIT_VIDEO) < 0) {
-		// esto deberia lanzar un excepcion que debería ser manejada por el logger
-		printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
-
+		Logger::Log(LOGGER_NIVEL::ERROR, "View::Inicializar", SDL_GetError());
 		exito = false;
 	} else {
 		if (!SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
-			printf("Warning: Linear texture filtering not enabled!");
+			Logger::Log(LOGGER_NIVEL::ERROR, "View::Inicializar", SDL_GetError());
 
 		}
 
@@ -87,23 +85,17 @@ bool View::inicializar(Model *model) {
 				SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, ancho_Pantalla,
 				alto_Pantalla, SDL_WINDOW_SHOWN);
 		if (this->window == NULL) {
-			printf("Window could not be created! SDL Error: %s\n",
-					SDL_GetError());
-
+			Logger::Log(LOGGER_NIVEL::ERROR, "View::Inicializar::", SDL_GetError());
 			exito = false;
 		} else {
 			//Create vsynced renderer for this->window
 			this->gRenderer = SDL_CreateRenderer(this->window, -1,
 					SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 			if (this->gRenderer == NULL) {
-				printf("Renderer could not be created! SDL Error: %s\n",
-						SDL_GetError());
-
+				Logger::Log(LOGGER_NIVEL::ERROR, "View::Inicializar::", SDL_GetError());
 				exito = false;
 			} else {
 				pantalla = new FondoParallax(window, gRenderer, model->GetPathFondoParallax(1), model->GetPathFondoParallax(2), model->GetPathFondoParallax(3));
-
-
 
 				//Initialize renderer color
 				SDL_SetRenderDrawColor(this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -111,10 +103,7 @@ bool View::inicializar(Model *model) {
 				//Initialize PNG loading
 				int imgFlags = IMG_INIT_PNG;
 				if (!(IMG_Init(imgFlags) & imgFlags)) {
-					printf(
-							"SDL_image could not initialize! SDL_image Error: %s\n",
-							IMG_GetError());
-
+					Logger::Log(LOGGER_NIVEL::ERROR, "View::Inicializar::", SDL_GetError());
 					exito = false;
 				}
 			}
@@ -140,6 +129,7 @@ void View::loadMedia(Model *model) {
 void View::close() {
 
 	//Destroy this->window}
+
 	SDL_DestroyRenderer(this->gRenderer);
 	SDL_DestroyWindow(this->window);
 
@@ -149,6 +139,7 @@ void View::close() {
 	//Quit SDL subsystems
 	IMG_Quit();
 	SDL_Quit();
+
 
 }
 
