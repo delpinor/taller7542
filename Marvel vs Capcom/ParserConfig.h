@@ -11,12 +11,11 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <sstream>
 #include <jsoncpp/json/json.h>
 #include <map>
 #include "Exception.h"
-#include "Logger/Logger.h"
 using namespace std;
-#define Log_Default  "DEBUG"
 #define OK 0
 #define ERRORMSG -1
 #define archivo_default "default.json"
@@ -33,13 +32,13 @@ public:
 	/* constructor que toma como parametro el filepath del archivo configuracion*/
 
 	ParserConfig();
-	int parsear_archivo(char* filepath);
+	void parsear_archivo(char* filepath);
 	Json::Value* getConfiguracion();
-	int devolver_Map_Personajes(std::map<int, std::map<std::string, std::string> > *mapPersonajes);
-	int devolver_Map_Fondo(std::map<int, std::map<std::string, std::string> > *mapBackground);
-	LOGGER_NIVEL devolver_Tipo_Log();
-	int devolver_Tam_Imagen(int *ancho, int *alto);
-	int devolver_Map_Nivel(std::map<std::string, std::string> *mapNivel);
+	void devolver_Map_Personajes(std::map<int, std::map<std::string, std::string> > *mapPersonajes);
+	void devolver_Map_Fondo(std::map<int, std::map<std::string, std::string> > *mapBackground);
+	std::string devolver_Tipo_Log();
+	void devolver_Tam_Imagen(std::string *ancho, std::string *alto);
+	void devolver_Map_Nivel(std::map<std::string, std::string> *mapNivel);
 
 	virtual ~ParserConfig();
 

@@ -1,62 +1,62 @@
 {
 	"ventana" : 
 	{
-		"alto" :600,
-		"ancho" :800
+		"alto" :"600",
+		"ancho" :"800"
 	},
 	"personajes" :
  	[
 		{
 			"nombre" :"Captain America",
-			"alto" :45,
-			"ancho" :20,
+			"alto" :"45",
+			"ancho" :"20",
 			"rutaArchivoImagen" : "Images/Captain America.gif",
-			"zIndex" : 99
+			"zIndex" : "99"
 		},
 		{
 			"nombre" : "Venom",
-			"alto" : 45,
-			"ancho" : 20,
+			"alto" : "45",
+			"ancho" : "20",
 			"rutaArchivoImagen" : "Images/Venom.png",
-			"zIndex" : 99
+			"zIndex" : "99"
 		},
 		{
 			"nombre" :"Captain America",
-			"alto" :45,
-			"ancho" :20,
+			"alto" :"45",
+			"ancho" :"20",
 			"rutaArchivoImagen" : "Images/Captain America.gif",
-			"zIndex" : 99
+			"zIndex" : "99"
 		},
 		{
 			"nombre" :"default",
-			"alto" :45,
-			"ancho" :20,
+			"alto" :"45",
+			"ancho" :"20",
 			"rutaArchivoImagen" : "Images/default.png",
-			"zIndex" : 99
+			"zIndex" : "99"
 		}
 	],
 	"fondosPantalla" :
 	[
 		{
-			"orden" : 1,
+			"orden" : "1",
 			"rutaArchivoImagen" : "Images/z1.png",
-			"zIndex" : 1
+			"zIndex" : "1"
 		},
 		{
-			"orden" : 2,
+			"orden" : "2",
 			"rutaArchivoImagen" : "Images/z2.png",
-			"zIndex" : 2
+			"zIndex" : "2"
 		},
 		{
-			"orden" : 3,
+			"orden" : "3",
 			"rutaArchivoImagen" : "Images/z3.png",
-			"zIndex" : 3
+			"zIndex" : "3"
 		}
 	],
 	"nivel" : 
 	{
-		"alto" : 12,
-		"ancho" : 13
+		"alto" : "12",
+		"ancho" : "13"
 	},
 	"log" : 
 	{

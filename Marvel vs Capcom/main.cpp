@@ -6,43 +6,37 @@
 #include "Logger/Logger.h"
 
 int main(int argc, char* argv[]) {
-	int error;
-	ParserConfig parser;
-	//Configuracion appConfig("config.json");
-	try {
-		error = parser.parsear_archivo(argv[1]);
 
-	} catch (Error_Juego &e) {
-		std::cout << e.what();
-		return ERRORMSG;
-	}
-
-	std::map<int, std::map<std::string, std::string> > mapPersonajes;
+	std::map< int, std::map<std::string, std::string> > mapPersonajes;
 	std::map<int, std::map<std::string, std::string> > mapFondoPantalla;
 	std::map<std::string, std::string> mapNivel;
 	LOGGER_NIVEL nivelLog;
 	int anchoVentana, altoVentana;
 
-// definir si que hacer con la variable error
-	error = parser.devolver_Map_Personajes(&mapPersonajes);
-	error = parser.devolver_Map_Fondo(&mapFondoPantalla);
-	error = parser.devolver_Tam_Imagen(&anchoVentana, &altoVentana);
-	nivelLog = parser.devolver_Tipo_Log();
+
+	try {
+		std::vector<string> *nombresPersonajes = new std::vector<string>(3);
+		nombresPersonajes->push_back("captain america");
+		nombresPersonajes->push_back("venom");
+		nombresPersonajes->push_back("default");
+		Configuracion appConfig(argv[1], nombresPersonajes);
+
+		mapPersonajes = appConfig.get_Config_Personajes();
+		mapFondoPantalla = appConfig.get_Config_FondosPantalla();
+		altoVentana = appConfig.get_Config_AltoVentana();
+		anchoVentana = appConfig.get_Config_AnchoVentana();
+		nivelLog=appConfig.get_Config_NivelLog();
+
+	} catch (Exception &e) {
+		std::cout<<e.what();
+		return ERROR;
+	}
 
 	Logger::Inicio(nivelLog, LOGGER_SALIDA::CONSOLA);
 	Logger::Log(nivelLog, "INICIO", "Iniciando el programa...");
 	//Logger::Inicio(LOGGER_NIVEL::DEBUG, LOGGER_SALIDA::CONSOLA);
 	//Logger::Log(LOGGER_NIVEL::INFO, "INICIO","Iniciando el programa...");
 
-
-	/*
-	 mapPersonajes =  appConfig.get_Config_Personajes();
-	 mapFondoPantalla =  appConfig.get_Config_FondosPantalla();
-	 mapNivel =  appConfig.get_Config_Nivel();
-	 nivelLog = 	appConfig.get_Config_NivelLog();
-	 anchoVentana = 	appConfig.get_Config_AnchoVentana();
-	 altoVentana = 	appConfig.get_Config_AltoVentana();
-	 */
 	Model model;
 
 	model.cargar_Tam_Pantalla(anchoVentana, altoVentana);
