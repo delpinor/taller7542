@@ -12,6 +12,10 @@
 Logger *Logger::instancia = NULL;
 LOGGER_NIVEL Logger::nivelSeveridad = LOGGER_NIVEL::ERROR;
 LOGGER_SALIDA Logger::salidaPor = LOGGER_SALIDA::ARCHIVO;
+
+Logger::Logger(){
+
+}
 Logger::Logger(LOGGER_NIVEL nivel, LOGGER_SALIDA salida){
 	static plog::RollingFileAppender<plog::FormatoSalida> fileAppender(NOMBRE_ARCHIVO);
 	static plog::ConsoleAppender<plog::FormatoSalida> consoleAppender;
@@ -21,6 +25,10 @@ Logger::Logger(LOGGER_NIVEL nivel, LOGGER_SALIDA salida){
 		plog::init(GetSeveridad(nivel), &consoleAppender);
 	}
 
+}
+void Logger::Cambiar_nivelLog(LOGGER_NIVEL nivel){
+
+	plog::get()->setMaxSeverity(GetSeveridad(nivel));
 }
 void Logger::Inicio(LOGGER_NIVEL nivel, LOGGER_SALIDA salida) {
 	nivelSeveridad = nivel;
@@ -48,7 +56,10 @@ plog::Severity Logger::GetSeveridad(LOGGER_NIVEL nivel){
 	return plogSeveridad;
 }
 void Logger::Log(LOGGER_NIVEL nivel, std::string modulo, std::string mensaje){
+	plog::Severity severidad=GetSeveridad(nivel);
+	if (severidad<=plog::get()->getMaxSeverity()){
 		LOG(GetSeveridad(nivel))<<"[" << EntornoSistema::getUserName() << "]" << "[" + modulo + "]"<< "[" << mensaje << "]";
+	}
 }
 
 

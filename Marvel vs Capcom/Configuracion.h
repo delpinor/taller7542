@@ -49,7 +49,7 @@ private:
 	std::map<std::string, std::string>  mapNivel;
 	std::string nivelLog;
 	std::string anchoVentana, altoVentana;
-	void ValidarConfigs(ParserConfig *parserArchivoDefault, std::vector<string> *nombresPersonajes);
+	void ValidarConfigs(std::vector<string> *nombresPersonajes);
 
 public:
 	Configuracion(char* filepath, std::vector<string> *nombresPersonajes);

@@ -60,6 +60,6 @@
 	},
 	"log" : 
 	{
-		"nivel" : "DEBUG"
+		"nivel" : "INFO"
 	}
 }

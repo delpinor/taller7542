@@ -9,6 +9,34 @@
 
 Configuracion::Configuracion(char* filepath, std::vector<string> *nombresPersonajes) {
 
+int error;
+	ParserConfig parser;
+
+	if(filepath == NULL || filepath[0] == '\0'){
+		Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::No se ingreso un archivo " ,"");
+
+		error=parser.parsear_archivo(ruta_archivo_default);
+		Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se carga el archivo configuracion default " ,"");
+	}else{
+		error=parser.parsear_archivo(filepath);
+		if (error!=OK){
+			Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se carga el archivo configuracion default " ,"");
+			error=parser.parsear_archivo(ruta_archivo_default);
+		}else{
+			Logger::Log(LOGGER_NIVEL::INFO, "Configuracion::Se carga correctamente la configuracion del archivo" ,"");
+		}
+	}
+				parser.devolver_Map_Personajes(&mapPersonajes);
+					parser.devolver_Map_Fondo(&mapFondoPantalla);
+					parser.devolver_Tam_Imagen(&anchoVentana,&altoVentana);
+					parser.devolver_Map_Nivel(&mapNivel);
+					this->nivelLog = parser.devolver_Tipo_Log();
+					this->ValidarConfigs(nombresPersonajes);
+
+
+
+
+	/*
 
 	bool utilizarArchivoDefault = false;
 	ParserConfig parser;
@@ -45,6 +73,7 @@ Configuracion::Configuracion(char* filepath, std::vector<string> *nombresPersona
 	else{
 		this->ValidarConfigs(&parserArchivoDefault,nombresPersonajes);
 	}
+	*/
 }
 
 std::map< int, std::map<std::string, std::string> > Configuracion::get_Config_Personajes(){
@@ -62,13 +91,16 @@ std::map<std::string, std::string> Configuracion::get_Config_Nivel(){
 LOGGER_NIVEL Configuracion::get_Config_NivelLog(){
 
 	if (this->nivelLog=="DEBUG") {
+		Logger::Log(LOGGER_NIVEL::DEBUG, "Configuracion::Se establace el nivel de log en DEBUG" ,"");
 		return DEBUG;
 	}else if(this->nivelLog=="ERROR"){
+		Logger::Log(LOGGER_NIVEL::DEBUG, "Configuracion::Se establace el nivel de log en ERRO<R" ,"");
 		return ERROR;
 	}else if (this->nivelLog=="INFO"){
+		Logger::Log(LOGGER_NIVEL::DEBUG, "Configuracion::Se establace el nivel de log en INFO" ,"");
 		return INFO;}
 	else{
-	//const char* mensaje="ERROR: no se detecto el nivel de debug requerido, se setea en modo debug";
+		Logger::Log(LOGGER_NIVEL::DEBUG, "Configuracion::No se encuentra el nivel de debug, se establece el logger en nivel DEBUG" ,"");
 		return DEBUG;
 	};
 }
@@ -86,30 +118,33 @@ Configuracion::~Configuracion() {
 }
 
 //Private
-void Configuracion::ValidarConfigs(ParserConfig *parserArchivoDefault, vector<string> *nombresPersonajes){
+void Configuracion::ValidarConfigs(vector<string> *nombresPersonajes){
 
+	/*  Ya validado en la función que retorna
 	//Log
 	if(this->nivelLog == ""){
 		//TODO validar que el valor pertenezca a uno de los niveles que maneja el logger.
 		// TODO LOGUEAR QUE SE TOMA EL VALOR DEFAULT
 		this->nivelLog = nivel_log_default;
-	}
+	}*/
 
 	//Ventana
 	if(!StringHelper::esUnNumero(this->anchoVentana) || NumericHelper::parseStringToInt(this->anchoVentana) <= 0){
-		// TODO LOGUEAR QUE SE TOMA EL VALOR DEFAULT
+		Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se establace el ancho de ventana default: " ,anchoVentana);
 		this->anchoVentana = ancho_ventana_default;
 	}
 
 	if(!StringHelper::esUnNumero(this->altoVentana) || NumericHelper::parseStringToInt(this->altoVentana) <= 0){
-		// TODO LOGUEAR QUE SE TOMA EL VALOR DEFAULT
+		Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se establace el alto de ventana default: " ,altoVentana);
 		this->altoVentana = alto_ventana_default;
 	}
 
-	//Personajes
+	//Personajes  Revisar
 	if(this->mapPersonajes.size() == 0){
-		// TODO LOGUEAR QUE SE TOMA EL VALOR DEFAULTs
-		parserArchivoDefault->devolver_Map_Personajes(&mapPersonajes);
+		ParserConfig parser;
+		Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se carga los personnajes del archivo default " ,"");
+		parser.parsear_archivo(ruta_archivo_default);
+		parser.devolver_Map_Personajes(&mapPersonajes);
 	}
 	else{
 
@@ -118,22 +153,23 @@ void Configuracion::ValidarConfigs(ParserConfig *parserArchivoDefault, vector<st
 			bool personajeDefault = false;
 			if (!VectorHelper::contiene(nombresPersonajes, mapPersonajes[i]["nombre"])){
 				personajeDefault = true;
-				// TODO LOGUEAR QUE SE TOMA EL VALOR DEFAULT
+
 				mapPersonajes[i]["nombre"] = nombre_personaje_default;
+				Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se establace el nombre del personaje default: " ,nombre_personaje_default);
 			}
 
 			if(!StringHelper::esUnNumero(mapPersonajes[i]["alto"]) || NumericHelper::parseStringToInt(mapPersonajes[i]["alto"]) <= 0){
-				// TODO LOGUEAR QUE SE TOMA EL VALOR DEFAULT
+				Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se establace el alto del personaje default: " ,alto_personaje_default);
 				mapPersonajes[i]["alto"] = alto_personaje_default;
 			}
 
 			if(!StringHelper::esUnNumero(mapPersonajes[i]["ancho"]) || NumericHelper::parseStringToInt(mapPersonajes[i]["ancho"]) <= 0){
-				// TODO LOGUEAR QUE SE TOMA EL VALOR DEFAULT
+				Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se establace el ancho del personaje default: " ,ancho_personaje_default);
 				mapPersonajes[i]["ancho"] = ancho_personaje_default;
 			}
 
 			if(personajeDefault){
-				// TODO LOGUEAR PORQUESE TOMA EL VALOR DEFAULT
+				Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se establace la imagen default: " ,ruta_imagen_personaje_default);
 				mapPersonajes[i]["rutaArchivoImagen"] = ruta_imagen_personaje_default;
 			}
 			else{
@@ -146,7 +182,7 @@ void Configuracion::ValidarConfigs(ParserConfig *parserArchivoDefault, vector<st
 			}
 
 			if(!StringHelper::esUnNumero(mapPersonajes[i]["zIndex"])){
-				// TODO LOGUEAR QUE SE TOMA EL VALOR DEFAULT
+				Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se establace el zindex default: " ,zIndex_personaje_default);
 				mapPersonajes[i]["zIndex"] = zIndex_personaje_default;
 			}
 		}
@@ -158,26 +194,28 @@ void Configuracion::ValidarConfigs(ParserConfig *parserArchivoDefault, vector<st
 				mapPersonajes[i]["ancho"] = ancho_personaje_default;
 				mapPersonajes[i]["rutaArchivoImagen"] = ruta_imagen_personaje_default;
 				mapPersonajes[i]["zIndex"] = zIndex_personaje_default;
+				Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se carga un persoanje default: " ,nombre_personaje_default);
 			}
 		}
 	}
 
 	//Fondo Pantalla
 	if(this->mapFondoPantalla.size() == 0){
-		// TODO LOGUEAR QUE SE TOMA EL VALOR DEFAULTs
-		parserArchivoDefault->devolver_Map_Fondo(&mapFondoPantalla);
+		ParserConfig parser;
+		Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se carga lso fondos de pantalla default" ,"");
+		parser.devolver_Map_Fondo(&mapFondoPantalla);
 	}
 	else{
 		for (unsigned int i = 0; i < mapFondoPantalla.size(); i++){
 
 			if(!FileHelper::archivoEsValido(mapFondoPantalla[i]["rutaArchivoImagen"])
 				|| !FileHelper::archivoEsImagen(mapFondoPantalla[i]["rutaArchivoImagen"])){
-				// TODO LOGUEAR QUE SE TOMA EL VALOR DEFAULT
+				Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se carga el fondo de pantalla default" ,ruta_imagen_fondoPantalla_default);
 				mapFondoPantalla[i]["rutaArchivoImagen"] = ruta_imagen_fondoPantalla_default;
 			}
 
 			if(!StringHelper::esUnNumero(mapPersonajes[i]["zIndex"])){
-				// TODO LOGUEAR QUE SE TOMA EL VALOR DEFAULT
+				Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se carga el zindex de pantalla default" ,zIndex_fondoPantalla_default);
 				mapPersonajes[i]["zIndex"] = zIndex_fondoPantalla_default;
 			}
 		}
@@ -185,17 +223,18 @@ void Configuracion::ValidarConfigs(ParserConfig *parserArchivoDefault, vector<st
 
 	//Nivel
 	if(this->mapNivel.size() == 0){
-		// TODO LOGUEAR QUE SE TOMA EL VALOR DEFAULTs
-		parserArchivoDefault->devolver_Map_Nivel(&mapNivel);
+		ParserConfig parser;
+		Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::se cargan los nivel de mapas default" ,"");
+		parser.devolver_Map_Nivel(&mapNivel);
 	}
 	else{
 		if(!StringHelper::esUnNumero(mapNivel["alto"]) || NumericHelper::parseStringToInt(mapNivel["alto"]) <= 0){
-			// TODO LOGUEAR QUE SE TOMA EL VALOR DEFAULT
+			Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::se cargan el alto nivel de mapas default" ,alto_nivel_default);
 			mapNivel["alto"] = alto_nivel_default;
 		}
 
 		if(!StringHelper::esUnNumero(mapNivel["ancho"]) || NumericHelper::parseStringToInt(mapNivel["ancho"]) <= 0){
-			// TODO LOGUEAR QUE SE TOMA EL VALOR DEFAULT
+			Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::se cargan el ancho nivel de mapas default" ,ancho_nivel_default);
 			mapNivel["ancho"] = ancho_nivel_default;
 		}
 	}

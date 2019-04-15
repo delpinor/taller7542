@@ -22,16 +22,10 @@ Model::Model() {
 }
 
 void Model::set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int nroJugador){
-// this->equipos[0].agregar_Jugador(0,jugadores[0]);
-	//cout<<"se agrego el jugador: "<< jugadores[0].get_nombre()<<endl;
-	//this->equipos[1].agregar_Jugador(0,jugadores[1]);
-	//cout<<"se agrego el jugador: "<< jugadores[1].get_nombre()<<endl;
-	//no se que hace lo siguiente revisar
+
 	this->equipos[nroEquipo]->agregar_Jugador(nroJugadorEquipo, jugadoresEquipo1[nroJugador]);
 
 
-//	this->equipos[0]->setJugadorActivo(0);
-//	this->equipos[1]->setJugadorActivo(1);
 }
 
 void Model::cargar_Tam_Pantalla(int &ancho, int &alto) {
@@ -68,10 +62,10 @@ void Model::CargarFondos(std::map<int, std::map<std::string, std::string> > &map
 		zIndex = std::stoi(internal_map["zIndex"]);
 		ruta = internal_map["rutaArchivoImagen"];
 		fondos[zIndex] =	ruta;
-		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaFondos", "Ruta: " + ruta);
-		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaFondos", "ZIndex: " + std::to_string(zIndex));
+		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaFondos", "Ruta: " + ruta);
+		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaFondos", "ZIndex: " + std::to_string(zIndex));
 	}
-	Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaFondos", "Carga finalizada");
+	Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaFondos", "Carga finalizada");
 }
 void Model::cargar_Jugadores(
 		std::map<int, std::map<std::string, std::string> > &mapPersonajes) {
@@ -90,13 +84,13 @@ void Model::cargar_Jugadores(
 		path = internal_map["rutaArchivoImagen"];
 		Jugador jugador(ancho, alto, zindex, nombre, path);
 		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Nombre: " + nombre);
-		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Path: " + path);
-		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Alto: " + std::to_string(alto));
-		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Ancho: " + std::to_string(ancho));
+		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Path: " + path);
+		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Alto: " + std::to_string(alto));
+		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Ancho: " + std::to_string(ancho));
 	jugadoresEquipo1.insert(std::make_pair(i, new Jugador(ancho,alto,zindex,nombre,path)));
 	i++;
 	}
-	Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Carga Finalizada");
+	Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Carga Finalizada");
 }
 
 Model::~Model() {

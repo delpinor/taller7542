@@ -13,18 +13,22 @@ ParserConfig::ParserConfig() {
 
 
 }
-void ParserConfig::parsear_archivo(char* filepath){
+int ParserConfig::parsear_archivo(char* filepath){
 
 	 std::ifstream file;
-	 file.open (filepath);
+	 file.open(filepath);
 
 	 if (file){
 		 Json::Reader reader;
 		 reader.parse(file,this->configuracion);
 		 file.close();
-	 } else {
-		 throw Exception("El Archivo no existe o no pudo ser abierto correctamente.","","");
+		 return OK;
+	 }else{
+		 return ERROR_ARCHIVO;
 	 }
+	// } else {
+		// throw Exception("El Archivo no existe o no pudo ser abierto correctamente.","","");
+	// }
 }
 Json::Value* ParserConfig::getConfiguracion(){
 

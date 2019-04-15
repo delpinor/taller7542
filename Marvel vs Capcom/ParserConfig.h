@@ -17,6 +17,7 @@
 #include "Exception.h"
 using namespace std;
 #define OK 0
+#define ERROR_ARCHIVO -2
 #define ERRORMSG -1
 #define archivo_default "default.json"
 class ParserConfig {
@@ -32,7 +33,7 @@ public:
 	/* constructor que toma como parametro el filepath del archivo configuracion*/
 
 	ParserConfig();
-	void parsear_archivo(char* filepath);
+	int parsear_archivo(char* filepath);
 	Json::Value* getConfiguracion();
 	void devolver_Map_Personajes(std::map<int, std::map<std::string, std::string> > *mapPersonajes);
 	void devolver_Map_Fondo(std::map<int, std::map<std::string, std::string> > *mapBackground);

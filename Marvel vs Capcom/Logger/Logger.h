@@ -11,17 +11,20 @@
 #include "EntornoSistema.h"
 enum LOGGER_SALIDA{CONSOLA = 1, ARCHIVO = 2};
 
-enum LOGGER_NIVEL{DEBUG = 5 , INFO = 4, ERROR = 65};
+enum LOGGER_NIVEL{DEBUG = 5 , INFO = 4, ERROR = 2};
 class Logger{
 private:
 	// Default ERROR
 	static LOGGER_NIVEL nivelSeveridad;
 	static LOGGER_SALIDA salidaPor;
 	static Logger * instancia;
-	Logger(LOGGER_NIVEL nivel, LOGGER_SALIDA salida);
+
 	static plog::Severity GetSeveridad(LOGGER_NIVEL);
 public:
+	Logger();
+	Logger(LOGGER_NIVEL nivel, LOGGER_SALIDA salida);
 	static void Inicio(LOGGER_NIVEL nivel, LOGGER_SALIDA salida);
+	static void Cambiar_nivelLog(LOGGER_NIVEL nivel);
 	static void Log(LOGGER_NIVEL NIVEL, std::string modulo , std::string mensaje);
 	~Logger();
 

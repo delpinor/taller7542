@@ -10,15 +10,23 @@ int main(int argc, char* argv[]) {
 	std::map< int, std::map<std::string, std::string> > mapPersonajes;
 	std::map<int, std::map<std::string, std::string> > mapFondoPantalla;
 	std::map<std::string, std::string> mapNivel;
-	LOGGER_NIVEL nivelLog;
+	LOGGER_NIVEL nivelLog=DEBUG;
+	LOGGER_SALIDA salida=CONSOLA;
+	//Logger Log;
+
+	//Logger log(nivelLog, salida);
+	//log.Inicio(nivelLog, CONSOLA);
+	//log.Log(nivelLog, "INICIO", "Iniciando el programa...");
 	int anchoVentana, altoVentana;
+	/*Se inicia el logger en modeo debug*/
+	Logger::Inicio(nivelLog, LOGGER_SALIDA::CONSOLA);
+	Logger::Log(nivelLog, "INICIO", "Iniciando el programa...");
 
-
-	try {
 		std::vector<string> *nombresPersonajes = new std::vector<string>(3);
 		nombresPersonajes->push_back("captain america");
 		nombresPersonajes->push_back("venom");
 		nombresPersonajes->push_back("default");
+
 		Configuracion appConfig(argv[1], nombresPersonajes);
 
 		mapPersonajes = appConfig.get_Config_Personajes();
@@ -27,13 +35,10 @@ int main(int argc, char* argv[]) {
 		anchoVentana = appConfig.get_Config_AnchoVentana();
 		nivelLog=appConfig.get_Config_NivelLog();
 
-	} catch (Exception &e) {
-		std::cout<<e.what();
-		return ERROR;
-	}
+Logger::Cambiar_nivelLog(nivelLog);
+		//log.Cambiar_nivelLog(nivelLog);
+	//Logger::Inicio(nivelLog, LOGGER_SALIDA::CONSOLA);
 
-	Logger::Inicio(nivelLog, LOGGER_SALIDA::CONSOLA);
-	Logger::Log(nivelLog, "INICIO", "Iniciando el programa...");
 	//Logger::Inicio(LOGGER_NIVEL::DEBUG, LOGGER_SALIDA::CONSOLA);
 	//Logger::Log(LOGGER_NIVEL::INFO, "INICIO","Iniciando el programa...");
 
