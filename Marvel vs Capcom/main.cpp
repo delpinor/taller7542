@@ -5,18 +5,18 @@
 #include "Configuracion.h"
 #include "Logger/Logger.h"
 
+/* nombre_ejecutable  nombre_archivo_configuracion niveldeDebug*/
 int main(int argc, char* argv[]) {
+
+	LOGGER_NIVEL nivelLog=DEBUG;
+
 
 	std::map< int, std::map<std::string, std::string> > mapPersonajes;
 	std::map<int, std::map<std::string, std::string> > mapFondoPantalla;
 	std::map<std::string, std::string> mapNivel;
-	LOGGER_NIVEL nivelLog=DEBUG;
-	LOGGER_SALIDA salida=CONSOLA;
-	//Logger Log;
 
-	//Logger log(nivelLog, salida);
-	//log.Inicio(nivelLog, CONSOLA);
-	//log.Log(nivelLog, "INICIO", "Iniciando el programa...");
+	LOGGER_SALIDA salida=CONSOLA;
+
 	int anchoVentana, altoVentana;
 	/*Se inicia el logger en modeo debug*/
 	Logger::Inicio(nivelLog, LOGGER_SALIDA::CONSOLA);
@@ -35,12 +35,24 @@ int main(int argc, char* argv[]) {
 		anchoVentana = appConfig.get_Config_AnchoVentana();
 		nivelLog=appConfig.get_Config_NivelLog();
 
-Logger::Cambiar_nivelLog(nivelLog);
-		//log.Cambiar_nivelLog(nivelLog);
-	//Logger::Inicio(nivelLog, LOGGER_SALIDA::CONSOLA);
+		/*  Verifico si se ingreso como segundo parametro el nivel de debug*/
+		if (argc>2){
+				std::string nivel(argv[2]);
+				if (nivel=="DEBUG") {
+					nivelLog=DEBUG;
+				}else if(nivel=="ERROR"){
+						nivelLog=ERROR;
 
-	//Logger::Inicio(LOGGER_NIVEL::DEBUG, LOGGER_SALIDA::CONSOLA);
-	//Logger::Log(LOGGER_NIVEL::INFO, "INICIO","Iniciando el programa...");
+				}else if (nivel=="INFO"){
+						nivelLog=INFO;
+				}
+				Logger::Log(INFO, "INICIO:: se cambia al nivel de log ingresado por linea de comandos", argv[2]);
+			}
+
+
+		Logger::Cambiar_nivelLog(nivelLog);
+
+
 
 	Model model;
 

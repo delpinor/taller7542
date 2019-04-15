@@ -27,8 +27,10 @@ Logger::Logger(LOGGER_NIVEL nivel, LOGGER_SALIDA salida){
 
 }
 void Logger::Cambiar_nivelLog(LOGGER_NIVEL nivel){
-
+	//printf("El nivel de severidad de logger era es %d \n",plog::get()->getMaxSeverity());
 	plog::get()->setMaxSeverity(GetSeveridad(nivel));
+	//printf("El nivel de severidad de logger nuevo es %d \n",plog::get()->getMaxSeverity());
+
 }
 void Logger::Inicio(LOGGER_NIVEL nivel, LOGGER_SALIDA salida) {
 	nivelSeveridad = nivel;
@@ -57,7 +59,10 @@ plog::Severity Logger::GetSeveridad(LOGGER_NIVEL nivel){
 }
 void Logger::Log(LOGGER_NIVEL nivel, std::string modulo, std::string mensaje){
 	plog::Severity severidad=GetSeveridad(nivel);
+	//printf("El nivel de severidad del mensajes es %d \n",severidad);
+	//printf("El nivel de severidad del logger es %d \n",plog::get()->getMaxSeverity());
 	if (severidad<=plog::get()->getMaxSeverity()){
+
 		LOG(GetSeveridad(nivel))<<"[" << EntornoSistema::getUserName() << "]" << "[" + modulo + "]"<< "[" << mensaje << "]";
 	}
 }
