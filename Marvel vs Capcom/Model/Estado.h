@@ -32,6 +32,10 @@ public:
 	void setVelocidadX(int velx);
 	void setVelocidadY(int vely);
 	void setAceleracion(int ac);
+	void aumentarVelocidadX(int vel);
+	bool isCambiandoJugador();
+	void setCambiandoPersonaje(bool cambiandoPersonaje);
+	virtual bool isFueraDePantalla();
 
 protected:
 	int mPosX, mPosY;
@@ -39,6 +43,7 @@ protected:
 	int mVelX, mVelY;
 	int aceleracion;
 	bool acelero;
+	bool cambiandoPersonaje;
 
 private:
 };

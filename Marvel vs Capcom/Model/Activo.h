@@ -8,7 +8,7 @@ public:
 	virtual ~Activo();
 	void move();
 	bool estaActivo();
-
+	bool isFueraDePantalla();
 protected:
 
 private:

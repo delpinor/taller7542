@@ -20,3 +20,7 @@ bool Inactivo::estaActivo() {
 void Inactivo::acelerar() {
 	return;
 }
+
+bool Inactivo::isFueraDePantalla(){
+	return false;
+}

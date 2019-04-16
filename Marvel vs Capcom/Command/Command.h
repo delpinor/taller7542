@@ -6,7 +6,8 @@
 #define INCVELY 0x03
 #define AGACHAR 0x04
 #define SALTAR  0x05
-#define CANTCOMMANDS 6
+#define CAMBIAR_PERSONAJE  0x06
+#define CANTCOMMANDS 7
 class Command {
 public:
 	Command();

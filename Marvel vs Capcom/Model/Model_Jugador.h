@@ -65,8 +65,8 @@ public:
 	int Personaje();
 	void setPersonaje(int);
 	std::string getPathImagen();
-
-
+	void aumentarVelocidadX(int vel);
+	bool isFueraDePantalla();
 
 };
 #endif

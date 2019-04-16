@@ -61,10 +61,13 @@ void Estado::setVelocidadY(int vely) {
 void Estado::copiarEstado(Estado* estado) {
 	this->posInitX = estado->posInitX;
 	this->posInitY = estado->posInitY;
-	this->mPosX = estado->mPosX;
-	this->mPosY = estado->mPosY;
+//	this->mPosX = estado->mPosX;
+//	this->mPosY = estado->mPosY;
+	this->mPosX = estado->posInitX;
+	this->mPosY = estado->posInitY;
 	this->mVelX = estado->mVelX;
 	this->mVelY = estado->mVelY;
+	this->cambiandoPersonaje = estado->cambiandoPersonaje;
 }
 void Estado::disminuirVelocidadX() {
 	this->mVelX -= VELOCIDAD_JUGADOR;
@@ -86,6 +89,10 @@ void Estado::aumentarVelocidadX() {
 	if (this->mVelX > VELOCIDAD_JUGADOR) {
 		this->mVelX = VELOCIDAD_JUGADOR;
 	}
+}
+
+void Estado::aumentarVelocidadX(int vel) {
+	this->mVelX += vel;
 }
 void Estado::aumentarVelocidadY() {
 	if (this->mVelY != 0)
@@ -116,3 +123,13 @@ int Estado::getAceleracion() {
 bool Estado::getAcelero() {
 	return this->acelero;
 }
+
+bool Estado::isCambiandoJugador(){
+	return cambiandoPersonaje;
+}
+
+void Estado::setCambiandoPersonaje(bool cambiandoPersonaje) {
+	this->cambiandoPersonaje = cambiandoPersonaje;
+}
+
+bool Estado::isFueraDePantalla(){}

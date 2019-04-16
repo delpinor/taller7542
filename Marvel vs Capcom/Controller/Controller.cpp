@@ -6,6 +6,7 @@
 #include "../Command/CommandCtrl/DisminuirVelocidadX.h"
 #include "../Command/CommandCtrl/AumentarVelocidadX.h"
 #include "../Command/CommandCtrl/Saltar.h"
+#include "../Command/CommandCtrl/CambiarPersonaje.h"
 
 Controller::Controller(Model* model) {
 	this->model = model;
@@ -16,6 +17,7 @@ Controller::Controller(Model* model) {
 	this->commands[INCVELY] = new AumentarVelocidadY(model);
 	this->commands[AGACHAR] = new Agachar(model);
 	this->commands[SALTAR] = new Saltar(model);
+	this->commands[CAMBIAR_PERSONAJE] = new CambiarPersonaje(model);
 	this->quit = false;
 }
 Controller::~Controller() {
@@ -61,6 +63,11 @@ Command* Controller::handleEvent(SDL_Event& e) {
 			command = this->commands[INCVELX];
 			this->model->equipos[0]->agregarCambio(command);
 			break;
+		case SDLK_RCTRL:
+			command = this->commands[CAMBIAR_PERSONAJE];
+			this->model->equipos[0]->agregarCambio(command);
+			//this->model->equipos[0]->cambiarJugador();
+			break;
 		}
 	}
 	//If a key was released
@@ -98,6 +105,10 @@ Command* Controller::handleEvent(SDL_Event& e) {
 				break;
 			case SDLK_d:
 				command = this->commands[INCVELX];
+				this->model->equipos[1]->agregarCambio(command);
+				break;
+			case SDLK_LCTRL:
+				command = this->commands[CAMBIAR_PERSONAJE];
 				this->model->equipos[1]->agregarCambio(command);
 				break;
 			}
