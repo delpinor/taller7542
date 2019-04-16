@@ -11,13 +11,13 @@
 #define ALTO_JUGADOR 146
 //#define ANCHO_VENTANA 800
 //#define ALTO_VENTANA 600
-#define ANCHO_NIVEL 1000
-#define ALTO_NIVEL 626
+#define ANCHO_NIVEL 1920
+#define ALTO_NIVEL 1080
 
 class View {
 public:
 	View(Model* model);
-
+	void SetPosicionInicialJugadores();
 	void ajustarCamara();
 	void render();
 	bool inicializar(Model *model);

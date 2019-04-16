@@ -54,6 +54,7 @@ int main(int argc, char* argv[]) {
 
 
 
+
 	Model model;
 
 	model.cargar_Tam_Pantalla(anchoVentana, altoVentana);

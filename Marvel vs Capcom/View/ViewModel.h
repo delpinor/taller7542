@@ -20,6 +20,7 @@ private:
 	View_Pantalla viewPantalla;
 	SDL_Rect* camara;
 	SDL_Renderer* gRenderer;
+	Model * model;
 
 };
 
