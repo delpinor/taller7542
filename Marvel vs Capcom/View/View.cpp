@@ -27,12 +27,6 @@ View::View(Model* model) {
 		}
 
 }
-void View::SetPosicionInicialJugadores(){
-		model->getEquipoNro(1)->getJugadorActivo()->setPosX(camara->x-ancho_Pantalla/2);
-		model->getEquipoNro(1)->getJugadorActivo()->setPosY(camara->y);
-		model->getEquipoNro(0)->getJugadorActivo()->setPosX(camara->x+ancho_Pantalla);
-		model->getEquipoNro(0)->getJugadorActivo()->setPosY(camara->y);
-}
 
 View::~View() {
 	delete this->viewModel;
@@ -41,7 +35,7 @@ View::~View() {
 
 void View::ajustarCamara() {
 
-
+	// Este codigo se puede mejorar.
 	int posXJugador1= model->getEquipoNro(0)->getJugadorActivo()->getPosX();
 	int posYJugador1 = model->getEquipoNro(0)->getJugadorActivo()->getPosY();
 	int posXJugador2 = model->getEquipoNro(1)->getJugadorActivo()->getPosX();
@@ -52,19 +46,22 @@ void View::ajustarCamara() {
 
 	int altoJugador2 = model->getEquipoNro(1)->getJugadorActivo()->get_alto();
 	int anchoJugador2 = model->getEquipoNro(1)->getJugadorActivo()->get_ancho();
-
+	// Limite jugador borde izquiedo
 	if(posXJugador1 < camara->x){
 	model->getEquipoNro(0)->getJugadorActivo()->setPosX(camara->x);
 
 	}
+	// Limite jugador borde derecho
 	if(posXJugador1> camara ->x + ancho_Pantalla - anchoJugador1){
 	model->getEquipoNro(0)->getJugadorActivo()->setPosX(camara->x + ancho_Pantalla - anchoJugador1);
 
 	}
+	// Limite jugador borde izquiedo
 	if(posXJugador2 < camara->x){
 		model->getEquipoNro(1)->getJugadorActivo()->setPosX(camara->x);
 
 	}
+	// Limite jugador borde derecho
 	if(posXJugador2> camara ->x + ancho_Pantalla - anchoJugador2){
 		model->getEquipoNro(1)->getJugadorActivo()->setPosX(camara->x + ancho_Pantalla - anchoJugador2);
 
