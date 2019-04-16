@@ -51,6 +51,8 @@ int main(int argc, char* argv[]) {
 
 
 		Logger::Cambiar_nivelLog(nivelLog);
+		Logger::Cambiar_nivelLog(LOGGER_NIVEL::DEBUG);
+
 
 
 

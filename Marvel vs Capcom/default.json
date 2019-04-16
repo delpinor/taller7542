@@ -1,8 +1,8 @@
 {
 	"ventana" : 
 	{
-		"alto" :"600",
-		"ancho" :"800"
+		"alto" :"768",
+		"ancho" :"1024"
 	},
 	"personajes" :
  	[
@@ -29,8 +29,8 @@
 		},
 		{
 			"nombre" :"default",
-			"alto" :"45",
-			"ancho" :"20",
+			"alto" :"100",
+			"ancho" :"90",
 			"rutaArchivoImagen" : "Images/default.png",
 			"zIndex" : "99"
 		}
