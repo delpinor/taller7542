@@ -18,7 +18,7 @@ View::View(Model* model) {
 			this->model = model;
 
 			int CAMARAPOSICIONINICIALX =ANCHO_NIVEL/2-ancho_Pantalla/2;
-			int CAMARAPOSICIONINICIALY =ALTO_NIVEL/2-alto_Pantalla/2;
+			int CAMARAPOSICIONINICIALY =ALTO_NIVEL;
 
 			this->camaraStatic = {CAMARAPOSICIONINICIALX,CAMARAPOSICIONINICIALY, ancho_Pantalla, alto_Pantalla};
 			this->camara = &(this->camaraStatic);
@@ -44,8 +44,9 @@ void View::ajustarCamara() {
 	int altoJugador1 = model->getEquipoNro(0)->getJugadorActivo()->get_alto();
 	int anchoJugador1 = model->getEquipoNro(0)->getJugadorActivo()->get_ancho();
 
-	int altoJugador2 = model->getEquipoNro(1)->getJugadorActivo()->get_alto();
+	//int altoJugador2 = model->getEquipoNro(1)->getJugadorActivo()->get_alto();
 	int anchoJugador2 = model->getEquipoNro(1)->getJugadorActivo()->get_ancho();
+
 	// Limite jugador borde izquiedo
 	if(posXJugador1 < camara->x){
 	model->getEquipoNro(0)->getJugadorActivo()->setPosX(camara->x);
@@ -179,9 +180,14 @@ bool View::inicializar(Model *model) {
 
 //Mejoara, la asignacion de imagenes sigue harcodeada
 void View::loadMedia(Model *model) {
+	int altoJugador0 = 	model->getEquipoNro(0)->getJugadorActivo()->get_alto();
+	int acnhoJugador0 = 	model->getEquipoNro(0)->getJugadorActivo()->get_ancho();
+
+	int altoJugador1 = 	model->getEquipoNro(1)->getJugadorActivo()->get_alto();
+	int anchoJugador1 = 	model->getEquipoNro(1)->getJugadorActivo()->get_ancho();
+
 	string path = model->get_pathImagenJugador(0, 0);
 	texturasEquipo1[0].loadFromFile(path, gRenderer);
-
 	path = model->get_pathImagenJugador(0, 1);
 	texturasEquipo1[1].loadFromFile(path, gRenderer);
 	path = model->get_pathImagenJugador(1, 0);

@@ -19,6 +19,7 @@ void View_Jugador_CapAmerica::getSpritesCaminar() {
 	gSpriteCaminar[0].w = 90;
 	gSpriteCaminar[0].h = 130;
 
+
 	gSpriteCaminar[1].x = 100;
 	gSpriteCaminar[1].y = 150;
 	gSpriteCaminar[1].w = 90;
@@ -141,9 +142,7 @@ void View_Jugador_CapAmerica::render(int camX, int camY, SDL_Renderer * gRendere
 		//	if (frame / MAXFRAMECAMINA >= MAXFRAMECAMINA) {
 		//		frame = MINFRAMECAMINA;
 		//	}
-			this->texturaJugador->render(this->model->getPosX() - camX,
-					this->model->getPosY() - camY, currentClip, 0, NULL,
-				this->model->getDireccion(), gRenderer);
+			this->texturaJugador->render(this->model->getPosX() - camX,	this->model->getPosY() - camY,currentClip, 0, NULL,this->model->getDireccion(), gRenderer);
 		}
 }
 

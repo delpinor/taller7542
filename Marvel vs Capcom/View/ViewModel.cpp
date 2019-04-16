@@ -3,6 +3,7 @@
 
 ViewModel::ViewModel(Model* model, SDL_Renderer* gRenderer, SDL_Rect* camara, LTexture texturasEquipo1[2], LTexture texturasEquipo2[2]) {
 	//this->viewPantalla.initialize(gRenderer, texturaPantalla);
+	this->model = model;
 	this->viewEquipo[0] = new ViewEquipo(model->equipos[0]);
 	this->viewEquipo[1] = new ViewEquipo(model->equipos[1]);
 	this->camara = camara;
@@ -21,8 +22,7 @@ void ViewModel::render() {
 	//this->viewPantalla.render(this->camara, this->gRenderer);
 
 	for (int i = 0; i < 2; ++i) {
-		this->viewEquipo[i]->render(this->camara->x, this->camara->y,
-				this->gRenderer);
+		this->viewEquipo[i]->render(this->camara->x, this->camara->y+model->alto_Pantalla*0.01, this->gRenderer);
 	}
 }
 

@@ -40,6 +40,9 @@ bool LTexture::loadFromFile(std::string path, SDL_Renderer *gRenderer) {
 			mHeight = loadedSurface->h;
 
 
+			mWidth = 200;
+			mHeight = 200;
+
 
 
 		}
@@ -127,8 +130,7 @@ void LTexture::render(int x, int y, SDL_Rect* clip, double angle,
 	}
 
 	//Render to screen
-	SDL_RenderCopyEx(gRenderer, mTexture, clip, &renderQuad, angle, center,
-			flip);
+	SDL_RenderCopyEx(gRenderer, mTexture, clip, &renderQuad, angle, center,	flip);
 }
 
 int LTexture::getWidth() {
