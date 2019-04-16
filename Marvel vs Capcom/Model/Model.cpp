@@ -50,6 +50,14 @@ std::string Model::get_pathImagenJugador(int equipo, int indice_jugador){
 
 	return this->equipos[equipo]->jugadores[indice_jugador]->getPathImagen();
 }
+int Model::GetAltoJugador(int equipo, int indice_jugador){
+
+	return this->equipos[equipo]->jugadores[indice_jugador]->get_alto();
+}
+int Model::GetAnchoJugador(int equipo, int indice_jugador){
+
+	return this->equipos[equipo]->jugadores[indice_jugador]->get_ancho();
+}
 std::string Model::GetPathFondoParallax(int zIndex) {
 	return fondos[zIndex];
 }

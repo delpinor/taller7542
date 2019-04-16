@@ -180,20 +180,15 @@ bool View::inicializar(Model *model) {
 
 //Mejoara, la asignacion de imagenes sigue harcodeada
 void View::loadMedia(Model *model) {
-	int altoJugador0 = 	model->getEquipoNro(0)->getJugadorActivo()->get_alto();
-	int acnhoJugador0 = 	model->getEquipoNro(0)->getJugadorActivo()->get_ancho();
-
-	int altoJugador1 = 	model->getEquipoNro(1)->getJugadorActivo()->get_alto();
-	int anchoJugador1 = 	model->getEquipoNro(1)->getJugadorActivo()->get_ancho();
 
 	string path = model->get_pathImagenJugador(0, 0);
-	texturasEquipo1[0].loadFromFile(path, gRenderer);
+	texturasEquipo1[0].loadFromFile(path, gRenderer, model->GetAnchoJugador(0, 0), model->GetAltoJugador(0, 0));
 	path = model->get_pathImagenJugador(0, 1);
-	texturasEquipo1[1].loadFromFile(path, gRenderer);
+	texturasEquipo1[1].loadFromFile(path, gRenderer, model->GetAnchoJugador(0, 1), model->GetAltoJugador(0, 1));
 	path = model->get_pathImagenJugador(1, 0);
-	texturasEquipo2[0].loadFromFile(path, gRenderer);
+	texturasEquipo2[0].loadFromFile(path, gRenderer, model->GetAnchoJugador(1, 0), model->GetAltoJugador(1, 0));
 	path = model->get_pathImagenJugador(1, 1);
-	texturasEquipo2[1].loadFromFile(path, gRenderer);
+	texturasEquipo2[1].loadFromFile(path, gRenderer, model->GetAnchoJugador(1, 1), model->GetAltoJugador(1, 1));
 	//texturas[0].loadFromFile("Images/Captain America.gif", gRenderer);
 	//texturas[1].loadFromFile("Images/Venom.png", gRenderer);
 //	texturas[0].loadFromFile(model->get_pathImagenJugador(0), gRenderer);

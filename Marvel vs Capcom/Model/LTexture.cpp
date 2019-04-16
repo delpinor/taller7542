@@ -12,7 +12,10 @@ LTexture::~LTexture() {
 	free();
 }
 
-bool LTexture::loadFromFile(std::string path, SDL_Renderer *gRenderer) {
+bool LTexture::loadFromFile(std::string path, SDL_Renderer *gRenderer, int anchoJugador, int altoJugador) {
+
+	this->altoJugador = altoJugador;
+	this->anchoJugador = anchoJugador;
 	//Get rid of preexisting texture
 	free();
 
@@ -38,12 +41,6 @@ bool LTexture::loadFromFile(std::string path, SDL_Renderer *gRenderer) {
 			//Get image dimensions
 			mWidth = loadedSurface->w;
 			mHeight = loadedSurface->h;
-
-
-			mWidth = 200;
-			mHeight = 200;
-
-
 
 		}
 
@@ -125,8 +122,8 @@ void LTexture::render(int x, int y, SDL_Rect* clip, double angle,
 
 	//Set clip rendering dimensions
 	if (clip != NULL) {
-		renderQuad.w = clip->w;
-		renderQuad.h = clip->h;
+		renderQuad.w = anchoJugador;
+		renderQuad.h = altoJugador;
 	}
 
 	//Render to screen

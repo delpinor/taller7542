@@ -22,7 +22,7 @@ void ViewModel::render() {
 	//this->viewPantalla.render(this->camara, this->gRenderer);
 
 	for (int i = 0; i < 2; ++i) {
-		this->viewEquipo[i]->render(this->camara->x, this->camara->y+model->alto_Pantalla*0.01, this->gRenderer);
+		this->viewEquipo[i]->render(this->camara->x, this->camara->y+model->alto_Pantalla*0.2, this->gRenderer);
 	}
 }
 
