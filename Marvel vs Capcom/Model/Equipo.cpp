@@ -7,6 +7,8 @@
 
 #include "Equipo.h"
 
+using namespace std;
+
 Equipo::Equipo() {
 	//this->jugadores = new Jugador[2];
 	//this->jugadores[0].setPersonaje(0); //testing
@@ -63,6 +65,13 @@ Jugador* Equipo::getJugadorInactivo() {
 	}
 }
 
+int Equipo::getNumeroJugadorInactivo() {
+	for (int i = 0; i < 2; ++i) {
+		if (i != this->nroJugadorActivo)
+			return i;
+	}
+}
+
 void Equipo::setJugadorActivo(int i) {
 	this->nroJugadorActivo = i;
 	this->getJugadorActivo()->activar();
@@ -70,8 +79,10 @@ void Equipo::setJugadorActivo(int i) {
 }
 
 void Equipo::agregarCambio(Command* cambio) {
-	if (cambio != NULL)
+	if (!this->cambiandoJugador & cambio != NULL)
 		this->cambios.push(cambio);
+	else
+		cout << "cambiando jugador" << endl;
 }
 
 void Equipo::update(int i) {
@@ -86,11 +97,28 @@ void Equipo::move(){
 	for (int i = 0; i < 2; ++i) {
 		this->jugadores[i]->move();
 	}
+	if (this->getJugadorActivo()->isFueraDePantalla())
+		this->cambiarPersonaje();
+}
+
+void Equipo::cambiarPersonaje(){
+	int jugadorInactivo = this->getNumeroJugadorInactivo();
+	this->setJugadorActivo(jugadorInactivo);
+	setCambiandoPersonaje(false);
+	this->getJugadorActivo()->estado->setPosY(10);
+}
+
+void Equipo::setCambiandoPersonaje(){
+	this->setCambiandoPersonaje(true);
 }
 
 
 void Equipo::jugadorActivoAumentaVelocidadEnX() {
 	this->jugadores[this->nroJugadorActivo]->aumentarVelocidadX();
+}
+
+void Equipo::jugadorActivoAumentaVelocidadEnX(int vel) {
+	this->jugadores[this->nroJugadorActivo]->aumentarVelocidadX(vel);
 }
 
 void Equipo::jugadorActivoAumentaVelocidadEnY() {
@@ -115,4 +143,13 @@ void Equipo::jugadorActivoSeAgacha() {
 
 int Equipo::getCantidadJugadores() {
 	return 2;
+}
+
+bool Equipo::isCambiandoPersonaje(){
+	return cambiandoJugador;
+}
+
+void Equipo::setCambiandoPersonaje(bool cambiandoJugador) {
+	this->cambiandoJugador = cambiandoJugador;
+	this->getJugadorActivo()->estado->setCambiandoPersonaje(cambiandoJugador);
 }

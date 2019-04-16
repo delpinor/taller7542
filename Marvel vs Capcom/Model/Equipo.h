@@ -23,6 +23,7 @@ public:
 
 	Jugador* jugadores[2];
 	 int nroJugadorActivo;
+	 bool cambiandoJugador = false;
 	std::queue<Command*> cambios;
 
 public:
@@ -38,6 +39,7 @@ public:
 	virtual Jugador* getJugadorNro(int i);
 	virtual Jugador* getJugadorActivo();
 	virtual Jugador* getJugadorInactivo();
+	virtual int getNumeroJugadorInactivo();
 	virtual void setJugadorActivo(int i);
 
 
@@ -46,12 +48,18 @@ public:
 	virtual void jugadorActivoAumentaVelocidadEnY();
 	virtual void jugadorActivoSalta();
 	virtual void jugadorActivoDisminuyeVelocidadEnX();
+	virtual void jugadorActivoAumentaVelocidadEnX(int vel);
 	virtual void jugadorActivoDisminuyeVelocidadEnY();
 	virtual void jugadorActivoSeAgacha();
 	virtual int getCantidadJugadores();
 	virtual void update(int i);
 	virtual void move();
+	virtual void setCambiandoPersonaje();
+	virtual void cambiarPersonaje();
 
+	bool isCambiandoPersonaje();
+
+	void setCambiandoPersonaje(bool cambiandoJugador);
 };
 
 #endif /* MODEL_EQUIPO_H_ */

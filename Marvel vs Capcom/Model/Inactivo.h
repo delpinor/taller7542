@@ -8,6 +8,7 @@ public:
 	void move();
 	bool estaActivo();
 	void acelerar();
+	bool isFueraDePantalla();
 protected:
 private:
 };

@@ -95,6 +95,10 @@ void Jugador::aumentarVelocidadX() {
 	this->estado->aumentarVelocidadX();
 }
 
+void Jugador::aumentarVelocidadX(int vel) {
+	this->estado->aumentarVelocidadX(vel);
+}
+
 void Jugador::aumentarVelocidadY() {
 	this->estado->aumentarVelocidadY();
 }
@@ -190,5 +194,9 @@ int Jugador::Personaje() {
 }
 void Jugador::setPersonaje(int p) {
 	this->personaje = p;
+}
+
+bool Jugador::isFueraDePantalla(){
+	return this->estado->isFueraDePantalla();
 }
 
