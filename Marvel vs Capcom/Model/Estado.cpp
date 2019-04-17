@@ -84,6 +84,9 @@ void Estado::disminuirVelocidadY() {
 void Estado::Agachar() {
 
 }
+void Estado::Parar() {
+
+}
 void Estado::aumentarVelocidadX() {
 	this->mVelX += VELOCIDAD_JUGADOR;
 	if (this->mVelX > VELOCIDAD_JUGADOR) {

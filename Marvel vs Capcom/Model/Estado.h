@@ -20,6 +20,7 @@ public:
 	void disminuirVelocidadX();
 	void disminuirVelocidadY();
 	void Agachar();
+	void Parar();
 	void aumentarVelocidadX();
 	void aumentarVelocidadY();
 	void Saltar();

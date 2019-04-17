@@ -140,6 +140,9 @@ void Equipo::jugadorActivoDisminuyeVelocidadEnY() {
 void Equipo::jugadorActivoSeAgacha() {
 	this->jugadores[this->nroJugadorActivo]->Agachar();
 }
+void Equipo::jugadorActivoSePara() {
+	this->jugadores[this->nroJugadorActivo]->Parar();
+}
 
 int Equipo::getCantidadJugadores() {
 	return 2;

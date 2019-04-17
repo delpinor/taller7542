@@ -89,6 +89,10 @@ void Jugador::disminuirVelocidadY() {
 void Jugador::Agachar() {
 	this->estado->Agachar();
 }
+void Jugador::Parar() {
+	this->estado->Parar();
+}
+
 
 void Jugador::aumentarVelocidadX() {
 	this->estado->aumentarVelocidadX();

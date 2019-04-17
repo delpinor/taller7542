@@ -7,7 +7,9 @@
 #define AGACHAR 0x04
 #define SALTAR  0x05
 #define CAMBIAR_PERSONAJE  0x06
-#define CANTCOMMANDS 7
+#define PARAR  0x07
+#define CANTCOMMANDS 8
+
 class Command {
 public:
 	Command();

@@ -49,6 +49,7 @@ public:
 	void disminuirVelocidadY();
 	void disminuirVelocidadX();
 	void Agachar();
+	void Parar();
 	void aumentarVelocidadX();
 	void aumentarVelocidadY();
 	void Saltar();
