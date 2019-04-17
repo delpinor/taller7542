@@ -38,9 +38,9 @@ void FondoParallax::refrescarPosicion(SDL_Rect * cam) {
 // Mover fondo a derecha * multiplicador de velocidad
 void FondoParallax::moverDerecha(int velocidad) {
 	if ((rectZ1_Desde.x + rectZ1_Desde.w) < anchoPantallaZ1) {
-		rectZ3_Desde.x += 1 * velocidad;
-		rectZ2_Desde.x += 3 * velocidad;
-		rectZ1_Desde.x += 8 * velocidad;
+		rectZ3_Desde.x += 3 * velocidad;
+		rectZ2_Desde.x += 5 * velocidad;
+		rectZ1_Desde.x += 10 * velocidad;
 	}
 
 }
