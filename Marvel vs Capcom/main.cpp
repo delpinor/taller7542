@@ -15,11 +15,12 @@ int main(int argc, char* argv[]) {
 	std::map<int, std::map<std::string, std::string> > mapFondoPantalla;
 	std::map<std::string, std::string> mapNivel;
 
-	LOGGER_SALIDA salida=CONSOLA;
+	//LOGGER_SALIDA salida=CONSOLA;
+	LOGGER_SALIDA salida=ARCHIVO;
 
 	int anchoVentana, altoVentana;
 	/*Se inicia el logger en modeo debug*/
-	Logger::Inicio(nivelLog, LOGGER_SALIDA::CONSOLA);
+	Logger::Inicio(nivelLog, salida);
 	Logger::Log(nivelLog, "INICIO", "Iniciando el programa...");
 
 		std::vector<string> *nombresPersonajes = new std::vector<string>(5);
