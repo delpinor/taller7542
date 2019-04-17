@@ -18,7 +18,7 @@ View::View(Model* model) {
 			this->model = model;
 
 			int CAMARAPOSICIONINICIALX =ANCHO_NIVEL/2-ancho_Pantalla/2;
-			int CAMARAPOSICIONINICIALY =ALTO_NIVEL;
+			int CAMARAPOSICIONINICIALY =ALTO_NIVEL/2-alto_Pantalla/2;;
 
 			this->camaraStatic = {CAMARAPOSICIONINICIALX,CAMARAPOSICIONINICIALY, ancho_Pantalla, alto_Pantalla};
 			this->camara = &(this->camaraStatic);
@@ -41,11 +41,15 @@ void View::ajustarCamara() {
 	int posXJugador2 = model->getEquipoNro(1)->getJugadorActivo()->getPosX();
 	int posYJugador2 = model->getEquipoNro(1)->getJugadorActivo()->getPosY();
 	//
-	int altoJugador1 = model->getEquipoNro(0)->getJugadorActivo()->get_alto();
+	//int altoJugador1 = model->getEquipoNro(0)->getJugadorActivo()->get_alto();
 	int anchoJugador1 = model->getEquipoNro(0)->getJugadorActivo()->get_ancho();
 
 	//int altoJugador2 = model->getEquipoNro(1)->getJugadorActivo()->get_alto();
 	int anchoJugador2 = model->getEquipoNro(1)->getJugadorActivo()->get_ancho();
+
+	int difActual, difAnterior;
+
+	/*
 
 	// Limite jugador borde izquiedo
 	if(posXJugador1 < camara->x){
@@ -67,29 +71,35 @@ void View::ajustarCamara() {
 		model->getEquipoNro(1)->getJugadorActivo()->setPosX(camara->x + ancho_Pantalla - anchoJugador2);
 
 	}
-
+*/
 
 	//Movimiento a derecha
+	difActual = abs(posXJugador1-posXJugador2);
+	difAnterior = abs(posAnteriorX1-posAnteriorX2);
+
+	if (difActual == difAnterior){
+
 	if ((posXJugador1 > posAnteriorX1) && ( posXJugador2 > posAnteriorX2)) {
-		this->camara->x = ((posXJugador1 + posXJugador1) / 2) - (this->ancho_Pantalla / 2) - anchoJugador1;
+		this->camara->x = ((posXJugador1 + posXJugador1) / 2) - (this->ancho_Pantalla / 2);
 
 	}
 	//Movimiento a izquierda
 	if ((posXJugador1 < posAnteriorX1) && ( posXJugador2 < posAnteriorX2)) {
-		this->camara->x = ((posXJugador1 + posXJugador1) / 2) - (this->ancho_Pantalla / 2) - anchoJugador1;
+		this->camara->x = ((posXJugador1 + posXJugador1) / 2) - (this->ancho_Pantalla / 2);
 
 	}
 	//Movimiento arriba
 	if ((posYJugador1 > posAnteriorY1) && ( posYJugador2 > posAnteriorY2)) {
-		this->camara->y = ((posYJugador1 + posYJugador1) / 2) - (this->alto_Pantalla/ 2) + altoJugador1;
+		this->camara->y = ((posYJugador1 + posYJugador1) / 2) - (this->alto_Pantalla/ 2);
 
 	}
 	//Movimiento abajo
 	if ((posYJugador1 < posAnteriorY1) && ( posYJugador2 < posAnteriorY2)) {
-		this->camara->y = ((posYJugador1 + posYJugador1) / 2) - (this->alto_Pantalla / 2) + altoJugador1;
+		this->camara->y = ((posYJugador1 + posYJugador1) / 2) - (this->alto_Pantalla / 2);
 
 	}
 
+	}
 	posAnteriorX1 = posXJugador1;
 	posAnteriorX2 = posXJugador2;
 	posAnteriorY1 = posYJugador1;
