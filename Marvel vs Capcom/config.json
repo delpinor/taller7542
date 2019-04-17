@@ -8,8 +8,8 @@
  	[
 		{
 			"nombre" :"Captain America",
-			"alto" :"200",
-			"ancho" :"140",
+			"alto" :"400",
+			"ancho" :"340",
 			"rutaArchivoImagen" : "Images/Captain America.gif",
 			"zIndex" : "99"
 		},
@@ -22,14 +22,14 @@
 		},
 		{
 			"nombre" : "Venom",
-			"alto" : "200",
-			"ancho" : "140",
+			"alto" : "600",
+			"ancho" : "10",
 			"rutaArchivoImagen" : "Images/Venom.png",
 			"zIndex" : "99"
 		},
 			{
 			"nombre" : "Venom Black",
-			"alto" : "200",
+			"alto" : "600",
 			"ancho" : "140",
 			"rutaArchivoImagen" : "Images/Venom.png",
 			"zIndex" : "99"
