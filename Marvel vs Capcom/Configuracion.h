@@ -26,8 +26,8 @@
 #define ancho_ventana_default "800"
 
 #define nombre_personaje_default "default"
-#define alto_personaje_default "45"
-#define ancho_personaje_default "20"
+#define alto_personaje_default "200"
+#define ancho_personaje_default "130"
 #define ruta_imagen_personaje_default "Images/default.png"
 #define zIndex_personaje_default "99"
 #define cantidad_minima_personajes_default 4

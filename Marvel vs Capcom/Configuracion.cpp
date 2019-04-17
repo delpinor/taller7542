@@ -129,12 +129,13 @@ void Configuracion::ValidarConfigs(vector<string> *nombresPersonajes){
 	}*/
 
 	//Ventana
-	if(!StringHelper::esUnNumero(this->anchoVentana) || NumericHelper::parseStringToInt(this->anchoVentana) <= 0){
+	if((!StringHelper::esUnNumero(this->anchoVentana) ) || (NumericHelper::parseStringToInt(this->anchoVentana) <= 0) || (NumericHelper::parseStringToInt(this->anchoVentana) < 600) || (NumericHelper::parseStringToInt(this->anchoVentana) >1200)){
 		Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se establace el ancho de ventana default: " ,anchoVentana);
 		this->anchoVentana = ancho_ventana_default;
 	}
 
-	if(!StringHelper::esUnNumero(this->altoVentana) || NumericHelper::parseStringToInt(this->altoVentana) <= 0){
+	if((!StringHelper::esUnNumero(this->altoVentana)) || (NumericHelper::parseStringToInt(this->altoVentana) <= 0)
+		|| (NumericHelper::parseStringToInt(this->altoVentana) !=600)){
 		Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se establace el alto de ventana default: " ,altoVentana);
 		this->altoVentana = alto_ventana_default;
 	}
@@ -158,12 +159,15 @@ void Configuracion::ValidarConfigs(vector<string> *nombresPersonajes){
 				Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se establace el nombre del personaje default: " ,nombre_personaje_default);
 			}
 
-			if(!StringHelper::esUnNumero(mapPersonajes[i]["alto"]) || NumericHelper::parseStringToInt(mapPersonajes[i]["alto"]) <= 0){
+			if ((!StringHelper::esUnNumero(mapPersonajes[i]["alto"])) || (NumericHelper::parseStringToInt(mapPersonajes[i]["alto"]) <= 0)
+				||(NumericHelper::parseStringToInt(mapPersonajes[i]["alto"]) <100) || (NumericHelper::parseStringToInt(mapPersonajes[i]["alto"]) >300) ){
 				Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se establace el alto del personaje default: " ,alto_personaje_default);
 				mapPersonajes[i]["alto"] = alto_personaje_default;
+
 			}
 
-			if(!StringHelper::esUnNumero(mapPersonajes[i]["ancho"]) || NumericHelper::parseStringToInt(mapPersonajes[i]["ancho"]) <= 0){
+			if((!StringHelper::esUnNumero(mapPersonajes[i]["ancho"])) || (NumericHelper::parseStringToInt(mapPersonajes[i]["ancho"]) <= 0)
+					|| (NumericHelper::parseStringToInt(mapPersonajes[i]["ancho"]) <50) || (NumericHelper::parseStringToInt(mapPersonajes[i]["ancho"]) >250)){
 				Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se establace el ancho del personaje default: " ,ancho_personaje_default);
 				mapPersonajes[i]["ancho"] = ancho_personaje_default;
 			}
