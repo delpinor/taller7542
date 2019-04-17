@@ -35,4 +35,7 @@ bool Activo::isFueraDePantalla(){
 bool Activo::estaActivo() {
 	return true;
 }
+bool Activo::estaAgachado() {
+	return false;
+}
 

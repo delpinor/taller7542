@@ -17,7 +17,7 @@ Controller::Controller(Model* model) {
 	this->commands[INCVELX] = new AumentarVelocidadX(model);
 	this->commands[INCVELY] = new AumentarVelocidadY(model);
 	this->commands[AGACHAR] = new Agachar(model);
-	this->commands[PARAR] = new Agachar(model);
+	this->commands[PARAR] = new Parar(model);
 	this->commands[SALTAR] = new Saltar(model);
 	this->commands[CAMBIAR_PERSONAJE] = new CambiarPersonaje(model);
 	this->quit = false;

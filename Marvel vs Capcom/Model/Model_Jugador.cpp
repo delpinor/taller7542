@@ -87,10 +87,14 @@ void Jugador::disminuirVelocidadY() {
 }
 
 void Jugador::Agachar() {
-	this->estado->Agachar();
+	this->agachado.copiarEstadoAgachar(this->estado);
+	this->estado = &(this->agachado);
+	this->detenerVelocidad();
 }
 void Jugador::Parar() {
-	this->estado->Parar();
+	this->activo.copiarEstadoAgachar(this->estado);
+	this->estado = &(this->activo);
+	this->detenerVelocidad();
 }
 
 
@@ -123,6 +127,9 @@ void Jugador::detenerVelocidad() {
 }
 bool Jugador::estaActivo() {
 	return this->estado->estaActivo();
+}
+bool Jugador::estaAgachado() {
+	return this->estado->estaAgachado();
 }
 void Jugador::activar() {
 	this->activo.copiarEstado(this->estado);

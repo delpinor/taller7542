@@ -17,6 +17,7 @@ public:
 	void setPosInitX(int posX);
 	void setPosInitY(int posY);
 	void copiarEstado(Estado* estado);
+	void copiarEstadoAgachar(Estado* estado);
 	void disminuirVelocidadX();
 	void disminuirVelocidadY();
 	void Agachar();
@@ -27,6 +28,7 @@ public:
 	void detenerVelocidad();
 	virtual void move() = 0;
 	virtual bool estaActivo() = 0;
+	virtual bool estaAgachado() = 0;
 	int getAceleracion();
 	void desacelerar();
 	bool getAcelero();
