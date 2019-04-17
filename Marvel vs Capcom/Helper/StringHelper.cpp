@@ -8,12 +8,18 @@
 #include "StringHelper.h"
 
 bool StringHelper::esUnNumero(string valor){
-	for (unsigned int i = 0; i < valor.length(); i++){
-		if (isdigit(valor[i]) == false){
-			return false;
-		}
+
+	if(valor == ""){
+		return false;
 	}
-	return true;
+	else{
+		for (unsigned int i = 0; i < valor.length(); i++){
+			if (isdigit(valor[i]) == false){
+				return false;
+			}
+		}
+		return true;
+	}
 }
 
 std::string StringHelper::toLower(std::string valor){
