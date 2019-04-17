@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
 
 	int anchoVentana, altoVentana;
 	/*Se inicia el logger en modeo debug*/
-	Logger::Inicio(nivelLog, LOGGER_SALIDA::ARCHIVO);
+	Logger::Inicio(nivelLog, salida);
 	Logger::Log(nivelLog, "INICIO", "Iniciando el programa...");
 
 		std::vector<string> *nombresPersonajes = new std::vector<string>(5);
@@ -50,6 +50,18 @@ int main(int argc, char* argv[]) {
 				}
 				Logger::Log(INFO, "INICIO:: se cambia al nivel de log ingresado por linea de comandos", argv[2]);
 			}
+		if (argc==2){
+						std::string nivel(argv[1]);
+						if (nivel=="DEBUG") {
+							nivelLog=DEBUG;
+						}else if(nivel=="ERROR"){
+								nivelLog=ERROR;
+
+						}else if (nivel=="INFO"){
+								nivelLog=INFO;
+						}
+						Logger::Log(DEBUG, "INICIO:: se cambia al nivel de log ingresado por linea de comandos", argv[1]);
+					}
 
 
 		Logger::Cambiar_nivelLog(nivelLog);

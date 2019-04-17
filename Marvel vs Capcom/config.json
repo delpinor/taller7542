@@ -38,17 +38,14 @@
 	"fondosPantalla" :
 	[
 		{
-			"orden" : "1",
 			"rutaArchivoImagen" : "Images/z1.png",
 			"zIndex" : "1"
 		},
 		{
-			"orden" : "2",
-			"rutaArchivoImagen" : "Images/z2.png",
+			"rutaArchivoImagen" :"Images/z2.png" ,
 			"zIndex" : "2"
 		},
 		{
-			"orden" : "3",
 			"rutaArchivoImagen" : "Images/z3.png",
 			"zIndex" : "3"
 		}
