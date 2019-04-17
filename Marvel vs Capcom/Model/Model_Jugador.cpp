@@ -87,14 +87,18 @@ void Jugador::disminuirVelocidadY() {
 }
 
 void Jugador::Agachar() {
+	if(this->estado->getVelY()==0){
 	this->agachado.copiarEstadoAgachar(this->estado);
 	this->estado = &(this->agachado);
 	this->detenerVelocidad();
+	}
 }
 void Jugador::Parar() {
+	if(this->estado->estaAgachado()){
 	this->activo.copiarEstadoAgachar(this->estado);
 	this->estado = &(this->activo);
 	this->detenerVelocidad();
+	}
 }
 
 
