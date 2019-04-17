@@ -157,9 +157,9 @@ bool View::inicializar(Model *model) {
 				exito = false;
 			} else {
 				pantalla = new FondoParallax(window, gRenderer,
-						model->GetPathFondoParallax(1),
-						model->GetPathFondoParallax(2),
-						model->GetPathFondoParallax(3));
+						model->GetPathFondoParallaxByOrden(1),
+						model->GetPathFondoParallaxByOrden(2),
+						model->GetPathFondoParallaxByOrden(3));
 
 				//Initialize renderer color
 				SDL_SetRenderDrawColor(this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);

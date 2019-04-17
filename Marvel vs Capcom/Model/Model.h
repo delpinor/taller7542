@@ -36,6 +36,7 @@ public:
 	void inicializar();
 	void cargar_Fondos(std::map<int, std::map<std::string, std::string> > &mapFondoPantalla);
 	std::string GetPathFondoParallax(int indice_Z);
+	std::string GetPathFondoParallaxByOrden(int orden);
 	void cargar_Tam_Pantalla(int &ancho, int &alto);
 	int get_alto_Pantalla();
 	int get_ancho_Pantalla();

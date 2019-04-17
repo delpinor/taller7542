@@ -61,6 +61,21 @@ int Model::GetAnchoJugador(int equipo, int indice_jugador){
 std::string Model::GetPathFondoParallax(int zIndex) {
 	return fondos[zIndex];
 }
+std::string Model::GetPathFondoParallaxByOrden(int orden){
+	if(fondos.size() >= orden){
+		int i = 1;
+		for (auto const& entry: fondos)
+		{
+			if(i == orden){
+				return entry.second;
+			}
+			i = i +1;
+		}
+	}
+	else{
+		return "";
+	}
+}
 void Model::CargarFondos(std::map<int, std::map<std::string, std::string> > &mapFondoPantalla) {
 	Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaFondos", "Carga iniciada");
 	int zIndex;
