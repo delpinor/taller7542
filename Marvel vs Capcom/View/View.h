@@ -11,7 +11,7 @@
 #define ALTO_JUGADOR 146
 //#define ANCHO_VENTANA 800
 //#define ALTO_VENTANA 600
-#define ANCHO_NIVEL 1920
+#define ANCHO_NIVEL 1600
 #define ALTO_NIVEL 1080
 
 class View {
