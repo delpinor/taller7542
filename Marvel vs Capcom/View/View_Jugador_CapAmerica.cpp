@@ -8,7 +8,6 @@ View_Jugador_CapAmerica::View_Jugador_CapAmerica() {
 void View_Jugador_CapAmerica::initialize(Jugador *model, LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
 	this->model = model;
-
 	getSpritesCaminar();
 	getSpritesSaltar();
 	getSpritesAgachar();

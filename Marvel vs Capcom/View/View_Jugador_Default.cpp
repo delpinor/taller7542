@@ -37,4 +37,12 @@ void View_Jugador_Default::render(int camX, int camY, SDL_Renderer * gRenderer) 
 					this->model->getPosY() - camY, currentClip, 0, NULL,
 				this->model->getDireccion(), gRenderer);
 		}
+	if (this->model->estaAgachado()){
+				SDL_Rect* currentClip;
+				currentClip = &gSprite[0];
+
+				this->texturaJugador->render(this->model->getPosX() - camX,
+						this->model->getPosY() - camY, currentClip, 0, NULL,
+					this->model->getDireccion(), gRenderer);
+			}
 }
