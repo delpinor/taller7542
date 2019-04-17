@@ -38,6 +38,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.base.197738839" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.base">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.link.option.libs.69580589" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" useByScannerDiscovery="false" valueType="libs">
 									<listOptionValue builtIn="false" value="SDL2"/>
+									<listOptionValue builtIn="false" value="SDL2"/>
 									<listOptionValue builtIn="false" value="SDL2_image"/>
 									<listOptionValue builtIn="false" value="jsoncpp"/>
 								</option>

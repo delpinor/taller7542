@@ -4,7 +4,7 @@
 #define VELOCIDAD_JUGADOR_SALTO 20
 
 Estado::Estado() {
-	this->posInitX = 0;
+	this->posInitX = 10;
 	this->posInitY = 480;
 	this->mPosX = this->posInitX;
 	this->mPosY = this->posInitY;
