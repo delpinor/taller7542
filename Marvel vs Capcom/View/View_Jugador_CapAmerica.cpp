@@ -8,9 +8,9 @@ View_Jugador_CapAmerica::View_Jugador_CapAmerica() {
 void View_Jugador_CapAmerica::initialize(Jugador *model, LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
 	this->model = model;
-
 	getSpritesCaminar();
 	getSpritesSaltar();
+	getSpritesAgachar();
 }
 
 void View_Jugador_CapAmerica::getSpritesCaminar() {
@@ -103,9 +103,25 @@ void View_Jugador_CapAmerica::getSpritesSaltar() {
 //	gSpriteSaltar[10].w = 114;
 //	gSpriteSaltar[10].h = 101;
 }
+void View_Jugador_CapAmerica::getSpritesAgachar() {
+	gSpriteAgachar[0].x = 4;
+	gSpriteAgachar[0].y = 481;
+	gSpriteAgachar[0].w = 88;
+	gSpriteAgachar[0].h = 119;
+}
 
 
 void View_Jugador_CapAmerica::render(int camX, int camY, SDL_Renderer * gRenderer) {
+
+	if (this->model->estaAgachado()){
+		SDL_Rect* currentClip;
+		currentClip = &gSpriteAgachar[0];
+
+		this->texturaJugador->render(this->model->getPosX() - camX,	this->model->getPosY() - camY,currentClip, 0, NULL,this->model->getDireccion(), gRenderer);
+
+
+	}else{
+
 	if (this->model->estaActivo()){
 			SDL_Rect* currentClip;
 			int maxFrames;
@@ -144,6 +160,7 @@ void View_Jugador_CapAmerica::render(int camX, int camY, SDL_Renderer * gRendere
 		//	}
 			this->texturaJugador->render(this->model->getPosX() - camX,	this->model->getPosY() - camY,currentClip, 0, NULL,this->model->getDireccion(), gRenderer);
 		}
+	}
 }
 
 

@@ -69,6 +69,15 @@ void Estado::copiarEstado(Estado* estado) {
 	this->mVelY = estado->mVelY;
 	this->cambiandoPersonaje = estado->cambiandoPersonaje;
 }
+
+void Estado::copiarEstadoAgachar(Estado* estado) {
+	this->posInitX = estado->posInitX;
+	this->posInitY = estado->posInitY;
+	this->mPosX = estado->mPosX;
+	this->mPosY = estado->mPosY;
+	this->mVelX = estado->mVelX;
+	this->mVelY = estado->mVelY;
+}
 void Estado::disminuirVelocidadX() {
 	this->mVelX -= VELOCIDAD_JUGADOR;
 	if (this->mVelX < -VELOCIDAD_JUGADOR) {
@@ -82,6 +91,9 @@ void Estado::disminuirVelocidadY() {
 	}
 }
 void Estado::Agachar() {
+
+}
+void Estado::Parar() {
 
 }
 void Estado::aumentarVelocidadX() {

@@ -12,6 +12,7 @@ void View_Jugador_VenomBlack::initialize(Jugador * model, LTexture * texturaJuga
 
 	getSpritesCaminar();
 	getSpritesSaltar();
+	getSpritesAgachar();
 }
 
 void View_Jugador_VenomBlack::getSpritesCaminar() {
@@ -123,7 +124,24 @@ void View_Jugador_VenomBlack::getSpritesSaltar() {
 //	gSpriteSaltar[10].h = 101;
 }
 
+void View_Jugador_VenomBlack::getSpritesAgachar() {
+	gSpriteAgachar[0].x = 2;
+	gSpriteAgachar[0].y = 5433;
+	gSpriteAgachar[0].w = 132;
+	gSpriteAgachar[0].h = 149;
+}
+
 void View_Jugador_VenomBlack::render(int camX, int camY, SDL_Renderer * gRenderer) {
+	if (this->model->estaAgachado()){
+			SDL_Rect* currentClip;
+			currentClip = &gSpriteAgachar[0];
+
+			this->texturaJugador->render(this->model->getPosX() - camX,	this->model->getPosY() - camY,currentClip, 0, NULL,this->model->getDireccion(), gRenderer);
+
+
+		}else{
+
+
 	if (this->model->estaActivo()){
 		SDL_Rect* currentClip;
 		int maxFrames;
@@ -163,8 +181,8 @@ void View_Jugador_VenomBlack::render(int camX, int camY, SDL_Renderer * gRendere
 		this->texturaJugador->render(this->model->getPosX() - camX,
 				this->model->getPosY() - camY, currentClip, 0, NULL,
 			this->model->getDireccion(), gRenderer);
-	}
-
+			}
+		}
 }
 View_Jugador_VenomBlack::~View_Jugador_VenomBlack(){
 

@@ -1,6 +1,7 @@
 #include "Controller.h"
 
 #include "../Command/CommandCtrl/Agachar.h"
+#include "../Command/CommandCtrl/Parar.h"
 #include "../Command/CommandCtrl/DisminuirVelocidadY.h"
 #include "../Command/CommandCtrl/AumentarVelocidadY.h"
 #include "../Command/CommandCtrl/DisminuirVelocidadX.h"
@@ -16,6 +17,7 @@ Controller::Controller(Model* model) {
 	this->commands[INCVELX] = new AumentarVelocidadX(model);
 	this->commands[INCVELY] = new AumentarVelocidadY(model);
 	this->commands[AGACHAR] = new Agachar(model);
+	this->commands[PARAR] = new Parar(model);
 	this->commands[SALTAR] = new Saltar(model);
 	this->commands[CAMBIAR_PERSONAJE] = new CambiarPersonaje(model);
 	this->quit = false;
@@ -53,7 +55,8 @@ Command* Controller::handleEvent(SDL_Event& e) {
 			this->model->equipos[0]->agregarCambio(command);
 			break;
 		case SDLK_DOWN:
-
+			command = this->commands[AGACHAR];
+			this->model->equipos[0]->agregarCambio(command);
 			break;
 		case SDLK_LEFT:
 			command = this->commands[DECVELX];
@@ -77,7 +80,8 @@ Command* Controller::handleEvent(SDL_Event& e) {
 
 			break;
 		case SDLK_DOWN:
-
+			command = this->commands[PARAR];
+			this->model->equipos[0]->agregarCambio(command);
 			break;
 		case SDLK_LEFT:
 			command = this->commands[INCVELX];
@@ -97,7 +101,8 @@ Command* Controller::handleEvent(SDL_Event& e) {
 				this->model->equipos[1]->agregarCambio(command);
 				break;
 			case SDLK_s:
-
+				command = this->commands[AGACHAR];
+				this->model->equipos[1]->agregarCambio(command);
 				break;
 			case SDLK_a:
 				command = this->commands[DECVELX];
@@ -122,7 +127,8 @@ Command* Controller::handleEvent(SDL_Event& e) {
 				this->model->equipos[1]->agregarCambio(command);
 				break;
 			case SDLK_s:
-
+				command = this->commands[PARAR];
+				this->model->equipos[1]->agregarCambio(command);
 				break;
 			case SDLK_a:
 				command = this->commands[INCVELX];

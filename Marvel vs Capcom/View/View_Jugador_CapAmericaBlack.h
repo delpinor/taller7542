@@ -21,6 +21,7 @@ public:
 private:
 	void getSpritesCaminar();
 	void getSpritesSaltar();
+	void getSpritesAgachar();
 	void render(int camX, int camY, SDL_Renderer * gRenderer);
 };
 

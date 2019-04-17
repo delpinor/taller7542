@@ -51,6 +51,7 @@ public:
 	virtual void jugadorActivoAumentaVelocidadEnX(int vel);
 	virtual void jugadorActivoDisminuyeVelocidadEnY();
 	virtual void jugadorActivoSeAgacha();
+	virtual void jugadorActivoSePara();
 	virtual int getCantidadJugadores();
 	virtual void update(int i);
 	virtual void move();

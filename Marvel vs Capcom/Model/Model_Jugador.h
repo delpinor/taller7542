@@ -5,6 +5,7 @@
 #include "../Model/Estado.h"
 #include "../Model/Activo.h"
 #include "../Model/Inactivo.h"
+#include "../Model/Agachado.h"
 #define VENOM 0x01
 #define CAPAMERICA 0x00
 
@@ -23,6 +24,7 @@ private:
 
 	Activo activo;
 	Inactivo inactivo;
+	Agachado agachado;
 	SDL_RendererFlip direccion;
 	int personaje;
 public:
@@ -49,10 +51,12 @@ public:
 	void disminuirVelocidadY();
 	void disminuirVelocidadX();
 	void Agachar();
+	void Parar();
 	void aumentarVelocidadX();
 	void aumentarVelocidadY();
 	void Saltar();
 	bool estaActivo();
+	bool estaAgachado();
 	void detenerVelocidad();
 	void activar();
 	void desactivar();
