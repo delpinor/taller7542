@@ -6,7 +6,6 @@ Jugador::Jugador() {
 
 }*/
 Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &path) {
-
 	this->estado = &(this->inactivo);
 	this->mCollider.x = this->estado->getPosX();
 	this->mCollider.y = this->estado->getPosY();

@@ -2,6 +2,7 @@
 #define ACTIVO_H
 
 #include "Estado.h"
+#include <SDL2/SDL.h>
 class Activo: public Estado {
 public:
 	Activo();
@@ -12,6 +13,7 @@ public:
 protected:
 
 private:
+
 };
 
 #endif // ACTIVO_H

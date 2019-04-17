@@ -9,6 +9,7 @@
 #include <string>
 #include <unistd.h>
 #include "../Logger/Logger.h"
+#include "../Model/GeneralPantalla.h"
 
 #define CANTJUGADORESTOTALES 2
 #define LOCALES 1
@@ -33,6 +34,7 @@ void Model::cargar_Tam_Pantalla(int &ancho, int &alto) {
 	Logger::Log(LOGGER_NIVEL::DEBUG, "Mode::CargarTamañoPantalla", "Alto: " + std::to_string(alto));
 	this->alto_Pantalla = alto;
 	this->ancho_Pantalla = ancho;
+	GeneralPantalla::GetInstancia()->SetResolucion(alto*1.2, ancho*1.2);
 }
 void Model::inicializar(){
 	for (int i = 0; i<2; i++){

@@ -1,9 +1,11 @@
 #include "Activo.h"
 #include "../View/View.h"
+#include "GeneralPantalla.h"
 
 Activo::Activo() {
 	//ctor
 }
+
 
 Activo::~Activo() {
 	//dtor
