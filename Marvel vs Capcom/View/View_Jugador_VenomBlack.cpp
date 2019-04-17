@@ -1,20 +1,20 @@
-#include "View_Jugador_Venom.h"
+#include "View_Jugador_VenomBlack.h"
 
 #include <sstream>
-View_Jugador_Venom::View_Jugador_Venom() {
+View_Jugador_VenomBlack::View_Jugador_VenomBlack() {
 
 }
 
-void View_Jugador_Venom::initialize(Jugador * model, LTexture * texturaJugador) {
+void View_Jugador_VenomBlack::initialize(Jugador * model, LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
+	texturaJugador->setColor(40,40,40);
 	this->model = model;
-
 
 	getSpritesCaminar();
 	getSpritesSaltar();
 }
 
-void View_Jugador_Venom::getSpritesCaminar() {
+void View_Jugador_VenomBlack::getSpritesCaminar() {
 	gSpriteCaminar[0].x = 4;
 	gSpriteCaminar[0].y = 3251;
 	gSpriteCaminar[0].w = 126;
@@ -66,7 +66,7 @@ void View_Jugador_Venom::getSpritesCaminar() {
 	gSpriteCaminar[9].h = 133;
 }
 
-void View_Jugador_Venom::getSpritesSaltar() {
+void View_Jugador_VenomBlack::getSpritesSaltar() {
 	gSpriteSaltar[0].x = 2;
 	gSpriteSaltar[0].y = 5433;
 	gSpriteSaltar[0].w = 132;
@@ -123,7 +123,7 @@ void View_Jugador_Venom::getSpritesSaltar() {
 //	gSpriteSaltar[10].h = 101;
 }
 
-void View_Jugador_Venom::render(int camX, int camY, SDL_Renderer * gRenderer) {
+void View_Jugador_VenomBlack::render(int camX, int camY, SDL_Renderer * gRenderer) {
 	if (this->model->estaActivo()){
 		SDL_Rect* currentClip;
 		int maxFrames;
@@ -166,7 +166,7 @@ void View_Jugador_Venom::render(int camX, int camY, SDL_Renderer * gRenderer) {
 	}
 
 }
-View_Jugador_Venom::~View_Jugador_Venom(){
+View_Jugador_VenomBlack::~View_Jugador_VenomBlack(){
 
 
 }

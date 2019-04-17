@@ -8,8 +8,8 @@
  	[
 		{
 			"nombre" :"Captain America",
-			"alto" :"100",
-			"ancho" :"40",
+			"alto" :"200",
+			"ancho" :"140",
 			"rutaArchivoImagen" : "Images/Captain America.gif",
 			"zIndex" : "99"
 		},
