@@ -1,17 +1,51 @@
 #include "Model_Jugador.h"
+# include "../Logger/Logger.h"
 #define MARGENDESELECCION 0
-
+/*
 Jugador::Jugador() {
+
+}*/
+Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &path) {
 	this->estado = &(this->inactivo);
 	this->mCollider.x = this->estado->getPosX();
 	this->mCollider.y = this->estado->getPosY();
-	this->mCollider.w = ANCHO_JUGADOR;
-	this->mCollider.h = ALTO_JUGADOR;
+	this->mCollider.w = width;
+	this->mCollider.h = height;
 	this->direccion = SDL_FLIP_NONE;
+	this->personaje = 0;
+
+	this->width=ancho;
+	this->height=alto;
+	this->zindex= zind;
+	this->nombre=nom;
+	this->pathImagen=path;
+
+}
+int Jugador::get_alto(){
+
+	return height;
+}
+int Jugador::get_ancho(){
+	return width;
+
+}
+int Jugador::get_zindex(){
+	return zindex;
+
+
+}
+std::string Jugador::getNombre(){
+
+	return nombre;
+}
+std::string Jugador::getPathImagen(){
+	return pathImagen;
+
 }
 
 void Jugador::setPosInitX(int posX) {
 	this->estado->setPosInitX(posX);
+
 }
 
 void Jugador::setPosInitY(int posY) {
@@ -53,11 +87,27 @@ void Jugador::disminuirVelocidadY() {
 }
 
 void Jugador::Agachar() {
-	this->estado->Agachar();
+	if(this->estado->getVelY()==0){
+	this->agachado.copiarEstadoAgachar(this->estado);
+	this->estado = &(this->agachado);
+	this->detenerVelocidad();
+	}
 }
+void Jugador::Parar() {
+	if(this->estado->estaAgachado()){
+	this->activo.copiarEstadoAgachar(this->estado);
+	this->estado = &(this->activo);
+	this->detenerVelocidad();
+	}
+}
+
 
 void Jugador::aumentarVelocidadX() {
 	this->estado->aumentarVelocidadX();
+}
+
+void Jugador::aumentarVelocidadX(int vel) {
+	this->estado->aumentarVelocidadX(vel);
 }
 
 void Jugador::aumentarVelocidadY() {
@@ -82,6 +132,9 @@ void Jugador::detenerVelocidad() {
 bool Jugador::estaActivo() {
 	return this->estado->estaActivo();
 }
+bool Jugador::estaAgachado() {
+	return this->estado->estaAgachado();
+}
 void Jugador::activar() {
 	this->activo.copiarEstado(this->estado);
 	this->estado = &(this->activo);
@@ -90,6 +143,7 @@ void Jugador::activar() {
 void Jugador::desactivar() {
 	this->inactivo.copiarEstado(this->estado);
 	this->estado = &(this->inactivo);
+	this->detenerVelocidad();
 }
 bool Jugador::collide(SDL_Rect * camara) {
 
@@ -154,5 +208,9 @@ int Jugador::Personaje() {
 }
 void Jugador::setPersonaje(int p) {
 	this->personaje = p;
+}
+
+bool Jugador::isFueraDePantalla(){
+	return this->estado->isFueraDePantalla();
 }
 

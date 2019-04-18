@@ -8,9 +8,9 @@ Saltar::~Saltar() {
 	//dtor
 }
 
-void Saltar::execute() {
+void Saltar::execute(int i) {
 
-	this->model->jugadorActivoSalta();
+	this->model->equipos[i]->jugadorActivoSalta();
 
 }
 

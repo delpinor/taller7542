@@ -7,7 +7,9 @@ public:
 	virtual ~Inactivo();
 	void move();
 	bool estaActivo();
+	bool estaAgachado();
 	void acelerar();
+	bool isFueraDePantalla();
 protected:
 private:
 };

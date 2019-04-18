@@ -6,76 +6,65 @@
  */
 
 #include "Logger.h"
-#include "log4cpp/Category.hh"
-#include "log4cpp/Appender.hh"
-#include "log4cpp/FileAppender.hh"
-#include "log4cpp/OstreamAppender.hh"
-#include "log4cpp/Layout.hh"
-#include "log4cpp/PatternLayout.hh"
-#include "log4cpp/Priority.hh"
-#include <unistd.h>
-#include <sys/types.h>
-#include <string.h>
-#include <iostream>
+#include <plog/Appenders/ConsoleAppender.h>
 #include "EntornoSistema.h"
+#define NOMBRE_ARCHIVO "mvc.log"
 Logger *Logger::instancia = NULL;
-NIVEL_LOGGER Logger::nivel = NIVEL_LOGGER::DEBUG;
+LOGGER_NIVEL Logger::nivelSeveridad = LOGGER_NIVEL::ERROR;
+LOGGER_SALIDA Logger::salidaPor = LOGGER_SALIDA::ARCHIVO;
 
-void Logger::Inicio(NIVEL_LOGGER nivelMensaje) {
-	nivel = nivelMensaje;
+Logger::Logger(){
 
-	if (instancia == NULL) {
-		instancia = new Logger(nivelMensaje);
-	}
-	//return instancia;
 }
-void Logger::Log(NIVEL_LOGGER nivelMensaje, std::string modulo,
-		std::string mensajeCadena) {
-	// Salida por consola
-	log4cpp::Appender* creadorDeArchivo = new log4cpp::OstreamAppender(	"console", &std::cout);
+Logger::Logger(LOGGER_NIVEL nivel, LOGGER_SALIDA salida){
+	static plog::RollingFileAppender<plog::FormatoSalida> fileAppender(NOMBRE_ARCHIVO);
+	static plog::ConsoleAppender<plog::FormatoSalida> consoleAppender;
+	if(salida == LOGGER_SALIDA::ARCHIVO){
+		plog::init(GetSeveridad(nivel), &fileAppender);
+	}else{
+		plog::init(GetSeveridad(nivel), &consoleAppender);
+	}
 
-	//Salida por archivo
-	//log4cpp::Appender* creadorDeArchivo = new log4cpp::FileAppender("default",	"program.log");
+}
+void Logger::Cambiar_nivelLog(LOGGER_NIVEL nivel){
+	//printf("El nivel de severidad de logger era es %d \n",plog::get()->getMaxSeverity());
+	plog::get()->setMaxSeverity(GetSeveridad(nivel));
+	//printf("El nivel de severidad de logger nuevo es %d \n",plog::get()->getMaxSeverity());
 
-	//Layout de salida
-	log4cpp::PatternLayout* layoutSalida = new log4cpp::PatternLayout();
-	layoutSalida->setConversionPattern("[" + EntornoSistema::getUserName() + "][%d{%d-%m-%Y %H:%M:%S}][%p][" + modulo + ":%m]%n");
-
-	//Seteo el layout al creador de archivo
-	creadorDeArchivo->setLayout(layoutSalida);
-
-	log4cpp::Category& root = log4cpp::Category::getRoot();
-
-	root.setPriority(nivel);
-
-	root.addAppender(creadorDeArchivo);
-	switch (nivelMensaje) {
-	case NIVEL_LOGGER::DEBUG:
-
-		root.debug(mensajeCadena);
+}
+void Logger::Inicio(LOGGER_NIVEL nivel, LOGGER_SALIDA salida) {
+	nivelSeveridad = nivel;
+	salidaPor = salida;
+	if(instancia == NULL){
+		instancia = new Logger(nivel, salida);
+	}
+}
+plog::Severity Logger::GetSeveridad(LOGGER_NIVEL nivel){
+	plog::Severity plogSeveridad;
+	switch(nivel){
+	case LOGGER_NIVEL::DEBUG:
+		plogSeveridad = plog::Severity::debug;
 		break;
-	case NIVEL_LOGGER::INFO:
-
-		root.info(mensajeCadena);
+	case LOGGER_NIVEL::INFO:
+		plogSeveridad = plog::Severity::info;
 		break;
-	case NIVEL_LOGGER::ERROR:
-
-		root.error(mensajeCadena);
+	case LOGGER_NIVEL::ERROR:
+		plogSeveridad = plog::Severity::error;
 		break;
 	default:
-
-		root.error(mensajeCadena);
+		plogSeveridad = plog::Severity::error;
 
 	}
+	return plogSeveridad;
+}
+void Logger::Log(LOGGER_NIVEL nivel, std::string modulo, std::string mensaje){
+	plog::Severity severidad=GetSeveridad(nivel);
+	//printf("El nivel de severidad del mensajes es %d \n",severidad);
+	//printf("El nivel de severidad del logger es %d \n",plog::get()->getMaxSeverity());
+	if (severidad<=plog::get()->getMaxSeverity()){
 
-	root.shutdown();
+		LOG(GetSeveridad(nivel))<<"[" << EntornoSistema::getUserName() << "]" << "[" + modulo + "]"<< "[" << mensaje << "]";
+	}
 }
-;
-Logger::Logger(NIVEL_LOGGER nivelMensaje) {
-	nivel = nivelMensaje;
-}
-;
-Logger::~Logger() {
 
-}
 

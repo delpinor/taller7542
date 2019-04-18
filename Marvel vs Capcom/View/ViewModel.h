@@ -1,26 +1,29 @@
 #ifndef VIEWMODEL_H
 #define VIEWMODEL_H
 
-#include "View_Jugador.h"
 #include "../Model/Model.h"
 #include "FondoParallax.h"
 #include "View_Pantalla.h"
+#include "ViewEquipo.h"
 
+
+using namespace std;
 class ViewModel {
 public:
-	ViewModel(Model* model, SDL_Renderer* gRenderer, SDL_Rect* camara, FondoParallax * pantalla, LTexture * texturaJugador);
+	ViewModel(Model* model, SDL_Renderer* gRenderer, SDL_Rect* camara, LTexture* texturaJugador1, LTexture* texturaJugador2);
 	virtual ~ViewModel();
 	void render();
 	bool hayAlgunJugadorActivoEnEspera();
 protected:
 
 private:
-	View_Jugador* viewJugadores;
+	ViewEquipo * viewEquipo[2];
 	View_Pantalla viewPantalla;
 	FondoParallax * fondoParallax;
 	SDL_Rect* camara;
 	SDL_Renderer* gRenderer;
-	int cantidadjugadores;
+	Model * model;
+
 };
 
 #endif // VIEWMODEL_H

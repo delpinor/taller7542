@@ -8,9 +8,9 @@ Agachar::~Agachar() {
 	//dtor
 }
 
-void Agachar::execute() {
+void Agachar::execute(int i) {
 
-	this->model->jugadorActivoSeAgacha();
+	this->model->equipos[i]->jugadorActivoSeAgacha();
 
 }
 

@@ -4,7 +4,7 @@
  *  Created on: 26 mar. 2019
  *      Author: delpinor
  */
-
+#pragma once
 #include <string.h>
 #include <iostream>
 #include <sys/types.h>

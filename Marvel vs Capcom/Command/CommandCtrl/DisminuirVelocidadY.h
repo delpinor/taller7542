@@ -7,7 +7,7 @@ class DisminuirVelocidadY: public CommandCtrl {
 public:
 	DisminuirVelocidadY(Model* model);
 	virtual ~DisminuirVelocidadY();
-	void execute();
+	void execute(int i);
 
 protected:
 

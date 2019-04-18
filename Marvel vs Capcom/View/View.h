@@ -5,24 +5,26 @@
 #include "../Model/Model.h"
 #include <string>
 #include <cstdlib>
-
 #include "FondoParallax.h"
+
+#define ANCHO_JUGADOR 146
+#define ALTO_JUGADOR 146
+//#define ANCHO_VENTANA 800
+//#define ALTO_VENTANA 600
+#define ANCHO_NIVEL 1040
+#define ALTO_NIVEL 1080
 
 class View {
 public:
 	View(Model* model);
-	virtual ~View();
+	void SetPosicionInicialJugadores();
 	void ajustarCamara();
 	void render();
-	bool inicializar();
-	void loadMedia();
+	bool inicializar(Model *model);
+	void loadMedia(Model *model);
 	void close();
-#define ANCHO_JUGADOR 62
-#define ALTO_JUGADOR 62
-#define ANCHO_VENTANA 800
-#define ALTO_VENTANA 600
-#define ANCHO_NIVEL 1000
-#define ALTO_NIVEL 626
+	virtual ~View();
+
 private:
 	Model* model;
 	Jugador* jugadorAnterior;
@@ -32,10 +34,13 @@ private:
 	SDL_Renderer* gRenderer;
 	SDL_Window* window;
 	FondoParallax * pantalla;
+	LTexture texturasEquipo1[2];
+	LTexture texturasEquipo2[2];
 	LTexture texturaCaptainAmerica;
 	LTexture texturaVenom;
 	LTexture texturaJugador;
-	LTexture texturaPantalla;
+	int ancho_Pantalla, alto_Pantalla;
+
 };
 
 #endif // VIEW_H

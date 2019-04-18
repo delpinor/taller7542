@@ -17,21 +17,28 @@ public:
 	void setPosInitX(int posX);
 	void setPosInitY(int posY);
 	void copiarEstado(Estado* estado);
+	void copiarEstadoAgachar(Estado* estado);
 	void disminuirVelocidadX();
 	void disminuirVelocidadY();
 	void Agachar();
+	void Parar();
 	void aumentarVelocidadX();
 	void aumentarVelocidadY();
 	void Saltar();
 	void detenerVelocidad();
 	virtual void move() = 0;
 	virtual bool estaActivo() = 0;
+	virtual bool estaAgachado() = 0;
 	int getAceleracion();
 	void desacelerar();
 	bool getAcelero();
 	void setVelocidadX(int velx);
 	void setVelocidadY(int vely);
 	void setAceleracion(int ac);
+	void aumentarVelocidadX(int vel);
+	bool isCambiandoJugador();
+	void setCambiandoPersonaje(bool cambiandoPersonaje);
+	virtual bool isFueraDePantalla();
 
 protected:
 	int mPosX, mPosY;
@@ -39,6 +46,7 @@ protected:
 	int mVelX, mVelY;
 	int aceleracion;
 	bool acelero;
+	bool cambiandoPersonaje;
 
 private:
 };

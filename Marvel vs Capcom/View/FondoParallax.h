@@ -11,8 +11,8 @@
 #include <SDL2/SDL_image.h>
 class FondoParallax{
 private:
-	int anchoPantalla;
-	int altoPantalla;
+	int anchoPantalla, altoPantalla;
+	int anchoPantallaZ1;
 	SDL_Surface *temp_surface;
 
 	SDL_Texture * fondoZ1;
@@ -29,11 +29,14 @@ private:
 	SDL_Window * ventana;
 	SDL_Renderer * renderer;
 	int pos_x_anterior;
-	void cargaInicial();
+
 
 public:
-	void refrescar(SDL_Rect * cam);
-	FondoParallax(SDL_Window * ventana, SDL_Renderer * renderer, int ancho, int alto);
+	void refrescarPosicion(SDL_Rect * cam);
+
+	FondoParallax(SDL_Window * ventana, SDL_Renderer * renderer, std::string rutaZ1, std::string rutaZ2, std::string rutaZ3);
+
+	void cargaInicial(std::string rutaZ1, std::string rutaZ2, std::string rutaZ3);
 	void moverDerecha(int velocidad);
 	void moverIzquierda(int velocidad);
 	~FondoParallax();
