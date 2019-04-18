@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
 
 	int anchoVentana, altoVentana;
 	/*Se inicia el logger en modeo debug*/
-	Logger::Inicio(nivelLog, LOGGER_SALIDA::ARCHIVO);
+	Logger::Inicio(nivelLog, salida);
 	Logger::Log(nivelLog, "INICIO", "Iniciando el programa...");
 
 		std::vector<string> *nombresPersonajes = new std::vector<string>(5);
@@ -67,8 +67,8 @@ int main(int argc, char* argv[]) {
 	//seteo los jugadores en los equipos
 	//set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int nroJugador)
 	model.set_equipos_with_jugador(0, 0, 0);
-	model.set_equipos_with_jugador(0, 1, 2);
-	model.set_equipos_with_jugador(1, 0, 1);
+	model.set_equipos_with_jugador(0, 1, 1);
+	model.set_equipos_with_jugador(1, 0, 2);
 	model.set_equipos_with_jugador(1, 1, 3);
 	//designo que jugadores van a estar activos
 	model.inicializar();

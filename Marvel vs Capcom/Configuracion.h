@@ -20,7 +20,7 @@
 //---- VALORES DEFAULT DE CONFIGURACION----//
 #define nivel_log_default "DEBUG"
 
-#define ruta_archivo_default "default.json"
+#define ruta_archivo_default "Images/default.json"
 
 #define alto_ventana_default "600"
 #define ancho_ventana_default "800"

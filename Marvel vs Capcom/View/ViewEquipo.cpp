@@ -17,7 +17,7 @@ ViewEquipo::ViewEquipo(Equipo* equipo) {
 View_Jugador * ViewEquipo::cargarVistaPersonaje(std::string nombrePersonaje) {
 
 	if (nombrePersonaje == "Venom")
-		return new View_Jugador_VenomBlack();
+		return new View_Jugador_Venom();
 	if (nombrePersonaje == "Captain America")
 		return new View_Jugador_CapAmerica();
 	if (nombrePersonaje == "default")
