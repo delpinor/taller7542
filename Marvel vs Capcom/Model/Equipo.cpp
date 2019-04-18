@@ -93,9 +93,9 @@ void Equipo::update(int i) {
 	}
 }
 
-void Equipo::move(){
+void Equipo::move(SDL_Rect* camara){
 	for (int i = 0; i < 2; ++i) {
-		this->jugadores[i]->move();
+		this->jugadores[i]->move(this->equipoRival->getJugadorActivo(), camara);
 	}
 	if (this->getJugadorActivo()->isFueraDePantalla())
 		this->cambiarPersonaje();
@@ -155,4 +155,12 @@ bool Equipo::isCambiandoPersonaje(){
 void Equipo::setCambiandoPersonaje(bool cambiandoJugador) {
 	this->cambiandoJugador = cambiandoJugador;
 	this->getJugadorActivo()->estado->setCambiandoPersonaje(cambiandoJugador);
+}
+
+void Equipo::setEquipoRival(Equipo* equipo_rival){
+	this->equipoRival = equipo_rival;
+}
+
+Equipo* Equipo::getEquipoRival(){
+	return this->equipoRival;
 }

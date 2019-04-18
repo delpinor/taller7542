@@ -39,7 +39,8 @@ public:
 	std::string getPath();
 
 
-	void move();
+	//void move();
+	void move(Jugador* jugadorRival, SDL_Rect* camara);
 	int getPosX();
 	int getPosY();
 	int getVelX();
@@ -62,6 +63,8 @@ public:
 	void desactivar();
 	void setDireccion(SDL_RendererFlip direccion);
 	bool collide(SDL_Rect * camara);
+	bool collideDerecha(SDL_Rect * camara);
+	bool collideIzquierda(SDL_Rect * camara);
 	SDL_RendererFlip getDireccion();
 	void updateDirection();
 	void updateAceleracion(int ac);
@@ -71,6 +74,8 @@ public:
 	std::string getPathImagen();
 	void aumentarVelocidadX(int vel);
 	bool isFueraDePantalla();
+	bool movimientoDerecha();
+	bool movimientoIzquierda();
 
 };
 #endif

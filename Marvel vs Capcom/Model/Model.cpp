@@ -40,7 +40,10 @@ void Model::inicializar(){
 	for (int i = 0; i<2; i++){
 		this->equipos[i]->inicializar();
 	}
+	this->equipos[0]->setEquipoRival(equipos[1]);
+	this->equipos[1]->setEquipoRival(equipos[0]);
 }
+
 int Model::get_alto_Pantalla() {
 	return this->alto_Pantalla;
 }
@@ -134,7 +137,7 @@ void Model::update() {
 void Model::moverJuego() {
 
 	for (int i = 0; i < CANTJUGADORESTOTALES; ++i) {
-		this->equipos[i]->move();
+		this->equipos[i]->move(this->camara);
 	}
 }
 

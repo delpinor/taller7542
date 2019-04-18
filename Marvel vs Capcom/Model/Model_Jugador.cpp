@@ -9,8 +9,7 @@ Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &
 	this->estado = &(this->inactivo);
 	this->mCollider.x = this->estado->getPosX();
 	this->mCollider.y = this->estado->getPosY();
-	this->mCollider.w = width;
-	this->mCollider.h = height;
+
 	this->direccion = SDL_FLIP_NONE;
 	this->personaje = 0;
 
@@ -19,6 +18,8 @@ Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &
 	this->zindex= zind;
 	this->nombre=nom;
 	this->pathImagen=path;
+	this->mCollider.w = width;
+	this->mCollider.h = height;
 
 }
 int Jugador::get_alto(){
@@ -56,8 +57,26 @@ void Jugador::setDireccion(SDL_RendererFlip direccion) {
 	this->direccion = direccion;
 }
 
-void Jugador::move() {
-	this->estado->move();
+void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
+	if (movimientoDerecha()) {
+		if (!collideDerecha(camara)) {
+			this->estado->move();
+		} else {
+			if (!jugadorRival->collideIzquierda(camara)) {
+				this->estado->move();
+			}
+		}
+	} else if (movimientoIzquierda()) {
+			if (!collideIzquierda(camara)) {
+				this->estado->move();
+			} else {
+				if (!jugadorRival->collideDerecha(camara)) {
+					this->estado->move();
+				}
+			}
+	} else {
+		this->estado->move();
+	}
 	updateDirection();
 	this->mCollider.x = this->estado->getPosX();
 	this->mCollider.y = this->estado->getPosY();
@@ -184,6 +203,60 @@ bool Jugador::collide(SDL_Rect * camara) {
 	return true;
 }
 
+bool Jugador::collideDerecha(SDL_Rect * camara) {
+
+	int leftCam, leftJugador;
+	int rightCam, rightJugador;
+	int topCam, topJugador;
+	int bottomCam, bottomJugador;
+
+	leftCam = camara->x + MARGENDESELECCION;
+
+	rightCam = camara->x + camara->w - MARGENDESELECCION;
+
+	topCam = camara->y + MARGENDESELECCION;
+
+	bottomCam = camara->y + camara->h - MARGENDESELECCION;
+
+	leftJugador = this->mCollider.x;
+	rightJugador = this->mCollider.x + this->mCollider.w;
+	topJugador = this->mCollider.y;
+	bottomJugador = this->mCollider.y + this->mCollider.h;
+
+	if (rightJugador >= rightCam) {
+		return true;
+	}
+
+	return false;
+}
+
+bool Jugador::collideIzquierda(SDL_Rect * camara) {
+
+	int leftCam, leftJugador;
+	int rightCam, rightJugador;
+	int topCam, topJugador;
+	int bottomCam, bottomJugador;
+
+	leftCam = camara->x + MARGENDESELECCION;
+
+	rightCam = camara->x + camara->w - MARGENDESELECCION;
+
+	topCam = camara->y + MARGENDESELECCION;
+
+	bottomCam = camara->y + camara->h - MARGENDESELECCION;
+
+	leftJugador = this->mCollider.x;
+	rightJugador = this->mCollider.x + this->mCollider.w;
+	topJugador = this->mCollider.y;
+	bottomJugador = this->mCollider.y + this->mCollider.h;
+
+	if (leftJugador <= leftCam) {
+		return true;
+	}
+
+	return false;
+}
+
 SDL_RendererFlip Jugador::getDireccion() {
 	return this->direccion;
 }
@@ -214,3 +287,10 @@ bool Jugador::isFueraDePantalla(){
 	return this->estado->isFueraDePantalla();
 }
 
+bool Jugador::movimientoDerecha(){
+	return (this->estado->getVelX() > 0);
+}
+
+bool Jugador::movimientoIzquierda(){
+	return (this->estado->getVelX() < 0);
+}

@@ -22,8 +22,9 @@ public:
 		//equipo es quivalente a jugador
 
 	Jugador* jugadores[2];
-	 int nroJugadorActivo;
-	 bool cambiandoJugador = false;
+	Equipo* equipoRival;
+	int nroJugadorActivo;
+	bool cambiandoJugador = false;
 	std::queue<Command*> cambios;
 
 public:
@@ -54,13 +55,16 @@ public:
 	virtual void jugadorActivoSePara();
 	virtual int getCantidadJugadores();
 	virtual void update(int i);
-	virtual void move();
+	//virtual void move();
+	virtual void move(SDL_Rect* camara);
 	virtual void setCambiandoPersonaje();
 	virtual void cambiarPersonaje();
 
 	bool isCambiandoPersonaje();
 
 	void setCambiandoPersonaje(bool cambiandoJugador);
+	void setEquipoRival(Equipo* equipoRival);
+	Equipo* getEquipoRival();
 };
 
 #endif /* MODEL_EQUIPO_H_ */
