@@ -30,3 +30,5 @@ install_manifest.txt
 /out/
 /cmake-build-*/
 Marvel vs Capcom/Debug/
+
+*.log
