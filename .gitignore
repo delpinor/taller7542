@@ -32,3 +32,5 @@ install_manifest.txt
 Marvel vs Capcom/Debug/
 
 *.log
+
+Marvel vs Capcom/\.settings/
