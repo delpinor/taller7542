@@ -17,15 +17,15 @@ ViewEquipo::ViewEquipo(Equipo* equipo) {
 View_Jugador * ViewEquipo::cargarVistaPersonaje(std::string nombrePersonaje) {
 
 	if (nombrePersonaje == "Venom")
-		return new View_Jugador_VenomBlack();
+		return new View_Jugador_Venom();
 	if (nombrePersonaje == "Captain America")
 		return new View_Jugador_CapAmerica();
 	if (nombrePersonaje == "default")
 		return new View_Jugador_Default();
 	if (nombrePersonaje == "Captain America Black")
-			return new View_Jugador_CapAmericaBlack();
+		return new View_Jugador_CapAmericaBlack();
 	if (nombrePersonaje == "Venom Black")
-				return new View_Jugador_VenomBlack();
+		return new View_Jugador_VenomBlack();
 }
 
 void ViewEquipo::initialize(Equipo * equipo, LTexture texturaEquipo[]) {
