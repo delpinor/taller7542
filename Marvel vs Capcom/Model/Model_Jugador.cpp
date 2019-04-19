@@ -58,7 +58,9 @@ void Jugador::setDireccion(SDL_RendererFlip direccion) {
 }
 
 void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
-	if (movimientoDerecha()) {
+	if (this->estado->isCambiandoJugador())
+		this->estado->move();
+	else if (movimientoDerecha()) {
 		if (!collideDerecha(camara)) {
 			this->estado->move();
 		} else {

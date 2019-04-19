@@ -48,11 +48,14 @@ void View::ajustarCamara() {
 	int anchoJugador2 = model->getEquipoNro(1)->getJugadorActivo()->get_ancho();
 
 	//Chequeo que los jugadores no se salgan del escenario
+	if (!model->getEquipoNro(0)->getJugadorActivo()->estado->isCambiandoJugador())
+		if (posXJugador1 + anchoJugador1 > ANCHO_NIVEL)
+			model->getEquipoNro(0)->getJugadorActivo()->setPosX(ANCHO_NIVEL-anchoJugador1);
 
-	if (posXJugador1 + anchoJugador1 > ANCHO_NIVEL)
-		model->getEquipoNro(0)->getJugadorActivo()->setPosX(ANCHO_NIVEL-anchoJugador1);
-	if (posXJugador2 + anchoJugador2 > ANCHO_NIVEL)
-		model->getEquipoNro(1)->getJugadorActivo()->setPosX(ANCHO_NIVEL-anchoJugador2);
+	if (!model->getEquipoNro(1)->getJugadorActivo()->estado->isCambiandoJugador())
+		if (posXJugador2 + anchoJugador2 > ANCHO_NIVEL)
+			model->getEquipoNro(1)->getJugadorActivo()->setPosX(ANCHO_NIVEL-anchoJugador2);
+
 	if (posXJugador1 < 0){
 		model->getEquipoNro(0)->getJugadorActivo()->setPosX(0);
 		posXJugador1 = 0;
@@ -63,11 +66,14 @@ void View::ajustarCamara() {
 	}
 
 	//Muevo la cámara si algún jugador se está saliendo de ella
+	if (!model->getEquipoNro(0)->getJugadorActivo()->estado->isCambiandoJugador())
+		if (posXJugador1 + anchoJugador1 > this->camara->x + this->camara->w)
+			this->camara->x += model->getEquipoNro(0)->getJugadorActivo()->estado->getVelX();
 
-	if (posXJugador1 + anchoJugador1 > this->camara->x + this->camara->w)
-		this->camara->x += model->getEquipoNro(0)->getJugadorActivo()->estado->getVelX();
-	if (posXJugador2 + anchoJugador2 > this->camara->x + this->camara->w)
-		this->camara->x += model->getEquipoNro(1)->getJugadorActivo()->estado->getVelX();
+	if (!model->getEquipoNro(1)->getJugadorActivo()->estado->isCambiandoJugador())
+		if (posXJugador2 + anchoJugador2 > this->camara->x + this->camara->w)
+			this->camara->x += model->getEquipoNro(1)->getJugadorActivo()->estado->getVelX();
+
 	if (posXJugador1 < this->camara->x)
 		this->camara->x = posXJugador1;
 	if (posXJugador2 < this->camara->x)
