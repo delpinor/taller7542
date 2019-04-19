@@ -40,7 +40,7 @@ void FondoParallax::moverDerecha(int velocidad) {
 	if ((rectZ1_Desde.x + rectZ1_Desde.w) < anchoPantallaZ1) {
 		rectZ3_Desde.x += 1 * velocidad;
 		rectZ2_Desde.x += 2 * velocidad;
-		rectZ1_Desde.x += 4 * velocidad;
+		rectZ1_Desde.x += 3 * velocidad;
 	}
 
 }
@@ -49,7 +49,7 @@ void FondoParallax::moverIzquierda(int velocidad) {
 	if (rectZ1_Desde.x > 0) {
 		rectZ3_Desde.x -= 1 * velocidad;
 		rectZ2_Desde.x -= 2 * velocidad;
-		rectZ1_Desde.x -= 4 * velocidad;
+		rectZ1_Desde.x -= 3 * velocidad;
 	}
 }
 // Carga los fondos z1, z2 y z3

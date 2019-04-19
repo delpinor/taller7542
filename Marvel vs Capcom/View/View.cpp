@@ -65,9 +65,9 @@ void View::ajustarCamara() {
 	//Muevo la cámara si algún jugador se está saliendo de ella
 
 	if (posXJugador1 + anchoJugador1 > this->camara->x + this->camara->w)
-		this->camara->x = posXJugador1 + anchoJugador1;
+		this->camara->x += model->getEquipoNro(0)->getJugadorActivo()->estado->getVelX();
 	if (posXJugador2 + anchoJugador2 > this->camara->x + this->camara->w)
-		this->camara->x = posXJugador2 + anchoJugador2;
+		this->camara->x += model->getEquipoNro(1)->getJugadorActivo()->estado->getVelX();
 	if (posXJugador1 < this->camara->x)
 		this->camara->x = posXJugador1;
 	if (posXJugador2 < this->camara->x)
