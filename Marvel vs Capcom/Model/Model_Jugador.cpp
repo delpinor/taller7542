@@ -58,7 +58,7 @@ void Jugador::setDireccion(SDL_RendererFlip direccion) {
 }
 
 void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
-	if (this->estado->isCambiandoJugador())
+	if (this->estado->estaCambiandoPersonaje())
 		this->estado->move();
 	else if (movimientoDerecha()) {
 		if (!collideDerecha(camara)) {
@@ -107,6 +107,11 @@ void Jugador::disminuirVelocidadY() {
 	this->estado->disminuirVelocidadY();
 }
 
+void Jugador::cambiarPersonaje() {
+	this->cambiandoPersonaje.copiarEstadoCambiarPersonaje(this->estado);
+	this->estado = &(this->cambiandoPersonaje);
+}
+
 void Jugador::Agachar() {
 	if(this->estado->getVelY()==0){
 	this->agachado.copiarEstadoAgachar(this->estado);
@@ -121,7 +126,6 @@ void Jugador::Parar() {
 	this->detenerVelocidad();
 	}
 }
-
 
 void Jugador::aumentarVelocidadX() {
 	this->estado->aumentarVelocidadX();
@@ -155,6 +159,9 @@ bool Jugador::estaActivo() {
 }
 bool Jugador::estaAgachado() {
 	return this->estado->estaAgachado();
+}
+bool Jugador::estaCambiandoPersonaje() {
+	return this->estado->estaCambiandoPersonaje();
 }
 void Jugador::activar() {
 	this->activo.copiarEstado(this->estado);

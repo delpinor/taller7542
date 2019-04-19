@@ -12,9 +12,9 @@ Activo::~Activo() {
 }
 
 void Activo::move() {
-	if (this->cambiandoPersonaje) {
-		this->mPosX += this->mVelX * aceleracion;
-	} else {
+//	if (this->cambiandoPersonaje) {
+//		this->mPosX += this->mVelX * aceleracion;
+//	} else {
 		this->mPosX += this->mVelX * aceleracion;
 		if ((mPosX < 0) || (mPosX + ANCHO_JUGADOR >= ANCHO_NIVEL)) {
 			mPosX -= mVelX * aceleracion;
@@ -25,17 +25,20 @@ void Activo::move() {
 			mPosY += mVelY;
 			mVelY = 0;
 		}
-	}
+//	}
 }
 
 bool Activo::isFueraDePantalla(){
-	return (mPosX > ANCHO_NIVEL);
+	return (mPosX > ANCHO_NIVEL)||(mPosX < 0);
 }
 
 bool Activo::estaActivo() {
 	return true;
 }
 bool Activo::estaAgachado() {
+	return false;
+}
+bool Activo::estaCambiandoPersonaje(){
 	return false;
 }
 

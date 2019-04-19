@@ -20,7 +20,7 @@ class Equipo {
 public:
 		// jugador es el quivalente a persoanje
 		//equipo es quivalente a jugador
-
+	int numeroEquipo;
 	Jugador* jugadores[2];
 	Equipo* equipoRival;
 	int nroJugadorActivo;
@@ -33,7 +33,7 @@ public:
 	Equipo(std::map<int, Jugador> jugador);
 	// Método que agregar jugadores al equipo
 		// con num se indica el indice
-	void inicializar();
+	void inicializar(int numeroEquipo);
 	void agregar_Jugador(int num, Jugador * jugador);
 	virtual ~Equipo();
 
@@ -57,10 +57,8 @@ public:
 	virtual void update(int i);
 	//virtual void move();
 	virtual void move(SDL_Rect* camara);
-	virtual void setCambiandoPersonaje();
-	virtual void cambiarPersonaje();
-
-	bool isCambiandoPersonaje();
+	virtual void iniciarCambioPersonaje();
+	virtual void cambiarPersonaje(SDL_Rect* camara);
 
 	void setCambiandoPersonaje(bool cambiandoJugador);
 	void setEquipoRival(Equipo* equipoRival);

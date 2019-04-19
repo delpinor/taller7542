@@ -23,6 +23,7 @@ View::View(Model* model) {
 			this->camaraStatic = {CAMARAPOSICIONINICIALX,CAMARAPOSICIONINICIALY, ancho_Pantalla, alto_Pantalla};
 			this->camara = &(this->camaraStatic);
 			this->model->setCamara(this->camara);
+			this->model->inicializarPosicionesEquipos();
 			this->viewModel = new ViewModel(this->model, this->gRenderer, this->camara,	this->texturasEquipo1, this->texturasEquipo2);
 		}
 
@@ -36,7 +37,7 @@ View::~View() {
 void View::ajustarCamara() {
 
 	// Este codigo se puede mejorar.
-	int posXJugador1= model->getEquipoNro(0)->getJugadorActivo()->getPosX();
+	int posXJugador1 = model->getEquipoNro(0)->getJugadorActivo()->getPosX();
 	int posYJugador1 = model->getEquipoNro(0)->getJugadorActivo()->getPosY();
 	int posXJugador2 = model->getEquipoNro(1)->getJugadorActivo()->getPosX();
 	int posYJugador2 = model->getEquipoNro(1)->getJugadorActivo()->getPosY();
@@ -48,11 +49,11 @@ void View::ajustarCamara() {
 	int anchoJugador2 = model->getEquipoNro(1)->getJugadorActivo()->get_ancho();
 
 	//Chequeo que los jugadores no se salgan del escenario
-	if (!model->getEquipoNro(0)->getJugadorActivo()->estado->isCambiandoJugador())
+	if (!model->getEquipoNro(0)->getJugadorActivo()->estado->estaCambiandoPersonaje())
 		if (posXJugador1 + anchoJugador1 > ANCHO_NIVEL)
 			model->getEquipoNro(0)->getJugadorActivo()->setPosX(ANCHO_NIVEL-anchoJugador1);
 
-	if (!model->getEquipoNro(1)->getJugadorActivo()->estado->isCambiandoJugador())
+	if (!model->getEquipoNro(1)->getJugadorActivo()->estado->estaCambiandoPersonaje())
 		if (posXJugador2 + anchoJugador2 > ANCHO_NIVEL)
 			model->getEquipoNro(1)->getJugadorActivo()->setPosX(ANCHO_NIVEL-anchoJugador2);
 
@@ -66,11 +67,11 @@ void View::ajustarCamara() {
 	}
 
 	//Muevo la cámara si algún jugador se está saliendo de ella
-	if (!model->getEquipoNro(0)->getJugadorActivo()->estado->isCambiandoJugador())
+	if (!model->getEquipoNro(0)->getJugadorActivo()->estado->estaCambiandoPersonaje())
 		if (posXJugador1 + anchoJugador1 > this->camara->x + this->camara->w)
 			this->camara->x += model->getEquipoNro(0)->getJugadorActivo()->estado->getVelX();
 
-	if (!model->getEquipoNro(1)->getJugadorActivo()->estado->isCambiandoJugador())
+	if (!model->getEquipoNro(1)->getJugadorActivo()->estado->estaCambiandoPersonaje())
 		if (posXJugador2 + anchoJugador2 > this->camara->x + this->camara->w)
 			this->camara->x += model->getEquipoNro(1)->getJugadorActivo()->estado->getVelX();
 

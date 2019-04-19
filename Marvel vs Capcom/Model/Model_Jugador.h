@@ -6,6 +6,7 @@
 #include "../Model/Activo.h"
 #include "../Model/Inactivo.h"
 #include "../Model/Agachado.h"
+#include "../Model/CambiandoPersonaje.h"
 #define VENOM 0x01
 #define CAPAMERICA 0x00
 
@@ -22,6 +23,7 @@ private:
 
 	SDL_Rect mCollider;
 
+	CambiandoPersonaje cambiandoPersonaje;
 	Activo activo;
 	Inactivo inactivo;
 	Agachado agachado;
@@ -53,11 +55,13 @@ public:
 	void disminuirVelocidadX();
 	void Agachar();
 	void Parar();
+	void cambiarPersonaje();
 	void aumentarVelocidadX();
 	void aumentarVelocidadY();
 	void Saltar();
 	bool estaActivo();
 	bool estaAgachado();
+	bool estaCambiandoPersonaje();
 	void detenerVelocidad();
 	void activar();
 	void desactivar();
