@@ -45,6 +45,7 @@ public:
 	virtual ~Model();
 
 	virtual void setCamara(SDL_Rect * camara);
+	void inicializarPosicionesEquipos();
 	virtual void update();
 	Equipo* getEquipoNro(int i);
 

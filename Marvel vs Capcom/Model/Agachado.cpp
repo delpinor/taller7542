@@ -27,3 +27,6 @@ void Agachado::acelerar() {
 bool Agachado::isFueraDePantalla(){
 	return false;
 }
+bool Agachado::estaCambiandoPersonaje(){
+	return false;
+}

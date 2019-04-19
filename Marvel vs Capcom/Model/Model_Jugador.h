@@ -6,6 +6,7 @@
 #include "../Model/Activo.h"
 #include "../Model/Inactivo.h"
 #include "../Model/Agachado.h"
+#include "../Model/CambiandoPersonaje.h"
 #define VENOM 0x01
 #define CAPAMERICA 0x00
 
@@ -22,6 +23,7 @@ private:
 
 	SDL_Rect mCollider;
 
+	CambiandoPersonaje cambiandoPersonaje;
 	Activo activo;
 	Inactivo inactivo;
 	Agachado agachado;
@@ -39,7 +41,8 @@ public:
 	std::string getPath();
 
 
-	void move();
+	//void move();
+	void move(Jugador* jugadorRival, SDL_Rect* camara);
 	int getPosX();
 	int getPosY();
 	int getVelX();
@@ -52,16 +55,20 @@ public:
 	void disminuirVelocidadX();
 	void Agachar();
 	void Parar();
+	void cambiarPersonaje();
 	void aumentarVelocidadX();
 	void aumentarVelocidadY();
 	void Saltar();
 	bool estaActivo();
 	bool estaAgachado();
+	bool estaCambiandoPersonaje();
 	void detenerVelocidad();
 	void activar();
 	void desactivar();
 	void setDireccion(SDL_RendererFlip direccion);
 	bool collide(SDL_Rect * camara);
+	bool collideDerecha(SDL_Rect * camara);
+	bool collideIzquierda(SDL_Rect * camara);
 	SDL_RendererFlip getDireccion();
 	void updateDirection();
 	void updateAceleracion(int ac);
@@ -71,6 +78,8 @@ public:
 	std::string getPathImagen();
 	void aumentarVelocidadX(int vel);
 	bool isFueraDePantalla();
+	bool movimientoDerecha();
+	bool movimientoIzquierda();
 
 };
 #endif

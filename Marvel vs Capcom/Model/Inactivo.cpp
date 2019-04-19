@@ -27,3 +27,7 @@ bool Inactivo::estaAgachado() {
 bool Inactivo::isFueraDePantalla(){
 	return false;
 }
+
+bool Inactivo::estaCambiandoPersonaje(){
+	return false;
+}

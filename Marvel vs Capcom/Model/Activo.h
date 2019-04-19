@@ -11,6 +11,7 @@ public:
 	bool estaActivo();
 	bool estaAgachado();
 	bool isFueraDePantalla();
+	bool estaCambiandoPersonaje();
 protected:
 
 private:

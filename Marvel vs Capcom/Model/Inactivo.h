@@ -10,6 +10,7 @@ public:
 	bool estaAgachado();
 	void acelerar();
 	bool isFueraDePantalla();
+	bool estaCambiandoPersonaje();
 protected:
 private:
 };

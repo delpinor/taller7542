@@ -22,52 +22,52 @@ int main(int argc, char* argv[]) {
 	Logger::Inicio(nivelLog, salida);
 	Logger::Log(nivelLog, "INICIO", "Iniciando el programa...");
 
-		std::vector<string> *nombresPersonajes = new std::vector<string>(5);
-		nombresPersonajes->push_back("captain america");
-		nombresPersonajes->push_back("venom");
-		nombresPersonajes->push_back("captain america black");
-		nombresPersonajes->push_back("venom black");
-		nombresPersonajes->push_back("default");
+	std::vector<string> *nombresPersonajes = new std::vector<string>(5);
+	nombresPersonajes->push_back("captain america");
+	nombresPersonajes->push_back("venom");
+	nombresPersonajes->push_back("captain america black");
+	nombresPersonajes->push_back("venom black");
+	nombresPersonajes->push_back("default");
 
-		Configuracion appConfig(argv[1], nombresPersonajes);
+	Configuracion appConfig(argv[1], nombresPersonajes);
 
-		mapPersonajes = appConfig.get_Config_Personajes();
-		mapFondoPantalla = appConfig.get_Config_FondosPantalla();
-		altoVentana = appConfig.get_Config_AltoVentana();
-		anchoVentana = appConfig.get_Config_AnchoVentana();
-		nivelLog=appConfig.get_Config_NivelLog();
+	mapPersonajes = appConfig.get_Config_Personajes();
+	mapFondoPantalla = appConfig.get_Config_FondosPantalla();
+	altoVentana = appConfig.get_Config_AltoVentana();
+	anchoVentana = appConfig.get_Config_AnchoVentana();
+	nivelLog = appConfig.get_Config_NivelLog();
 
-		/*  Verifico si se ingreso como segundo parametro el nivel de debug*/
-		if (argc>2){
-				std::string nivel(argv[2]);
-				if (nivel=="DEBUG") {
-					nivelLog=DEBUG;
-				}else if(nivel=="ERROR"){
-						nivelLog=ERROR;
+	/*  Verifico si se ingreso como segundo parametro el nivel de debug*/
+	if (argc > 2) {
+		std::string nivel(argv[2]);
+		if (nivel == "DEBUG") {
+			nivelLog = DEBUG;
+		} else if (nivel == "ERROR") {
+			nivelLog = ERROR;
 
-				}else if (nivel=="INFO"){
-						nivelLog=INFO;
-				}
-				Logger::Log(INFO, "INICIO:: se cambia al nivel de log ingresado por linea de comandos", argv[2]);
-			}
-		if (argc==2){
-						std::string nivel(argv[1]);
-						if (nivel=="DEBUG") {
-							nivelLog=DEBUG;
-						}else if(nivel=="ERROR"){
-								nivelLog=ERROR;
+		} else if (nivel == "INFO") {
+			nivelLog = INFO;
+		}
+		Logger::Log(INFO,
+				"INICIO:: se cambia al nivel de log ingresado por linea de comandos",
+				argv[2]);
+	}
+	if (argc == 2) {
+		std::string nivel(argv[1]);
+		if (nivel == "DEBUG") {
+			nivelLog = DEBUG;
+		} else if (nivel == "ERROR") {
+			nivelLog = ERROR;
 
-						}else if (nivel=="INFO"){
-								nivelLog=INFO;
-						}
-						Logger::Log(DEBUG, "INICIO:: se cambia al nivel de log ingresado por linea de comandos", argv[1]);
-					}
+		} else if (nivel == "INFO") {
+			nivelLog = INFO;
+		}
+		Logger::Log(DEBUG,
+				"INICIO:: se cambia al nivel de log ingresado por linea de comandos",
+				argv[1]);
+	}
 
-
-		Logger::Cambiar_nivelLog(nivelLog);
-
-
-
+	Logger::Cambiar_nivelLog(nivelLog);
 
 	Model model;
 

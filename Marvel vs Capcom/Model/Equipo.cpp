@@ -42,7 +42,8 @@ void Equipo::agregar_Jugador(int num, Jugador * jugador){
 	//	this->getJugadorActivo()->activar();
 }
 
-void Equipo::inicializar(){
+void Equipo::inicializar(int numeroEquipo){
+	this->numeroEquipo = numeroEquipo;
 	this->setJugadorActivo(0);
 }
 
@@ -79,7 +80,7 @@ void Equipo::setJugadorActivo(int i) {
 }
 
 void Equipo::agregarCambio(Command* cambio) {
-	if (!this->cambiandoJugador & cambio != NULL)
+	if (!this->getJugadorActivo()->estaCambiandoPersonaje() & cambio != NULL)
 		this->cambios.push(cambio);
 	else
 		cout << "cambiando jugador" << endl;
@@ -93,23 +94,27 @@ void Equipo::update(int i) {
 	}
 }
 
-void Equipo::move(){
+void Equipo::move(SDL_Rect* camara){
 	for (int i = 0; i < 2; ++i) {
-		this->jugadores[i]->move();
+		this->jugadores[i]->move(this->equipoRival->getJugadorActivo(), camara);
 	}
 	if (this->getJugadorActivo()->isFueraDePantalla())
-		this->cambiarPersonaje();
+		this->cambiarPersonaje(camara);
 }
 
-void Equipo::cambiarPersonaje(){
+void Equipo::cambiarPersonaje(SDL_Rect* camara){
+
 	int jugadorInactivo = this->getNumeroJugadorInactivo();
 	this->setJugadorActivo(jugadorInactivo);
-	setCambiandoPersonaje(false);
 	this->getJugadorActivo()->estado->setPosY(10);
+	if(this->numeroEquipo == 0)
+		this->getJugadorActivo()->estado->setPosX(camara->x);
+	else
+		this->getJugadorActivo()->estado->setPosX(camara->x + camara->w - this->getJugadorActivo()->get_ancho());
 }
 
-void Equipo::setCambiandoPersonaje(){
-	this->setCambiandoPersonaje(true);
+void Equipo::iniciarCambioPersonaje(){
+	this->jugadores[this->nroJugadorActivo]->cambiarPersonaje();
 }
 
 
@@ -148,11 +153,15 @@ int Equipo::getCantidadJugadores() {
 	return 2;
 }
 
-bool Equipo::isCambiandoPersonaje(){
-	return cambiandoJugador;
-}
-
 void Equipo::setCambiandoPersonaje(bool cambiandoJugador) {
 	this->cambiandoJugador = cambiandoJugador;
 	this->getJugadorActivo()->estado->setCambiandoPersonaje(cambiandoJugador);
+}
+
+void Equipo::setEquipoRival(Equipo* equipo_rival){
+	this->equipoRival = equipo_rival;
+}
+
+Equipo* Equipo::getEquipoRival(){
+	return this->equipoRival;
 }

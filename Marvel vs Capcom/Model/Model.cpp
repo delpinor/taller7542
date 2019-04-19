@@ -38,9 +38,12 @@ void Model::cargar_Tam_Pantalla(int &ancho, int &alto) {
 }
 void Model::inicializar(){
 	for (int i = 0; i<2; i++){
-		this->equipos[i]->inicializar();
+		this->equipos[i]->inicializar(i);
 	}
+	this->equipos[0]->setEquipoRival(equipos[1]);
+	this->equipos[1]->setEquipoRival(equipos[0]);
 }
+
 int Model::get_alto_Pantalla() {
 	return this->alto_Pantalla;
 }
@@ -134,12 +137,18 @@ void Model::update() {
 void Model::moverJuego() {
 
 	for (int i = 0; i < CANTJUGADORESTOTALES; ++i) {
-		this->equipos[i]->move();
+		this->equipos[i]->move(this->camara);
 	}
 }
 
 void Model::setCamara(SDL_Rect * camara) {
 	this->camara = camara;
+}
+
+void Model::inicializarPosicionesEquipos(){
+	this->equipos[0]->getJugadorActivo()->estado->setPosX(this->camara->x);
+	this->equipos[1]->getJugadorActivo()->estado->setPosX(this->camara->x + this->camara->w -
+			this->equipos[0]->getJugadorActivo()->get_ancho());
 }
 
 Equipo* Model::getEquipoNro(int i) {
