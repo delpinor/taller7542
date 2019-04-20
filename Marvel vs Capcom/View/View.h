@@ -7,7 +7,6 @@
 #include <cstdlib>
 #include <vector>
 #include "FondoParallax.h"
-#include "View_Elemento_Renderizable.h"
 
 #define ANCHO_JUGADOR 146
 #define ALTO_JUGADOR 146
