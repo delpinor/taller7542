@@ -9,6 +9,7 @@ void View_Jugador_VenomBlack::initialize(Jugador * model, LTexture * texturaJuga
 	this->texturaJugador = texturaJugador;
 	texturaJugador->setColor(40,40,40);
 	this->model = model;
+	this->zIndex = model->get_zindex();
 
 	getSpritesCaminar();
 	getSpritesSaltar();

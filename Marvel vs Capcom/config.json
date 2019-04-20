@@ -11,43 +11,43 @@
 			"alto" :"250",
 			"ancho" :"190",
 			"rutaArchivoImagen" : "Images/Captain America.gif",
-			"zIndex" : "99"
+			"zIndex" : "45"
 		},
 		{
 			"nombre" : "Venom",
 			"alto" : "250",
 			"ancho" : "190",
 			"rutaArchivoImagen" : "Images/Venom.png",
-			"zIndex" : "99"
+			"zIndex" : "46"
 		},
 		{
 			"nombre" : "Captain America Black",
 			"alto" : "250",
 			"ancho" : "190",
 			"rutaArchivoImagen" : "Images/Captain America.gif",
-			"zIndex" : "50"
+			"zIndex" : "47"
 		},
 		{
 			"nombre" : "Venom Black",
 			"alto" : "250",
 			"ancho" : "190",
 			"rutaArchivoImagen" : "Images/Venom.png",
-			"zIndex" : "50"
+			"zIndex" : "48"
 		}
 	],
 	"fondosPantalla" :
 	[
 		{
 			"rutaArchivoImagen" : "Images/z1.png",
-			"zIndex" : "1"
+			"zIndex" : "75"
 		},
 		{
 			"rutaArchivoImagen" : "Images/z2.png",
-			"zIndex" : "2"
+			"zIndex" : "50"
 		},
 		{
 			"rutaArchivoImagen" : "Images/z3.png",
-			"zIndex" : "3"
+			"zIndex" : "10"
 		}
 	],
 	"nivel" : 

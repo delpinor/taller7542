@@ -11,6 +11,7 @@ void View_Jugador_CapAmerica::initialize(Jugador *model, LTexture * texturaJugad
 	getSpritesCaminar();
 	getSpritesSaltar();
 	getSpritesAgachar();
+	this->zIndex = model->get_zindex();
 }
 
 void View_Jugador_CapAmerica::getSpritesCaminar() {

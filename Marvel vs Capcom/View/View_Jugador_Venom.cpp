@@ -8,7 +8,7 @@ View_Jugador_Venom::View_Jugador_Venom() {
 void View_Jugador_Venom::initialize(Jugador * model, LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
 	this->model = model;
-
+	this->zIndex = model->get_zindex();
 
 	getSpritesCaminar();
 	getSpritesSaltar();

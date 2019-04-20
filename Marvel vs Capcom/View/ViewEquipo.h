@@ -28,6 +28,7 @@ public:
 	bool hayAlgunJugadorActivoEnEspera();
 	void initialize(Equipo* equipo, LTexture texturaJugador[]);
 	void render(int camX, int camY, SDL_Renderer * gRenderer);
+	void render(int camX, int camY, SDL_Renderer * gRenderer, int zIndex);
 
 	View_Jugador* viewJugadores[maxCantJugadores];
 	int cantidadjugadores;

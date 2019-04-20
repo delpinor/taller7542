@@ -25,6 +25,7 @@ View::View(Model* model) {
 			this->model->setCamara(this->camara);
 			this->model->inicializarPosicionesEquipos();
 			this->viewModel = new ViewModel(this->model, this->gRenderer, this->camara,	this->texturasEquipo1, this->texturasEquipo2);
+			this->setElementoPersonaje(model);
 		}
 
 }
@@ -153,13 +154,26 @@ void View::ajustarCamara() {
 }
 
 void View::render() {
+
 	this->ajustarCamara();
 	SDL_SetRenderDrawColor(this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(this->gRenderer);
 	pantalla->refrescarPosicion(camara);
-	this->viewModel->render();
-	SDL_RenderPresent(this->gRenderer);
 
+	for (auto iter = this->mapElementosRenderizables.begin(); iter != this->mapElementosRenderizables.end(); ++iter) {
+		for (unsigned int i = 0; i < (iter->second).size(); ++i) {
+			if((iter->second)[i][MAP_ELEMENTOS_CLAVE_TIPO_ELEMENTO] == TIPO_ELEMENTO_FONDO){
+				pantalla->render((iter->second)[i][MAP_ELEMENTOS_CLAVE_FONDOID]);
+			}
+			else
+				if((iter->second)[i][MAP_ELEMENTOS_CLAVE_TIPO_ELEMENTO] == TIPO_ELEMENTO_PERSONAJE){
+				this->viewModel->render((iter->second)[i][MAP_ELEMENTOS_CLAVE_EQUIPO], iter->first);
+			}
+		}
+	}
+	//this->viewModel->render();
+
+	SDL_RenderPresent(this->gRenderer);
 }
 
 bool View::inicializar(Model *model) {
@@ -193,10 +207,25 @@ bool View::inicializar(Model *model) {
 						SDL_GetError());
 				exito = false;
 			} else {
+
+				std::string pathZ1 = model->GetPathFondoParallaxByOrden(1);
+				std::string pathZ2 = model->GetPathFondoParallaxByOrden(2);
+				std::string pathZ3 = model->GetPathFondoParallaxByOrden(3);
+
 				pantalla = new FondoParallax(window, gRenderer,
-						model->GetPathFondoParallaxByOrden(1),
-						model->GetPathFondoParallaxByOrden(2),
-						model->GetPathFondoParallaxByOrden(3));
+						pathZ1,
+						pathZ2,
+						pathZ3);
+
+				if(pathZ1 != ""){
+					this->setElementoFondo(model->GetZIndexFondoParallaxByOrden(1), 1);
+				}
+				if(pathZ2 != ""){
+					this->setElementoFondo(model->GetZIndexFondoParallaxByOrden(2), 2);
+				}
+				if(pathZ3 != ""){
+					this->setElementoFondo(model->GetZIndexFondoParallaxByOrden(3), 3);
+				}
 
 				//Initialize renderer color
 				SDL_SetRenderDrawColor(this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -235,6 +264,43 @@ void View::loadMedia(Model *model) {
 //	texturaJugador = texturaCaptainAmerica;// sacar cuando resuelva como guardarlas en una coleccion
 
 }
+
+void View::setElementoFondo(int pZIndex, int id){
+
+	std::map<string, int > mapElemento;
+	mapElemento[MAP_ELEMENTOS_CLAVE_TIPO_ELEMENTO] = TIPO_ELEMENTO_FONDO;
+	mapElemento[MAP_ELEMENTOS_CLAVE_FONDOID] = id;
+
+	int idElemento = this->mapElementosRenderizables[pZIndex].size() + 1;
+	this->mapElementosRenderizables[pZIndex][idElemento] = mapElemento;
+}
+
+void View::setElementoPersonaje(Model* model){
+
+	Equipo* equipo1 = model->getEquipoNro(0);
+	Equipo* equipo2 = model->getEquipoNro(1);
+
+	for(int i = 0; i < equipo1->getCantidadJugadores(); i = i + 1){
+		Jugador* jugador = equipo1->jugadores[i];
+		this->setElementoPersonaje(jugador->get_zindex(), 0);//, i);
+	}
+
+	for(unsigned int i = 0; i < equipo2->getCantidadJugadores(); i = i +1){
+		Jugador* jugador = equipo2->jugadores[i];
+		this->setElementoPersonaje(jugador->get_zindex(), 1);//, i);
+	}
+}
+
+void View::setElementoPersonaje(int pZIndex, int equipo){//, int jugador){
+
+	std::map<string, int > mapElemento;
+	mapElemento[MAP_ELEMENTOS_CLAVE_TIPO_ELEMENTO] = TIPO_ELEMENTO_PERSONAJE;
+	mapElemento[MAP_ELEMENTOS_CLAVE_EQUIPO] = equipo;
+
+	int idElemento = this->mapElementosRenderizables[pZIndex].size() + 1;
+	this->mapElementosRenderizables[pZIndex][idElemento] = mapElemento;
+}
+
 void View::close() {
 
 	//Destroy this->window}
