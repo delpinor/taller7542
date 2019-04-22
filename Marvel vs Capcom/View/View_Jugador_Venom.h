@@ -15,6 +15,7 @@ public:
 		LTexture * texturaJugador);
 
 	SDL_Rect gSpriteCaminar[ MAXFRAMECAMINA];
+	SDL_Rect gSpriteCambiarPersonaje[1];
 	SDL_Rect gSpriteSaltar[ MAXFRAMESALTA];
 	SDL_Rect gSpriteAgachar[ CANTSPRITECLIP];
 	SDL_Rect gSpriteGolpear[ CANTSPRITECLIP];
@@ -24,6 +25,7 @@ private:
 	void getSpritesCaminar();
 	void getSpritesSaltar();
 	void getSpritesAgachar();
+	void getSpritesCambioPersonaje();
 	void render(int camX, int camY, SDL_Renderer * gRenderer);
 
 };

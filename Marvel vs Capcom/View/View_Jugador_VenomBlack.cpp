@@ -14,6 +14,7 @@ void View_Jugador_VenomBlack::initialize(Jugador * model, LTexture * texturaJuga
 	getSpritesCaminar();
 	getSpritesSaltar();
 	getSpritesAgachar();
+	getSpritesCambioPersonaje();
 }
 
 void View_Jugador_VenomBlack::getSpritesCaminar() {
@@ -132,6 +133,13 @@ void View_Jugador_VenomBlack::getSpritesAgachar() {
 	gSpriteAgachar[0].h = 149;
 }
 
+void View_Jugador_VenomBlack::getSpritesCambioPersonaje() {
+	gSpriteCambiarPersonaje[0].x = 196;
+	gSpriteCambiarPersonaje[0].y = 5405;
+	gSpriteCambiarPersonaje[0].w = 149;
+	gSpriteCambiarPersonaje[0].h = 170;
+}
+
 void View_Jugador_VenomBlack::render(int camX, int camY, SDL_Renderer * gRenderer) {
 	if (this->model->estaAgachado()){
 			SDL_Rect* currentClip;
@@ -147,7 +155,10 @@ void View_Jugador_VenomBlack::render(int camX, int camY, SDL_Renderer * gRendere
 		SDL_Rect* currentClip;
 		int maxFrames;
 		int minFrames;
-		if (this->model->estado->getVelY() != 0){
+		if(this->model->estaCambiandoPersonaje()){
+			currentClip = &gSpriteCambiarPersonaje[0];
+		}
+		else if (this->model->estado->getVelY() != 0){
 			currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
 			minFrames = MINFRAMESALTA;
 			maxFrames = MAXFRAMESALTA;
@@ -170,15 +181,6 @@ void View_Jugador_VenomBlack::render(int camX, int camY, SDL_Renderer * gRendere
 
 		}
 
-	//
-	//	SDL_Rect* currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
-	//	if ((this->model->getVelX() != 0) || (this->model->getVelY() != 0)) {
-	//		++frame;
-	//	}
-	//
-	//	if (frame / MAXFRAMECAMINA >= MAXFRAMECAMINA) {
-	//		frame = MINFRAMECAMINA;
-	//	}
 		this->texturaJugador->render(this->model->getPosX() - camX,
 				this->model->getPosY() - camY, currentClip, 0, NULL,
 			this->model->getDireccion(), gRenderer);

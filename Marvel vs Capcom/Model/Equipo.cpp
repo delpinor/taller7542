@@ -10,36 +10,10 @@
 using namespace std;
 
 Equipo::Equipo() {
-	//this->jugadores = new Jugador[2];
-	//this->jugadores[0].setPersonaje(0); //testing
-	//this->jugadores[1].setPersonaje(1); //testing
-	//this->nroJugadorActivo = 1;
-	//this->getJugadorActivo()->activar();
 }
 
-//revisar ,no usar!!
-//Equipo::Equipo(std::map<int, Jugador> jugadores){
-////	int i = 0;
-////	for (std::map<int, Jugador>::iterator itr = jugadores.begin(); itr != jugadores.end(); itr++){
-////		if (i >= 2)
-////			break;
-////		agregar_Jugador(i,itr->second);
-////		i++;
-////	}
-//
-////	agregar_Jugador(0,jugador);
-////
-////	agregar_Jugador(1,jugador);
-//
-//	//this->jugadores[0].setPersonaje(0); //testing
-//		//this->jugadores[1].setPersonaje(1); //testing
-//		//this->nroJugadorActivo = 1;
-//		//this->getJugadorActivo()->activar();
-//
-//}
 void Equipo::agregar_Jugador(int num, Jugador * jugador){
 	this->jugadores[num]=jugador;
-	//	this->getJugadorActivo()->activar();
 }
 
 void Equipo::inicializar(int numeroEquipo){
@@ -105,12 +79,10 @@ void Equipo::move(SDL_Rect* camara){
 void Equipo::cambiarPersonaje(SDL_Rect* camara){
 
 	int jugadorInactivo = this->getNumeroJugadorInactivo();
+	int posXActual = this->getJugadorActivo()->estado->getPosX();
 	this->setJugadorActivo(jugadorInactivo);
 	this->getJugadorActivo()->estado->setPosY(10);
-	if(this->numeroEquipo == 0)
-		this->getJugadorActivo()->estado->setPosX(camara->x);
-	else
-		this->getJugadorActivo()->estado->setPosX(camara->x + camara->w - this->getJugadorActivo()->get_ancho());
+	this->getJugadorActivo()->estado->setPosX(posXActual);
 }
 
 void Equipo::iniciarCambioPersonaje(){
@@ -130,6 +102,10 @@ void Equipo::jugadorActivoAumentaVelocidadEnY() {
 	this->jugadores[this->nroJugadorActivo]->aumentarVelocidadY();
 }
 
+void Equipo::jugadorActivoAumentaVelocidadEnY(int vel) {
+	this->jugadores[this->nroJugadorActivo]->aumentarVelocidadY(vel);
+}
+
 void Equipo::jugadorActivoSalta() {
 	this->jugadores[this->nroJugadorActivo]->Saltar();
 }
@@ -145,17 +121,13 @@ void Equipo::jugadorActivoDisminuyeVelocidadEnY() {
 void Equipo::jugadorActivoSeAgacha() {
 	this->jugadores[this->nroJugadorActivo]->Agachar();
 }
+
 void Equipo::jugadorActivoSePara() {
 	this->jugadores[this->nroJugadorActivo]->Parar();
 }
 
 int Equipo::getCantidadJugadores() {
 	return 2;
-}
-
-void Equipo::setCambiandoPersonaje(bool cambiandoJugador) {
-	this->cambiandoJugador = cambiandoJugador;
-	this->getJugadorActivo()->estado->setCambiandoPersonaje(cambiandoJugador);
 }
 
 void Equipo::setEquipoRival(Equipo* equipo_rival){

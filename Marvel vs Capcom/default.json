@@ -7,9 +7,9 @@
 	"personajes" :
  	[
 		{
-			"nombre" :"Captain America",
-			"alto" :"400",
-			"ancho" :"340",
+			"nombre" : "Captain America",
+			"alto" : "400",
+			"ancho" : "340",
 			"rutaArchivoImagen" : "Images/Captain America.gif",
 			"zIndex" : "99"
 		},

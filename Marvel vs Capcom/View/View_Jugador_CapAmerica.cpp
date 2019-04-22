@@ -12,6 +12,7 @@ void View_Jugador_CapAmerica::initialize(Jugador *model, LTexture * texturaJugad
 	getSpritesSaltar();
 	getSpritesAgachar();
 	this->zIndex = model->get_zindex();
+	getSpritesCambioPersonaje();
 }
 
 void View_Jugador_CapAmerica::getSpritesCaminar() {
@@ -111,6 +112,13 @@ void View_Jugador_CapAmerica::getSpritesAgachar() {
 	gSpriteAgachar[0].h = 119;
 }
 
+void View_Jugador_CapAmerica::getSpritesCambioPersonaje() {
+	gSpriteCambiarPersonaje[0].x = 97;
+	gSpriteCambiarPersonaje[0].y = 581;
+	gSpriteCambiarPersonaje[0].w = 100;
+	gSpriteCambiarPersonaje[0].h = 163;
+}
+
 
 void View_Jugador_CapAmerica::render(int camX, int camY, SDL_Renderer * gRenderer) {
 
@@ -127,7 +135,10 @@ void View_Jugador_CapAmerica::render(int camX, int camY, SDL_Renderer * gRendere
 			SDL_Rect* currentClip;
 			int maxFrames;
 			int minFrames;
-			if (this->model->estado->getVelY() != 0){
+			if(this->model->estaCambiandoPersonaje()){
+				currentClip = &gSpriteCambiarPersonaje[0];
+			}
+			else if (this->model->estado->getVelY() != 0){
 				currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
 				minFrames = MINFRAMESALTA;
 				maxFrames = MAXFRAMESALTA;
@@ -149,16 +160,6 @@ void View_Jugador_CapAmerica::render(int camX, int camY, SDL_Renderer * gRendere
 				++frame;
 
 			}
-
-		//
-		//	SDL_Rect* currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
-		//	if ((this->model->getVelX() != 0) || (this->model->getVelY() != 0)) {
-		//		++frame;
-		//	}
-		//
-		//	if (frame / MAXFRAMECAMINA >= MAXFRAMECAMINA) {
-		//		frame = MINFRAMECAMINA;
-		//	}
 			this->texturaJugador->render(this->model->getPosX() - camX,	this->model->getPosY() - camY,currentClip, 0, NULL,this->model->getDireccion(), gRenderer);
 		}
 	}
