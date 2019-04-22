@@ -9,6 +9,7 @@ void View_Jugador_VenomBlack::initialize(Jugador * model, LTexture * texturaJuga
 	this->texturaJugador = texturaJugador;
 	texturaJugador->setColor(40,40,40);
 	this->model = model;
+	this->zIndex = model->get_zindex();
 
 	getSpritesCaminar();
 	getSpritesSaltar();
@@ -180,15 +181,6 @@ void View_Jugador_VenomBlack::render(int camX, int camY, SDL_Renderer * gRendere
 
 		}
 
-	//
-	//	SDL_Rect* currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
-	//	if ((this->model->getVelX() != 0) || (this->model->getVelY() != 0)) {
-	//		++frame;
-	//	}
-	//
-	//	if (frame / MAXFRAMECAMINA >= MAXFRAMECAMINA) {
-	//		frame = MINFRAMECAMINA;
-	//	}
 		this->texturaJugador->render(this->model->getPosX() - camX,
 				this->model->getPosY() - camY, currentClip, 0, NULL,
 			this->model->getDireccion(), gRenderer);

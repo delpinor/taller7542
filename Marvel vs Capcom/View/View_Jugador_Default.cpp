@@ -16,6 +16,7 @@ void View_Jugador_Default::initialize(Jugador *model, LTexture * texturaJugador)
 	this->texturaJugador = texturaJugador;
 	this->model = model;
 
+	this->zIndex = model->get_zindex();
 	getSprites();
 }
 

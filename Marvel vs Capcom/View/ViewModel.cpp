@@ -26,3 +26,8 @@ void ViewModel::render() {
 	}
 }
 
+void ViewModel::render(int equipo, int zIndex) {
+
+	this->viewEquipo[equipo]->render(this->camara->x,model->alto_Pantalla -model->alto_Pantalla*0.4 + model->getEquipoNro(equipo)->getJugadorActivo()->get_alto(), this->gRenderer, zIndex);
+}
+

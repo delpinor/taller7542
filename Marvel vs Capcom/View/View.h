@@ -5,6 +5,7 @@
 #include "../Model/Model.h"
 #include <string>
 #include <cstdlib>
+#include <vector>
 #include "FondoParallax.h"
 
 #define ANCHO_JUGADOR 146
@@ -13,6 +14,11 @@
 //#define ALTO_VENTANA 600
 #define ANCHO_NIVEL 1040
 #define ALTO_NIVEL 1080
+#define MAP_ELEMENTOS_CLAVE_TIPO_ELEMENTO "TipoElemento"
+#define MAP_ELEMENTOS_CLAVE_FONDOID "FondoId"
+#define MAP_ELEMENTOS_CLAVE_EQUIPO "Equipo"
+#define TIPO_ELEMENTO_FONDO 1
+#define TIPO_ELEMENTO_PERSONAJE 2
 
 class View {
 public:
@@ -40,7 +46,10 @@ private:
 	LTexture texturaVenom;
 	LTexture texturaJugador;
 	int ancho_Pantalla, alto_Pantalla;
-
+	std::map<int, std::map<int, std::map<string, int > > >  mapElementosRenderizables;
+	void setElementoFondo(int pZIndex, int id);
+	void setElementoPersonaje(Model* model);
+	void setElementoPersonaje(int pZIndex, int equipo);//, int jugador);
 };
 
 #endif // VIEW_H

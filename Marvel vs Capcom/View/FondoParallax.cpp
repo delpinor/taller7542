@@ -31,10 +31,19 @@ void FondoParallax::refrescarPosicion(SDL_Rect * cam) {
 		Logger::Log(LOGGER_NIVEL::DEBUG, "Parallax:Refrescar", "CámaraPosX:"+ std::to_string(cam->x));
 	}
 	pos_x_anterior = cam->x;
-	SDL_RenderCopy(renderer, fondoZ3, &rectZ3_Desde, &rectZ3_Hasta);
-	SDL_RenderCopy(renderer, fondoZ2, &rectZ2_Desde, &rectZ2_Hasta);
-	SDL_RenderCopy(renderer, fondoZ1, &rectZ1_Desde, &rectZ1_Hasta);
 }
+void FondoParallax::render(int fondoId){
+	if(fondoId == 1){
+		SDL_RenderCopy(renderer, fondoZ1, &rectZ1_Desde, &rectZ1_Hasta);
+	}
+	if(fondoId == 2){
+		SDL_RenderCopy(renderer, fondoZ2, &rectZ2_Desde, &rectZ2_Hasta);
+	}
+	if(fondoId == 3){
+		SDL_RenderCopy(renderer, fondoZ3, &rectZ3_Desde, &rectZ3_Hasta);
+	}
+}
+
 // Mover fondo a derecha * multiplicador de velocidad
 void FondoParallax::moverDerecha(int velocidad) {
 	if ((rectZ1_Desde.x + rectZ1_Desde.w) < anchoPantallaZ1) {

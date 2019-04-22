@@ -13,6 +13,7 @@ public:
 	ViewModel(Model* model, SDL_Renderer* gRenderer, SDL_Rect* camara, LTexture* texturaJugador1, LTexture* texturaJugador2);
 	virtual ~ViewModel();
 	void render();
+	void render(int equipo, int zIndex);
 	bool hayAlgunJugadorActivoEnEspera();
 protected:
 

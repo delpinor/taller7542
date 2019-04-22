@@ -63,8 +63,6 @@ void Estado::copiarEstado(Estado* estado) {
 	this->posInitY = estado->posInitY;
 	this->mPosX = estado->mPosX;
 	this->mPosY = estado->mPosY;
-//	this->mPosX = estado->posInitX;
-//	this->mPosY = estado->posInitY;
 	this->mVelX = estado->mVelX;
 	this->mVelY = estado->mVelY;
 }
@@ -148,7 +146,3 @@ int Estado::getAceleracion() {
 bool Estado::getAcelero() {
 	return this->acelero;
 }
-
-//void Estado::setCambiandoPersonaje(bool cambiandoPersonaje) {
-//	this->cambiandoPersonaje = cambiandoPersonaje;
-//}

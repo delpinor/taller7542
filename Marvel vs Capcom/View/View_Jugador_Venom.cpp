@@ -8,7 +8,7 @@ View_Jugador_Venom::View_Jugador_Venom() {
 void View_Jugador_Venom::initialize(Jugador * model, LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
 	this->model = model;
-
+	this->zIndex = model->get_zindex();
 
 	getSpritesCaminar();
 	getSpritesSaltar();
@@ -179,15 +179,6 @@ void View_Jugador_Venom::render(int camX, int camY, SDL_Renderer * gRenderer) {
 
 		}
 
-	//
-	//	SDL_Rect* currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
-	//	if ((this->model->getVelX() != 0) || (this->model->getVelY() != 0)) {
-	//		++frame;
-	//	}
-	//
-	//	if (frame / MAXFRAMECAMINA >= MAXFRAMECAMINA) {
-	//		frame = MINFRAMECAMINA;
-	//	}
 		this->texturaJugador->render(this->model->getPosX() - camX,
 				this->model->getPosY() - camY, currentClip, 0, NULL,
 			this->model->getDireccion(), gRenderer);

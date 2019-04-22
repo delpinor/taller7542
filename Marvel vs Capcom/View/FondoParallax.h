@@ -39,5 +39,6 @@ public:
 	void cargaInicial(std::string rutaZ1, std::string rutaZ2, std::string rutaZ3);
 	void moverDerecha(int velocidad);
 	void moverIzquierda(int velocidad);
+	void render(int fondoId);
 	~FondoParallax();
 };

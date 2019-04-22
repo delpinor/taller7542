@@ -66,21 +66,40 @@ int Model::GetAnchoJugador(int equipo, int indice_jugador){
 std::string Model::GetPathFondoParallax(int zIndex) {
 	return fondos[zIndex];
 }
-std::string Model::GetPathFondoParallaxByOrden(int orden){
+string Model::GetPathFondoParallaxByOrden(int orden){
+
 	if(fondos.size() >= orden){
+
 		int i = 1;
-		for (auto const& entry: fondos)
-		{
+		for (auto iter = fondos.rbegin(); iter != fondos.rend(); ++iter) {
 			if(i == orden){
-				return entry.second;
+				return iter->second;
 			}
-			i = i +1;
+			i = i + 1;
 		}
 	}
 	else{
 		return "";
 	}
 }
+
+int Model::GetZIndexFondoParallaxByOrden(int orden){
+
+	if(fondos.size() >= orden){
+
+		int i = 1;
+		for (auto iter = fondos.rbegin(); iter != fondos.rend(); ++iter) {
+			if(i == orden){
+				return iter->first;
+			}
+			i = i + 1;
+		}
+	}
+	else{
+		return -1;
+	}
+}
+
 void Model::CargarFondos(std::map<int, std::map<std::string, std::string> > &mapFondoPantalla) {
 	Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaFondos", "Carga iniciada");
 	int zIndex;
@@ -106,7 +125,7 @@ void Model::cargar_Jugadores(
 		   map<string, string> &internal_map = it->second;
 		  ancho=atoi((internal_map["ancho"]).c_str()); //
 		   alto=atoi((internal_map["alto"]).c_str());
-		   zindex=atoi((internal_map["zindex"]).c_str());
+		   zindex=atoi((internal_map["zIndex"]).c_str());
 
 		nombre = internal_map["nombre"];
 		path = internal_map["rutaArchivoImagen"];

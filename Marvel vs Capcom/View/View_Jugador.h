@@ -14,6 +14,7 @@ public:
 	virtual void initialize(Jugador *model, LTexture * texturaJugador);
 	virtual void render(int camX, int camY, SDL_Renderer * gRenderer);
 	Jugador *model;
+	int getZIndex();
 
 protected:
 
@@ -21,7 +22,7 @@ protected:
 	int frame = 0;
 	SDL_RendererFlip direccion;
 	void getSpritesCaminar();
-
+	int zIndex;
 };
 
 #endif

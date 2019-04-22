@@ -41,6 +41,14 @@ void ViewEquipo::render(int camX, int camY, SDL_Renderer * gRenderer){
 		}
 }
 
+void ViewEquipo::render(int camX, int camY, SDL_Renderer * gRenderer, int zIndex){
+	for (int i = 0; i < cantidadjugadores; ++i) {
+		if(this->viewJugadores[i]->getZIndex() == zIndex){
+			this->viewJugadores[i]->render(camX, camY, gRenderer);
+		}
+	}
+}
+
 ViewEquipo::~ViewEquipo() {
 	// TODO Auto-generated destructor stub
 }

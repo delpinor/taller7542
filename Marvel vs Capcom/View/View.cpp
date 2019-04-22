@@ -25,6 +25,7 @@ View::View(Model* model) {
 			this->model->setCamara(this->camara);
 			this->model->inicializarPosicionesEquipos();
 			this->viewModel = new ViewModel(this->model, this->gRenderer, this->camara,	this->texturasEquipo1, this->texturasEquipo2);
+			this->setElementoPersonaje(model);
 		}
 
 }
@@ -42,100 +43,40 @@ void View::ajustarCamara() {
 	int posXJugador2 = model->getEquipoNro(1)->getJugadorActivo()->getPosX();
 	int posYJugador2 = model->getEquipoNro(1)->getJugadorActivo()->getPosY();
 	//
-	//int altoJugador1 = model->getEquipoNro(0)->getJugadorActivo()->get_alto();
 	int anchoJugador1 = model->getEquipoNro(0)->getJugadorActivo()->get_ancho();
 
-	//int altoJugador2 = model->getEquipoNro(1)->getJugadorActivo()->get_alto();
 	int anchoJugador2 = model->getEquipoNro(1)->getJugadorActivo()->get_ancho();
 
 	//Chequeo que los jugadores no se salgan del escenario
-//	if (!model->getEquipoNro(0)->getJugadorActivo()->estado->estaCambiandoPersonaje())
-		if (posXJugador1 + anchoJugador1 > ANCHO_NIVEL)
-			model->getEquipoNro(0)->getJugadorActivo()->setPosX(ANCHO_NIVEL-anchoJugador1);
+	if (posXJugador1 + anchoJugador1 > ANCHO_NIVEL)
+		model->getEquipoNro(0)->getJugadorActivo()->setPosX(
+				ANCHO_NIVEL - anchoJugador1);
 
-//	if (!model->getEquipoNro(1)->getJugadorActivo()->estado->estaCambiandoPersonaje())
-		if (posXJugador2 + anchoJugador2 > ANCHO_NIVEL)
-			model->getEquipoNro(1)->getJugadorActivo()->setPosX(ANCHO_NIVEL-anchoJugador2);
+	if (posXJugador2 + anchoJugador2 > ANCHO_NIVEL)
+		model->getEquipoNro(1)->getJugadorActivo()->setPosX(
+				ANCHO_NIVEL - anchoJugador2);
 
-	if (posXJugador1 < 0){
+	if (posXJugador1 < 0) {
 		model->getEquipoNro(0)->getJugadorActivo()->setPosX(0);
 		posXJugador1 = 0;
 	}
-	if (posXJugador2 < 0){
+	if (posXJugador2 < 0) {
 		model->getEquipoNro(1)->getJugadorActivo()->setPosX(0);
 		posXJugador2 = 0;
 	}
 
 	//Muevo la cámara si algún jugador se está saliendo de ella
-//	if (!model->getEquipoNro(0)->getJugadorActivo()->estado->estaCambiandoPersonaje())
-		if (posXJugador1 + anchoJugador1 > this->camara->x + this->camara->w)
-			this->camara->x += model->getEquipoNro(0)->getJugadorActivo()->estado->getVelX();
-
-//	if (!model->getEquipoNro(1)->getJugadorActivo()->estado->estaCambiandoPersonaje())
-		if (posXJugador2 + anchoJugador2 > this->camara->x + this->camara->w)
-			this->camara->x += model->getEquipoNro(1)->getJugadorActivo()->estado->getVelX();
-
-	if (posXJugador1 < this->camara->x)
+	if (posXJugador1 + anchoJugador1 > this->camara->x + this->camara->w)
+		this->camara->x +=
+				model->getEquipoNro(0)->getJugadorActivo()->estado->getVelX();
+	else if (posXJugador1 < this->camara->x)
 		this->camara->x = posXJugador1;
-	if (posXJugador2 < this->camara->x)
+
+	if (posXJugador2 + anchoJugador2 > this->camara->x + this->camara->w)
+		this->camara->x +=
+				model->getEquipoNro(1)->getJugadorActivo()->estado->getVelX();
+	else if (posXJugador2 < this->camara->x)
 		this->camara->x = posXJugador2;
-
-	int difActual, difAnterior;
-//
-//	// Limite jugador borde izquiedo
-//	if(posXJugador1 < camara->x){
-//	model->getEquipoNro(0)->getJugadorActivo()->setPosX(camara->x);
-//
-//	}
-//	// Limite jugador borde derecho
-//	if(posXJugador1> camara ->x + ancho_Pantalla - anchoJugador1){
-//	model->getEquipoNro(0)->getJugadorActivo()->setPosX(camara->x + ancho_Pantalla - anchoJugador1);
-//
-//	}
-//	// Limite jugador borde izquiedo
-//	if(posXJugador2 < camara->x){
-//		model->getEquipoNro(1)->getJugadorActivo()->setPosX(camara->x);
-//
-//	}
-//	// Limite jugador borde derecho
-//	if(posXJugador2> camara ->x + ancho_Pantalla - anchoJugador2){
-//		model->getEquipoNro(1)->getJugadorActivo()->setPosX(camara->x + ancho_Pantalla - anchoJugador2);
-//
-//	}
-//
-//	//Movimiento a derecha
-//	difActual = abs(posXJugador1-posXJugador2);
-//	difAnterior = abs(posAnteriorX1-posAnteriorX2);
-//
-//	if (difActual == difAnterior){
-//
-//	if ((posXJugador1 > posAnteriorX1) && ( posXJugador2 > posAnteriorX2)) {
-//		this->camara->x = ((posXJugador1 + posXJugador1) / 2) - (this->ancho_Pantalla / 2);
-//
-//	}
-//	//Movimiento a izquierda
-//	if ((posXJugador1 < posAnteriorX1) && ( posXJugador2 < posAnteriorX2)) {
-//		this->camara->x = ((posXJugador1 + posXJugador1) / 2) - (this->ancho_Pantalla / 2);
-//
-//	}
-//	//Movimiento arriba
-//	if ((posYJugador1 > posAnteriorY1) && ( posYJugador2 > posAnteriorY2)) {
-//		this->camara->y = ((posYJugador1 + posYJugador1) / 2) - (this->alto_Pantalla/ 2);
-//
-//	}
-//	//Movimiento abajo
-//	if ((posYJugador1 < posAnteriorY1) && ( posYJugador2 < posAnteriorY2)) {
-//		this->camara->y = ((posYJugador1 + posYJugador1) / 2) - (this->alto_Pantalla / 2);
-//
-//	}
-//
-//	}
-//	posAnteriorX1 = posXJugador1;
-//	posAnteriorX2 = posXJugador2;
-//	posAnteriorY1 = posYJugador1;
-//	posAnteriorY2 = posYJugador2;
-
-
 
 	//Keep the this->camara->in bounds
 	if (this->camara->x < 0) {
@@ -153,13 +94,26 @@ void View::ajustarCamara() {
 }
 
 void View::render() {
+
 	this->ajustarCamara();
 	SDL_SetRenderDrawColor(this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(this->gRenderer);
 	pantalla->refrescarPosicion(camara);
-	this->viewModel->render();
-	SDL_RenderPresent(this->gRenderer);
 
+	for (auto iter = this->mapElementosRenderizables.begin(); iter != this->mapElementosRenderizables.end(); ++iter) {
+		for (unsigned int i = 0; i < (iter->second).size(); ++i) {
+			if((iter->second)[i][MAP_ELEMENTOS_CLAVE_TIPO_ELEMENTO] == TIPO_ELEMENTO_FONDO){
+				pantalla->render((iter->second)[i][MAP_ELEMENTOS_CLAVE_FONDOID]);
+			}
+			else
+				if((iter->second)[i][MAP_ELEMENTOS_CLAVE_TIPO_ELEMENTO] == TIPO_ELEMENTO_PERSONAJE){
+				this->viewModel->render((iter->second)[i][MAP_ELEMENTOS_CLAVE_EQUIPO], iter->first);
+			}
+		}
+	}
+	//this->viewModel->render();
+
+	SDL_RenderPresent(this->gRenderer);
 }
 
 bool View::inicializar(Model *model) {
@@ -193,10 +147,25 @@ bool View::inicializar(Model *model) {
 						SDL_GetError());
 				exito = false;
 			} else {
+
+				std::string pathZ1 = model->GetPathFondoParallaxByOrden(1);
+				std::string pathZ2 = model->GetPathFondoParallaxByOrden(2);
+				std::string pathZ3 = model->GetPathFondoParallaxByOrden(3);
+
 				pantalla = new FondoParallax(window, gRenderer,
-						model->GetPathFondoParallaxByOrden(1),
-						model->GetPathFondoParallaxByOrden(2),
-						model->GetPathFondoParallaxByOrden(3));
+						pathZ1,
+						pathZ2,
+						pathZ3);
+
+				if(pathZ1 != ""){
+					this->setElementoFondo(model->GetZIndexFondoParallaxByOrden(1), 1);
+				}
+				if(pathZ2 != ""){
+					this->setElementoFondo(model->GetZIndexFondoParallaxByOrden(2), 2);
+				}
+				if(pathZ3 != ""){
+					this->setElementoFondo(model->GetZIndexFondoParallaxByOrden(3), 3);
+				}
 
 				//Initialize renderer color
 				SDL_SetRenderDrawColor(this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -226,15 +195,45 @@ void View::loadMedia(Model *model) {
 	texturasEquipo2[0].loadFromFile(path, gRenderer, model->GetAnchoJugador(1, 0), model->GetAltoJugador(1, 0));
 	path = model->get_pathImagenJugador(1, 1);
 	texturasEquipo2[1].loadFromFile(path, gRenderer, model->GetAnchoJugador(1, 1), model->GetAltoJugador(1, 1));
-	//texturas[0].loadFromFile("Images/Captain America.gif", gRenderer);
-	//texturas[1].loadFromFile("Images/Venom.png", gRenderer);
-//	texturas[0].loadFromFile(model->get_pathImagenJugador(0), gRenderer);
-//	texturas[1].loadFromFile(model->get_pathImagenJugador(1), gRenderer);
-//	texturaCaptainAmerica.loadFromFile("Images/Captain America.gif", gRenderer);
-//	texturaVenom.loadFromFile("Images/Venom.png", gRenderer);
-//	texturaJugador = texturaCaptainAmerica;// sacar cuando resuelva como guardarlas en una coleccion
 
 }
+
+void View::setElementoFondo(int pZIndex, int id){
+
+	std::map<string, int > mapElemento;
+	mapElemento[MAP_ELEMENTOS_CLAVE_TIPO_ELEMENTO] = TIPO_ELEMENTO_FONDO;
+	mapElemento[MAP_ELEMENTOS_CLAVE_FONDOID] = id;
+
+	int idElemento = this->mapElementosRenderizables[pZIndex].size() + 1;
+	this->mapElementosRenderizables[pZIndex][idElemento] = mapElemento;
+}
+
+void View::setElementoPersonaje(Model* model){
+
+	Equipo* equipo1 = model->getEquipoNro(0);
+	Equipo* equipo2 = model->getEquipoNro(1);
+
+	for(int i = 0; i < equipo1->getCantidadJugadores(); i = i + 1){
+		Jugador* jugador = equipo1->jugadores[i];
+		this->setElementoPersonaje(jugador->get_zindex(), 0);//, i);
+	}
+
+	for(unsigned int i = 0; i < equipo2->getCantidadJugadores(); i = i +1){
+		Jugador* jugador = equipo2->jugadores[i];
+		this->setElementoPersonaje(jugador->get_zindex(), 1);//, i);
+	}
+}
+
+void View::setElementoPersonaje(int pZIndex, int equipo){//, int jugador){
+
+	std::map<string, int > mapElemento;
+	mapElemento[MAP_ELEMENTOS_CLAVE_TIPO_ELEMENTO] = TIPO_ELEMENTO_PERSONAJE;
+	mapElemento[MAP_ELEMENTOS_CLAVE_EQUIPO] = equipo;
+
+	int idElemento = this->mapElementosRenderizables[pZIndex].size() + 1;
+	this->mapElementosRenderizables[pZIndex][idElemento] = mapElemento;
+}
+
 void View::close() {
 
 	//Destroy this->window}

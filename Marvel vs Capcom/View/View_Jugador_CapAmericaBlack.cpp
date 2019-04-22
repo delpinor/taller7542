@@ -15,6 +15,7 @@ void View_Jugador_CapAmericaBlack::initialize(Jugador *model, LTexture * textura
 	getSpritesSaltar();
 	getSpritesAgachar();
 	getSpritesCambioPersonaje();
+	this->zIndex = model->get_zindex();
 }
 
 void View_Jugador_CapAmericaBlack::getSpritesCaminar() {
@@ -163,16 +164,6 @@ void View_Jugador_CapAmericaBlack::render(int camX, int camY, SDL_Renderer * gRe
 				++frame;
 
 			}
-
-		//
-		//	SDL_Rect* currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
-		//	if ((this->model->getVelX() != 0) || (this->model->getVelY() != 0)) {
-		//		++frame;
-		//	}
-		//
-		//	if (frame / MAXFRAMECAMINA >= MAXFRAMECAMINA) {
-		//		frame = MINFRAMECAMINA;
-		//	}
 			this->texturaJugador->render(this->model->getPosX() - camX,	this->model->getPosY() - camY,currentClip, 0, NULL,this->model->getDireccion(), gRenderer);
 		}
 	}
