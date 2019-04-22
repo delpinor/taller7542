@@ -77,6 +77,7 @@ public:
 	void setPersonaje(int);
 	std::string getPathImagen();
 	void aumentarVelocidadX(int vel);
+	void aumentarVelocidadY(int vel);
 	bool isFueraDePantalla();
 	bool movimientoDerecha();
 	bool movimientoIzquierda();

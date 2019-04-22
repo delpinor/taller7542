@@ -11,6 +11,7 @@ void View_Jugador_CapAmerica::initialize(Jugador *model, LTexture * texturaJugad
 	getSpritesCaminar();
 	getSpritesSaltar();
 	getSpritesAgachar();
+	getSpritesCambioPersonaje();
 }
 
 void View_Jugador_CapAmerica::getSpritesCaminar() {
@@ -110,6 +111,13 @@ void View_Jugador_CapAmerica::getSpritesAgachar() {
 	gSpriteAgachar[0].h = 119;
 }
 
+void View_Jugador_CapAmerica::getSpritesCambioPersonaje() {
+	gSpriteCambiarPersonaje[0].x = 97;
+	gSpriteCambiarPersonaje[0].y = 581;
+	gSpriteCambiarPersonaje[0].w = 100;
+	gSpriteCambiarPersonaje[0].h = 163;
+}
+
 
 void View_Jugador_CapAmerica::render(int camX, int camY, SDL_Renderer * gRenderer) {
 
@@ -126,7 +134,10 @@ void View_Jugador_CapAmerica::render(int camX, int camY, SDL_Renderer * gRendere
 			SDL_Rect* currentClip;
 			int maxFrames;
 			int minFrames;
-			if (this->model->estado->getVelY() != 0){
+			if(this->model->estaCambiandoPersonaje()){
+				currentClip = &gSpriteCambiarPersonaje[0];
+			}
+			else if (this->model->estado->getVelY() != 0){
 				currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
 				minFrames = MINFRAMESALTA;
 				maxFrames = MAXFRAMESALTA;

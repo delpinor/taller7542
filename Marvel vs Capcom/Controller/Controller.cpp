@@ -69,7 +69,6 @@ Command* Controller::handleEvent(SDL_Event& e) {
 		case SDLK_RCTRL:
 			command = this->commands[CAMBIAR_PERSONAJE];
 			this->model->equipos[0]->agregarCambio(command);
-			//this->model->equipos[0]->cambiarJugador();
 			break;
 		}
 	}

@@ -23,14 +23,14 @@
 		{
 			"nombre" : "Captain America Black",
 			"alto" : "200",
-			"ancho" : "140",
+			"ancho" : "130",
 			"rutaArchivoImagen" : "Images/Captain America.gif",
 			"zIndex" : "50"
 		},
 		{
 			"nombre" : "Venom Black",
 			"alto" : "200",
-			"ancho" : "140",
+			"ancho" : "150",
 			"rutaArchivoImagen" : "Images/Venom.png",
 			"zIndex" : "50"
 		}

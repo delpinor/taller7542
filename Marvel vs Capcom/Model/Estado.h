@@ -38,7 +38,7 @@ public:
 	void setVelocidadY(int vely);
 	void setAceleracion(int ac);
 	void aumentarVelocidadX(int vel);
-	void setCambiandoPersonaje(bool cambiandoPersonaje);
+	void aumentarVelocidadY(int vel);
 	virtual bool isFueraDePantalla() = 0;
 
 protected:
@@ -47,7 +47,6 @@ protected:
 	int mVelX, mVelY;
 	int aceleracion;
 	bool acelero;
-	bool cambiandoPersonaje;
 
 private:
 };

@@ -13,6 +13,7 @@ void View_Jugador_Venom::initialize(Jugador * model, LTexture * texturaJugador) 
 	getSpritesCaminar();
 	getSpritesSaltar();
 	getSpritesAgachar();
+	getSpritesCambioPersonaje();
 }
 
 void View_Jugador_Venom::getSpritesCaminar() {
@@ -131,6 +132,13 @@ void View_Jugador_Venom::getSpritesAgachar() {
 	gSpriteAgachar[0].h = 149;
 }
 
+void View_Jugador_Venom::getSpritesCambioPersonaje() {
+	gSpriteCambiarPersonaje[0].x = 196;
+	gSpriteCambiarPersonaje[0].y = 5405;
+	gSpriteCambiarPersonaje[0].w = 149;
+	gSpriteCambiarPersonaje[0].h = 170;
+}
+
 void View_Jugador_Venom::render(int camX, int camY, SDL_Renderer * gRenderer) {
 	if (this->model->estaAgachado()){
 			SDL_Rect* currentClip;
@@ -145,7 +153,10 @@ void View_Jugador_Venom::render(int camX, int camY, SDL_Renderer * gRenderer) {
 		SDL_Rect* currentClip;
 		int maxFrames;
 		int minFrames;
-		if (this->model->estado->getVelY() != 0){
+		if(this->model->estaCambiandoPersonaje()){
+			currentClip = &gSpriteCambiarPersonaje[0];
+		}
+		else if (this->model->estado->getVelY() != 0){
 			currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
 			minFrames = MINFRAMESALTA;
 			maxFrames = MAXFRAMESALTA;

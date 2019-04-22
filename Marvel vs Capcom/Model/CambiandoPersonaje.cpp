@@ -17,11 +17,12 @@ CambiandoPersonaje::~CambiandoPersonaje() {
 }
 
 void CambiandoPersonaje::move(){
-	this->mPosX += this->mVelX * aceleracion;
+	mPosY -= mVelY;
 }
 
 bool CambiandoPersonaje::isFueraDePantalla(){
-	return (mPosX > ANCHO_NIVEL)||(mPosX < 0);
+//	return (mPosX > ANCHO_NIVEL)||(mPosX < 0);
+	return (mPosY < 0);
 }
 
 bool CambiandoPersonaje::estaActivo() {

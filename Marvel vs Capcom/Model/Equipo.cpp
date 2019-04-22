@@ -105,12 +105,14 @@ void Equipo::move(SDL_Rect* camara){
 void Equipo::cambiarPersonaje(SDL_Rect* camara){
 
 	int jugadorInactivo = this->getNumeroJugadorInactivo();
+	int posXActual = this->getJugadorActivo()->estado->getPosX();
 	this->setJugadorActivo(jugadorInactivo);
 	this->getJugadorActivo()->estado->setPosY(10);
-	if(this->numeroEquipo == 0)
-		this->getJugadorActivo()->estado->setPosX(camara->x);
-	else
-		this->getJugadorActivo()->estado->setPosX(camara->x + camara->w - this->getJugadorActivo()->get_ancho());
+	this->getJugadorActivo()->estado->setPosX(posXActual);
+//	if(this->numeroEquipo == 0)
+//		this->getJugadorActivo()->estado->setPosX(camara->x);
+//	else
+//		this->getJugadorActivo()->estado->setPosX(camara->x + camara->w - this->getJugadorActivo()->get_ancho());
 }
 
 void Equipo::iniciarCambioPersonaje(){
@@ -130,6 +132,10 @@ void Equipo::jugadorActivoAumentaVelocidadEnY() {
 	this->jugadores[this->nroJugadorActivo]->aumentarVelocidadY();
 }
 
+void Equipo::jugadorActivoAumentaVelocidadEnY(int vel) {
+	this->jugadores[this->nroJugadorActivo]->aumentarVelocidadY(vel);
+}
+
 void Equipo::jugadorActivoSalta() {
 	this->jugadores[this->nroJugadorActivo]->Saltar();
 }
@@ -143,6 +149,7 @@ void Equipo::jugadorActivoDisminuyeVelocidadEnY() {
 }
 
 void Equipo::jugadorActivoSeAgacha() {
+	//this->jugadores[this->nroJugadorActivo]->disminuirVelocidadX();
 	this->jugadores[this->nroJugadorActivo]->Agachar();
 }
 void Equipo::jugadorActivoSePara() {
@@ -151,11 +158,6 @@ void Equipo::jugadorActivoSePara() {
 
 int Equipo::getCantidadJugadores() {
 	return 2;
-}
-
-void Equipo::setCambiandoPersonaje(bool cambiandoJugador) {
-	this->cambiandoJugador = cambiandoJugador;
-	this->getJugadorActivo()->estado->setCambiandoPersonaje(cambiandoJugador);
 }
 
 void Equipo::setEquipoRival(Equipo* equipo_rival){

@@ -148,7 +148,7 @@ void Model::setCamara(SDL_Rect * camara) {
 void Model::inicializarPosicionesEquipos(){
 	this->equipos[0]->getJugadorActivo()->estado->setPosX(this->camara->x);
 	this->equipos[1]->getJugadorActivo()->estado->setPosX(this->camara->x + this->camara->w -
-			this->equipos[0]->getJugadorActivo()->get_ancho());
+			this->equipos[1]->getJugadorActivo()->get_ancho());
 }
 
 Equipo* Model::getEquipoNro(int i) {
