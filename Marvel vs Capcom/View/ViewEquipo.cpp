@@ -26,6 +26,8 @@ View_Jugador * ViewEquipo::cargarVistaPersonaje(std::string nombrePersonaje) {
 		return new View_Jugador_CapAmericaBlack();
 	if (nombrePersonaje == "Venom Black")
 		return new View_Jugador_VenomBlack();
+	if (nombrePersonaje == "Spiderman")
+		return new View_Jugador_Spiderman();
 }
 
 void ViewEquipo::initialize(Equipo * equipo, LTexture texturaEquipo[]) {

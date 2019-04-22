@@ -21,10 +21,10 @@
 			"zIndex" : "46"
 		},
 		{
-			"nombre" : "Captain America Black",
+			"nombre" : "Spiderman",
 			"alto" : "200",
 			"ancho" : "120",
-			"rutaArchivoImagen" : "Images/Captain America.gif",
+			"rutaArchivoImagen" : "Images/Spiderman.gif",
 			"zIndex" : "47"
 		},
 		{
