@@ -24,7 +24,7 @@
 			"nombre" : "Spiderman",
 			"alto" : "200",
 			"ancho" : "120",
-			"rutaArchivoImagen" : "Images/Spiderman.gif",
+			"rutaArchivoImagen" : "Images/Spiderman.png",
 			"zIndex" : "47"
 		},
 		{
