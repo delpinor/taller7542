@@ -133,8 +133,8 @@ void View_Jugador_VenomBlack::render(int camX, int camY, SDL_Renderer * gRendere
 		if(this->jugador->estaCambiandoPersonaje()){
 			currentClip = &gSpriteCambiarPersonaje[0];
 		}
-		else if (this->model->estado->getVelY() != 0) {
-				if (this->model->estado->getVelY() >= 18)
+		else if (this->jugador->estado->getVelY() != 0) {
+				if (this->jugador->estado->getVelY() >= 18)
 					frame = 0;
 				minFrames = MINFRAMESALTA;
 				maxFrames = MAXFRAMESALTA;
@@ -149,7 +149,7 @@ void View_Jugador_VenomBlack::render(int camX, int camY, SDL_Renderer * gRendere
 				currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
 			}
 
-		if ((this->model->getVelX() != 0) || (this->model->getVelY() != 0)) {
+		if ((this->jugador->getVelX() != 0) || (this->jugador->getVelY() != 0)) {
 			++frame;
 
 		}

@@ -148,8 +148,8 @@ void View_Jugador_CapAmerica::render(int camX, int camY, SDL_Renderer * gRendere
 			if(this->jugador->estaCambiandoPersonaje()){
 				currentClip = &gSpriteCambiarPersonaje[0];
 			}
-			else if (this->model->estado->getVelY() != 0){
-				if (this->model->estado->getVelY() >= 18)
+			else if (this->jugador->estado->getVelY() != 0){
+				if (this->jugador->estado->getVelY() >= 18)
 					frame = 0;
 				minFrames = MINFRAMESALTA;
 				maxFrames = MAXFRAMESALTA;

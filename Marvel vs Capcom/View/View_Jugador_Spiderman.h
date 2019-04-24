@@ -15,10 +15,10 @@ public:
 	void initialize(Jugador *model,
 		LTexture * texturaJugador);
 
-	SDL_Rect gSpriteCaminar[ MAXFRAMECAMINA];
+	SDL_Rect gSpriteCaminar[ CANTSPRITECAMINA];
 	SDL_Rect gSpriteCambiarPersonaje[1];
 	SDL_Rect gSpriteSaltar[ CANTFRAMESALTA];
-	SDL_Rect gSpriteAgachar[ CANTSPRITECLIP];
+	SDL_Rect gSpriteAgachar[ 1];
 	SDL_Rect gSpriteGolpear[ CANTSPRITECLIP];
 private:
 	void getSpritesCaminar();
