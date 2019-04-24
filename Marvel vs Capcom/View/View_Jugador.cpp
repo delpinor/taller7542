@@ -7,7 +7,7 @@ View_Jugador::View_Jugador() {
 void View_Jugador::initialize(Jugador * model,
 		LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
-	this->model = model;
+	this->jugador = model;
 	this->zIndex = model->get_zindex();
 }
 

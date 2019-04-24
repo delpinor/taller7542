@@ -4,10 +4,10 @@
 #include "../View/View_Jugador.h"
 #define CANTSPRITECLIP 6
 #define MINFRAMECAMINA 0
-#define MAXFRAMECAMINA 5
+#define MAXFRAMECAMINA 12
 #define CANTSPRITECLIPSALTA 7
 #define MINFRAMESALTA 0
-#define MAXFRAMESALTA 6
+#define MAXFRAMESALTA 12
 
 class View_Jugador_CapAmericaBlack: public View_Jugador {
 public:

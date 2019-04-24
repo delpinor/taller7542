@@ -7,7 +7,7 @@ View_Jugador_Venom::View_Jugador_Venom() {
 
 void View_Jugador_Venom::initialize(Jugador * model, LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
-	this->model = model;
+	this->jugador = model;
 	this->zIndex = model->get_zindex();
 
 	getSpritesCaminar();
@@ -115,20 +115,20 @@ void View_Jugador_Venom::getSpritesCambioPersonaje() {
 }
 
 void View_Jugador_Venom::render(int camX, int camY, SDL_Renderer * gRenderer) {
-	if (this->model->estaAgachado()){
+	if (this->jugador->estaAgachado()){
 			SDL_Rect* currentClip;
 			currentClip = &gSpriteAgachar[0];
 
-			this->texturaJugador->render(this->model->getPosX() - camX,	this->model->getPosY() - camY,currentClip, 0, NULL,this->model->getDireccion(), gRenderer);
+			this->texturaJugador->render(this->jugador->getPosX() - camX,	this->jugador->getPosY() - camY,currentClip, 0, NULL,this->jugador->getDireccion(), gRenderer);
 
 
 		}else{
 
-	if (this->model->estaActivo()){
+	if (this->jugador->estaActivo()){
 		SDL_Rect* currentClip;
 		int maxFrames;
 		int minFrames;
-		if(this->model->estaCambiandoPersonaje()){
+		if(this->jugador->estaCambiandoPersonaje()){
 			currentClip = &gSpriteCambiarPersonaje[0];
 		}
 		else if (this->model->estado->getVelY() != 0) {
@@ -151,9 +151,9 @@ void View_Jugador_Venom::render(int camX, int camY, SDL_Renderer * gRenderer) {
 
 		}
 
-		this->texturaJugador->render(this->model->getPosX() - camX,
-				this->model->getPosY() - camY, currentClip, 0, NULL,
-			this->model->getDireccion(), gRenderer);
+		this->texturaJugador->render(this->jugador->getPosX() - camX,
+				this->jugador->getPosY() - camY, currentClip, 0, NULL,
+			this->jugador->getDireccion(), gRenderer);
 			}
 		}
 }

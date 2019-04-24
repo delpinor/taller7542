@@ -1,5 +1,5 @@
 #include "View_Jugador_VenomBlack.h"
-
+#include "../Logger/Logger.h"
 #include <sstream>
 View_Jugador_VenomBlack::View_Jugador_VenomBlack() {
 
@@ -7,8 +7,8 @@ View_Jugador_VenomBlack::View_Jugador_VenomBlack() {
 
 void View_Jugador_VenomBlack::initialize(Jugador * model, LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
-	texturaJugador->setColor(40,40,40);
-	this->model = model;
+	texturaJugador->setColor(120,150,20);
+	this->jugador = model;
 	this->zIndex = model->get_zindex();
 
 	getSpritesCaminar();
@@ -116,21 +116,21 @@ void View_Jugador_VenomBlack::getSpritesCambioPersonaje() {
 }
 
 void View_Jugador_VenomBlack::render(int camX, int camY, SDL_Renderer * gRenderer) {
-	if (this->model->estaAgachado()){
+	if (this->jugador->estaAgachado()){
 			SDL_Rect* currentClip;
 			currentClip = &gSpriteAgachar[0];
 
-			this->texturaJugador->render(this->model->getPosX() - camX,	this->model->getPosY() - camY,currentClip, 0, NULL,this->model->getDireccion(), gRenderer);
+			this->texturaJugador->render(this->jugador->getPosX() - camX,	this->jugador->getPosY() - camY,currentClip, 0, NULL,this->jugador->getDireccion(), gRenderer);
 
 
 		}else{
 
 
-	if (this->model->estaActivo()){
+	if (this->jugador->estaActivo()){
 		SDL_Rect* currentClip;
 		int maxFrames;
 		int minFrames;
-		if(this->model->estaCambiandoPersonaje()){
+		if(this->jugador->estaCambiandoPersonaje()){
 			currentClip = &gSpriteCambiarPersonaje[0];
 		}
 		else if (this->model->estado->getVelY() != 0) {
@@ -153,10 +153,10 @@ void View_Jugador_VenomBlack::render(int camX, int camY, SDL_Renderer * gRendere
 			++frame;
 
 		}
-
-		this->texturaJugador->render(this->model->getPosX() - camX,
-				this->model->getPosY() - camY, currentClip, 0, NULL,
-			this->model->getDireccion(), gRenderer);
+		printf("venom_black , la dierccion es %d ",this->jugador->getDireccion());
+		this->texturaJugador->render(this->jugador->getPosX() - camX,
+				this->jugador->getPosY() - camY, currentClip, 0, NULL,
+			this->jugador->getDireccion(), gRenderer);
 			}
 		}
 }

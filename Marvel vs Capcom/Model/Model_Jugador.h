@@ -12,7 +12,7 @@
 
 class Jugador {
 private:
-	// int ANCHO_JUGADOR = 90;
+	 //int ANCHO_JUGADOR = 90;
 	 //int ALTO_JUGADOR = 120;
 	 std:: string nombre;
 	 std:: string pathImagen;
@@ -70,7 +70,7 @@ public:
 	bool collideDerecha(SDL_Rect * camara);
 	bool collideIzquierda(SDL_Rect * camara);
 	SDL_RendererFlip getDireccion();
-	void updateDirection();
+	void updateDirection(Jugador &oponente);
 	void updateAceleracion(int ac);
 	std::string datosString();
 	int Personaje();

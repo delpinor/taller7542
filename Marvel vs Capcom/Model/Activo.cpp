@@ -12,9 +12,8 @@ Activo::~Activo() {
 }
 
 void Activo::move() {
-//	if (this->cambiandoPersonaje) {
-//		this->mPosX += this->mVelX * aceleracion;
-//	} else {
+	quieto=false;
+
 		this->mPosX += this->mVelX * aceleracion;
 		if ((mPosX < 0) || (mPosX + ANCHO_JUGADOR >= ANCHO_NIVEL)) {
 			mPosX -= mVelX * aceleracion;
@@ -25,7 +24,11 @@ void Activo::move() {
 			mPosY += mVelY;
 			mVelY = 0;
 		}
-//	}
+		quieto=true;
+}
+bool Activo::estaQuieto(){
+
+	return quieto;
 }
 
 bool Activo::isFueraDePantalla(){

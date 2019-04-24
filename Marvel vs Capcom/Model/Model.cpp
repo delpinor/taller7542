@@ -23,7 +23,11 @@ Model::Model() {
 }
 
 void Model::set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int nroJugador){
+	if (nroEquipo==1){
 
+		jugadoresEquipo1[nroJugador]->setDireccion(SDL_FLIP_HORIZONTAL);
+	}
+	//printf("model , la diereccion del jugador %s es %d \n",jugadoresEquipo1[nroJugador]->getNombre(),jugadoresEquipo1[nroJugador]->getDireccion());
 	this->equipos[nroEquipo]->agregar_Jugador(nroJugadorEquipo, jugadoresEquipo1[nroJugador]);
 
 

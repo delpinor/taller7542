@@ -22,6 +22,7 @@ Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &
 	this->mCollider.h = height;
 
 }
+
 int Jugador::get_alto(){
 
 	return height;
@@ -54,11 +55,13 @@ void Jugador::setPosInitY(int posY) {
 }
 
 void Jugador::setDireccion(SDL_RendererFlip direccion) {
+	Logger::Log(DEBUG,"Jugador:: setea la direccion ","");
 	this->direccion = direccion;
 }
 
 void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 	if (this->estado->estaCambiandoPersonaje())
+
 		this->estado->move();
 	else if (movimientoDerecha()) {
 		if (!collideDerecha(camara)) {
@@ -79,7 +82,7 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 	} else {
 		this->estado->move();
 	}
-	updateDirection();
+	updateDirection(*jugadorRival);
 	this->mCollider.x = this->estado->getPosX();
 	this->mCollider.y = this->estado->getPosY();
 }
@@ -272,19 +275,22 @@ SDL_RendererFlip Jugador::getDireccion() {
 	return this->direccion;
 }
 
-void Jugador::updateDirection() {
+void Jugador::updateDirection(Jugador &oponente) {
 
 	if (this->estado->getVelX() > 0) {
 		direccion = SDL_FLIP_NONE;
-	}
-
-	if (this->estado->getVelX() < 0) {
+	}else if (this->estado->getVelX() < 0) {
 		direccion = SDL_FLIP_HORIZONTAL;
+	}else if (this->getPosX()> oponente.getPosX()){
+		direccion = SDL_FLIP_HORIZONTAL;
+	}else{
+		direccion = SDL_FLIP_NONE;
 	}
-
+/*
 	if ((this->estado->getVelX() == 0) && (this->estado->getVelY() != 0)) {
 		direccion = SDL_FLIP_NONE;
 	}
+	*/
 
 }
 int Jugador::Personaje() {
