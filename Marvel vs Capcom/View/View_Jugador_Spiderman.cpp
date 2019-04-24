@@ -245,6 +245,8 @@ void View_Jugador_Spiderman::getSpritesCambioPersonaje() {
 
 void View_Jugador_Spiderman::render(int camX, int camY, SDL_Renderer * gRenderer) {
 
+
+
 	contador++;
 	if (this->jugador->estaAgachado()){
 		SDL_Rect* currentClip;
@@ -262,6 +264,7 @@ void View_Jugador_Spiderman::render(int camX, int camY, SDL_Renderer * gRenderer
 			if(this->jugador->estaCambiandoPersonaje()){
 				contador=0;
 				currentClip = &gSpriteCambiarPersonaje[0];
+				Logger::Log(LOGGER_NIVEL::DEBUG, "view Spiderman:: cambiando personaje"," ");
 
 			}else if (this->jugador->estado->getVelY() != 0){
 				contador=0;
@@ -276,11 +279,12 @@ void View_Jugador_Spiderman::render(int camX, int camY, SDL_Renderer * gRenderer
 
 					frame = 0;
 				}
-			}else if ((this->jugador->estado->getVelY() == 0) && (this->jugador->estado->getVelX() == 0) && (contador>100)){
+			}else if ((this->jugador->estaActivo()) && (this->jugador->estado->getVelY() == 0) && (this->jugador->estado->getVelX() == 0) && (contador>100)){
 				currentClip = &gSpriteAnimacion[frame / 7];
 				minFrames = 0;
 				maxFrames = 7;
 				++frame;
+				Logger::Log(LOGGER_NIVEL::DEBUG, "view Spiderman:: animacion"," ");
 				if (frame / maxFrames >= maxFrames) {
 									frame = minFrames;
 									contador=0;
@@ -305,6 +309,7 @@ void View_Jugador_Spiderman::render(int camX, int camY, SDL_Renderer * gRenderer
 			this->texturaJugador->render(this->jugador->getPosX() - camX,	this->jugador->getPosY() - camY,currentClip, 0, NULL,this->jugador->getDireccion(), gRenderer);
 		}
 	}
+
 }
 
 

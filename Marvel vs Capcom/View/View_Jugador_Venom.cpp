@@ -174,6 +174,7 @@ void View_Jugador_Venom::render(int camX, int camY, SDL_Renderer * gRenderer) {
 			if(this->jugador->estaCambiandoPersonaje()){
 				contador=0;
 				currentClip = &gSpriteCambiarPersonaje[0];
+				Logger::Log(LOGGER_NIVEL::DEBUG, "view Venom:: cambiando personaje"," ");
 
 			}else if (this->jugador->estado->getVelY() != 0){
 				contador=0;
@@ -188,11 +189,12 @@ void View_Jugador_Venom::render(int camX, int camY, SDL_Renderer * gRenderer) {
 
 					frame = 0;
 				}
-			}else if ((this->jugador->estado->getVelY() == 0) && (this->jugador->estado->getVelX() == 0) && (contador>100)){
+			}else if ((this->jugador->estaActivo()) && (this->jugador->estado->getVelY() == 0) && (this->jugador->estado->getVelX() == 0) && (contador>100)){
 				currentClip = &gSpriteAnimacion[frame / 7];
 				minFrames = 0;
 				maxFrames = 7;
 				++frame;
+				Logger::Log(LOGGER_NIVEL::DEBUG, "view Venom:: animacion"," ");
 				if (frame / maxFrames >= maxFrames) {
 									frame = minFrames;
 									contador=0;

@@ -182,6 +182,7 @@ void View_Jugador_CapAmerica::render(int camX, int camY, SDL_Renderer * gRendere
 			int minFrames;
 			if(this->jugador->estaCambiandoPersonaje()){
 				contador=0;
+				Logger::Log(LOGGER_NIVEL::DEBUG, "view CapAmerica:: cambiando personaje"," ");
 				currentClip = &gSpriteCambiarPersonaje[0];
 
 			}else if (this->jugador->estado->getVelY() != 0){
@@ -196,7 +197,7 @@ void View_Jugador_CapAmerica::render(int camX, int camY, SDL_Renderer * gRendere
 				}
 				currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
 
-			}else if ((this->jugador->estado->getVelY() == 0) && (this->jugador->estado->getVelX() == 0) && (contador>100)){
+			}else if ((this->jugador->estaActivo()) && (this->jugador->estado->getVelY() == 0) && (this->jugador->estado->getVelX() == 0) && (contador>100)){
 
 				currentClip = &gSpriteAnimacion[frame / 6];
 				Logger::Log(LOGGER_NIVEL::DEBUG, "view CapAmerica:: animacion"," ");
@@ -224,7 +225,7 @@ void View_Jugador_CapAmerica::render(int camX, int camY, SDL_Renderer * gRendere
 
 			}
 			if ((this->jugador->getVelX() != 0) || (this->jugador->getVelY() != 0)) {
-				Logger::Log(LOGGER_NIVEL::DEBUG, "view CapAmerica:: personaje moviendose"," ");
+
 				++frame;
 				contador=0;
 			}
