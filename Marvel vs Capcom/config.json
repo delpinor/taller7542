@@ -21,18 +21,18 @@
 			"zIndex" : "46"
 		},
 		{
-			"nombre" : "Captain America Black",
+			"nombre" : "Venom Black",
 			"alto" : "200",
 			"ancho" : "120",
-			"rutaArchivoImagen" : "Images/Captain America.gif",
-			"zIndex" : "47"
+			"rutaArchivoImagen" : "Images/Venom.png",
+			"zIndex" : "48"
 		},
 		{
 			"nombre" : "Spiderman",
 			"alto" : "200",
 			"ancho" : "120",
 			"rutaArchivoImagen" : "Images/spider.png",
-			"zIndex" : "48"
+			"zIndex" : "47"
 		}
 	],
 	"fondosPantalla" :
