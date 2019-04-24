@@ -18,55 +18,55 @@ void View_Jugador_VenomBlack::initialize(Jugador * model, LTexture * texturaJuga
 }
 
 void View_Jugador_VenomBlack::getSpritesCaminar() {
-	gSpriteCaminar[0].x = 4;
-	gSpriteCaminar[0].y = 3251;
-	gSpriteCaminar[0].w = 126;
-	gSpriteCaminar[0].h = 123;
+	gSpriteCaminar[9].x = 3;
+	gSpriteCaminar[9].y = 3248;
+	gSpriteCaminar[9].w = 138;
+	gSpriteCaminar[9].h = 123;
 
-	gSpriteCaminar[1].x = 163;
-	gSpriteCaminar[1].y = 3249;
-	gSpriteCaminar[1].w = 107;
-	gSpriteCaminar[1].h = 133;
+	gSpriteCaminar[8].x = 148;
+	gSpriteCaminar[8].y = 3248;
+	gSpriteCaminar[8].w = 138;
+	gSpriteCaminar[8].h = 123;
 
-	gSpriteCaminar[2].x = 304;
-	gSpriteCaminar[2].y = 3240;
-	gSpriteCaminar[2].w = 101;
-	gSpriteCaminar[2].h = 133;
+	gSpriteCaminar[7].x = 285;
+	gSpriteCaminar[7].y = 3248;
+	gSpriteCaminar[7].w = 138;
+	gSpriteCaminar[7].h = 123;
 
-	gSpriteCaminar[3].x = 442;
-	gSpriteCaminar[3].y = 3240;
-	gSpriteCaminar[3].w = 117;
-	gSpriteCaminar[3].h = 133;
+	gSpriteCaminar[6].x = 436;
+	gSpriteCaminar[6].y = 3248;
+	gSpriteCaminar[6].w = 138;
+	gSpriteCaminar[6].h = 123;
 
-	gSpriteCaminar[4].x = 598;
-	gSpriteCaminar[4].y = 3240;
-	gSpriteCaminar[4].w = 134;
-	gSpriteCaminar[4].h = 133;
+	gSpriteCaminar[5].x = 595;
+	gSpriteCaminar[5].y = 3248;
+	gSpriteCaminar[5].w = 139;
+	gSpriteCaminar[5].h = 123;
 
-	gSpriteCaminar[5].x = 761;
-	gSpriteCaminar[5].y = 3240;
-	gSpriteCaminar[5].w = 117;
-	gSpriteCaminar[5].h = 133;
+	gSpriteCaminar[4].x = 754;
+	gSpriteCaminar[4].y = 3248;
+	gSpriteCaminar[4].w = 138;
+	gSpriteCaminar[4].h = 123;
 
-	gSpriteCaminar[6].x = 911;
-	gSpriteCaminar[6].y = 3240;
-	gSpriteCaminar[6].w = 96;
-	gSpriteCaminar[6].h = 133;
+	gSpriteCaminar[3].x = 885;
+	gSpriteCaminar[3].y = 3248;
+	gSpriteCaminar[3].w = 138;
+	gSpriteCaminar[3].h = 123;
 
-	gSpriteCaminar[7].x = 1034;
-	gSpriteCaminar[7].y = 3240;
-	gSpriteCaminar[7].w = 119;
-	gSpriteCaminar[7].h = 133;
+	gSpriteCaminar[2].x = 1022;
+	gSpriteCaminar[2].y = 3248;
+	gSpriteCaminar[2].w = 138;
+	gSpriteCaminar[2].h = 123;
 
-	gSpriteCaminar[8].x = 2;
-	gSpriteCaminar[8].y = 3390;
-	gSpriteCaminar[8].w = 129;
-	gSpriteCaminar[8].h = 133;
+	gSpriteCaminar[1].x = 4;
+	gSpriteCaminar[1].y = 3391;
+	gSpriteCaminar[1].w = 138;
+	gSpriteCaminar[1].h = 123;
 
-	gSpriteCaminar[9].x = 164;
-	gSpriteCaminar[9].y = 3390;
-	gSpriteCaminar[9].w = 144;
-	gSpriteCaminar[9].h = 133;
+	gSpriteCaminar[0].x = 163;
+	gSpriteCaminar[0].y = 3383;
+	gSpriteCaminar[0].w = 141;
+	gSpriteCaminar[0].h = 131;
 }
 
 void View_Jugador_VenomBlack::getSpritesSaltar() {
