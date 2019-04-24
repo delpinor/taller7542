@@ -81,7 +81,7 @@ int main(int argc, char* argv[]) {
 	//set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int nroJugador)
 	model.set_equipos_with_jugador(0, 0, 0);
 	model.set_equipos_with_jugador(0, 1, 1);
-	model.set_equipos_with_jugador(1, 0, 2);
+	model.set_equipos_with_jugador(1, 0, 1);
 	model.set_equipos_with_jugador(1, 1, 3);
 	//designo que jugadores van a estar activos
 	model.inicializar();

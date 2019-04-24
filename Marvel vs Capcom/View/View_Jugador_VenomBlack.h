@@ -20,9 +20,12 @@ public:
 	SDL_Rect gSpriteSaltar[ CANTSPRITECLIPSALTA];
 	SDL_Rect gSpriteAgachar[ 1];
 	SDL_Rect gSpriteGolpear[ CANTSPRITECLIP];
+	SDL_Rect gSpriteAnimacion[12];
 	~View_Jugador_VenomBlack();
 
 private:
+	int contador=0;
+	void getSpritesAnimacion();
 	void getSpritesCaminar();
 	void getSpritesSaltar();
 	void getSpritesAgachar();
