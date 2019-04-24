@@ -70,7 +70,7 @@ public:
 	bool collideDerecha(SDL_Rect * camara);
 	bool collideIzquierda(SDL_Rect * camara);
 	SDL_RendererFlip getDireccion();
-	void updateDirection();
+	void updateDirection(Jugador &oponente);
 	void updateAceleracion(int ac);
 	std::string datosString();
 	int Personaje();
