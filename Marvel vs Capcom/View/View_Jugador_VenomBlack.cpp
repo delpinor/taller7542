@@ -80,50 +80,25 @@ void View_Jugador_VenomBlack::getSpritesSaltar() {
 	gSpriteSaltar[1].w = 149;
 	gSpriteSaltar[1].h = 170;
 
-//	gSpriteSaltar[2].x = 355;
-//	gSpriteSaltar[2].y = 5399;
-//	gSpriteSaltar[2].w = 135;
-//	gSpriteSaltar[2].h = 176;
-
 	gSpriteSaltar[2].x = 556;
 	gSpriteSaltar[2].y = 5405;
 	gSpriteSaltar[2].w = 159;
 	gSpriteSaltar[2].h = 137;
-
-//	gSpriteSaltar[4].x = 719;
-//	gSpriteSaltar[4].y = 5408;
-//	gSpriteSaltar[4].w = 146;
-//	gSpriteSaltar[4].h = 123;
 
 	gSpriteSaltar[3].x = 869;
 	gSpriteSaltar[3].y = 5414;
 	gSpriteSaltar[3].w = 132;
 	gSpriteSaltar[3].h = 101;
 
-//	gSpriteSaltar[6].x = 1007;
-//	gSpriteSaltar[6].y = 5409;
-//	gSpriteSaltar[6].w = 140;
-//	gSpriteSaltar[6].h = 122;
-
 	gSpriteSaltar[4].x = 16;
 	gSpriteSaltar[4].y = 5579;
 	gSpriteSaltar[4].w = 119;
 	gSpriteSaltar[4].h = 146;
 
-//	gSpriteSaltar[8].x = 145;
-//	gSpriteSaltar[8].y = 5583;
-//	gSpriteSaltar[8].w = 135;
-//	gSpriteSaltar[8].h = 144;
-
 	gSpriteSaltar[5].x = 422;
 	gSpriteSaltar[5].y = 5633;
 	gSpriteSaltar[5].w = 159;
 	gSpriteSaltar[5].h = 96;
-
-//	gSpriteSaltar[10].x = 599;
-//	gSpriteSaltar[10].y = 5634;
-//	gSpriteSaltar[10].w = 114;
-//	gSpriteSaltar[10].h = 101;
 }
 
 void View_Jugador_VenomBlack::getSpritesAgachar() {
@@ -158,23 +133,22 @@ void View_Jugador_VenomBlack::render(int camX, int camY, SDL_Renderer * gRendere
 		if(this->model->estaCambiandoPersonaje()){
 			currentClip = &gSpriteCambiarPersonaje[0];
 		}
-		else if (this->model->estado->getVelY() != 0){
-			currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
-			minFrames = MINFRAMESALTA;
-			maxFrames = MAXFRAMESALTA;
-			if (frame / maxFrames >= maxFrames) {
+		else if (this->model->estado->getVelY() != 0) {
+				if (this->model->estado->getVelY() >= 18)
+					frame = 0;
+				minFrames = MINFRAMESALTA;
+				maxFrames = MAXFRAMESALTA;
+				if (frame / maxFrames >= maxFrames)
 					frame = minFrames;
+				currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
+			} else {
+				minFrames = MINFRAMECAMINA;
+				maxFrames = MAXFRAMECAMINA;
+				if (frame / maxFrames >= maxFrames)
+					frame = minFrames;
+				currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
 			}
-			if (this->model->estado->getVelY() >= 18)
-				frame = 0;
-		}
-		else{
-			minFrames = MINFRAMECAMINA;
-			maxFrames = MAXFRAMECAMINA;
-			if (frame / maxFrames >= maxFrames)
-					frame = minFrames;
-			currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
-		}
+
 		if ((this->model->getVelX() != 0) || (this->model->getVelY() != 0)) {
 			++frame;
 

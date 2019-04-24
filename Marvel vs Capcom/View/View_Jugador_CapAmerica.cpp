@@ -21,7 +21,6 @@ void View_Jugador_CapAmerica::getSpritesCaminar() {
 	gSpriteCaminar[0].w = 90;
 	gSpriteCaminar[0].h = 130;
 
-
 	gSpriteCaminar[1].x = 100;
 	gSpriteCaminar[1].y = 150;
 	gSpriteCaminar[1].w = 90;
@@ -50,66 +49,47 @@ void View_Jugador_CapAmerica::getSpritesCaminar() {
 }
 
 void View_Jugador_CapAmerica::getSpritesSaltar() {
-	gSpriteSaltar[0].x = 4;
-	gSpriteSaltar[0].y = 481;
-	gSpriteSaltar[0].w = 88;
-	gSpriteSaltar[0].h = 119;
 
-	gSpriteSaltar[1].x = 104;
-	gSpriteSaltar[1].y = 421;
-	gSpriteSaltar[1].w = 86;
-	gSpriteSaltar[1].h = 165;
+	gSpriteSaltar[0].x = 104;
+	gSpriteSaltar[0].y = 423;
+	gSpriteSaltar[0].w = 90;
+	gSpriteSaltar[0].h = 160;
 
-//	gSpriteSaltar[2].x = 355;
-//	gSpriteSaltar[2].y = 5399;
-//	gSpriteSaltar[2].w = 135;
-//	gSpriteSaltar[2].h = 176;
+	gSpriteSaltar[1].x = 198;
+	gSpriteSaltar[1].y = 424;
+	gSpriteSaltar[1].w = 90;
+	gSpriteSaltar[1].h = 160;
 
-	gSpriteSaltar[2].x = 296;
+	gSpriteSaltar[2].x = 404;
 	gSpriteSaltar[2].y = 424;
-	gSpriteSaltar[2].w = 106;
-	gSpriteSaltar[2].h = 90;
+	gSpriteSaltar[2].w = 90;
+	gSpriteSaltar[2].h = 160;
 
-//	gSpriteSaltar[4].x = 719;
-//	gSpriteSaltar[4].y = 5408;
-//	gSpriteSaltar[4].w = 146;
-//	gSpriteSaltar[4].h = 123;
-
-	gSpriteSaltar[3].x = 404;
+	gSpriteSaltar[3].x = 305;
 	gSpriteSaltar[3].y = 424;
-	gSpriteSaltar[3].w = 88;
-	gSpriteSaltar[3].h = 97;
+	gSpriteSaltar[3].w = 90;
+	gSpriteSaltar[3].h = 160;
 
-//	gSpriteSaltar[6].x = 1007;
-//	gSpriteSaltar[6].y = 5409;
-//	gSpriteSaltar[6].w = 140;
-//	gSpriteSaltar[6].h = 122;
+	gSpriteSaltar[4].x = 305;
+	gSpriteSaltar[4].y = 424;
+	gSpriteSaltar[4].w = 90;
+	gSpriteSaltar[4].h = 160;
 
-	gSpriteSaltar[4].x = 493;
-	gSpriteSaltar[4].y = 425;
-	gSpriteSaltar[4].w = 109;
-	gSpriteSaltar[4].h = 166;
+	gSpriteSaltar[5].x = 404;
+	gSpriteSaltar[5].y = 424;
+	gSpriteSaltar[5].w = 90;
+	gSpriteSaltar[5].h = 160;
 
-//	gSpriteSaltar[8].x = 145;
-//	gSpriteSaltar[8].y = 5583;
-//	gSpriteSaltar[8].w = 135;
-//	gSpriteSaltar[8].h = 144;
-
-	gSpriteSaltar[5].x = 4;
-	gSpriteSaltar[5].y = 481;
-	gSpriteSaltar[5].w = 88;
-	gSpriteSaltar[5].h = 119;
-
-//	gSpriteSaltar[10].x = 599;
-//	gSpriteSaltar[10].y = 5634;
-//	gSpriteSaltar[10].w = 114;
-//	gSpriteSaltar[10].h = 101;
+	gSpriteSaltar[6].x = 497;
+	gSpriteSaltar[6].y = 427;
+	gSpriteSaltar[6].w = 88;
+	gSpriteSaltar[6].h = 119;
 }
 void View_Jugador_CapAmerica::getSpritesAgachar() {
-	gSpriteAgachar[0].x = 4;
-	gSpriteAgachar[0].y = 481;
-	gSpriteAgachar[0].w = 88;
-	gSpriteAgachar[0].h = 119;
+	gSpriteAgachar[0].x = 476;
+	gSpriteAgachar[0].y = 827;
+	gSpriteAgachar[0].w = 94;
+	gSpriteAgachar[0].h = 160;
 }
 
 void View_Jugador_CapAmerica::getSpritesCambioPersonaje() {
@@ -139,14 +119,13 @@ void View_Jugador_CapAmerica::render(int camX, int camY, SDL_Renderer * gRendere
 				currentClip = &gSpriteCambiarPersonaje[0];
 			}
 			else if (this->model->estado->getVelY() != 0){
-				currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
-				minFrames = MINFRAMESALTA;
-				maxFrames = MAXFRAMESALTA;
-				if (frame / maxFrames >= maxFrames) {
-					frame = minFrames;
-				}
 				if (this->model->estado->getVelY() >= 18)
 					frame = 0;
+				minFrames = MINFRAMESALTA;
+				maxFrames = MAXFRAMESALTA;
+				if (frame / maxFrames >= maxFrames)
+					frame = minFrames;
+				currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
 			}
 			else{
 				minFrames = MINFRAMECAMINA;

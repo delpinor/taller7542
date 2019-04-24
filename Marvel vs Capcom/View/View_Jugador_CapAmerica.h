@@ -5,6 +5,7 @@
 #define CANTSPRITECLIP 6
 #define MINFRAMECAMINA 0
 #define MAXFRAMECAMINA 5
+#define CANTSPRITECLIPSALTA 7
 #define MINFRAMESALTA 0
 #define MAXFRAMESALTA 6
 
@@ -16,8 +17,8 @@ public:
 
 	SDL_Rect gSpriteCaminar[ MAXFRAMECAMINA];
 	SDL_Rect gSpriteCambiarPersonaje[1];
-	SDL_Rect gSpriteSaltar[ MAXFRAMESALTA];
-	SDL_Rect gSpriteAgachar[ CANTSPRITECLIP];
+	SDL_Rect gSpriteSaltar[ CANTSPRITECLIPSALTA];
+	SDL_Rect gSpriteAgachar[1];
 	SDL_Rect gSpriteGolpear[ CANTSPRITECLIP];
 private:
 	void getSpritesCaminar();
