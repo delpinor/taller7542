@@ -23,7 +23,9 @@ void Inactivo::acelerar() {
 bool Inactivo::estaAgachado() {
 	return false;
 }
-
+bool Inactivo::estaEnEspera() {
+	return false;
+}
 bool Inactivo::isFueraDePantalla(){
 	return false;
 }

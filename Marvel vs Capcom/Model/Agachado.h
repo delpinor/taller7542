@@ -8,6 +8,7 @@ public:
 	void move();
 	bool estaActivo();
 	bool estaAgachado();
+	bool estaEnEspera();
 	void acelerar();
 	bool isFueraDePantalla();
 	bool estaCambiandoPersonaje();

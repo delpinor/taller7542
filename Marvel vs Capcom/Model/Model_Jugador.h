@@ -4,6 +4,7 @@
 #include "../Model/LTexture.h"
 #include "../Model/Estado.h"
 #include "../Model/Activo.h"
+#include "../Model/EnEspera.h"
 #include "../Model/Inactivo.h"
 #include "../Model/Agachado.h"
 #include "../Model/CambiandoPersonaje.h"
@@ -25,10 +26,12 @@ private:
 
 	CambiandoPersonaje cambiandoPersonaje;
 	Activo activo;
+	EnEspera enEspera;
 	Inactivo inactivo;
 	Agachado agachado;
 	SDL_RendererFlip direccion;
 	int personaje;
+	int jugadorsincambio = 0;
 public:
 	Estado* estado;
 
@@ -59,8 +62,10 @@ public:
 	void aumentarVelocidadX();
 	void aumentarVelocidadY();
 	void Saltar();
+	void Quieto();
 	bool estaActivo();
 	bool estaAgachado();
+	bool estaEnEspera();
 	bool estaCambiandoPersonaje();
 	void detenerVelocidad();
 	void activar();

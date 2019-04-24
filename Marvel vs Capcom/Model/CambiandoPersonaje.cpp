@@ -31,6 +31,9 @@ bool CambiandoPersonaje::estaActivo() {
 bool CambiandoPersonaje::estaAgachado() {
 	return false;
 }
+bool CambiandoPersonaje::estaEnEspera() {
+	return false;
+}
 
 bool CambiandoPersonaje::estaCambiandoPersonaje(){
 	return true;

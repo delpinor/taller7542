@@ -30,6 +30,7 @@ public:
 	virtual void move() = 0;
 	virtual bool estaActivo() = 0;
 	virtual bool estaAgachado() = 0;
+	virtual bool estaEnEspera() = 0;
 	virtual bool estaCambiandoPersonaje() = 0;
 	int getAceleracion();
 	void desacelerar();

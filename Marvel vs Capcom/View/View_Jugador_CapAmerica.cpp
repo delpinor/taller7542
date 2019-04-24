@@ -11,6 +11,7 @@ void View_Jugador_CapAmerica::initialize(Jugador *model, LTexture * texturaJugad
 	getSpritesCaminar();
 	getSpritesSaltar();
 	getSpritesAgachar();
+	getSpritesEspera();
 	this->zIndex = model->get_zindex();
 	getSpritesCambioPersonaje();
 }
@@ -119,6 +120,12 @@ void View_Jugador_CapAmerica::getSpritesCambioPersonaje() {
 	gSpriteCambiarPersonaje[0].h = 163;
 }
 
+void View_Jugador_CapAmerica::getSpritesEspera() {
+	gSpriteCambiarPersonaje[0].x = 97;
+	gSpriteCambiarPersonaje[0].y = 581;
+	gSpriteCambiarPersonaje[0].w = 100;
+	gSpriteCambiarPersonaje[0].h = 163;
+}
 
 void View_Jugador_CapAmerica::render(int camX, int camY, SDL_Renderer * gRenderer) {
 

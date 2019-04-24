@@ -58,6 +58,11 @@ void Jugador::setDireccion(SDL_RendererFlip direccion) {
 }
 
 void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
+	if ((((this->estado->getVelX() == 0 ) && (this->estado->getVelY() == 0)) && (this->estado->estaActivo())) || !this->estado->estaEnEspera() || !this->estado->estaAgachado() || !this->estado->estaCambiandoPersonaje()){
+		jugadorsincambio++;
+	}else{
+		jugadorsincambio=0;
+	}
 	if (this->estado->estaCambiandoPersonaje())
 		this->estado->move();
 	else if (movimientoDerecha()) {
@@ -77,7 +82,15 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 				}
 			}
 	} else {
+
 		this->estado->move();
+	}
+	if(jugadorsincambio == 100){
+		this->Quieto();
+	}else{
+	if (this->estado->estaEnEspera() && jugadorsincambio!= 100){
+		this->activar();
+	}
 	}
 	updateDirection();
 	this->mCollider.x = this->estado->getPosX();
@@ -144,6 +157,12 @@ void Jugador::aumentarVelocidadY(int vel) {
 void Jugador::Saltar() {
 	this->estado->Saltar();
 }
+void Jugador::Quieto() {
+	if(this->estado->estaActivo()){
+	this->enEspera.copiarEstado(this->estado);
+	this->estado = &(this->enEspera);
+	}
+}
 
 int Jugador::getVelX() {
 	return this->estado->getVelX();
@@ -161,6 +180,9 @@ bool Jugador::estaActivo() {
 }
 bool Jugador::estaAgachado() {
 	return this->estado->estaAgachado();
+}
+bool Jugador::estaEnEspera() {
+	return this->estado->estaEnEspera();
 }
 bool Jugador::estaCambiandoPersonaje() {
 	return this->estado->estaCambiandoPersonaje();

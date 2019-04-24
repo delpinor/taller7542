@@ -19,6 +19,9 @@ bool Agachado::estaActivo() {
 bool Agachado::estaAgachado() {
 	return true;
 }
+bool Agachado::estaEnEspera() {
+	return false;
+}
 
 void Agachado::acelerar() {
 	return;

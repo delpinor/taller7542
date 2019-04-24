@@ -1,10 +1,10 @@
-#ifndef INACTIVO_H
-#define INACTIVO_H
+#ifndef ENESPERA_H
+#define ENESPERA_H
 #include "Estado.h"
-class Inactivo: public Estado {
+class EnEspera: public Estado {
 public:
-	Inactivo();
-	virtual ~Inactivo();
+	EnEspera();
+	virtual ~EnEspera();
 	void move();
 	bool estaActivo();
 	bool estaAgachado();
@@ -15,4 +15,4 @@ public:
 protected:
 private:
 };
-#endif // INACTIVO_H
+#endif // ENESPERA_H

@@ -10,6 +10,7 @@ public:
 	void move();
 	bool estaActivo();
 	bool estaAgachado();
+	bool estaEnEspera();
 	bool isFueraDePantalla();
 	bool estaCambiandoPersonaje();
 protected:

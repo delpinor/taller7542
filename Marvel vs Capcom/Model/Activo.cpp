@@ -38,6 +38,9 @@ bool Activo::estaActivo() {
 bool Activo::estaAgachado() {
 	return false;
 }
+bool Activo::estaEnEspera() {
+	return false;
+}
 bool Activo::estaCambiandoPersonaje(){
 	return false;
 }
