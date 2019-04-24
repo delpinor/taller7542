@@ -20,7 +20,11 @@ public:
 	SDL_Rect gSpriteSaltar[ CANTFRAMESALTA];
 	SDL_Rect gSpriteAgachar[ 1];
 	SDL_Rect gSpriteGolpear[ CANTSPRITECLIP];
+	SDL_Rect gSpriteAnimacion[12];
 private:
+	int contador=0;
+
+		void getSpritesAnimacion();
 	void getSpritesCaminar();
 	void getSpritesSaltar();
 	void getSpritesAgachar();

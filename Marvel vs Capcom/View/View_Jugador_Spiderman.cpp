@@ -11,8 +11,73 @@ void View_Jugador_Spiderman::initialize(Jugador *model, LTexture * texturaJugado
 	getSpritesCaminar();
 	getSpritesSaltar();
 	getSpritesAgachar();
+	getSpritesAnimacion();
 	this->zIndex = model->get_zindex();
 	getSpritesCambioPersonaje();
+}
+void View_Jugador_Spiderman::getSpritesAnimacion() {
+
+
+
+		gSpriteAnimacion[0].x = 120;
+		gSpriteAnimacion[0].y = 246;
+		gSpriteAnimacion[0].w = 100;
+		gSpriteAnimacion[0].h = 148;
+
+		gSpriteAnimacion[1].x = 235;
+		gSpriteAnimacion[1].y = 246;
+		gSpriteAnimacion[1].w = 100;
+		gSpriteAnimacion[1].h = 148;
+
+		gSpriteAnimacion[2].x = 338;
+		gSpriteAnimacion[2].y = 246;
+		gSpriteAnimacion[2].w = 100;
+		gSpriteAnimacion[2].h = 148;
+
+		gSpriteAnimacion[3].x = 444;
+		gSpriteAnimacion[3].y = 246;
+		gSpriteAnimacion[3].w = 100;
+		gSpriteAnimacion[3].h = 148;
+
+		gSpriteAnimacion[4].x = 553;
+		gSpriteAnimacion[4].y = 246;
+		gSpriteAnimacion[4].w = 100;
+		gSpriteAnimacion[4].h = 148;
+
+		gSpriteAnimacion[5].x = 655;
+		gSpriteAnimacion[5].y = 246;
+		gSpriteAnimacion[5].w = 100;
+		gSpriteAnimacion[5].h = 148;
+
+		gSpriteAnimacion[6].x = 755;
+		gSpriteAnimacion[6].y = 246;
+		gSpriteAnimacion[6].w = 100;
+		gSpriteAnimacion[6].h = 148;
+
+		gSpriteAnimacion[7].x = 870;
+		gSpriteAnimacion[7].y = 246;
+		gSpriteAnimacion[7].w = 100;
+		gSpriteAnimacion[7].h = 148;
+
+			gSpriteAnimacion[8].x = 982;
+			gSpriteAnimacion[8].y = 246;
+		gSpriteAnimacion[8].w = 100;
+		gSpriteAnimacion[8].h = 148;
+
+			gSpriteAnimacion[9].x = 1091;
+			gSpriteAnimacion[9].y = 246;
+			gSpriteAnimacion[9].w = 100;
+			gSpriteAnimacion[9].h = 148;
+
+			gSpriteAnimacion[10].x = 1485;
+			gSpriteAnimacion[10].y = 398;
+			gSpriteAnimacion[10].w = 100;
+			gSpriteAnimacion[10].h = 148;
+
+			gSpriteAnimacion[11].x = 1603;
+			gSpriteAnimacion[11].y = 376;
+			gSpriteAnimacion[11].w = 100;
+			gSpriteAnimacion[11].h = 148;
 }
 
 void View_Jugador_Spiderman::getSpritesCaminar() {
@@ -75,6 +140,7 @@ void View_Jugador_Spiderman::getSpritesCaminar() {
 	gSpriteCaminar[11].y = 134;
 	gSpriteCaminar[11].w = 103;
 	gSpriteCaminar[11].h = 106;
+
 
 }
 
@@ -171,6 +237,7 @@ void View_Jugador_Spiderman::getSpritesCambioPersonaje() {
 
 void View_Jugador_Spiderman::render(int camX, int camY, SDL_Renderer * gRenderer) {
 
+	contador++;
 	if (this->jugador->estaAgachado()){
 		SDL_Rect* currentClip;
 		currentClip = &gSpriteAgachar[0];
@@ -185,28 +252,48 @@ void View_Jugador_Spiderman::render(int camX, int camY, SDL_Renderer * gRenderer
 			int maxFrames;
 			int minFrames;
 			if(this->jugador->estaCambiandoPersonaje()){
+				contador=0;
 				currentClip = &gSpriteCambiarPersonaje[0];
-			}
-			else if (this->jugador->estado->getVelY() != 0){
-				if (this->jugador->estado->getVelY() >= 17)
-					frame = 0;
+
+			}else if (this->jugador->estado->getVelY() != 0){
+				contador=0;
+				currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
 				minFrames = MINFRAMESALTA;
 				maxFrames = MAXFRAMESALTA;
-				if (frame / maxFrames >= maxFrames)
+				if (frame / maxFrames >= maxFrames) {
 					frame = minFrames;
-				currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
-				frame = frame + 3;
-			}
-			else{
+
+				}
+				if (this->jugador->estado->getVelY() >= 18){
+
+					frame = 0;
+				}
+			}else if ((this->jugador->estado->getVelY() == 0) && (this->jugador->estado->getVelX() == 0) && (contador>100)){
+				currentClip = &gSpriteAnimacion[frame / 12];
+				minFrames = 0;
+				maxFrames = 12;
+				++frame;
+				if (frame / maxFrames >= maxFrames) {
+									frame = minFrames;
+									contador=0;
+								}
+
+
+			}else{
+
+				currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
 				minFrames = MINFRAMECAMINA;
 				maxFrames = MAXFRAMECAMINA;
-				if (frame / maxFrames >= maxFrames)
-						frame = minFrames;
-				currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
+				if (frame / maxFrames >= maxFrames) {
+					frame = minFrames;
+
+
+				}
+
 			}
 			if ((this->jugador->getVelX() != 0) || (this->jugador->getVelY() != 0)) {
 				++frame;
-
+				contador=0;
 			}
 			this->texturaJugador->render(this->jugador->getPosX() - camX,	this->jugador->getPosY() - camY,currentClip, 0, NULL,this->jugador->getDireccion(), gRenderer);
 		}
