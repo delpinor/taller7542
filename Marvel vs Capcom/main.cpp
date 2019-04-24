@@ -27,6 +27,7 @@ int main(int argc, char* argv[]) {
 	nombresPersonajes->push_back("venom");
 	nombresPersonajes->push_back("captain america black");
 	nombresPersonajes->push_back("venom black");
+	nombresPersonajes->push_back("spiderman");
 	nombresPersonajes->push_back("default");
 
 	Configuracion appConfig(argv[1], nombresPersonajes);

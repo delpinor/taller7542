@@ -12,6 +12,7 @@
 #include "View_Jugador_CapAmerica.h"
 #include "View_Jugador_Venom.h"
 #include "View_Jugador_VenomBlack.h"
+#include "View_Jugador_Spiderman.h"
 #include "View_Jugador_Default.h"
 #include <vector>
 

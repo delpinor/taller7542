@@ -1,10 +1,12 @@
-#ifndef VIEW_JUGADOR_SPIDERMAN_H_
-#define VIEW_JUGADOR_SPIDERMAN_H_
+#ifndef VIEW_JUGADOR_CAPAMERICABLACK_H_
+#define VIEW_JUGADOR_CAPAMERICABLACK_H_
 #include <SDL2/SDL.h>
 #include "../View/View_Jugador.h"
 #define CANTSPRITECLIP 6
+#define CANTSPRITECLIPCAMINA 12
 #define MINFRAMECAMINA 0
-#define MAXFRAMECAMINA 12
+#define MAXFRAMECAMINA 11
+#define CANTSPRITECLIPSALTA 7
 #define MINFRAMESALTA 0
 #define MAXFRAMESALTA 6
 
@@ -14,12 +16,15 @@ public:
 	void initialize(Jugador *model,
 		LTexture * texturaJugador);
 
-	SDL_Rect gSpriteCaminar[ MAXFRAMECAMINA];
+	SDL_Rect gSpriteCaminar[ CANTSPRITECLIPCAMINA];
 	SDL_Rect gSpriteCambiarPersonaje[1];
-	SDL_Rect gSpriteSaltar[ MAXFRAMESALTA];
-	SDL_Rect gSpriteAgachar[ CANTSPRITECLIP];
+	SDL_Rect gSpriteSaltar[ CANTSPRITECLIPSALTA];
+	SDL_Rect gSpriteAgachar[1];
 	SDL_Rect gSpriteGolpear[ CANTSPRITECLIP];
+	SDL_Rect gSpriteAnimacion[8];
 private:
+	int contador;
+	void getSpritesAnimacion();
 	void getSpritesCaminar();
 	void getSpritesSaltar();
 	void getSpritesAgachar();
