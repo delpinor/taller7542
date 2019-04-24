@@ -21,18 +21,18 @@
 			"zIndex" : "46"
 		},
 		{
-			"nombre" : "Spiderman",
-			"alto" : "200",
-			"ancho" : "120",
-			"rutaArchivoImagen" : "Images/Spiderman.png",
-			"zIndex" : "47"
-		},
-		{
 			"nombre" : "Venom Black",
 			"alto" : "200",
 			"ancho" : "120",
 			"rutaArchivoImagen" : "Images/Venom.png",
 			"zIndex" : "48"
+		},
+		{
+			"nombre" : "Spiderman",
+			"alto" : "200",
+			"ancho" : "120",
+			"rutaArchivoImagen" : "Images/spider.png",
+			"zIndex" : "47"
 		}
 	],
 	"fondosPantalla" :

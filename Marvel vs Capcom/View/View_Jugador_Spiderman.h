@@ -5,10 +5,9 @@
 #define CANTSPRITECAMINA 12
 #define MINFRAMECAMINA 0
 #define MAXFRAMECAMINA 11
+#define CANTFRAMESALTA 12
 #define MINFRAMESALTA 0
-#define CANTFRAMESALTA 10
-#define MINFRAMESALTA 0
-#define MAXFRAMESALTA 9
+#define MAXFRAMESALTA 11
 
 class View_Jugador_Spiderman: public View_Jugador {
 public:

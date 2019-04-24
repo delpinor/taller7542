@@ -79,93 +79,93 @@ void View_Jugador_Spiderman::getSpritesCaminar() {
 }
 
 void View_Jugador_Spiderman::getSpritesSaltar() {
-	gSpriteSaltar[0].x = 18;
-	gSpriteSaltar[0].y = 431;
-	gSpriteSaltar[0].w = 69;
-	gSpriteSaltar[0].h = 54;
+//	gSpriteSaltar[0].x = 8;
+//	gSpriteSaltar[0].y = 464;
+//	gSpriteSaltar[0].w = 112;
+//	gSpriteSaltar[0].h = 70;
 
-	gSpriteSaltar[1].x = 122;
-	gSpriteSaltar[1].y = 230;
-	gSpriteSaltar[1].w = 67;
-	gSpriteSaltar[1].h = 132;
+	gSpriteSaltar[0].x = 120;
+	gSpriteSaltar[0].y = 246;
+	gSpriteSaltar[0].w = 100;
+	gSpriteSaltar[0].h = 148;
 
-	gSpriteSaltar[2].x = 196;
-	gSpriteSaltar[2].y = 230;
-	gSpriteSaltar[2].w = 84;
-	gSpriteSaltar[2].h = 101;
+	gSpriteSaltar[1].x = 235;
+	gSpriteSaltar[1].y = 246;
+	gSpriteSaltar[1].w = 100;
+	gSpriteSaltar[1].h = 148;
 
-	gSpriteSaltar[3].x = 290;
-	gSpriteSaltar[3].y = 230;
-	gSpriteSaltar[3].w = 98;
-	gSpriteSaltar[3].h = 77;
+	gSpriteSaltar[2].x = 338;
+	gSpriteSaltar[2].y = 246;
+	gSpriteSaltar[2].w = 100;
+	gSpriteSaltar[2].h = 148;
 
-	gSpriteSaltar[4].x = 398;
-	gSpriteSaltar[4].y = 230;
-	gSpriteSaltar[4].w = 98;
-	gSpriteSaltar[4].h = 60;
+	gSpriteSaltar[3].x = 444;
+	gSpriteSaltar[3].y = 246;
+	gSpriteSaltar[3].w = 100;
+	gSpriteSaltar[3].h = 148;
 
-	gSpriteSaltar[5].x = 500;
-	gSpriteSaltar[5].y = 230;
-	gSpriteSaltar[5].w = 88;
-	gSpriteSaltar[5].h = 60;
+	gSpriteSaltar[4].x = 553;
+	gSpriteSaltar[4].y = 246;
+	gSpriteSaltar[4].w = 100;
+	gSpriteSaltar[4].h = 148;
 
-	gSpriteSaltar[6].x = 603;
-	gSpriteSaltar[6].y = 230;
-	gSpriteSaltar[6].w = 98;
-	gSpriteSaltar[6].h = 60;
+	gSpriteSaltar[5].x = 655;
+	gSpriteSaltar[5].y = 246;
+	gSpriteSaltar[5].w = 100;
+	gSpriteSaltar[5].h = 148;
 
-	gSpriteSaltar[7].x = 709;
-	gSpriteSaltar[7].y = 230;
-	gSpriteSaltar[7].w = 98;
-	gSpriteSaltar[7].h = 68;
+	gSpriteSaltar[6].x = 755;
+	gSpriteSaltar[6].y = 246;
+	gSpriteSaltar[6].w = 100;
+	gSpriteSaltar[6].h = 148;
 
-	gSpriteSaltar[8].x = 815;
-	gSpriteSaltar[8].y = 230;
-	gSpriteSaltar[8].w = 110;
-	gSpriteSaltar[8].h = 99;
+	gSpriteSaltar[7].x = 870;
+	gSpriteSaltar[7].y = 246;
+	gSpriteSaltar[7].w = 100;
+	gSpriteSaltar[7].h = 148;
 
-	gSpriteSaltar[9].x = 928;
-	gSpriteSaltar[9].y = 230;
-	gSpriteSaltar[9].w = 110;
-	gSpriteSaltar[9].h = 134;
+	gSpriteSaltar[8].x = 982;
+	gSpriteSaltar[8].y = 246;
+	gSpriteSaltar[8].w = 100;
+	gSpriteSaltar[8].h = 148;
 
-	gSpriteSaltar[10].x = 1040;
-	gSpriteSaltar[10].y = 230;
-	gSpriteSaltar[10].w = 106;
-	gSpriteSaltar[10].h = 134;
+	gSpriteSaltar[9].x = 1091;
+	gSpriteSaltar[9].y = 246;
+	gSpriteSaltar[9].w = 100;
+	gSpriteSaltar[9].h = 148;
 
-	gSpriteSaltar[11].x = 1177;
-	gSpriteSaltar[11].y = 396;
+	gSpriteSaltar[10].x = 1485;
+	gSpriteSaltar[10].y = 398;
+	gSpriteSaltar[10].w = 100;
+	gSpriteSaltar[10].h = 148;
+
+	gSpriteSaltar[11].x = 1603;
+	gSpriteSaltar[11].y = 376;
 	gSpriteSaltar[11].w = 100;
-	gSpriteSaltar[11].h = 97;
+	gSpriteSaltar[11].h = 148;
 
-	gSpriteSaltar[12].x = 1276;
-	gSpriteSaltar[12].y = 429;
-	gSpriteSaltar[12].w = 86;
-	gSpriteSaltar[12].h = 62;
-
-	gSpriteSaltar[13].x = 1362;
-	gSpriteSaltar[13].y = 423;
-	gSpriteSaltar[13].w = 92;
-	gSpriteSaltar[13].h = 68;
-
-	gSpriteSaltar[14].x = 1460;
-	gSpriteSaltar[14].y = 396;
-	gSpriteSaltar[14].w = 116;
-	gSpriteSaltar[14].h = 91;
+//	gSpriteSaltar[13].x = 1362;
+//	gSpriteSaltar[13].y = 423;
+//	gSpriteSaltar[13].w = 100;
+//	gSpriteSaltar[13].h = 68;
+//
+//	gSpriteSaltar[14].x = 1460;
+//	gSpriteSaltar[14].y = 396;
+//	gSpriteSaltar[14].w = 100;
+//	gSpriteSaltar[14].h = 91;
 }
 void View_Jugador_Spiderman::getSpritesAgachar() {
-	gSpriteAgachar[0].x = 10;
-	gSpriteAgachar[0].y = 963;
-	gSpriteAgachar[0].w = 116;
-	gSpriteAgachar[0].h = 73;
+	gSpriteAgachar[0].x = 1604;
+	gSpriteAgachar[0].y = 392;
+	gSpriteAgachar[0].w = 103;
+	gSpriteAgachar[0].h = 106;
 }
 
 void View_Jugador_Spiderman::getSpritesCambioPersonaje() {
-	gSpriteCambiarPersonaje[0].x = 122;
-	gSpriteCambiarPersonaje[0].y = 230;
-	gSpriteCambiarPersonaje[0].w = 67;
-	gSpriteCambiarPersonaje[0].h = 132;
+	gSpriteCambiarPersonaje[0].x = 120;
+	gSpriteCambiarPersonaje[0].y = 264;
+	gSpriteCambiarPersonaje[0].w = 100;
+	gSpriteCambiarPersonaje[0].h = 148;
 }
 
 
@@ -188,14 +188,14 @@ void View_Jugador_Spiderman::render(int camX, int camY, SDL_Renderer * gRenderer
 				currentClip = &gSpriteCambiarPersonaje[0];
 			}
 			else if (this->model->estado->getVelY() != 0){
-				currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
+				if (this->model->estado->getVelY() >= 17)
+					frame = 0;
 				minFrames = MINFRAMESALTA;
 				maxFrames = MAXFRAMESALTA;
-				if (frame / maxFrames >= maxFrames) {
+				if (frame / maxFrames >= maxFrames)
 					frame = minFrames;
-				}
-				if (this->model->estado->getVelY() >= 18)
-					frame = 0;
+				currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
+				frame = frame + 3;
 			}
 			else{
 				minFrames = MINFRAMECAMINA;
