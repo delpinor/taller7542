@@ -4,7 +4,7 @@
 #include "../View/View_Jugador.h"
 #define CANTSPRITECLIP 6
 #define MINFRAMECAMINA 0
-#define MAXFRAMECAMINA 5
+#define MAXFRAMECAMINA 12
 #define MINFRAMESALTA 0
 #define MAXFRAMESALTA 6
 
