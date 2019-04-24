@@ -80,17 +80,17 @@ void View_Jugador_CapAmerica::getSpritesCaminar() {
 
 void View_Jugador_CapAmerica::getSpritesSaltar() {
 
-	gSpriteSaltar[0].x = 104;
-	gSpriteSaltar[0].y = 423;
-	gSpriteSaltar[0].w = 90;
-	gSpriteSaltar[0].h = 160;
+	gSpriteSaltar[0].x = 4;
+	gSpriteSaltar[0].y = 481;
+	gSpriteSaltar[0].w = 88;
+	gSpriteSaltar[0].h = 119;
 
-	gSpriteSaltar[1].x = 198;
-	gSpriteSaltar[1].y = 424;
+	gSpriteSaltar[1].x = 104;
+	gSpriteSaltar[1].y = 423;
 	gSpriteSaltar[1].w = 90;
 	gSpriteSaltar[1].h = 160;
 
-	gSpriteSaltar[2].x = 404;
+	gSpriteSaltar[2].x = 198;
 	gSpriteSaltar[2].y = 424;
 	gSpriteSaltar[2].w = 90;
 	gSpriteSaltar[2].h = 160;
@@ -100,20 +100,15 @@ void View_Jugador_CapAmerica::getSpritesSaltar() {
 	gSpriteSaltar[3].w = 90;
 	gSpriteSaltar[3].h = 160;
 
-	gSpriteSaltar[4].x = 305;
+	gSpriteSaltar[4].x = 404;
 	gSpriteSaltar[4].y = 424;
 	gSpriteSaltar[4].w = 90;
 	gSpriteSaltar[4].h = 160;
 
-	gSpriteSaltar[5].x = 404;
-	gSpriteSaltar[5].y = 424;
-	gSpriteSaltar[5].w = 90;
-	gSpriteSaltar[5].h = 160;
-
-	gSpriteSaltar[6].x = 497;
-	gSpriteSaltar[6].y = 427;
-	gSpriteSaltar[6].w = 88;
-	gSpriteSaltar[6].h = 119;
+	gSpriteSaltar[5].x = 497;
+	gSpriteSaltar[5].y = 427;
+	gSpriteSaltar[5].w = 88;
+	gSpriteSaltar[5].h = 119;
 }
 void View_Jugador_CapAmerica::getSpritesAgachar() {
 	gSpriteAgachar[0].x = 476;
