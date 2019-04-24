@@ -13,7 +13,7 @@ public:
 	View_Jugador();
 	virtual void initialize(Jugador *model, LTexture * texturaJugador);
 	virtual void render(int camX, int camY, SDL_Renderer * gRenderer);
-	Jugador *model;
+	Jugador *jugador;
 	int getZIndex();
 
 protected:

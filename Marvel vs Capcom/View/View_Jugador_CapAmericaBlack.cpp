@@ -7,9 +7,9 @@ View_Jugador_CapAmericaBlack::View_Jugador_CapAmericaBlack() {
 
 void View_Jugador_CapAmericaBlack::initialize(Jugador *model, LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
-	texturaJugador->setColor(40,40,40);
+	texturaJugador->setColor(80,140,0);
 
-	this->model = model;
+	this->jugador = model;
 
 	getSpritesCaminar();
 	getSpritesSaltar();
@@ -125,31 +125,31 @@ void View_Jugador_CapAmericaBlack::getSpritesCambioPersonaje() {
 
 void View_Jugador_CapAmericaBlack::render(int camX, int camY, SDL_Renderer * gRenderer) {
 
-	if (this->model->estaAgachado()){
+	if (this->jugador->estaAgachado()){
 		SDL_Rect* currentClip;
 		currentClip = &gSpriteAgachar[0];
 
-		this->texturaJugador->render(this->model->getPosX() - camX,	this->model->getPosY() - camY,currentClip, 0, NULL,this->model->getDireccion(), gRenderer);
+		this->texturaJugador->render(this->jugador->getPosX() - camX,	this->jugador->getPosY() - camY,currentClip, 0, NULL,this->jugador->getDireccion(), gRenderer);
 
 
 	}else{
 
 
-	if (this->model->estaActivo()){
+	if (this->jugador->estaActivo()){
 			SDL_Rect* currentClip;
 			int maxFrames;
 			int minFrames;
-			if(this->model->estaCambiandoPersonaje()){
+			if(this->jugador->estaCambiandoPersonaje()){
 				currentClip = &gSpriteCambiarPersonaje[0];
 			}
-			else if (this->model->estado->getVelY() != 0){
+			else if (this->jugador->estado->getVelY() != 0){
 				currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
 				minFrames = MINFRAMESALTA;
 				maxFrames = MAXFRAMESALTA;
 				if (frame / maxFrames >= maxFrames) {
 					frame = minFrames;
 				}
-				if (this->model->estado->getVelY() >= 18)
+				if (this->jugador->estado->getVelY() >= 18)
 					frame = 0;
 			}
 			else{
@@ -160,11 +160,11 @@ void View_Jugador_CapAmericaBlack::render(int camX, int camY, SDL_Renderer * gRe
 					frame = minFrames;
 				}
 			}
-			if ((this->model->getVelX() != 0) || (this->model->getVelY() != 0)) {
+			if ((this->jugador->getVelX() != 0) || (this->jugador->getVelY() != 0)) {
 				++frame;
 
 			}
-			this->texturaJugador->render(this->model->getPosX() - camX,	this->model->getPosY() - camY,currentClip, 0, NULL,this->model->getDireccion(), gRenderer);
+			this->texturaJugador->render(this->jugador->getPosX() - camX,	this->jugador->getPosY() - camY,currentClip, 0, NULL,this->jugador->getDireccion(), gRenderer);
 		}
 	}
 }

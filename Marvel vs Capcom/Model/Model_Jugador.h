@@ -12,7 +12,7 @@
 
 class Jugador {
 private:
-	// int ANCHO_JUGADOR = 90;
+	 //int ANCHO_JUGADOR = 90;
 	 //int ALTO_JUGADOR = 120;
 	 std:: string nombre;
 	 std:: string pathImagen;

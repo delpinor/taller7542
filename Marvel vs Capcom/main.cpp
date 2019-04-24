@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) {
 	std::map<int, std::map<std::string, std::string> > mapFondoPantalla;
 	std::map<std::string, std::string> mapNivel;
 
-	LOGGER_SALIDA salida=ARCHIVO;
+	LOGGER_SALIDA salida=CONSOLA;
 
 	int anchoVentana, altoVentana;
 	/*Se inicia el logger en modeo debug*/

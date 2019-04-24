@@ -14,7 +14,7 @@ View_Jugador_Default::View_Jugador_Default() {
 
 void View_Jugador_Default::initialize(Jugador *model, LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
-	this->model = model;
+	this->jugador = model;
 
 	this->zIndex = model->get_zindex();
 	getSprites();
@@ -30,20 +30,20 @@ void View_Jugador_Default::getSprites() {
 
 
 void View_Jugador_Default::render(int camX, int camY, SDL_Renderer * gRenderer) {
-	if (this->model->estaActivo()){
+	if (this->jugador->estaActivo()){
 			SDL_Rect* currentClip;
 			currentClip = &gSprite[0];
 
-			this->texturaJugador->render(this->model->getPosX() - camX,
-					this->model->getPosY() - camY, currentClip, 0, NULL,
-				this->model->getDireccion(), gRenderer);
+			this->texturaJugador->render(this->jugador->getPosX() - camX,
+					this->jugador->getPosY() - camY, currentClip, 0, NULL,
+				this->jugador->getDireccion(), gRenderer);
 		}
-	if (this->model->estaAgachado()){
+	if (this->jugador->estaAgachado()){
 				SDL_Rect* currentClip;
 				currentClip = &gSprite[0];
 
-				this->texturaJugador->render(this->model->getPosX() - camX,
-						this->model->getPosY() - camY, currentClip, 0, NULL,
-					this->model->getDireccion(), gRenderer);
+				this->texturaJugador->render(this->jugador->getPosX() - camX,
+						this->jugador->getPosY() - camY, currentClip, 0, NULL,
+					this->jugador->getDireccion(), gRenderer);
 			}
 }

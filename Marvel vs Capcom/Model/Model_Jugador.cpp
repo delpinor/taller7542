@@ -22,6 +22,7 @@ Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &
 	this->mCollider.h = height;
 
 }
+
 int Jugador::get_alto(){
 
 	return height;
@@ -54,11 +55,13 @@ void Jugador::setPosInitY(int posY) {
 }
 
 void Jugador::setDireccion(SDL_RendererFlip direccion) {
+	Logger::Log(DEBUG,"Jugador:: setea la direccion ","");
 	this->direccion = direccion;
 }
 
 void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 	if (this->estado->estaCambiandoPersonaje())
+
 		this->estado->move();
 	else if (movimientoDerecha()) {
 		if (!collideDerecha(camara)) {
