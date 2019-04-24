@@ -6,7 +6,7 @@
 #define MINFRAMECAMINA 0
 #define MAXFRAMECAMINA 12
 #define MINFRAMESALTA 0
-#define MAXFRAMESALTA 6
+#define MAXFRAMESALTA 12
 
 class View_Jugador_CapAmerica: public View_Jugador {
 public:
