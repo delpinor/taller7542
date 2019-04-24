@@ -28,10 +28,10 @@
 			"zIndex" : "47"
 		},
 		{
-			"nombre" : "Venom Black",
+			"nombre" : "Spiderman",
 			"alto" : "200",
 			"ancho" : "120",
-			"rutaArchivoImagen" : "Images/Venom.png",
+			"rutaArchivoImagen" : "Images/spider.png",
 			"zIndex" : "48"
 		}
 	],

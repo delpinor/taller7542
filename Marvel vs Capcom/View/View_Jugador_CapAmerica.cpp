@@ -83,36 +83,36 @@ void View_Jugador_CapAmerica::getSpritesCaminar() {
 void View_Jugador_CapAmerica::getSpritesAnimacion() {
 
 
-		gSpriteAnimacion[0].x = 118;
-		gSpriteAnimacion[0].y = 160;
-		gSpriteAnimacion[0].w = 59;
-		gSpriteAnimacion[0].h = 116;
+		gSpriteAnimacion[0].x = 100;
+		gSpriteAnimacion[0].y = 150;
+		gSpriteAnimacion[0].w = 90;
+		gSpriteAnimacion[0].h = 130;
 
-		gSpriteAnimacion[1].x = 114;
-		gSpriteAnimacion[1].y = 290;
-		gSpriteAnimacion[1].w = 68;
-		gSpriteAnimacion[1].h = 114;
+		gSpriteAnimacion[1].x = 105;
+		gSpriteAnimacion[1].y = 280;
+		gSpriteAnimacion[1].w = 90;
+		gSpriteAnimacion[1].h = 130;
 
-		gSpriteAnimacion[2].x = 297;
-		gSpriteAnimacion[2].y = 294;
-		gSpriteAnimacion[2].w = 101;
-		gSpriteAnimacion[2].h = 115;
+		gSpriteAnimacion[2].x = 295;
+		gSpriteAnimacion[2].y = 280;
+		gSpriteAnimacion[2].w = 103;
+		gSpriteAnimacion[2].h = 130;
 
 
 		gSpriteAnimacion[3].x = 239;
-		gSpriteAnimacion[3].y = 878;
-		gSpriteAnimacion[3].w = 98;
-		gSpriteAnimacion[3].h = 108;
+		gSpriteAnimacion[3].y = 861;
+		gSpriteAnimacion[3].w = 99;
+		gSpriteAnimacion[3].h = 130;
 
 		gSpriteAnimacion[4].x = 98;
-		gSpriteAnimacion[4].y = 874;
-		gSpriteAnimacion[4].w = 136;
-		gSpriteAnimacion[4].h = 109;
+		gSpriteAnimacion[4].y = 861;
+		gSpriteAnimacion[4].w = 140;
+		gSpriteAnimacion[4].h = 130;
 
-		gSpriteAnimacion[5].x = 2;
-		gSpriteAnimacion[5].y = 876;
-		gSpriteAnimacion[5].w = 88;
-		gSpriteAnimacion[5].h = 107;
+		gSpriteAnimacion[5].x = 1;
+		gSpriteAnimacion[5].y = 858;
+		gSpriteAnimacion[5].w = 92;
+		gSpriteAnimacion[5].h = 130;
 
 }
 
@@ -127,50 +127,25 @@ void View_Jugador_CapAmerica::getSpritesSaltar() {
 	gSpriteSaltar[1].w = 86;
 	gSpriteSaltar[1].h = 165;
 
-//	gSpriteSaltar[2].x = 355;
-//	gSpriteSaltar[2].y = 5399;
-//	gSpriteSaltar[2].w = 135;
-//	gSpriteSaltar[2].h = 176;
-
 	gSpriteSaltar[2].x = 296;
 	gSpriteSaltar[2].y = 424;
 	gSpriteSaltar[2].w = 106;
 	gSpriteSaltar[2].h = 90;
-
-//	gSpriteSaltar[4].x = 719;
-//	gSpriteSaltar[4].y = 5408;
-//	gSpriteSaltar[4].w = 146;
-//	gSpriteSaltar[4].h = 123;
 
 	gSpriteSaltar[3].x = 404;
 	gSpriteSaltar[3].y = 424;
 	gSpriteSaltar[3].w = 88;
 	gSpriteSaltar[3].h = 97;
 
-//	gSpriteSaltar[6].x = 1007;
-//	gSpriteSaltar[6].y = 5409;
-//	gSpriteSaltar[6].w = 140;
-//	gSpriteSaltar[6].h = 122;
-
 	gSpriteSaltar[4].x = 493;
 	gSpriteSaltar[4].y = 425;
 	gSpriteSaltar[4].w = 109;
 	gSpriteSaltar[4].h = 166;
 
-//	gSpriteSaltar[8].x = 145;
-//	gSpriteSaltar[8].y = 5583;
-//	gSpriteSaltar[8].w = 135;
-//	gSpriteSaltar[8].h = 144;
-
 	gSpriteSaltar[5].x = 4;
 	gSpriteSaltar[5].y = 481;
 	gSpriteSaltar[5].w = 88;
 	gSpriteSaltar[5].h = 119;
-
-//	gSpriteSaltar[10].x = 599;
-//	gSpriteSaltar[10].y = 5634;
-//	gSpriteSaltar[10].w = 114;
-//	gSpriteSaltar[10].h = 101;
 }
 void View_Jugador_CapAmerica::getSpritesAgachar() {
 	gSpriteAgachar[0].x = 4;
@@ -208,27 +183,26 @@ void View_Jugador_CapAmerica::render(int camX, int camY, SDL_Renderer * gRendere
 				currentClip = &gSpriteCambiarPersonaje[0];
 
 			}else if (this->jugador->estado->getVelY() != 0){
+				if (this->jugador->estado->getVelY() >= 18){
+					frame = 0;
+				}
 				contador=0;
-				currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
 				minFrames = MINFRAMESALTA;
 				maxFrames = MAXFRAMESALTA;
 				if (frame / maxFrames >= maxFrames) {
 					frame = minFrames;
-
 				}
-				if (this->jugador->estado->getVelY() >= 18){
+				currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
 
-					frame = 0;
-				}
 			}else if ((this->jugador->estado->getVelY() == 0) && (this->jugador->estado->getVelX() == 0) && (contador>100)){
-				currentClip = &gSpriteAnimacion[frame / 6];
 				minFrames = 0;
 				maxFrames = 6;
+				if (frame / maxFrames >= maxFrames){
+					frame = minFrames;
+					contador=0;
+				}
+				currentClip = &gSpriteAnimacion[frame / 6];
 				++frame;
-				if (frame / maxFrames >= maxFrames) {
-									frame = minFrames;
-									contador=0;
-								}
 
 
 			}else{
