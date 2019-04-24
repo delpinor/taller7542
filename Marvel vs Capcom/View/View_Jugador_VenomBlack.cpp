@@ -180,7 +180,7 @@ void View_Jugador_VenomBlack::render(int camX, int camY, SDL_Renderer * gRendere
 			++frame;
 
 		}
-		printf("venom_black , la dierccion es %d ",this->jugador->getDireccion());
+
 		this->texturaJugador->render(this->jugador->getPosX() - camX,
 				this->jugador->getPosY() - camY, currentClip, 0, NULL,
 			this->jugador->getDireccion(), gRenderer);

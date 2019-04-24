@@ -286,11 +286,7 @@ void Jugador::updateDirection(Jugador &oponente) {
 	}else{
 		direccion = SDL_FLIP_NONE;
 	}
-/*
-	if ((this->estado->getVelX() == 0) && (this->estado->getVelY() != 0)) {
-		direccion = SDL_FLIP_NONE;
-	}
-	*/
+
 
 }
 int Jugador::Personaje() {

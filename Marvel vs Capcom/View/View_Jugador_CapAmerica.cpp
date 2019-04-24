@@ -11,6 +11,7 @@ void View_Jugador_CapAmerica::initialize(Jugador *model, LTexture * texturaJugad
 	getSpritesCaminar();
 	getSpritesSaltar();
 	getSpritesAgachar();
+	getSpritesAnimacion();
 	this->zIndex = model->get_zindex();
 	getSpritesCambioPersonaje();
 }
@@ -77,6 +78,45 @@ void View_Jugador_CapAmerica::getSpritesCaminar() {
 	gSpriteCaminar[11].y = 285;
 	gSpriteCaminar[11].w = 90;
 	gSpriteCaminar[11].h = 130;
+}
+
+void View_Jugador_CapAmerica::getSpritesAnimacion() {
+	gSpriteAnimacion[0].x = 301;
+	gSpriteAnimacion[0].y = 6141;
+	gSpriteAnimacion[0].w = 106;
+	gSpriteAnimacion[0].h = 131;
+
+	gSpriteAnimacion[1].x = 422;
+	gSpriteAnimacion[1].y = 6137;
+	gSpriteAnimacion[1].w = 77;
+	gSpriteAnimacion[1].h = 135;
+
+	gSpriteAnimacion[2].x = 532;
+	gSpriteAnimacion[2].y = 6148;
+	gSpriteAnimacion[2].w = 78;
+	gSpriteAnimacion[2].h = 126;
+
+	gSpriteAnimacion[3].x = 636;
+	gSpriteAnimacion[3].y = 6151;
+	gSpriteAnimacion[3].w = 80;
+	gSpriteAnimacion[3].h = 123;
+
+	gSpriteAnimacion[4].x = 742;
+	gSpriteAnimacion[4].y = 6152;
+	gSpriteAnimacion[4].w = 94;
+	gSpriteAnimacion[4].h = 123;
+
+	gSpriteAnimacion[5].x = 845;
+	gSpriteAnimacion[5].y = 6151;
+	gSpriteAnimacion[5].w = 117;
+	gSpriteAnimacion[5].h = 125;
+
+	gSpriteAnimacion[6].x = 12;
+	gSpriteAnimacion[6].y = 6295;
+	gSpriteAnimacion[6].w = 115;
+	gSpriteAnimacion[6].h = 123;
+
+
 }
 
 void View_Jugador_CapAmerica::getSpritesSaltar() {
@@ -152,6 +192,7 @@ void View_Jugador_CapAmerica::getSpritesCambioPersonaje() {
 
 void View_Jugador_CapAmerica::render(int camX, int camY, SDL_Renderer * gRenderer) {
 
+	contador++;
 	if (this->jugador->estaAgachado()){
 		SDL_Rect* currentClip;
 		currentClip = &gSpriteAgachar[0];
@@ -166,27 +207,47 @@ void View_Jugador_CapAmerica::render(int camX, int camY, SDL_Renderer * gRendere
 			int maxFrames;
 			int minFrames;
 			if(this->jugador->estaCambiandoPersonaje()){
+				contador=0;
 				currentClip = &gSpriteCambiarPersonaje[0];
-			}
-			else if (this->jugador->estado->getVelY() != 0){
+
+			}else if (this->jugador->estado->getVelY() != 0){
+				contador=0;
 				currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
 				minFrames = MINFRAMESALTA;
 				maxFrames = MAXFRAMESALTA;
 				if (frame / maxFrames >= maxFrames) {
 					frame = minFrames;
+
 				}
-				if (this->jugador->estado->getVelY() >= 18)
+				if (this->jugador->estado->getVelY() >= 18){
+
 					frame = 0;
-			}
-			else{
+				}
+			}else if ((this->jugador->estado->getVelY() == 0) && (this->jugador->estado->getVelX() == 0) && (contador>100)){
+				currentClip = &gSpriteAnimacion[frame / 8];
+				minFrames = 0;
+				maxFrames = 8;
+				++frame;
+				if (frame / maxFrames >= maxFrames) {
+									frame = minFrames;
+									contador=0;
+								}
+
+
+			}else{
+
 				currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
 				minFrames = MINFRAMECAMINA;
 				maxFrames = MAXFRAMECAMINA;
 				if (frame / maxFrames >= maxFrames) {
 					frame = minFrames;
+
+
 				}
+
 			}
 			if ((this->jugador->getVelX() != 0) || (this->jugador->getVelY() != 0)) {
+				contador=0;
 				++frame;
 
 			}
