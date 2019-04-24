@@ -167,12 +167,11 @@ void View_Jugador_Venom::render(int camX, int camY, SDL_Renderer * gRenderer) {
 				frame = 0;
 		}
 		else{
-			currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
 			minFrames = MINFRAMECAMINA;
 			maxFrames = MAXFRAMECAMINA;
-			if (frame / maxFrames >= maxFrames) {
-				frame = minFrames;
-			}
+			if (frame / maxFrames >= maxFrames)
+					frame = minFrames;
+			currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
 		}
 		if ((this->model->getVelX() != 0) || (this->model->getVelY() != 0)) {
 			++frame;

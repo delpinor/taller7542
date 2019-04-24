@@ -16,67 +16,65 @@ void View_Jugador_Spiderman::initialize(Jugador *model, LTexture * texturaJugado
 }
 
 void View_Jugador_Spiderman::getSpritesCaminar() {
-	gSpriteCaminar[0].x = 22;
-	gSpriteCaminar[0].y = 118;
-	gSpriteCaminar[0].w = 78;
-	gSpriteCaminar[0].h = 91;
+	gSpriteCaminar[0].x = 18;
+	gSpriteCaminar[0].y = 134;
+	gSpriteCaminar[0].w = 103;
+	gSpriteCaminar[0].h = 106;
 
+	gSpriteCaminar[1].x = 127;
+	gSpriteCaminar[1].y = 134;
+	gSpriteCaminar[1].w = 103;
+	gSpriteCaminar[1].h = 106;
 
-	gSpriteCaminar[1].x = 109;
-	gSpriteCaminar[1].y = 118;
-	gSpriteCaminar[1].w = 76;
-	gSpriteCaminar[1].h = 91;
+	gSpriteCaminar[2].x = 239;
+	gSpriteCaminar[2].y = 134;
+	gSpriteCaminar[2].w = 103;
+	gSpriteCaminar[2].h = 106;
 
-	gSpriteCaminar[2].x = 191;
-	gSpriteCaminar[2].y = 118;
-	gSpriteCaminar[2].w = 72;
-	gSpriteCaminar[2].h = 91;
+	gSpriteCaminar[3].x = 342;
+	gSpriteCaminar[3].y = 134;
+	gSpriteCaminar[3].w = 103;
+	gSpriteCaminar[3].h = 106;
 
-	gSpriteCaminar[3].x = 265;
-	gSpriteCaminar[3].y = 118;
-	gSpriteCaminar[3].w = 78;
-	gSpriteCaminar[3].h = 91;
+	gSpriteCaminar[4].x = 445;
+	gSpriteCaminar[4].y = 134;
+	gSpriteCaminar[4].w = 103;
+	gSpriteCaminar[4].h = 106;
 
-	gSpriteCaminar[4].x = 349;
-	gSpriteCaminar[4].y = 118;
-	gSpriteCaminar[4].w = 61;
-	gSpriteCaminar[4].h = 91;
+	gSpriteCaminar[5].x = 548;
+	gSpriteCaminar[5].y = 134;
+	gSpriteCaminar[5].w = 103;
+	gSpriteCaminar[5].h = 106;
 
-	gSpriteCaminar[5].x = 425;
-	gSpriteCaminar[5].y = 118;
-	gSpriteCaminar[5].w = 57;
-	gSpriteCaminar[5].h = 91;
+	gSpriteCaminar[6].x = 660;
+	gSpriteCaminar[6].y = 134;
+	gSpriteCaminar[6].w = 103;
+	gSpriteCaminar[6].h = 106;
 
-	gSpriteCaminar[6].x = 496;
-	gSpriteCaminar[6].y = 118;
-	gSpriteCaminar[6].w = 61;
-	gSpriteCaminar[6].h = 91;
+	gSpriteCaminar[7].x = 772;
+	gSpriteCaminar[7].y = 134;
+	gSpriteCaminar[7].w = 103;
+	gSpriteCaminar[7].h = 106;
 
+	gSpriteCaminar[8].x = 874;
+	gSpriteCaminar[8].y = 134;
+	gSpriteCaminar[8].w = 103;
+	gSpriteCaminar[8].h = 106;
 
-	gSpriteCaminar[7].x = 568;
-	gSpriteCaminar[7].y = 118;
-	gSpriteCaminar[7].w = 59;
-	gSpriteCaminar[7].h = 91;
+	gSpriteCaminar[9].x = 983;
+	gSpriteCaminar[9].y = 134;
+	gSpriteCaminar[9].w = 103;
+	gSpriteCaminar[9].h = 106;
 
-	gSpriteCaminar[8].x = 633;
-	gSpriteCaminar[8].y = 118;
-	gSpriteCaminar[8].w = 61;
-	gSpriteCaminar[8].h = 91;
+	gSpriteCaminar[10].x = 1101;
+	gSpriteCaminar[10].y = 134;
+	gSpriteCaminar[10].w = 103;
+	gSpriteCaminar[10].h = 106;
 
-	gSpriteCaminar[9].x = 707;
-	gSpriteCaminar[9].y = 118;
-	gSpriteCaminar[9].w = 59;
-	gSpriteCaminar[9].h = 91;
-
-	gSpriteCaminar[10].x = 774;
-	gSpriteCaminar[10].y = 118;
-	gSpriteCaminar[10].w = 57;
-	gSpriteCaminar[10].h = 91;
-
-	gSpriteCaminar[11].x = 840;
-	gSpriteCaminar[11].y = 118;
-	gSpriteCaminar[11].w = 69;
-	gSpriteCaminar[11].h = 91;
+	gSpriteCaminar[11].x = 1225;
+	gSpriteCaminar[11].y = 134;
+	gSpriteCaminar[11].w = 103;
+	gSpriteCaminar[11].h = 106;
 
 }
 
@@ -200,12 +198,11 @@ void View_Jugador_Spiderman::render(int camX, int camY, SDL_Renderer * gRenderer
 					frame = 0;
 			}
 			else{
-				currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
 				minFrames = MINFRAMECAMINA;
 				maxFrames = MAXFRAMECAMINA;
-				if (frame / maxFrames >= maxFrames) {
-					frame = minFrames;
-				}
+				if (frame / maxFrames >= maxFrames)
+						frame = minFrames;
+				currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
 			}
 			if ((this->model->getVelX() != 0) || (this->model->getVelY() != 0)) {
 				++frame;
