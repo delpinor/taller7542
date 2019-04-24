@@ -2,11 +2,12 @@
 #define VIEW_JUGADOR_VENOMBLACK_H_
 #include <SDL2/SDL.h>
 #include "../View/View_Jugador.h"
-#define CANTSPRITECLIP 10
+#define CANTSPRITECLIPCAMINA 10
 #define MINFRAMECAMINA 0
 #define MAXFRAMECAMINA 9
+#define CANTSPRITECLIPSALTA 6
 #define MINFRAMESALTA 0
-#define MAXFRAMESALTA 6
+#define MAXFRAMESALTA 5
 
 class View_Jugador_VenomBlack: public View_Jugador {
 public:
@@ -14,10 +15,10 @@ public:
 	void initialize(Jugador * model,
 		LTexture * texturaJugador);
 
-	SDL_Rect gSpriteCaminar[ MAXFRAMECAMINA];
+	SDL_Rect gSpriteCaminar[ CANTSPRITECLIPCAMINA];
 	SDL_Rect gSpriteCambiarPersonaje[1];
-	SDL_Rect gSpriteSaltar[ MAXFRAMESALTA];
-	SDL_Rect gSpriteAgachar[ CANTSPRITECLIP];
+	SDL_Rect gSpriteSaltar[ CANTSPRITECLIPSALTA];
+	SDL_Rect gSpriteAgachar[ 1];
 	SDL_Rect gSpriteGolpear[ CANTSPRITECLIP];
 	~View_Jugador_VenomBlack();
 
