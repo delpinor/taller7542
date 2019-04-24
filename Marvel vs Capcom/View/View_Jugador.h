@@ -6,6 +6,7 @@
 #define CANTSPRITECLIP 10
 #define MINFRAMECAMINA 0
 #define MAXFRAMECAMINA 9
+#include "../Logger/Logger.h"
 class View_Jugador { // @suppress("Class has a virtual method and non-virtual destructor")
 public:
 

@@ -83,10 +83,10 @@ void View_Jugador_CapAmerica::getSpritesCaminar() {
 void View_Jugador_CapAmerica::getSpritesAnimacion() {
 
 
-		gSpriteAnimacion[0].x = 118;
-		gSpriteAnimacion[0].y = 160;
-		gSpriteAnimacion[0].w = 59;
-		gSpriteAnimacion[0].h = 116;
+		gSpriteAnimacion[0].x = 4;
+		gSpriteAnimacion[0].y = 481;
+		gSpriteAnimacion[0].w = 88;
+		gSpriteAnimacion[0].h = 119;
 
 		gSpriteAnimacion[1].x = 114;
 		gSpriteAnimacion[1].y = 290;
@@ -222,6 +222,7 @@ void View_Jugador_CapAmerica::render(int camX, int camY, SDL_Renderer * gRendere
 				}
 			}else if ((this->jugador->estado->getVelY() == 0) && (this->jugador->estado->getVelX() == 0) && (contador>100)){
 				currentClip = &gSpriteAnimacion[frame / 6];
+				Logger::Log(LOGGER_NIVEL::DEBUG, "view CapAmerica:: animacion"," ");
 				minFrames = 0;
 				maxFrames = 6;
 				++frame;
@@ -244,6 +245,7 @@ void View_Jugador_CapAmerica::render(int camX, int camY, SDL_Renderer * gRendere
 
 			}
 			if ((this->jugador->getVelX() != 0) || (this->jugador->getVelY() != 0)) {
+				Logger::Log(LOGGER_NIVEL::DEBUG, "view CapAmerica:: personaje moviendose"," ");
 				++frame;
 				contador=0;
 			}

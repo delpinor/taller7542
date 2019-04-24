@@ -111,10 +111,18 @@ void View_Jugador_Spiderman::getSpritesCaminar() {
 	gSpriteCaminar[5].w = 103;
 	gSpriteCaminar[5].h = 106;
 
+	gSpriteAnimacion[6].x = 1485;
+	gSpriteAnimacion[6].y = 398;
+	gSpriteAnimacion[6].w = 100;
+	gSpriteAnimacion[6].h = 148;
+
+/*
 	gSpriteCaminar[6].x = 660;
 	gSpriteCaminar[6].y = 134;
 	gSpriteCaminar[6].w = 103;
 	gSpriteCaminar[6].h = 106;
+
+	*/
 
 	gSpriteCaminar[7].x = 772;
 	gSpriteCaminar[7].y = 134;
@@ -269,15 +277,14 @@ void View_Jugador_Spiderman::render(int camX, int camY, SDL_Renderer * gRenderer
 					frame = 0;
 				}
 			}else if ((this->jugador->estado->getVelY() == 0) && (this->jugador->estado->getVelX() == 0) && (contador>100)){
-				currentClip = &gSpriteAnimacion[frame / 12];
+				currentClip = &gSpriteAnimacion[frame / 7];
 				minFrames = 0;
-				maxFrames = 12;
+				maxFrames = 7;
 				++frame;
 				if (frame / maxFrames >= maxFrames) {
 									frame = minFrames;
 									contador=0;
 								}
-
 
 			}else{
 

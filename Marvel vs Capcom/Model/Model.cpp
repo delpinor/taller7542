@@ -27,7 +27,6 @@ void Model::set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int nr
 
 		jugadoresEquipo1[nroJugador]->setDireccion(SDL_FLIP_HORIZONTAL);
 	}
-	//printf("model , la diereccion del jugador %s es %d \n",jugadoresEquipo1[nroJugador]->getNombre(),jugadoresEquipo1[nroJugador]->getDireccion());
 	this->equipos[nroEquipo]->agregar_Jugador(nroJugadorEquipo, jugadoresEquipo1[nroJugador]);
 
 
@@ -41,6 +40,7 @@ void Model::cargar_Tam_Pantalla(int &ancho, int &alto) {
 	GeneralPantalla::GetInstancia()->SetResolucion(alto*1.2, ancho*1.2);
 }
 void Model::inicializar(){
+	Logger::Log(LOGGER_NIVEL::DEBUG, "Model::se inicializan los equipos "," ");
 	for (int i = 0; i<2; i++){
 		this->equipos[i]->inicializar(i);
 	}
@@ -138,6 +138,7 @@ void Model::cargar_Jugadores(
 		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Path: " + path);
 		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Alto: " + std::to_string(alto));
 		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Ancho: " + std::to_string(ancho));
+		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "zindex: " + std::to_string(zindex));
 	jugadoresEquipo1.insert(std::make_pair(i, new Jugador(ancho,alto,zindex,nombre,path)));
 	i++;
 	}
@@ -171,7 +172,7 @@ void Model::setCamara(SDL_Rect * camara) {
 void Model::inicializarPosicionesEquipos(){
 	this->equipos[0]->getJugadorActivo()->estado->setPosX(this->camara->x);
 	this->equipos[1]->getJugadorActivo()->estado->setPosX(this->camara->x + this->camara->w -
-			this->equipos[1]->getJugadorActivo()->get_ancho());
+	this->equipos[1]->getJugadorActivo()->get_ancho());
 }
 
 Equipo* Model::getEquipoNro(int i) {

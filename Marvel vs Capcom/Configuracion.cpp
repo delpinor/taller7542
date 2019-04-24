@@ -33,47 +33,6 @@ int error;
 					this->nivelLog = parser.devolver_Tipo_Log();
 					this->ValidarConfigs(nombresPersonajes);
 
-
-
-
-	/*
-
-	bool utilizarArchivoDefault = false;
-	ParserConfig parser;
-	ParserConfig parserArchivoDefault;
-	parserArchivoDefault.parsear_archivo(ruta_archivo_default);
-
-	this->nivelLog = nivel_log_default;
-
-	try{
-		if(filepath == NULL || filepath[0] == '\0'){
-			throw Exception("La ruta del archivo JSON no es válida: ", filepath, "");
-		}
-		parser.parsear_archivo(filepath);
-		parser.devolver_Map_Personajes(&mapPersonajes);
-		parser.devolver_Map_Fondo(&mapFondoPantalla);
-		parser.devolver_Tam_Imagen(&anchoVentana,&altoVentana);
-		parser.devolver_Map_Nivel(&mapNivel);
-		this->nivelLog = parser.devolver_Tipo_Log();
-	}
-	catch(Exception& ex){
-		std::string msjError = "Error Parseando el archivo: " + ex.what() + ".";
-		//LOGUEAR EL ERROR
-		//LOGUEAR QUE SE PROCESARÁ EL ARCHIVO DEFAULT
-		utilizarArchivoDefault = true;
-	}
-
-	if(utilizarArchivoDefault){
-		parserArchivoDefault.devolver_Map_Personajes(&mapPersonajes);
-		parserArchivoDefault.devolver_Map_Fondo(&mapFondoPantalla);
-		parserArchivoDefault.devolver_Tam_Imagen(&anchoVentana,&altoVentana);
-		parserArchivoDefault.devolver_Map_Nivel(&mapNivel);
-		nivelLog = parserArchivoDefault.devolver_Tipo_Log();
-	}
-	else{
-		this->ValidarConfigs(&parserArchivoDefault,nombresPersonajes);
-	}
-	*/
 }
 
 std::map< int, std::map<std::string, std::string> > Configuracion::get_Config_Personajes(){
