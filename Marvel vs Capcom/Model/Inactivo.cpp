@@ -10,6 +10,9 @@ Inactivo::~Inactivo() {
 	//dtor
 }
 
+void Inactivo::moveVertical() {
+}
+
 void Inactivo::move() {
 
 }

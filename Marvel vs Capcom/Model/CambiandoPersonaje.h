@@ -15,6 +15,7 @@ public:
 	CambiandoPersonaje();
 	virtual ~CambiandoPersonaje();
 	void move();
+	void moveVertical();
 	bool estaActivo();
 	bool estaAgachado();
 	bool estaCambiandoPersonaje();

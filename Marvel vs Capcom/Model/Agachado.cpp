@@ -11,8 +11,10 @@ Agachado::~Agachado() {
 }
 
 void Agachado::move() {
-
 }
+void Agachado::moveVertical() {
+}
+
 bool Agachado::estaActivo() {
 	return false;
 }

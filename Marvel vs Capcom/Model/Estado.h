@@ -28,6 +28,7 @@ public:
 	void Saltar();
 	void detenerVelocidad();
 	virtual void move() = 0;
+	virtual void moveVertical() = 0;
 	virtual bool estaActivo() = 0;
 	virtual bool estaAgachado() = 0;
 	virtual bool estaCambiandoPersonaje() = 0;

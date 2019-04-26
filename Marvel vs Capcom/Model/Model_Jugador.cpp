@@ -70,6 +70,9 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 			if (!jugadorRival->collideIzquierda(camara)) {
 				this->estado->move();
 			}
+			else{
+				this->estado->moveVertical();
+			}
 		}
 	} else if (movimientoIzquierda()) {
 			if (!collideIzquierda(camara)) {
@@ -77,6 +80,8 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 			} else {
 				if (!jugadorRival->collideDerecha(camara)) {
 					this->estado->move();
+				} else {
+					this->estado->moveVertical();
 				}
 			}
 	} else {

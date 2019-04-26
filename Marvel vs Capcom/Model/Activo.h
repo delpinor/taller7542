@@ -9,6 +9,7 @@ public:
 	Activo();
 	virtual ~Activo();
 	void move();
+	void moveVertical();
 	bool estaActivo();
 	bool estaAgachado();
 	bool isFueraDePantalla();
