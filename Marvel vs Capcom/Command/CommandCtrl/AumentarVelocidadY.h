@@ -7,7 +7,7 @@ class AumentarVelocidadY: public CommandCtrl {
 public:
 	AumentarVelocidadY(Model* model);
 	virtual ~AumentarVelocidadY();
-	void execute();
+	void execute(int i);
 
 protected:
 

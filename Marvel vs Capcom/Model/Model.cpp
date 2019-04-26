@@ -8,38 +8,152 @@
 #include <iostream>
 #include <string>
 #include <unistd.h>
+#include "../Logger/Logger.h"
+#include "../Model/GeneralPantalla.h"
 
 #define CANTJUGADORESTOTALES 2
 #define LOCALES 1
 
 Model::Model() {
-	this->jugadores = new Jugador[CANTJUGADORESTOTALES];
-	this->jugadores[0].setPersonaje(1); //testing
-	this->nroJugadorActivo = 0;
-	this->getJugadorActivo()->activar();
+	this->alto_Pantalla = 0;
+	this->ancho_Pantalla = 0;
+	this->camara = NULL;
+	this->equipos[0] = new Equipo();
+	this->equipos[1] = new Equipo();
+}
+
+void Model::set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int nroJugador){
+	if (nroEquipo==1){
+
+		jugadoresEquipo1[nroJugador]->setDireccion(SDL_FLIP_HORIZONTAL);
+	}
+	this->equipos[nroEquipo]->agregar_Jugador(nroJugadorEquipo, jugadoresEquipo1[nroJugador]);
+
+
+}
+
+void Model::cargar_Tam_Pantalla(int &ancho, int &alto) {
+	Logger::Log(LOGGER_NIVEL::DEBUG, "Mode::CargarTamañoPantalla", "Ancho: " + std::to_string(ancho));
+	Logger::Log(LOGGER_NIVEL::DEBUG, "Mode::CargarTamañoPantalla", "Alto: " + std::to_string(alto));
+	this->alto_Pantalla = alto;
+	this->ancho_Pantalla = ancho;
+	GeneralPantalla::GetInstancia()->SetResolucion(alto*1.2, ancho*1.2);
+}
+void Model::inicializar(){
+	Logger::Log(LOGGER_NIVEL::DEBUG, "Model::se inicializan los equipos "," ");
+	for (int i = 0; i<2; i++){
+		this->equipos[i]->inicializar(i);
+	}
+	this->equipos[0]->setEquipoRival(equipos[1]);
+	this->equipos[1]->setEquipoRival(equipos[0]);
+}
+
+int Model::get_alto_Pantalla() {
+	return this->alto_Pantalla;
+}
+int Model::get_ancho_Pantalla() {
+	return this->ancho_Pantalla;
+}
+
+std::string Model::get_pathImagenJugador(int equipo, int indice_jugador){
+
+	return this->equipos[equipo]->jugadores[indice_jugador]->getPathImagen();
+}
+int Model::GetAltoJugador(int equipo, int indice_jugador){
+
+	return this->equipos[equipo]->jugadores[indice_jugador]->get_alto();
+}
+int Model::GetAnchoJugador(int equipo, int indice_jugador){
+
+	return this->equipos[equipo]->jugadores[indice_jugador]->get_ancho();
+}
+std::string Model::GetPathFondoParallax(int zIndex) {
+	return fondos[zIndex];
+}
+string Model::GetPathFondoParallaxByOrden(int orden){
+
+	if(fondos.size() >= orden){
+
+		int i = 1;
+		for (auto iter = fondos.rbegin(); iter != fondos.rend(); ++iter) {
+			if(i == orden){
+				return iter->second;
+			}
+			i = i + 1;
+		}
+	}
+	else{
+		return "";
+	}
+}
+
+int Model::GetZIndexFondoParallaxByOrden(int orden){
+
+	if(fondos.size() >= orden){
+
+		int i = 1;
+		for (auto iter = fondos.rbegin(); iter != fondos.rend(); ++iter) {
+			if(i == orden){
+				return iter->first;
+			}
+			i = i + 1;
+		}
+	}
+	else{
+		return -1;
+	}
+}
+
+void Model::CargarFondos(std::map<int, std::map<std::string, std::string> > &mapFondoPantalla) {
+	Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaFondos", "Carga iniciada");
+	int zIndex;
+	std::string ruta;
+	for (map<int, map<string, string>>::iterator it = mapFondoPantalla.begin();	it != mapFondoPantalla.end(); ++it) {
+		map<string, string> &internal_map = it->second;
+		zIndex = std::stoi(internal_map["zIndex"]);
+		ruta = internal_map["rutaArchivoImagen"];
+		fondos[zIndex] =	ruta;
+		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaFondos", "Ruta: " + ruta);
+		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaFondos", "ZIndex: " + std::to_string(zIndex));
+	}
+	Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaFondos", "Carga finalizada");
+}
+void Model::cargar_Jugadores(
+		std::map<int, std::map<std::string, std::string> > &mapPersonajes) {
+
+	int ancho, alto, zindex;
+	std::string nombre, path;
+	int i = 0;
+	Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Carga iniciada");
+	for (map <int, map<string, string>>::iterator it = mapPersonajes.begin(); it != mapPersonajes.end(); ++it){
+		   map<string, string> &internal_map = it->second;
+		  ancho=atoi((internal_map["ancho"]).c_str()); //
+		   alto=atoi((internal_map["alto"]).c_str());
+		   zindex=atoi((internal_map["zIndex"]).c_str());
+
+		nombre = internal_map["nombre"];
+		path = internal_map["rutaArchivoImagen"];
+		Jugador jugador(ancho, alto, zindex, nombre, path);
+		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Nombre: " + nombre);
+		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Path: " + path);
+		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Alto: " + std::to_string(alto));
+		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Ancho: " + std::to_string(ancho));
+		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "zindex: " + std::to_string(zindex));
+	jugadoresEquipo1.insert(std::make_pair(i, new Jugador(ancho,alto,zindex,nombre,path)));
+	i++;
+	}
+	Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Carga Finalizada");
 }
 
 Model::~Model() {
-	delete[] this->jugadores;
-}
+	this->equipos[0] = NULL;
+	this->equipos[1] = NULL;
 
-Jugador* Model::getJugadorNro(int i) {
-	return &(this->jugadores[i]);
-}
-Jugador* Model::getJugadorActivo() {
-	return &(this->jugadores[this->nroJugadorActivo]);
-}
-
-void Model::agregarCambio(Command* cambio) {
-	if (cambio != NULL)
-		this->cambios.push(cambio);
 }
 
 void Model::update() {
-	if (!this->cambios.empty()) {
-		Command* cambio = this->cambios.front();
-		cambio->execute();
-		this->cambios.pop();
+	for (int i = 0; i < 2; ++i) {
+		this->equipos[i]->update(i);
 	}
 	this->moverJuego();
 }
@@ -47,7 +161,7 @@ void Model::update() {
 void Model::moverJuego() {
 
 	for (int i = 0; i < CANTJUGADORESTOTALES; ++i) {
-		this->jugadores[i].move();
+		this->equipos[i]->move(this->camara);
 	}
 }
 
@@ -55,31 +169,13 @@ void Model::setCamara(SDL_Rect * camara) {
 	this->camara = camara;
 }
 
-void Model::jugadorActivoAumentaVelocidadEnX() {
-	this->jugadores[this->nroJugadorActivo].aumentarVelocidadX();
+void Model::inicializarPosicionesEquipos(){
+	this->equipos[0]->getJugadorActivo()->estado->setPosX(this->camara->x);
+	this->equipos[1]->getJugadorActivo()->estado->setPosX(this->camara->x + this->camara->w -
+	this->equipos[1]->getJugadorActivo()->get_ancho());
 }
 
-void Model::jugadorActivoAumentaVelocidadEnY() {
-	this->jugadores[this->nroJugadorActivo].aumentarVelocidadY();
-}
-
-void Model::jugadorActivoSalta() {
-	this->jugadores[this->nroJugadorActivo].Saltar();
-}
-
-void Model::jugadorActivoDisminuyeVelocidadEnX() {
-	this->jugadores[this->nroJugadorActivo].disminuirVelocidadX();
-}
-
-void Model::jugadorActivoDisminuyeVelocidadEnY() {
-	this->jugadores[this->nroJugadorActivo].disminuirVelocidadY();
-}
-
-void Model::jugadorActivoSeAgacha() {
-	this->jugadores[this->nroJugadorActivo].Agachar();
-}
-
-int Model::getCantidadJugadores() {
-	return CANTJUGADORESTOTALES;
+Equipo* Model::getEquipoNro(int i) {
+	return this->equipos[i];
 }
 

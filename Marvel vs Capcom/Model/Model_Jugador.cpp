@@ -1,17 +1,53 @@
 #include "Model_Jugador.h"
+# include "../Logger/Logger.h"
 #define MARGENDESELECCION 0
-
+/*
 Jugador::Jugador() {
+
+}*/
+Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &path) {
 	this->estado = &(this->inactivo);
 	this->mCollider.x = this->estado->getPosX();
 	this->mCollider.y = this->estado->getPosY();
-	this->mCollider.w = ANCHO_JUGADOR;
-	this->mCollider.h = ALTO_JUGADOR;
+
 	this->direccion = SDL_FLIP_NONE;
+	this->personaje = 0;
+
+	this->width=ancho;
+	this->height=alto;
+	this->zindex= zind;
+	this->nombre=nom;
+	this->pathImagen=path;
+	this->mCollider.w = width;
+	this->mCollider.h = height;
+
+}
+
+int Jugador::get_alto(){
+
+	return height;
+}
+int Jugador::get_ancho(){
+	return width;
+
+}
+int Jugador::get_zindex(){
+	return zindex;
+
+
+}
+std::string Jugador::getNombre(){
+
+	return nombre;
+}
+std::string Jugador::getPathImagen(){
+	return pathImagen;
+
 }
 
 void Jugador::setPosInitX(int posX) {
 	this->estado->setPosInitX(posX);
+
 }
 
 void Jugador::setPosInitY(int posY) {
@@ -19,12 +55,34 @@ void Jugador::setPosInitY(int posY) {
 }
 
 void Jugador::setDireccion(SDL_RendererFlip direccion) {
+	Logger::Log(DEBUG,"Jugador:: setea la direccion ","");
 	this->direccion = direccion;
 }
 
-void Jugador::move() {
-	this->estado->move();
-	updateDirection();
+void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
+	if (this->estado->estaCambiandoPersonaje())
+
+		this->estado->move();
+	else if (movimientoDerecha()) {
+		if (!collideDerecha(camara)) {
+			this->estado->move();
+		} else {
+			if (!jugadorRival->collideIzquierda(camara)) {
+				this->estado->move();
+			}
+		}
+	} else if (movimientoIzquierda()) {
+			if (!collideIzquierda(camara)) {
+				this->estado->move();
+			} else {
+				if (!jugadorRival->collideDerecha(camara)) {
+					this->estado->move();
+				}
+			}
+	} else {
+		this->estado->move();
+	}
+	updateDirection(*jugadorRival);
 	this->mCollider.x = this->estado->getPosX();
 	this->mCollider.y = this->estado->getPosY();
 }
@@ -52,16 +110,38 @@ void Jugador::disminuirVelocidadY() {
 	this->estado->disminuirVelocidadY();
 }
 
+void Jugador::cambiarPersonaje() {
+	this->cambiandoPersonaje.copiarEstadoCambiarPersonaje(this->estado);
+	this->estado = &(this->cambiandoPersonaje);
+}
+
 void Jugador::Agachar() {
-	this->estado->Agachar();
+	if(this->estado->getVelY()==0){
+	this->agachado.copiarEstadoAgachar(this->estado);
+	this->estado = &(this->agachado);
+	}
+}
+void Jugador::Parar() {
+	if(this->estado->estaAgachado()){
+	this->activo.copiarEstadoAgachar(this->estado);
+	this->estado = &(this->activo);
+	}
 }
 
 void Jugador::aumentarVelocidadX() {
 	this->estado->aumentarVelocidadX();
 }
 
+void Jugador::aumentarVelocidadX(int vel) {
+	this->estado->aumentarVelocidadX(vel);
+}
+
 void Jugador::aumentarVelocidadY() {
 	this->estado->aumentarVelocidadY();
+}
+
+void Jugador::aumentarVelocidadY(int vel) {
+	this->estado->aumentarVelocidadY(vel);
 }
 
 void Jugador::Saltar() {
@@ -82,6 +162,12 @@ void Jugador::detenerVelocidad() {
 bool Jugador::estaActivo() {
 	return this->estado->estaActivo();
 }
+bool Jugador::estaAgachado() {
+	return this->estado->estaAgachado();
+}
+bool Jugador::estaCambiandoPersonaje() {
+	return this->estado->estaCambiandoPersonaje();
+}
 void Jugador::activar() {
 	this->activo.copiarEstado(this->estado);
 	this->estado = &(this->activo);
@@ -90,6 +176,7 @@ void Jugador::activar() {
 void Jugador::desactivar() {
 	this->inactivo.copiarEstado(this->estado);
 	this->estado = &(this->inactivo);
+	this->detenerVelocidad();
 }
 bool Jugador::collide(SDL_Rect * camara) {
 
@@ -130,23 +217,76 @@ bool Jugador::collide(SDL_Rect * camara) {
 	return true;
 }
 
+bool Jugador::collideDerecha(SDL_Rect * camara) {
+
+	int leftCam, leftJugador;
+	int rightCam, rightJugador;
+	int topCam, topJugador;
+	int bottomCam, bottomJugador;
+
+	leftCam = camara->x + MARGENDESELECCION;
+
+	rightCam = camara->x + camara->w - MARGENDESELECCION;
+
+	topCam = camara->y + MARGENDESELECCION;
+
+	bottomCam = camara->y + camara->h - MARGENDESELECCION;
+
+	leftJugador = this->mCollider.x;
+	rightJugador = this->mCollider.x + this->mCollider.w;
+	topJugador = this->mCollider.y;
+	bottomJugador = this->mCollider.y + this->mCollider.h;
+
+	if (rightJugador >= rightCam) {
+		return true;
+	}
+
+	return false;
+}
+
+bool Jugador::collideIzquierda(SDL_Rect * camara) {
+
+	int leftCam, leftJugador;
+	int rightCam, rightJugador;
+	int topCam, topJugador;
+	int bottomCam, bottomJugador;
+
+	leftCam = camara->x + MARGENDESELECCION;
+
+	rightCam = camara->x + camara->w - MARGENDESELECCION;
+
+	topCam = camara->y + MARGENDESELECCION;
+
+	bottomCam = camara->y + camara->h - MARGENDESELECCION;
+
+	leftJugador = this->mCollider.x;
+	rightJugador = this->mCollider.x + this->mCollider.w;
+	topJugador = this->mCollider.y;
+	bottomJugador = this->mCollider.y + this->mCollider.h;
+
+	if (leftJugador <= leftCam) {
+		return true;
+	}
+
+	return false;
+}
+
 SDL_RendererFlip Jugador::getDireccion() {
 	return this->direccion;
 }
 
-void Jugador::updateDirection() {
+void Jugador::updateDirection(Jugador &oponente) {
 
 	if (this->estado->getVelX() > 0) {
 		direccion = SDL_FLIP_NONE;
-	}
-
-	if (this->estado->getVelX() < 0) {
+	}else if (this->estado->getVelX() < 0) {
 		direccion = SDL_FLIP_HORIZONTAL;
-	}
-
-	if ((this->estado->getVelX() == 0) && (this->estado->getVelY() != 0)) {
+	}else if (this->getPosX()> oponente.getPosX()){
+		direccion = SDL_FLIP_HORIZONTAL;
+	}else{
 		direccion = SDL_FLIP_NONE;
 	}
+
 
 }
 int Jugador::Personaje() {
@@ -156,3 +296,14 @@ void Jugador::setPersonaje(int p) {
 	this->personaje = p;
 }
 
+bool Jugador::isFueraDePantalla(){
+	return this->estado->isFueraDePantalla();
+}
+
+bool Jugador::movimientoDerecha(){
+	return (this->estado->getVelX() > 0);
+}
+
+bool Jugador::movimientoIzquierda(){
+	return (this->estado->getVelX() < 0);
+}

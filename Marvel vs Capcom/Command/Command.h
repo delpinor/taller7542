@@ -6,12 +6,15 @@
 #define INCVELY 0x03
 #define AGACHAR 0x04
 #define SALTAR  0x05
-#define CANTCOMMANDS 6
+#define CAMBIAR_PERSONAJE  0x06
+#define PARAR  0x07
+#define CANTCOMMANDS 8
+
 class Command {
 public:
 	Command();
 	virtual ~Command();
-	virtual void execute() = 0;
+	virtual void execute(int i) = 0;
 protected:
 private:
 };

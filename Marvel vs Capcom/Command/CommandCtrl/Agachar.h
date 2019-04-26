@@ -7,7 +7,7 @@ class Agachar: public CommandCtrl {
 public:
 	Agachar(Model* model);
 	virtual ~Agachar();
-	void execute();
+	void execute(int i);
 protected:
 
 private:

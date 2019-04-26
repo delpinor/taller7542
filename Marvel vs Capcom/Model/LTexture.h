@@ -16,7 +16,7 @@ public:
 	~LTexture();
 
 	//Loads image at specified path
-	bool loadFromFile(std::string path, SDL_Renderer * gRenderer);
+	bool loadFromFile(std::string path, SDL_Renderer * gRenderer, int anchoJugador, int altoJugador);
 
 #ifdef _SDL_TTF_H
     //Creates image from font string
@@ -50,6 +50,7 @@ private:
 	//Image dimensions
 	int mWidth;
 	int mHeight;
+	int altoJugador, anchoJugador;
 };
 
 #endif
