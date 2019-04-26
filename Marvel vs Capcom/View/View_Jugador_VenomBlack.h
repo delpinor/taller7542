@@ -8,6 +8,9 @@
 #define CANTSPRITECLIPSALTA 6
 #define MINFRAMESALTA 0
 #define MAXFRAMESALTA 5
+#define CANTSPRITEANIMACION 7
+#define MINFRAMEANIMACION 0
+#define MAXFRAMEANIMACION 6
 
 class View_Jugador_VenomBlack: public View_Jugador {
 public:
@@ -19,8 +22,8 @@ public:
 	SDL_Rect gSpriteCambiarPersonaje[1];
 	SDL_Rect gSpriteSaltar[ CANTSPRITECLIPSALTA];
 	SDL_Rect gSpriteAgachar[ 1];
-	SDL_Rect gSpriteGolpear[ CANTSPRITECLIP];
-	SDL_Rect gSpriteAnimacion[12];
+	SDL_Rect gSpriteGolpear[ 1];
+	SDL_Rect gSpriteAnimacion[CANTSPRITEANIMACION];
 	~View_Jugador_VenomBlack();
 
 private:

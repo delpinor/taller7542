@@ -9,6 +9,9 @@
 #define CANTSPRITECLIPSALTA 7
 #define MINFRAMESALTA 0
 #define MAXFRAMESALTA 6
+#define CANTSPRITEANIMACION 6
+#define MINFRAMEANIMACION 0
+#define MAXFRAMEANIMACION 5
 
 class View_Jugador_CapAmerica: public View_Jugador {
 public:
@@ -21,7 +24,7 @@ public:
 	SDL_Rect gSpriteSaltar[ CANTSPRITECLIPSALTA];
 	SDL_Rect gSpriteAgachar[1];
 	SDL_Rect gSpriteGolpear[ CANTSPRITECLIP];
-	SDL_Rect gSpriteAnimacion[8];
+	SDL_Rect gSpriteAnimacion[CANTSPRITEANIMACION];
 private:
 	//variable que uso para ajusatr la animacion
 	int contador=0;

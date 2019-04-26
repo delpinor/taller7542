@@ -19,7 +19,7 @@ public:
 	SDL_Rect gSpriteCambiarPersonaje[1];
 	SDL_Rect gSpriteSaltar[ CANTFRAMESALTA];
 	SDL_Rect gSpriteAgachar[ 1];
-	SDL_Rect gSpriteGolpear[ CANTSPRITECLIP];
+	SDL_Rect gSpriteGolpear[ 1];
 	SDL_Rect gSpriteAnimacion[12];
 private:
 	int contador=0;

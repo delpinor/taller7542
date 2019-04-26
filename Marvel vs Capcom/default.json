@@ -31,7 +31,7 @@
 			"nombre" : "Venom Black",
 			"alto" : "600",
 			"ancho" : "140",
-			"rutaArchivoImagen" : "Images/Venom.png",
+			"rutaArchivoImagen" : "Images/Veno.png",
 			"zIndex" : "99"
 		}
 	],

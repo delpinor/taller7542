@@ -15,69 +15,68 @@ void View_Jugador_Spiderman::initialize(Jugador *model, LTexture * texturaJugado
 	this->zIndex = model->get_zindex();
 	getSpritesCambioPersonaje();
 }
+
 void View_Jugador_Spiderman::getSpritesAnimacion() {
 
+	gSpriteAnimacion[0].x = 120;
+	gSpriteAnimacion[0].y = 246;
+	gSpriteAnimacion[0].w = 100;
+	gSpriteAnimacion[0].h = 148;
 
+	gSpriteAnimacion[1].x = 235;
+	gSpriteAnimacion[1].y = 246;
+	gSpriteAnimacion[1].w = 100;
+	gSpriteAnimacion[1].h = 148;
 
-		gSpriteAnimacion[0].x = 120;
-		gSpriteAnimacion[0].y = 246;
-		gSpriteAnimacion[0].w = 100;
-		gSpriteAnimacion[0].h = 148;
+	gSpriteAnimacion[2].x = 338;
+	gSpriteAnimacion[2].y = 246;
+	gSpriteAnimacion[2].w = 100;
+	gSpriteAnimacion[2].h = 148;
 
-		gSpriteAnimacion[1].x = 235;
-		gSpriteAnimacion[1].y = 246;
-		gSpriteAnimacion[1].w = 100;
-		gSpriteAnimacion[1].h = 148;
+	gSpriteAnimacion[3].x = 444;
+	gSpriteAnimacion[3].y = 246;
+	gSpriteAnimacion[3].w = 100;
+	gSpriteAnimacion[3].h = 148;
 
-		gSpriteAnimacion[2].x = 338;
-		gSpriteAnimacion[2].y = 246;
-		gSpriteAnimacion[2].w = 100;
-		gSpriteAnimacion[2].h = 148;
+	gSpriteAnimacion[4].x = 553;
+	gSpriteAnimacion[4].y = 246;
+	gSpriteAnimacion[4].w = 100;
+	gSpriteAnimacion[4].h = 148;
 
-		gSpriteAnimacion[3].x = 444;
-		gSpriteAnimacion[3].y = 246;
-		gSpriteAnimacion[3].w = 100;
-		gSpriteAnimacion[3].h = 148;
+	gSpriteAnimacion[5].x = 655;
+	gSpriteAnimacion[5].y = 246;
+	gSpriteAnimacion[5].w = 100;
+	gSpriteAnimacion[5].h = 148;
 
-		gSpriteAnimacion[4].x = 553;
-		gSpriteAnimacion[4].y = 246;
-		gSpriteAnimacion[4].w = 100;
-		gSpriteAnimacion[4].h = 148;
+	gSpriteAnimacion[6].x = 755;
+	gSpriteAnimacion[6].y = 246;
+	gSpriteAnimacion[6].w = 100;
+	gSpriteAnimacion[6].h = 148;
 
-		gSpriteAnimacion[5].x = 655;
-		gSpriteAnimacion[5].y = 246;
-		gSpriteAnimacion[5].w = 100;
-		gSpriteAnimacion[5].h = 148;
+	gSpriteAnimacion[7].x = 870;
+	gSpriteAnimacion[7].y = 246;
+	gSpriteAnimacion[7].w = 100;
+	gSpriteAnimacion[7].h = 148;
 
-		gSpriteAnimacion[6].x = 755;
-		gSpriteAnimacion[6].y = 246;
-		gSpriteAnimacion[6].w = 100;
-		gSpriteAnimacion[6].h = 148;
+	gSpriteAnimacion[8].x = 982;
+	gSpriteAnimacion[8].y = 246;
+	gSpriteAnimacion[8].w = 100;
+	gSpriteAnimacion[8].h = 148;
 
-		gSpriteAnimacion[7].x = 870;
-		gSpriteAnimacion[7].y = 246;
-		gSpriteAnimacion[7].w = 100;
-		gSpriteAnimacion[7].h = 148;
+	gSpriteAnimacion[9].x = 1091;
+	gSpriteAnimacion[9].y = 246;
+	gSpriteAnimacion[9].w = 100;
+	gSpriteAnimacion[9].h = 148;
 
-			gSpriteAnimacion[8].x = 982;
-			gSpriteAnimacion[8].y = 246;
-		gSpriteAnimacion[8].w = 100;
-		gSpriteAnimacion[8].h = 148;
+	gSpriteAnimacion[10].x = 1485;
+	gSpriteAnimacion[10].y = 398;
+	gSpriteAnimacion[10].w = 100;
+	gSpriteAnimacion[10].h = 148;
 
-			gSpriteAnimacion[9].x = 1091;
-			gSpriteAnimacion[9].y = 246;
-			gSpriteAnimacion[9].w = 100;
-			gSpriteAnimacion[9].h = 148;
-
-			gSpriteAnimacion[10].x = 1485;
-			gSpriteAnimacion[10].y = 398;
-			gSpriteAnimacion[10].w = 100;
-			gSpriteAnimacion[10].h = 148;
-
-			gSpriteAnimacion[11].x = 1603;
-			gSpriteAnimacion[11].y = 376;
-			gSpriteAnimacion[11].w = 100;
-			gSpriteAnimacion[11].h = 148;
+	gSpriteAnimacion[11].x = 1603;
+	gSpriteAnimacion[11].y = 376;
+	gSpriteAnimacion[11].w = 100;
+	gSpriteAnimacion[11].h = 148;
 }
 
 void View_Jugador_Spiderman::getSpritesCaminar() {
@@ -111,18 +110,10 @@ void View_Jugador_Spiderman::getSpritesCaminar() {
 	gSpriteCaminar[5].w = 103;
 	gSpriteCaminar[5].h = 106;
 
-	gSpriteAnimacion[6].x = 1485;
-	gSpriteAnimacion[6].y = 398;
-	gSpriteAnimacion[6].w = 100;
-	gSpriteAnimacion[6].h = 148;
-
-/*
 	gSpriteCaminar[6].x = 660;
 	gSpriteCaminar[6].y = 134;
 	gSpriteCaminar[6].w = 103;
 	gSpriteCaminar[6].h = 106;
-
-	*/
 
 	gSpriteCaminar[7].x = 772;
 	gSpriteCaminar[7].y = 134;
@@ -153,10 +144,6 @@ void View_Jugador_Spiderman::getSpritesCaminar() {
 }
 
 void View_Jugador_Spiderman::getSpritesSaltar() {
-//	gSpriteSaltar[0].x = 8;
-//	gSpriteSaltar[0].y = 464;
-//	gSpriteSaltar[0].w = 112;
-//	gSpriteSaltar[0].h = 70;
 
 	gSpriteSaltar[0].x = 120;
 	gSpriteSaltar[0].y = 246;
@@ -217,16 +204,6 @@ void View_Jugador_Spiderman::getSpritesSaltar() {
 	gSpriteSaltar[11].y = 376;
 	gSpriteSaltar[11].w = 100;
 	gSpriteSaltar[11].h = 148;
-
-//	gSpriteSaltar[13].x = 1362;
-//	gSpriteSaltar[13].y = 423;
-//	gSpriteSaltar[13].w = 100;
-//	gSpriteSaltar[13].h = 68;
-//
-//	gSpriteSaltar[14].x = 1460;
-//	gSpriteSaltar[14].y = 396;
-//	gSpriteSaltar[14].w = 100;
-//	gSpriteSaltar[14].h = 91;
 }
 void View_Jugador_Spiderman::getSpritesAgachar() {
 	gSpriteAgachar[0].x = 1604;
@@ -243,73 +220,78 @@ void View_Jugador_Spiderman::getSpritesCambioPersonaje() {
 }
 
 
-void View_Jugador_Spiderman::render(int camX, int camY, SDL_Renderer * gRenderer) {
-
-
-
+void View_Jugador_Spiderman::render(int camX, int camY,
+		SDL_Renderer * gRenderer) {
+	SDL_Rect* currentClip;
 	contador++;
-	if (this->jugador->estaAgachado()){
-		SDL_Rect* currentClip;
+	if (this->jugador->estaAgachado()) {
 		currentClip = &gSpriteAgachar[0];
+		this->texturaJugador->render(this->jugador->getPosX() - camX,
+				this->jugador->getPosY() - camY, currentClip, 0, NULL,
+				this->jugador->getDireccion(), gRenderer);
+		contador = 0;
 
-		this->texturaJugador->render(this->jugador->getPosX() - camX,	this->jugador->getPosY() - camY,currentClip, 0, NULL,this->jugador->getDireccion(), gRenderer);
+	} else {
 
-
-	}else{
-
-	if (this->jugador->estaActivo()){
-			SDL_Rect* currentClip;
+		if (this->jugador->estaActivo()) {
 			int maxFrames;
 			int minFrames;
-			if(this->jugador->estaCambiandoPersonaje()){
-				contador=0;
+			if (this->jugador->estaCambiandoPersonaje()) {
+				contador = 0;
 				currentClip = &gSpriteCambiarPersonaje[0];
-				Logger::Log(LOGGER_NIVEL::DEBUG, "view Spiderman:: cambiando personaje"," ");
+				Logger::Log(LOGGER_NIVEL::DEBUG,"view Spiderman:: cambiando personaje", " ");
 
-			}else if (this->jugador->estado->getVelY() != 0){
-				contador=0;
-				currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
+			} else if (this->jugador->estado->getVelY() != 0) {
+
+				if (this->jugador->estado->getVelY() >= 18) {
+					frame = 0;
+				}
+				contador = 0;
 				minFrames = MINFRAMESALTA;
 				maxFrames = MAXFRAMESALTA;
 				if (frame / maxFrames >= maxFrames) {
 					frame = minFrames;
-
 				}
-				if (this->jugador->estado->getVelY() >= 18){
 
-					frame = 0;
-				}
-			}else if ((this->jugador->estaActivo()) && (this->jugador->estado->getVelY() == 0) && (this->jugador->estado->getVelX() == 0) && (contador>100)){
-				currentClip = &gSpriteAnimacion[frame / 7];
+				currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
+				++frame;
+				++frame;
+
+			} else if ((this->jugador->estaActivo())
+					&& (this->jugador->estado->getVelY() == 0)
+					&& (this->jugador->estado->getVelX() == 0)
+					&& (contador > 100)) {
+
 				minFrames = 0;
 				maxFrames = 7;
 				++frame;
 				Logger::Log(LOGGER_NIVEL::DEBUG, "view Spiderman:: animacion"," ");
-				if (frame / maxFrames >= maxFrames) {
-									frame = minFrames;
-									contador=0;
-								}
+				if (frame / maxFrames >= maxFrames + 1) {
+					frame = minFrames;
+					contador = 0;
+				}
+				currentClip = &gSpriteAnimacion[frame / 7];
 
-			}else{
-
-				currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
+			} else {
 				minFrames = MINFRAMECAMINA;
 				maxFrames = MAXFRAMECAMINA;
-				if (frame / maxFrames >= maxFrames) {
+				if (frame / maxFrames >= maxFrames + 1) {
 					frame = minFrames;
 
-
 				}
+				currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
 
 			}
-			if ((this->jugador->getVelX() != 0) || (this->jugador->getVelY() != 0)) {
+			if ((this->jugador->getVelX() != 0)
+					|| (this->jugador->getVelY() != 0)) {
 				++frame;
-				contador=0;
+				contador = 0;
 			}
-			this->texturaJugador->render(this->jugador->getPosX() - camX,	this->jugador->getPosY() - camY,currentClip, 0, NULL,this->jugador->getDireccion(), gRenderer);
+			this->texturaJugador->render(this->jugador->getPosX() - camX,
+					this->jugador->getPosY() - camY, currentClip, 0, NULL,
+					this->jugador->getDireccion(), gRenderer);
 		}
 	}
 
 }
-
 
