@@ -22,7 +22,6 @@ void View_Jugador_CapAmerica::getSpritesCaminar() {
 	gSpriteCaminar[0].w = 90;
 	gSpriteCaminar[0].h = 130;
 
-
 	gSpriteCaminar[1].x = 100;
 	gSpriteCaminar[1].y = 150;
 	gSpriteCaminar[1].w = 90;
@@ -82,39 +81,35 @@ void View_Jugador_CapAmerica::getSpritesCaminar() {
 
 void View_Jugador_CapAmerica::getSpritesAnimacion() {
 
+	gSpriteAnimacion[0].x = 100;
+	gSpriteAnimacion[0].y = 150;
+	gSpriteAnimacion[0].w = 90;
+	gSpriteAnimacion[0].h = 130;
 
+	gSpriteAnimacion[1].x = 105;
+	gSpriteAnimacion[1].y = 280;
+	gSpriteAnimacion[1].w = 90;
+	gSpriteAnimacion[1].h = 130;
 
-		gSpriteAnimacion[0].x = 100;
-		gSpriteAnimacion[0].y = 150;
-		gSpriteAnimacion[0].w = 90;
-		gSpriteAnimacion[0].h = 130;
+	gSpriteAnimacion[2].x = 295;
+	gSpriteAnimacion[2].y = 280;
+	gSpriteAnimacion[2].w = 103;
+	gSpriteAnimacion[2].h = 130;
 
+	gSpriteAnimacion[3].x = 239;
+	gSpriteAnimacion[3].y = 861;
+	gSpriteAnimacion[3].w = 99;
+	gSpriteAnimacion[3].h = 130;
 
-		gSpriteAnimacion[1].x = 105;
-		gSpriteAnimacion[1].y = 280;
-		gSpriteAnimacion[1].w = 90;
-		gSpriteAnimacion[1].h = 130;
+	gSpriteAnimacion[4].x = 98;
+	gSpriteAnimacion[4].y = 861;
+	gSpriteAnimacion[4].w = 140;
+	gSpriteAnimacion[4].h = 130;
 
-		gSpriteAnimacion[2].x = 295;
-		gSpriteAnimacion[2].y = 280;
-		gSpriteAnimacion[2].w = 103;
-		gSpriteAnimacion[2].h = 130;
-
-
-		gSpriteAnimacion[3].x = 239;
-		gSpriteAnimacion[3].y = 861;
-		gSpriteAnimacion[3].w = 99;
-		gSpriteAnimacion[3].h = 130;
-
-		gSpriteAnimacion[4].x = 98;
-		gSpriteAnimacion[4].y = 861;
-		gSpriteAnimacion[4].w = 140;
-		gSpriteAnimacion[4].h = 130;
-
-		gSpriteAnimacion[5].x = 1;
-		gSpriteAnimacion[5].y = 858;
-		gSpriteAnimacion[5].w = 92;
-		gSpriteAnimacion[5].h = 130;
+	gSpriteAnimacion[5].x = 1;
+	gSpriteAnimacion[5].y = 858;
+	gSpriteAnimacion[5].w = 92;
+	gSpriteAnimacion[5].h = 130;
 
 }
 
@@ -149,6 +144,7 @@ void View_Jugador_CapAmerica::getSpritesSaltar() {
 	gSpriteSaltar[5].w = 88;
 	gSpriteSaltar[5].h = 119;
 }
+
 void View_Jugador_CapAmerica::getSpritesAgachar() {
 	gSpriteAgachar[0].x = 5;
 	gSpriteAgachar[0].y = 588;

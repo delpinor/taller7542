@@ -26,6 +26,19 @@ void Activo::move() {
 		}
 		quieto=true;
 }
+
+void Activo::moveVertical() {
+	quieto=false;
+
+		mVelY -= aceleracion;
+		mPosY -= mVelY;
+		if ((mPosY < 0) || (mPosY + ALTO_JUGADOR >= ALTO_NIVEL)) {
+			mPosY += mVelY;
+			mVelY = 0;
+		}
+		quieto=true;
+}
+
 bool Activo::estaQuieto(){
 
 	return quieto;

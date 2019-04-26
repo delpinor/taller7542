@@ -6,6 +6,7 @@ public:
 	Agachado();
 	virtual ~Agachado();
 	void move();
+	void moveVertical();
 	bool estaActivo();
 	bool estaAgachado();
 	void acelerar();

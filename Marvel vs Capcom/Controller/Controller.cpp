@@ -122,8 +122,7 @@ Command* Controller::handleEvent(SDL_Event& e) {
 
 			switch (e.key.keysym.sym) {
 			case SDLK_w:
-				command = this->commands[INCVELY];
-				this->model->equipos[1]->agregarCambio(command);
+
 				break;
 			case SDLK_s:
 				command = this->commands[PARAR];
