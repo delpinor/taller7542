@@ -26,6 +26,7 @@ public:
 	void render();
 	bool inicializar(Model *model);
 	void loadMedia(Model *model);
+	void setEstadoCliente();
 	void close();
 	virtual ~View();
 
@@ -48,6 +49,7 @@ private:
 	void setElementoFondo(int pZIndex, int id);
 	void setElementoPersonaje(Model* model);
 	void setElementoPersonaje(int pZIndex, int equipo);//, int jugador);
+
 };
 
 #endif // VIEW_H

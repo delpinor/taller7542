@@ -126,21 +126,21 @@ void Model::cargar_Jugadores(
 	int i = 0;
 	Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Carga iniciada");
 	for (map <int, map<string, string>>::iterator it = mapPersonajes.begin(); it != mapPersonajes.end(); ++it){
-		   map<string, string> &internal_map = it->second;
-		  ancho=atoi((internal_map["ancho"]).c_str()); //
-		   alto=atoi((internal_map["alto"]).c_str());
-		   zindex=atoi((internal_map["zIndex"]).c_str());
+		map<string, string> &internal_map = it->second;
+		ancho = atoi((internal_map["ancho"]).c_str()); //
+		alto = atoi((internal_map["alto"]).c_str());
+		zindex = atoi((internal_map["zIndex"]).c_str());
 
 		nombre = internal_map["nombre"];
 		path = internal_map["rutaArchivoImagen"];
-		Jugador jugador(ancho, alto, zindex, nombre, path);
+//		Jugador jugador(ancho, alto, zindex, nombre, path);
 		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Nombre: " + nombre);
 		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Path: " + path);
 		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Alto: " + std::to_string(alto));
 		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Ancho: " + std::to_string(ancho));
 		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "zindex: " + std::to_string(zindex));
-	jugadoresEquipo1.insert(std::make_pair(i, new Jugador(ancho,alto,zindex,nombre,path)));
-	i++;
+		jugadoresEquipo1.insert(std::make_pair(i,new Jugador(ancho, alto, zindex, nombre, path)));
+		i++;
 	}
 	Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Carga Finalizada");
 }

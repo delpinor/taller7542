@@ -10,7 +10,7 @@
 
 //Enumera de cabecera
 enum IDMENSAJE {
-	PING = 1, JUGADOR = 2, MENSAJE = 3, LOGIN = 4, SALIDA = 5, EQUIPO = 6, TITULAR = 7
+	PING = 1, JUGADOR = 2, MENSAJE = 3, LOGIN = 4, SALIDA = 5, EQUIPO = 6, TITULAR = 7, MODELO = 8, COMANDO = 9
 };
 struct JugadorLogin{
 	IDMENSAJE id = LOGIN;

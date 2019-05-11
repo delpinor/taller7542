@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 #include <string>
 #include "../Logger/Logger.h"
+#include "../Model/EstadoCliente.h"
 
 #define MARGEN 0
 int posAnteriorX1, posAnteriorY1;
@@ -228,6 +229,15 @@ void View::setElementoPersonaje(int pZIndex, int equipo){//, int jugador){
 
 	int idElemento = this->mapElementosRenderizables[pZIndex].size() + 1;
 	this->mapElementosRenderizables[pZIndex][idElemento] = mapElemento;
+}
+
+void View::setEstadoCliente(){
+
+//	EstadoCliente estadoCliente = ;
+	model->getEquipoNro(0)->getJugadorActivo()->estado = new EstadoCliente;
+	model->getEquipoNro(0)->getJugadorActivo()->estado = new EstadoCliente();
+	model->getEquipoNro(0)->getJugadorActivo()->estado = new EstadoCliente();
+	model->getEquipoNro(0)->getJugadorActivo()->estado = new EstadoCliente();
 }
 
 void View::close() {

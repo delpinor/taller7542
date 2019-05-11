@@ -9,6 +9,8 @@ public:
 	virtual ~Controller();
 	Command* handleEvent(SDL_Event& e);
 	void processInput();
+	int handleEventCliente(SDL_Event& e);
+	int processInputCliente();
 	bool quitPressed();
 protected:
 private:
