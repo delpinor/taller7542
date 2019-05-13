@@ -17,7 +17,6 @@ void View_Jugador_CapAmerica::initialize(Jugador *model, LTexture * texturaJugad
 	CANTSPRITEANIMACION = 6;
 	MINFRAMEANIMACION = 0;
 	MAXFRAMEANIMACION = 5;
-
 	this->gSpriteCaminar= new SDL_Rect [ CANTSPRITECLIPCAMINA];
 	this->gSpriteCambiarPersonaje= new SDL_Rect[1];
 	this->gSpriteSaltar= new SDL_Rect  [ CANTSPRITECLIPSALTA];

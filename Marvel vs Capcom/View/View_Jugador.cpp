@@ -15,7 +15,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 	contador++;
 	if (this->jugador->estaAgachado()) {
 		contador = 0;
-		currentClip = &gSpriteAgachar[1];
+		currentClip = &gSpriteAgachar[0];
 		this->texturaJugador->render(this->jugador->getPosX() - camX,
 				this->jugador->getPosY() - camY, currentClip, 0, NULL,
 				this->jugador->getDireccion(), gRenderer);
