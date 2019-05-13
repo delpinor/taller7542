@@ -26,12 +26,12 @@ void View_Jugador_Default::initialize(Jugador *model,
 	CANTSPRITEANIMACION = 1;
 	MINFRAMEANIMACION = 0;
 	MAXFRAMEANIMACION = 1;
-	this->gSpriteCaminar = gSprite;
-	this->gSpriteCambiarPersonaje = gSprite;
-	this->gSpriteSaltar = gSprite;
-	this->gSpriteAgachar = gSprite;
-	this->gSpriteGolpear = gSprite;
-	this->gSpriteAnimacion = gSprite;
+	this->gSpriteCaminar= new SDL_Rect [ CANTSPRITECLIPCAMINA];
+	this->gSpriteCambiarPersonaje= new SDL_Rect[1];
+	this->gSpriteSaltar= new SDL_Rect  [ CANTSPRITECLIPSALTA];
+	this->gSpriteAgachar= new SDL_Rect[1];
+	this->gSpriteGolpear= new SDL_Rect [ CANTSPRITECLIP];
+	this->gSpriteAnimacion= new SDL_Rect[CANTSPRITEANIMACION];
 	this->gSprite = gSprite;
 	this->jugador = model;
 

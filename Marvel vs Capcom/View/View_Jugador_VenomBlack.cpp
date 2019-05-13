@@ -17,12 +17,12 @@ void View_Jugador_VenomBlack::initialize(Jugador * model, LTexture * texturaJuga
 	MINFRAMEANIMACION = 0;
 	MAXFRAMEANIMACION = 6;
 	texturaJugador->setColor(120,150,20);
-	this->gSpriteCaminar= &gSpriteCaminar[ CANTSPRITECLIPCAMINA];
-	this->gSpriteCambiarPersonaje= &gSpriteCambiarPersonaje[1];
-	this->gSpriteSaltar= &gSpriteSaltar[ CANTSPRITECLIPSALTA];
-	this->gSpriteAgachar= &gSpriteAgachar[1];
-	this->gSpriteGolpear= &gSpriteGolpear[ CANTSPRITECLIP];
-	this->gSpriteAnimacion= &gSpriteAnimacion[CANTSPRITEANIMACION];
+	this->gSpriteCaminar= new SDL_Rect [ CANTSPRITECLIPCAMINA];
+	this->gSpriteCambiarPersonaje= new SDL_Rect[1];
+	this->gSpriteSaltar= new SDL_Rect  [ CANTSPRITECLIPSALTA];
+	this->gSpriteAgachar= new SDL_Rect[1];
+	this->gSpriteGolpear= new SDL_Rect [ CANTSPRITECLIP];
+	this->gSpriteAnimacion= new SDL_Rect[CANTSPRITEANIMACION];
 	this->jugador = model;
 	this->zIndex = model->get_zindex();
 
