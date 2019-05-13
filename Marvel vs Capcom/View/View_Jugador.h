@@ -10,9 +10,28 @@ public:
 	View_Jugador(Jugador *model);
 	View_Jugador();
 	virtual void initialize(Jugador *model, LTexture * texturaJugador);
-	virtual void render(int camX, int camY, SDL_Renderer * gRenderer);
+	void render(int camX, int camY, SDL_Renderer * gRenderer);
 	Jugador *jugador;
 	int getZIndex();
+	SDL_Rect * gSpriteCaminar;
+	SDL_Rect * gSpriteCambiarPersonaje;
+	SDL_Rect  *gSpriteSaltar;
+	SDL_Rect  *gSpriteAgachar;
+	SDL_Rect  *gSpriteGolpear;
+	SDL_Rect  *gSpriteAnimacion;
+	SDL_Rect * gSprite;
+	int contador = 0;
+
+	int CANTSPRITECLIP;
+	int CANTSPRITECLIPCAMINA;
+	int MINFRAMECAMINA;
+	int MAXFRAMECAMINA;
+	int CANTSPRITECLIPSALTA;
+	int MINFRAMESALTA;
+	int MAXFRAMESALTA;
+	int CANTSPRITEANIMACION;
+	int MINFRAMEANIMACION;
+	int MAXFRAMEANIMACION;
 
 protected:
 

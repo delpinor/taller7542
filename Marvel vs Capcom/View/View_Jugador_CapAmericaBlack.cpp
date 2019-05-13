@@ -7,8 +7,29 @@ View_Jugador_CapAmericaBlack::View_Jugador_CapAmericaBlack() {
 
 void View_Jugador_CapAmericaBlack::initialize(Jugador *model, LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
+ CANTSPRITECLIP =6;
+ CANTSPRITECLIPCAMINA= 12;
+ MINFRAMECAMINA =0;
+ MAXFRAMECAMINA =11;
+ CANTSPRITECLIPSALTA= 6;
+ MINFRAMESALTA =0;
+ MAXFRAMESALTA =5;
+ CANTSPRITEANIMACION= 6;
+ MINFRAMEANIMACION =0;
+ MAXFRAMEANIMACION= 5;
+	SDL_Rect  gSpriteCaminar[ CANTSPRITECLIPCAMINA];
+	SDL_Rect  gSpriteCambiarPersonaje[1];
+	SDL_Rect  gSpriteSaltar[ CANTSPRITECLIPSALTA];
+	SDL_Rect  gSpriteAgachar[1];
+	SDL_Rect  gSpriteGolpear[ CANTSPRITECLIP];
+	SDL_Rect  gSpriteAnimacion[CANTSPRITEANIMACION];
 	texturaJugador->setColor(80,140,0);
-
+	this->gSpriteCaminar= gSpriteCaminar;
+	this->gSpriteCambiarPersonaje= gSpriteCambiarPersonaje;
+	this->gSpriteSaltar= gSpriteSaltar;
+	this->gSpriteAgachar= gSpriteAgachar;
+	this->gSpriteGolpear= gSpriteGolpear;
+	this->gSpriteAnimacion= gSpriteAnimacion;
 	this->jugador = model;
 
 	getSpritesCaminar();
@@ -167,71 +188,3 @@ void View_Jugador_CapAmericaBlack::getSpritesCambioPersonaje() {
 	gSpriteCambiarPersonaje[0].w = 100;
 	gSpriteCambiarPersonaje[0].h = 163;
 }
-
-void View_Jugador_CapAmericaBlack::render(int camX, int camY,
-		SDL_Renderer * gRenderer) {
-	SDL_Rect* currentClip;
-	contador++;
-	if (this->jugador->estaAgachado()) {
-
-		currentClip = &gSpriteAgachar[0];
-		this->texturaJugador->render(this->jugador->getPosX() - camX,
-				this->jugador->getPosY() - camY, currentClip, 0, NULL,
-				this->jugador->getDireccion(), gRenderer);
-		contador = 0;
-	} else {
-
-		if (this->jugador->estaActivo()) {
-
-			int maxFrames;
-			int minFrames;
-			if (this->jugador->estaCambiandoPersonaje()) {
-				contador = 0;
-				currentClip = &gSpriteCambiarPersonaje[0];
-				Logger::Log(LOGGER_NIVEL::DEBUG, "view CapAmericaBlack:: cambiando personaje", " ");
-
-			} else if (this->jugador->estado->getVelY() != 0) {
-				if (this->jugador->estado->getVelY() >= 18) {
-					frame = 0;
-				}
-				contador = 0;
-				minFrames = MINFRAMESALTA;
-				maxFrames = MAXFRAMESALTA;
-				if (frame / maxFrames >= maxFrames + 1) {
-					frame = minFrames;
-				}
-				currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
-			} else if ((this->jugador->estaActivo())
-					&& (this->jugador->estado->getVelY() == 0)
-					&& (this->jugador->estado->getVelX() == 0)
-					&& (contador > 100)) {
-				minFrames = MINFRAMEANIMACION;
-				maxFrames = MAXFRAMEANIMACION;
-				Logger::Log(LOGGER_NIVEL::DEBUG, "view CapAmericaBlack:: animacion", " ");
-				if (frame / maxFrames >= maxFrames + 1) {
-					frame = minFrames;
-					contador = 0;
-				}
-				currentClip = &gSpriteAnimacion[frame / MAXFRAMEANIMACION];
-				++frame;
-			} else {
-				currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
-				minFrames = MINFRAMECAMINA;
-				maxFrames = MAXFRAMECAMINA;
-				if (frame / maxFrames >= maxFrames + 1) {
-					frame = minFrames;
-				}
-
-			}
-			if ((this->jugador->getVelX() != 0)
-					|| (this->jugador->getVelY() != 0)) {
-				++frame;
-				contador = 0;
-			}
-			this->texturaJugador->render(this->jugador->getPosX() - camX,
-					this->jugador->getPosY() - camY, currentClip, 0, NULL,
-					this->jugador->getDireccion(), gRenderer);
-		}
-	}
-}
-

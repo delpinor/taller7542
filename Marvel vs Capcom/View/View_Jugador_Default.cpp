@@ -12,8 +12,27 @@ View_Jugador_Default::View_Jugador_Default() {
 
 }
 
-void View_Jugador_Default::initialize(Jugador *model, LTexture * texturaJugador) {
+void View_Jugador_Default::initialize(Jugador *model,
+		LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
+	SDL_Rect gSprite[1];
+	CANTSPRITECLIPCAMINA = 1;
+	CANTSPRITECLIP = 1;
+	MINFRAMECAMINA = 0;
+	MAXFRAMECAMINA = 1;
+	CANTSPRITECLIPSALTA = 1;
+	MINFRAMESALTA = 0;
+	MAXFRAMESALTA = 1;
+	CANTSPRITEANIMACION = 1;
+	MINFRAMEANIMACION = 0;
+	MAXFRAMEANIMACION = 1;
+	this->gSpriteCaminar = gSprite;
+	this->gSpriteCambiarPersonaje = gSprite;
+	this->gSpriteSaltar = gSprite;
+	this->gSpriteAgachar = gSprite;
+	this->gSpriteGolpear = gSprite;
+	this->gSpriteAnimacion = gSprite;
+	this->gSprite = gSprite;
 	this->jugador = model;
 
 	this->zIndex = model->get_zindex();
@@ -26,24 +45,4 @@ void View_Jugador_Default::getSprites() {
 	gSprite[0].w = 128;
 	gSprite[0].h = 128;
 
-}
-
-
-void View_Jugador_Default::render(int camX, int camY, SDL_Renderer * gRenderer) {
-	if (this->jugador->estaActivo()){
-			SDL_Rect* currentClip;
-			currentClip = &gSprite[0];
-
-			this->texturaJugador->render(this->jugador->getPosX() - camX,
-					this->jugador->getPosY() - camY, currentClip, 0, NULL,
-				this->jugador->getDireccion(), gRenderer);
-		}
-	if (this->jugador->estaAgachado()){
-				SDL_Rect* currentClip;
-				currentClip = &gSprite[0];
-
-				this->texturaJugador->render(this->jugador->getPosX() - camX,
-						this->jugador->getPosY() - camY, currentClip, 0, NULL,
-					this->jugador->getDireccion(), gRenderer);
-			}
 }
