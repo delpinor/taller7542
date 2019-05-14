@@ -44,6 +44,9 @@ struct JugadorEquipo {
 	int equipo;
 	bool titular;
 };
+struct ClienteLogin{
+	char usuario[50];
+};
 struct JugadorTitular{
 	bool titular;
 };

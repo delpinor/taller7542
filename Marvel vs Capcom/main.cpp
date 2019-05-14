@@ -5,17 +5,23 @@
 #include "Configuracion.h"
 #include "Logger/Logger.h"
 #include "Cliente.h"
+#include "Servidor/Servidor.h"
 
 
 /* nombre_ejecutable  nombre_archivo_configuracion niveldeDebug*/
 int main(int argc, char* argv[]) {
+	char* ip = argv[2];
+	char* puerto = argv[3];
 
-	if (strcmp(argv[1], "server") == 0) {}
+	if (strcmp(argv[1], "server") == 0) {
+		Servidor server;
+		server.IniciarServidor( 3 ,puerto);
+
+	}
 
 	else if (strcmp(argv[1], "cliente") == 0) {
 
-		char* ip = argv[2];
-		char* puerto = argv[3];
+
 
 		LOGGER_NIVEL nivelLog = DEBUG;
 
