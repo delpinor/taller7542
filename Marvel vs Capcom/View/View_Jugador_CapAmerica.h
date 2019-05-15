@@ -8,7 +8,7 @@ public:
 	View_Jugador_CapAmerica();
 	void initialize(Jugador *model, LTexture * texturaJugador);
 
-private:
+protected:
 	//variable que uso para ajusatr la animacion
 
 	void getSpritesAnimacion();
