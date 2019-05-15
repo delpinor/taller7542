@@ -5,23 +5,10 @@ View_Jugador_Venom::View_Jugador_Venom() {
 
 }
 
-void View_Jugador_Venom::initialize(Jugador * model, LTexture * texturaJugador) {
+void View_Jugador_Venom::initialize(Jugador * model,
+		LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
-	CANTSPRITECLIPCAMINA = 10;
-	MINFRAMECAMINA = 0;
-	MAXFRAMECAMINA = 9;
-	CANTSPRITECLIPSALTA = 6;
-	MINFRAMESALTA = 0;
-	MAXFRAMESALTA = 5;
-	CANTSPRITEANIMACION = 7;
-	MINFRAMEANIMACION = 0;
-	MAXFRAMEANIMACION = 6;
-	this->gSpriteCaminar= new SDL_Rect [ CANTSPRITECLIPCAMINA];
-	this->gSpriteCambiarPersonaje= new SDL_Rect[1];
-	this->gSpriteSaltar= new SDL_Rect  [ CANTSPRITECLIPSALTA];
-	this->gSpriteAgachar= new SDL_Rect[1];
-	this->gSpriteGolpear= new SDL_Rect [ CANTSPRITECLIP];
-	this->gSpriteAnimacion= new SDL_Rect[CANTSPRITEANIMACION];
+	this->gSpriteGolpear = new SDL_Rect[CANTSPRITECLIP];
 	this->jugador = model;
 	this->zIndex = model->get_zindex();
 	getSpritesCaminar();
@@ -32,7 +19,11 @@ void View_Jugador_Venom::initialize(Jugador * model, LTexture * texturaJugador) 
 }
 
 void View_Jugador_Venom::getSpritesAnimacion() {
+	CANTSPRITEANIMACION = 7;
+	MINFRAMEANIMACION = 0;
+	MAXFRAMEANIMACION = 6;
 
+	this->gSpriteAnimacion = new SDL_Rect[CANTSPRITEANIMACION];
 	gSpriteAnimacion[0].x = 4;
 	gSpriteAnimacion[0].y = 843;
 	gSpriteAnimacion[0].w = 131;
@@ -71,6 +62,11 @@ void View_Jugador_Venom::getSpritesAnimacion() {
 }
 
 void View_Jugador_Venom::getSpritesCaminar() {
+	CANTSPRITECLIPCAMINA = 10;
+	MINFRAMECAMINA = 0;
+	MAXFRAMECAMINA = 9;
+
+	this->gSpriteCaminar = new SDL_Rect[CANTSPRITECLIPCAMINA];
 	gSpriteCaminar[9].x = 3;
 	gSpriteCaminar[9].y = 3248;
 	gSpriteCaminar[9].w = 138;
@@ -123,6 +119,11 @@ void View_Jugador_Venom::getSpritesCaminar() {
 }
 
 void View_Jugador_Venom::getSpritesSaltar() {
+	CANTSPRITECLIPSALTA = 6;
+	MINFRAMESALTA = 0;
+	MAXFRAMESALTA = 5;
+
+	this->gSpriteSaltar = new SDL_Rect[CANTSPRITECLIPSALTA];
 	gSpriteSaltar[0].x = 205;
 	gSpriteSaltar[0].y = 5415;
 	gSpriteSaltar[0].w = 137;
@@ -155,6 +156,8 @@ void View_Jugador_Venom::getSpritesSaltar() {
 }
 
 void View_Jugador_Venom::getSpritesAgachar() {
+
+	this->gSpriteAgachar = new SDL_Rect[1];
 	gSpriteAgachar[0].x = 2;
 	gSpriteAgachar[0].y = 5433;
 	gSpriteAgachar[0].w = 132;
@@ -162,12 +165,13 @@ void View_Jugador_Venom::getSpritesAgachar() {
 }
 
 void View_Jugador_Venom::getSpritesCambioPersonaje() {
+	this->gSpriteCambiarPersonaje = new SDL_Rect[1];
 	gSpriteCambiarPersonaje[0].x = 196;
 	gSpriteCambiarPersonaje[0].y = 5405;
 	gSpriteCambiarPersonaje[0].w = 149;
 	gSpriteCambiarPersonaje[0].h = 170;
 }
 
-View_Jugador_Venom::~View_Jugador_Venom(){
+View_Jugador_Venom::~View_Jugador_Venom() {
 }
 

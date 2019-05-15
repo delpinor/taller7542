@@ -5,28 +5,13 @@ View_Jugador_CapAmericaBlack::View_Jugador_CapAmericaBlack() {
 
 }
 
-void View_Jugador_CapAmericaBlack::initialize(Jugador *model, LTexture * texturaJugador) {
+void View_Jugador_CapAmericaBlack::initialize(Jugador *model,
+		LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
- CANTSPRITECLIP =6;
- CANTSPRITECLIPCAMINA= 12;
- MINFRAMECAMINA =0;
- MAXFRAMECAMINA =11;
- CANTSPRITECLIPSALTA= 6;
- MINFRAMESALTA =0;
- MAXFRAMESALTA =5;
- CANTSPRITEANIMACION= 6;
- MINFRAMEANIMACION =0;
- MAXFRAMEANIMACION= 5;
-
-	texturaJugador->setColor(80,140,0);
-	this->gSpriteCaminar= new SDL_Rect [ CANTSPRITECLIPCAMINA];
-	this->gSpriteCambiarPersonaje= new SDL_Rect[1];
-	this->gSpriteSaltar= new SDL_Rect  [ CANTSPRITECLIPSALTA];
-	this->gSpriteAgachar= new SDL_Rect[1];
-	this->gSpriteGolpear= new SDL_Rect [ CANTSPRITECLIP];
-	this->gSpriteAnimacion= new SDL_Rect[CANTSPRITEANIMACION];
+	CANTSPRITECLIP = 6;
+	texturaJugador->setColor(80, 140, 0);
+	this->gSpriteGolpear = new SDL_Rect[CANTSPRITECLIP];
 	this->jugador = model;
-
 	getSpritesCaminar();
 	getSpritesSaltar();
 	getSpritesAgachar();
@@ -36,6 +21,10 @@ void View_Jugador_CapAmericaBlack::initialize(Jugador *model, LTexture * textura
 }
 
 void View_Jugador_CapAmericaBlack::getSpritesCaminar() {
+	CANTSPRITECLIPCAMINA = 12;
+	MINFRAMECAMINA = 0;
+	MAXFRAMECAMINA = 11;
+	this->gSpriteCaminar = new SDL_Rect[CANTSPRITECLIPCAMINA];
 	gSpriteCaminar[0].x = 0;
 	gSpriteCaminar[0].y = 150;
 	gSpriteCaminar[0].w = 90;
@@ -71,7 +60,6 @@ void View_Jugador_CapAmericaBlack::getSpritesCaminar() {
 	gSpriteCaminar[6].w = 100;
 	gSpriteCaminar[6].h = 130;
 
-
 	gSpriteCaminar[7].x = 105;
 	gSpriteCaminar[7].y = 280;
 	gSpriteCaminar[7].w = 90;
@@ -100,6 +88,10 @@ void View_Jugador_CapAmericaBlack::getSpritesCaminar() {
 }
 
 void View_Jugador_CapAmericaBlack::getSpritesAnimacion() {
+	CANTSPRITEANIMACION = 6;
+	MINFRAMEANIMACION = 0;
+	MAXFRAMEANIMACION = 5;
+	this->gSpriteAnimacion = new SDL_Rect[CANTSPRITEANIMACION];
 
 	gSpriteAnimacion[0].x = 100;
 	gSpriteAnimacion[0].y = 150;
@@ -134,6 +126,11 @@ void View_Jugador_CapAmericaBlack::getSpritesAnimacion() {
 }
 
 void View_Jugador_CapAmericaBlack::getSpritesSaltar() {
+	CANTSPRITECLIPSALTA = 6;
+	MINFRAMESALTA = 0;
+	MAXFRAMESALTA = 5;
+	this->gSpriteSaltar = new SDL_Rect[CANTSPRITECLIPSALTA];
+
 	gSpriteSaltar[0].x = 104;
 	gSpriteSaltar[0].y = 423;
 	gSpriteSaltar[0].w = 90;
@@ -171,6 +168,9 @@ void View_Jugador_CapAmericaBlack::getSpritesSaltar() {
 }
 
 void View_Jugador_CapAmericaBlack::getSpritesAgachar() {
+
+	this->gSpriteAgachar = new SDL_Rect[1];
+
 	gSpriteAgachar[0].x = 4;
 	gSpriteAgachar[0].y = 481;
 	gSpriteAgachar[0].w = 88;
@@ -178,6 +178,9 @@ void View_Jugador_CapAmericaBlack::getSpritesAgachar() {
 }
 
 void View_Jugador_CapAmericaBlack::getSpritesCambioPersonaje() {
+
+	this->gSpriteCambiarPersonaje = new SDL_Rect[1];
+
 	gSpriteCambiarPersonaje[0].x = 97;
 	gSpriteCambiarPersonaje[0].y = 581;
 	gSpriteCambiarPersonaje[0].w = 100;

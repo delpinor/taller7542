@@ -7,25 +7,10 @@ View_Jugador_VenomBlack::View_Jugador_VenomBlack() {
 
 void View_Jugador_VenomBlack::initialize(Jugador * model, LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
-	CANTSPRITECLIPCAMINA = 10;
-	MINFRAMECAMINA = 0;
-	MAXFRAMECAMINA = 9;
-	CANTSPRITECLIPSALTA = 6;
-	MINFRAMESALTA = 0;
-	MAXFRAMESALTA = 5;
-	CANTSPRITEANIMACION = 7;
-	MINFRAMEANIMACION = 0;
-	MAXFRAMEANIMACION = 6;
 	texturaJugador->setColor(120,150,20);
-	this->gSpriteCaminar= new SDL_Rect [ CANTSPRITECLIPCAMINA];
-	this->gSpriteCambiarPersonaje= new SDL_Rect[1];
-	this->gSpriteSaltar= new SDL_Rect  [ CANTSPRITECLIPSALTA];
-	this->gSpriteAgachar= new SDL_Rect[1];
 	this->gSpriteGolpear= new SDL_Rect [ CANTSPRITECLIP];
-	this->gSpriteAnimacion= new SDL_Rect[CANTSPRITEANIMACION];
 	this->jugador = model;
 	this->zIndex = model->get_zindex();
-
 	getSpritesCaminar();
 	getSpritesSaltar();
 	getSpritesAgachar();
@@ -34,7 +19,10 @@ void View_Jugador_VenomBlack::initialize(Jugador * model, LTexture * texturaJuga
 }
 
 void View_Jugador_VenomBlack::getSpritesAnimacion() {
-
+	CANTSPRITEANIMACION = 7;
+	MINFRAMEANIMACION = 0;
+	MAXFRAMEANIMACION = 6;
+	this->gSpriteAnimacion= new SDL_Rect[CANTSPRITEANIMACION];
 	gSpriteAnimacion[0].x = 4;
 	gSpriteAnimacion[0].y = 843;
 	gSpriteAnimacion[0].w = 131;
@@ -73,6 +61,10 @@ void View_Jugador_VenomBlack::getSpritesAnimacion() {
 }
 
 void View_Jugador_VenomBlack::getSpritesCaminar() {
+	CANTSPRITECLIPCAMINA = 10;
+	MINFRAMECAMINA = 0;
+	MAXFRAMECAMINA = 9;
+	this->gSpriteCaminar= new SDL_Rect [ CANTSPRITECLIPCAMINA];
 	gSpriteCaminar[9].x = 3;
 	gSpriteCaminar[9].y = 3248;
 	gSpriteCaminar[9].w = 138;
@@ -125,6 +117,10 @@ void View_Jugador_VenomBlack::getSpritesCaminar() {
 }
 
 void View_Jugador_VenomBlack::getSpritesSaltar() {
+	CANTSPRITECLIPSALTA = 6;
+	MINFRAMESALTA = 0;
+	MAXFRAMESALTA = 5;
+	this->gSpriteSaltar= new SDL_Rect  [ CANTSPRITECLIPSALTA];
 	gSpriteSaltar[0].x = 205;
 	gSpriteSaltar[0].y = 5415;
 	gSpriteSaltar[0].w = 137;
@@ -157,6 +153,8 @@ void View_Jugador_VenomBlack::getSpritesSaltar() {
 }
 
 void View_Jugador_VenomBlack::getSpritesAgachar() {
+
+	this->gSpriteAgachar= new SDL_Rect[1];
 	gSpriteAgachar[0].x = 2;
 	gSpriteAgachar[0].y = 5433;
 	gSpriteAgachar[0].w = 132;
@@ -164,78 +162,13 @@ void View_Jugador_VenomBlack::getSpritesAgachar() {
 }
 
 void View_Jugador_VenomBlack::getSpritesCambioPersonaje() {
+	this->gSpriteCambiarPersonaje= new SDL_Rect[1];
 	gSpriteCambiarPersonaje[0].x = 196;
 	gSpriteCambiarPersonaje[0].y = 5405;
 	gSpriteCambiarPersonaje[0].w = 149;
 	gSpriteCambiarPersonaje[0].h = 170;
 }
 
-//void View_Jugador_VenomBlack::render(int camX, int camY,
-//		SDL_Renderer * gRenderer) {
-//	SDL_Rect* currentClip;
-//	contador++;
-//	if (this->jugador->estaAgachado()) {
-//
-//		currentClip = &gSpriteAgachar[0];
-//		this->texturaJugador->render(this->jugador->getPosX() - camX,
-//				this->jugador->getPosY() - camY, currentClip, 0, NULL,
-//				this->jugador->getDireccion(), gRenderer);
-//		contador = 0;
-//
-//	} else {
-//
-//		if (this->jugador->estaActivo()) {
-//
-//			int maxFrames;
-//			int minFrames;
-//			if (this->jugador->estaCambiandoPersonaje()) {
-//				contador = 0;
-//				currentClip = &gSpriteCambiarPersonaje[0];
-//				Logger::Log(LOGGER_NIVEL::DEBUG,"view VenomBlack:: cambiando personaje", " ");
-//
-//			} else if (this->jugador->estado->getVelY() != 0) {
-//				if (this->jugador->estado->getVelY() >= 18) {
-//					frame = 0;
-//				}
-//				minFrames = MINFRAMESALTA;
-//				maxFrames = MAXFRAMESALTA;
-//				if (frame / maxFrames >= maxFrames + 1) {
-//					frame = minFrames;
-//				}
-//				contador = 0;
-//				currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
-//			} else if ((this->jugador->estaActivo())
-//					&& (this->jugador->estado->getVelY() == 0)
-//					&& (this->jugador->estado->getVelX() == 0)
-//					&& (contador > 100)) {
-//				minFrames = MINFRAMEANIMACION;
-//				maxFrames = MAXFRAMEANIMACION;
-//				++frame;
-//				Logger::Log(LOGGER_NIVEL::DEBUG, "view VenomBlack:: animacion"," ");
-//				if (frame / maxFrames >= maxFrames + 1) {
-//					frame = minFrames;
-//					contador = 0;
-//				}
-//				currentClip = &gSpriteAnimacion[frame / MAXFRAMEANIMACION];
-//			} else {
-//				minFrames = MINFRAMECAMINA;
-//				maxFrames = MAXFRAMECAMINA;
-//				if (frame / maxFrames >= maxFrames + 1) {
-//					frame = minFrames;
-//				}
-//				currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
-//			}
-//			if ((this->jugador->getVelX() != 0)
-//					|| (this->jugador->getVelY() != 0)) {
-//				++frame;
-//				contador = 0;
-//			}
-//			this->texturaJugador->render(this->jugador->getPosX() - camX,
-//					this->jugador->getPosY() - camY, currentClip, 0, NULL,
-//					this->jugador->getDireccion(), gRenderer);
-//		}
-//	}
-//}
 View_Jugador_VenomBlack::~View_Jugador_VenomBlack(){
 }
 

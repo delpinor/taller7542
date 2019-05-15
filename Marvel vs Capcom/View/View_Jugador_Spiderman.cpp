@@ -5,20 +5,10 @@ View_Jugador_Spiderman::View_Jugador_Spiderman() {
 
 }
 
-void View_Jugador_Spiderman::initialize(Jugador *model, LTexture * texturaJugador) {
+void View_Jugador_Spiderman::initialize(Jugador *model,
+		LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
-	CANTSPRITECLIPCAMINA = 12;
-	MINFRAMECAMINA = 0;
-	MAXFRAMECAMINA = 11;
-	CANTSPRITECLIPSALTA = 12;
-	MINFRAMESALTA = 0;
-	MAXFRAMESALTA = 11;
-	this->gSpriteCaminar= new SDL_Rect [ CANTSPRITECLIPCAMINA];
-	this->gSpriteCambiarPersonaje= new SDL_Rect[1];
-	this->gSpriteSaltar= new SDL_Rect  [ CANTSPRITECLIPSALTA];
-	this->gSpriteAgachar= new SDL_Rect[1];
-	this->gSpriteGolpear= new SDL_Rect [ CANTSPRITECLIP];
-	this->gSpriteAnimacion= new SDL_Rect[CANTSPRITEANIMACION];
+	this->gSpriteGolpear = new SDL_Rect[CANTSPRITECLIP];
 	this->jugador = model;
 	getSpritesCaminar();
 	getSpritesSaltar();
@@ -29,6 +19,8 @@ void View_Jugador_Spiderman::initialize(Jugador *model, LTexture * texturaJugado
 }
 
 void View_Jugador_Spiderman::getSpritesAnimacion() {
+
+	this->gSpriteAnimacion = new SDL_Rect[CANTSPRITEANIMACION];
 
 	gSpriteAnimacion[0].x = 120;
 	gSpriteAnimacion[0].y = 246;
@@ -92,6 +84,11 @@ void View_Jugador_Spiderman::getSpritesAnimacion() {
 }
 
 void View_Jugador_Spiderman::getSpritesCaminar() {
+	CANTSPRITECLIPCAMINA = 12;
+	MINFRAMECAMINA = 0;
+	MAXFRAMECAMINA = 11;
+	this->gSpriteCaminar = new SDL_Rect[CANTSPRITECLIPCAMINA];
+
 	gSpriteCaminar[0].x = 18;
 	gSpriteCaminar[0].y = 134;
 	gSpriteCaminar[0].w = 103;
@@ -152,10 +149,13 @@ void View_Jugador_Spiderman::getSpritesCaminar() {
 	gSpriteCaminar[11].w = 103;
 	gSpriteCaminar[11].h = 106;
 
-
 }
 
 void View_Jugador_Spiderman::getSpritesSaltar() {
+	CANTSPRITECLIPSALTA = 12;
+	MINFRAMESALTA = 0;
+	MAXFRAMESALTA = 11;
+	this->gSpriteSaltar = new SDL_Rect[CANTSPRITECLIPSALTA];
 
 	gSpriteSaltar[0].x = 120;
 	gSpriteSaltar[0].y = 246;
@@ -218,6 +218,8 @@ void View_Jugador_Spiderman::getSpritesSaltar() {
 	gSpriteSaltar[11].h = 148;
 }
 void View_Jugador_Spiderman::getSpritesAgachar() {
+
+	this->gSpriteAgachar = new SDL_Rect[1];
 	gSpriteAgachar[0].x = 1604;
 	gSpriteAgachar[0].y = 392;
 	gSpriteAgachar[0].w = 103;
@@ -225,6 +227,8 @@ void View_Jugador_Spiderman::getSpritesAgachar() {
 }
 
 void View_Jugador_Spiderman::getSpritesCambioPersonaje() {
+
+	this->gSpriteCambiarPersonaje = new SDL_Rect[1];
 	gSpriteCambiarPersonaje[0].x = 120;
 	gSpriteCambiarPersonaje[0].y = 264;
 	gSpriteCambiarPersonaje[0].w = 100;
