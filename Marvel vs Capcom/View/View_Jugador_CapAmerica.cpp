@@ -23,9 +23,9 @@ void View_Jugador_CapAmerica::initialize(Jugador *model,
 }
 
 void View_Jugador_CapAmerica::getSpritesCaminar() {
-	CANTSPRITECLIPCAMINA = 6;
+	CANTSPRITECLIPCAMINA = 12;
 	MINFRAMECAMINA = 0;
-	MAXFRAMECAMINA = 5;
+	MAXFRAMECAMINA = 11;
 	this->gSpriteCaminar = new SDL_Rect[CANTSPRITECLIPCAMINA];
 
 	gSpriteCaminar[0].x = 0;
@@ -58,35 +58,35 @@ void View_Jugador_CapAmerica::getSpritesCaminar() {
 	gSpriteCaminar[5].w = 90;
 	gSpriteCaminar[5].h = 130;
 
-//	gSpriteCaminar[6].x = 5;
-//	gSpriteCaminar[6].y = 280;
-//	gSpriteCaminar[6].w = 100;
-//	gSpriteCaminar[6].h = 130;
-//
-//	gSpriteCaminar[7].x = 105;
-//	gSpriteCaminar[7].y = 280;
-//	gSpriteCaminar[7].w = 90;
-//	gSpriteCaminar[7].h = 130;
-//
-//	gSpriteCaminar[8].x = 195;
-//	gSpriteCaminar[8].y = 280;
-//	gSpriteCaminar[8].w = 90;
-//	gSpriteCaminar[8].h = 130;
-//
-//	gSpriteCaminar[9].x = 295;
-//	gSpriteCaminar[9].y = 280;
-//	gSpriteCaminar[9].w = 105;
-//	gSpriteCaminar[9].h = 130;
-//
-//	gSpriteCaminar[10].x = 400;
-//	gSpriteCaminar[10].y = 285;
-//	gSpriteCaminar[10].w = 90;
-//	gSpriteCaminar[10].h = 130;
-//
-//	gSpriteCaminar[11].x = 495;
-//	gSpriteCaminar[11].y = 285;
-//	gSpriteCaminar[11].w = 90;
-//	gSpriteCaminar[11].h = 130;
+	gSpriteCaminar[6].x = 5;
+	gSpriteCaminar[6].y = 280;
+	gSpriteCaminar[6].w = 100;
+	gSpriteCaminar[6].h = 130;
+
+	gSpriteCaminar[7].x = 105;
+	gSpriteCaminar[7].y = 280;
+	gSpriteCaminar[7].w = 90;
+	gSpriteCaminar[7].h = 130;
+
+	gSpriteCaminar[8].x = 195;
+	gSpriteCaminar[8].y = 280;
+	gSpriteCaminar[8].w = 90;
+	gSpriteCaminar[8].h = 130;
+
+	gSpriteCaminar[9].x = 295;
+	gSpriteCaminar[9].y = 280;
+	gSpriteCaminar[9].w = 105;
+	gSpriteCaminar[9].h = 130;
+
+	gSpriteCaminar[10].x = 400;
+	gSpriteCaminar[10].y = 285;
+	gSpriteCaminar[10].w = 90;
+	gSpriteCaminar[10].h = 130;
+
+	gSpriteCaminar[11].x = 495;
+	gSpriteCaminar[11].y = 285;
+	gSpriteCaminar[11].w = 90;
+	gSpriteCaminar[11].h = 130;
 }
 
 void View_Jugador_CapAmerica::getSpritesAnimacion() {

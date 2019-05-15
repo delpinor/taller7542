@@ -19,45 +19,75 @@ void View_Jugador_Venom::initialize(Jugador * model,
 }
 
 void View_Jugador_Venom::getSpritesAnimacion() {
-	CANTSPRITEANIMACION = 7;
+	CANTSPRITEANIMACION = 13;
 	MINFRAMEANIMACION = 0;
-	MAXFRAMEANIMACION = 6;
+	MAXFRAMEANIMACION = 12;
 
 	this->gSpriteAnimacion = new SDL_Rect[CANTSPRITEANIMACION];
-	gSpriteAnimacion[0].x = 4;
-	gSpriteAnimacion[0].y = 843;
-	gSpriteAnimacion[0].w = 131;
-	gSpriteAnimacion[0].h = 93;
+	gSpriteAnimacion[0].x = 0;
+	gSpriteAnimacion[0].y = 515;
+	gSpriteAnimacion[0].w = 150;
+	gSpriteAnimacion[0].h = 128;
 
-	gSpriteAnimacion[1].x = 160;
-	gSpriteAnimacion[1].y = 843;
-	gSpriteAnimacion[1].w = 215;
-	gSpriteAnimacion[1].h = 93;
+	gSpriteAnimacion[1].x = 147;
+	gSpriteAnimacion[1].y = 515;
+	gSpriteAnimacion[1].w = 150;
+	gSpriteAnimacion[1].h = 128;
 
-	gSpriteAnimacion[2].x = 160;
-	gSpriteAnimacion[2].y = 843;
-	gSpriteAnimacion[2].w = 215;
-	gSpriteAnimacion[2].h = 93;
+	gSpriteAnimacion[2].x = 313;
+	gSpriteAnimacion[2].y = 515;
+	gSpriteAnimacion[2].w = 150;
+	gSpriteAnimacion[2].h = 128;
 
-	gSpriteAnimacion[3].x = 160;
-	gSpriteAnimacion[3].y = 843;
-	gSpriteAnimacion[3].w = 215;
-	gSpriteAnimacion[3].h = 93;
+	gSpriteAnimacion[3].x = 490;
+	gSpriteAnimacion[3].y = 515;
+	gSpriteAnimacion[3].w = 150;
+	gSpriteAnimacion[3].h = 128;
 
-	gSpriteAnimacion[4].x = 4;
-	gSpriteAnimacion[4].y = 1070;
-	gSpriteAnimacion[4].w = 157;
-	gSpriteAnimacion[4].h = 100;
+	gSpriteAnimacion[4].x = 676;
+	gSpriteAnimacion[4].y = 515;
+	gSpriteAnimacion[4].w = 150;
+	gSpriteAnimacion[4].h = 128;
 
-	gSpriteAnimacion[5].x = 4;
-	gSpriteAnimacion[5].y = 1070;
-	gSpriteAnimacion[5].w = 157;
-	gSpriteAnimacion[5].h = 100;
+	gSpriteAnimacion[5].x = 860;
+	gSpriteAnimacion[5].y = 515;
+	gSpriteAnimacion[5].w = 150;
+	gSpriteAnimacion[5].h = 128;
 
-	gSpriteAnimacion[6].x = 410;
-	gSpriteAnimacion[6].y = 837;
-	gSpriteAnimacion[6].w = 146;
-	gSpriteAnimacion[6].h = 99;
+	gSpriteAnimacion[6].x = 1037;
+	gSpriteAnimacion[6].y = 515;
+	gSpriteAnimacion[6].w = 150;
+	gSpriteAnimacion[6].h = 128;
+
+	gSpriteAnimacion[7].x = 0;
+	gSpriteAnimacion[7].y = 649;
+	gSpriteAnimacion[7].w = 150;
+	gSpriteAnimacion[7].h = 128;
+
+	gSpriteAnimacion[8].x = 164;
+	gSpriteAnimacion[8].y = 649;
+	gSpriteAnimacion[8].w = 150;
+	gSpriteAnimacion[8].h = 128;
+
+	gSpriteAnimacion[9].x = 331;
+	gSpriteAnimacion[9].y = 649;
+	gSpriteAnimacion[9].w = 150;
+	gSpriteAnimacion[9].h = 128;
+
+	gSpriteAnimacion[10].x = 514;
+	gSpriteAnimacion[10].y = 649;
+	gSpriteAnimacion[10].w = 150;
+	gSpriteAnimacion[10].h = 128;
+
+	gSpriteAnimacion[11].x = 688;
+	gSpriteAnimacion[11].y = 649;
+	gSpriteAnimacion[11].w = 150;
+	gSpriteAnimacion[11].h = 128;
+
+	gSpriteAnimacion[12].x = 870;
+	gSpriteAnimacion[12].y = 649;
+	gSpriteAnimacion[12].w = 150;
+	gSpriteAnimacion[12].h = 128;
 
 }
 
