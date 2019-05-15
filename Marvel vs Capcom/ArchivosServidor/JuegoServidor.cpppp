@@ -1,0 +1,354 @@
+//============================================================================
+// Name        : JuegoServidor.cpp
+// Author      : delpinor
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+#include <string.h>
+#include <pthread.h>
+#include <cstdlib>
+#include "ConexionServidor.h"
+#include "Partida.h"
+#include "EstructuraDatos.h"
+#define MAX_JUGADORES 2
+using namespace std;
+pthread_mutex_t mutexx;
+
+struct DatosHilo {
+	Partida * partida;
+	string usuario;
+	int sock;
+};
+void * controlPartida(void * partida) {
+	Partida * miPartida = (Partida*) partida;
+	while (1) {
+		list<Cliente> lista = miPartida->GetListaJugadores();
+		list<Cliente>::iterator it;
+		for (it = lista.begin(); it != lista.end(); it++) {
+			if (miPartida->GetCantidadJugando(1) == 0
+					|| miPartida->GetCantidadJugando(2) == 0) {
+				miPartida->Finalizada();
+				pthread_exit(NULL);
+			}
+		}
+
+	}
+}
+void * estadoPartida(void * partida) {
+	Partida * miPartida = (Partida*) partida;
+	while (1) {
+		pthread_mutex_lock(&mutexx);
+		//std::system("clear");
+		cout << "Inicio partida: "
+				<< (miPartida->Iniciada() == true ? "Iniciada" : "No iniciada")
+				<< endl;
+		cout << "Final partida: "
+				<< (miPartida->Finalizada() == true ?
+						"Finalizada" : "No finalizada") << endl;
+		cout << "Cantidad jugadores: " << miPartida->GetCantidadJugando()
+				<< endl;
+		cout << "Cantidad en espera: " << miPartida->GetCantidadEspera()
+				<< endl;
+		cout << "Cantidad en desconectados: "
+				<< miPartida->GetCantidadDesconectados() << endl;
+		cout << "Jugadores:" << endl;
+		pthread_mutex_unlock(&mutexx);
+
+		list<Cliente> lista = miPartida->GetListaJugadores();
+		list<Cliente>::iterator it;
+		for (it = lista.begin(); it != lista.end(); it++) {
+			pthread_mutex_lock(&mutexx);
+			cout << "Nombre: " << it->nombre << endl;
+			cout << "Equipo: " << it->equipo << endl;
+			cout << "Titular: "
+					<< (it->titular == true ? "Es titular" : "Es suplente")
+					<< endl;
+			cout << "Pos x: " << it->posx << endl;
+			cout << "pos Y: " << it->posy << endl;
+			cout << "------------------------" << endl;
+			cout << "------------------------" << endl;
+			pthread_mutex_unlock(&mutexx);
+		}
+		if (miPartida->Finalizada()) {
+			pthread_mutex_lock(&mutexx);
+			cout << "Partida finalizada!" << it->nombre << endl;
+			pthread_mutex_unlock(&mutexx);
+			pthread_exit(NULL);
+
+		}
+
+		sleep(1);
+	}
+
+}
+void * envioClientes(void * datos) {
+	int sock = ((DatosHilo*) datos)->sock;
+	Partida * partida = ((DatosHilo*) datos)->partida;
+	string usuario = ((DatosHilo*) datos)->usuario;
+	IDMENSAJE idMsgPing = PING;
+
+	int contador = 0;
+	bool corriendo = true;
+
+	while (corriendo) {
+		//Borrar
+		IDMENSAJE idMsgDatos = JUGADOR;
+		JugadorDatos jugDatos;
+		Cliente clienteRival0 = partida->GetTitularJugando(0);
+		Cliente clienteRival1 = partida->GetTitularJugando(1);
+
+		// Envio de ondicion(suplente o titular)
+		JugadorTitular jugTitular;
+		IDMENSAJE idMsgJugadorTitular = TITULAR;
+		list<Cliente> listaJug;
+		if (partida->Iniciada()) {
+			listaJug = partida->GetListaJugadores();
+			list<Cliente>::iterator it;
+			for (it = listaJug.begin(); it != listaJug.end(); it++) {
+				pthread_mutex_lock(&mutexx);
+				jugTitular.titular = it->titular;
+				send(it->socket, &idMsgJugadorTitular,	sizeof(idMsgJugadorTitular), 0);
+				send(it->socket, &jugTitular, sizeof(jugTitular), 0);
+
+				//borrar
+				if (it->equipo == 0) {
+					jugDatos.equipo = 1;
+					jugDatos.x = clienteRival1.posx;
+					jugDatos.y = clienteRival1.posy;
+					send(it->socket, &idMsgDatos, sizeof(idMsgDatos), 0);
+					send(it->socket, &jugDatos, sizeof(jugDatos), 0);
+					if (!it->titular) {
+						jugDatos.equipo = 0;
+						jugDatos.x = clienteRival0.posx;
+						jugDatos.y = clienteRival0.posy;
+						send(it->socket, &idMsgDatos, sizeof(idMsgDatos), 0);
+						send(it->socket, &jugDatos, sizeof(jugDatos), 0);
+					}
+				}
+				if (it->equipo == 1) {
+					jugDatos.equipo = 0;
+					jugDatos.x = clienteRival0.posx;
+					jugDatos.y = clienteRival0.posy;
+					send(it->socket, &idMsgDatos, sizeof(idMsgDatos), 0);
+					send(it->socket, &jugDatos, sizeof(jugDatos), 0);
+					if (!it->titular) {
+						jugDatos.equipo = 1;
+						jugDatos.x = clienteRival1.posx;
+						jugDatos.y = clienteRival1.posy;
+						send(it->socket, &idMsgDatos, sizeof(idMsgDatos), 0);
+						send(it->socket, &jugDatos, sizeof(jugDatos), 0);
+					}
+				}
+				pthread_mutex_unlock(&mutexx);
+			}
+		}
+
+		//Envio
+
+		/*
+		 // Envio posicion del rival;
+		 IDMENSAJE idMsgDatos = JUGADOR;
+		 JugadorDatos jugDatos;
+		 list<Cliente> listaEquipo0 = partida->GetListaJugadores(0);
+		 list<Cliente> listaEquipo1 = partida->GetListaJugadores(1);
+		 if (partida->Iniciada()) {
+		 //Equipo 0
+		 Cliente clienteRival = partida->GetTitularJugando(0);
+		 list<Cliente>::iterator it;
+		 for (it = listaEquipo1.begin(); it != listaEquipo1.end(); it++) {
+		 pthread_mutex_lock(&mutexx);
+		 jugDatos.equipo = 0;
+		 jugDatos.x = clienteRival.posx;
+		 jugDatos.y = clienteRival.posy;
+		 send(it->socket, &idMsgDatos, sizeof(idMsgDatos), 0);
+		 send(it->socket, &jugDatos, sizeof(jugDatos), 0);
+		 pthread_mutex_unlock(&mutexx);
+		 }
+		 //Equipo 1
+		 clienteRival = partida->GetTitularJugando(1);
+		 for (it = listaEquipo0.begin(); it != listaEquipo0.end(); it++) {
+		 pthread_mutex_lock(&mutexx);
+		 jugDatos.equipo = 1;
+		 jugDatos.x = clienteRival.posx;
+		 jugDatos.y = clienteRival.posy;
+		 send(it->socket, &idMsgDatos, sizeof(idMsgDatos), 0);
+		 send(it->socket, &jugDatos, sizeof(jugDatos), 0);
+		 pthread_mutex_unlock(&mutexx);
+		 }
+		 }
+
+		 */
+
+		// Envio de ping
+		//if (contador >= 5000) {
+			if (send(sock, &idMsgPing, sizeof(idMsgPing), 0) == -1) {
+				pthread_mutex_lock(&mutexx);
+				cout << "Jugador " << usuario << " desconectado..." << endl;
+				partida->JugadorDesconectado(usuario);
+				pthread_mutex_unlock(&mutexx);
+				// Cierro los sockets
+				shutdown(sock, SHUT_RDWR);
+				close(sock);
+				pthread_exit(NULL);
+				corriendo = false;
+			}
+			contador = 0;
+		//}
+
+		contador++;
+		usleep(100);
+	}
+
+}
+void * escucharClientes(void * datos) {
+	Partida * partida = ((DatosHilo*) datos)->partida;
+	int sock = ((DatosHilo*) datos)->sock;
+	string usuario = ((DatosHilo*) datos)->usuario;
+
+	//Datos cliente
+	Cliente unCliente;
+	unCliente.socket = sock;
+	unCliente.tid = pthread_self();
+	unCliente.nombre = usuario;
+
+	// Seleccion de titularidad
+	pthread_mutex_lock(&mutexx);
+	int cantidad = partida->GetCantidadEspera();
+	if (cantidad < 2) {
+		unCliente.titular = true;
+	} else {
+		unCliente.titular = false;
+	}
+	// Seleccion de equipos
+	cantidad++;
+	if (cantidad % 2 == 0) {
+		unCliente.posx = 200;
+		unCliente.posy = 600;
+		unCliente.equipo = 0;
+	} else {
+		unCliente.posx = 600;
+		unCliente.posy = 600;
+		unCliente.equipo = 1;
+	}
+	pthread_mutex_unlock(&mutexx);
+
+	//Completo datos cliente
+	pthread_mutex_lock(&mutexx);
+	partida->AgregarCliente(unCliente);
+	pthread_mutex_unlock(&mutexx);
+
+	//Mensaje de bienvenida
+	IDMENSAJE idMsgMensaje = MENSAJE;
+	Mensaje msg;
+	pthread_mutex_lock(&mutexx);
+	string mensaje = "Bienvenido " + usuario + "!";
+	strcpy(msg.mensaje, mensaje.c_str());
+	pthread_mutex_unlock(&mutexx);
+	send(sock, &idMsgMensaje, sizeof(idMsgMensaje), 0);
+	send(sock, &msg, sizeof(msg), 0);
+
+	//Asignacion de equipo
+	IDMENSAJE idMsgEquipo = EQUIPO;
+	JugadorEquipo msgEquipo;
+	pthread_mutex_lock(&mutexx);
+	msgEquipo.equipo = unCliente.equipo;
+	msgEquipo.titular = unCliente.titular;
+	pthread_mutex_unlock(&mutexx);
+	send(sock, &idMsgEquipo, sizeof(idMsgEquipo), 0);
+	send(sock, &msgEquipo, sizeof(msgEquipo), 0);
+
+	//Creo un hilo de envio
+	pthread_t thread_envio;
+	pthread_create(&thread_envio, NULL, envioClientes, datos);
+	pthread_detach(thread_envio);
+
+	//-------->Loop de escucha
+	while (1) {
+		IDMENSAJE idMsg;
+		recv(unCliente.socket, &idMsg, sizeof(idMsg), 0);
+		if (idMsg == MENSAJE) {
+			Mensaje unMensaje;
+			recv(sock, &unMensaje, sizeof(unMensaje), 0);
+			pthread_mutex_lock(&mutexx);
+			cout << " Mensaje: " << unMensaje.mensaje << endl;
+			pthread_mutex_unlock(&mutexx);
+		}
+		if (idMsg == JUGADOR) {
+			JugadorDatos unJugador;
+			recv(sock, &unJugador, sizeof(unJugador), 0);
+			pthread_mutex_lock(&mutexx);
+			partida->ActualizarDatosJugador(unJugador);
+			pthread_mutex_unlock(&mutexx);
+
+		}
+
+	}
+}
+int mainnn() {
+//Datos iniciciales
+	Partida miPartida;
+	miPartida.SetMaximoJugadores(MAX_JUGADORES);
+//Threads de control
+	pthread_t thread_descon, thread_quien;
+	pthread_create(&thread_descon, NULL, controlPartida, (void*) &miPartida);
+	pthread_create(&thread_quien, NULL, estadoPartida, (void*) &miPartida);
+	pthread_detach(thread_descon);
+	pthread_detach(thread_quien);
+
+	ConexionServidor connServidor;
+	struct sockaddr_in paramentrosCliente;
+//aceptacion de cliente (bloquea hasta la conexion)
+	unsigned int tamanho = sizeof(paramentrosCliente);
+	bool corriendo = true;
+	while (corriendo) {
+		connServidor.socketComunicacion = accept(connServidor.socketConexion,
+				(struct sockaddr *) &paramentrosCliente, &tamanho);
+		//Primer mensaje recibido.
+		JugadorLogin login;
+		IDMENSAJE idMsg;
+		if (recv(connServidor.socketComunicacion, &idMsg, sizeof(idMsg), 0)
+				== -1) {
+			perror("HEAD");
+		}
+		if (idMsg == LOGIN) {
+			if (recv(connServidor.socketComunicacion, &login, sizeof(login), 0)
+					== -1) {
+				perror("BODY");
+			}
+		}
+		if ((miPartida.GetCantidadJugando() < MAX_JUGADORES)
+				|| miPartida.EsClienteDesconectado(login.usuario)) {
+			pthread_t th1;
+			// Datos para el thread
+			DatosHilo datos;
+			datos.partida = &miPartida;
+			datos.sock = connServidor.socketComunicacion;
+			datos.usuario = login.usuario;
+			pthread_create(&th1, NULL, escucharClientes, (void*) &datos);
+			pthread_detach(th1);
+
+		} else {
+			//Mensaje de bienvenida
+			Mensaje msg;
+			IDMENSAJE idMsg = MENSAJE;
+			strcpy(msg.mensaje, "Partida completa!");
+			send(connServidor.socketComunicacion, &idMsg, sizeof(idMsg), 0);
+			send(connServidor.socketComunicacion, &msg, sizeof(msg), 0);
+
+			shutdown(connServidor.socketComunicacion, SHUT_RDWR);
+			close(connServidor.socketComunicacion);
+		}
+
+		//Dependiento de la cantidad de clientes y espectadores enviar a una lista respectiva.
+	}
+
+	shutdown(connServidor.socketConexion, SHUT_RDWR);
+	close(connServidor.socketConexion);
+
+	shutdown(connServidor.socketComunicacion, SHUT_RDWR);
+	close(connServidor.socketComunicacion);
+	return 0;
+}

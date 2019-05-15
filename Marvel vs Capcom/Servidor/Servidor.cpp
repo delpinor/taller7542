@@ -138,9 +138,9 @@ void Servidor::IniciarServidor(int maxJugadores, char * puerto) {
 
 	// Valores iniciales
 	miPartida.SetMaximoJugadores(maxJugadores);
+	connServidor.IniciarConexion(puerto);
 	LanzarHiloControl();
 	LanzarHiloLoggeo();
-	connServidor.IniciarConexion(puerto);
 
 	//Aceptar clientes
 	struct sockaddr_in paramentrosCliente;
