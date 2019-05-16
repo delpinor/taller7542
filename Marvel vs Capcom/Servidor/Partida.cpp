@@ -4,17 +4,30 @@ void Partida::IniciarPartida() {
 	listaJugadores = listaEspera;
 	listaEspera.clear();
 	partidaIniciada = true;
+	//modelo->inicializarPosicionesEquipos();
 	ActualizarModelo();
 }
 ModeloEstado  Partida::GetModeloEstado(){
 	ModeloEstado unModeloEstado;
 
+	unModeloEstado.jugadoresEquipo1.equipo = 0;
+	unModeloEstado.jugadoresEquipo1.isActivo = modelo->getEquipoNro(0)->getJugadorActivo()->estaActivo();
+	unModeloEstado.jugadoresEquipo1.isAgachado = modelo->getEquipoNro(0)->getJugadorActivo()->estaAgachado();
+	unModeloEstado.jugadoresEquipo1.isCambiandoPersonaje = modelo->getEquipoNro(0)->getJugadorActivo()->estaCambiandoPersonaje();
 	unModeloEstado.jugadoresEquipo1.posX = modelo->getEquipoNro(0)->getJugadorActivo()->getPosX();
 	unModeloEstado.jugadoresEquipo1.posY = modelo->getEquipoNro(0)->getJugadorActivo()->getPosY();
+	unModeloEstado.jugadoresEquipo1.velX = modelo->getEquipoNro(0)->getJugadorActivo()->getVelX();
+	unModeloEstado.jugadoresEquipo1.velY = modelo->getEquipoNro(0)->getJugadorActivo()->getVelY();
 
+
+	unModeloEstado.jugadoresEquipo2.equipo = 1;
+	unModeloEstado.jugadoresEquipo2.isActivo = modelo->getEquipoNro(1)->getJugadorActivo()->estaActivo();
+	unModeloEstado.jugadoresEquipo2.isAgachado = modelo->getEquipoNro(1)->getJugadorActivo()->estaAgachado();
+	unModeloEstado.jugadoresEquipo2.isCambiandoPersonaje = modelo->getEquipoNro(1)->getJugadorActivo()->estaCambiandoPersonaje();
 	unModeloEstado.jugadoresEquipo2.posX = modelo->getEquipoNro(1)->getJugadorActivo()->getPosX();
 	unModeloEstado.jugadoresEquipo2.posY = modelo->getEquipoNro(1)->getJugadorActivo()->getPosY();
-
+	unModeloEstado.jugadoresEquipo2.velX = modelo->getEquipoNro(1)->getJugadorActivo()->getVelX();
+	unModeloEstado.jugadoresEquipo2.velY = modelo->getEquipoNro(1)->getJugadorActivo()->getVelY();
 
 	return unModeloEstado;
 }
@@ -107,7 +120,6 @@ void Partida::JugadorDesconectado(string nombre) {
 	EliminarJugador(nombre);
 	// Agrego a la lista de desconectados
 	listaDesconectados.push_back(unCliente);
-	//ActualizarModelo();
 
 }
 void Partida::JuegaTitular(int equipo, ClienteConectado reconectado) {
@@ -121,6 +133,7 @@ void Partida::JuegaTitular(int equipo, ClienteConectado reconectado) {
 		}
 		it++;
 	}
+	ActualizarModelo();
 }
 bool Partida::TieneSuplente(int equipo) {
 	list<ClienteConectado>::iterator it;
@@ -143,6 +156,7 @@ void Partida::JuegaSuplente(int equipo) {
 		}
 		it++;
 	}
+	ActualizarModelo();
 }
 void Partida::AgregarCliente(ClienteConectado cliente) {
 	if (!partidaIniciada) {
@@ -181,7 +195,6 @@ void Partida::AgregarCliente(ClienteConectado cliente) {
 			}
 			//Elimino de la lista de desconectados
 			EliminarDesconectado(cliente.nombre);
-			ActualizarModelo();
 		}
 	}
 }

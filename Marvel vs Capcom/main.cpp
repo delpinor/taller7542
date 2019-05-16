@@ -6,7 +6,7 @@
 #include "Logger/Logger.h"
 #include "Cliente.h"
 #include "Servidor/Servidor.h"
-
+#define MAX_CLIENTES 2
 /* nombre_ejecutable  nombre_archivo_configuracion niveldeDebug*/
 int main(int argc, char* argv[]) {
 
@@ -94,7 +94,7 @@ int main(int argc, char* argv[]) {
 	if (strcmp(argv[1], "servidor") == 0) {
 		Servidor server;
 		server.SetModel(&model);
-		server.IniciarServidor(2, puerto);
+		server.IniciarServidor(MAX_CLIENTES, puerto);
 	} else if (strcmp(argv[1], "cliente") == 0) {
 
 		View view(&model);

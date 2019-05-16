@@ -24,7 +24,8 @@ public:
 	void SetModel(Model * model);
 	void LanzarHiloControl();
 	void LanzarHiloLoggeo();
-	void IniciarServidor(int maxJugadores, char * puerto);
+	void IniciarServidor(int maxClientes, char * puerto);
+	void AceptarClientes(int maxClientes);
 	//virtual ~Funciones();
 };
 

@@ -134,67 +134,71 @@ void Servidor::LanzarHiloLoggeo(){
 void Servidor::SetModel(Model * model){
 	miPartida.SetModelo(model);
 }
-void Servidor::IniciarServidor(int maxJugadores, char * puerto) {
+void Servidor::AceptarClientes(int maxClientes){
+	//Aceptar clientes
+		struct sockaddr_in paramentrosCliente;
+		unsigned int tamanho = sizeof(paramentrosCliente);
+		bool corriendo = true;
+		while (corriendo) {
+			int socketComunicacion;
+			socketComunicacion = accept(connServidor.socketConexion,(struct sockaddr *) &paramentrosCliente, &tamanho);
+
+			//Primer mensaje recibido.
+			JugadorLogin login;
+			IDMENSAJE idMsg;
+			recv(socketComunicacion, &idMsg, sizeof(idMsg), 0);
+			if (idMsg == LOGIN) {
+				recv(socketComunicacion, &login, sizeof(login), 0);
+			}
+			if ((miPartida.GetCantidadJugando() < maxClientes)	|| miPartida.EsClienteDesconectado(login.usuario)) {
+
+				// Datos para el thread
+				DatosHiloServidor datos;
+				datos.sock = socketComunicacion;
+				datos.usuario = login.usuario;
+
+				//Creo hilo de recepcion
+				pthread_t hiloRecepcion;
+				pthread_create(&hiloRecepcion, NULL, recibirDatos, (void*) &datos);
+				pthread_detach(hiloRecepcion);
+
+
+				//Creo un hilo de envio
+				pthread_t hiloEnvio;
+				pthread_create(&hiloEnvio, NULL, enviarDatos, (void*)&datos);
+				pthread_detach(hiloEnvio);
+
+
+
+			} else {
+				Mensaje msg;
+				// Puede ser otro tipo de mensaje....
+				IDMENSAJE idMsg = MENSAJE;
+				strcpy(msg.mensaje, "Partida completa!");
+				send(socketComunicacion, &idMsg, sizeof(idMsg), 0);
+				send(socketComunicacion, &msg, sizeof(msg), 0);
+
+				shutdown(socketComunicacion, SHUT_RDWR);
+				close(socketComunicacion);
+			}
+
+		}
+
+		shutdown(connServidor.socketConexion, SHUT_RDWR);
+		close(connServidor.socketConexion);
+
+		shutdown(connServidor.socketComunicacion, SHUT_RDWR);
+		close(connServidor.socketComunicacion);
+}
+void Servidor::IniciarServidor(int maxClientes, char * puerto) {
 
 	// Valores iniciales
-	miPartida.SetMaximoJugadores(maxJugadores);
+	miPartida.SetMaximoJugadores(maxClientes);
 	connServidor.IniciarConexion(puerto);
 	LanzarHiloControl();
 	LanzarHiloLoggeo();
-
-	//Aceptar clientes
-	struct sockaddr_in paramentrosCliente;
-	unsigned int tamanho = sizeof(paramentrosCliente);
-	bool corriendo = true;
-	while (corriendo) {
-		int socketComunicacion;
-		socketComunicacion = accept(connServidor.socketConexion,(struct sockaddr *) &paramentrosCliente, &tamanho);
-
-		//Primer mensaje recibido.
-		JugadorLogin login;
-		IDMENSAJE idMsg;
-		recv(socketComunicacion, &idMsg, sizeof(idMsg), 0);
-		if (idMsg == LOGIN) {
-			recv(socketComunicacion, &login, sizeof(login), 0);
-		}
-		if ((miPartida.GetCantidadJugando() < maxJugadores)	|| miPartida.EsClienteDesconectado(login.usuario)) {
-
-			// Datos para el thread
-			DatosHiloServidor datos;
-			datos.sock = socketComunicacion;
-			datos.usuario = login.usuario;
-
-			//Creo hilo de recepcion
-			pthread_t hiloRecepcion;
-			pthread_create(&hiloRecepcion, NULL, recibirDatos, (void*) &datos);
-			pthread_detach(hiloRecepcion);
+	AceptarClientes(maxClientes);
 
 
-			//Creo un hilo de envio
-			pthread_t hiloEnvio;
-			pthread_create(&hiloEnvio, NULL, enviarDatos, (void*)&datos);
-			pthread_detach(hiloEnvio);
-
-
-
-		} else {
-			Mensaje msg;
-			// Puede ser otro tipo de mensaje....
-			IDMENSAJE idMsg = MENSAJE;
-			strcpy(msg.mensaje, "Partida completa!");
-			send(socketComunicacion, &idMsg, sizeof(idMsg), 0);
-			send(socketComunicacion, &msg, sizeof(msg), 0);
-
-			shutdown(socketComunicacion, SHUT_RDWR);
-			close(socketComunicacion);
-		}
-
-	}
-
-	shutdown(connServidor.socketConexion, SHUT_RDWR);
-	close(connServidor.socketConexion);
-
-	shutdown(connServidor.socketComunicacion, SHUT_RDWR);
-	close(connServidor.socketComunicacion);
 }
 

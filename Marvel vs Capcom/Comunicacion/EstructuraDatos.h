@@ -17,6 +17,7 @@ struct JugadorLogin{
 
 };
 //Estructuras de envio
+
 struct JugadorCliente {
 	int equipo;
 	int posX;
@@ -28,8 +29,8 @@ struct JugadorCliente {
 	bool isCambiandoPersonaje = false;
 };
 struct ModeloEstado {
-	int activoEquipo1;
-	int activoEquipo2;
+//	int activoEquipo1;
+//	int activoEquipo2;
 	struct JugadorCliente jugadoresEquipo1;
 	struct JugadorCliente jugadoresEquipo2;
 };

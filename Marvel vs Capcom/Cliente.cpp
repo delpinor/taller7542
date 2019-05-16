@@ -66,6 +66,7 @@ void Cliente::enviarComandoAServidor(ComandoAlServidor comando){
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
 	this->conexion.recibir_mensaje(this->conexion.getSocketCliente(), &idMsg,sizeof(idMsg));
+
 	if (idMsg == MENSAJE) {
 		Mensaje unMensaje;
 		recv(this->getConexion().getSocketCliente(), &unMensaje, sizeof(unMensaje),0);
