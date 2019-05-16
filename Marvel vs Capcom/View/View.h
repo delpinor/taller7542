@@ -27,6 +27,7 @@ public:
 	bool inicializar(Model *model);
 	void loadMedia(Model *model);
 	void setEstadoCliente();
+	SDL_Rect* getCamara();
 	void close();
 	virtual ~View();
 

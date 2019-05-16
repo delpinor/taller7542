@@ -240,6 +240,10 @@ void View::setEstadoCliente(){
 	model->getEquipoNro(0)->getJugadorActivo()->estado = new EstadoCliente();
 }
 
+SDL_Rect* View::getCamara(){
+	return this->camara;
+}
+
 void View::close() {
 
 	//Destroy this->window}

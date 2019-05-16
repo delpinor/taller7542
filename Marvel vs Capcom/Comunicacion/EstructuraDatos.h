@@ -28,11 +28,16 @@ struct JugadorCliente {
 	bool isAgachado = false;
 	bool isCambiandoPersonaje = false;
 };
+struct CamaraCliente {
+	int posX;
+	int posY;
+};
 struct ModeloEstado {
-//	int activoEquipo1;
-//	int activoEquipo2;
+	int activoEquipo1;
+	int activoEquipo2;
 	struct JugadorCliente jugadoresEquipo1;
 	struct JugadorCliente jugadoresEquipo2;
+	struct CamaraCliente camara;
 };
 struct ComandoAlServidor{
 	int comando;

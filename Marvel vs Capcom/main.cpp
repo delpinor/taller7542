@@ -103,13 +103,8 @@ int main(int argc, char* argv[]) {
 		cout << "ip: " << ip << endl;
 		puerto = argv[3];
 		cout << "puerto: " << puerto << endl;
-		cout << "ingrese su nombre:" << endl;
-		string nombre;
-		cin >> nombre;
 		View view(&model);
 		cout << "vista creada."<< endl;
-		cout << "ingrese otra vez su nombre:" << endl;
-		cin >> nombre;
 		Controller controller(&model);
 		cout << "controller creado."<< endl;
 		Cliente cliente(&view);

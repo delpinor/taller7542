@@ -14,6 +14,7 @@ Conexion::Conexion(){
 }
 
 int Conexion::conectarConServidor(char * ip, char * puerto){
+	cout << "creará un socket."<< endl;
 	struct sockaddr_in direcionServidor;
 	direcionServidor.sin_family = AF_INET;
 	direcionServidor.sin_addr.s_addr =  inet_addr(ip);
@@ -21,6 +22,7 @@ int Conexion::conectarConServidor(char * ip, char * puerto){
 	if((socketCliente = socket(AF_INET, SOCK_STREAM, 0)) < 0){
 		perror("Creación de socket");
 		falloConexion = true;
+		cout << "Falló creación de socket."<< endl;
 	}
 	if(!falloConexion){
 		if(connect(socketCliente, (struct sockaddr *)&direcionServidor, sizeof(direcionServidor)) < 0){
@@ -28,6 +30,7 @@ int Conexion::conectarConServidor(char * ip, char * puerto){
 			falloConexion = true;
 			close(socketCliente);
 			socketCliente = SOCKET_NO_VALIDO;
+			cout << "Falló coneccion con servidor."<< endl;
 		}
 	}
 	if (falloConexion)

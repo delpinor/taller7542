@@ -33,6 +33,7 @@ void * hilo_render(void * cliente){
 	while(1){
 		ModeloEstado modelo = p->PopModeloDeCola();
 		p->actualizarModelo(modelo);
+		p->getVista()->render();
 		usleep(25000);
 	}
 }
@@ -43,24 +44,27 @@ Cliente::Cliente(View* vista) {
 }
 
 void Cliente::actualizarModelo(ModeloEstado modelo){
-	this->vista.model->equipos[0]->setJugadorActivo(modelo.activoEquipo1);
-	this->vista.model->equipos[1]->setJugadorActivo(modelo.activoEquipo2);
+	this->getVista()->model->equipos[0]->setJugadorActivo(modelo.activoEquipo1);
+	this->getVista()->model->equipos[1]->setJugadorActivo(modelo.activoEquipo2);
 
-	this->vista.model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isActivo);
-	this->vista.model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isAgachado);
-	this->vista.model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isCambiandoPersonaje);
-	this->vista.model->equipos[0]->getJugadorActivo()->estado->setPosX(modelo.jugadoresEquipo1.posX);
-	this->vista.model->equipos[0]->getJugadorActivo()->estado->setPosY(modelo.jugadoresEquipo1.posY);
-	this->vista.model->equipos[0]->getJugadorActivo()->estado->setVelocidadX(modelo.jugadoresEquipo1.velX);
-	this->vista.model->equipos[0]->getJugadorActivo()->estado->setVelocidadY(modelo.jugadoresEquipo1.velY);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isActivo);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isAgachado);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isCambiandoPersonaje);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setPosX(modelo.jugadoresEquipo1.posX);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setPosY(modelo.jugadoresEquipo1.posY);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setVelocidadX(modelo.jugadoresEquipo1.velX);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setVelocidadY(modelo.jugadoresEquipo1.velY);
 
-	this->vista.model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isActivo);
-	this->vista.model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isAgachado);
-	this->vista.model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isCambiandoPersonaje);
-	this->vista.model->equipos[1]->getJugadorActivo()->estado->setPosX(modelo.jugadoresEquipo1.posX);
-	this->vista.model->equipos[1]->getJugadorActivo()->estado->setPosY(modelo.jugadoresEquipo1.posY);
-	this->vista.model->equipos[1]->getJugadorActivo()->estado->setVelocidadX(modelo.jugadoresEquipo1.velX);
-	this->vista.model->equipos[1]->getJugadorActivo()->estado->setVelocidadY(modelo.jugadoresEquipo1.velY);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isActivo);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isAgachado);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isCambiandoPersonaje);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setPosX(modelo.jugadoresEquipo1.posX);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setPosY(modelo.jugadoresEquipo1.posY);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setVelocidadX(modelo.jugadoresEquipo1.velX);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setVelocidadY(modelo.jugadoresEquipo1.velY);
+
+	this->getVista()->getCamara()->x = modelo.camara.posX;
+	this->getVista()->getCamara()->y = modelo.camara.posY;
 }
 
 int Cliente::ConectarConServidor(char* ip, char* puerto){
