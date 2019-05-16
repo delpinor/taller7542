@@ -11,6 +11,7 @@
 #include <queue>
 #include <map>
 #include "../Logger/Logger.h"
+#include "../Comunicacion/EstructuraDatos.h"
 
 class Model {
 public:// hay que pasar los parametros a pivados y generar los seters
@@ -47,6 +48,7 @@ public:
 
 	virtual void setCamara(SDL_Rect * camara);
 	void inicializarPosicionesEquipos();
+	ModeloEstado GetModelEstado();
 	virtual void update();
 	Equipo* getEquipoNro(int i);
 

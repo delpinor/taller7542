@@ -13,11 +13,11 @@ enum IDMENSAJE {
 	PING = 1, JUGADOR = 2, MENSAJE = 3, LOGIN = 4, SALIDA = 5, EQUIPO = 6, TITULAR = 7, MODELO = 8, COMANDO = 9
 };
 struct JugadorLogin{
-	IDMENSAJE id = LOGIN;
 	char usuario[20];
 
 };
 //Estructuras de envio
+
 struct JugadorCliente {
 	int equipo;
 	int posX;
@@ -29,8 +29,8 @@ struct JugadorCliente {
 	bool isCambiandoPersonaje = false;
 };
 struct ModeloEstado {
-	int activoEquipo1;
-	int activoEquipo2;
+//	int activoEquipo1;
+//	int activoEquipo2;
 	struct JugadorCliente jugadoresEquipo1;
 	struct JugadorCliente jugadoresEquipo2;
 };
@@ -43,6 +43,9 @@ struct Mensaje {
 struct JugadorEquipo {
 	int equipo;
 	bool titular;
+};
+struct ClienteLogin{
+	char usuario[50];
 };
 struct JugadorTitular{
 	bool titular;
