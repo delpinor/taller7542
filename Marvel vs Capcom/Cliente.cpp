@@ -4,7 +4,6 @@
  *  Created on: 9 may. 2019
  *      Author: maciel
  */
-
 #include "Cliente.h"
 
 pthread_mutex_t mutexx;
@@ -38,9 +37,9 @@ void * hilo_render(void * cliente){
 	}
 }
 
-Cliente::Cliente() {
-	// TODO Auto-generated constructor stub
-
+Cliente::Cliente(View* vista) {
+	cout << "creando cliente."<< endl;
+	this->vista = vista;
 }
 
 void Cliente::actualizarModelo(ModeloEstado modelo){
@@ -64,31 +63,37 @@ void Cliente::actualizarModelo(ModeloEstado modelo){
 	this->vista.model->equipos[1]->getJugadorActivo()->estado->setVelocidadY(modelo.jugadoresEquipo1.velY);
 }
 
-void Cliente::ConectarConServidor(char* ip, char* puerto){
+int Cliente::ConectarConServidor(char* ip, char* puerto){
+	cout << "conectando con servidor en ip: "<< ip << " y en puerto: " << puerto << endl;
 	JugadorLogin jugLogin;
-	Conexion connCliente;
-	this->setCenexion(connCliente);
-	connCliente.conectarConServidor(ip,puerto);
-
+//	Conexion connCliente;
+//	this->setCenexion(connCliente);
+	int error = this->getConexion().conectarConServidor(ip,puerto);
+	if (error == -1){
+		cout << "ERROR conectando con el servidor :(" << endl;
+		return -1;
+	}
+	cout << "conectando con el servidor!!" << endl;
 	bool corriendo = true;
-	int sockCliente = connCliente.getSocketCliente();
+	int sockCliente = this->getConexion().getSocketCliente();
 	DatosHiloCliente datosCliente;
 //	datosCliente.model = &model;
 	datosCliente.sock = sockCliente;
+	return 0;
 }
 
 void Cliente::enviarComandoAServidor(ComandoAlServidor comando){
 	int error = 0;
 	IDMENSAJE com = COMANDO;
 	int tam_mensaje = sizeof(ComandoAlServidor);
-	error = this->getConexion().enviar_mensaje(this->conexion.getSocketCliente(),&com, sizeof(com));
+	error = this->getConexion().enviar_mensaje(this->getConexion().getSocketCliente(),&com, sizeof(com));
 	// manejar errores de conexion
-	error = this->getConexion().enviar_mensaje(this->conexion.getSocketCliente(),&comando, tam_mensaje);
+	error = this->getConexion().enviar_mensaje(this->getConexion().getSocketCliente(),&comando, tam_mensaje);
 	// manejar errores de conexions
 }
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
-	this->conexion.recibir_mensaje(this->conexion.getSocketCliente(), &idMsg,sizeof(idMsg));
+	this->conexion.recibir_mensaje(this->getConexion().getSocketCliente(), &idMsg,sizeof(idMsg));
 
 	if (idMsg == MENSAJE) {
 		Mensaje unMensaje;
@@ -145,10 +150,10 @@ Conexion Cliente::getConexion(){
 void Cliente::setCenexion(Conexion conexion){
 	this->conexion = conexion;
 }
-View Cliente::getVista(){
+View* Cliente::getVista(){
 	return this->vista;
 }
-void Cliente::setVista(View vista){
+void Cliente::setVista(View* vista){
 	this->vista = vista;
 }
 

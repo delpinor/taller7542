@@ -10,6 +10,7 @@
 using namespace std;
 
 Conexion::Conexion(){
+	cout << "creando conexion" << endl;
 }
 
 int Conexion::conectarConServidor(char * ip, char * puerto){
@@ -29,6 +30,9 @@ int Conexion::conectarConServidor(char * ip, char * puerto){
 			socketCliente = SOCKET_NO_VALIDO;
 		}
 	}
+	if (falloConexion)
+		return -1;
+	return 0;
 }
 
 

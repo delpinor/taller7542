@@ -18,8 +18,8 @@
 
 class Cliente {
 public:
-	Cliente();
-	void ConectarConServidor(char* ip, char* puerto);
+	Cliente(View* vista);
+	int ConectarConServidor(char* ip, char* puerto);
 	void PushModeloEnCola(ModeloEstado modelo);
 	ModeloEstado PopModeloDeCola();
 	void actualizarModelo(ModeloEstado modelo);
@@ -35,13 +35,13 @@ public:
 	//geters y seters
 	Conexion getConexion();
 	void setCenexion(Conexion conexion);
-	View getVista();
-	void setVista(View vista);
+	View* getVista();
+	void setVista(View* vista);
 	virtual ~Cliente();
 
 private:
 	Conexion conexion;
-	View vista = NULL;
+	View* vista;
 	std::queue<ModeloEstado> ModeloCambios;
 	int tiempoUltimoMensajeRecivido;
 };

@@ -10,8 +10,8 @@
 /* nombre_ejecutable  nombre_archivo_configuracion niveldeDebug*/
 int main(int argc, char* argv[]) {
 
-	char* ip = argv[2];
-	char* puerto = argv[3];
+	char* ip;
+	char* puerto;
 
 	LOGGER_NIVEL nivelLog = DEBUG;
 
@@ -93,19 +93,33 @@ int main(int argc, char* argv[]) {
 
 
 	if (strcmp(argv[1], "servidor") == 0) {
+		puerto = argv[2];
+		cout << "puerto: " << puerto << endl;
 		Servidor server;
 		server.SetModel(&model);
 		server.IniciarServidor(MAX_CLIENTES, puerto);
 	} else if (strcmp(argv[1], "cliente") == 0) {
-
+		ip = argv[2];
+		cout << "ip: " << ip << endl;
+		puerto = argv[3];
+		cout << "puerto: " << puerto << endl;
+		cout << "ingrese su nombre:" << endl;
+		string nombre;
+		cin >> nombre;
 		View view(&model);
+		cout << "vista creada."<< endl;
+		cout << "ingrese otra vez su nombre:" << endl;
+		cin >> nombre;
 		Controller controller(&model);
-
-		Cliente cliente;
-		cliente.ConectarConServidor(ip, puerto);
+		cout << "controller creado."<< endl;
+		Cliente cliente(&view);
+		cout << "Cliente creado."<< endl;
+		if (cliente.ConectarConServidor(ip, puerto) == -1)
+			return -1;
+		cout << "conectado con servidor."<< endl;
 		//TODO menu de seleccion
 		cliente.MenuDeSeleccion();
-		cliente.setVista(view);
+//		cliente.setVista(view);
 		view.setEstadoCliente();
 
 		cliente.lanzarHilosDelJuego();
