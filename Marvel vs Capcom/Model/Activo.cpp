@@ -57,4 +57,18 @@ bool Activo::estaAgachado() {
 bool Activo::estaCambiandoPersonaje(){
 	return false;
 }
+//métodos para cliente
+
+void Activo::setEstaActivo(bool activo){
+	this->activo = activo;
+}
+void Activo::setEstaAgachado(bool agachado){
+	this->agachado = agachado;
+}
+void Activo::setEstaFueraDePantalla(bool fueraDePantalla){
+	this->fueraDePantalla = fueraDePantalla;
+}
+void Activo::setEstaCambiandoPersonaje(bool cambiandoPersonaje){
+	this->cambiandoPersonaje = cambiandoPersonaje;
+}
 

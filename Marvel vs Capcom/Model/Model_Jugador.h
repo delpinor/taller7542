@@ -7,6 +7,7 @@
 #include "../Model/Inactivo.h"
 #include "../Model/Agachado.h"
 #include "../Model/CambiandoPersonaje.h"
+#include "../Model/EstadoCliente.h"
 #define VENOM 0x01
 #define CAPAMERICA 0x00
 
@@ -31,6 +32,7 @@ private:
 	int personaje;
 public:
 	Estado* estado;
+//	EstadoCliente * estado;
 
 	Jugador();
 	Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &pathImagen);

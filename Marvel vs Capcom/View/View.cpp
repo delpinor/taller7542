@@ -234,7 +234,7 @@ void View::setElementoPersonaje(int pZIndex, int equipo){//, int jugador){
 void View::setEstadoCliente(){
 
 //	EstadoCliente estadoCliente = ;
-	model->getEquipoNro(0)->getJugadorActivo()->estado = new EstadoCliente;
+	model->getEquipoNro(0)->getJugadorActivo()->estado = new EstadoCliente();
 	model->getEquipoNro(0)->getJugadorActivo()->estado = new EstadoCliente();
 	model->getEquipoNro(0)->getJugadorActivo()->estado = new EstadoCliente();
 	model->getEquipoNro(0)->getJugadorActivo()->estado = new EstadoCliente();

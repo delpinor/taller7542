@@ -30,8 +30,10 @@ public:
 	void close();
 	virtual ~View();
 
-private:
 	Model* model;
+
+private:
+
 	Jugador* jugadorAnterior;
 	ViewModel* viewModel;
 	SDL_Rect* camara;

@@ -12,18 +12,16 @@
 
 class EstadoCliente: public Estado {
 private:
-	bool activo = false;
-	bool agachado = false;
-	bool fueraDePantalla = false;
-	bool cambiandoPersonaje = false;
+
 public:
 	EstadoCliente();
 	void move();
 	void moveVertical();
 	bool estaActivo();
 	bool estaAgachado();
-	bool isFueraDePantalla();
 	bool estaCambiandoPersonaje();
+	//métodos para cliente
+	bool isFueraDePantalla();
 	void setEstaActivo(bool estaActivo);
 	void setEstaAgachado(bool estaAgachado);
 	void setEstaFueraDePantalla(bool estaEstaFueraDePantalla);

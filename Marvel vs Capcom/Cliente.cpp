@@ -32,6 +32,8 @@ void * hilo_escucha(void * cliente){
 void * hilo_render(void * cliente){
 	Cliente* p=(Cliente*) cliente;
 	while(1){
+		ModeloEstado modelo = p->PopModeloDeCola();
+		p->actualizarModelo(modelo);
 		usleep(25000);
 	}
 }
@@ -39,6 +41,27 @@ void * hilo_render(void * cliente){
 Cliente::Cliente() {
 	// TODO Auto-generated constructor stub
 
+}
+
+void Cliente::actualizarModelo(ModeloEstado modelo){
+	this->vista.model->equipos[0]->setJugadorActivo(modelo.activoEquipo1);
+	this->vista.model->equipos[1]->setJugadorActivo(modelo.activoEquipo2);
+
+	this->vista.model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isActivo);
+	this->vista.model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isAgachado);
+	this->vista.model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isCambiandoPersonaje);
+	this->vista.model->equipos[0]->getJugadorActivo()->estado->setPosX(modelo.jugadoresEquipo1.posX);
+	this->vista.model->equipos[0]->getJugadorActivo()->estado->setPosY(modelo.jugadoresEquipo1.posY);
+	this->vista.model->equipos[0]->getJugadorActivo()->estado->setVelocidadX(modelo.jugadoresEquipo1.velX);
+	this->vista.model->equipos[0]->getJugadorActivo()->estado->setVelocidadY(modelo.jugadoresEquipo1.velY);
+
+	this->vista.model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isActivo);
+	this->vista.model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isAgachado);
+	this->vista.model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isCambiandoPersonaje);
+	this->vista.model->equipos[1]->getJugadorActivo()->estado->setPosX(modelo.jugadoresEquipo1.posX);
+	this->vista.model->equipos[1]->getJugadorActivo()->estado->setPosY(modelo.jugadoresEquipo1.posY);
+	this->vista.model->equipos[1]->getJugadorActivo()->estado->setVelocidadX(modelo.jugadoresEquipo1.velX);
+	this->vista.model->equipos[1]->getJugadorActivo()->estado->setVelocidadY(modelo.jugadoresEquipo1.velY);
 }
 
 void Cliente::ConectarConServidor(char* ip, char* puerto){
@@ -84,8 +107,10 @@ int Cliente::recibirModeloDelServidor() {
 	return NULL;
 }
 void Cliente::lanzarHilosDelJuego(){
-	pthread_t hiloEscuchaServidor;
-	pthread_t hiloRender;
+	pthread_t thid_hilo_escucha;
+	pthread_t thid_hilo_render;
+	pthread_create(&thid_hilo_escucha, NULL, hilo_escucha, this);
+	pthread_create(&thid_hilo_render, NULL, hilo_render, this);
 }
 void Cliente::MenuDeSeleccion(){
 	//TODO

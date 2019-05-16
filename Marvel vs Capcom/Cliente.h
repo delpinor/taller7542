@@ -14,6 +14,7 @@
 #include <ctime>
 #include "Comunicacion/Conexion.h"
 #include "View/View.h"
+#include "pthread.h"
 
 class Cliente {
 public:
@@ -21,6 +22,7 @@ public:
 	void ConectarConServidor(char* ip, char* puerto);
 	void PushModeloEnCola(ModeloEstado modelo);
 	ModeloEstado PopModeloDeCola();
+	void actualizarModelo(ModeloEstado modelo);
 	int recibirModeloDelServidor();
 	void enviarComandoAServidor(ComandoAlServidor comando);
 	void lanzarHilosDelJuego();

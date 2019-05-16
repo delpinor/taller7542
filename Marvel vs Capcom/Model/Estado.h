@@ -41,6 +41,11 @@ public:
 	void aumentarVelocidadX(int vel);
 	void aumentarVelocidadY(int vel);
 	virtual bool isFueraDePantalla() = 0;
+	//métodos para el cliente
+	virtual void setEstaActivo(bool estaActivo) = 0;
+	virtual void setEstaAgachado(bool estaAgachado) = 0;
+	virtual void setEstaFueraDePantalla(bool estaEstaFueraDePantalla) = 0;
+	virtual void setEstaCambiandoPersonaje(bool estaEstaCambiandoPersonaje) = 0;
 
 protected:
 	int mPosX, mPosY;
@@ -48,6 +53,11 @@ protected:
 	int mVelX, mVelY;
 	int aceleracion;
 	bool acelero;
+	//estados para el cliente
+	bool activo = false;
+	bool agachado = false;
+	bool fueraDePantalla = false;
+	bool cambiandoPersonaje = false;
 
 private:
 };

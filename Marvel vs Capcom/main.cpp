@@ -107,9 +107,8 @@ int main(int argc, char* argv[]) {
 
 		cliente.lanzarHilosDelJuego();
 		while (!controller.quitPressed()) {
-			int comando = controller.processInputCliente();
 			ComandoAlServidor comandoParaServidor;
-			comandoParaServidor.comando = comando;
+			comandoParaServidor.comando = controller.processInputCliente();
 			cliente.enviarComandoAServidor(comandoParaServidor);
 			usleep(10000);
 //			model.update();

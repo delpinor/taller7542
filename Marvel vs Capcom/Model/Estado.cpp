@@ -146,3 +146,19 @@ int Estado::getAceleracion() {
 bool Estado::getAcelero() {
 	return this->acelero;
 }
+//métodos para cliente
+bool Estado::isFueraDePantalla(){
+	return this->fueraDePantalla;
+}
+void Estado::setEstaActivo(bool activo){
+	this->activo = activo;
+}
+void Estado::setEstaAgachado(bool agachado){
+	this->agachado = agachado;
+}
+void Estado::setEstaFueraDePantalla(bool fueraDePantalla){
+	this->fueraDePantalla = fueraDePantalla;
+}
+void Estado::setEstaCambiandoPersonaje(bool cambiandoPersonaje){
+	this->cambiandoPersonaje = cambiandoPersonaje;
+}

@@ -19,11 +19,11 @@ bool EstadoCliente::estaActivo(){
 bool EstadoCliente::estaAgachado(){
 	return this->agachado;
 }
-bool EstadoCliente::isFueraDePantalla(){
-	return this->fueraDePantalla;
-}
 bool EstadoCliente::estaCambiandoPersonaje(){
 	return this->cambiandoPersonaje;
+}
+bool EstadoCliente::isFueraDePantalla(){
+	return this->fueraDePantalla;
 }
 void EstadoCliente::setEstaActivo(bool activo){
 	this->activo = activo;

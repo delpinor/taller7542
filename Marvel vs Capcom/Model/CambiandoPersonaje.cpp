@@ -23,10 +23,10 @@ void CambiandoPersonaje::move(){
 void CambiandoPersonaje::moveVertical() {
 }
 
-bool CambiandoPersonaje::isFueraDePantalla(){
-//	return (mPosX > ANCHO_NIVEL)||(mPosX < 0);
-	return (mPosY < 0);
-}
+//bool CambiandoPersonaje::isFueraDePantalla(){
+////	return (mPosX > ANCHO_NIVEL)||(mPosX < 0);
+//	return (mPosY < 0);
+//}
 
 bool CambiandoPersonaje::estaActivo() {
 	return true;
@@ -37,4 +37,20 @@ bool CambiandoPersonaje::estaAgachado() {
 
 bool CambiandoPersonaje::estaCambiandoPersonaje(){
 	return true;
+}
+//métodos para cliente
+bool CambiandoPersonaje::isFueraDePantalla(){
+	return this->fueraDePantalla;
+}
+void CambiandoPersonaje::setEstaActivo(bool activo){
+	this->activo = activo;
+}
+void CambiandoPersonaje::setEstaAgachado(bool agachado){
+	this->agachado = agachado;
+}
+void CambiandoPersonaje::setEstaFueraDePantalla(bool fueraDePantalla){
+	this->fueraDePantalla = fueraDePantalla;
+}
+void CambiandoPersonaje::setEstaCambiandoPersonaje(bool cambiandoPersonaje){
+	this->cambiandoPersonaje = cambiandoPersonaje;
 }

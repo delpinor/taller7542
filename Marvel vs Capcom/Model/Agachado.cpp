@@ -32,3 +32,16 @@ bool Agachado::isFueraDePantalla(){
 bool Agachado::estaCambiandoPersonaje(){
 	return false;
 }
+//métodos para cliente
+void Agachado::setEstaActivo(bool activo){
+	this->activo = activo;
+}
+void Agachado::setEstaAgachado(bool agachado){
+	this->agachado = agachado;
+}
+void Agachado::setEstaFueraDePantalla(bool fueraDePantalla){
+	this->fueraDePantalla = fueraDePantalla;
+}
+void Agachado::setEstaCambiandoPersonaje(bool cambiandoPersonaje){
+	this->cambiandoPersonaje = cambiandoPersonaje;
+}
