@@ -91,6 +91,7 @@ int main(int argc, char* argv[]) {
 	model.getEquipoNro(0)->setJugadorActivo(0);
 	model.getEquipoNro(1)->setJugadorActivo(0);
 
+
 	if (strcmp(argv[1], "servidor") == 0) {
 		Servidor server;
 		server.SetModel(&model);
