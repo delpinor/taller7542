@@ -196,7 +196,7 @@ void Servidor::IniciarServidor(int maxClientes, char * puerto) {
 	miPartida.SetMaximoJugadores(maxClientes);
 	connServidor.IniciarConexion(puerto);
 	LanzarHiloControl();
-	//LanzarHiloLoggeo();
+	LanzarHiloLoggeo();
 	AceptarClientes(maxClientes);
 
 

@@ -113,6 +113,19 @@ int main(int argc, char* argv[]) {
 		if (cliente.ConectarConServidor(ip, puerto) == -1)
 			return -1;
 		cout << "conectado con servidor."<< endl;
+
+		// Envio de usuario
+		JugadorLogin loginUsuario;
+		IDMENSAJE idMsg = LOGIN;
+		// Capturo datos del jugador
+		char nombre[50];
+		cout << "Socket: " << conexion.getSocketCliente() << endl;
+		cout << "Usuario:";
+		cin >> nombre;
+		strcpy(loginUsuario.usuario, nombre);
+		send(conexion.getSocketCliente(), &idMsg, sizeof(idMsg),0);
+		send(conexion.getSocketCliente(), &loginUsuario, sizeof(loginUsuario),0);
+
 		//TODO menu de seleccion
 		cliente.MenuDeSeleccion();
 //		cout << "pasó el menu de selección."<< endl;
