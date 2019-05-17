@@ -160,9 +160,10 @@ int Controller::processInputCliente() {
 }}
 
 int Controller::handleEventCliente(SDL_Event& e) {
-	int command = NULL;
-
+	int command = 99;
+//	std::cout << "procesar evento." << std::endl;
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
+
 		switch (e.key.keysym.sym) {
 		case SDLK_UP:
 			command = INCVELY;
@@ -236,6 +237,6 @@ int Controller::handleEventCliente(SDL_Event& e) {
 				break;
 			}
 		}
-
+	std::cout << "evento:" << command <<std::endl;
 	return command;
 }

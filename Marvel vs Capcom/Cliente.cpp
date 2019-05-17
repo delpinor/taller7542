@@ -19,96 +19,120 @@ struct DatosHiloCliente {
 //éste hilo va a escuchar lo que el servidor envíe
 //va a insertar lo el modelo que el servidor manda en una cola
 //y va a guardar el tiempo en que recibió el ultimo mensaje para saber si sigue conectado al servidor
-void * hilo_escucha(void * cliente){
-	Cliente* p=(Cliente*) cliente;
-	while(1){
+void * hilo_escucha(void * cliente) {
+	cout << "HILO ESCUCHA lanzado." << endl;
+	Cliente* p = (Cliente*) cliente;
+	while (1) {
 		p->recibirModeloDelServidor();
 	}
 }
 
 //éste hilo va a tomar cada elementos de la cola y va a actualizar el modelo
 //y va a renderizar
-void * hilo_render(void * cliente){
-	Cliente* p=(Cliente*) cliente;
-	while(1){
-		ModeloEstado modelo = p->PopModeloDeCola();
-		p->actualizarModelo(modelo);
+void * hilo_render(void * cliente) {
+	cout << "HILO RENDER lanzado." << endl;
+	Cliente* p = (Cliente*) cliente;
+	while (1) {
+		if (p->getModeloCambios().size()>0)	{
+			ModeloEstado modelo = p->PopModeloDeCola();
+			p->actualizarModelo(modelo);
+		}
 		p->getVista()->render();
 		usleep(25000);
 	}
 }
 
-Cliente::Cliente(View* vista) {
-	cout << "creando cliente."<< endl;
+Cliente::Cliente(View* vista, Conexion* conexion) {
+	cout << "creando cliente." << endl;
 	this->vista = vista;
+	this->conexion = conexion;
 }
 
-void Cliente::actualizarModelo(ModeloEstado modelo){
+void Cliente::actualizarModelo(ModeloEstado modelo) {
 	this->getVista()->model->equipos[0]->setJugadorActivo(modelo.activoEquipo1);
 	this->getVista()->model->equipos[1]->setJugadorActivo(modelo.activoEquipo2);
 
-	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isActivo);
-	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isAgachado);
-	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isCambiandoPersonaje);
-	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setPosX(modelo.jugadoresEquipo1.posX);
-	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setPosY(modelo.jugadoresEquipo1.posY);
-	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setVelocidadX(modelo.jugadoresEquipo1.velX);
-	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setVelocidadY(modelo.jugadoresEquipo1.velY);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(
+			modelo.jugadoresEquipo1.isActivo);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(
+			modelo.jugadoresEquipo1.isAgachado);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(
+			modelo.jugadoresEquipo1.isCambiandoPersonaje);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setPosX(
+			modelo.jugadoresEquipo1.posX);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setPosY(
+			modelo.jugadoresEquipo1.posY);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setVelocidadX(
+			modelo.jugadoresEquipo1.velX);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setVelocidadY(
+			modelo.jugadoresEquipo1.velY);
 
-	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isActivo);
-	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isAgachado);
-	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(modelo.jugadoresEquipo1.isCambiandoPersonaje);
-	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setPosX(modelo.jugadoresEquipo1.posX);
-	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setPosY(modelo.jugadoresEquipo1.posY);
-	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setVelocidadX(modelo.jugadoresEquipo1.velX);
-	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setVelocidadY(modelo.jugadoresEquipo1.velY);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(
+			modelo.jugadoresEquipo1.isActivo);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(
+			modelo.jugadoresEquipo1.isAgachado);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(
+			modelo.jugadoresEquipo1.isCambiandoPersonaje);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setPosX(
+			modelo.jugadoresEquipo1.posX);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setPosY(
+			modelo.jugadoresEquipo1.posY);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setVelocidadX(
+			modelo.jugadoresEquipo1.velX);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setVelocidadY(
+			modelo.jugadoresEquipo1.velY);
 
 	this->getVista()->getCamara()->x = modelo.camara.posX;
 	this->getVista()->getCamara()->y = modelo.camara.posY;
 }
 
-int Cliente::ConectarConServidor(char* ip, char* puerto){
-	cout << "conectando con servidor en ip: "<< ip << " y en puerto: " << puerto << endl;
+int Cliente::ConectarConServidor(char* ip, char* puerto) {
+	cout << "conectando con servidor en ip: " << ip << " y en puerto: "
+			<< puerto << endl;
 	JugadorLogin jugLogin;
-//	Conexion connCliente;
-//	this->setCenexion(connCliente);
-	int error = this->getConexion().conectarConServidor(ip,puerto);
-	if (error == -1){
+	int error = this->getConexion()->conectarConServidor(ip, puerto);
+	if (error == -1) {
 		cout << "ERROR conectando con el servidor :(" << endl;
 		return -1;
 	}
 	cout << "conectando con el servidor!!" << endl;
 	bool corriendo = true;
-	int sockCliente = this->getConexion().getSocketCliente();
+	int sockCliente = this->getConexion()->getSocketCliente();
 	DatosHiloCliente datosCliente;
 //	datosCliente.model = &model;
 	datosCliente.sock = sockCliente;
 	return 0;
 }
 
-void Cliente::enviarComandoAServidor(ComandoAlServidor comando){
+void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
+//	cout << "por enviar el comando: "<< comando.comando << endl;
 	int error = 0;
 	IDMENSAJE com = COMANDO;
 	int tam_mensaje = sizeof(ComandoAlServidor);
-	error = this->getConexion().enviar_mensaje(this->getConexion().getSocketCliente(),&com, sizeof(com));
+	error = this->getConexion()->enviar_mensaje(
+			this->getConexion()->getSocketCliente(), &com, sizeof(com));
 	// manejar errores de conexion
-	error = this->getConexion().enviar_mensaje(this->getConexion().getSocketCliente(),&comando, tam_mensaje);
+	error = this->getConexion()->enviar_mensaje(
+			this->getConexion()->getSocketCliente(), &comando, tam_mensaje);
 	// manejar errores de conexions
 }
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
-	this->conexion.recibir_mensaje(this->getConexion().getSocketCliente(), &idMsg,sizeof(idMsg));
+	this->conexion->recibir_mensaje(this->getConexion()->getSocketCliente(),
+			&idMsg, sizeof(idMsg));
 
 	if (idMsg == MENSAJE) {
 		Mensaje unMensaje;
-		recv(this->getConexion().getSocketCliente(), &unMensaje, sizeof(unMensaje),0);
+		recv(this->getConexion()->getSocketCliente(), &unMensaje,
+				sizeof(unMensaje), 0);
 //				pthread_mutex_lock(&mutexx);
 //		cout << " Mensaje: " << unMensaje.mensaje << endl;
 //				pthread_mutex_unlock(&mutexx);
 	}
 	if (idMsg == MODELO) {
 		ModeloEstado unModelo;
-		recv(this->getConexion().getSocketCliente(), &unModelo, sizeof(unModelo), 0);
+		recv(this->getConexion()->getSocketCliente(), &unModelo,
+				sizeof(unModelo), 0);
 		pthread_mutex_lock(&mutexx);
 		this->PushModeloEnCola(unModelo);
 //		cout << " Mensaje: " << unMensaje.mensaje << endl;
@@ -116,29 +140,30 @@ int Cliente::recibirModeloDelServidor() {
 	}
 	return NULL;
 }
-void Cliente::lanzarHilosDelJuego(){
+void Cliente::lanzarHilosDelJuego() {
+	cout << "por lanzar hilos del cliente" << endl;
 	pthread_t thid_hilo_escucha;
 	pthread_t thid_hilo_render;
 	pthread_create(&thid_hilo_escucha, NULL, hilo_escucha, this);
 	pthread_create(&thid_hilo_render, NULL, hilo_render, this);
 }
-void Cliente::MenuDeSeleccion(){
+void Cliente::MenuDeSeleccion() {
 	//TODO
 }
-std::queue<ModeloEstado> Cliente::getModeloCambios(){
+std::queue<ModeloEstado> Cliente::getModeloCambios() {
 	return this->ModeloCambios;
 }
-int Cliente::getTiepoUltimoMensajeRecibido(){
+int Cliente::getTiepoUltimoMensajeRecibido() {
 	return this->tiempoUltimoMensajeRecivido;
 }
-void Cliente::setTiempoUltimoMensajeRecibido(int tiempo){
+void Cliente::setTiempoUltimoMensajeRecibido(int tiempo) {
 	this->tiempoUltimoMensajeRecivido = tiempo;
 }
 
-void Cliente::PushModeloEnCola(ModeloEstado modelo){
+void Cliente::PushModeloEnCola(ModeloEstado modelo) {
 	this->ModeloCambios.push(modelo);
 }
-ModeloEstado Cliente::PopModeloDeCola(){
+ModeloEstado Cliente::PopModeloDeCola() {
 	//lockear
 	pthread_mutex_lock(&mutexx);
 	ModeloEstado modelo = this->ModeloCambios.front();
@@ -147,17 +172,17 @@ ModeloEstado Cliente::PopModeloDeCola(){
 	return modelo;
 }
 
-Conexion Cliente::getConexion(){
+Conexion* Cliente::getConexion() {
 	return this->conexion;
 }
 
-void Cliente::setCenexion(Conexion conexion){
+void Cliente::setCenexion(Conexion* conexion) {
 	this->conexion = conexion;
 }
-View* Cliente::getVista(){
+View* Cliente::getVista() {
 	return this->vista;
 }
-void Cliente::setVista(View* vista){
+void Cliente::setVista(View* vista) {
 	this->vista = vista;
 }
 

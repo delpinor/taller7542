@@ -10,6 +10,9 @@
 using namespace std;
 
 Conexion::Conexion(){
+	int socketCliente = 0;
+	int socketServidor = 0;
+	bool falloConexion = false;
 	cout << "creando conexion" << endl;
 }
 

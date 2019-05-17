@@ -18,7 +18,7 @@
 
 class Cliente {
 public:
-	Cliente(View* vista);
+	Cliente(View* vista, Conexion* conexion);
 	int ConectarConServidor(char* ip, char* puerto);
 	void PushModeloEnCola(ModeloEstado modelo);
 	ModeloEstado PopModeloDeCola();
@@ -33,14 +33,14 @@ public:
 	void setTiempoUltimoMensajeRecibido(int tiempo);
 	int getTiepoUltimoMensajeRecibido();
 	//geters y seters
-	Conexion getConexion();
-	void setCenexion(Conexion conexion);
+	Conexion* getConexion();
+	void setCenexion(Conexion* conexion);
 	View* getVista();
 	void setVista(View* vista);
 	virtual ~Cliente();
 
 private:
-	Conexion conexion;
+	Conexion* conexion;
 	View* vista;
 	std::queue<ModeloEstado> ModeloCambios;
 	int tiempoUltimoMensajeRecivido;

@@ -107,22 +107,27 @@ int main(int argc, char* argv[]) {
 		cout << "vista creada."<< endl;
 		Controller controller(&model);
 		cout << "controller creado."<< endl;
-		Cliente cliente(&view);
+		Conexion conexion;
+		Cliente cliente(&view, &conexion);
 		cout << "Cliente creado."<< endl;
 		if (cliente.ConectarConServidor(ip, puerto) == -1)
 			return -1;
 		cout << "conectado con servidor."<< endl;
 		//TODO menu de seleccion
 		cliente.MenuDeSeleccion();
+//		cout << "pasó el menu de selección."<< endl;
 //		cliente.setVista(view);
 		view.setEstadoCliente();
-
+		cout << "EstadoCliente seteados."<< endl;
 		cliente.lanzarHilosDelJuego();
+		cout << "Hilos del cliente lanzados."<< endl;
 		while (!controller.quitPressed()) {
+//			std::cout << "hilo principal main cliente" << std::endl;
 			ComandoAlServidor comandoParaServidor;
 			comandoParaServidor.comando = controller.processInputCliente();
-			cliente.enviarComandoAServidor(comandoParaServidor);
-			usleep(10000);
+			if (comandoParaServidor.comando != 99)
+				cliente.enviarComandoAServidor(comandoParaServidor);
+			usleep(100000);
 //			model.update();
 //			view.render();
 		}
