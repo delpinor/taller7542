@@ -23,6 +23,7 @@ void * hilo_escucha(void * cliente) {
 	cout << "HILO ESCUCHA lanzado." << endl;
 	Cliente* p = (Cliente*) cliente;
 	while (1) {
+		cout << "adentro del while de escucha." << endl;
 		p->recibirModeloDelServidor();
 	}
 }
@@ -32,8 +33,12 @@ void * hilo_escucha(void * cliente) {
 void * hilo_render(void * cliente) {
 	cout << "HILO RENDER lanzado." << endl;
 	Cliente* p = (Cliente*) cliente;
+	int tamModelo = NULL;
 	while (1) {
-		if (p->getModeloCambios().size() > 0) {
+		pthread_mutex_lock(&mutexx);
+		tamModelo = p->getModeloCambios().size();
+		pthread_mutex_unlock(&mutexx);
+		if (tamModelo > 0) {
 			ModeloEstado modelo = p->PopModeloDeCola();
 			p->actualizarModelo(modelo);
 		}
@@ -49,6 +54,7 @@ Cliente::Cliente(View* vista, Conexion* conexion) {
 }
 
 void Cliente::actualizarModelo(ModeloEstado modelo) {
+	pthread_mutex_lock(&mutexx);
 	this->getVista()->model->equipos[0]->setJugadorActivo(modelo.activoEquipo1);
 	this->getVista()->model->equipos[1]->setJugadorActivo(modelo.activoEquipo2);
 
@@ -84,6 +90,7 @@ void Cliente::actualizarModelo(ModeloEstado modelo) {
 
 	this->getVista()->getCamara()->x = modelo.camara.posX;
 	this->getVista()->getCamara()->y = modelo.camara.posY;
+	pthread_mutex_unlock(&mutexx);
 }
 
 int Cliente::ConectarConServidor(char* ip, char* puerto) {
@@ -118,13 +125,18 @@ void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
 }
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
-	this->conexion->recibir_mensaje(this->getConexion()->getSocketCliente(),
-			&idMsg, sizeof(idMsg));
-
+	cout << "adentro de recibirModeloDelServidor()." << endl;
+	recv(this->getConexion()->getSocketCliente(), &idMsg,
+			sizeof(idMsg), 0);
+//	this->conexion->recibir_mensaje(this->getConexion()->getSocketCliente(),
+//			&idMsg, sizeof(idMsg));
+	cout << "tipo mensaje recibido: " << idMsg << endl;
 	if (idMsg == MENSAJE) {
 		Mensaje unMensaje;
 		recv(this->getConexion()->getSocketCliente(), &unMensaje,
 				sizeof(unMensaje), 0);
+
+
 //				pthread_mutex_lock(&mutexx);
 //		cout << " Mensaje: " << unMensaje.mensaje << endl;
 //				pthread_mutex_unlock(&mutexx);
@@ -132,8 +144,10 @@ int Cliente::recibirModeloDelServidor() {
 	// Aca se esta bloqueando, no esta recibiendo el modelo..
 	if (idMsg == MODELO) {
 		ModeloEstado unModelo;
+		cout << "socket cliente: " << this->getConexion()->getSocketCliente() << endl;
 		recv(this->getConexion()->getSocketCliente(), &unModelo,
 				sizeof(unModelo), 0);
+		cout << "Modelo recibido!!!!: " << idMsg << endl;
 		pthread_mutex_lock(&mutexx);
 		this->PushModeloEnCola(unModelo);
 		cout << "Modelo recibido" << endl;

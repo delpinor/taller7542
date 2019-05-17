@@ -237,6 +237,6 @@ int Controller::handleEventCliente(SDL_Event& e) {
 				break;
 			}
 		}
-	std::cout << "evento:" << command <<std::endl;
+//	std::cout << "evento:" << command <<std::endl;
 	return command;
 }

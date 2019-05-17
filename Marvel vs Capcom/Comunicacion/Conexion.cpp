@@ -76,7 +76,7 @@ int Conexion::recibir_mensaje(int socket, void* mensaje, int tam_mensaje) {
 //	while (received < tam_mensaje && is_the_socket_valid) {
 
 		s = recv(socket, &mensaje, tam_mensaje, MSG_NOSIGNAL);
-
+		cout << "Conexion::mensaje recibido." << mensaje << endl;
 		if (s == 0) { // nos cerraron el socket :(
 			perror("[Comunicacion-recibir_mensaje] Perror nos cerraron el socket");
 			is_the_socket_valid = false;
