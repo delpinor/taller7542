@@ -12,6 +12,7 @@ struct ClienteConectado{
 	pthread_t tid;
 	string nombre;
 	int equipo = 0;
+	int numeroJugador;
 	bool titular;
 };
 class Partida{

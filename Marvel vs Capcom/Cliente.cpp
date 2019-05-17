@@ -136,6 +136,7 @@ int Cliente::recibirModeloDelServidor() {
 				sizeof(unModelo), 0);
 		pthread_mutex_lock(&mutexx);
 		this->PushModeloEnCola(unModelo);
+		cout << "Modelo recibido" << endl;
 		pthread_mutex_unlock(&mutexx);
 	}
 	return NULL;

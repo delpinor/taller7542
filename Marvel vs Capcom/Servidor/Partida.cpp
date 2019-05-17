@@ -4,12 +4,12 @@ void Partida::IniciarPartida() {
 	listaJugadores = listaEspera;
 	listaEspera.clear();
 	partidaIniciada = true;
-	modelo->getEquipoNro(0)->getJugadorActivo()->setPosInitX(120);
-	modelo->getEquipoNro(0)->getJugadorActivo()->setPosInitX(931);
-
-	modelo->getEquipoNro(1)->getJugadorActivo()->setPosInitX(780);
-	modelo->getEquipoNro(1)->getJugadorActivo()->setPosInitX(931);
 	ActualizarModelo();
+	modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(120);
+	modelo->getEquipoNro(0)->getJugadorActivo()->setPosY(931);
+
+	modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(780);
+	modelo->getEquipoNro(1)->getJugadorActivo()->setPosY(931);
 }
 ModeloEstado  Partida::GetModeloEstado(){
 	ModeloEstado unModelo;
@@ -19,9 +19,9 @@ ModeloEstado  Partida::GetModeloEstado(){
 void Partida::ActualizarModelo() {
 	list<ClienteConectado>::iterator it;
 	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
-		if (it->titular == true) {
-			modelo->getEquipoNro(it->equipo)->setJugadorActivo(1);
-		}
+		//if (it->titular == true) {
+			modelo->getEquipoNro(it->equipo)->setJugadorActivo(it->numeroJugador);
+		//}
 	}
 
 }
