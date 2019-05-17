@@ -41,6 +41,7 @@ void * loggeoPartida(void *){
 			for (it = lista.begin(); it != lista.end(); it++) {
 				cout << "Socket: " << it->socket << endl;
 				cout << "Nombre: " << it->nombre << endl;
+				cout << "Numero de Jugador: " << it->numeroJugador << endl;
 				cout << "Equipo: " << it->equipo << endl;
 				cout << "Titular: "
 						<< (it->titular == true ? "Es titular" : "Es suplente")
@@ -82,7 +83,9 @@ void * enviarDatos(void * datos) {
 		//Envio de Jugador
 		if(miPartida.Iniciada()){
 			IDMENSAJE idModelo = MODELO;
+			pthread_mutex_lock(&mutex_server);
 			ModeloEstado unModelo = miPartida.GetModeloEstado();
+			pthread_mutex_unlock(&mutex_server);
 			send(sock, &idModelo, sizeof(idModelo), 0);
 			send(sock, &unModelo, sizeof(unModelo), 0);
 		}
