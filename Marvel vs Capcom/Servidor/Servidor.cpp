@@ -39,7 +39,7 @@ void * loggeoPartida(void *){
 			list<ClienteConectado> lista = miPartida.GetListaJugadores();
 			list<ClienteConectado>::iterator it;
 			for (it = lista.begin(); it != lista.end(); it++) {
-				cout << "Nombre: " << it->socket << endl;
+				cout << "Socket: " << it->socket << endl;
 				cout << "Nombre: " << it->nombre << endl;
 				cout << "Equipo: " << it->equipo << endl;
 				cout << "Titular: "

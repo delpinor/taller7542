@@ -33,7 +33,7 @@ void * hilo_render(void * cliente) {
 	cout << "HILO RENDER lanzado." << endl;
 	Cliente* p = (Cliente*) cliente;
 	while (1) {
-		if (p->getModeloCambios().size()>0)	{
+		if (p->getModeloCambios().size() > 0) {
 			ModeloEstado modelo = p->PopModeloDeCola();
 			p->actualizarModelo(modelo);
 		}
@@ -129,13 +129,13 @@ int Cliente::recibirModeloDelServidor() {
 //		cout << " Mensaje: " << unMensaje.mensaje << endl;
 //				pthread_mutex_unlock(&mutexx);
 	}
+	// Aca se esta bloqueando, no esta recibiendo el modelo..
 	if (idMsg == MODELO) {
 		ModeloEstado unModelo;
 		recv(this->getConexion()->getSocketCliente(), &unModelo,
 				sizeof(unModelo), 0);
 		pthread_mutex_lock(&mutexx);
 		this->PushModeloEnCola(unModelo);
-//		cout << " Mensaje: " << unMensaje.mensaje << endl;
 		pthread_mutex_unlock(&mutexx);
 	}
 	return NULL;
@@ -145,7 +145,9 @@ void Cliente::lanzarHilosDelJuego() {
 	pthread_t thid_hilo_escucha;
 	pthread_t thid_hilo_render;
 	pthread_create(&thid_hilo_escucha, NULL, hilo_escucha, this);
+	pthread_detach(thid_hilo_escucha);
 	pthread_create(&thid_hilo_render, NULL, hilo_render, this);
+	pthread_detach(thid_hilo_render);
 }
 void Cliente::MenuDeSeleccion() {
 	//TODO

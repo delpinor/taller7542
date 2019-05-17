@@ -123,6 +123,7 @@ int main(int argc, char* argv[]) {
 		cout << "Usuario:";
 		cin >> nombre;
 		strcpy(loginUsuario.usuario, nombre);
+
 		send(conexion.getSocketCliente(), &idMsg, sizeof(idMsg),0);
 		send(conexion.getSocketCliente(), &loginUsuario, sizeof(loginUsuario),0);
 
