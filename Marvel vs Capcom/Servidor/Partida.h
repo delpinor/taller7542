@@ -21,6 +21,8 @@ private:
 	bool partidaIniciada = false;
 	bool partidaFinalizada = false;
 	unsigned int maximoJugadores;
+	int cantEquipo0 = 0;
+	int cantEquipo1 = 0;
 	list<ClienteConectado> listaEspera;
 	list<ClienteConectado> listaJugadores;
 	list<ClienteConectado> listaDesconectados;

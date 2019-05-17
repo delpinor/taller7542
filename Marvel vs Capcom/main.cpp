@@ -6,7 +6,7 @@
 #include "Logger/Logger.h"
 #include "Cliente.h"
 #include "Servidor/Servidor.h"
-#define MAX_CLIENTES 2
+#define MAX_CLIENTES 3
 /* nombre_ejecutable  nombre_archivo_configuracion niveldeDebug*/
 int main(int argc, char* argv[]) {
 

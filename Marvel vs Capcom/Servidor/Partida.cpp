@@ -7,21 +7,22 @@ void Partida::IniciarPartida() {
 	ActualizarModelo();
 	modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(120);
 	modelo->getEquipoNro(0)->getJugadorActivo()->setPosY(931);
-
 	modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(780);
 	modelo->getEquipoNro(1)->getJugadorActivo()->setPosY(931);
 }
 ModeloEstado  Partida::GetModeloEstado(){
 	ModeloEstado unModelo;
 	unModelo = modelo->GetModelEstado();
+	unModelo.activoEquipo1 = GetTitularJugando(0).numeroJugador;
+	unModelo.activoEquipo2 = GetTitularJugando(1).numeroJugador;
 	return unModelo;
 }
 void Partida::ActualizarModelo() {
 	list<ClienteConectado>::iterator it;
 	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
-		//if (it->titular == true) {
+		if (it->titular == true) {
 			modelo->getEquipoNro(it->equipo)->setJugadorActivo(it->numeroJugador);
-		//}
+		}
 	}
 
 }
@@ -154,9 +155,13 @@ void Partida::AgregarCliente(ClienteConectado cliente) {
 		// Seleccion de equipos
 		cantidad++;
 		if (cantidad % 2 == 0) {
+			cliente.numeroJugador = cantEquipo0;
 			cliente.equipo = 0;
+			cantEquipo0++;
 		} else {
+			cliente.numeroJugador = cantEquipo1;
 			cliente.equipo = 1;
+			cantEquipo1++;
 		}
 		listaEspera.push_back(cliente);
 	} else {
