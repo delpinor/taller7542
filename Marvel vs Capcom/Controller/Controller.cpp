@@ -160,25 +160,25 @@ int Controller::processInputCliente() {
 }}
 
 int Controller::handleEventCliente(SDL_Event& e) {
-	int command = 99;
+
 //	std::cout << "procesar evento." << std::endl;
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
 
 		switch (e.key.keysym.sym) {
 		case SDLK_UP:
-			command = INCVELY;
+			return INCVELY;
 			break;
 		case SDLK_DOWN:
-			command = AGACHAR;
+			return AGACHAR;
 			break;
 		case SDLK_LEFT:
-			command = DECVELX;
+			return DECVELX;
 			break;
 		case SDLK_RIGHT:
-			command = INCVELX;
+			return INCVELX;
 			break;
 		case SDLK_RCTRL:
-			command = CAMBIAR_PERSONAJE;
+			return CAMBIAR_PERSONAJE;
 			break;
 		}
 	}
@@ -189,13 +189,13 @@ int Controller::handleEventCliente(SDL_Event& e) {
 
 			break;
 		case SDLK_DOWN:
-			command = PARAR;
+			return PARAR;
 			break;
 		case SDLK_LEFT:
-			command = INCVELX;
+			return INCVELX;
 			break;
 		case SDLK_RIGHT:
-			command = DECVELX;
+			return DECVELX;
 			break;
 		}
 	}
@@ -203,19 +203,19 @@ int Controller::handleEventCliente(SDL_Event& e) {
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
 			switch (e.key.keysym.sym) {
 			case SDLK_w:
-				command = INCVELY;
+				return INCVELY;
 				break;
 			case SDLK_s:
-				command = AGACHAR;
+				return AGACHAR;
 				break;
 			case SDLK_a:
-				command = DECVELX;
+				return DECVELX;
 				break;
 			case SDLK_d:
-				command = INCVELX;
+				return INCVELX;
 				break;
 			case SDLK_LCTRL:
-				command = CAMBIAR_PERSONAJE;
+				return CAMBIAR_PERSONAJE;
 				break;
 			}
 		}
@@ -227,16 +227,16 @@ int Controller::handleEventCliente(SDL_Event& e) {
 
 				break;
 			case SDLK_s:
-				command = PARAR;
+				return PARAR;
 				break;
 			case SDLK_a:
-				command = INCVELX;
+				return INCVELX;
 				break;
 			case SDLK_d:
-				command = DECVELX;
+				return DECVELX;
 				break;
 			}
 		}
 //	std::cout << "evento:" << command <<std::endl;
-	return command;
+	return 99;
 }

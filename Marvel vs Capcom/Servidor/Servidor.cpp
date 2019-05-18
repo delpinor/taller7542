@@ -144,6 +144,7 @@ void * recibirDatos(void * datos) {
 			ComandoAlServidor unComando;
 			recv(unCliente.socket, &unComando, sizeof(unComando), 0);
 			//miPartida.GetModelo()->getEquipoNro(unCliente.equipo)->agregarCambio();
+			cout << "Comando recibido: " << unComando.comando << endl;
 		}
 	}
 }

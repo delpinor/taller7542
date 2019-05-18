@@ -23,7 +23,7 @@ void * hilo_escucha(void * cliente) {
 	cout << "HILO ESCUCHA lanzado." << endl;
 	Cliente* p = (Cliente*) cliente;
 	while (1) {
-		cout << "adentro del while de escucha." << endl;
+//		cout << "adentro del while de escucha." << endl;
 		p->recibirModeloDelServidor();
 	}
 }
@@ -116,17 +116,18 @@ void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
 	int error = 0;
 	IDMENSAJE com = COMANDO;
 	int tam_mensaje = sizeof(ComandoAlServidor);
-	error = this->getConexion()->enviar_mensaje(
-			this->getConexion()->getSocketCliente(), &com, sizeof(com));
-	// manejar errores de conexion
-	error = this->getConexion()->enviar_mensaje(
-			this->getConexion()->getSocketCliente(), &comando, tam_mensaje);
+
+	error = send(this->getConexion()->getSocketCliente(), &com,sizeof(com), MSG_NOSIGNAL);
+
+	error = send(this->getConexion()->getSocketCliente(), &comando, sizeof(comando), MSG_NOSIGNAL);
+	cout << "comando enviado:  " << comando.comando << endl;
+
 	// manejar errores de conexions
 }
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
 	recv(this->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
-	cout << "tipo mensaje recibido: " << idMsg << endl;
+//	cout << "tipo mensaje recibido: " << idMsg << endl;
 
 	//-------->Recibe EQUIPO
 	if (idMsg == EQUIPO) {
@@ -145,14 +146,14 @@ int Cliente::recibirModeloDelServidor() {
 	//-------->Recibe MODELO
 	if (idMsg == MODELO) {
 		ModeloEstado unModelo;
-		cout << "socket cliente: " << this->getConexion()->getSocketCliente()
-				<< endl;
+//		cout << "socket cliente: " << this->getConexion()->getSocketCliente()
+//				<< endl;
 		recv(this->getConexion()->getSocketCliente(), &unModelo,
 				sizeof(unModelo), 0);
-		cout << "Modelo recibido!!!!: " << idMsg << endl;
+//		cout << "Modelo recibido!!!!: " << idMsg << endl;
 		pthread_mutex_lock(&mutexx);
 		this->PushModeloEnCola(unModelo);
-		cout << "Modelo recibido" << endl;
+//		cout << "Modelo recibido" << endl;
 		pthread_mutex_unlock(&mutexx);
 	}
 	return NULL;
