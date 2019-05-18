@@ -144,47 +144,47 @@ void Partida::JuegaSuplente(int equipo) {
 	}
 	ActualizarModelo();
 }
-void Partida::AgregarCliente(ClienteConectado cliente) {
+void Partida::AgregarCliente(ClienteConectado * cliente) {
 	if (!partidaIniciada) {
 		int cantidad = listaEspera.size();
 		if (cantidad < 2) {
-			cliente.titular = true;
+			cliente->titular = true;
 		} else {
-			cliente.titular = false;
+			cliente->titular = false;
 		}
 		// Seleccion de equipos
 		cantidad++;
 		if (cantidad % 2 == 0) {
-			cliente.numeroJugador = cantEquipo0;
-			cliente.equipo = 0;
+			cliente->numeroJugador = cantEquipo0;
+			cliente->equipo = 0;
 			cantEquipo0++;
 		} else {
-			cliente.numeroJugador = cantEquipo1;
-			cliente.equipo = 1;
+			cliente->numeroJugador = cantEquipo1;
+			cliente->equipo = 1;
 			cantEquipo1++;
 		}
-		listaEspera.push_back(cliente);
+		listaEspera.push_back(*cliente);
 	} else {
 		// Equipo 0 se usa para verificar que no es un Cliente reconectado.
-		if (EsClienteDesconectado(cliente.nombre)) {
+		if (EsClienteDesconectado(cliente->nombre)) {
 			//Recupero el equipo para el cliente reconectado.
 			ClienteConectado unClienteDesconectado;
-			unClienteDesconectado = GetClienteDesconectado(cliente.nombre);
-			cliente.equipo = unClienteDesconectado.equipo;
+			unClienteDesconectado = GetClienteDesconectado(cliente->nombre);
+			cliente->equipo = unClienteDesconectado.equipo;
 			//Es cliente reconectado?
 			if (unClienteDesconectado.titular) {
 				// El cliente reconectado era titular
-				JuegaTitular(unClienteDesconectado.equipo, cliente);
-				cliente.titular = true;
+				JuegaTitular(unClienteDesconectado.equipo, *cliente);
+				cliente->titular = true;
 				//Agrego a la lista de jugadores
-				listaJugadores.push_back(cliente);
+				listaJugadores.push_back(*cliente);
 			} else {
 				//El cliente era suplente.
-				cliente.titular = false;
-				listaJugadores.push_back(cliente);
+				cliente->titular = false;
+				listaJugadores.push_back(*cliente);
 			}
 			//Elimino de la lista de desconectados
-			EliminarDesconectado(cliente.nombre);
+			EliminarDesconectado(cliente->nombre);
 		}
 	}
 }

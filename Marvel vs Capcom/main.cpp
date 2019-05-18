@@ -33,8 +33,8 @@ int main(int argc, char* argv[]) {
 	nombresPersonajes->push_back("venom black");
 	nombresPersonajes->push_back("spiderman");
 	nombresPersonajes->push_back("default");
-
-	Configuracion appConfig(NULL, nombresPersonajes);
+	char * argConfig = "config.json";
+	Configuracion appConfig(argConfig, nombresPersonajes);
 
 	mapPersonajes = appConfig.get_Config_Personajes();
 	mapFondoPantalla = appConfig.get_Config_FondosPantalla();
@@ -139,7 +139,7 @@ int main(int argc, char* argv[]) {
 //			std::cout << "hilo principal main cliente" << std::endl;
 			ComandoAlServidor comandoParaServidor;
 			comandoParaServidor.comando = controller.processInputCliente();
-			if (comandoParaServidor.comando != 99)
+			if (comandoParaServidor.comando != 99 && cliente.Titular)
 				cliente.enviarComandoAServidor(comandoParaServidor);
 			usleep(100000);
 //			model.update();

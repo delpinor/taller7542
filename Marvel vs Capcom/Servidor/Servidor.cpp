@@ -10,53 +10,52 @@ pthread_mutex_t mutex_server;
 Partida miPartida;
 
 // Hilo de control de partida. Finalizacion, inicio, etc.
-void * controlPartida(void *){
+void * controlPartida(void *) {
 
-	while(1){
-		if(miPartida.EquipoCompleto()){
+	while (1) {
+		if (miPartida.EquipoCompleto()) {
 			miPartida.IniciarPartida();
 		}
 	}
 }
 
 //Hilo de loggeo de informacion
-void * loggeoPartida(void *){
-		while (1) {
-			cout << "Inicio partida: "
-					<< (miPartida.Iniciada() == true ? "Iniciada" : "No iniciada")
-					<< endl;
-			cout << "Final partida: "
-					<< (miPartida.Finalizada() == true ?
-							"Finalizada" : "No finalizada") << endl;
-			cout << "Cantidad jugadores: " << miPartida.GetCantidadJugando()
-					<< endl;
-			cout << "Cantidad en espera: " << miPartida.GetCantidadEspera()
-					<< endl;
-			cout << "Cantidad en desconectados: "
-					<< miPartida.GetCantidadDesconectados() << endl;
-			cout << "Jugadores:" << endl;
+void * loggeoPartida(void *) {
+	while (1) {
+		cout << "Inicio partida: "
+				<< (miPartida.Iniciada() == true ? "Iniciada" : "No iniciada")
+				<< endl;
+		cout << "Final partida: "
+				<< (miPartida.Finalizada() == true ?
+						"Finalizada" : "No finalizada") << endl;
+		cout << "Cantidad jugadores: " << miPartida.GetCantidadJugando()
+				<< endl;
+		cout << "Cantidad en espera: " << miPartida.GetCantidadEspera() << endl;
+		cout << "Cantidad en desconectados: "
+				<< miPartida.GetCantidadDesconectados() << endl;
+		cout << "Jugadores:" << endl;
 
-			list<ClienteConectado> lista = miPartida.GetListaJugadores();
-			list<ClienteConectado>::iterator it;
-			for (it = lista.begin(); it != lista.end(); it++) {
-				cout << "Socket: " << it->socket << endl;
-				cout << "Nombre: " << it->nombre << endl;
-				cout << "Numero de Jugador: " << it->numeroJugador << endl;
-				cout << "Equipo: " << it->equipo << endl;
-				cout << "Titular: "
-						<< (it->titular == true ? "Es titular" : "Es suplente")
-						<< endl;
-				cout << "------------------------" << endl;
-				cout << "------------------------" << endl;
-			}
-			if (miPartida.Finalizada()) {
-				cout << "Partida finalizada!" << it->nombre << endl;
-				pthread_exit(NULL);
-
-			}
-
-			sleep(1);
+		list<ClienteConectado> lista = miPartida.GetListaJugadores();
+		list<ClienteConectado>::iterator it;
+		for (it = lista.begin(); it != lista.end(); it++) {
+			cout << "Socket: " << it->socket << endl;
+			cout << "Nombre: " << it->nombre << endl;
+			cout << "Numero de Jugador: " << it->numeroJugador << endl;
+			cout << "Equipo: " << it->equipo << endl;
+			cout << "Titular: "
+					<< (it->titular == true ? "Es titular" : "Es suplente")
+					<< endl;
+			cout << "------------------------" << endl;
+			cout << "------------------------" << endl;
 		}
+		if (miPartida.Finalizada()) {
+			cout << "Partida finalizada!" << it->nombre << endl;
+			pthread_exit(NULL);
+
+		}
+
+		sleep(1);
+	}
 
 }
 
@@ -69,9 +68,9 @@ void * enviarDatos(void * datos) {
 
 	while (corriendo) {
 
-		//Mensaje de conexión
+		////------->Mensaje de conexión
 		IDMENSAJE idPing = PING;
-		if (send(sock, &idPing, sizeof(idPing), 0) == -1){
+		if (send(sock, &idPing, sizeof(idPing), 0) == -1) {
 			cout << "Jugador " << usuario << " desconectado..." << endl;
 			miPartida.JugadorDesconectado(usuario);
 			// Cierro los sockets
@@ -80,16 +79,34 @@ void * enviarDatos(void * datos) {
 			pthread_exit(NULL);
 			corriendo = false;
 		}
-		//Envio de Jugador
-		if(miPartida.Iniciada()){
+
+		//------->Mensaje de Equipo
+		IDMENSAJE idEquipo = EQUIPO;
+		ClienteEquipo unEquipo;
+		pthread_mutex_lock(&mutex_server);
+		if(!miPartida.Iniciada()){
+			unEquipo.equipo = miPartida.GetClienteEspera(usuario).equipo;
+			unEquipo.titular = miPartida.GetClienteEspera(usuario).titular ;
+		}else{
+			unEquipo.equipo = miPartida.GetClienteJugando(usuario).equipo;
+			unEquipo.titular = miPartida.GetClienteJugando(usuario).titular ;
+		}
+		pthread_mutex_unlock(&mutex_server);
+
+		send(sock, &idEquipo, sizeof(idEquipo), 0);
+		send(sock, &unEquipo, sizeof(unEquipo),0);
+
+
+		//------->Envio de Jugador
+		if (miPartida.Iniciada()) {
 			IDMENSAJE idModelo = MODELO;
 			pthread_mutex_lock(&mutex_server);
 			ModeloEstado unModelo = miPartida.GetModeloEstado();
+			miPartida.GetModelo()->update();
 			pthread_mutex_unlock(&mutex_server);
 			send(sock, &idModelo, sizeof(idModelo), 0);
 			send(sock, &unModelo, sizeof(unModelo), 0);
 		}
-
 
 		usleep(1000);
 	}
@@ -108,7 +125,9 @@ void * recibirDatos(void * datos) {
 	unCliente.nombre = usuario;
 
 	//Completo datos cliente
-	miPartida.AgregarCliente(unCliente);
+	pthread_mutex_lock(&mutex_server);
+	miPartida.AgregarCliente(&unCliente);
+	pthread_mutex_unlock(&mutex_server);
 
 	//-------->Loop de escucha
 	bool corriendo = true;
@@ -120,78 +139,83 @@ void * recibirDatos(void * datos) {
 			recv(sock, &unMensaje, sizeof(unMensaje), 0);
 			cout << " Mensaje: " << unMensaje.mensaje << endl;
 		}
+
+		if (idMsg == COMANDO) {
+			ComandoAlServidor unComando;
+			recv(unCliente.socket, &unComando, sizeof(unComando), 0);
+			//miPartida.GetModelo()->getEquipoNro(unCliente.equipo)->agregarCambio();
+		}
 	}
 }
-void Servidor::LanzarHiloControl(){
+void Servidor::LanzarHiloControl() {
 	//Hilo de control
 	pthread_t thread_control;
 	pthread_create(&thread_control, NULL, controlPartida, NULL);
 	pthread_detach(thread_control);
 }
-void Servidor::LanzarHiloLoggeo(){
+void Servidor::LanzarHiloLoggeo() {
 	pthread_t pthread_log;
 	//Hilo de loggeo
 	pthread_create(&pthread_log, NULL, loggeoPartida, NULL);
 	pthread_detach(pthread_log);
 }
-void Servidor::SetModel(Model * model){
+void Servidor::SetModel(Model * model) {
 	miPartida.SetModelo(model);
 }
-void Servidor::AceptarClientes(int maxClientes){
+void Servidor::AceptarClientes(int maxClientes) {
 	//Aceptar clientes
-		struct sockaddr_in paramentrosCliente;
-		unsigned int tamanho = sizeof(paramentrosCliente);
-		bool corriendo = true;
-		while (corriendo) {
-			int socketComunicacion;
-			socketComunicacion = accept(connServidor.socketConexion,(struct sockaddr *) &paramentrosCliente, &tamanho);
+	struct sockaddr_in paramentrosCliente;
+	unsigned int tamanho = sizeof(paramentrosCliente);
+	bool corriendo = true;
+	while (corriendo) {
+		int socketComunicacion;
+		socketComunicacion = accept(connServidor.socketConexion,
+				(struct sockaddr *) &paramentrosCliente, &tamanho);
 
-			//Primer mensaje recibido.
-			JugadorLogin login;
-			IDMENSAJE idMsg;
-			recv(socketComunicacion, &idMsg, sizeof(idMsg), 0);
-			if (idMsg == LOGIN) {
-				recv(socketComunicacion, &login, sizeof(login), 0);
-			}
-			if ((miPartida.GetCantidadJugando() < maxClientes)	|| miPartida.EsClienteDesconectado(login.usuario)) {
+		//Primer mensaje recibido.
+		JugadorLogin login;
+		IDMENSAJE idMsg;
+		recv(socketComunicacion, &idMsg, sizeof(idMsg), 0);
+		if (idMsg == LOGIN) {
+			recv(socketComunicacion, &login, sizeof(login), 0);
+		}
+		if ((miPartida.GetCantidadJugando() < maxClientes)
+				|| miPartida.EsClienteDesconectado(login.usuario)) {
 
-				// Datos para el thread
-				DatosHiloServidor datos;
-				datos.sock = socketComunicacion;
-				datos.usuario = login.usuario;
+			// Datos para el thread
+			DatosHiloServidor datos;
+			datos.sock = socketComunicacion;
+			datos.usuario = login.usuario;
 
-				//Creo hilo de recepcion
-				pthread_t hiloRecepcion;
-				pthread_create(&hiloRecepcion, NULL, recibirDatos, (void*) &datos);
-				pthread_detach(hiloRecepcion);
+			//Creo hilo de recepcion
+			pthread_t hiloRecepcion;
+			pthread_create(&hiloRecepcion, NULL, recibirDatos, (void*) &datos);
+			pthread_detach(hiloRecepcion);
 
+			//Creo un hilo de envio
+			pthread_t hiloEnvio;
+			pthread_create(&hiloEnvio, NULL, enviarDatos, (void*) &datos);
+			pthread_detach(hiloEnvio);
 
-				//Creo un hilo de envio
-				pthread_t hiloEnvio;
-				pthread_create(&hiloEnvio, NULL, enviarDatos, (void*)&datos);
-				pthread_detach(hiloEnvio);
+		} else {
+			Mensaje msg;
+			// Puede ser otro tipo de mensaje....
+			IDMENSAJE idMsg = MENSAJE;
+			strcpy(msg.mensaje, "Partida completa!");
+			send(socketComunicacion, &idMsg, sizeof(idMsg), 0);
+			send(socketComunicacion, &msg, sizeof(msg), 0);
 
-
-
-			} else {
-				Mensaje msg;
-				// Puede ser otro tipo de mensaje....
-				IDMENSAJE idMsg = MENSAJE;
-				strcpy(msg.mensaje, "Partida completa!");
-				send(socketComunicacion, &idMsg, sizeof(idMsg), 0);
-				send(socketComunicacion, &msg, sizeof(msg), 0);
-
-				shutdown(socketComunicacion, SHUT_RDWR);
-				close(socketComunicacion);
-			}
-
+			shutdown(socketComunicacion, SHUT_RDWR);
+			close(socketComunicacion);
 		}
 
-		shutdown(connServidor.socketConexion, SHUT_RDWR);
-		close(connServidor.socketConexion);
+	}
 
-		shutdown(connServidor.socketComunicacion, SHUT_RDWR);
-		close(connServidor.socketComunicacion);
+	shutdown(connServidor.socketConexion, SHUT_RDWR);
+	close(connServidor.socketConexion);
+
+	shutdown(connServidor.socketComunicacion, SHUT_RDWR);
+	close(connServidor.socketComunicacion);
 }
 void Servidor::IniciarServidor(int maxClientes, char * puerto) {
 
@@ -201,7 +225,6 @@ void Servidor::IniciarServidor(int maxClientes, char * puerto) {
 	LanzarHiloControl();
 	LanzarHiloLoggeo();
 	AceptarClientes(maxClientes);
-
 
 }
 

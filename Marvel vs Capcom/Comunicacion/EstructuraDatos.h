@@ -45,7 +45,7 @@ struct ComandoAlServidor{
 struct Mensaje {
 	char mensaje[300];
 };
-struct JugadorEquipo {
+struct ClienteEquipo {
 	int equipo;
 	bool titular;
 };

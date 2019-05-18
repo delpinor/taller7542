@@ -19,6 +19,8 @@
 class Cliente {
 public:
 	Cliente(View* vista, Conexion* conexion);
+	int Equipo;
+	bool Titular;
 	int ConectarConServidor(char* ip, char* puerto);
 	void PushModeloEnCola(ModeloEstado modelo);
 	ModeloEstado PopModeloDeCola();
@@ -44,6 +46,7 @@ private:
 	View* vista;
 	std::queue<ModeloEstado> ModeloCambios;
 	int tiempoUltimoMensajeRecivido;
+
 };
 
 #endif /* CLIENTE_H_ */

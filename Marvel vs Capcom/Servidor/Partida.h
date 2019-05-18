@@ -47,7 +47,7 @@ public:
 	void JugadorDesconectado(string nombre);
 	void JuegaTitular(int equipo, ClienteConectado desconectado);
 	void JuegaSuplente(int equipo);
-	void AgregarCliente(ClienteConectado cliente);
+	void AgregarCliente(ClienteConectado * cliente);
 	ClienteConectado GetClienteEspera(string nombre);
 	ClienteConectado GetClienteJugando(string nombre);
 	ClienteConectado GetClienteDesconectado(string nombre);

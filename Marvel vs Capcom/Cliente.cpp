@@ -125,26 +125,28 @@ void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
 }
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
-	cout << "adentro de recibirModeloDelServidor()." << endl;
-	recv(this->getConexion()->getSocketCliente(), &idMsg,
-			sizeof(idMsg), 0);
-//	this->conexion->recibir_mensaje(this->getConexion()->getSocketCliente(),
-//			&idMsg, sizeof(idMsg));
+	recv(this->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
 	cout << "tipo mensaje recibido: " << idMsg << endl;
+
+	//-------->Recibe EQUIPO
+	if (idMsg == EQUIPO) {
+		ClienteEquipo unClienteEquipo;
+		recv(this->getConexion()->getSocketCliente(), &unClienteEquipo, sizeof(unClienteEquipo), 0);
+		Titular = unClienteEquipo.titular;
+		Equipo = unClienteEquipo.equipo;
+	}
+
+	//-------->Recibe MENSAJE
 	if (idMsg == MENSAJE) {
 		Mensaje unMensaje;
-		recv(this->getConexion()->getSocketCliente(), &unMensaje,
-				sizeof(unMensaje), 0);
-
-
-//				pthread_mutex_lock(&mutexx);
-//		cout << " Mensaje: " << unMensaje.mensaje << endl;
-//				pthread_mutex_unlock(&mutexx);
+		recv(this->getConexion()->getSocketCliente(), &unMensaje, sizeof(unMensaje), 0);
 	}
-	// Aca se esta bloqueando, no esta recibiendo el modelo..
+
+	//-------->Recibe MODELO
 	if (idMsg == MODELO) {
 		ModeloEstado unModelo;
-		cout << "socket cliente: " << this->getConexion()->getSocketCliente() << endl;
+		cout << "socket cliente: " << this->getConexion()->getSocketCliente()
+				<< endl;
 		recv(this->getConexion()->getSocketCliente(), &unModelo,
 				sizeof(unModelo), 0);
 		cout << "Modelo recibido!!!!: " << idMsg << endl;
