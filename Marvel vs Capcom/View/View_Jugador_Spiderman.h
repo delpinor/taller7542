@@ -9,7 +9,7 @@ public:
 	void initialize(Jugador *model,
 		LTexture * texturaJugador);
 
-private:
+protected:
 	void getSpritesAnimacion();
 	void getSpritesCaminar();
 	void getSpritesSaltar();

@@ -22,7 +22,7 @@ void View_Jugador_Default::initialize(Jugador *model,
 	CANTSPRITECLIPSALTA = 1;
 	MINFRAMESALTA = 0;
 	MAXFRAMESALTA = 1;
-	CANTSPRITEANIMACION = 1;
+	CANTSPRITEANIMACION = 2;
 	MINFRAMEANIMACION = 0;
 	MAXFRAMEANIMACION = 1;
 
@@ -63,4 +63,8 @@ void View_Jugador_Default::getSprites() {
 	gSpriteAnimacion[0].y = 0;
 	gSpriteAnimacion[0].w = 128;
 	gSpriteAnimacion[0].h = 128;
+	gSpriteAnimacion[1].x = 0;
+	gSpriteAnimacion[1].y = 0;
+	gSpriteAnimacion[1].w = 128;
+	gSpriteAnimacion[1].h = 128;
 }
