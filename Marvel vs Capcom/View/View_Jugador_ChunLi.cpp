@@ -23,70 +23,66 @@ void View_Jugador_ChunLi::initialize(Jugador *model,
 }
 
 void View_Jugador_ChunLi::getSpritesCaminar() {
-	CANTSPRITECLIPCAMINA = 12;
+	CANTSPRITECLIPCAMINA = 11;
 	MINFRAMECAMINA = 0;
-	MAXFRAMECAMINA = 11;
+	MAXFRAMECAMINA = 10;
 	this->gSpriteCaminar = new SDL_Rect[CANTSPRITECLIPCAMINA];
 
-	gSpriteCaminar[0].x = 0;
-	gSpriteCaminar[0].y = 150;
-	gSpriteCaminar[0].w = 90;
-	gSpriteCaminar[0].h = 130;
+	gSpriteCaminar[0].x = 32;
+	gSpriteCaminar[0].y = 328;
+	gSpriteCaminar[0].w = 83;
+	gSpriteCaminar[0].h = 93;
 
-	gSpriteCaminar[1].x = 100;
-	gSpriteCaminar[1].y = 150;
-	gSpriteCaminar[1].w = 90;
-	gSpriteCaminar[1].h = 130;
+	gSpriteCaminar[1].x = 127;
+	gSpriteCaminar[1].y = 328;
+	gSpriteCaminar[1].w = 83;
+	gSpriteCaminar[1].h = 93;
 
-	gSpriteCaminar[2].x = 200;
-	gSpriteCaminar[2].y = 150;
-	gSpriteCaminar[2].w = 90;
-	gSpriteCaminar[2].h = 130;
+	gSpriteCaminar[2].x = 206;
+	gSpriteCaminar[2].y = 328;
+	gSpriteCaminar[2].w = 83;
+	gSpriteCaminar[2].h = 93;
 
-	gSpriteCaminar[3].x = 300;
-	gSpriteCaminar[3].y = 150;
-	gSpriteCaminar[3].w = 90;
-	gSpriteCaminar[3].h = 130;
+	gSpriteCaminar[3].x = 283;
+	gSpriteCaminar[3].y = 328;
+	gSpriteCaminar[3].w = 83;
+	gSpriteCaminar[3].h = 93;
 
-	gSpriteCaminar[4].x = 400;
-	gSpriteCaminar[4].y = 150;
-	gSpriteCaminar[4].w = 90;
-	gSpriteCaminar[4].h = 130;
+	gSpriteCaminar[4].x = 366;
+	gSpriteCaminar[4].y = 328;
+	gSpriteCaminar[4].w = 83;
+	gSpriteCaminar[4].h = 93;
 
-	gSpriteCaminar[5].x = 500;
-	gSpriteCaminar[5].y = 150;
-	gSpriteCaminar[5].w = 90;
-	gSpriteCaminar[5].h = 130;
+	gSpriteCaminar[5].x = 450;
+	gSpriteCaminar[5].y = 328;
+	gSpriteCaminar[5].w = 83;
+	gSpriteCaminar[5].h = 93;
 
-	gSpriteCaminar[6].x = 5;
-	gSpriteCaminar[6].y = 280;
-	gSpriteCaminar[6].w = 100;
-	gSpriteCaminar[6].h = 130;
+	gSpriteCaminar[6].x = 538;
+	gSpriteCaminar[6].y = 328;
+	gSpriteCaminar[6].w = 83;
+	gSpriteCaminar[6].h = 93;
 
-	gSpriteCaminar[7].x = 105;
-	gSpriteCaminar[7].y = 280;
-	gSpriteCaminar[7].w = 90;
-	gSpriteCaminar[7].h = 130;
+	gSpriteCaminar[7].x = 615;
+	gSpriteCaminar[7].y = 328;
+	gSpriteCaminar[7].w = 83;
+	gSpriteCaminar[7].h = 93;
 
-	gSpriteCaminar[8].x = 195;
-	gSpriteCaminar[8].y = 280;
-	gSpriteCaminar[8].w = 90;
-	gSpriteCaminar[8].h = 130;
+	gSpriteCaminar[8].x = 690;
+	gSpriteCaminar[8].y = 328;
+	gSpriteCaminar[8].w = 83;
+	gSpriteCaminar[8].h = 93;
 
-	gSpriteCaminar[9].x = 295;
-	gSpriteCaminar[9].y = 280;
-	gSpriteCaminar[9].w = 105;
-	gSpriteCaminar[9].h = 130;
+	gSpriteCaminar[9].x = 763;
+	gSpriteCaminar[9].y = 328;
+	gSpriteCaminar[9].w = 83;
+	gSpriteCaminar[9].h = 93;
 
-	gSpriteCaminar[10].x = 400;
-	gSpriteCaminar[10].y = 285;
-	gSpriteCaminar[10].w = 90;
-	gSpriteCaminar[10].h = 130;
+	gSpriteCaminar[10].x = 838;
+	gSpriteCaminar[10].y = 328;
+	gSpriteCaminar[10].w = 83;
+	gSpriteCaminar[10].h = 93;
 
-	gSpriteCaminar[11].x = 495;
-	gSpriteCaminar[11].y = 285;
-	gSpriteCaminar[11].w = 90;
-	gSpriteCaminar[11].h = 130;
 }
 
 void View_Jugador_ChunLi::getSpritesAnimacion() {
@@ -134,40 +130,55 @@ void View_Jugador_ChunLi::getSpritesAnimacion() {
 }
 
 void View_Jugador_ChunLi::getSpritesSaltar() {
-	CANTSPRITECLIPSALTA = 6;
+	CANTSPRITECLIPSALTA = 9;
 	MINFRAMESALTA = 0;
-	MAXFRAMESALTA = 5;
+	MAXFRAMESALTA = 8;
 	this->gSpriteSaltar = new SDL_Rect[CANTSPRITECLIPSALTA];
 
-	gSpriteSaltar[0].x = 4;
-	gSpriteSaltar[0].y = 481;
-	gSpriteSaltar[0].w = 88;
-	gSpriteSaltar[0].h = 119;
+	gSpriteSaltar[0].x = 94;
+	gSpriteSaltar[0].y = 526;
+	gSpriteSaltar[0].w = 65;
+	gSpriteSaltar[0].h = 116;
 
-	gSpriteSaltar[1].x = 104;
-	gSpriteSaltar[1].y = 421;
-	gSpriteSaltar[1].w = 86;
-	gSpriteSaltar[1].h = 165;
+	gSpriteSaltar[1].x = 154;
+	gSpriteSaltar[1].y = 526;
+	gSpriteSaltar[1].w = 65;
+	gSpriteSaltar[1].h = 116;
 
-	gSpriteSaltar[2].x = 296;
-	gSpriteSaltar[2].y = 424;
-	gSpriteSaltar[2].w = 106;
-	gSpriteSaltar[2].h = 90;
+	gSpriteSaltar[2].x = 219;
+	gSpriteSaltar[2].y = 526;
+	gSpriteSaltar[2].w = 65;
+	gSpriteSaltar[2].h = 116;
 
-	gSpriteSaltar[3].x = 404;
-	gSpriteSaltar[3].y = 424;
-	gSpriteSaltar[3].w = 88;
-	gSpriteSaltar[3].h = 97;
+	gSpriteSaltar[3].x = 292;
+	gSpriteSaltar[3].y = 526;
+	gSpriteSaltar[3].w = 65;
+	gSpriteSaltar[3].h = 116;
 
-	gSpriteSaltar[4].x = 493;
-	gSpriteSaltar[4].y = 425;
-	gSpriteSaltar[4].w = 109;
-	gSpriteSaltar[4].h = 166;
+	gSpriteSaltar[4].x = 362;
+	gSpriteSaltar[4].y = 526;
+	gSpriteSaltar[4].w = 65;
+	gSpriteSaltar[4].h = 116;
 
-	gSpriteSaltar[5].x = 4;
-	gSpriteSaltar[5].y = 481;
-	gSpriteSaltar[5].w = 88;
-	gSpriteSaltar[5].h = 119;
+	gSpriteSaltar[5].x = 434;
+	gSpriteSaltar[5].y = 526;
+	gSpriteSaltar[5].w = 65;
+	gSpriteSaltar[5].h = 116;
+
+	gSpriteSaltar[6].x = 506;
+	gSpriteSaltar[6].y = 526;
+	gSpriteSaltar[6].w = 65;
+	gSpriteSaltar[6].h = 116;
+
+	gSpriteSaltar[7].x = 561;
+	gSpriteSaltar[7].y = 526;
+	gSpriteSaltar[7].w = 65;
+	gSpriteSaltar[7].h = 116;
+
+	gSpriteSaltar[8].x = 626;
+	gSpriteSaltar[8].y = 526;
+	gSpriteSaltar[8].w = 65;
+	gSpriteSaltar[8].h = 116;
 }
 
 void View_Jugador_ChunLi::getSpritesAgachar() {
@@ -183,9 +194,9 @@ void View_Jugador_ChunLi::getSpritesCambioPersonaje() {
 
 	this->gSpriteCambiarPersonaje = new SDL_Rect[1];
 
-	gSpriteCambiarPersonaje[0].x = 97;
-	gSpriteCambiarPersonaje[0].y = 581;
-	gSpriteCambiarPersonaje[0].w = 100;
-	gSpriteCambiarPersonaje[0].h = 163;
+	gSpriteCambiarPersonaje[0].x = 89;
+	gSpriteCambiarPersonaje[0].y = 525;
+	gSpriteCambiarPersonaje[0].w = 73;
+	gSpriteCambiarPersonaje[0].h = 108;
 }
 
