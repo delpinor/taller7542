@@ -3,12 +3,10 @@
 #include <SDL2/SDL.h>
 #include "../View/View_Jugador_Spiderman.h"
 
-class View_Jugador_SpidermanBlack: public View_Jugador_Spiderman {
+class View_Jugador_SpidermanBlack: public View_Jugador_Spiderman { // @suppress("Class has a virtual method and non-virtual destructor")
 public:
 	View_Jugador_SpidermanBlack();
 	void initialize(Jugador *model,
 		LTexture * texturaJugador);
-
 };
-
 #endif

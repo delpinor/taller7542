@@ -18,16 +18,21 @@ View_Jugador * ViewEquipo::cargarVistaPersonaje(std::string nombrePersonaje) {
 
 	if (nombrePersonaje == "Venom")
 		return new View_Jugador_Venom();
-	if (nombrePersonaje == "Captain America")
+	else if (nombrePersonaje == "Captain America")
 		return new View_Jugador_CapAmerica();
-	if (nombrePersonaje == "default")
-		return new View_Jugador_Default();
-	if (nombrePersonaje == "Captain America Black")
+	else if (nombrePersonaje == "Captain America Black")
 		return new View_Jugador_CapAmericaBlack();
-	if (nombrePersonaje == "Venom Black")
+	else if (nombrePersonaje == "Venom Black")
 		return new View_Jugador_VenomBlack();
-	if (nombrePersonaje == "Spiderman")
+	else if (nombrePersonaje == "Spiderman")
 		return new View_Jugador_Spiderman();
+	else if (nombrePersonaje == "Spiderman Black")
+		return new View_Jugador_SpidermanBlack();
+	else if (nombrePersonaje == "Chun Li")
+		return new View_Jugador_ChunLi();
+	else if (nombrePersonaje == "Chun Li Black")
+		return new View_Jugador_ChunLiBlack();
+return new View_Jugador_Default();
 }
 
 void ViewEquipo::initialize(Equipo * equipo, LTexture texturaEquipo[]) {
