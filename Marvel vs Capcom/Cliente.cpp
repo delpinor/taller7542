@@ -43,6 +43,7 @@ void * hilo_render(void * cliente) {
 			p->actualizarModelo(modelo);
 		}
 		p->getVista()->render();
+		p->getVista()->model->update();
 		usleep(25000);
 	}
 }
@@ -74,19 +75,19 @@ void Cliente::actualizarModelo(ModeloEstado modelo) {
 			modelo.jugadoresEquipo1.velY);
 
 	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(
-			modelo.jugadoresEquipo1.isActivo);
+			modelo.jugadoresEquipo2.isActivo);
 	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(
-			modelo.jugadoresEquipo1.isAgachado);
+			modelo.jugadoresEquipo2.isAgachado);
 	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(
-			modelo.jugadoresEquipo1.isCambiandoPersonaje);
+			modelo.jugadoresEquipo2.isCambiandoPersonaje);
 	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setPosX(
-			modelo.jugadoresEquipo1.posX);
+			modelo.jugadoresEquipo2.posX);
 	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setPosY(
-			modelo.jugadoresEquipo1.posY);
+			modelo.jugadoresEquipo2.posY);
 	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setVelocidadX(
-			modelo.jugadoresEquipo1.velX);
+			modelo.jugadoresEquipo2.velX);
 	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setVelocidadY(
-			modelo.jugadoresEquipo1.velY);
+			modelo.jugadoresEquipo2.velY);
 
 	this->getVista()->getCamara()->x = modelo.camara.posX;
 	this->getVista()->getCamara()->y = modelo.camara.posY;
@@ -120,7 +121,7 @@ void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
 	error = send(this->getConexion()->getSocketCliente(), &com,sizeof(com), MSG_NOSIGNAL);
 
 	error = send(this->getConexion()->getSocketCliente(), &comando, sizeof(comando), MSG_NOSIGNAL);
-	cout << "comando enviado:  " << comando.comando << endl;
+	//cout << "comando enviado:  " << comando.comando << endl;
 
 	// manejar errores de conexions
 }
@@ -146,14 +147,11 @@ int Cliente::recibirModeloDelServidor() {
 	//-------->Recibe MODELO
 	if (idMsg == MODELO) {
 		ModeloEstado unModelo;
-//		cout << "socket cliente: " << this->getConexion()->getSocketCliente()
-//				<< endl;
 		recv(this->getConexion()->getSocketCliente(), &unModelo,
 				sizeof(unModelo), 0);
-//		cout << "Modelo recibido!!!!: " << idMsg << endl;
 		pthread_mutex_lock(&mutexx);
 		this->PushModeloEnCola(unModelo);
-//		cout << "Modelo recibido" << endl;
+		cout << "Modelo recibido: " << unModelo.jugadoresEquipo1.posX << endl;
 		pthread_mutex_unlock(&mutexx);
 	}
 	return NULL;

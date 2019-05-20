@@ -5,6 +5,7 @@
 #include <thread>
 #include "../Model/Model.h"
 #include "../Comunicacion/EstructuraDatos.h"
+#include "../Controller/Controller.h"
 using namespace std;
 // Estructura de Cliente
 struct ClienteConectado{
@@ -18,6 +19,7 @@ struct ClienteConectado{
 class Partida{
 private:
 	Model * modelo;
+	Controller * controlador;
 	bool partidaIniciada = false;
 	bool partidaFinalizada = false;
 	unsigned int maximoJugadores;
@@ -31,7 +33,9 @@ public:
 	list<ClienteConectado> GetListaEspera();
 	list<ClienteConectado> GetListaJugadores(int equipo);
 	ClienteConectado GetTitularJugando(int equipo);
+	void SetComando(int equipo, int comando);
 	void SetModelo(Model * model);
+	Controller * GetControlador();
 	Model * GetModelo();
 	ModeloEstado GetModeloEstado();
 	void ActualizarModelo();

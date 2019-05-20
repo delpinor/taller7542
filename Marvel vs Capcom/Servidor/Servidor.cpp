@@ -102,7 +102,6 @@ void * enviarDatos(void * datos) {
 			IDMENSAJE idModelo = MODELO;
 			pthread_mutex_lock(&mutex_server);
 			ModeloEstado unModelo = miPartida.GetModeloEstado();
-			miPartida.GetModelo()->update();
 			pthread_mutex_unlock(&mutex_server);
 			send(sock, &idModelo, sizeof(idModelo), 0);
 			send(sock, &unModelo, sizeof(unModelo), 0);
@@ -140,10 +139,12 @@ void * recibirDatos(void * datos) {
 			cout << " Mensaje: " << unMensaje.mensaje << endl;
 		}
 
-		if (idMsg == COMANDO) {
+		if ((idMsg == COMANDO) && (miPartida.Iniciada())) {
 			ComandoAlServidor unComando;
 			recv(unCliente.socket, &unComando, sizeof(unComando), 0);
-			//miPartida.GetModelo()->getEquipoNro(unCliente.equipo)->agregarCambio();
+			pthread_mutex_lock(&mutex_server);
+			miPartida.SetComando(unComando.comando, unCliente.equipo);
+			pthread_mutex_unlock(&mutex_server);
 			cout << "Comando recibido: " << unComando.comando << endl;
 		}
 	}
@@ -159,9 +160,6 @@ void Servidor::LanzarHiloLoggeo() {
 	//Hilo de loggeo
 	pthread_create(&pthread_log, NULL, loggeoPartida, NULL);
 	pthread_detach(pthread_log);
-}
-void Servidor::SetModel(Model * model) {
-	miPartida.SetModelo(model);
 }
 void Servidor::AceptarClientes(int maxClientes) {
 	//Aceptar clientes
@@ -218,14 +216,18 @@ void Servidor::AceptarClientes(int maxClientes) {
 	shutdown(connServidor.socketComunicacion, SHUT_RDWR);
 	close(connServidor.socketComunicacion);
 }
+void Servidor::SetModel(Model * model) {
+	miPartida.SetModelo(model);
+}
 void Servidor::IniciarServidor(int maxClientes, char * puerto) {
 
 	// Valores iniciales
 	miPartida.SetMaximoJugadores(maxClientes);
 	connServidor.IniciarConexion(puerto);
 	LanzarHiloControl();
-	LanzarHiloLoggeo();
+	//LanzarHiloLoggeo();
 	AceptarClientes(maxClientes);
 
 }
+
 

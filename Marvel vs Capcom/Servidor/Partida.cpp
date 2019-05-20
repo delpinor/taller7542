@@ -4,6 +4,7 @@ void Partida::IniciarPartida() {
 	listaJugadores = listaEspera;
 	listaEspera.clear();
 	partidaIniciada = true;
+	modelo->inicializar();
 	ActualizarModelo();
 	modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(120);
 	modelo->getEquipoNro(0)->getJugadorActivo()->setPosY(931);
@@ -26,11 +27,25 @@ void Partida::ActualizarModelo() {
 	}
 
 }
+void Partida::SetComando(int equipo, int comando){
+	if((comando < 8 )&& (comando >= 0) && (equipo == 1)){
+		cout << "Equipo: " << equipo<< endl;
+		cout << "Comando: " << comando<< endl;
+		controlador->SetComando(equipo, comando);
+		modelo->update();
+	}
+	cout << "Pos X: " << modelo->getEquipoNro(1)->getJugadorActivo()->getPosX() << endl;
+}
 void Partida::SetModelo(Model* model) {
 	modelo = model;
+	controlador =  new Controller();
+	controlador->SetModel(modelo);
 }
 Model * Partida::GetModelo(){
 	return modelo;
+}
+Controller * Partida::GetControlador(){
+	return controlador;
 }
 bool Partida::EquipoCompleto() {
 	if (listaEspera.size() == maximoJugadores) {

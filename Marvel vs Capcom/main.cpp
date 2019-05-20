@@ -105,7 +105,8 @@ int main(int argc, char* argv[]) {
 		cout << "puerto: " << puerto << endl;
 		View view(&model);
 		cout << "vista creada."<< endl;
-		Controller controller(&model);
+		Controller controller;
+		controller.SetModel(&model);
 		cout << "controller creado."<< endl;
 		Conexion conexion;
 		Cliente cliente(&view, &conexion);

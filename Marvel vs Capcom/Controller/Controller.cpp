@@ -8,24 +8,35 @@
 #include "../Command/CommandCtrl/AumentarVelocidadX.h"
 #include "../Command/CommandCtrl/Saltar.h"
 #include "../Command/CommandCtrl/CambiarPersonaje.h"
-
-Controller::Controller(Model* model) {
+#include <iostream>
+void Controller::SetModel(Model* model){
 	this->model = model;
-	this->commands = std::vector<CommandCtrl*>(CANTCOMMANDS);
-	this->commands[DECVELX] = new DisminuirVelocidadX(model);
-	this->commands[DECVELY] = new DisminuirVelocidadY(model);
-	this->commands[INCVELX] = new AumentarVelocidadX(model);
-	this->commands[INCVELY] = new AumentarVelocidadY(model);
-	this->commands[AGACHAR] = new Agachar(model);
-	this->commands[PARAR] = new Parar(model);
-	this->commands[SALTAR] = new Saltar(model);
-	this->commands[CAMBIAR_PERSONAJE] = new CambiarPersonaje(model);
-	this->quit = false;
+		this->commands = std::vector<CommandCtrl*>(CANTCOMMANDS);
+		this->commands[DECVELX] = new DisminuirVelocidadX(model);
+		this->commands[DECVELY] = new DisminuirVelocidadY(model);
+		this->commands[INCVELX] = new AumentarVelocidadX(model);
+		this->commands[INCVELY] = new AumentarVelocidadY(model);
+		this->commands[AGACHAR] = new Agachar(model);
+		this->commands[PARAR] = new Parar(model);
+		this->commands[SALTAR] = new Saltar(model);
+		this->commands[CAMBIAR_PERSONAJE] = new CambiarPersonaje(model);
+this->quit = false;
 }
+Controller::Controller() {
+	model = NULL;
+	quit = false;
+}
+
 Controller::~Controller() {
 	for (unsigned i = 0; i < CANTCOMMANDS; ++i) {
 		delete this->commands[i];
 	}
+}
+void Controller::SetComando(int equipo, int comando){
+	Command* command = NULL;
+	command = this->commands[comando];
+	std::cout << "Comando nulo: " << (command == NULL) << std::endl;
+	this->model->equipos[equipo]->agregarCambio(command);
 }
 bool Controller::quitPressed() {
 	return this->quit;

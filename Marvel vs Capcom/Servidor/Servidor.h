@@ -11,6 +11,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+
 struct DatosHiloServidor {
 	string usuario;
 	int sock;
@@ -20,6 +21,9 @@ class Servidor {
 private:
 	Partida partida;
 	ConexionServidor connServidor;
+	Model model;
+	//Controller controlador;
+	int num_jugadores;
 public:
 	void SetModel(Model * model);
 	void LanzarHiloControl();
