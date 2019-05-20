@@ -32,7 +32,7 @@ void Partida::SetComando(int equipo, int comando){
 		cout << "Equipo: " << equipo<< endl;
 		cout << "Comando: " << comando<< endl;
 		controlador->SetComando(equipo, comando);
-		modelo->update();
+		//modelo->update();
 	}
 	cout << "Pos X: " << modelo->getEquipoNro(1)->getJugadorActivo()->getPosX() << endl;
 }

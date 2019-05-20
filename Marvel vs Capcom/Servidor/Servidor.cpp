@@ -143,7 +143,7 @@ void * recibirDatos(void * datos) {
 			ComandoAlServidor unComando;
 			recv(unCliente.socket, &unComando, sizeof(unComando), 0);
 			pthread_mutex_lock(&mutex_server);
-			miPartida.SetComando(unComando.comando, unCliente.equipo);
+			miPartida.SetComando(unCliente.equipo, unComando.comando);
 			pthread_mutex_unlock(&mutex_server);
 			cout << "Comando recibido: " << unComando.comando << endl;
 		}
