@@ -144,9 +144,9 @@ int main(int argc, char* argv[]) {
 				cliente.enviarComandoAServidor(comandoParaServidor);
 
 			}
-			usleep(25000);
-//			model.update();
-//			view.render();
+			usleep(20);
+			model.update();
+			view.render();
 		}
 
 		return 0;
