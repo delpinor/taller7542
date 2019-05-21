@@ -65,9 +65,7 @@ void * enviarDatos(void * datos) {
 	string usuario = ((DatosHiloServidor*) datos)->usuario;
 
 	bool corriendo = true;
-
 	while (corriendo) {
-
 		////------->Mensaje de conexión
 		IDMENSAJE idPing = PING;
 		if (send(sock, &idPing, sizeof(idPing), 0) == -1) {
@@ -106,7 +104,6 @@ void * enviarDatos(void * datos) {
 			send(sock, &idModelo, sizeof(idModelo), 0);
 			send(sock, &unModelo, sizeof(unModelo), 0);
 		}
-
 		usleep(1000);
 	}
 }
@@ -143,9 +140,11 @@ void * recibirDatos(void * datos) {
 			ComandoAlServidor unComando;
 			recv(unCliente.socket, &unComando, sizeof(unComando), 0);
 			pthread_mutex_lock(&mutex_server);
-			miPartida.SetComando(unComando.comando, unCliente.equipo);
+			miPartida.SetComando(unCliente.equipo, unComando.comando);
 			pthread_mutex_unlock(&mutex_server);
 			cout << "Comando recibido: " << unComando.comando << endl;
+			cout << "*****************************************************" << endl;
+
 		}
 	}
 }

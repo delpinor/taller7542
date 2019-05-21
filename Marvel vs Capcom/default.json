@@ -40,7 +40,7 @@
 		{
 		
 			"rutaArchivoImagen" : "Images/z1.png",
-			"zIndex" : "1"
+			"zIndex" : "3"
 		},
 		{
 		
@@ -50,7 +50,7 @@
 		{
 		
 			"rutaArchivoImagen" : "Images/z3.png",
-			"zIndex" : "3"
+			"zIndex" : "1"
 		}
 	],
 	"nivel" : 
