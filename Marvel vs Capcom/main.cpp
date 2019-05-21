@@ -140,12 +140,11 @@ int main(int argc, char* argv[]) {
 //			std::cout << "hilo principal main cliente" << std::endl;
 			ComandoAlServidor comandoParaServidor;
 			comandoParaServidor.comando = controller.processInputCliente();
-			cout << "Comando salida: " << comandoParaServidor.comando << endl;
-
-			//if (comandoParaServidor.comando != 99 )
+			if ((comandoParaServidor.comando != 99)){
 				cliente.enviarComandoAServidor(comandoParaServidor);
 
-			//usleep(100000);
+			}
+			usleep(25000);
 //			model.update();
 //			view.render();
 		}

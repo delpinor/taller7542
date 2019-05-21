@@ -43,9 +43,9 @@ void * hilo_render(void * cliente) {
 			p->actualizarModelo(modelo);
 
 		}
-		p->getVista()->render();
 		p->getVista()->model->update();
-		usleep(10);
+		p->getVista()->render();
+		usleep(1000);
 	}
 }
 
@@ -117,7 +117,6 @@ void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
 	int error = 0;
 	IDMENSAJE com = COMANDO;
 	int tam_mensaje = sizeof(ComandoAlServidor);
-
 	error = send(this->getConexion()->getSocketCliente(), &com,sizeof(com), MSG_NOSIGNAL);
 	error = send(this->getConexion()->getSocketCliente(), &comando, sizeof(comando), MSG_NOSIGNAL);
 
@@ -158,9 +157,9 @@ void Cliente::lanzarHilosDelJuego() {
 	pthread_t thid_hilo_escucha;
 	pthread_t thid_hilo_render;
 	pthread_create(&thid_hilo_escucha, NULL, hilo_escucha, this);
-//	pthread_detach(thid_hilo_escucha);
+	pthread_detach(thid_hilo_escucha);
 	pthread_create(&thid_hilo_render, NULL, hilo_render, this);
-	//pthread_detach(thid_hilo_render);
+	pthread_detach(thid_hilo_render);
 }
 void Cliente::MenuDeSeleccion() {
 	//TODO

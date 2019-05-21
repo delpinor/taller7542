@@ -159,14 +159,7 @@ int Controller::processInputCliente() {
 			//TODO accion al cerrar el juego
 		}
 		return handleEventCliente(this->e);
-//		Logger::Log(LOGGER_NIVEL::DEBUG, "Controller::Event", "Personaje:" +this->model->getEquipoNro(0)->getJugadorActivo()->getNombre() +
-//		 " Pos x:"+ std::to_string(this->model->getEquipoNro(0)->getJugadorActivo()->getPosX()) +
-//		 " Pos y:" + std::to_string(this->model->getEquipoNro(0)->getJugadorActivo()->getPosY()));
-//
-//		Logger::Log(LOGGER_NIVEL::DEBUG, "Controller::Event", "Personaje:" +this->model->getEquipoNro(1)->getJugadorActivo()->getNombre() +
-//				 " Pos x:"+ std::to_string(this->model->getEquipoNro(1)->getJugadorActivo()->getPosX()) +
-//				 " Pos y:" + std::to_string(this->model->getEquipoNro(1)->getJugadorActivo()->getPosY()));
-//	}
+
 }}
 
 int Controller::handleEventCliente(SDL_Event& e) {
