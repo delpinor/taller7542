@@ -107,7 +107,7 @@ void * enviarDatos(void * datos) {
 			send(sock, &unModelo, sizeof(unModelo), 0);
 		}
 
-		usleep(1000);
+		usleep(10);
 	}
 }
 
@@ -146,6 +146,8 @@ void * recibirDatos(void * datos) {
 			miPartida.SetComando(unCliente.equipo, unComando.comando);
 			pthread_mutex_unlock(&mutex_server);
 			cout << "Comando recibido: " << unComando.comando << endl;
+			cout << "*****************************************************" << endl;
+
 		}
 	}
 }

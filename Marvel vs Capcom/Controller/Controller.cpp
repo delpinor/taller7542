@@ -35,7 +35,6 @@ Controller::~Controller() {
 void Controller::SetComando(int equipo, int comando){
 	Command* command = NULL;
 	command = this->commands[comando];
-	std::cout << "Comando nulo: " << (command == NULL) << std::endl;
 	this->model->equipos[equipo]->agregarCambio(command);
 }
 bool Controller::quitPressed() {

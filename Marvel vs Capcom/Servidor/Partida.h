@@ -6,6 +6,9 @@
 #include "../Model/Model.h"
 #include "../Comunicacion/EstructuraDatos.h"
 #include "../Controller/Controller.h"
+#include "../View/View.h"
+#define ANCHO_NIVEL 1040
+#define ALTO_NIVEL 1080
 using namespace std;
 // Estructura de Cliente
 struct ClienteConectado{
@@ -20,6 +23,8 @@ class Partida{
 private:
 	Model * modelo;
 	Controller * controlador;
+	SDL_Rect* camara;
+	SDL_Rect camaraStatic;
 	bool partidaIniciada = false;
 	bool partidaFinalizada = false;
 	unsigned int maximoJugadores;
@@ -35,6 +40,7 @@ public:
 	ClienteConectado GetTitularJugando(int equipo);
 	void SetComando(int equipo, int comando);
 	void SetModelo(Model * model);
+	void AjustarCamara();
 	Controller * GetControlador();
 	Model * GetModelo();
 	ModeloEstado GetModeloEstado();

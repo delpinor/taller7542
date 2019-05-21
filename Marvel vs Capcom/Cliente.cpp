@@ -41,10 +41,11 @@ void * hilo_render(void * cliente) {
 		if (tamModelo > 0) {
 			ModeloEstado modelo = p->PopModeloDeCola();
 			p->actualizarModelo(modelo);
+
 		}
 		p->getVista()->render();
 		p->getVista()->model->update();
-		usleep(25000);
+		usleep(10);
 	}
 }
 
@@ -113,22 +114,17 @@ int Cliente::ConectarConServidor(char* ip, char* puerto) {
 }
 
 void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
-//	cout << "por enviar el comando: "<< comando.comando << endl;
 	int error = 0;
 	IDMENSAJE com = COMANDO;
 	int tam_mensaje = sizeof(ComandoAlServidor);
 
 	error = send(this->getConexion()->getSocketCliente(), &com,sizeof(com), MSG_NOSIGNAL);
-
 	error = send(this->getConexion()->getSocketCliente(), &comando, sizeof(comando), MSG_NOSIGNAL);
-	//cout << "comando enviado:  " << comando.comando << endl;
 
-	// manejar errores de conexions
 }
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
 	recv(this->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
-//	cout << "tipo mensaje recibido: " << idMsg << endl;
 
 	//-------->Recibe EQUIPO
 	if (idMsg == EQUIPO) {
@@ -147,11 +143,12 @@ int Cliente::recibirModeloDelServidor() {
 	//-------->Recibe MODELO
 	if (idMsg == MODELO) {
 		ModeloEstado unModelo;
-		recv(this->getConexion()->getSocketCliente(), &unModelo,
-				sizeof(unModelo), 0);
+		recv(this->getConexion()->getSocketCliente(), &unModelo,sizeof(unModelo), 0);
 		pthread_mutex_lock(&mutexx);
 		this->PushModeloEnCola(unModelo);
-		cout << "Modelo recibido: " << unModelo.jugadoresEquipo1.posX << endl;
+		cout << "Pos x - Equipo 1: " << unModelo.jugadoresEquipo1.posX << endl;
+		cout << "Pos x - Equipo 2: " << unModelo.jugadoresEquipo2.posX << endl;
+		cout << "*****************************************************" << endl;
 		pthread_mutex_unlock(&mutexx);
 	}
 	return NULL;
@@ -161,9 +158,9 @@ void Cliente::lanzarHilosDelJuego() {
 	pthread_t thid_hilo_escucha;
 	pthread_t thid_hilo_render;
 	pthread_create(&thid_hilo_escucha, NULL, hilo_escucha, this);
-	pthread_detach(thid_hilo_escucha);
+//	pthread_detach(thid_hilo_escucha);
 	pthread_create(&thid_hilo_render, NULL, hilo_render, this);
-	pthread_detach(thid_hilo_render);
+	//pthread_detach(thid_hilo_render);
 }
 void Cliente::MenuDeSeleccion() {
 	//TODO
