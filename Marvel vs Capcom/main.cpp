@@ -137,12 +137,10 @@ int main(int argc, char* argv[]) {
 		cliente.lanzarHilosDelJuego();
 		cout << "Hilos del cliente lanzados."<< endl;
 		while (!controller.quitPressed()) {
-//			std::cout << "hilo principal main cliente" << std::endl;
 			ComandoAlServidor comandoParaServidor;
 			comandoParaServidor.comando = controller.processInputCliente();
 			if ((comandoParaServidor.comando != 99)){
 				cliente.enviarComandoAServidor(comandoParaServidor);
-
 			}
 			usleep(20);
 			model.update();

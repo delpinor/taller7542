@@ -90,7 +90,7 @@ void Partida::ActualizarModelo() {
 
 }
 void Partida::SetComando(int equipo, int comando){
-	if((comando < 8 )&& (comando > 0)){
+	if((comando < 8 )&& (comando >= 0)){
 		controlador->SetComando(equipo, comando);
 		modelo->update();
 		AjustarCamara();

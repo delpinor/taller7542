@@ -43,9 +43,9 @@ void * hilo_render(void * cliente) {
 			p->actualizarModelo(modelo);
 
 		}
-		p->getVista()->render();
-		p->getVista()->model->update();
-		usleep(25000);
+		//p->getVista()->render();
+		//p->getVista()->model->update();
+		//usleep(25000);
 	}
 }
 
@@ -118,7 +118,7 @@ void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
 	IDMENSAJE com = COMANDO;
 	int tam_mensaje = sizeof(ComandoAlServidor);
 	error = send(this->getConexion()->getSocketCliente(), &com, sizeof(com),
-			MSG_NOSIGNAL);
+	MSG_NOSIGNAL);
 	error = send(this->getConexion()->getSocketCliente(), &comando,
 			sizeof(comando), MSG_NOSIGNAL);
 
@@ -146,24 +146,29 @@ int Cliente::recibirModeloDelServidor() {
 	//-------->Recibe MODELO
 	if (idMsg == MODELO) {
 		ModeloEstado unModelo;
-		recv(this->getConexion()->getSocketCliente(), &unModelo,
-				sizeof(unModelo), 0);
+		recv(this->getConexion()->getSocketCliente(), &unModelo,sizeof(unModelo), 0);
 		pthread_mutex_lock(&mutexx);
+		//actualizarModelo(unModelo);
 		//this->PushModeloEnCola(unModelo);
-		this->getVista()->model->equipos[0]->setJugadorActivo(0);
-		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(0);
-		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(
-				unModelo.jugadoresEquipo1.isAgachado);
-		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(
-				unModelo.jugadoresEquipo1.isCambiandoPersonaje);
-		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setPosX(
-				unModelo.jugadoresEquipo1.posX);
-		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setPosY(
-				unModelo.jugadoresEquipo1.posY);
-		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setVelocidadX(
-				unModelo.jugadoresEquipo1.velX);
-		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setVelocidadY(
-				unModelo.jugadoresEquipo1.velY);
+
+		this->getVista()->model->equipos[0]->setJugadorActivo(unModelo.activoEquipo1);
+		this->getVista()->model->equipos[1]->setJugadorActivo(unModelo.activoEquipo2);
+
+		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setPosX(unModelo.jugadoresEquipo1.posX);
+		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setPosY(unModelo.jugadoresEquipo1.posY);
+		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setVelocidadX(unModelo.jugadoresEquipo1.velX);
+		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setVelocidadY(unModelo.jugadoresEquipo1.velY);
+		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaAgachado(unModelo.jugadoresEquipo1.isAgachado);
+		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaCambiandoPersonaje(unModelo.jugadoresEquipo1.isCambiandoPersonaje);
+
+		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setPosX(unModelo.jugadoresEquipo2.posX);
+		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setPosY(unModelo.jugadoresEquipo2.posY);
+		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setVelocidadX(unModelo.jugadoresEquipo2.velX);
+		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setVelocidadY(unModelo.jugadoresEquipo2.velY);
+		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(unModelo.jugadoresEquipo2.isActivo);
+		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaAgachado(unModelo.jugadoresEquipo2.isAgachado);
+		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaCambiandoPersonaje(unModelo.jugadoresEquipo2.isCambiandoPersonaje);
+
 		pthread_mutex_unlock(&mutexx);
 	}
 	return NULL;
