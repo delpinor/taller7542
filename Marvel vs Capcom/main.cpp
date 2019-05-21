@@ -32,6 +32,9 @@ int main(int argc, char* argv[]) {
 	nombresPersonajes->push_back("captain america black");
 	nombresPersonajes->push_back("venom black");
 	nombresPersonajes->push_back("spiderman");
+	nombresPersonajes->push_back("spiderman black");
+	nombresPersonajes->push_back("chun li");
+	nombresPersonajes->push_back("chun li black");
 	nombresPersonajes->push_back("default");
 	char * argConfig = "config.json";
 	Configuracion appConfig(argConfig, nombresPersonajes);

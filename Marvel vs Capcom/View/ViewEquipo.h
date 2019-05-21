@@ -13,6 +13,9 @@
 #include "View_Jugador_Venom.h"
 #include "View_Jugador_VenomBlack.h"
 #include "View_Jugador_Spiderman.h"
+#include "View_Jugador_SpidermanBlack.h"
+#include "View_Jugador_ChunLi.h"
+#include "View_Jugador_ChunLiBlack.h"
 #include "View_Jugador_Default.h"
 #include <vector>
 

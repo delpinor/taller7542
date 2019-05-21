@@ -1,11 +1,11 @@
-#include "View_Jugador_CapAmericaBlack.h"
+#include "View_Jugador_ChunLiBlack.h"
 
 #include <sstream>
-View_Jugador_CapAmericaBlack::View_Jugador_CapAmericaBlack() {
+View_Jugador_ChunLiBlack::View_Jugador_ChunLiBlack() {
 
 }
 
-void View_Jugador_CapAmericaBlack::initialize(Jugador *model,
+void View_Jugador_ChunLiBlack::initialize(Jugador *model, // @suppress("Member declaration not found")
 		LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
 
@@ -22,3 +22,4 @@ void View_Jugador_CapAmericaBlack::initialize(Jugador *model,
 	getSpritesCambioPersonaje();
 	texturaJugador->setColor(80, 140, 0);
 }
+

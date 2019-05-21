@@ -12,38 +12,59 @@ View_Jugador_Default::View_Jugador_Default() {
 
 }
 
-void View_Jugador_Default::initialize(Jugador *model, LTexture * texturaJugador) {
+void View_Jugador_Default::initialize(Jugador *model,
+		LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
-	this->jugador = model;
+	CANTSPRITECLIPCAMINA = 1;
+	CANTSPRITECLIP = 1;
+	MINFRAMECAMINA = 0;
+	MAXFRAMECAMINA = 1;
+	CANTSPRITECLIPSALTA = 1;
+	MINFRAMESALTA = 0;
+	MAXFRAMESALTA = 1;
+	CANTSPRITEANIMACION = 2;
+	MINFRAMEANIMACION = 0;
+	MAXFRAMEANIMACION = 1;
 
-	this->zIndex = model->get_zindex();
+	this->gSpriteCaminar= new SDL_Rect [ 1];
+	this->gSpriteCambiarPersonaje= new SDL_Rect[1];
+	this->gSpriteSaltar= new SDL_Rect  [ 1];
+	this->gSpriteAgachar= new SDL_Rect[1];
+	this->gSpriteGolpear= new SDL_Rect [ 1];
+	this->gSpriteAnimacion= new SDL_Rect[1];
+	this->jugador = model;
 	getSprites();
+	this->zIndex = model->get_zindex();
+
 }
 
 void View_Jugador_Default::getSprites() {
-	gSprite[0].x = 0;
-	gSprite[0].y = 0;
-	gSprite[0].w = 128;
-	gSprite[0].h = 128;
-
-}
-
-
-void View_Jugador_Default::render(int camX, int camY, SDL_Renderer * gRenderer) {
-	if (this->jugador->estaActivo()){
-			SDL_Rect* currentClip;
-			currentClip = &gSprite[0];
-
-			this->texturaJugador->render(this->jugador->getPosX() - camX,
-					this->jugador->getPosY() - camY, currentClip, 0, NULL,
-				this->jugador->getDireccion(), gRenderer);
-		}
-	if (this->jugador->estaAgachado()){
-				SDL_Rect* currentClip;
-				currentClip = &gSprite[0];
-
-				this->texturaJugador->render(this->jugador->getPosX() - camX,
-						this->jugador->getPosY() - camY, currentClip, 0, NULL,
-					this->jugador->getDireccion(), gRenderer);
-			}
+	gSpriteCaminar[0].x = 0;
+	gSpriteCaminar[0].y = 0;
+	gSpriteCaminar[0].w = 128;
+	gSpriteCaminar[0].h = 128;
+	gSpriteCambiarPersonaje[0].x = 0;
+	gSpriteCambiarPersonaje[0].y = 0;
+	gSpriteCambiarPersonaje[0].w = 128;
+	gSpriteCambiarPersonaje[0].h = 128;
+	gSpriteSaltar[0].x = 0;
+	gSpriteSaltar[0].y = 0;
+	gSpriteSaltar[0].w = 128;
+	gSpriteSaltar[0].h = 128;
+	gSpriteAgachar[0].x = 0;
+	gSpriteAgachar[0].y = 0;
+	gSpriteAgachar[0].w = 128;
+	gSpriteAgachar[0].h = 128;
+	gSpriteGolpear[0].x = 0;
+	gSpriteGolpear[0].y = 0;
+	gSpriteGolpear[0].w = 128;
+	gSpriteGolpear[0].h = 128;
+	gSpriteAnimacion[0].x = 0;
+	gSpriteAnimacion[0].y = 0;
+	gSpriteAnimacion[0].w = 128;
+	gSpriteAnimacion[0].h = 128;
+	gSpriteAnimacion[1].x = 0;
+	gSpriteAnimacion[1].y = 0;
+	gSpriteAnimacion[1].w = 128;
+	gSpriteAnimacion[1].h = 128;
 }

@@ -5,8 +5,14 @@ View_Jugador_CapAmerica::View_Jugador_CapAmerica() {
 
 }
 
-void View_Jugador_CapAmerica::initialize(Jugador *model, LTexture * texturaJugador) {
+void View_Jugador_CapAmerica::initialize(Jugador *model,
+		LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
+
+	CANTSPRITECLIP = 6;
+
+	this->gSpriteGolpear = new SDL_Rect[CANTSPRITECLIP];
+
 	this->jugador = model;
 	getSpritesCaminar();
 	getSpritesSaltar();
@@ -17,6 +23,11 @@ void View_Jugador_CapAmerica::initialize(Jugador *model, LTexture * texturaJugad
 }
 
 void View_Jugador_CapAmerica::getSpritesCaminar() {
+	CANTSPRITECLIPCAMINA = 12;
+	MINFRAMECAMINA = 0;
+	MAXFRAMECAMINA = 11;
+	this->gSpriteCaminar = new SDL_Rect[CANTSPRITECLIPCAMINA];
+
 	gSpriteCaminar[0].x = 0;
 	gSpriteCaminar[0].y = 150;
 	gSpriteCaminar[0].w = 90;
@@ -52,7 +63,6 @@ void View_Jugador_CapAmerica::getSpritesCaminar() {
 	gSpriteCaminar[6].w = 100;
 	gSpriteCaminar[6].h = 130;
 
-
 	gSpriteCaminar[7].x = 105;
 	gSpriteCaminar[7].y = 280;
 	gSpriteCaminar[7].w = 90;
@@ -80,40 +90,64 @@ void View_Jugador_CapAmerica::getSpritesCaminar() {
 }
 
 void View_Jugador_CapAmerica::getSpritesAnimacion() {
+	CANTSPRITEANIMACION = 9;
+	MINFRAMEANIMACION = 0;
+	MAXFRAMEANIMACION = 8;
+	this->gSpriteAnimacion = new SDL_Rect[CANTSPRITEANIMACION];
 
-	gSpriteAnimacion[0].x = 100;
-	gSpriteAnimacion[0].y = 150;
-	gSpriteAnimacion[0].w = 90;
-	gSpriteAnimacion[0].h = 130;
+		gSpriteAnimacion[0].x = 3;
+		gSpriteAnimacion[0].y = 20;
+		gSpriteAnimacion[0].w = 96;
+		gSpriteAnimacion[0].h = 114;
 
-	gSpriteAnimacion[1].x = 105;
-	gSpriteAnimacion[1].y = 280;
-	gSpriteAnimacion[1].w = 90;
-	gSpriteAnimacion[1].h = 130;
+		gSpriteAnimacion[1].x = 97;
+		gSpriteAnimacion[1].y = 20;
+		gSpriteAnimacion[1].w = 96;
+		gSpriteAnimacion[1].h = 114;
 
-	gSpriteAnimacion[2].x = 295;
-	gSpriteAnimacion[2].y = 280;
-	gSpriteAnimacion[2].w = 103;
-	gSpriteAnimacion[2].h = 130;
+		gSpriteAnimacion[2].x = 192;
+		gSpriteAnimacion[2].y = 20;
+		gSpriteAnimacion[2].w = 96;
+		gSpriteAnimacion[2].h = 114;
 
-	gSpriteAnimacion[3].x = 239;
-	gSpriteAnimacion[3].y = 861;
-	gSpriteAnimacion[3].w = 99;
-	gSpriteAnimacion[3].h = 130;
+		gSpriteAnimacion[3].x = 288;
+		gSpriteAnimacion[3].y = 20;
+		gSpriteAnimacion[3].w = 96;
+		gSpriteAnimacion[3].h = 114;
 
-	gSpriteAnimacion[4].x = 98;
-	gSpriteAnimacion[4].y = 861;
-	gSpriteAnimacion[4].w = 140;
-	gSpriteAnimacion[4].h = 130;
+		gSpriteAnimacion[4].x = 389;
+		gSpriteAnimacion[4].y = 20;
+		gSpriteAnimacion[4].w = 96;
+		gSpriteAnimacion[4].h = 114;
 
-	gSpriteAnimacion[5].x = 1;
-	gSpriteAnimacion[5].y = 858;
-	gSpriteAnimacion[5].w = 92;
-	gSpriteAnimacion[5].h = 130;
+		gSpriteAnimacion[5].x = 485;
+		gSpriteAnimacion[5].y = 20;
+		gSpriteAnimacion[5].w = 96;
+		gSpriteAnimacion[5].h = 114;
+
+		gSpriteAnimacion[6].x = 580;
+		gSpriteAnimacion[6].y = 20;
+		gSpriteAnimacion[6].w = 96;
+		gSpriteAnimacion[6].h = 114;
+
+		gSpriteAnimacion[7].x = 677;
+		gSpriteAnimacion[7].y = 20;
+		gSpriteAnimacion[7].w = 96;
+		gSpriteAnimacion[7].h = 114;
+
+		gSpriteAnimacion[8].x = 772;
+		gSpriteAnimacion[8].y = 20;
+		gSpriteAnimacion[8].w = 96;
+		gSpriteAnimacion[8].h = 114;
 
 }
 
 void View_Jugador_CapAmerica::getSpritesSaltar() {
+	CANTSPRITECLIPSALTA = 6;
+	MINFRAMESALTA = 0;
+	MAXFRAMESALTA = 5;
+	this->gSpriteSaltar = new SDL_Rect[CANTSPRITECLIPSALTA];
+
 	gSpriteSaltar[0].x = 4;
 	gSpriteSaltar[0].y = 481;
 	gSpriteSaltar[0].w = 88;
@@ -146,87 +180,21 @@ void View_Jugador_CapAmerica::getSpritesSaltar() {
 }
 
 void View_Jugador_CapAmerica::getSpritesAgachar() {
-	gSpriteAgachar[0].x = 5;
-	gSpriteAgachar[0].y = 588;
-	gSpriteAgachar[0].w = 90;
-	gSpriteAgachar[0].h = 130;
+	this->gSpriteAgachar = new SDL_Rect[1];
+
+	gSpriteAgachar[0].x = 92;
+	gSpriteAgachar[0].y = 732;
+	gSpriteAgachar[0].w = 97;
+	gSpriteAgachar[0].h = 116;
 }
 
 void View_Jugador_CapAmerica::getSpritesCambioPersonaje() {
+
+	this->gSpriteCambiarPersonaje = new SDL_Rect[1];
+
 	gSpriteCambiarPersonaje[0].x = 97;
 	gSpriteCambiarPersonaje[0].y = 581;
 	gSpriteCambiarPersonaje[0].w = 100;
 	gSpriteCambiarPersonaje[0].h = 163;
 }
-
-
-void View_Jugador_CapAmerica::render(int camX, int camY,
-		SDL_Renderer * gRenderer) {
-	SDL_Rect* currentClip;
-	contador++;
-	if (this->jugador->estaAgachado()) {
-		contador = 0;
-		currentClip = &gSpriteAgachar[0];
-		this->texturaJugador->render(this->jugador->getPosX() - camX,
-				this->jugador->getPosY() - camY, currentClip, 0, NULL,
-				this->jugador->getDireccion(), gRenderer);
-
-	} else {
-
-		if (this->jugador->estaActivo()) {
-
-			int maxFrames;
-			int minFrames;
-			if (this->jugador->estaCambiandoPersonaje()) {
-				contador = 0;
-				Logger::Log(LOGGER_NIVEL::DEBUG,"view CapAmerica:: cambiando personaje", " ");
-				currentClip = &gSpriteCambiarPersonaje[0];
-
-			} else if (this->jugador->estado->getVelY() != 0) {
-				if (this->jugador->estado->getVelY() >= 18) {
-					frame = 0;
-				}
-				contador = 0;
-				minFrames = MINFRAMESALTA;
-				maxFrames = MAXFRAMESALTA;
-				if (frame / maxFrames >= maxFrames + 1) {
-					frame = minFrames;
-				}
-				currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
-
-			} else if ((this->jugador->estaActivo())
-					&& (this->jugador->estado->getVelY() == 0)
-					&& (this->jugador->estado->getVelX() == 0)
-					&& (contador > 100)) {
-				Logger::Log(LOGGER_NIVEL::DEBUG, "view CapAmerica:: animacion"," ");
-				currentClip = &gSpriteAnimacion[frame / MAXFRAMEANIMACION];
-				minFrames = MINFRAMEANIMACION;
-				maxFrames = MAXFRAMEANIMACION;
-				if (frame / maxFrames >= maxFrames + 1) {
-					frame = minFrames;
-					contador = 0;
-				}
-				++frame;
-			} else {
-				minFrames = MINFRAMECAMINA;
-				maxFrames = MAXFRAMECAMINA;
-				if (frame / maxFrames >= maxFrames + 1) {
-					frame = minFrames;
-				}
-				currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
-			}
-			if ((this->jugador->getVelX() != 0)
-					|| (this->jugador->getVelY() != 0)) {
-				++frame;
-				contador = 0;
-			}
-			this->texturaJugador->render(this->jugador->getPosX() - camX,
-					this->jugador->getPosY() - camY, currentClip, 0, NULL,
-					this->jugador->getDireccion(), gRenderer);
-
-		}
-	}
-
-}
-
 

@@ -1,18 +1,14 @@
-#include "View_Jugador_CapAmericaBlack.h"
+#include "View_Jugador_SpidermanBlack.h"
 
 #include <sstream>
-View_Jugador_CapAmericaBlack::View_Jugador_CapAmericaBlack() {
+View_Jugador_SpidermanBlack::View_Jugador_SpidermanBlack() {
 
 }
 
-void View_Jugador_CapAmericaBlack::initialize(Jugador *model,
+void View_Jugador_SpidermanBlack::initialize(Jugador *model,
 		LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
-
-	CANTSPRITECLIP = 6;
-
 	this->gSpriteGolpear = new SDL_Rect[CANTSPRITECLIP];
-
 	this->jugador = model;
 	getSpritesCaminar();
 	getSpritesSaltar();
@@ -22,3 +18,4 @@ void View_Jugador_CapAmericaBlack::initialize(Jugador *model,
 	getSpritesCambioPersonaje();
 	texturaJugador->setColor(80, 140, 0);
 }
+

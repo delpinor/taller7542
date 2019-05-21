@@ -16,7 +16,7 @@ void Agachado::moveVertical() {
 }
 
 bool Agachado::estaActivo() {
-	return false;
+	return true;
 }
 bool Agachado::estaAgachado() {
 	return true;

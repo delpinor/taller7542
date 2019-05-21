@@ -1,11 +1,11 @@
-#ifndef VIEW_JUGADOR_CAPAMERICA_H_
-#define VIEW_JUGADOR_CAPAMERICA_H_
+#ifndef VIEW_JUGADOR_CHUNLI_H_
+#define VIEW_JUGADOR_CHUNLI_H_
 #include <SDL2/SDL.h>
 #include "../View/View_Jugador.h"
 
-class View_Jugador_CapAmerica: public View_Jugador {
+class View_Jugador_ChunLi: public View_Jugador {
 public:
-	View_Jugador_CapAmerica();
+	View_Jugador_ChunLi();
 	void initialize(Jugador *model, LTexture * texturaJugador);
 
 protected:

@@ -5,11 +5,12 @@ View_Jugador_Venom::View_Jugador_Venom() {
 
 }
 
-void View_Jugador_Venom::initialize(Jugador * model, LTexture * texturaJugador) {
+void View_Jugador_Venom::initialize(Jugador * model,
+		LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
+	this->gSpriteGolpear = new SDL_Rect[CANTSPRITECLIP];
 	this->jugador = model;
 	this->zIndex = model->get_zindex();
-
 	getSpritesCaminar();
 	getSpritesSaltar();
 	getSpritesAgachar();
@@ -18,45 +19,84 @@ void View_Jugador_Venom::initialize(Jugador * model, LTexture * texturaJugador) 
 }
 
 void View_Jugador_Venom::getSpritesAnimacion() {
+	CANTSPRITEANIMACION = 13;
+	MINFRAMEANIMACION = 0;
+	MAXFRAMEANIMACION = 12;
 
-	gSpriteAnimacion[0].x = 4;
-	gSpriteAnimacion[0].y = 843;
-	gSpriteAnimacion[0].w = 131;
-	gSpriteAnimacion[0].h = 93;
+	this->gSpriteAnimacion = new SDL_Rect[CANTSPRITEANIMACION];
+	gSpriteAnimacion[0].x = 0;
+	gSpriteAnimacion[0].y = 515;
+	gSpriteAnimacion[0].w = 150;
+	gSpriteAnimacion[0].h = 128;
 
-	gSpriteAnimacion[1].x = 160;
-	gSpriteAnimacion[1].y = 843;
-	gSpriteAnimacion[1].w = 215;
-	gSpriteAnimacion[1].h = 93;
+	gSpriteAnimacion[1].x = 147;
+	gSpriteAnimacion[1].y = 515;
+	gSpriteAnimacion[1].w = 150;
+	gSpriteAnimacion[1].h = 128;
 
-	gSpriteAnimacion[2].x = 160;
-	gSpriteAnimacion[2].y = 843;
-	gSpriteAnimacion[2].w = 215;
-	gSpriteAnimacion[2].h = 93;
+	gSpriteAnimacion[2].x = 313;
+	gSpriteAnimacion[2].y = 515;
+	gSpriteAnimacion[2].w = 150;
+	gSpriteAnimacion[2].h = 128;
 
-	gSpriteAnimacion[3].x = 160;
-	gSpriteAnimacion[3].y = 843;
-	gSpriteAnimacion[3].w = 215;
-	gSpriteAnimacion[3].h = 93;
+	gSpriteAnimacion[3].x = 490;
+	gSpriteAnimacion[3].y = 515;
+	gSpriteAnimacion[3].w = 150;
+	gSpriteAnimacion[3].h = 128;
 
-	gSpriteAnimacion[4].x = 4;
-	gSpriteAnimacion[4].y = 1070;
-	gSpriteAnimacion[4].w = 157;
-	gSpriteAnimacion[4].h = 100;
+	gSpriteAnimacion[4].x = 676;
+	gSpriteAnimacion[4].y = 515;
+	gSpriteAnimacion[4].w = 150;
+	gSpriteAnimacion[4].h = 128;
 
-	gSpriteAnimacion[5].x = 4;
-	gSpriteAnimacion[5].y = 1070;
-	gSpriteAnimacion[5].w = 157;
-	gSpriteAnimacion[5].h = 100;
+	gSpriteAnimacion[5].x = 860;
+	gSpriteAnimacion[5].y = 515;
+	gSpriteAnimacion[5].w = 150;
+	gSpriteAnimacion[5].h = 128;
 
-	gSpriteAnimacion[6].x = 410;
-	gSpriteAnimacion[6].y = 837;
-	gSpriteAnimacion[6].w = 146;
-	gSpriteAnimacion[6].h = 99;
+	gSpriteAnimacion[6].x = 1037;
+	gSpriteAnimacion[6].y = 515;
+	gSpriteAnimacion[6].w = 150;
+	gSpriteAnimacion[6].h = 128;
+
+	gSpriteAnimacion[7].x = 0;
+	gSpriteAnimacion[7].y = 649;
+	gSpriteAnimacion[7].w = 150;
+	gSpriteAnimacion[7].h = 128;
+
+	gSpriteAnimacion[8].x = 164;
+	gSpriteAnimacion[8].y = 649;
+	gSpriteAnimacion[8].w = 150;
+	gSpriteAnimacion[8].h = 128;
+
+	gSpriteAnimacion[9].x = 331;
+	gSpriteAnimacion[9].y = 649;
+	gSpriteAnimacion[9].w = 150;
+	gSpriteAnimacion[9].h = 128;
+
+	gSpriteAnimacion[10].x = 514;
+	gSpriteAnimacion[10].y = 649;
+	gSpriteAnimacion[10].w = 150;
+	gSpriteAnimacion[10].h = 128;
+
+	gSpriteAnimacion[11].x = 688;
+	gSpriteAnimacion[11].y = 649;
+	gSpriteAnimacion[11].w = 150;
+	gSpriteAnimacion[11].h = 128;
+
+	gSpriteAnimacion[12].x = 870;
+	gSpriteAnimacion[12].y = 649;
+	gSpriteAnimacion[12].w = 150;
+	gSpriteAnimacion[12].h = 128;
 
 }
 
 void View_Jugador_Venom::getSpritesCaminar() {
+	CANTSPRITECLIPCAMINA = 10;
+	MINFRAMECAMINA = 0;
+	MAXFRAMECAMINA = 9;
+
+	this->gSpriteCaminar = new SDL_Rect[CANTSPRITECLIPCAMINA];
 	gSpriteCaminar[9].x = 3;
 	gSpriteCaminar[9].y = 3248;
 	gSpriteCaminar[9].w = 138;
@@ -109,6 +149,11 @@ void View_Jugador_Venom::getSpritesCaminar() {
 }
 
 void View_Jugador_Venom::getSpritesSaltar() {
+	CANTSPRITECLIPSALTA = 6;
+	MINFRAMESALTA = 0;
+	MAXFRAMESALTA = 5;
+
+	this->gSpriteSaltar = new SDL_Rect[CANTSPRITECLIPSALTA];
 	gSpriteSaltar[0].x = 205;
 	gSpriteSaltar[0].y = 5415;
 	gSpriteSaltar[0].w = 137;
@@ -141,6 +186,8 @@ void View_Jugador_Venom::getSpritesSaltar() {
 }
 
 void View_Jugador_Venom::getSpritesAgachar() {
+
+	this->gSpriteAgachar = new SDL_Rect[1];
 	gSpriteAgachar[0].x = 2;
 	gSpriteAgachar[0].y = 5433;
 	gSpriteAgachar[0].w = 132;
@@ -148,74 +195,13 @@ void View_Jugador_Venom::getSpritesAgachar() {
 }
 
 void View_Jugador_Venom::getSpritesCambioPersonaje() {
+	this->gSpriteCambiarPersonaje = new SDL_Rect[1];
 	gSpriteCambiarPersonaje[0].x = 196;
 	gSpriteCambiarPersonaje[0].y = 5405;
 	gSpriteCambiarPersonaje[0].w = 149;
 	gSpriteCambiarPersonaje[0].h = 170;
 }
 
-void View_Jugador_Venom::render(int camX, int camY, SDL_Renderer * gRenderer) {
-	SDL_Rect* currentClip;
-	contador++;
-	if (this->jugador->estaAgachado()) {
-
-		currentClip = &gSpriteAgachar[0];
-		this->texturaJugador->render(this->jugador->getPosX() - camX,
-				this->jugador->getPosY() - camY, currentClip, 0, NULL,
-				this->jugador->getDireccion(), gRenderer);
-
-	} else {
-		if (this->jugador->estaActivo()) {
-			int maxFrames;
-			int minFrames;
-			if (this->jugador->estaCambiandoPersonaje()) {
-				contador = 0;
-				currentClip = &gSpriteCambiarPersonaje[0];
-				Logger::Log(LOGGER_NIVEL::DEBUG,"view VenomBlack:: cambiando personaje", " ");
-
-			} else if (this->jugador->estado->getVelY() != 0) {
-				if (this->jugador->estado->getVelY() >= 18) {
-					frame = 0;
-				}
-				minFrames = MINFRAMESALTA;
-				maxFrames = MAXFRAMESALTA;
-				if (frame / maxFrames >= maxFrames + 1) {
-					frame = minFrames;
-				}
-				contador = 0;
-				currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
-			} else if ((this->jugador->estaActivo())
-					&& (this->jugador->estado->getVelY() == 0)
-					&& (this->jugador->estado->getVelX() == 0)
-					&& (contador > 100)) {
-				minFrames = MINFRAMEANIMACION;
-				maxFrames = MAXFRAMEANIMACION;
-				++frame;
-				Logger::Log(LOGGER_NIVEL::DEBUG, "view VenomBlack:: animacion"," ");
-				if (frame / maxFrames >= maxFrames + 1) {
-					frame = minFrames;
-					contador = 0;
-				}
-				currentClip = &gSpriteAnimacion[frame / MAXFRAMEANIMACION];
-			} else {
-				minFrames = MINFRAMECAMINA;
-				maxFrames = MAXFRAMECAMINA;
-				if (frame / maxFrames >= maxFrames + 1) {
-					frame = minFrames;
-				}
-				currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
-			}
-			if ((this->jugador->getVelX() != 0)
-					|| (this->jugador->getVelY() != 0)) {
-				++frame;
-				contador = 0;
-			}
-			this->texturaJugador->render(this->jugador->getPosX() - camX,
-					this->jugador->getPosY() - camY, currentClip, 0, NULL,
-					this->jugador->getDireccion(), gRenderer);
-		}
-	}
-}
-View_Jugador_Venom::~View_Jugador_Venom(){
+View_Jugador_Venom::~View_Jugador_Venom() {
 }
 
