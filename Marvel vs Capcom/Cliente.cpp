@@ -25,6 +25,7 @@ void * hilo_escucha(void * cliente) {
 	while (1) {
 //		cout << "adentro del while de escucha." << endl;
 		p->recibirModeloDelServidor();
+		usleep(60);
 	}
 }
 
@@ -41,11 +42,10 @@ void * hilo_render(void * cliente) {
 		if (tamModelo > 0) {
 			ModeloEstado modelo = p->PopModeloDeCola();
 			p->actualizarModelo(modelo);
-
 		}
 		//p->getVista()->render();
 		//p->getVista()->model->update();
-		//usleep(25000);
+		//usleep(50);
 	}
 }
 
@@ -126,7 +126,6 @@ void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
 	recv(this->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
-
 	//-------->Recibe EQUIPO
 	if (idMsg == EQUIPO) {
 		ClienteEquipo unClienteEquipo;

@@ -65,9 +65,7 @@ void * enviarDatos(void * datos) {
 	string usuario = ((DatosHiloServidor*) datos)->usuario;
 
 	bool corriendo = true;
-
 	while (corriendo) {
-
 		////------->Mensaje de conexión
 		IDMENSAJE idPing = PING;
 		if (send(sock, &idPing, sizeof(idPing), 0) == -1) {
@@ -106,8 +104,7 @@ void * enviarDatos(void * datos) {
 			send(sock, &idModelo, sizeof(idModelo), 0);
 			send(sock, &unModelo, sizeof(unModelo), 0);
 		}
-
-		usleep(10);
+		usleep(1000);
 	}
 }
 

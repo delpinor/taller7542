@@ -95,7 +95,8 @@ void Partida::SetComando(int equipo, int comando){
 		modelo->update();
 		AjustarCamara();
 	}
-
+	cout << "Alto: " << modelo->get_alto_Pantalla()<< endl;
+	cout << "Ancho: " << modelo->get_ancho_Pantalla()<< endl;
 	cout << "Equipo 0 - Pos x: " << modelo->getEquipoNro(0)->getJugadorActivo()->getPosX()<< endl;
 	cout << "Equipo 0 - Pos y: " << modelo->getEquipoNro(0)->getJugadorActivo()->getPosY()<< endl;
 	cout << "Equipo 1 - Pos x: " << modelo->getEquipoNro(1)->getJugadorActivo()->getPosX()<< endl;

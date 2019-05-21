@@ -6,7 +6,7 @@
 #include "Logger/Logger.h"
 #include "Cliente.h"
 #include "Servidor/Servidor.h"
-#define MAX_CLIENTES 2
+#define MAX_CLIENTES 3
 /* nombre_ejecutable  nombre_archivo_configuracion niveldeDebug*/
 int main(int argc, char* argv[]) {
 
@@ -120,7 +120,6 @@ int main(int argc, char* argv[]) {
 		IDMENSAJE idMsg = LOGIN;
 		// Capturo datos del jugador
 		char nombre[50];
-		cout << "Socket: " << conexion.getSocketCliente() << endl;
 		cout << "Usuario:";
 		cin >> nombre;
 		strcpy(loginUsuario.usuario, nombre);
@@ -139,10 +138,10 @@ int main(int argc, char* argv[]) {
 		while (!controller.quitPressed()) {
 			ComandoAlServidor comandoParaServidor;
 			comandoParaServidor.comando = controller.processInputCliente();
-			if ((comandoParaServidor.comando != 99)){
+			if ((comandoParaServidor.comando != 99) && cliente.Titular){
 				cliente.enviarComandoAServidor(comandoParaServidor);
 			}
-			usleep(20);
+			usleep(50);
 			model.update();
 			view.render();
 		}
