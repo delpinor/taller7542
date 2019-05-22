@@ -146,6 +146,8 @@ int main(int argc, char* argv[]) {
 			if(comandoParaServidor.comando != 99 && cliente.Titular){
 				if(comandoParaServidor.comando == 4){ // Comando agachar
 					comandoDefault.comando = 99;
+				}else{
+					comandoDefault.comando = 7;//Parar
 				}
 				cliente.enviarComandoAServidor(comandoParaServidor);
 			}
