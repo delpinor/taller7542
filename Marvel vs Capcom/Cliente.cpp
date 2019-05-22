@@ -149,7 +149,14 @@ int Cliente::recibirModeloDelServidor() {
 		pthread_mutex_lock(&mutexx);
 		//actualizarModelo(unModelo);
 		//this->PushModeloEnCola(unModelo);
-
+		if(unModelo.jugadoresEquipo1.isCambiandoPersonaje){
+			cout << "Equipo 1 cambiando personaje!!" << endl;
+			//unModelo.jugadoresEquipo1.isActivo = true;
+		}
+		if(unModelo.jugadoresEquipo2.isCambiandoPersonaje){
+					cout << "Equipo 2 cambiando personaje!!" << endl;
+					//unModelo.jugadoresEquipo2.isActivo =  true;
+				}
 		this->getVista()->model->equipos[0]->setJugadorActivo(unModelo.activoEquipo1);
 		this->getVista()->model->equipos[1]->setJugadorActivo(unModelo.activoEquipo2);
 
@@ -157,15 +164,18 @@ int Cliente::recibirModeloDelServidor() {
 		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setPosY(unModelo.jugadoresEquipo1.posY);
 		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setVelocidadX(unModelo.jugadoresEquipo1.velX);
 		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setVelocidadY(unModelo.jugadoresEquipo1.velY);
-		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaAgachado(unModelo.jugadoresEquipo1.isAgachado);
-		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaCambiandoPersonaje(unModelo.jugadoresEquipo1.isCambiandoPersonaje);
+		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(unModelo.jugadoresEquipo1.isActivo);
+		if (unModelo.jugadoresEquipo1.isAgachado)
+			this->getVista()->model->equipos[0]->getJugadorActivo()->Agachar();
+		this->getVista()->model->equipos[0]->getJugadorActivo()->cambiarPersonaje();
 
 		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setPosX(unModelo.jugadoresEquipo2.posX);
 		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setPosY(unModelo.jugadoresEquipo2.posY);
 		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setVelocidadX(unModelo.jugadoresEquipo2.velX);
 		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setVelocidadY(unModelo.jugadoresEquipo2.velY);
 		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(unModelo.jugadoresEquipo2.isActivo);
-		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaAgachado(unModelo.jugadoresEquipo2.isAgachado);
+		if (unModelo.jugadoresEquipo2.isAgachado)
+					this->getVista()->model->equipos[1]->getJugadorActivo()->Agachar();
 		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaCambiandoPersonaje(unModelo.jugadoresEquipo2.isCambiandoPersonaje);
 
 		pthread_mutex_unlock(&mutexx);

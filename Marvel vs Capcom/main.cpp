@@ -6,7 +6,7 @@
 #include "Logger/Logger.h"
 #include "Cliente.h"
 #include "Servidor/Servidor.h"
-#define MAX_CLIENTES 3
+#define MAX_CLIENTES 2
 /* nombre_ejecutable  nombre_archivo_configuracion niveldeDebug*/
 int main(int argc, char* argv[]) {
 
@@ -138,11 +138,21 @@ int main(int argc, char* argv[]) {
 		cout << "EstadoCliente seteados."<< endl;
 		cliente.lanzarHilosDelJuego();
 		cout << "Hilos del cliente lanzados."<< endl;
+		ComandoAlServidor comandoDefault;
+		comandoDefault.comando = 7; //PARAR
 		while (!controller.quitPressed()) {
 			ComandoAlServidor comandoParaServidor;
 			comandoParaServidor.comando = controller.processInputCliente();
-			if ((comandoParaServidor.comando != 99) && cliente.Titular){
+			if(comandoParaServidor.comando != 99 && cliente.Titular){
+				if(comandoParaServidor.comando == 4){
+					comandoDefault.comando = 99;
+				}else{
+					comandoDefault.comando = 7;
+				}
 				cliente.enviarComandoAServidor(comandoParaServidor);
+			}
+			if(comandoDefault.comando != 99){
+				cliente.enviarComandoAServidor(comandoDefault);
 			}
 			usleep(50);
 			model.update();

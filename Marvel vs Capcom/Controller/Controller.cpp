@@ -171,8 +171,10 @@ int Controller::processInputCliente() {
 	//		//TODO accion al cerrar el juego
 
 		return handleEventCliente(this->e);
+		//return AGACHAR;
+
 	}
-	return PARAR;
+	return 99;
 }
 
 int Controller::handleEventCliente(SDL_Event& e) {
