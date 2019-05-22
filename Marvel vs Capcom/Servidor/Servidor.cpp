@@ -90,7 +90,6 @@ void * enviarDatos(void * datos) {
 			unEquipo.titular = miPartida.GetClienteJugando(usuario).titular ;
 		}
 		pthread_mutex_unlock(&mutex_server);
-
 		send(sock, &idEquipo, sizeof(idEquipo), 0);
 		send(sock, &unEquipo, sizeof(unEquipo),0);
 

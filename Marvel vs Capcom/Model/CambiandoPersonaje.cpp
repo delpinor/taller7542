@@ -23,10 +23,10 @@ void CambiandoPersonaje::move(){
 void CambiandoPersonaje::moveVertical() {
 }
 
-//bool CambiandoPersonaje::isFueraDePantalla(){
-////	return (mPosX > ANCHO_NIVEL)||(mPosX < 0);
-//	return (mPosY < 0);
-//}
+bool CambiandoPersonaje::isFueraDePantalla(){
+	return (mPosX > ANCHO_NIVEL)||(mPosX < 0);
+	return (mPosY < 0);
+}
 
 bool CambiandoPersonaje::estaActivo() {
 	return true;
@@ -39,9 +39,9 @@ bool CambiandoPersonaje::estaCambiandoPersonaje(){
 	return true;
 }
 //métodos para cliente
-bool CambiandoPersonaje::isFueraDePantalla(){
-	return this->fueraDePantalla;
-}
+//bool CambiandoPersonaje::isFueraDePantalla(){
+	//return this->fueraDePantalla;
+//}
 void CambiandoPersonaje::setEstaActivo(bool activo){
 	this->activo = activo;
 }

@@ -3,7 +3,6 @@
 void Partida::IniciarPartida() {
 	listaJugadores = listaEspera;
 	listaEspera.clear();
-	partidaIniciada = true;
 	modelo->inicializar();
 	ActualizarModelo();
 	modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(120-80);
@@ -17,6 +16,8 @@ void Partida::IniciarPartida() {
 	modelo->setCamara(this->camara);
 //	modelo->inicializarPosicionesEquipos();
 	AjustarCamara();
+	partidaIniciada = true;
+
 }
 void Partida::AjustarCamara(){
 	// Este codigo se puede mejorar.
@@ -74,8 +75,6 @@ void Partida::AjustarCamara(){
 ModeloEstado  Partida::GetModeloEstado(){
 	ModeloEstado unModelo;
 	unModelo = modelo->GetModelEstado();
-	unModelo.jugadoresEquipo1.posX = modelo->getEquipoNro(0)->getJugadorActivo()->getPosX();
-	unModelo.jugadoresEquipo2.posX = modelo->getEquipoNro(1)->getJugadorActivo()->getPosX();
 	unModelo.activoEquipo1 = GetTitularJugando(0).numeroJugador;
 	unModelo.activoEquipo2 = GetTitularJugando(1).numeroJugador;
 	return unModelo;
@@ -95,8 +94,8 @@ void Partida::SetComando(int equipo, int comando){
 		modelo->update();
 		AjustarCamara();
 	}
-	cout << "Alto: " << modelo->get_alto_Pantalla()<< endl;
-	cout << "Ancho: " << modelo->get_ancho_Pantalla()<< endl;
+	cout << "Camara X: " << camara->x<< endl;
+	cout << "Camara Y: " << camara->y<< endl;
 	cout << "Equipo 0 - Pos x: " << modelo->getEquipoNro(0)->getJugadorActivo()->getPosX()<< endl;
 	cout << "Equipo 0 - Pos y: " << modelo->getEquipoNro(0)->getJugadorActivo()->getPosY()<< endl;
 	cout << "Equipo 1 - Pos x: " << modelo->getEquipoNro(1)->getJugadorActivo()->getPosX()<< endl;
