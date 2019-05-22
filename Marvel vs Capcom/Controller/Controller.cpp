@@ -179,45 +179,7 @@ int Controller::processInputCliente() {
 
 int Controller::handleEventCliente(SDL_Event& e) {
 	int comando = 99;
-/*
-	if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
 
-		switch (e.key.keysym.sym) {
-		case SDLK_UP:
-			comando = INCVELY;
-			break;
-		case SDLK_DOWN:
-			comando = AGACHAR;
-			break;
-		case SDLK_LEFT:
-			comando = DECVELX;
-			break;
-		case SDLK_RIGHT:
-			comando = INCVELX;
-			break;
-		case SDLK_RCTRL:
-			comando =  CAMBIAR_PERSONAJE;
-			break;
-		}
-	}
-	//If a key was released
-	else if (e.type == SDL_KEYUP && e.key.repeat == 0) {
-		switch (e.key.keysym.sym) {
-		//case SDLK_UP:
-
-		//	break;
-		case SDLK_DOWN:
-			comando =  PARAR;
-			break;
-		case SDLK_LEFT:
-			comando =  INCVELX;
-			break;
-		case SDLK_RIGHT:
-			comando =  DECVELX;
-			break;
-		}
-	}
-*/
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
 		switch (e.key.keysym.sym) {
 		case SDLK_w:

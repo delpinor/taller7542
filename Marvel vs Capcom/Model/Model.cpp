@@ -176,8 +176,8 @@ void Model::inicializarPosicionesEquipos(){
 }
 ModeloEstado Model::GetModelEstado(){
 	ModeloEstado unModeloEstado;
-	//	unModeloEstado.camara.posX = this->camara->x;
-		//unModeloEstado.camara.posY = this->camara->y;
+		unModeloEstado.camara.posX = this->camara->x;
+		unModeloEstado.camara.posY = this->camara->y;
 
 		unModeloEstado.jugadoresEquipo1.equipo = 0;
 		unModeloEstado.jugadoresEquipo1.isActivo = this->getEquipoNro(0)->getJugadorActivo()->estaActivo();
