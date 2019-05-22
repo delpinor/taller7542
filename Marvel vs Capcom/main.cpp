@@ -26,18 +26,8 @@ int main(int argc, char* argv[]) {
 	Logger::Inicio(nivelLog, salida);
 	Logger::Log(nivelLog, "INICIO", "Iniciando el programa...");
 
-	std::vector<string> *nombresPersonajes = new std::vector<string>(5);
-	nombresPersonajes->push_back("captain america");
-	nombresPersonajes->push_back("venom");
-	nombresPersonajes->push_back("captain america black");
-	nombresPersonajes->push_back("venom black");
-	nombresPersonajes->push_back("spiderman");
-	nombresPersonajes->push_back("spiderman black");
-	nombresPersonajes->push_back("chun li");
-	nombresPersonajes->push_back("chun li black");
-	nombresPersonajes->push_back("default");
-	char * argConfig = "config.json";
-	Configuracion appConfig(argConfig, nombresPersonajes);
+	char  argConfig[] = "config.json";
+	Configuracion appConfig(argConfig);
 
 	mapPersonajes = appConfig.get_Config_Personajes();
 	mapFondoPantalla = appConfig.get_Config_FondosPantalla();
@@ -45,35 +35,7 @@ int main(int argc, char* argv[]) {
 	anchoVentana = appConfig.get_Config_AnchoVentana();
 	nivelLog = appConfig.get_Config_NivelLog();
 
-	/*  Verifico si se ingreso como segundo parametro el nivel de debug*/
-//		if (argc > 2) {
-//			std::string nivel(argv[2]);
-//			if (nivel == "DEBUG") {
-//				nivelLog = DEBUG;
-//			} else if (nivel == "ERROR") {
-//				nivelLog = ERROR;
-//
-//			} else if (nivel == "INFO") {
-//				nivelLog = INFO;
-//			}
-//			Logger::Log(INFO,
-//					"INICIO:: se cambia al nivel de log ingresado por linea de comandos",
-//					argv[2]);
-//		}
-//		if (argc == 2) {
-//			std::string nivel(argv[1]);
-//			if (nivel == "DEBUG") {
-//				nivelLog = DEBUG;
-//			} else if (nivel == "ERROR") {
-//				nivelLog = ERROR;
-//
-//			} else if (nivel == "INFO") {
-//				nivelLog = INFO;
-//			}
-//			Logger::Log(DEBUG,
-//					"INICIO:: se cambia al nivel de log ingresado por linea de comandos",
-//					argv[1]);
-//		}
+
 	Logger::Cambiar_nivelLog(nivelLog);
 
 	Model model;
@@ -94,13 +56,14 @@ int main(int argc, char* argv[]) {
 	model.getEquipoNro(0)->setJugadorActivo(0);
 	model.getEquipoNro(1)->setJugadorActivo(0);
 
+int num_jugadores= appConfig.get_NumJugadores();
 
 	if (strcmp(argv[1], "servidor") == 0) {
 		puerto = argv[2];
 		cout << "puerto: " << puerto << endl;
 		Servidor server;
 		server.SetModel(&model);
-		server.IniciarServidor(MAX_CLIENTES, puerto);
+		server.IniciarServidor(num_jugadores, puerto);
 	} else if (strcmp(argv[1], "cliente") == 0) {
 		ip = argv[2];
 		cout << "ip: " << ip << endl;

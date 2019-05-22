@@ -54,7 +54,7 @@ void Equipo::setJugadorActivo(int i) {
 }
 
 void Equipo::agregarCambio(Command* cambio) {
-	if (this->getJugadorActivo()->estaCambiandoPersonaje() & cambio != NULL)
+	if (!this->getJugadorActivo()->estaCambiandoPersonaje() & cambio != NULL)
 		this->cambios.push(cambio);
 	else
 		cout << "cambiando jugador" << endl;
