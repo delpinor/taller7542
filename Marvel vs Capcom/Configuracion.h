@@ -37,6 +37,8 @@
 
 #define alto_nivel_default "12"
 #define ancho_nivel_default "13"
+#define MAXIMO_JUGADORES 4
+#define NUM_JUGADORES_DEFAUT 2
 
 //----------------------------------------//
 
@@ -49,16 +51,19 @@ private:
 	std::map<std::string, std::string>  mapNivel;
 	std::string nivelLog;
 	std::string anchoVentana, altoVentana;
+	int num_jugadores;
+	std::vector<string> nombresPersonajes;
 	void ValidarConfigs(std::vector<string> *nombresPersonajes);
 
 public:
-	Configuracion(char* filepath, std::vector<string> *nombresPersonajes);
+	Configuracion(char* filepath);
 	std::map< int, std::map<std::string, std::string> > get_Config_Personajes();
 	std::map< int, std::map<std::string, std::string> > get_Config_FondosPantalla();
 	std::map<std::string, std::string> get_Config_Nivel();
 	LOGGER_NIVEL get_Config_NivelLog();
 	int get_Config_AnchoVentana();
 	int get_Config_AltoVentana();
+	int get_NumJugadores();
 	virtual ~Configuracion();
 };
 

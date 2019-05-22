@@ -144,12 +144,14 @@ int main(int argc, char* argv[]) {
 			ComandoAlServidor comandoParaServidor;
 			comandoParaServidor.comando = controller.processInputCliente();
 			if(comandoParaServidor.comando != 99 && cliente.Titular){
-				if(comandoParaServidor.comando == 4){
+				switch(comandoParaServidor.comando){
+				case 4: // Agachar
 					comandoDefault.comando = 99;
-				}else{
-					comandoDefault.comando = 7;
+					break;
+				default:
+					comandoDefault.comando = 7;//Parar
 				}
-				cliente.enviarComandoAServidor(comandoParaServidor);
+			cliente.enviarComandoAServidor(comandoParaServidor);
 			}
 			if(comandoDefault.comando != 99){
 				cliente.enviarComandoAServidor(comandoDefault);
@@ -162,4 +164,3 @@ int main(int argc, char* argv[]) {
 		return 0;
 	}
 }
-

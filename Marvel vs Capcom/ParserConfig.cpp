@@ -46,6 +46,11 @@ void ParserConfig::devolver_Map_Personajes(std::map<int, std::map<std::string, s
 		(*mapPersonajes)[i]["zIndex"]=configuracion["personajes"][i]["zIndex"].asString();
 	}
 }
+int ParserConfig::devolverNumeroJugadores(){
+
+	return this->configuracion["server"]["players"].asInt();
+
+}
 
 void ParserConfig::devolver_Map_Fondo(std::map<int, std::map<std::string, std::string> > *mapBackground){
 
@@ -78,4 +83,3 @@ void ParserConfig::devolver_Map_Nivel(std::map<std::string, std::string>  *mapNi
 ParserConfig::~ParserConfig() {
 	// TODO Auto-generated destructor stub
 }
-

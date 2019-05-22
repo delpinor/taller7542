@@ -61,6 +61,10 @@
 	"log" : 
 	{
 		"nivel" : "DEBUG"
+	},
+	"server" : 
+	{
+		"players" : 4
 	}
-}
 
+}

@@ -7,7 +7,20 @@
 
 #include "Configuracion.h"
 
-Configuracion::Configuracion(char* filepath, std::vector<string> *nombresPersonajes) {
+Configuracion::Configuracion(char* filepath) {
+/* Se carga los personajes disponibles*/
+
+
+		nombresPersonajes.push_back("captain america");
+		nombresPersonajes.push_back("venom");
+		nombresPersonajes.push_back("captain america black");
+		nombresPersonajes.push_back("venom black");
+		nombresPersonajes.push_back("spiderman");
+		nombresPersonajes.push_back("spiderman black");
+		nombresPersonajes.push_back("chun li");
+		nombresPersonajes.push_back("chun li black");
+		nombresPersonajes.push_back("default");
+
 
 int error;
 	ParserConfig parser;
@@ -30,8 +43,9 @@ int error;
 					parser.devolver_Map_Fondo(&mapFondoPantalla);
 					parser.devolver_Tam_Imagen(&anchoVentana,&altoVentana);
 					parser.devolver_Map_Nivel(&mapNivel);
+					this->num_jugadores=parser.devolverNumeroJugadores();
 					this->nivelLog = parser.devolver_Tipo_Log();
-					this->ValidarConfigs(nombresPersonajes);
+					this->ValidarConfigs(&nombresPersonajes);
 
 }
 
@@ -63,6 +77,11 @@ LOGGER_NIVEL Configuracion::get_Config_NivelLog(){
 		return DEBUG;
 	};
 }
+int Configuracion::get_NumJugadores(){
+
+return this->num_jugadores;
+
+}
 
 int Configuracion::get_Config_AnchoVentana(){
 	return NumericHelper::parseStringToInt(this->anchoVentana);
@@ -79,13 +98,6 @@ Configuracion::~Configuracion() {
 //Private
 void Configuracion::ValidarConfigs(vector<string> *nombresPersonajes){
 
-	/*  Ya validado en la función que retorna
-	//Log
-	if(this->nivelLog == ""){
-		//TODO validar que el valor pertenezca a uno de los niveles que maneja el logger.
-		// TODO LOGUEAR QUE SE TOMA EL VALOR DEFAULT
-		this->nivelLog = nivel_log_default;
-	}*/
 
 	//Ventana
 	if((!StringHelper::esUnNumero(this->anchoVentana) ) || (NumericHelper::parseStringToInt(this->anchoVentana) <= 0) || (NumericHelper::parseStringToInt(this->anchoVentana) < 600) || (NumericHelper::parseStringToInt(this->anchoVentana) >1200)){
@@ -201,6 +213,28 @@ void Configuracion::ValidarConfigs(vector<string> *nombresPersonajes){
 			mapNivel["ancho"] = ancho_nivel_default;
 		}
 	}
+	char num_str[4];
+	if(num_jugadores>MAXIMO_JUGADORES) {
+
+		sprintf(num_str, "%d", num_jugadores);
+		Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::El numero de jugadores supera al maximo " ,num_str );
+
+		sprintf(num_str, "%d", NUM_JUGADORES_DEFAUT);
+		Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se carga el numero de jugadores default " ,num_str );
+		num_jugadores = NUM_JUGADORES_DEFAUT;
+
+	}else if ((num_jugadores<2)){
+		sprintf(num_str, "%d", num_jugadores);
+		Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::El numero de es inferior al minimo" ,num_str );
+
+		sprintf(num_str, "%d", NUM_JUGADORES_DEFAUT);
+		Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se carga el numero de jugadores default " ,num_str );
+		num_jugadores = NUM_JUGADORES_DEFAUT;
+	}else{
+		sprintf(num_str, "%d", num_jugadores);
+		Logger::Log(LOGGER_NIVEL::DEBUG, "Configuracion::Se carga el numero de jugadores ingresado" ,num_str );
+
+
+	}
 
 }
-
