@@ -45,7 +45,7 @@ bool Activo::estaQuieto(){
 }
 
 bool Activo::isFueraDePantalla(){
-	return (mPosX > ANCHO_NIVEL)||(mPosX < 0);
+	return (mPosY < 0);
 }
 
 bool Activo::estaActivo() {

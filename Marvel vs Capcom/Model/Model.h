@@ -54,6 +54,7 @@ public:
 	Equipo* getEquipoNro(int i);
 
 	virtual void moverJuego();
+	virtual void moverJuegoCliente();
 
 };
 

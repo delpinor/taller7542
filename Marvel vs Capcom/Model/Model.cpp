@@ -159,12 +159,18 @@ void Model::update() {
 }
 
 void Model::updateCliente() {
-	this->moverJuego();
+	this->moverJuegoCliente();
 }
 
 void Model::moverJuego() {
 	for (int i = 0; i < CANTJUGADORESTOTALES; ++i) {
 		this->equipos[i]->move(this->camara);
+	}
+}
+
+void Model::moverJuegoCliente() {
+	for (int i = 0; i < CANTJUGADORESTOTALES; ++i) {
+		this->equipos[i]->moveCliente(this->camara);
 	}
 }
 
