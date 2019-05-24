@@ -21,17 +21,17 @@
 			"zIndex" : "46"
 		},
 		{
-			"nombre" : "Venom Black",
+			"nombre" : "Chun Li",
 			"alto" : "200",
 			"ancho" : "120",
-			"rutaArchivoImagen" : "Images/Venom.png",
+			"rutaArchivoImagen" : "Images/Chun-Li.gif",
 			"zIndex" : "48"
 		},
 		{
 			"nombre" : "Spiderman",
 			"alto" : "200",
 			"ancho" : "120",
-			"rutaArchivoImagen" : "Images/spider.png",
+			"rutaArchivoImagen" : "Images/Spiderman.png",
 			"zIndex" : "47"
 		}
 	],
