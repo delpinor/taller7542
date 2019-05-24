@@ -149,18 +149,15 @@ int Cliente::recibirModeloDelServidor() {
 		pthread_mutex_lock(&mutexx);
 		//actualizarModelo(unModelo);
 		//this->PushModeloEnCola(unModelo);
-		if(unModelo.jugadoresEquipo1.isCambiandoPersonaje){
-			cout << "Equipo 1 cambiando personaje!!" << endl;
-		}
-		if(unModelo.jugadoresEquipo2.isCambiandoPersonaje){
-					cout << "Equipo 2 cambiando personaje!!" << endl;
-		}
 		this->getVista()->model->camara->x = unModelo.camara.posX;
 		this->getVista()->model->camara->y = unModelo.camara.posY;
 
-		this->getVista()->model->equipos[0]->setJugadorActivo(unModelo.activoEquipo1);
-		this->getVista()->model->equipos[1]->setJugadorActivo(unModelo.activoEquipo2);
-
+		if (this->getVista()->model->equipos[0]->nroJugadorActivo != unModelo.activoEquipo1){
+			this->getVista()->model->equipos[0]->setJugadorActivo(unModelo.activoEquipo1);
+		}
+		if (this->getVista()->model->equipos[1]->nroJugadorActivo != unModelo.activoEquipo2){
+			this->getVista()->model->equipos[1]->setJugadorActivo(unModelo.activoEquipo2);
+		}
 		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setPosX(unModelo.jugadoresEquipo1.posX);
 		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setPosY(unModelo.jugadoresEquipo1.posY);
 		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setVelocidadX(unModelo.jugadoresEquipo1.velX);
@@ -168,9 +165,6 @@ int Cliente::recibirModeloDelServidor() {
 		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(unModelo.jugadoresEquipo1.isActivo);
 		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaAgachado(unModelo.jugadoresEquipo1.isAgachado);
 		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaCambiandoPersonaje(unModelo.jugadoresEquipo1.isCambiandoPersonaje);
-		if (unModelo.jugadoresEquipo1.isAgachado)
-			this->getVista()->model->equipos[0]->getJugadorActivo()->Agachar();
-
 
 		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setPosX(unModelo.jugadoresEquipo2.posX);
 		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setPosY(unModelo.jugadoresEquipo2.posY);
@@ -179,8 +173,6 @@ int Cliente::recibirModeloDelServidor() {
 		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(unModelo.jugadoresEquipo2.isActivo);
 		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaAgachado(unModelo.jugadoresEquipo2.isAgachado);
 		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaCambiandoPersonaje(unModelo.jugadoresEquipo2.isCambiandoPersonaje);
-		if (unModelo.jugadoresEquipo2.isAgachado)
-				this->getVista()->model->equipos[1]->getJugadorActivo()->Agachar();
 
 		pthread_mutex_unlock(&mutexx);
 	}

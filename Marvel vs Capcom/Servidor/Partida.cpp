@@ -75,8 +75,10 @@ void Partida::AjustarCamara(){
 ModeloEstado  Partida::GetModeloEstado(){
 	ModeloEstado unModelo;
 	unModelo = modelo->GetModelEstado();
-	unModelo.activoEquipo1 = GetTitularJugando(0).numeroJugador;
-	unModelo.activoEquipo2 = GetTitularJugando(1).numeroJugador;
+//	unModelo.activoEquipo1 = GetTitularJugando(0).numeroJugador;
+//	unModelo.activoEquipo2 = GetTitularJugando(1).numeroJugador;
+	unModelo.activoEquipo1 = modelo->equipos[0]->nroJugadorActivo;
+	unModelo.activoEquipo2 = modelo->equipos[1]->nroJugadorActivo;
 	return unModelo;
 }
 void Partida::ActualizarModelo() {
@@ -89,11 +91,13 @@ void Partida::ActualizarModelo() {
 
 }
 void Partida::SetComando(int equipo, int comando){
-	if((comando < 8 )&& (comando >= 0)){
+	if(comando != 99)
 		controlador->SetComando(equipo, comando);
-		modelo->update();
-		AjustarCamara();
-	}
+	modelo->update();
+	AjustarCamara();
+
+	cout << "Equipo 0 JugadorActivo: " << modelo->getEquipoNro(0)->nroJugadorActivo << endl;
+	cout << "Equipo 1 JugadorActivo: " << modelo->getEquipoNro(1)->nroJugadorActivo << endl;
 	cout << "Camara X: " << camara->x<< endl;
 	cout << "Camara Y: " << camara->y<< endl;
 	cout << "Equipo 0 - Pos x: " << modelo->getEquipoNro(0)->getJugadorActivo()->getPosX()<< endl;

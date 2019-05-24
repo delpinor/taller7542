@@ -58,6 +58,7 @@ public:
 	virtual void update(int i);
 	//virtual void move();
 	virtual void move(SDL_Rect* camara);
+	virtual void moveCliente(SDL_Rect* camara);
 	virtual void iniciarCambioPersonaje();
 	virtual void cambiarPersonaje(SDL_Rect* camara);
 

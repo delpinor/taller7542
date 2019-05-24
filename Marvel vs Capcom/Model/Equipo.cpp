@@ -72,8 +72,15 @@ void Equipo::move(SDL_Rect* camara){
 	for (int i = 0; i < 2; ++i) {
 		this->jugadores[i]->move(this->equipoRival->getJugadorActivo(), camara);
 	}
-	if (this->getJugadorActivo()->isFueraDePantalla())
+	if (this->getJugadorActivo()->isFueraDePantalla()){
 		this->cambiarPersonaje(camara);
+	}
+}
+
+void Equipo::moveCliente(SDL_Rect* camara){
+	for (int i = 0; i < 2; ++i) {
+		this->jugadores[i]->move(this->equipoRival->getJugadorActivo(), camara);
+	}
 }
 
 void Equipo::cambiarPersonaje(SDL_Rect* camara){
