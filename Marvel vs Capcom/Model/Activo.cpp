@@ -52,10 +52,10 @@ bool Activo::estaActivo() {
 	return true;
 }
 bool Activo::estaAgachado() {
-	return false;
+	return this->agachado;
 }
 bool Activo::estaCambiandoPersonaje(){
-	return false;
+	return this->cambiandoPersonaje;
 }
 //métodos para cliente
 

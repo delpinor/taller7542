@@ -25,7 +25,7 @@ void CambiandoPersonaje::moveVertical() {
 
 bool CambiandoPersonaje::isFueraDePantalla(){
 	return (mPosX > ANCHO_NIVEL)||(mPosX < 0);
-	return (mPosY < 0);
+//	return (mPosY < 0);
 }
 
 bool CambiandoPersonaje::estaActivo() {
