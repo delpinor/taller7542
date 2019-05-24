@@ -106,21 +106,9 @@ int num_jugadores= appConfig.get_NumJugadores();
 		while (!controller.quitPressed()) {
 			ComandoAlServidor comandoParaServidor;
 			comandoParaServidor.comando = controller.processInputCliente();
-			if(comandoParaServidor.comando != 99 && cliente.Titular){
-				switch(comandoParaServidor.comando){
-				case 4: // Agachar
-					comandoDefault.comando = 99;
-					break;
-				default:
-					comandoDefault.comando = 7;//Parar
-				}
 			cliente.enviarComandoAServidor(comandoParaServidor);
-			}
-			if(comandoDefault.comando != 99){
-				cliente.enviarComandoAServidor(comandoDefault);
-			}
 			usleep(50);
-			model.update();
+			model.updateCliente();
 			view.render();
 		}
 
