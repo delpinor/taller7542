@@ -30,6 +30,7 @@ public:
 	void LanzarHiloLoggeo();
 	void IniciarServidor(int maxClientes, char * puerto);
 	void AceptarClientes(int maxClientes);
+	void LanzarHiloControlSeleccionPersonajes();
 	//virtual ~Funciones();
 };
 

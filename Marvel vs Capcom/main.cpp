@@ -47,14 +47,14 @@ int main(int argc, char* argv[]) {
 	model.cargar_Jugadores(mapPersonajes);
 	//seteo los jugadores en los equipos
 	//set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int nroJugador)
-	model.set_equipos_with_jugador(0, 0, 0);
+	/*model.set_equipos_with_jugador(0, 0, 0);
 	model.set_equipos_with_jugador(0, 1, 1);
 	model.set_equipos_with_jugador(1, 0, 2);
-	model.set_equipos_with_jugador(1, 1, 3);
+	model.set_equipos_with_jugador(1, 1, 3);*/
 	//designo que jugadores van a estar activos
 	model.inicializar();
-	model.getEquipoNro(0)->setJugadorActivo(0);
-	model.getEquipoNro(1)->setJugadorActivo(0);
+	/*model.getEquipoNro(0)->setJugadorActivo(0);
+	model.getEquipoNro(1)->setJugadorActivo(0);*/
 
 	int num_jugadores= appConfig.get_NumJugadores();
 

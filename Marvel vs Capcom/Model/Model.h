@@ -30,7 +30,7 @@ public:
 	Model();
 	// metodo que crea y carga los personajes en un map
 	void cargar_Jugadores (std::map< int, std::map<std::string, std::string> > &mapPersonajes);
-	void set_equipos_with_jugador(int equipo,int nroJugadorEquipo, int jugador);
+	void set_equipos_with_jugador(int equipo,int nroJugadorEquipo, int personajeId);
 	std::string get_pathImagenJugador(int equipo, int indice_jugador);
 	int GetAltoJugador(int equipo, int indice_jugador);
 	int GetAnchoJugador(int equipo, int indice_jugador);

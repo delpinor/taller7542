@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include "../Logger/Logger.h"
 #include "../Model/GeneralPantalla.h"
+#include "../Enums/Personajes.h"
 
 #define CANTJUGADORESTOTALES 2
 #define LOCALES 1
@@ -22,12 +23,12 @@ Model::Model() {
 	this->equipos[1] = new Equipo();
 }
 
-void Model::set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int nroJugador){
+void Model::set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int personajeId){
 	if (nroEquipo==1){
 
-		jugadoresEquipo1[nroJugador]->setDireccion(SDL_FLIP_HORIZONTAL);
+		jugadoresEquipo1[personajeId]->setDireccion(SDL_FLIP_HORIZONTAL);
 	}
-	this->equipos[nroEquipo]->agregar_Jugador(nroJugadorEquipo, jugadoresEquipo1[nroJugador]);
+	this->equipos[nroEquipo]->agregar_Jugador(nroJugadorEquipo, jugadoresEquipo1[personajeId]);
 
 
 }
@@ -123,7 +124,6 @@ void Model::cargar_Jugadores(
 
 	int ancho, alto, zindex;
 	std::string nombre, path;
-	int i = 0;
 	Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Carga iniciada");
 	for (map <int, map<string, string>>::iterator it = mapPersonajes.begin(); it != mapPersonajes.end(); ++it){
 		map<string, string> &internal_map = it->second;
@@ -139,8 +139,8 @@ void Model::cargar_Jugadores(
 		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Alto: " + std::to_string(alto));
 		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Ancho: " + std::to_string(ancho));
 		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "zindex: " + std::to_string(zindex));
-		jugadoresEquipo1.insert(std::make_pair(i,new Jugador(ancho, alto, zindex, nombre, path)));
-		i++;
+		int personajeId = Personaje::getPersonajeId(nombre);
+		jugadoresEquipo1.insert(std::make_pair(personajeId,new Jugador(ancho, alto, zindex, nombre, path)));
 	}
 	Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Carga Finalizada");
 }

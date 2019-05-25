@@ -7,6 +7,7 @@
 #include "../Comunicacion/EstructuraDatos.h"
 #include "../Controller/Controller.h"
 #include "../View/View.h"
+#include "../Enums/Personajes.h"
 #define ANCHO_NIVEL 1040
 #define ALTO_NIVEL 1080
 using namespace std;
@@ -18,6 +19,7 @@ struct ClienteConectado{
 	int equipo = 0;
 	int numeroJugador;
 	bool titular;
+	int personajeId;
 };
 class Partida{
 private:
@@ -33,6 +35,9 @@ private:
 	list<ClienteConectado> listaEspera;
 	list<ClienteConectado> listaJugadores;
 	list<ClienteConectado> listaDesconectados;
+	bool seleccionPersonajesIniciada = false;
+	bool seleccionPersonajesFinalizada = false;
+	bool darInicioPartida = false;
 public:
 	list<ClienteConectado> GetListaJugadores();
 	list<ClienteConectado> GetListaEspera();
@@ -67,6 +72,15 @@ public:
 	int GetCantidadEspera();
 	bool TieneSuplente(int equipo);
 
-
+	ModeloSeleccion GetModeloSeleccion();
+	void IniciarSeleccionPersonajes();
+	void FinalizarSeleccionPersonajes();
+	bool IniciadaSeleccionPersonajes();
+	bool FinalizadaSeleccionPersonajes();
+	bool DarInicioPartida();
+	void HandleEventSeleccionPersonajes(string nombreJugador, int personajeId);
+	bool PersonajesSeleccionCompleto();
+	void HabilitarInicioPartida();
+	void SetPersonajes();
 };
 
