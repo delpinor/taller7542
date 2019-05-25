@@ -166,13 +166,11 @@ Command* Controller::handleEvent(SDL_Event& e) {
 
 int Controller::processInputCliente() {
 	while (SDL_PollEvent(&(this->e)) != 0) {
-	//	if (this->e.type == SDL_QUIT) {
-	//		this->quit = true;
+		if (this->e.type == SDL_QUIT)
+			this->quit = true;
 	//		//TODO accion al cerrar el juego
-
-		return handleEventCliente(this->e);
-		//return AGACHAR;
-
+		else
+			return handleEventCliente(this->e);
 	}
 	return 99;
 }
