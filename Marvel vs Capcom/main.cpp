@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
 	model.getEquipoNro(0)->setJugadorActivo(0);
 	model.getEquipoNro(1)->setJugadorActivo(0);
 
-int num_jugadores= appConfig.get_NumJugadores();
+	int num_jugadores= appConfig.get_NumJugadores();
 
 	if (strcmp(argv[1], "servidor") == 0) {
 		puerto = argv[2];
@@ -105,7 +105,10 @@ int num_jugadores= appConfig.get_NumJugadores();
 		comandoDefault.comando = 7; //PARAR
 		while (!controller.quitPressed()) {
 			ComandoAlServidor comandoParaServidor;
-			comandoParaServidor.comando = controller.processInputCliente();
+			if (cliente.Titular)
+				comandoParaServidor.comando = controller.processInputCliente();
+			else
+				comandoParaServidor.comando = 99;
 			cliente.enviarComandoAServidor(comandoParaServidor);
 			usleep(50);
 			model.updateCliente();
