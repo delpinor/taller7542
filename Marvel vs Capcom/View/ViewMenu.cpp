@@ -1,7 +1,7 @@
 #include "ViewMenu.h"
 
 ViewMenu::ViewMenu() {
-	CantidadDeJugadores= 2;
+
 	npersonaje=0;
 
 	fondoclip.h = 460;
@@ -102,28 +102,55 @@ bool ViewMenu::loadText()
 
 
 void ViewMenu::render() {
+////testing
+	struct ModeloSeleccionPersonaje{
+		int jugadorId;
+		int personajeId;
+		bool confirmado;
+	};
+	struct ModeloSeleccion {
+		bool seleccionFinalizada;
+		std::list<ModeloSeleccionPersonaje> data;
+	};
+	ModeloSeleccion modelo;
+	ModeloSeleccionPersonaje personaje;
+	personaje.personajeId=P_SPIDERMAN;
+	personaje.jugadorId=1;
+	personaje.confirmado=false;
+	modelo.data.push_back(personaje);
+	modelo.data.push_back(personaje);
+	modelo.data.push_back(personaje);
+	modelo.data.push_back(personaje);
+	modelo.data.push_back(personaje);
+	modelo.data.push_back(personaje);
+///////testing
+
 
 	SDL_RenderClear(gRenderer);
+	CantidadDeJugadores = modelo.data.size();
 	//fondo
 	texturaFondo.render(0, 0, &fondoclip, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	//logo
 	texturaLogo.render(300, 300, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	//personajes
-	for (int i = 0; i <= CantidadDeJugadores-1; ++i) { //recorro la lista que recibo
-		if (i/*posvec(i).nombre*/ == P_SPIDERMAN-1)
+	int i = 0;
+	std::list<ModeloSeleccionPersonaje>::iterator it;
+	for (it = modelo.data.begin(); it != modelo.data.end(); it++)  { //recorro la lista que recibo
+		if (it->personajeId == P_SPIDERMAN)
 			texturaSpiderman.render((i) * ANCHO_CUADRO,
 					ALTO_CUADRO, &spidermanclip, 0.0, NULL, SDL_FLIP_NONE,
 					gRenderer);
-		if (i == P_CHUN_LI-1)
+		if (it->personajeId == P_CHUN_LI)
 			texturaChunLi.render((i) * ANCHO_CUADRO, ALTO_CUADRO,
 					&chunliclip, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
-		if (i == P_CAPITAN_AMERICA-1)
+		if (it->personajeId == P_CAPITAN_AMERICA)
 			texturaCapitan.render((i) * ANCHO_CUADRO,
 					ALTO_CUADRO, &cajpitanclip, 0.0, NULL, SDL_FLIP_NONE,
 					gRenderer);
-		if (i == P_VENOM-1)
+		if (it->personajeId == P_VENOM)
 			texturaVenom.render((i) * ANCHO_CUADRO, ALTO_CUADRO,
 					&venomclip, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
+		i++;
 	}
 	//titulo
 	gTextTexture.render( ( SCREEN_WIDTH - gTextTexture.getWidth() ) / 2, 4 ,NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);

@@ -1,7 +1,8 @@
 #ifndef VIEWMENU_H_
 #define VIEWMENU_H_
 #include "../Model/LTexture.h"
-
+#include <list>
+#include <iterator>
 class ViewMenu {
 
 public:
