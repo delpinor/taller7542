@@ -87,8 +87,8 @@ int main(int argc, char* argv[]) {
 		// Capturo datos del jugador
 		char nombre[50];
 		cout << "Usuario:";
-		cin >> nombre;
-		strcpy(loginUsuario.usuario, nombre);
+		cin >> cliente.Usuario;
+		strcpy(loginUsuario.usuario, cliente.Usuario);
 
 		send(conexion.getSocketCliente(), &idMsg, sizeof(idMsg),0);
 		send(conexion.getSocketCliente(), &loginUsuario, sizeof(loginUsuario),0);
