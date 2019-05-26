@@ -31,23 +31,23 @@ void * hilo_escucha(void * cliente) {
 
 //éste hilo va a tomar cada elementos de la cola y va a actualizar el modelo
 //y va a renderizar
-void * hilo_render(void * cliente) {
-	cout << "HILO RENDER lanzado." << endl;
-	Cliente* p = (Cliente*) cliente;
-	int tamModelo = NULL;
-	while (1) {
-		pthread_mutex_lock(&mutexx);
-		tamModelo = p->getModeloCambios().size();
-		pthread_mutex_unlock(&mutexx);
-		if (tamModelo > 0) {
-			ModeloEstado modelo = p->PopModeloDeCola();
-			p->actualizarModelo(modelo);
-		}
-		//p->getVista()->render();
-		//p->getVista()->model->update();
-		//usleep(50);
-	}
-}
+//void * hilo_render(void * cliente) {
+//	cout << "HILO RENDER lanzado." << endl;
+//	Cliente* p = (Cliente*) cliente;
+//	int tamModelo = NULL;
+//	while (1) {
+//		pthread_mutex_lock(&mutexx);
+//		tamModelo = p->getModeloCambios().size();
+//		pthread_mutex_unlock(&mutexx);
+//		if (tamModelo > 0) {
+//			ModeloEstado modelo = p->PopModeloDeCola();
+//			p->actualizarModelo(modelo);
+//		}
+//		//p->getVista()->render();
+//		//p->getVista()->model->update();
+//		//usleep(50);
+//	}
+//}
 
 Cliente::Cliente(View* vista, Conexion* conexion) {
 	cout << "creando cliente." << endl;
@@ -181,7 +181,7 @@ int Cliente::recibirModeloDelServidor() {
 void Cliente::lanzarHilosDelJuego() {
 	cout << "por lanzar hilos del cliente" << endl;
 	pthread_t thid_hilo_escucha;
-	pthread_t thid_hilo_render;
+//	pthread_t thid_hilo_render;
 	pthread_create(&thid_hilo_escucha, NULL, hilo_escucha, this);
 	pthread_detach(thid_hilo_escucha);
 	//pthread_create(&thid_hilo_render, NULL, hilo_render, this);

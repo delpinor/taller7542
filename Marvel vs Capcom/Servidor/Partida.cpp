@@ -96,15 +96,15 @@ void Partida::SetComando(int equipo, int comando){
 	modelo->update();
 	AjustarCamara();
 
-	cout << "Equipo 0 JugadorActivo: " << modelo->getEquipoNro(0)->nroJugadorActivo << endl;
-	cout << "Equipo 1 JugadorActivo: " << modelo->getEquipoNro(1)->nroJugadorActivo << endl;
-	cout << "Camara X: " << camara->x<< endl;
-	cout << "Camara Y: " << camara->y<< endl;
-	cout << "Equipo 0 - Pos x: " << modelo->getEquipoNro(0)->getJugadorActivo()->getPosX()<< endl;
-	cout << "Equipo 0 - Pos y: " << modelo->getEquipoNro(0)->getJugadorActivo()->getPosY()<< endl;
-	cout << "Equipo 1 - Pos x: " << modelo->getEquipoNro(1)->getJugadorActivo()->getPosX()<< endl;
-	cout << "Equipo 1 - Pos y: " << modelo->getEquipoNro(1)->getJugadorActivo()->getPosY()<< endl;
-	cout << "*****************************************************" << endl;
+//	cout << "Equipo 0 JugadorActivo: " << modelo->getEquipoNro(0)->nroJugadorActivo << endl;
+//	cout << "Equipo 1 JugadorActivo: " << modelo->getEquipoNro(1)->nroJugadorActivo << endl;
+//	cout << "Camara X: " << camara->x<< endl;
+//	cout << "Camara Y: " << camara->y<< endl;
+//	cout << "Equipo 0 - Pos x: " << modelo->getEquipoNro(0)->getJugadorActivo()->getPosX()<< endl;
+//	cout << "Equipo 0 - Pos y: " << modelo->getEquipoNro(0)->getJugadorActivo()->getPosY()<< endl;
+//	cout << "Equipo 1 - Pos x: " << modelo->getEquipoNro(1)->getJugadorActivo()->getPosX()<< endl;
+//	cout << "Equipo 1 - Pos y: " << modelo->getEquipoNro(1)->getJugadorActivo()->getPosY()<< endl;
+//	cout << "*****************************************************" << endl;
 
 
 
@@ -189,14 +189,43 @@ void Partida::JugadorDesconectado(string nombre) {
 			//Suplente ocupa el lugar del titular
 			JuegaSuplente(unCliente.equipo);
 		} else {
-			partidaFinalizada = true;
+			//espero algunos segundos para que el cliente se reconecte
+			partidaFinalizada = jugadorReconectado(unCliente.equipo);
 		}
 	}
 	//Borra de lista de jugadores
 	EliminarJugador(nombre);
 	// Agrego a la lista de desconectados
 	listaDesconectados.push_back(unCliente);
+}
+bool Partida::jugadorReconectado(int equipo){
+	bool hayEquipo = false;
+	//Espero la cantidad de segundos indicado en la variable i
+	for (int i = 0; i < 10; i++){
+		hayEquipo = hayJugadorParaEquipo(equipo);
+		cout << "Se reconectó jugador? " << hayEquipo << endl;
+		sleep(1);
+	}
+	return hayEquipo;
+}
 
+bool Partida::hayJugadorParaEquipo(int equipo) {
+	ClienteConectado unCliente;
+	list<ClienteConectado>::iterator it;
+	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+		if (it->equipo == equipo)
+			return true;
+	}
+	return false;
+}
+bool Partida::existeJugador(string nombre) {
+	ClienteConectado unCliente;
+	list<ClienteConectado>::iterator it;
+	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+		if (it->nombre == nombre)
+			return true;
+	}
+	return false;
 }
 void Partida::JuegaTitular(int equipo, ClienteConectado reconectado) {
 	list<ClienteConectado>::iterator it;
@@ -209,7 +238,7 @@ void Partida::JuegaTitular(int equipo, ClienteConectado reconectado) {
 		}
 		it++;
 	}
-	ActualizarModelo();
+//	ActualizarModelo();
 }
 bool Partida::TieneSuplente(int equipo) {
 	list<ClienteConectado>::iterator it;
@@ -236,6 +265,7 @@ void Partida::JuegaSuplente(int equipo) {
 }
 void Partida::AgregarCliente(ClienteConectado * cliente) {
 	if (!partidaIniciada) {
+		cout << "Partida NO iniciada, agregando al nuevo cliente " << cliente->nombre << endl;
 		int cantidad = listaEspera.size();
 		if (cantidad < 2) {
 			cliente->titular = true;
@@ -257,24 +287,31 @@ void Partida::AgregarCliente(ClienteConectado * cliente) {
 	} else {
 		// Equipo 0 se usa para verificar que no es un Cliente reconectado.
 		if (EsClienteDesconectado(cliente->nombre)) {
+			cout << "es un cliente desconectado " << endl;
 			//Recupero el equipo para el cliente reconectado.
 			ClienteConectado unClienteDesconectado;
 			unClienteDesconectado = GetClienteDesconectado(cliente->nombre);
 			cliente->equipo = unClienteDesconectado.equipo;
+			cliente->numeroJugador = unClienteDesconectado.numeroJugador;
+			cout << "Cliente reasignado a equipo: " <<
+					cliente->equipo <<
+					" y a jugador: "<< cliente->numeroJugador <<endl;
 			//Es cliente reconectado?
-			if (unClienteDesconectado.titular) {
-				// El cliente reconectado era titular
+			if (unClienteDesconectado.numeroJugador == this->GetModelo()->equipos[unClienteDesconectado.equipo]->nroJugadorActivo) {
+				// El cliente reconectado pasa a ser titular porque su personaje está peleando
 				JuegaTitular(unClienteDesconectado.equipo, *cliente);
 				cliente->titular = true;
-				//Agrego a la lista de jugadores
-				listaJugadores.push_back(*cliente);
+				cout << "Cliente reconectado pasa a ser titular" << endl;
 			} else {
 				//El cliente era suplente.
 				cliente->titular = false;
-				listaJugadores.push_back(*cliente);
 			}
+			//Agrego a la lista de jugadores
+			listaJugadores.push_back(*cliente);
+			cout << "Cliente reconectado agregado a listaJugadores" << endl;
 			//Elimino de la lista de desconectados
 			EliminarDesconectado(cliente->nombre);
+			cout << "Cliente reconectado eliminado de listaJugadoresDesconectados" << endl;
 		}
 	}
 }
@@ -312,8 +349,7 @@ ClienteConectado Partida::GetClienteEspera(string nombre) {
 ClienteConectado Partida::GetClienteDesconectado(string nombre) {
 	ClienteConectado unCliente;
 	list<ClienteConectado>::iterator it;
-	for (it = listaDesconectados.begin(); it != listaDesconectados.end();
-			it++) {
+	for (it = listaDesconectados.begin(); it != listaDesconectados.end(); it++) {
 		if (it->nombre == nombre) {
 			unCliente = *it;
 		}
@@ -323,9 +359,20 @@ ClienteConectado Partida::GetClienteDesconectado(string nombre) {
 bool Partida::EsClienteDesconectado(string nombre) {
 	ClienteConectado unCliente;
 	list<ClienteConectado>::iterator it;
-	for (it = listaDesconectados.begin(); it != listaDesconectados.end();
-			it++) {
+	for (it = listaDesconectados.begin(); it != listaDesconectados.end();it++) {
 		if (it->nombre == nombre) {
+			cout << "Cliente desconectado con nombre: " << it->nombre <<endl;
+			cout << "Cliente reconectado con nombre: " << nombre <<endl;
+			return true;
+		}
+	}
+	return false;
+}
+bool Partida::EsClienteDesconectadoBySock(int sock) {
+	ClienteConectado unCliente;
+	list<ClienteConectado>::iterator it;
+	for (it = listaDesconectados.begin(); it != listaDesconectados.end();it++) {
+		if (it->socket == sock) {
 			return true;
 		}
 	}
