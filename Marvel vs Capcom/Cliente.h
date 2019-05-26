@@ -14,6 +14,7 @@
 #include <ctime>
 #include "Comunicacion/Conexion.h"
 #include "View/View.h"
+#include "View/Menu.h"
 #include "pthread.h"
 
 class Cliente {

@@ -188,7 +188,7 @@ void Cliente::lanzarHilosDelJuego() {
 	//pthread_detach(thid_hilo_render);
 }
 void Cliente::MenuDeSeleccion() {
-	//TODO
+	Menu Menu();
 }
 std::queue<ModeloEstado> Cliente::getModeloCambios() {
 	return this->ModeloCambios;
