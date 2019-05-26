@@ -1,7 +1,7 @@
 #include "ViewMenu.h"
 
 ViewMenu::ViewMenu() {
-	CantidadDeJugadores= 4;
+	CantidadDeJugadores= 2;
 	npersonaje=0;
 
 	fondoclip.h = 460;
@@ -109,10 +109,22 @@ void ViewMenu::render() {
 	//logo
 	texturaLogo.render(300, 300, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	//personajes
-	texturaSpiderman.render((P_SPIDERMAN-1)*ANCHO_CUADRO, ALTO_CUADRO, &spidermanclip, 0.0, NULL, SDL_FLIP_NONE,	gRenderer);
-	texturaChunLi.render((P_CHUN_LI-1)*ANCHO_CUADRO, ALTO_CUADRO, &chunliclip, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
-	texturaCapitan.render((P_CAPITAN_AMERICA-1)*ANCHO_CUADRO, ALTO_CUADRO, &cajpitanclip, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
-	texturaVenom.render((P_VENOM-1)*ANCHO_CUADRO, ALTO_CUADRO, &venomclip, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
+	for (int i = 0; i <= CantidadDeJugadores-1; ++i) { //recorro la lista que recibo
+		if (i/*posvec(i).nombre*/ == P_SPIDERMAN-1)
+			texturaSpiderman.render((i) * ANCHO_CUADRO,
+					ALTO_CUADRO, &spidermanclip, 0.0, NULL, SDL_FLIP_NONE,
+					gRenderer);
+		if (i == P_CHUN_LI-1)
+			texturaChunLi.render((i) * ANCHO_CUADRO, ALTO_CUADRO,
+					&chunliclip, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
+		if (i == P_CAPITAN_AMERICA-1)
+			texturaCapitan.render((i) * ANCHO_CUADRO,
+					ALTO_CUADRO, &cajpitanclip, 0.0, NULL, SDL_FLIP_NONE,
+					gRenderer);
+		if (i == P_VENOM-1)
+			texturaVenom.render((i) * ANCHO_CUADRO, ALTO_CUADRO,
+					&venomclip, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
+	}
 	//titulo
 	gTextTexture.render( ( SCREEN_WIDTH - gTextTexture.getWidth() ) / 2, 4 ,NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	//mensaje de seleccion
