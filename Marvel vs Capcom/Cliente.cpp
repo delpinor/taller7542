@@ -28,6 +28,18 @@ void * hilo_escucha(void * cliente) {
 		usleep(60);
 	}
 }
+void * hilo_conexion(void * cliente) {
+	Cliente* p = (Cliente*) cliente;
+	p->ServidorVivo = false;
+	IDMENSAJE idPong = PING;
+	while (1) {
+		int errorSend = send(p->getConexion()->getSocketCliente(), &idPong, sizeof(idPong), MSG_DONTWAIT | MSG_CONFIRM);
+		if (errorSend < 0) {
+			p->ServidorVivo = false;
+		}
+		usleep(10000);
+	}
+}
 
 //éste hilo va a tomar cada elementos de la cola y va a actualizar el modelo
 //y va a renderizar
@@ -127,12 +139,7 @@ void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
 }
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
-	ServidorVivo = false;
-	recv(this->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
-	//-------->Recibe EQUIPO
-	if (idMsg == PING) {
-		ServidorVivo = true;
-	}
+
 	//-------->Recibe EQUIPO
 	if (idMsg == EQUIPO) {
 		ClienteEquipo unClienteEquipo;
@@ -152,34 +159,53 @@ int Cliente::recibirModeloDelServidor() {
 	//-------->Recibe MODELO
 	if (idMsg == MODELO) {
 		ModeloEstado unModelo;
-		recv(this->getConexion()->getSocketCliente(), &unModelo,sizeof(unModelo), 0);
+		recv(this->getConexion()->getSocketCliente(), &unModelo,
+				sizeof(unModelo), 0);
 		pthread_mutex_lock(&mutexx);
 		//actualizarModelo(unModelo);
 		//this->PushModeloEnCola(unModelo);
 		this->getVista()->model->camara->x = unModelo.camara.posX;
 		this->getVista()->model->camara->y = unModelo.camara.posY;
 
-		if (this->getVista()->model->equipos[0]->nroJugadorActivo != unModelo.activoEquipo1){
-			this->getVista()->model->equipos[0]->setJugadorActivo(unModelo.activoEquipo1);
+		if (this->getVista()->model->equipos[0]->nroJugadorActivo
+				!= unModelo.activoEquipo1) {
+			this->getVista()->model->equipos[0]->setJugadorActivo(
+					unModelo.activoEquipo1);
 		}
-		if (this->getVista()->model->equipos[1]->nroJugadorActivo != unModelo.activoEquipo2){
-			this->getVista()->model->equipos[1]->setJugadorActivo(unModelo.activoEquipo2);
+		if (this->getVista()->model->equipos[1]->nroJugadorActivo
+				!= unModelo.activoEquipo2) {
+			this->getVista()->model->equipos[1]->setJugadorActivo(
+					unModelo.activoEquipo2);
 		}
-		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setPosX(unModelo.jugadoresEquipo1.posX);
-		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setPosY(unModelo.jugadoresEquipo1.posY);
-		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setVelocidadX(unModelo.jugadoresEquipo1.velX);
-		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setVelocidadY(unModelo.jugadoresEquipo1.velY);
-		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(unModelo.jugadoresEquipo1.isActivo);
-		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaAgachado(unModelo.jugadoresEquipo1.isAgachado);
-		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaCambiandoPersonaje(unModelo.jugadoresEquipo1.isCambiandoPersonaje);
+		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setPosX(
+				unModelo.jugadoresEquipo1.posX);
+		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setPosY(
+				unModelo.jugadoresEquipo1.posY);
+		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setVelocidadX(
+				unModelo.jugadoresEquipo1.velX);
+		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setVelocidadY(
+				unModelo.jugadoresEquipo1.velY);
+		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaActivo(
+				unModelo.jugadoresEquipo1.isActivo);
+		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaAgachado(
+				unModelo.jugadoresEquipo1.isAgachado);
+		this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaCambiandoPersonaje(
+				unModelo.jugadoresEquipo1.isCambiandoPersonaje);
 
-		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setPosX(unModelo.jugadoresEquipo2.posX);
-		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setPosY(unModelo.jugadoresEquipo2.posY);
-		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setVelocidadX(unModelo.jugadoresEquipo2.velX);
-		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setVelocidadY(unModelo.jugadoresEquipo2.velY);
-		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(unModelo.jugadoresEquipo2.isActivo);
-		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaAgachado(unModelo.jugadoresEquipo2.isAgachado);
-		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaCambiandoPersonaje(unModelo.jugadoresEquipo2.isCambiandoPersonaje);
+		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setPosX(
+				unModelo.jugadoresEquipo2.posX);
+		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setPosY(
+				unModelo.jugadoresEquipo2.posY);
+		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setVelocidadX(
+				unModelo.jugadoresEquipo2.velX);
+		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setVelocidadY(
+				unModelo.jugadoresEquipo2.velY);
+		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(
+				unModelo.jugadoresEquipo2.isActivo);
+		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaAgachado(
+				unModelo.jugadoresEquipo2.isAgachado);
+		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaCambiandoPersonaje(
+				unModelo.jugadoresEquipo2.isCambiandoPersonaje);
 
 		pthread_mutex_unlock(&mutexx);
 	}
@@ -188,9 +214,13 @@ int Cliente::recibirModeloDelServidor() {
 void Cliente::lanzarHilosDelJuego() {
 	cout << "por lanzar hilos del cliente" << endl;
 	pthread_t thid_hilo_escucha;
+	pthread_t thid_hilo_conexion;
 //	pthread_t thid_hilo_render;
 	pthread_create(&thid_hilo_escucha, NULL, hilo_escucha, this);
 	pthread_detach(thid_hilo_escucha);
+
+	pthread_create(&thid_hilo_conexion, NULL, hilo_conexion, this);
+	pthread_detach(thid_hilo_conexion);
 	//pthread_create(&thid_hilo_render, NULL, hilo_render, this);
 	//pthread_detach(thid_hilo_render);
 }
@@ -227,27 +257,21 @@ void Cliente::setCenexion(Conexion* conexion) {
 	this->conexion = conexion;
 }
 void Cliente::ChequearConexion() {
-	IDMENSAJE idPong = PING;
-	if (send(this->getConexion()->getSocketCliente(), &idPong, sizeof(idPong), MSG_DONTWAIT | MSG_CONFIRM ) < 0) {
-		ServidorVivo = false;
-		//Mensaje de falla de conexion
-		cout << "Intentando reconectar con el servidor..." << endl;
-		while (!ServidorVivo) {
-			Conexion nuevaConexion;
-			if (nuevaConexion.conectarConServidor(this->IPServidor, this->Puerto) != -1) {
-				setCenexion(&nuevaConexion);
-				JugadorLogin loginUsuario;
-				IDMENSAJE idMsg = LOGIN;
-				strcpy(loginUsuario.usuario, this->Usuario);
-				//mensaje de re-loggeo;
-				send(conexion->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
-				send(conexion->getSocketCliente(), &loginUsuario, sizeof(loginUsuario), 0);
-				ServidorVivo = true;
-				cout << "Conectado!" << endl;
+	while (!ServidorVivo) {
+		Conexion nuevaConexion;
+		if (nuevaConexion.conectarConServidor(this->IPServidor, this->Puerto) != -1) {
+			setCenexion(&nuevaConexion);
+			JugadorLogin loginUsuario;
+			IDMENSAJE idMsg = LOGIN;
+			strcpy(loginUsuario.usuario, this->Usuario);
+			//mensaje de re-loggeo;
+			send(conexion->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
+			send(conexion->getSocketCliente(), &loginUsuario, sizeof(loginUsuario), 0);
+			ServidorVivo = true;
+			cout << "Conectado!" << endl;
 
-			}
-			sleep(2);
 		}
+		sleep(2);
 	}
 }
 View* Cliente::getVista() {
