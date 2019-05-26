@@ -31,6 +31,7 @@ public:
 	void lanzarHilosDelJuego();
 	void MenuDeSeleccion();
 	std::queue<ModeloEstado> getModeloCambios();
+	void enviarDataSeleccionAServidor(DataSeleccionAlServidor data);
 
 	//TODO ver como imlementar la verificación de conexion del lado del cliente
 	void setTiempoUltimoMensajeRecibido(int tiempo);

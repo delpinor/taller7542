@@ -19,7 +19,8 @@ struct ClienteConectado{
 	int equipo = 0;
 	int numeroJugador;
 	bool titular;
-	int personajeId;
+	int personajeId = static_cast<int>(PERSONAJE::P_NA);
+	bool personajeConfirmado = false;
 };
 class Partida{
 private:
@@ -37,7 +38,6 @@ private:
 	list<ClienteConectado> listaDesconectados;
 	bool seleccionPersonajesIniciada = false;
 	bool seleccionPersonajesFinalizada = false;
-	bool darInicioPartida = false;
 public:
 	list<ClienteConectado> GetListaJugadores();
 	list<ClienteConectado> GetListaEspera();
@@ -77,10 +77,9 @@ public:
 	void FinalizarSeleccionPersonajes();
 	bool IniciadaSeleccionPersonajes();
 	bool FinalizadaSeleccionPersonajes();
-	bool DarInicioPartida();
-	void HandleEventSeleccionPersonajes(string nombreJugador, int personajeId);
-	bool PersonajesSeleccionCompleto();
-	void HabilitarInicioPartida();
+	void HandleEventSeleccionPersonajes(string nombreJugador, DataSeleccionAlServidor *data);
+	bool PersonajesSeleccionCompleta();
 	void SetPersonajes();
+	ModeloPersonajes GetModeloPersonajes();
 };
 

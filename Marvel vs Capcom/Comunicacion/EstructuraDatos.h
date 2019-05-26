@@ -11,10 +11,11 @@
 #include <iostream>
 #include <list>
 #include <map>
+#include <iterator>
 
 //Enumera de cabecera
 enum IDMENSAJE {
-	PING = 1, JUGADOR = 2, MENSAJE = 3, LOGIN = 4, SALIDA = 5, EQUIPO = 6, TITULAR = 7, MODELO = 8, COMANDO = 9, MODELOSELECCION = 10, DATASELECCION = 11
+	PING = 1, JUGADOR = 2, MENSAJE = 3, LOGIN = 4, SALIDA = 5, EQUIPO = 6, TITULAR = 7, MODELO = 8, COMANDO = 9, MODELOSELECCION = 10, DATASELECCION = 11, DATAPERSONAJES = 12
 };
 struct JugadorLogin{
 	char usuario[20];
@@ -43,9 +44,18 @@ struct ModeloEstado {
 	struct JugadorCliente jugadoresEquipo2;
 	struct CamaraCliente camara;
 };
+struct ModeloSeleccionPersonaje{
+       int jugadorId;
+       int personajeId;
+       bool confirmado;
+};
 struct ModeloSeleccion {
-	bool seleccionFinalizada;
-	std::map<int, int> mapJugadorPersonaje;
+       bool seleccionFinalizada;
+       std::list<ModeloSeleccionPersonaje> data;
+};
+
+struct ModeloPersonajes {
+       std::map<int, std::string> mapJugadorPersonaje;
 };
 struct ComandoAlServidor{
 	int comando;
@@ -65,6 +75,7 @@ struct JugadorTitular{
 };
 struct DataSeleccionAlServidor{
 	int personajeId;
+	bool confirmado;
 };
 
 

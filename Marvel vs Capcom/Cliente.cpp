@@ -123,6 +123,16 @@ void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
 			sizeof(comando), MSG_NOSIGNAL);
 
 }
+void Cliente::enviarDataSeleccionAServidor(DataSeleccionAlServidor data) {
+
+	int error = 0;
+	IDMENSAJE com = DATASELECCION;
+	int tam_mensaje = sizeof(ComandoAlServidor);
+	error = send(this->getConexion()->getSocketCliente(), &com, sizeof(com),
+			MSG_NOSIGNAL);
+	error = send(this->getConexion()->getSocketCliente(), &data,
+			sizeof(data), MSG_NOSIGNAL);
+}
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
 	recv(this->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
@@ -176,6 +186,18 @@ int Cliente::recibirModeloDelServidor() {
 
 		pthread_mutex_unlock(&mutexx);
 	}
+
+	//-------->Recibe MODELO SELECCION
+
+	if (idMsg == MODELOSELECCION) {
+		ModeloSeleccion unModelo;
+		recv(this->getConexion()->getSocketCliente(), &unModelo,sizeof(unModelo), 0);
+		pthread_mutex_lock(&mutexx);
+		//TODO: lógica para actualizar lo correspondiente
+		pthread_mutex_unlock(&mutexx);
+	}
+
+
 	return NULL;
 }
 void Cliente::lanzarHilosDelJuego() {

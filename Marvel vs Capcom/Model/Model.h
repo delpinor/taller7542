@@ -56,6 +56,7 @@ public:
 	virtual void moverJuego();
 	virtual void moverJuegoCliente();
 
+	std::map<int, std::string> GetMapPersonajes();
 };
 
 #endif // MODEL_H

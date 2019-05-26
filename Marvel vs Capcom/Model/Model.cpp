@@ -133,7 +133,7 @@ void Model::cargar_Jugadores(
 
 		nombre = internal_map["nombre"];
 		path = internal_map["rutaArchivoImagen"];
-//		Jugador jugador(ancho, alto, zindex, nombre, path);
+		//		Jugador jugador(ancho, alto, zindex, nombre, path);
 		Logger::Log(LOGGER_NIVEL::INFO, "Model::CargaJugadores", "Nombre: " + nombre);
 		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Path: " + path);
 		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Alto: " + std::to_string(alto));
@@ -181,36 +181,43 @@ void Model::setCamara(SDL_Rect * camara) {
 void Model::inicializarPosicionesEquipos(){
 	this->equipos[0]->getJugadorActivo()->estado->setPosX(this->camara->x);
 	this->equipos[1]->getJugadorActivo()->estado->setPosX(this->camara->x + this->camara->w -
-	this->equipos[1]->getJugadorActivo()->get_ancho());
+			this->equipos[1]->getJugadorActivo()->get_ancho());
 }
 ModeloEstado Model::GetModelEstado(){
 	ModeloEstado unModeloEstado;
-		unModeloEstado.camara.posX = this->camara->x;
-		unModeloEstado.camara.posY = this->camara->y;
+	unModeloEstado.camara.posX = this->camara->x;
+	unModeloEstado.camara.posY = this->camara->y;
 
-		unModeloEstado.jugadoresEquipo1.equipo = 0;
-		unModeloEstado.jugadoresEquipo1.isActivo = this->getEquipoNro(0)->getJugadorActivo()->estaActivo();
-		unModeloEstado.jugadoresEquipo1.isAgachado = this->getEquipoNro(0)->getJugadorActivo()->estaAgachado();
-		unModeloEstado.jugadoresEquipo1.isCambiandoPersonaje = this->getEquipoNro(0)->getJugadorActivo()->estaCambiandoPersonaje();
-		unModeloEstado.jugadoresEquipo1.posX = this->getEquipoNro(0)->getJugadorActivo()->getPosX();
-		unModeloEstado.jugadoresEquipo1.posY = this->getEquipoNro(0)->getJugadorActivo()->getPosY();
-		unModeloEstado.jugadoresEquipo1.velX = this->getEquipoNro(0)->getJugadorActivo()->getVelX();
-		unModeloEstado.jugadoresEquipo1.velY = this->getEquipoNro(0)->getJugadorActivo()->getVelY();
+	unModeloEstado.jugadoresEquipo1.equipo = 0;
+	unModeloEstado.jugadoresEquipo1.isActivo = this->getEquipoNro(0)->getJugadorActivo()->estaActivo();
+	unModeloEstado.jugadoresEquipo1.isAgachado = this->getEquipoNro(0)->getJugadorActivo()->estaAgachado();
+	unModeloEstado.jugadoresEquipo1.isCambiandoPersonaje = this->getEquipoNro(0)->getJugadorActivo()->estaCambiandoPersonaje();
+	unModeloEstado.jugadoresEquipo1.posX = this->getEquipoNro(0)->getJugadorActivo()->getPosX();
+	unModeloEstado.jugadoresEquipo1.posY = this->getEquipoNro(0)->getJugadorActivo()->getPosY();
+	unModeloEstado.jugadoresEquipo1.velX = this->getEquipoNro(0)->getJugadorActivo()->getVelX();
+	unModeloEstado.jugadoresEquipo1.velY = this->getEquipoNro(0)->getJugadorActivo()->getVelY();
 
 
-		unModeloEstado.jugadoresEquipo2.equipo = 1;
-		unModeloEstado.jugadoresEquipo2.isActivo = this->getEquipoNro(1)->getJugadorActivo()->estaActivo();
-		unModeloEstado.jugadoresEquipo2.isAgachado = this->getEquipoNro(1)->getJugadorActivo()->estaAgachado();
-		unModeloEstado.jugadoresEquipo2.isCambiandoPersonaje = this->getEquipoNro(1)->getJugadorActivo()->estaCambiandoPersonaje();
-		unModeloEstado.jugadoresEquipo2.posX = this->getEquipoNro(1)->getJugadorActivo()->getPosX();
-		unModeloEstado.jugadoresEquipo2.posY = this->getEquipoNro(1)->getJugadorActivo()->getPosY();
-		unModeloEstado.jugadoresEquipo2.velX = this->getEquipoNro(1)->getJugadorActivo()->getVelX();
-		unModeloEstado.jugadoresEquipo2.velY = this->getEquipoNro(1)->getJugadorActivo()->getVelY();
+	unModeloEstado.jugadoresEquipo2.equipo = 1;
+	unModeloEstado.jugadoresEquipo2.isActivo = this->getEquipoNro(1)->getJugadorActivo()->estaActivo();
+	unModeloEstado.jugadoresEquipo2.isAgachado = this->getEquipoNro(1)->getJugadorActivo()->estaAgachado();
+	unModeloEstado.jugadoresEquipo2.isCambiandoPersonaje = this->getEquipoNro(1)->getJugadorActivo()->estaCambiandoPersonaje();
+	unModeloEstado.jugadoresEquipo2.posX = this->getEquipoNro(1)->getJugadorActivo()->getPosX();
+	unModeloEstado.jugadoresEquipo2.posY = this->getEquipoNro(1)->getJugadorActivo()->getPosY();
+	unModeloEstado.jugadoresEquipo2.velX = this->getEquipoNro(1)->getJugadorActivo()->getVelX();
+	unModeloEstado.jugadoresEquipo2.velY = this->getEquipoNro(1)->getJugadorActivo()->getVelY();
 
-		return unModeloEstado;
+	return unModeloEstado;
 }
 
 Equipo* Model::getEquipoNro(int i) {
 	return this->equipos[i];
 }
 
+std::map<int, std::string> Model::GetMapPersonajes(){
+	std::map<int, std::string> personajes;
+	for (map <int, Jugador*>::iterator it = this->jugadoresEquipo1.begin(); it != this->jugadoresEquipo1.end(); ++it){
+		personajes[it->first] = it->second->getNombre();
+	}
+	return personajes;
+};

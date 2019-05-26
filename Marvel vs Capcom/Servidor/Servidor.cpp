@@ -13,7 +13,7 @@ Partida miPartida;
 void * controlPartida(void *) {
 
 	while (1) {
-		if (miPartida.FinalizadaSeleccionPersonajes() && !miPartida.Iniciada() &&  miPartida.DarInicioPartida()) {//if (miPartida.EquipoCompleto()) {
+		if (miPartida.FinalizadaSeleccionPersonajes() && !miPartida.Iniciada()) {//if (miPartida.EquipoCompleto()) {
 			miPartida.IniciarPartida();
 		}
 	}
@@ -23,10 +23,23 @@ void * controlSeleccionPersonajes(void *) {
 
 	while (1) {
 		if (miPartida.EquipoCompleto() && !miPartida.IniciadaSeleccionPersonajes()) {
+			list<ClienteConectado> lista = miPartida.GetListaJugadores();
+			list<ClienteConectado>::iterator it;
+
+			ModeloPersonajes unModelo = miPartida.GetModeloPersonajes();
+
+			for (it = lista.begin(); it != lista.end(); it++) {
+				int sock = it->socket;
+				std::string usuario = it->nombre;
+
+				IDMENSAJE idModelo = DATAPERSONAJES;
+				send(sock, &idModelo, sizeof(idModelo), 0);
+				send(sock, &unModelo, sizeof(unModelo), 0);
+			}
 			miPartida.IniciarSeleccionPersonajes();
 		}
 		else
-			if(miPartida.IniciadaSeleccionPersonajes() && !miPartida.FinalizadaSeleccionPersonajes() && miPartida.PersonajesSeleccionCompleto()){
+			if(miPartida.IniciadaSeleccionPersonajes() && !miPartida.FinalizadaSeleccionPersonajes() && miPartida.PersonajesSeleccionCompleta()){
 				miPartida.SetPersonajes();
 				miPartida.FinalizarSeleccionPersonajes();
 			}
@@ -108,17 +121,13 @@ void * enviarDatos(void * datos) {
 		send(sock, &unEquipo, sizeof(unEquipo),0);
 
 		//------->Envio de Info de Selección de Personajes
-		if (!miPartida.DarInicioPartida()) {
+		if (miPartida.IniciadaSeleccionPersonajes() && !miPartida.FinalizadaSeleccionPersonajes()) {
 			IDMENSAJE idModelo = MODELOSELECCION;
 			pthread_mutex_lock(&mutex_server);
 			ModeloSeleccion unModelo = miPartida.GetModeloSeleccion();
 			pthread_mutex_unlock(&mutex_server);
 			send(sock, &idModelo, sizeof(idModelo), 0);
 			send(sock, &unModelo, sizeof(unModelo), 0);
-			pthread_mutex_lock(&mutex_server);
-			miPartida.SetPersonajes();
-			miPartida.HabilitarInicioPartida();
-			pthread_mutex_unlock(&mutex_server);
 		}
 
 
@@ -146,7 +155,6 @@ void * recibirDatos(void * datos) {
 	unCliente.socket = sock;
 	unCliente.tid = pthread_self();
 	unCliente.nombre = usuario;
-	unCliente.personajeId = static_cast<int>(PERSONAJE::P_NA);
 
 	//Completo datos cliente
 	pthread_mutex_lock(&mutex_server);
@@ -179,7 +187,7 @@ void * recibirDatos(void * datos) {
 			DataSeleccionAlServidor data;
 			recv(unCliente.socket, &data, sizeof(data), 0);
 			pthread_mutex_lock(&mutex_server);
-			miPartida.HandleEventSeleccionPersonajes(unCliente.nombre, data.personajeId);
+			miPartida.HandleEventSeleccionPersonajes(unCliente.nombre, &data);
 			pthread_mutex_unlock(&mutex_server);
 			cout << "Data Selección recibida: " << data.personajeId << endl;
 		}
