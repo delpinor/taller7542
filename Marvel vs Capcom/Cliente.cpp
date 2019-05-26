@@ -96,6 +96,8 @@ void Cliente::actualizarModelo(ModeloEstado modelo) {
 }
 
 int Cliente::ConectarConServidor(char* ip, char* puerto) {
+	IPServidor = ip;
+	Puerto = puerto;
 	cout << "conectando con servidor en ip: " << ip << " y en puerto: "
 			<< puerto << endl;
 	JugadorLogin jugLogin;
@@ -135,11 +137,11 @@ int Cliente::recibirModeloDelServidor() {
 		Equipo = unClienteEquipo.equipo;
 	}
 
-	//-------->Recibe MENSAJE
-	if (idMsg == MENSAJE) {
-		Mensaje unMensaje;
-		recv(this->getConexion()->getSocketCliente(), &unMensaje,
-				sizeof(unMensaje), 0);
+	//-------->Recibe COMPLETO
+	if (idMsg == COMPLETO) {
+		this->getConexion()->Cerrar();
+		// Mostrar Mensaje
+		cout << "EQUIPOS COMPLETOS." << endl;
 	}
 
 	//-------->Recibe MODELO
@@ -218,6 +220,31 @@ Conexion* Cliente::getConexion() {
 
 void Cliente::setCenexion(Conexion* conexion) {
 	this->conexion = conexion;
+}
+void Cliente::ChequearConexion() {
+	IDMENSAJE idPong = PING;
+	if (send(this->getConexion()->getSocketCliente(), &idPong, sizeof(idPong), 0) == -1) {
+		ServidorVivo = false;
+		//Mensaje de falla de conexion
+		cout << "Intentando reconectar con el servidor..." << endl;
+		while (!ServidorVivo) {
+			Conexion nuevaConexion;
+			if (nuevaConexion.conectarConServidor(this->IPServidor, this->Puerto) != -1) {
+				setCenexion(&nuevaConexion);
+				JugadorLogin loginUsuario;
+				IDMENSAJE idMsg = LOGIN;
+				strcpy(loginUsuario.usuario, this->Usuario);
+				//mensaje de re-loggeo;
+				send(conexion->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
+				send(conexion->getSocketCliente(), &loginUsuario,
+						sizeof(loginUsuario), 0);
+				ServidorVivo = true;
+				cout << "Conectado!" << endl;
+
+			}
+			sleep(1);
+		}
+	}
 }
 View* Cliente::getVista() {
 	return this->vista;

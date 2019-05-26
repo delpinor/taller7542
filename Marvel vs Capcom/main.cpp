@@ -101,15 +101,14 @@ int main(int argc, char* argv[]) {
 		cout << "EstadoCliente seteados."<< endl;
 		cliente.lanzarHilosDelJuego();
 		cout << "Hilos del cliente lanzados."<< endl;
-		ComandoAlServidor comandoDefault;
-		comandoDefault.comando = 7; //PARAR
 		while (!controller.quitPressed()) {
+			cliente.ChequearConexion();
 			ComandoAlServidor comandoParaServidor;
-			if (cliente.Titular)
-				comandoParaServidor.comando = controller.processInputCliente();
-			else
-				comandoParaServidor.comando = 99;
-			cliente.enviarComandoAServidor(comandoParaServidor);
+			comandoParaServidor.comando = controller.processInputCliente();
+			if (cliente.Titular) {
+				cliente.enviarComandoAServidor(comandoParaServidor);
+			}
+
 			usleep(50);
 			model.updateCliente();
 			view.render();

@@ -194,8 +194,8 @@ void Servidor::AceptarClientes(int maxClientes) {
 		if (idMsg == LOGIN) {
 			recv(socketComunicacion, &login, sizeof(login), 0);
 		}
-		if ((miPartida.GetCantidadJugando() < maxClientes)
-				|| miPartida.EsClienteDesconectado(login.usuario)) {
+		if(!miPartida.Iniciada() || miPartida.EsClienteDesconectado(login.usuario)){
+
 			cout << "Recibiendo al nuevo cliente: " << login.usuario << endl;
 			// Datos para el thread
 			DatosHiloServidor datos;
@@ -213,12 +213,11 @@ void Servidor::AceptarClientes(int maxClientes) {
 			pthread_detach(hiloEnvio);
 
 		} else {
-			Mensaje msg;
-			// Puede ser otro tipo de mensaje....
-			IDMENSAJE idMsg = MENSAJE;
-			strcpy(msg.mensaje, "Partida completa!");
+			IDMENSAJE idMsg = COMPLETO;
 			send(socketComunicacion, &idMsg, sizeof(idMsg), 0);
-			send(socketComunicacion, &msg, sizeof(msg), 0);
+
+			shutdown(socketComunicacion, SHUT_RDWR);
+			close(socketComunicacion);
 
 			shutdown(socketComunicacion, SHUT_RDWR);
 			close(socketComunicacion);
