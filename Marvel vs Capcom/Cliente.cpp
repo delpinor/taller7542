@@ -214,15 +214,18 @@ int Cliente::recibirModeloDelServidor() {
 void Cliente::lanzarHilosDelJuego() {
 	cout << "por lanzar hilos del cliente" << endl;
 	pthread_t thid_hilo_escucha;
-	pthread_t thid_hilo_conexion;
 //	pthread_t thid_hilo_render;
 	pthread_create(&thid_hilo_escucha, NULL, hilo_escucha, this);
 	pthread_detach(thid_hilo_escucha);
 
-	pthread_create(&thid_hilo_conexion, NULL, hilo_conexion, this);
-	pthread_detach(thid_hilo_conexion);
+
 	//pthread_create(&thid_hilo_render, NULL, hilo_render, this);
 	//pthread_detach(thid_hilo_render);
+}
+void Cliente::LanzarHiloConexion(){
+	pthread_t thid_hilo_conexion;
+	pthread_create(&thid_hilo_conexion, NULL, hilo_conexion, this);
+	pthread_detach(thid_hilo_conexion);
 }
 void Cliente::MenuDeSeleccion() {
 	//TODO

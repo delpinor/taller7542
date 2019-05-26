@@ -85,7 +85,6 @@ int main(int argc, char* argv[]) {
 		JugadorLogin loginUsuario;
 		IDMENSAJE idMsg = LOGIN;
 		// Capturo datos del jugador
-		char nombre[50];
 		cout << "Usuario:";
 		cin >> cliente.Usuario;
 		strcpy(loginUsuario.usuario, cliente.Usuario);
@@ -101,6 +100,8 @@ int main(int argc, char* argv[]) {
 		cout << "EstadoCliente seteados."<< endl;
 		cliente.lanzarHilosDelJuego();
 		cout << "Hilos del cliente lanzados."<< endl;
+		// Hilo conexion.
+		cliente.LanzarHiloConexion();
 		while (!controller.quitPressed()) {
 			cliente.ChequearConexion();
 			ComandoAlServidor comandoParaServidor;
