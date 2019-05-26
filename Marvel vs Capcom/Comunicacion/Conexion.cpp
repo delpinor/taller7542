@@ -36,6 +36,9 @@ int Conexion::conectarConServidor(char * ip, char * puerto){
 			cout << "Falló coneccion con servidor."<< endl;
 		}
 	}
+	 struct timeval tv;
+	 tv.tv_sec = 2;
+	setsockopt(socketCliente, SOL_SOCKET, SO_SNDTIMEO, (char *)&tv,  sizeof tv);
 	if (falloConexion)
 		return -1;
 	return 0;

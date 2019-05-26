@@ -223,7 +223,7 @@ void Cliente::setCenexion(Conexion* conexion) {
 }
 void Cliente::ChequearConexion() {
 	IDMENSAJE idPong = PING;
-	if (send(this->getConexion()->getSocketCliente(), &idPong, sizeof(idPong), 0) == -1) {
+	if (send(this->getConexion()->getSocketCliente(), &idPong, sizeof(idPong), MSG_DONTWAIT | MSG_CONFIRM ) < 0) {
 		ServidorVivo = false;
 		//Mensaje de falla de conexion
 		cout << "Intentando reconectar con el servidor..." << endl;

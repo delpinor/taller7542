@@ -14,7 +14,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #define SOCKET_NO_VALIDO -1
-#define IP "127.0.0.1"
+#define IP "192.168.0.71"
 class ConexionServidor{
 private:
 	bool falloConexion;

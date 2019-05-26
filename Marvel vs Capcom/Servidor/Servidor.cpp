@@ -69,7 +69,8 @@ void * enviarDatos(void * datos) {
 	while (corriendo) {
 		////------->Mensaje de conexión
 		IDMENSAJE idPing = PING;
-		if (send(sock, &idPing, sizeof(idPing), 0) <= 0) {
+		int errorSock = send(sock, &idPing, sizeof(idPing), MSG_DONTWAIT | MSG_CONFIRM );
+		if (errorSock < 0) {
 			cout << "Jugador " << usuario << " desconectado... ##################################################################################" << endl;
 			miPartida.JugadorDesconectado(usuario);
 			// Cierro los sockets
@@ -184,8 +185,10 @@ void Servidor::AceptarClientes(int maxClientes) {
 	bool corriendo = true;
 	while (corriendo) {
 		int socketComunicacion;
-		socketComunicacion = accept(connServidor.socketConexion,
-				(struct sockaddr *) &paramentrosCliente, &tamanho);
+		socketComunicacion = accept(connServidor.socketConexion,(struct sockaddr *) &paramentrosCliente, &tamanho);
+	    struct timeval tv;
+		tv.tv_sec = 2;
+		setsockopt(socketComunicacion, SOL_SOCKET, SO_SNDTIMEO, (char *)&tv,  sizeof tv);
 		cout << "Se aceptó una conexión nueva" << endl;
 		//Primer mensaje recibido.
 		JugadorLogin login;
