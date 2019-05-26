@@ -127,7 +127,12 @@ void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
 }
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
+	ServidorVivo = false;
 	recv(this->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
+	//-------->Recibe EQUIPO
+	if (idMsg == PING) {
+		ServidorVivo = true;
+	}
 	//-------->Recibe EQUIPO
 	if (idMsg == EQUIPO) {
 		ClienteEquipo unClienteEquipo;
@@ -236,13 +241,12 @@ void Cliente::ChequearConexion() {
 				strcpy(loginUsuario.usuario, this->Usuario);
 				//mensaje de re-loggeo;
 				send(conexion->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
-				send(conexion->getSocketCliente(), &loginUsuario,
-						sizeof(loginUsuario), 0);
+				send(conexion->getSocketCliente(), &loginUsuario, sizeof(loginUsuario), 0);
 				ServidorVivo = true;
 				cout << "Conectado!" << endl;
 
 			}
-			sleep(1);
+			sleep(2);
 		}
 	}
 }
