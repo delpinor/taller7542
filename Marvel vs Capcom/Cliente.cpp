@@ -136,10 +136,11 @@ void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
 	error = send(this->getConexion()->getSocketCliente(), &comando,
 			sizeof(comando), MSG_NOSIGNAL);
 
+
 }
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
-
+		recv(this->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
 	//-------->Recibe EQUIPO
 	if (idMsg == EQUIPO) {
 		ClienteEquipo unClienteEquipo;
