@@ -1,7 +1,6 @@
 #include "ViewMenu.h"
-
-ViewMenu::ViewMenu() {
-
+ViewMenu::ViewMenu(ModeloSeleccion * modelo) {
+	this->modelo=modelo;
 	npersonaje=0;
 
 	fondoclip.h = 460;
@@ -9,23 +8,23 @@ ViewMenu::ViewMenu() {
 	fondoclip.x = 0;
 	fondoclip.y = 0;
 
-	spidermanclip.h = 215;
-	spidermanclip.w = 118;
+	spidermanclip.h = ALTO_CUADRO_JUGADOR;
+	spidermanclip.w = ANCHO_CUADRO_JUGADOR;
 	spidermanclip.x = 160;
 	spidermanclip.y = 485;
 
-	chunliclip.h = 215;
-	chunliclip.w = 118;
+	chunliclip.h = ALTO_CUADRO_JUGADOR;
+	chunliclip.w = ANCHO_CUADRO_JUGADOR;
 	chunliclip.x = 170;
 	chunliclip.y = 24;
 
-	cajpitanclip.h = 215;
-	cajpitanclip.w = 118;
+	cajpitanclip.h = ALTO_CUADRO_JUGADOR;
+	cajpitanclip.w = ANCHO_CUADRO_JUGADOR;
 	cajpitanclip.x = 295;
 	cajpitanclip.y = 485;
 
-	venomclip.h = 215;
-	venomclip.w = 118;
+	venomclip.h = ALTO_CUADRO_JUGADOR;
+	venomclip.w = ANCHO_CUADRO_JUGADOR;
 	venomclip.x = 562;
 	venomclip.y = 485;
 
@@ -37,15 +36,15 @@ ViewMenu::~ViewMenu() {
 
 bool ViewMenu::loadMedia() {
 
-	texturaChunLi.loadFromFile("Images/personajes.png", gRenderer, 118, 215);
-	texturaVenom.loadFromFile("Images/personajes.png", gRenderer, 118, 215);
-	texturaSpiderman.loadFromFile("Images/personajes.png", gRenderer, 118, 215);
-	texturaCapitan.loadFromFile("Images/personajes.png", gRenderer, 118, 215);
+	texturaChunLi.loadFromFile("Images/personajes.png", gRenderer, ANCHO_CUADRO_JUGADOR, ALTO_CUADRO_JUGADOR);
+	texturaVenom.loadFromFile("Images/personajes.png", gRenderer, ANCHO_CUADRO_JUGADOR, ALTO_CUADRO_JUGADOR);
+	texturaSpiderman.loadFromFile("Images/personajes.png", gRenderer, ANCHO_CUADRO_JUGADOR, ALTO_CUADRO_JUGADOR);
+	texturaCapitan.loadFromFile("Images/personajes.png", gRenderer, ANCHO_CUADRO_JUGADOR, ALTO_CUADRO_JUGADOR);
 
-	texturaLogo.loadFromFile("Images/logo.gif", gRenderer, 118, 215);
-	texturaMenuSelec.loadFromFile("Images/personajes.png", gRenderer, 118, 215);
-	texturaJugadorSeleccionado.loadFromFile("Images/seleccion.png", gRenderer, 118,215);
-	texturaJugadorClienteSeleccionado.loadFromFile("Images/seleccion.png", gRenderer, 118,215);
+	texturaLogo.loadFromFile("Images/logo.gif", gRenderer, ANCHO_CUADRO_JUGADOR, ALTO_CUADRO_JUGADOR);
+	texturaMenuSelec.loadFromFile("Images/personajes.png", gRenderer, ANCHO_CUADRO_JUGADOR, ALTO_CUADRO_JUGADOR);
+	texturaJugadorSeleccionado.loadFromFile("Images/seleccion.png", gRenderer, ANCHO_CUADRO_JUGADOR,ALTO_CUADRO_JUGADOR);
+	texturaJugadorClienteSeleccionado.loadFromFile("Images/seleccion.png", gRenderer, ANCHO_CUADRO_JUGADOR,ALTO_CUADRO_JUGADOR);
 	texturaFondo.loadFromFile("Images/fondoc.png", gRenderer, SCREEN_WIDTH,SCREEN_HEIGHT);
 	return true;
 
@@ -84,12 +83,22 @@ bool ViewMenu::loadText()
             printf( "Failed to render text texture!\n" );
             success = false;
         }
-        if( !texturaTextoSeleccionado.loadFromRenderedText( "1P", textColor ,gRenderer,gFont) )
-              {
-                  printf( "Failed to render text texture!\n" );
-                  success = false;
-              }
-        if( !texturaTextoSeleccionadoCliente.loadFromRenderedText( "2P", textColor ,gRenderer,gFont) )
+        if( !texturaTextoSeleccionadoCliente1.loadFromRenderedText( "1P", textColor ,gRenderer,gFont) )
+                   {
+                       printf( "Failed to render text texture!\n" );
+                       success = false;
+                   }
+        if( !texturaTextoSeleccionadoCliente2.loadFromRenderedText( "2P", textColor ,gRenderer,gFont) )
+                {
+                    printf( "Failed to render text texture!\n" );
+                    success = false;
+                }
+        if( !texturaTextoSeleccionadoCliente3.loadFromRenderedText( "3P", textColor ,gRenderer,gFont) )
+                {
+                    printf( "Failed to render text texture!\n" );
+                    success = false;
+                }
+        if( !texturaTextoSeleccionadoCliente4.loadFromRenderedText( "4P", textColor ,gRenderer,gFont) )
                 {
                     printf( "Failed to render text texture!\n" );
                     success = false;
@@ -102,32 +111,8 @@ bool ViewMenu::loadText()
 
 
 void ViewMenu::render() {
-////testing
-	struct ModeloSeleccionPersonaje{
-		int jugadorId;
-		int personajeId;
-		bool confirmado;
-	};
-	struct ModeloSeleccion {
-		bool seleccionFinalizada;
-		std::list<ModeloSeleccionPersonaje> data;
-	};
-	ModeloSeleccion modelo;
-	ModeloSeleccionPersonaje personaje;
-	personaje.personajeId=P_SPIDERMAN;
-	personaje.jugadorId=1;
-	personaje.confirmado=false;
-	modelo.data.push_back(personaje);
-	modelo.data.push_back(personaje);
-	modelo.data.push_back(personaje);
-	modelo.data.push_back(personaje);
-	modelo.data.push_back(personaje);
-	modelo.data.push_back(personaje);
-///////testing
-
-
 	SDL_RenderClear(gRenderer);
-	CantidadDeJugadores = modelo.data.size();
+	CantidadDeJugadores = modelo->data.size();
 	//fondo
 	texturaFondo.render(0, 0, &fondoclip, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	//logo
@@ -135,20 +120,20 @@ void ViewMenu::render() {
 	//personajes
 	int i = 0;
 	std::list<ModeloSeleccionPersonaje>::iterator it;
-	for (it = modelo.data.begin(); it != modelo.data.end(); it++)  { //recorro la lista que recibo
+	for (it = modelo->data.begin(); it != modelo->data.end(); it++)  { //recorro la lista que recibo
 		if (it->personajeId == P_SPIDERMAN)
-			texturaSpiderman.render((i) * ANCHO_CUADRO,
-					ALTO_CUADRO, &spidermanclip, 0.0, NULL, SDL_FLIP_NONE,
-					gRenderer);
-		if (it->personajeId == P_CHUN_LI)
-			texturaChunLi.render((i) * ANCHO_CUADRO, ALTO_CUADRO,
+			texturaSpiderman.render(((i) * ANCHO_CUADRO_JUGADOR)+POS_CUADROX,
+					POS_CUADROY, &spidermanclip, 0.0, NULL, SDL_FLIP_NONE,
+					gRenderer);//tengo que hacer un map del personaje al i para usar abajo
+		if (it->personajeId == P_CHUNLI)
+			texturaChunLi.render(((i) * ANCHO_CUADRO_JUGADOR)+POS_CUADROX, POS_CUADROY,
 					&chunliclip, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 		if (it->personajeId == P_CAPITAN_AMERICA)
-			texturaCapitan.render((i) * ANCHO_CUADRO,
-					ALTO_CUADRO, &cajpitanclip, 0.0, NULL, SDL_FLIP_NONE,
+			texturaCapitan.render(((i) * ANCHO_CUADRO_JUGADOR)+POS_CUADROX,
+					POS_CUADROY, &cajpitanclip, 0.0, NULL, SDL_FLIP_NONE,
 					gRenderer);
 		if (it->personajeId == P_VENOM)
-			texturaVenom.render((i) * ANCHO_CUADRO, ALTO_CUADRO,
+			texturaVenom.render(((i) * ANCHO_CUADRO_JUGADOR)+POS_CUADROX, POS_CUADROY,
 					&venomclip, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 		i++;
 	}
@@ -156,17 +141,46 @@ void ViewMenu::render() {
 	gTextTexture.render( ( SCREEN_WIDTH - gTextTexture.getWidth() ) / 2, 4 ,NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	//mensaje de seleccion
 	gTextTexture2.render( 4, 250 ,NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
+
+
 	//cuadro de jugador seleccionado y texto
 	framealpha+=30;
 	if (( framealpha/ 100 >= 100)) framealpha = 0;
 	texturaJugadorSeleccionado.setAlpha(framealpha);
 	texturaJugadorSeleccionado.setColor(200,200,20);
-	texturaTextoSeleccionado.render((npersonaje*ANCHO_CUADRO)+15, 200, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
-	texturaJugadorSeleccionado.render(npersonaje*ANCHO_CUADRO, ALTO_CUADRO, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
-	//cuadro de jugador seleccionado y texto de los clientes (tengo que hacer que recorra el vector de posiciones de clientes clientes
-	texturaJugadorClienteSeleccionado.setAlpha(framealpha);
-	texturaJugadorClienteSeleccionado.setColor(100,100,100);
-	texturaJugadorClienteSeleccionado.render(0, ALTO_CUADRO, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);//reemplazar 0 por posiciones de otros jugadores
+
+	for (it = modelo->data.begin(); it != modelo->data.end(); it++) { //recorro la lista que recibo
+		if (it->jugadorId == 1)
+			texturaTextoSeleccionadoCliente1.render(
+					((it->personajeId-1) * ANCHO_CUADRO_JUGADOR) + 15, 200, NULL, 0.0,
+					NULL, SDL_FLIP_NONE, gRenderer);//it->personajeId-1 reempazo con map(it->personajeId)
+		texturaJugadorSeleccionado.render(
+				((it->personajeId-1)  * ANCHO_CUADRO_JUGADOR) + POS_CUADROX, POS_CUADROY,
+				NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
+		if (it->jugadorId == 2)
+			texturaTextoSeleccionadoCliente1.render(
+					((it->personajeId-1) * ANCHO_CUADRO_JUGADOR) + 15, 200, NULL, 0.0,
+					NULL, SDL_FLIP_NONE, gRenderer);
+		texturaJugadorSeleccionado.render(
+				((it->personajeId-1)  * ANCHO_CUADRO_JUGADOR) + POS_CUADROX, POS_CUADROY,
+				NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
+		if (it->jugadorId == 3)
+			texturaTextoSeleccionadoCliente1.render(
+						((it->personajeId-1)  * ANCHO_CUADRO_JUGADOR) + 15, 200, NULL, 0.0,
+						NULL, SDL_FLIP_NONE, gRenderer);
+			texturaJugadorSeleccionado.render(
+					((it->personajeId-1)  * ANCHO_CUADRO_JUGADOR) + POS_CUADROX, POS_CUADROY,
+					NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
+		if (it->jugadorId == 4)
+			texturaTextoSeleccionadoCliente1.render(
+						((it->personajeId-1) * ANCHO_CUADRO_JUGADOR) + 15, 200, NULL, 0.0,
+						NULL, SDL_FLIP_NONE, gRenderer);
+			texturaJugadorSeleccionado.render(
+					((it->personajeId-1) * ANCHO_CUADRO_JUGADOR) + POS_CUADROX, POS_CUADROY,
+					NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
+
+	}
+
 
 	SDL_RenderPresent(gRenderer);
 }
@@ -243,5 +257,3 @@ void ViewMenu::personajeAnterior() {
 	if (npersonaje >0)
 		npersonaje-=1;
 }
-
-

@@ -2,7 +2,17 @@
 
 int PosicionesDemasJugadores;
  Menu::Menu() {
-	ViewMenu view;
+
+	ModeloSeleccionPersonaje personaje;
+	ModeloSeleccion modelo;
+	personaje.personajeId=P_CHUNLI;
+	personaje.jugadorId=1;
+	personaje.confirmado=false;
+	modelo.data.push_back(personaje);
+	modelo.data.push_back(personaje);
+	modelo.data.push_back(personaje);
+	modelo.data.push_back(personaje);
+	ViewMenu view(&modelo);
 ///esto me tiene que llegar del server
 	//	ViewMenu view(CantidadDeJugadores);
 	if (!view.inicializar()) {
@@ -36,6 +46,7 @@ int PosicionesDemasJugadores;
 
 						case SDLK_LEFT:
 							view.personajeAnterior();
+
 							//necesito aumentar un contador para el seleccionado aca
 							break;
 						case SDLK_RIGHT:

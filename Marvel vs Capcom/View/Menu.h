@@ -1,5 +1,6 @@
 #include "ViewMenu.h"
 #include <stdio.h>
+#include<list>
 #include <string>
 #ifndef MENU_H_
 #define MENU_H_
