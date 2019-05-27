@@ -16,6 +16,9 @@ void * controlPartida(void *) {
 		if (miPartida.EquipoCompleto()) {
 			miPartida.IniciarPartida();
 		}
+		if (miPartida.Finalizada()){
+			miPartida.DetenerJugadores();
+		}
 	}
 }
 
@@ -72,12 +75,13 @@ void * enviarDatos(void * datos) {
 		int errorSock = send(sock, &idPing, sizeof(idPing), MSG_DONTWAIT | MSG_CONFIRM );
 		if (errorSock < 0) {
 			cout << "Jugador " << usuario << " desconectado... ##################################################################################" << endl;
-			miPartida.JugadorDesconectado(usuario);
 			// Cierro los sockets
 			shutdown(sock, SHUT_RDWR);
 			close(sock);
+			miPartida.JugadorDesconectado(usuario);
 			pthread_exit(NULL);
 			corriendo = false;
+			break;
 		}
 
 		//------->Mensaje de Equipo
@@ -140,6 +144,7 @@ void * recibirDatos(void * datos) {
 		if(miPartida.EsClienteDesconectadoBySock(unCliente.socket)){
 			cout << "Cliente desconectado!!!########################## Hilo termminado" << endl;
 			corriendo = false;
+			pthread_exit(NULL);
 			break;
 		}
 

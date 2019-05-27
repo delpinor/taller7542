@@ -198,29 +198,32 @@ void Partida::EliminarDesconectado(string nombre) {
 void Partida::JugadorDesconectado(string nombre) {
 	ClienteConectado unCliente;
 	unCliente = GetClienteJugando(nombre);
+	//Borra de lista de jugadores
+	EliminarJugador(nombre);
+	// Agrego a la lista de desconectados
+	listaDesconectados.push_back(unCliente);
 	if (unCliente.titular) {
 		if (TieneSuplente(unCliente.equipo)) {
 			//Suplente ocupa el lugar del titular
 			JuegaSuplente(unCliente.equipo);
 		} else {
 			//espero algunos segundos para que el cliente se reconecte
-			partidaFinalizada = jugadorReconectado(unCliente.equipo);
+			partidaFinalizada = !jugadorReconectado(unCliente.equipo);
 		}
 	}
-	//Borra de lista de jugadores
-	EliminarJugador(nombre);
-	// Agrego a la lista de desconectados
-	listaDesconectados.push_back(unCliente);
+
 }
 bool Partida::jugadorReconectado(int equipo) {
-	bool hayEquipo = false;
 	//Espero la cantidad de segundos indicado en la variable i
-	for (int i = 0; i < 10; i++) {
-		hayEquipo = hayJugadorParaEquipo(equipo);
-		cout << "Se reconectó jugador? " << hayEquipo << endl;
+	for (int i = 0; i < 20; i++) {
+		if(hayJugadorParaEquipo(equipo)){
+			cout << "Jugador de equipo " << equipo << " se reconectó! La partida continú. "<< endl;
+			return true;
+		}
+		cout << "Esperando que se reconecte jugador de equipo " << equipo << endl;
 		sleep(1);
 	}
-	return hayEquipo;
+	return false;
 }
 
 bool Partida::hayJugadorParaEquipo(int equipo) {
@@ -419,3 +422,10 @@ int Partida::GetCantidadEspera() {
 	return listaEspera.size();
 }
 
+void Partida::DetenerJugadores(){
+		list<ClienteConectado>::iterator it;
+		for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+			// Asigno a todos como suplentes para dejar de recibir comandos
+			it->titular = false;
+		}
+}

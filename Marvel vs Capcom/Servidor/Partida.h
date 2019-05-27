@@ -71,8 +71,7 @@ public:
 	bool hayJugadorParaEquipo(int equipo);
 	bool existeJugador(string nombre);
 	void SwapTitularSuplente(int equipo);
-
-
+	void DetenerJugadores();
 
 };
 
