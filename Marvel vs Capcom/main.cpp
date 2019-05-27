@@ -85,10 +85,9 @@ int main(int argc, char* argv[]) {
 		JugadorLogin loginUsuario;
 		IDMENSAJE idMsg = LOGIN;
 		// Capturo datos del jugador
-		char nombre[50];
 		cout << "Usuario:";
-		cin >> nombre;
-		strcpy(loginUsuario.usuario, nombre);
+		cin >> cliente.Usuario;
+		strcpy(loginUsuario.usuario, cliente.Usuario);
 
 		send(conexion.getSocketCliente(), &idMsg, sizeof(idMsg),0);
 		send(conexion.getSocketCliente(), &loginUsuario, sizeof(loginUsuario),0);
@@ -101,15 +100,16 @@ int main(int argc, char* argv[]) {
 		cout << "EstadoCliente seteados."<< endl;
 		cliente.lanzarHilosDelJuego();
 		cout << "Hilos del cliente lanzados."<< endl;
-		ComandoAlServidor comandoDefault;
-		comandoDefault.comando = 7; //PARAR
+		// Hilo conexion.
+		//cliente.LanzarHiloConexion();
 		while (!controller.quitPressed()) {
+			//cliente.ChequearConexion();
 			ComandoAlServidor comandoParaServidor;
-			if (cliente.Titular)
-				comandoParaServidor.comando = controller.processInputCliente();
-			else
-				comandoParaServidor.comando = 99;
-			cliente.enviarComandoAServidor(comandoParaServidor);
+			comandoParaServidor.comando = controller.processInputCliente();
+			if (cliente.Titular) {
+				cliente.enviarComandoAServidor(comandoParaServidor);
+			}
+
 			usleep(50);
 			model.updateCliente();
 			view.render();

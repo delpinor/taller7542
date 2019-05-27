@@ -21,6 +21,14 @@ public:
 	Cliente(View* vista, Conexion* conexion);
 	int Equipo;
 	bool Titular;
+	char* IPServidor;
+	char * Puerto;
+	char Usuario[50];
+	bool ServidorVivo = true;
+
+	void LanzarHiloConexion();
+
+	void ChequearConexion();
 	int ConectarConServidor(char* ip, char* puerto);
 	void PushModeloEnCola(ModeloEstado modelo);
 	ModeloEstado PopModeloDeCola();

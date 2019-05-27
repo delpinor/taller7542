@@ -24,6 +24,7 @@ class Conexion{
 	public:
 		Conexion();
 		int conectarConServidor(char * ip, char * puerto);
+		void Cerrar();
 		int prepararSocketServidor();
 		int aceptarConexionCliente();
 		int enviar_mensaje(int socket, void* mensaje, int tam_mensaje);
