@@ -45,7 +45,6 @@ struct ModeloEstado {
 	struct CamaraCliente camara;
 };
 struct ModeloSeleccionPersonaje{
-<<<<<<< Updated upstream
        int jugadorId;
        int personajeId;
        bool confirmado;
@@ -57,16 +56,11 @@ struct ModeloSeleccion {
 
 struct ModeloPersonajes {
 	std::list<int> idsPersonajes;
-=======
 	int jugadorId;
 	int personajeId;
 	bool confirmado;
 };
-struct ModeloSeleccion {
-	bool seleccionFinalizada;
-	std::list<ModeloSeleccionPersonaje> data;
->>>>>>> Stashed changes
-};
+
 struct ComandoAlServidor{
 	int comando;
 };
