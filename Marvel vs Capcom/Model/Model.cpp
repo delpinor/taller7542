@@ -214,10 +214,10 @@ Equipo* Model::getEquipoNro(int i) {
 	return this->equipos[i];
 }
 
-std::map<int, std::string> Model::GetMapPersonajes(){
-	std::map<int, std::string> personajes;
+std::list<int> Model::GetIdsPersonajes(){
+	std::list<int> idsPersonajes;
 	for (map <int, Jugador*>::iterator it = this->jugadoresEquipo1.begin(); it != this->jugadoresEquipo1.end(); ++it){
-		personajes[it->first] = it->second->getNombre();
+		idsPersonajes.push_back(it->first);
 	}
-	return personajes;
+	return idsPersonajes;
 };

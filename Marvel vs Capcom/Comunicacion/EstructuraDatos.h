@@ -55,7 +55,7 @@ struct ModeloSeleccion {
 };
 
 struct ModeloPersonajes {
-       std::map<int, std::string> mapJugadorPersonaje;
+	std::list<int> idsPersonajes;
 };
 struct ComandoAlServidor{
 	int comando;

@@ -83,7 +83,7 @@ ModeloEstado  Partida::GetModeloEstado(){
 }
 ModeloPersonajes Partida::GetModeloPersonajes(){
        ModeloPersonajes unModelo;
-       unModelo.mapJugadorPersonaje = this->modelo->GetMapPersonajes();
+       unModelo.idsPersonajes = this->modelo->GetIdsPersonajes();
        return unModelo;
 }
 ModeloSeleccion  Partida::GetModeloSeleccion(){
