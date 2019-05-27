@@ -101,9 +101,9 @@ int main(int argc, char* argv[]) {
 		cliente.lanzarHilosDelJuego();
 		cout << "Hilos del cliente lanzados."<< endl;
 		// Hilo conexion.
-		//cliente.LanzarHiloConexion();
+		cliente.LanzarHiloConexion();
 		while (!controller.quitPressed()) {
-			//cliente.ChequearConexion();
+			cliente.ChequearConexion();
 			ComandoAlServidor comandoParaServidor;
 			comandoParaServidor.comando = controller.processInputCliente();
 			if (cliente.Titular) {

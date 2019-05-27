@@ -30,7 +30,6 @@ void * hilo_escucha(void * cliente) {
 }
 void * hilo_conexion(void * cliente) {
 	Cliente* p = (Cliente*) cliente;
-	p->ServidorVivo = false;
 	IDMENSAJE idPong = PING;
 	int timer = 0;
 	while (1) {
@@ -38,8 +37,8 @@ void * hilo_conexion(void * cliente) {
 		if (errorSend < 0) {
 			timer++;
 		}
-		if (timer == 10){
-			p->ServidorVivo = true;
+		if (timer == 1){
+			p->ServidorVivo = false;
 			timer = 0;
 		}
 		usleep(10000);
