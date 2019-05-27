@@ -32,10 +32,15 @@ void * hilo_conexion(void * cliente) {
 	Cliente* p = (Cliente*) cliente;
 	p->ServidorVivo = false;
 	IDMENSAJE idPong = PING;
+	int timer = 0;
 	while (1) {
 		int errorSend = send(p->getConexion()->getSocketCliente(), &idPong, sizeof(idPong), MSG_DONTWAIT | MSG_CONFIRM);
 		if (errorSend < 0) {
-			p->ServidorVivo = false;
+			timer++;
+		}
+		if (timer == 10){
+			p->ServidorVivo = true;
+			timer = 0;
 		}
 		usleep(10000);
 	}
@@ -140,7 +145,7 @@ void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
 }
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
-		recv(this->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
+	recv(this->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
 	//-------->Recibe EQUIPO
 	if (idMsg == EQUIPO) {
 		ClienteEquipo unClienteEquipo;
@@ -261,8 +266,8 @@ void Cliente::setCenexion(Conexion* conexion) {
 	this->conexion = conexion;
 }
 void Cliente::ChequearConexion() {
+	Conexion nuevaConexion;
 	while (!ServidorVivo) {
-		Conexion nuevaConexion;
 		if (nuevaConexion.conectarConServidor(this->IPServidor, this->Puerto) != -1) {
 			setCenexion(&nuevaConexion);
 			JugadorLogin loginUsuario;
