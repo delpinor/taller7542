@@ -78,7 +78,9 @@ void * enviarDatos(void * datos) {
 			// Cierro los sockets
 			shutdown(sock, SHUT_RDWR);
 			close(sock);
+			pthread_mutex_lock(&mutex_server);
 			miPartida.JugadorDesconectado(usuario);
+			pthread_mutex_unlock(&mutex_server);
 			pthread_exit(NULL);
 			corriendo = false;
 			break;

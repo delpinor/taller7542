@@ -39,9 +39,10 @@ void * hilo_conexion(void * cliente) {
 		}
 		if (timer == 1){
 			p->ServidorVivo = false;
+			p->getConexion()->Cerrar();
 			timer = 0;
 		}
-		usleep(10000);
+		usleep(100);
 	}
 }
 
@@ -265,8 +266,8 @@ void Cliente::setCenexion(Conexion* conexion) {
 	this->conexion = conexion;
 }
 void Cliente::ChequearConexion() {
-	Conexion nuevaConexion;
 	while (!ServidorVivo) {
+		Conexion nuevaConexion;
 		if (nuevaConexion.conectarConServidor(this->IPServidor, this->Puerto) != -1) {
 			setCenexion(&nuevaConexion);
 			JugadorLogin loginUsuario;
