@@ -18,8 +18,8 @@ struct DatosHiloServidor {
 };
 struct HiloConexion {
 	bool ping;
-	bool clienteVivo = true;
 	int sock;
+	string usuario;
 };
 
 class Servidor {

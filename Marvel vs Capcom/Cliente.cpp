@@ -32,7 +32,7 @@ void * hilo_conexion(void * cliente) {
 	Cliente* p = (Cliente*) cliente;
 	while (1) {
 		p->Ping= false;
-		sleep(2);
+		sleep(1);
 		if (!p->Ping) {
 			p->getConexion()->Cerrar();
 			p->ServidorVivo = false;
@@ -139,10 +139,10 @@ void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
 }
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
-	recv(this->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
+	int errorRecv = recv(this->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
 
 	//-------->Recibe PING
-	if (idMsg == PING) {
+	if ((idMsg == PING) && (errorRecv > 0)) {
 		this->Ping = true;
 		// Respondo el ping
 		IDMENSAJE idCabecera = PING;

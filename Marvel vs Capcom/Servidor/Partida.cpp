@@ -206,12 +206,27 @@ void Partida::JugadorDesconectado(string nombre) {
 		if (TieneSuplente(unCliente.equipo)) {
 			//Suplente ocupa el lugar del titular
 			JuegaSuplente(unCliente.equipo);
+			//Mantiene Personaje/Numero de jugador
+			//SwapPersonaje(unCliente.equipo);
+
 		} else {
 			//espero algunos segundos para que el cliente se reconecte
 			partidaFinalizada = !jugadorReconectado(unCliente.equipo);
 		}
 	}
 
+}
+void Partida::SwapPersonaje(int equipo){
+	list<ClienteConectado>::iterator it;
+		for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+			if (it->equipo == equipo) {
+				if (it->numeroJugador == 0) {
+					it->numeroJugador = 1;
+				} else {
+					it->numeroJugador = 0;
+			}
+		}
+	}
 }
 bool Partida::jugadorReconectado(int equipo) {
 	//Espero la cantidad de segundos indicado en la variable i

@@ -14,10 +14,14 @@ void * hilo_conexionServer(void * datosConexion) {
 	HiloConexion* p = (HiloConexion*) datosConexion;
 	while (1) {
 		p->ping = false;
-		sleep(3);
+		sleep(1);
 		if (!p->ping) {
+			shutdown(p->sock, SHUT_RDWR);
 			close(p->sock);
+			pthread_mutex_lock(&mutex_server);
+			miPartida.JugadorDesconectado(p->usuario);
 			cout << "Falla en la comunicacion con el cliente: " << p->sock << endl;
+			pthread_mutex_unlock(&mutex_server);
 			pthread_exit(NULL);
 			break;
 		}
@@ -84,21 +88,27 @@ void * enviarDatos(void * datos) {
 
 	bool corriendo = true;
 	while (corriendo) {
-		////------->Mensaje de conexión
-		IDMENSAJE idPing = PING;
-		int errorSock = send(sock, &idPing, sizeof(idPing), MSG_DONTWAIT | MSG_CONFIRM );
-		if (errorSock < 0) {
-			cout << "Jugador " << usuario << " desconectado..." << " Socket:" << sock << endl;
-			// Cierro los sockets
-			pthread_mutex_lock(&mutex_server);
-//			shutdown(sock, SHUT_RDWR);
-//			close(sock);
-			miPartida.JugadorDesconectado(usuario);
-			pthread_mutex_unlock(&mutex_server);
-			pthread_exit(NULL);
+		if(miPartida.EsClienteDesconectadoBySock(sock)){
+			cout << "Cliente desconectado!!!########################## Hilo enviar datos termminado" << endl;
 			corriendo = false;
+			pthread_exit(NULL);
 			break;
 		}
+		////------->Mensaje de conexión
+		IDMENSAJE idPing = PING;
+		int errorSock = send(sock, &idPing, sizeof(idPing), 0);
+//		if (errorSock < 0) {
+//			cout << "Jugador " << usuario << " desconectado..." << " Socket:" << sock << endl;
+//			// Cierro los sockets
+//			pthread_mutex_lock(&mutex_server);
+//			shutdown(sock, SHUT_RDWR);
+//			close(sock);
+//			miPartida.JugadorDesconectado(usuario);
+//			pthread_mutex_unlock(&mutex_server);
+//			pthread_exit(NULL);
+//			corriendo = false;
+//			break;
+//		}
 
 		//------->Mensaje de Equipo
 		IDMENSAJE idEquipo = EQUIPO;
@@ -139,6 +149,7 @@ void * enviarDatos(void * datos) {
 //Escuchar mensajes de los clientes
 void * recibirDatos(void * datos) {
 
+
 	int sock = ((DatosHiloServidor*) datos)->sock;
 	string usuario = ((DatosHiloServidor*) datos)->usuario;
 
@@ -159,6 +170,7 @@ void * recibirDatos(void * datos) {
 	HiloConexion datosCone;
 	datosCone.sock = unCliente.socket;
 	datosCone.ping = false;
+	datosCone.usuario = unCliente.nombre;
 	pthread_t hiloConexion;
 
 	pthread_create(&hiloConexion, NULL, hilo_conexionServer, (void*) &datosCone);
@@ -175,9 +187,13 @@ void * recibirDatos(void * datos) {
 		}
 
 		IDMENSAJE idMsg;
-		recv(unCliente.socket, &idMsg, sizeof(idMsg), 0);
-		if (idMsg == PING) {
+		int errorRecv = recv(unCliente.socket, &idMsg, sizeof(idMsg), MSG_NOSIGNAL);
+		if ((idMsg == PING) && (errorRecv > 0)) {
+				pthread_mutex_lock(&mutex_server);
+//				cout << "Ping recibido de socket: " << sock << endl;
+//				cout << "Error: " << errorRecv << endl;
 				datosCone.ping = true;
+				pthread_mutex_unlock(&mutex_server);
 		}
 
 		if (idMsg == MENSAJE) {
