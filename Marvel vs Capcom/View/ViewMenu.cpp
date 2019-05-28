@@ -122,18 +122,18 @@ void ViewMenu::render() {
 	std::list<ModeloSeleccionPersonaje>::iterator it;
 	for (it = modelo->data.begin(); it != modelo->data.end(); it++)  { //recorro la lista que recibo
 		if (it->personajeId == P_SPIDERMAN)
-			texturaSpiderman.render(((i) * ANCHO_CUADRO_JUGADOR)+POS_CUADROX,
+			texturaSpiderman.render(((P_SPIDERMAN-1) * ANCHO_CUADRO_JUGADOR)+POS_CUADROX,
 					POS_CUADROY, &spidermanclip, 0.0, NULL, SDL_FLIP_NONE,
 					gRenderer);//tengo que hacer un map del personaje al i para usar abajo
 		if (it->personajeId == P_CHUNLI)
-			texturaChunLi.render(((i) * ANCHO_CUADRO_JUGADOR)+POS_CUADROX, POS_CUADROY,
+			texturaChunLi.render(((P_CHUNLI-1) * ANCHO_CUADRO_JUGADOR)+POS_CUADROX, POS_CUADROY,
 					&chunliclip, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 		if (it->personajeId == P_CAPITAN_AMERICA)
-			texturaCapitan.render(((i) * ANCHO_CUADRO_JUGADOR)+POS_CUADROX,
+			texturaCapitan.render(((P_CAPITAN_AMERICA-1) * ANCHO_CUADRO_JUGADOR)+POS_CUADROX,
 					POS_CUADROY, &cajpitanclip, 0.0, NULL, SDL_FLIP_NONE,
 					gRenderer);
 		if (it->personajeId == P_VENOM)
-			texturaVenom.render(((i) * ANCHO_CUADRO_JUGADOR)+POS_CUADROX, POS_CUADROY,
+			texturaVenom.render(((P_VENOM-1) * ANCHO_CUADRO_JUGADOR)+POS_CUADROX, POS_CUADROY,
 					&venomclip, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 		i++;
 	}
@@ -158,21 +158,21 @@ void ViewMenu::render() {
 				((it->personajeId-1)  * ANCHO_CUADRO_JUGADOR) + POS_CUADROX, POS_CUADROY,
 				NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 		if (it->jugadorId == 2)
-			texturaTextoSeleccionadoCliente1.render(
+			texturaTextoSeleccionadoCliente2.render(
 					((it->personajeId-1) * ANCHO_CUADRO_JUGADOR) + 15, 200, NULL, 0.0,
 					NULL, SDL_FLIP_NONE, gRenderer);
 		texturaJugadorSeleccionado.render(
 				((it->personajeId-1)  * ANCHO_CUADRO_JUGADOR) + POS_CUADROX, POS_CUADROY,
 				NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 		if (it->jugadorId == 3)
-			texturaTextoSeleccionadoCliente1.render(
+			texturaTextoSeleccionadoCliente3.render(
 						((it->personajeId-1)  * ANCHO_CUADRO_JUGADOR) + 15, 200, NULL, 0.0,
 						NULL, SDL_FLIP_NONE, gRenderer);
 			texturaJugadorSeleccionado.render(
 					((it->personajeId-1)  * ANCHO_CUADRO_JUGADOR) + POS_CUADROX, POS_CUADROY,
 					NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 		if (it->jugadorId == 4)
-			texturaTextoSeleccionadoCliente1.render(
+			texturaTextoSeleccionadoCliente4.render(
 						((it->personajeId-1) * ANCHO_CUADRO_JUGADOR) + 15, 200, NULL, 0.0,
 						NULL, SDL_FLIP_NONE, gRenderer);
 			texturaJugadorSeleccionado.render(

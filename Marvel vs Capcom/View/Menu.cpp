@@ -5,13 +5,16 @@ int PosicionesDemasJugadores;
 
 	ModeloSeleccionPersonaje personaje;
 	ModeloSeleccion modelo;
-	personaje.personajeId=P_CHUNLI;
+	personaje.personajeId=P_VENOM;
 	personaje.jugadorId=1;
 	personaje.confirmado=false;
+	ModeloSeleccionPersonaje personaje2;
+	personaje2.personajeId=P_CHUNLI;
+	personaje2.jugadorId=4;
+	personaje2.confirmado=false;
 	modelo.data.push_back(personaje);
-	modelo.data.push_back(personaje);
-	modelo.data.push_back(personaje);
-	modelo.data.push_back(personaje);
+	modelo.data.push_back(personaje2);
+
 	ViewMenu view(&modelo);
 ///esto me tiene que llegar del server
 	//	ViewMenu view(CantidadDeJugadores);
@@ -45,12 +48,24 @@ int PosicionesDemasJugadores;
 							break;
 
 						case SDLK_LEFT:
-							view.personajeAnterior();
-
+							{std::list<ModeloSeleccionPersonaje>::iterator it;
+									for (it = modelo.data.begin(); it != modelo.data.end(); it++)  {
+										if  (it->jugadorId==1){
+											if (it->personajeId-1 > 0)
+											it->personajeId--;
+										}
+									}}
 							//necesito aumentar un contador para el seleccionado aca
 							break;
 						case SDLK_RIGHT:
-							view.personajeSiguiente();
+							{std::list<ModeloSeleccionPersonaje>::iterator it;
+							for (it = modelo.data.begin(); it != modelo.data.end(); it++)  {
+								if  (it->jugadorId==1){
+									if ((it->personajeId-1) < (modelo.data.size()-1))
+									it->personajeId++;
+								}
+							}
+							}
 							//necesito disminuir un contador para el seleccionado aca
 							break;
 
