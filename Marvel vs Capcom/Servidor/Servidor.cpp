@@ -160,8 +160,8 @@ void * recibirDatos(void * datos) {
 	datosCone.sock = unCliente.socket;
 	datosCone.ping = false;
 	pthread_t hiloConexion;
-	pthread_create(&hiloConexion, NULL, hilo_conexionServer, (void*) &datosCone);
-	pthread_detach(hiloConexion);
+//	pthread_create(&hiloConexion, NULL, hilo_conexionServer, (void*) &datosCone);
+//	pthread_detach(hiloConexion);
 
 	//-------->Loop de escucha
 	bool corriendo = true;

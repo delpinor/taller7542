@@ -37,7 +37,7 @@ void ConexionServidor::IniciarConexion(char * puerto){
 	}
 	//Esperando conexiones
 	//Se levanta de un archivo la cantidad
-	listen(socketConexion, 100);
+	listen(socketConexion, 4);
 
 }
 int ConexionServidor::GetSocketComunicacion(){
