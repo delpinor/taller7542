@@ -56,9 +56,6 @@ struct ModeloSeleccion {
 
 struct ModeloPersonajes {
 	std::list<int> idsPersonajes;
-	int jugadorId;
-	int personajeId;
-	bool confirmado;
 };
 
 struct ComandoAlServidor{
