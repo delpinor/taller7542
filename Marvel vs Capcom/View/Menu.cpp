@@ -23,11 +23,11 @@ Menu::Menu() {
 	modelo.data.push_back(personaje2);
 	modelo.data.push_back(personaje3);
 	modelo.data.push_back(personaje4);
-	ModeloSeleccion personajes;
-		personajes.data.push_back(personaje);
-		personajes.data.push_back(personaje2);
-		personajes.data.push_back(personaje3);
-		personajes.data.push_back(personaje4);
+	ModeloPersonajes personajes;
+	personajes.idsPersonajes.push_back(P_VENOM);
+	personajes.idsPersonajes.push_back(P_CHUNLI);
+	personajes.idsPersonajes.push_back(P_SPIDERMAN);
+	personajes.idsPersonajes.push_back(P_CAPITAN_AMERICA);
 	ViewMenu view(&modelo,&personajes);
 ///esto me tiene que llegar del server
 	//	ViewMenu view(CantidadDeJugadores);

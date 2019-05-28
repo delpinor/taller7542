@@ -1,5 +1,5 @@
 #include "ViewMenu.h"
-ViewMenu::ViewMenu(ModeloSeleccion * modelo, ModeloSeleccion * personajes) {
+ViewMenu::ViewMenu(ModeloSeleccion * modelo, ModeloPersonajes * personajes) {
 	this->modelo = modelo;
 	this->personajes = personajes;
 	npersonaje = 0;
@@ -132,24 +132,24 @@ void ViewMenu::render() {
 	texturaLogo.render(300, 300, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	//personajes
 	int i = 0;
-	std::list<ModeloSeleccionPersonaje>::iterator it;
-	for (it = personajes->data.begin(); it != personajes->data.end(); it++) { //recorro la lista que recibo
-		if (it->personajeId == P_SPIDERMAN)
+	std::list<int>::iterator itpersonajes;
+	for (itpersonajes = personajes->idsPersonajes.begin(); itpersonajes != personajes->idsPersonajes.end(); itpersonajes++) { //recorro la lista que recibo
+		if (*itpersonajes==P_SPIDERMAN)
 			texturaSpiderman.render(
 					((P_SPIDERMAN - 1) * ANCHO_CUADRO_JUGADOR) + POS_CUADROX,
 					POS_CUADROY, &spidermanclip, 0.0, NULL, SDL_FLIP_NONE,
 					gRenderer); //tengo que hacer un map del personaje al i para usar abajo
-		if (it->personajeId == P_CHUNLI)
+		if (*itpersonajes == P_CHUNLI)
 			texturaChunLi.render(
 					((P_CHUNLI - 1) * ANCHO_CUADRO_JUGADOR) + POS_CUADROX,
 					POS_CUADROY, &chunliclip, 0.0, NULL, SDL_FLIP_NONE,
 					gRenderer);
-		if (it->personajeId == P_CAPITAN_AMERICA)
+		if (*itpersonajes==P_CAPITAN_AMERICA)
 			texturaCapitan.render(
 					((P_CAPITAN_AMERICA - 1) * ANCHO_CUADRO_JUGADOR)
 							+ POS_CUADROX, POS_CUADROY, &cajpitanclip, 0.0,
 					NULL, SDL_FLIP_NONE, gRenderer);
-		if (it->personajeId == P_VENOM)
+		if (*itpersonajes==P_VENOM)
 			texturaVenom.render(
 					((P_VENOM - 1) * ANCHO_CUADRO_JUGADOR) + POS_CUADROX,
 					POS_CUADROY, &venomclip, 0.0, NULL, SDL_FLIP_NONE,
@@ -174,7 +174,7 @@ void ViewMenu::render() {
 	texturaJugadorClienteSeleccionado3.setColor(250, 0, 250);
 	texturaJugadorClienteSeleccionado4.setAlpha(framealpha+90);
 	texturaJugadorClienteSeleccionado4.setColor(0, 250, 250);
-
+	std::list<ModeloSeleccionPersonaje>::iterator it;
 	for (it = modelo->data.begin(); it != modelo->data.end(); it++) { //recorro la lista que recibo
 		if (it->jugadorId == 1) {
 			texturaTextoSeleccionadoCliente1.render(
