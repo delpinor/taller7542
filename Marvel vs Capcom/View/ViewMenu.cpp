@@ -1,6 +1,7 @@
 #include "ViewMenu.h"
-ViewMenu::ViewMenu(ModeloSeleccion * modelo) {
+ViewMenu::ViewMenu(ModeloSeleccion * modelo,ModeloSeleccion * personajes) {
 	this->modelo=modelo;
+	this->personajes=personajes;
 	npersonaje=0;
 
 	fondoclip.h = 460;
@@ -120,7 +121,7 @@ void ViewMenu::render() {
 	//personajes
 	int i = 0;
 	std::list<ModeloSeleccionPersonaje>::iterator it;
-	for (it = modelo->data.begin(); it != modelo->data.end(); it++)  { //recorro la lista que recibo
+	for (it = personajes->data.begin(); it != personajes->data.end(); it++)  { //recorro la lista que recibo
 		if (it->personajeId == P_SPIDERMAN)
 			texturaSpiderman.render(((P_SPIDERMAN-1) * ANCHO_CUADRO_JUGADOR)+POS_CUADROX,
 					POS_CUADROY, &spidermanclip, 0.0, NULL, SDL_FLIP_NONE,

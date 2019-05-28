@@ -1,21 +1,34 @@
 #include "Menu.h"
 
 int PosicionesDemasJugadores;
- Menu::Menu() {
-
-	ModeloSeleccionPersonaje personaje;
+Menu::Menu() {
 	ModeloSeleccion modelo;
-	personaje.personajeId=P_VENOM;
-	personaje.jugadorId=1;
-	personaje.confirmado=false;
+	ModeloSeleccionPersonaje personaje;
+	personaje.personajeId = P_VENOM;
+	personaje.jugadorId = 1;
+	personaje.confirmado = false;
 	ModeloSeleccionPersonaje personaje2;
-	personaje2.personajeId=P_CHUNLI;
-	personaje2.jugadorId=4;
-	personaje2.confirmado=false;
+	personaje2.personajeId = P_CHUNLI;
+	personaje2.jugadorId = 4;
+	personaje2.confirmado = false;
+	ModeloSeleccionPersonaje personaje3;
+	personaje3.personajeId = P_SPIDERMAN;
+	personaje3.jugadorId = 3;
+	personaje3.confirmado = false;
+	ModeloSeleccionPersonaje personaje4;
+	personaje4.personajeId = P_CAPITAN_AMERICA;
+	personaje4.jugadorId = 2;
+	personaje4.confirmado = false;
 	modelo.data.push_back(personaje);
 	modelo.data.push_back(personaje2);
-
-	ViewMenu view(&modelo);
+	modelo.data.push_back(personaje3);
+	modelo.data.push_back(personaje4);
+	ModeloSeleccion personajes;
+		personajes.data.push_back(personaje);
+		personajes.data.push_back(personaje2);
+		personajes.data.push_back(personaje3);
+		personajes.data.push_back(personaje4);
+	ViewMenu view(&modelo,&personajes);
 ///esto me tiene que llegar del server
 	//	ViewMenu view(CantidadDeJugadores);
 	if (!view.inicializar()) {
@@ -47,25 +60,29 @@ int PosicionesDemasJugadores;
 							quit = true;
 							break;
 
-						case SDLK_LEFT:
-							{std::list<ModeloSeleccionPersonaje>::iterator it;
-									for (it = modelo.data.begin(); it != modelo.data.end(); it++)  {
-										if  (it->jugadorId==1){
-											if (it->personajeId-1 > 0)
-											it->personajeId--;
-										}
-									}}
-							//necesito aumentar un contador para el seleccionado aca
-							break;
-						case SDLK_RIGHT:
-							{std::list<ModeloSeleccionPersonaje>::iterator it;
-							for (it = modelo.data.begin(); it != modelo.data.end(); it++)  {
-								if  (it->jugadorId==1){
-									if ((it->personajeId-1) < (modelo.data.size()-1))
-									it->personajeId++;
+						case SDLK_LEFT: {
+							std::list<ModeloSeleccionPersonaje>::iterator it;
+							for (it = modelo.data.begin();
+									it != modelo.data.end(); it++) {
+								if (it->jugadorId == 1) {
+									if (it->personajeId - 1 > 0)
+										it->personajeId--;
 								}
 							}
+						}
+							//necesito aumentar un contador para el seleccionado aca
+							break;
+						case SDLK_RIGHT: {
+							std::list<ModeloSeleccionPersonaje>::iterator it;
+							for (it = modelo.data.begin();
+									it != modelo.data.end(); it++) {
+								if (it->jugadorId == 1) {
+									if ((it->personajeId - 1)
+											< (modelo.data.size() - 1))
+										it->personajeId++;
+								}
 							}
+						}
 							//necesito disminuir un contador para el seleccionado aca
 							break;
 

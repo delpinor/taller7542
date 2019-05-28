@@ -8,7 +8,7 @@
 class ViewMenu {
 
 public:
-		ViewMenu(ModeloSeleccion * modelo);
+		ViewMenu(ModeloSeleccion * modelo,ModeloSeleccion * personajes);
 		int CantidadDeJugadores;
 		SDL_Rect spidermanclip, chunliclip, cajpitanclip, venomclip, fondoclip;
 		int npersonaje,framealpha;
@@ -39,6 +39,7 @@ public:
 		TTF_Font *gFont2 = NULL;
 		int ancho_Pantalla, alto_Pantalla;
 		ModeloSeleccion *  modelo;
+		ModeloSeleccion *  personajes;
 	void personajeSiguiente();
 	void personajeAnterior();
 	virtual ~ViewMenu();
