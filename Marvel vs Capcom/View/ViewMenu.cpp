@@ -162,10 +162,8 @@ void ViewMenu::render() {
 	//mensaje de seleccion
 	gTextTexture2.render(4, 250, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 
-	//cuadro de jugador seleccionado y texto
-	framealpha += 30;
-	if ((framealpha / 100 >= 100))
-		framealpha = 0;
+	framealpha +=(25);
+
 	texturaJugadorClienteSeleccionado1.setAlpha(framealpha);
 	texturaJugadorClienteSeleccionado1.setColor(250, 250, 250);
 	texturaJugadorClienteSeleccionado2.setAlpha(framealpha+30);
