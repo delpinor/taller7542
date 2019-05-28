@@ -9,6 +9,20 @@ using namespace std;
 pthread_mutex_t mutex_server;
 Partida miPartida;
 
+// Hilo Conexion
+void * hilo_conexionServer(void * datosConexion) {
+	HiloConexion* p = (HiloConexion*) datosConexion;
+	while (1) {
+		p->ping = false;
+		sleep(3);
+		if (!p->ping) {
+			close(p->sock);
+			cout << "Falla en la comunicacion con el cliente: " << p->sock << endl;
+			pthread_exit(NULL);
+			break;
+		}
+	}
+}
 // Hilo de control de partida. Finalizacion, inicio, etc.
 void * controlPartida(void *) {
 
@@ -72,13 +86,13 @@ void * enviarDatos(void * datos) {
 	while (corriendo) {
 		////------->Mensaje de conexión
 		IDMENSAJE idPing = PING;
-		int errorSock = send(sock, &idPing, sizeof(idPing), MSG_DONTWAIT | MSG_CONFIRM );
+		int errorSock = send(sock, &idPing, sizeof(idPing), 0);
 		if (errorSock < 0) {
-			cout << "Jugador " << usuario << " desconectado... ##################################################################################" << endl;
+			cout << "Jugador " << usuario << " desconectado..." << " Socket:" << sock << endl;
 			// Cierro los sockets
-			shutdown(sock, SHUT_RDWR);
-			close(sock);
 			pthread_mutex_lock(&mutex_server);
+//			shutdown(sock, SHUT_RDWR);
+//			close(sock);
 			miPartida.JugadorDesconectado(usuario);
 			pthread_mutex_unlock(&mutex_server);
 			pthread_exit(NULL);
@@ -118,7 +132,7 @@ void * enviarDatos(void * datos) {
 			send(sock, &idModelo, sizeof(idModelo), 0);
 			send(sock, &unModelo, sizeof(unModelo), 0);
 		}
-		usleep(1000);
+		usleep(100);
 	}
 }
 
@@ -140,6 +154,15 @@ void * recibirDatos(void * datos) {
 	miPartida.AgregarCliente(&unCliente);
 	pthread_mutex_unlock(&mutex_server);
 	cout << "Por entrar a while del hilo." << endl;
+
+	//Conexion
+	HiloConexion datosCone;
+	datosCone.sock = unCliente.socket;
+	datosCone.ping = false;
+	pthread_t hiloConexion;
+	pthread_create(&hiloConexion, NULL, hilo_conexionServer, (void*) &datosCone);
+	pthread_detach(hiloConexion);
+
 	//-------->Loop de escucha
 	bool corriendo = true;
 	while (corriendo) {
@@ -152,8 +175,10 @@ void * recibirDatos(void * datos) {
 
 		IDMENSAJE idMsg;
 		recv(unCliente.socket, &idMsg, sizeof(idMsg), 0);
-//		perror("Error recibiendo tipo de mensaje");
-//		cout << "Tipo mensaje recibido: " << idMsg << "por socket: "<<unCliente.socket<< endl;
+		if (idMsg == PING) {
+				datosCone.ping = true;
+		}
+
 		if (idMsg == MENSAJE) {
 			Mensaje unMensaje;
 			recv(sock, &unMensaje, sizeof(unMensaje), 0);
@@ -193,9 +218,9 @@ void Servidor::AceptarClientes(int maxClientes) {
 	while (corriendo) {
 		int socketComunicacion;
 		socketComunicacion = accept(connServidor.socketConexion,(struct sockaddr *) &paramentrosCliente, &tamanho);
-	    struct timeval tv;
-		tv.tv_sec = 2;
-		setsockopt(socketComunicacion, SOL_SOCKET, SO_SNDTIMEO, (char *)&tv,  sizeof tv);
+//	struct timeval tv;
+//	tv.tv_sec = 2;
+//	setsockopt(socketComunicacion, SOL_SOCKET, SO_SNDTIMEO, (char *)&tv,  sizeof tv);
 		cout << "Se aceptó una conexión nueva" << endl;
 		//Primer mensaje recibido.
 		JugadorLogin login;

@@ -16,6 +16,11 @@ struct DatosHiloServidor {
 	string usuario;
 	int sock;
 };
+struct HiloConexion {
+	bool ping;
+	bool clienteVivo = true;
+	int sock;
+};
 
 class Servidor {
 private:

@@ -25,6 +25,7 @@ public:
 	char * Puerto;
 	char Usuario[50];
 	bool ServidorVivo = true;
+	bool Ping = false;
 
 	void LanzarHiloConexion();
 

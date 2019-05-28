@@ -30,19 +30,14 @@ void * hilo_escucha(void * cliente) {
 }
 void * hilo_conexion(void * cliente) {
 	Cliente* p = (Cliente*) cliente;
-	IDMENSAJE idPong = PING;
-	int timer = 0;
 	while (1) {
-		int errorSend = send(p->getConexion()->getSocketCliente(), &idPong, sizeof(idPong), MSG_DONTWAIT | MSG_CONFIRM);
-		if (errorSend < 0) {
-			timer++;
-		}
-		if (timer == 1){
-			p->ServidorVivo = false;
+		p->Ping= false;
+		sleep(2);
+		if (!p->Ping) {
 			p->getConexion()->Cerrar();
-			timer = 0;
+			p->ServidorVivo = false;
+			cout << "Falla en la comunicacion. Intentando reconectar..." << endl;
 		}
-		usleep(100);
 	}
 }
 
@@ -141,11 +136,19 @@ void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
 	error = send(this->getConexion()->getSocketCliente(), &comando,
 			sizeof(comando), MSG_NOSIGNAL);
 
-
 }
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
 	recv(this->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
+
+	//-------->Recibe PING
+	if (idMsg == PING) {
+		this->Ping = true;
+		// Respondo el ping
+		IDMENSAJE idCabecera = PING;
+		send(this->getConexion()->getSocketCliente(), &idCabecera,	sizeof(idCabecera), MSG_NOSIGNAL);
+	}
+
 	//-------->Recibe EQUIPO
 	if (idMsg == EQUIPO) {
 		ClienteEquipo unClienteEquipo;
@@ -224,11 +227,10 @@ void Cliente::lanzarHilosDelJuego() {
 	pthread_create(&thid_hilo_escucha, NULL, hilo_escucha, this);
 	pthread_detach(thid_hilo_escucha);
 
-
 	//pthread_create(&thid_hilo_render, NULL, hilo_render, this);
 	//pthread_detach(thid_hilo_render);
 }
-void Cliente::LanzarHiloConexion(){
+void Cliente::LanzarHiloConexion() {
 	pthread_t thid_hilo_conexion;
 	pthread_create(&thid_hilo_conexion, NULL, hilo_conexion, this);
 	pthread_detach(thid_hilo_conexion);
@@ -266,21 +268,23 @@ void Cliente::setCenexion(Conexion* conexion) {
 	this->conexion = conexion;
 }
 void Cliente::ChequearConexion() {
-	while (!ServidorVivo) {
+	while (!this->ServidorVivo) {
 		Conexion nuevaConexion;
-		if (nuevaConexion.conectarConServidor(this->IPServidor, this->Puerto) != -1) {
-			setCenexion(&nuevaConexion);
+		if (nuevaConexion.conectarConServidor(this->IPServidor, this->Puerto)
+				!= -1) {
+			this->setCenexion(&nuevaConexion);
 			JugadorLogin loginUsuario;
 			IDMENSAJE idMsg = LOGIN;
 			strcpy(loginUsuario.usuario, this->Usuario);
 			//mensaje de re-loggeo;
-			send(conexion->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
-			send(conexion->getSocketCliente(), &loginUsuario, sizeof(loginUsuario), 0);
-			ServidorVivo = true;
+			send(this->conexion->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
+			send(this->conexion->getSocketCliente(), &loginUsuario,
+					sizeof(loginUsuario), 0);
+			this->ServidorVivo = true;
 			cout << "Conectado!" << endl;
 
 		}
-		sleep(2);
+		sleep(1);
 	}
 }
 View* Cliente::getVista() {
@@ -293,4 +297,3 @@ void Cliente::setVista(View* vista) {
 Cliente::~Cliente() {
 	// TODO Auto-generated destructor stub
 }
-
