@@ -168,11 +168,11 @@ void ViewMenu::render() {
 		framealpha = 0;
 	texturaJugadorClienteSeleccionado1.setAlpha(framealpha);
 	texturaJugadorClienteSeleccionado1.setColor(250, 250, 250);
-	texturaJugadorClienteSeleccionado2.setAlpha(framealpha);
+	texturaJugadorClienteSeleccionado2.setAlpha(framealpha+30);
 	texturaJugadorClienteSeleccionado2.setColor(250, 250, 0);
-	texturaJugadorClienteSeleccionado3.setAlpha(framealpha);
+	texturaJugadorClienteSeleccionado3.setAlpha(framealpha+60);
 	texturaJugadorClienteSeleccionado3.setColor(250, 0, 250);
-	texturaJugadorClienteSeleccionado4.setAlpha(framealpha);
+	texturaJugadorClienteSeleccionado4.setAlpha(framealpha+90);
 	texturaJugadorClienteSeleccionado4.setColor(0, 250, 250);
 
 	for (it = modelo->data.begin(); it != modelo->data.end(); it++) { //recorro la lista que recibo
