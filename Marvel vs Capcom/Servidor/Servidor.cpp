@@ -86,7 +86,7 @@ void * enviarDatos(void * datos) {
 	while (corriendo) {
 		////------->Mensaje de conexión
 		IDMENSAJE idPing = PING;
-		int errorSock = send(sock, &idPing, sizeof(idPing), 0);
+		int errorSock = send(sock, &idPing, sizeof(idPing), MSG_DONTWAIT | MSG_CONFIRM );
 		if (errorSock < 0) {
 			cout << "Jugador " << usuario << " desconectado..." << " Socket:" << sock << endl;
 			// Cierro los sockets
@@ -132,7 +132,7 @@ void * enviarDatos(void * datos) {
 			send(sock, &idModelo, sizeof(idModelo), 0);
 			send(sock, &unModelo, sizeof(unModelo), 0);
 		}
-		usleep(100);
+		usleep(1000);
 	}
 }
 
