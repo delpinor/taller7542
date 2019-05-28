@@ -27,8 +27,10 @@ public:
 		LTexture texturaMenuSelec;
 		LTexture texturaFondo;
 		LTexture texturaLogo;
-		LTexture texturaJugadorSeleccionado;
-		LTexture texturaJugadorClienteSeleccionado;
+		LTexture texturaJugadorClienteSeleccionado1;
+		LTexture texturaJugadorClienteSeleccionado2;
+		LTexture texturaJugadorClienteSeleccionado3;
+		LTexture texturaJugadorClienteSeleccionado4;
 		LTexture gTextTexture;
 		LTexture gTextTexture2;
 		LTexture texturaTextoSeleccionadoCliente1;
