@@ -157,6 +157,7 @@ int Cliente::recibirModeloDelServidor() {
 
 	//-------->Recibe COMPLETO
 	if (idMsg == COMPLETO) {
+		this->juegoCorriendo = false;
 		this->getConexion()->Cerrar();
 		// Mostrar Mensaje
 		cout << "EQUIPOS COMPLETOS." << endl;

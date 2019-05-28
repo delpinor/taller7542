@@ -69,6 +69,14 @@ int main(int argc, char* argv[]) {
 		cout << "ip: " << ip << endl;
 		puerto = argv[3];
 		cout << "puerto: " << puerto << endl;
+
+		// Envio de usuario
+		JugadorLogin loginUsuario;
+		IDMENSAJE idMsg = LOGIN;
+		// Capturo datos del jugador
+		cout << "Usuario:";
+		cin >> loginUsuario.usuario;
+
 		View view(&model);
 		cout << "vista creada."<< endl;
 		Controller controller;
@@ -81,13 +89,7 @@ int main(int argc, char* argv[]) {
 			return -1;
 		cout << "conectado con servidor."<< endl;
 
-		// Envio de usuario
-		JugadorLogin loginUsuario;
-		IDMENSAJE idMsg = LOGIN;
-		// Capturo datos del jugador
-		cout << "Usuario:";
-		cin >> cliente.Usuario;
-		strcpy(loginUsuario.usuario, cliente.Usuario);
+		strcpy(cliente.Usuario, loginUsuario.usuario);
 
 		send(conexion.getSocketCliente(), &idMsg, sizeof(idMsg),0);
 		send(conexion.getSocketCliente(), &loginUsuario, sizeof(loginUsuario),0);
@@ -102,7 +104,9 @@ int main(int argc, char* argv[]) {
 		cout << "Hilos del cliente lanzados."<< endl;
 		// Hilo conexion.
 		//cliente.LanzarHiloConexion();
-		while (!controller.quitPressed()) {
+		while (cliente.juegoCorriendo){
+			if (controller.quitPressed())
+				return -1;
 			//cliente.ChequearConexion();
 			ComandoAlServidor comandoParaServidor;
 			comandoParaServidor.comando = controller.processInputCliente();

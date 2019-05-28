@@ -137,9 +137,10 @@ void * recibirDatos(void * datos) {
 	pthread_mutex_lock(&mutex_server);
 	miPartida.AgregarCliente(&unCliente);
 	pthread_mutex_unlock(&mutex_server);
-	cout << "Por entrar a while del hilo." << endl;
+
 	//-------->Loop de escucha
 	bool corriendo = true;
+	cout << "Por entrar a while del hilo." << endl;
 	while (corriendo) {
 		if(miPartida.EsClienteDesconectadoBySock(unCliente.socket)){
 			cout << "Cliente desconectado!!!########################## Hilo termminado" << endl;

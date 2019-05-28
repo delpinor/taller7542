@@ -25,6 +25,7 @@ public:
 	char * Puerto;
 	char Usuario[50];
 	bool ServidorVivo = true;
+	bool juegoCorriendo = true;
 
 	void LanzarHiloConexion();
 

@@ -314,16 +314,21 @@ void Partida::AgregarCliente(ClienteConectado * cliente) {
 			cout << "Cliente reasignado a equipo: " << cliente->equipo
 					<< " y a jugador: " << cliente->numeroJugador << endl;
 			//Es cliente reconectado?
-			if (unClienteDesconectado.numeroJugador
+			if (!this->hayJugadorParaEquipo(cliente->equipo)){
+				cliente->titular = true;
+				cout << "Cliente reconectado pasa a ser TITULAR porque no había nadie de su equipo" << endl;
+			}
+			else if (unClienteDesconectado.numeroJugador
 					== this->GetModelo()->equipos[unClienteDesconectado.equipo]->nroJugadorActivo) {
 				// El cliente reconectado pasa a ser titular porque su personaje está peleando
 				JuegaTitular(unClienteDesconectado.equipo, *cliente);
 				cliente->titular = true;
-				cout << "Cliente reconectado pasa a ser titular" << endl;
-			} else {
+				cout << "Cliente reconectado pasa a ser TITULAR porque estaba jugando su personaje" << endl;
+				} else {
 				//El cliente era suplente.
 				cliente->titular = false;
-			}
+				cout << "Cliente reconectado pasa a ser SUPLENTE porque NO estaba jugando su personaje" << endl;
+				}
 			//Agrego a la lista de jugadores
 			listaJugadores.push_back(*cliente);
 			cout << "Cliente reconectado agregado a listaJugadores" << endl;
