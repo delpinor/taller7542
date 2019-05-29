@@ -13,11 +13,11 @@ Conexion::Conexion(){
 	int socketCliente = 0;
 	int socketServidor = 0;
 	bool falloConexion = false;
-	cout << "creando conexion" << endl;
+//	cout << "creando conexion" << endl;
 }
 
 int Conexion::conectarConServidor(char * ip, char * puerto){
-	cout << "creará un socket."<< endl;
+//	cout << "creará un socket."<< endl;
 	struct sockaddr_in direcionServidor;
 	direcionServidor.sin_family = AF_INET;
 	direcionServidor.sin_addr.s_addr =  inet_addr(ip);
@@ -36,11 +36,16 @@ int Conexion::conectarConServidor(char * ip, char * puerto){
 			cout << "Falló coneccion con servidor."<< endl;
 		}
 	}
+	 struct timeval tv;
+	 tv.tv_sec = 2;
+	setsockopt(socketCliente, SOL_SOCKET, SO_SNDTIMEO, (char *)&tv,  sizeof tv);
 	if (falloConexion)
 		return -1;
 	return 0;
 }
-
+void Conexion::Cerrar(){
+	close(socketCliente);
+}
 
 
 int Conexion::enviar_mensaje(int socket, void* mensaje, int tam_mensaje) {

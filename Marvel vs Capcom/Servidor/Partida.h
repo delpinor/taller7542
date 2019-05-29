@@ -51,6 +51,7 @@ public:
 	bool Iniciada();
 	bool Finalizada();
 	bool EsClienteDesconectado(string nombre);
+	bool EsClienteDesconectadoBySock(int sock);
 	void SetMaximoJugadores(int max);
 	void EliminarJugador(string nombre);
 	void EliminarDesconectado(string nombre);
@@ -66,7 +67,11 @@ public:
 	int GetCantidadDesconectados();
 	int GetCantidadEspera();
 	bool TieneSuplente(int equipo);
-
+	bool jugadorReconectado(int equipo);
+	bool hayJugadorParaEquipo(int equipo);
+	bool existeJugador(string nombre);
+	void SwapTitularSuplente(int equipo);
+	void DetenerJugadores();
 
 };
 

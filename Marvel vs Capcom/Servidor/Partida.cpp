@@ -5,12 +5,12 @@ void Partida::IniciarPartida() {
 	listaEspera.clear();
 	modelo->inicializar();
 	ActualizarModelo();
-	modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(120-80);
+	modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(120 - 80);
 	modelo->getEquipoNro(0)->getJugadorActivo()->setPosY(931);
-	modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(780-80);
+	modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(780 - 80);
 	modelo->getEquipoNro(1)->getJugadorActivo()->setPosY(931);
-	int CAMARAPOSICIONINICIALX =ANCHO_NIVEL/2-modelo->ancho_Pantalla/2;
-	int CAMARAPOSICIONINICIALY =ALTO_NIVEL/2-modelo->alto_Pantalla/2;
+	int CAMARAPOSICIONINICIALX = ANCHO_NIVEL / 2 - modelo->ancho_Pantalla / 2;
+	int CAMARAPOSICIONINICIALY = ALTO_NIVEL / 2 - modelo->alto_Pantalla / 2;
 	camaraStatic = {CAMARAPOSICIONINICIALX,CAMARAPOSICIONINICIALY, modelo->ancho_Pantalla, modelo->alto_Pantalla};
 	camara = &(camaraStatic);
 	modelo->setCamara(this->camara);
@@ -19,60 +19,66 @@ void Partida::IniciarPartida() {
 	partidaIniciada = true;
 
 }
-void Partida::AjustarCamara(){
+void Partida::AjustarCamara() {
 	// Este codigo se puede mejorar.
-		int posXJugador1 = modelo->getEquipoNro(0)->getJugadorActivo()->getPosX();
-		int posYJugador1 = modelo->getEquipoNro(0)->getJugadorActivo()->getPosY();
-		int posXJugador2 = modelo->getEquipoNro(1)->getJugadorActivo()->getPosX();
-		int posYJugador2 = modelo->getEquipoNro(1)->getJugadorActivo()->getPosY();
-		//
-		int anchoJugador1 = modelo->getEquipoNro(0)->getJugadorActivo()->get_ancho();
+	int posXJugador1 = modelo->getEquipoNro(0)->getJugadorActivo()->getPosX();
+	int posYJugador1 = modelo->getEquipoNro(0)->getJugadorActivo()->getPosY();
+	int posXJugador2 = modelo->getEquipoNro(1)->getJugadorActivo()->getPosX();
+	int posYJugador2 = modelo->getEquipoNro(1)->getJugadorActivo()->getPosY();
+	//
+	int anchoJugador1 =
+			modelo->getEquipoNro(0)->getJugadorActivo()->get_ancho();
 
-		int anchoJugador2 = modelo->getEquipoNro(1)->getJugadorActivo()->get_ancho();
+	int anchoJugador2 =
+			modelo->getEquipoNro(1)->getJugadorActivo()->get_ancho();
 
-		//Chequeo que los jugadores no se salgan del escenario
-		if (posXJugador1 + anchoJugador1 > ANCHO_NIVEL)
-			modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(ANCHO_NIVEL - anchoJugador1);
+	//Chequeo que los jugadores no se salgan del escenario
+	if (posXJugador1 + anchoJugador1 > ANCHO_NIVEL)
+		modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(
+		ANCHO_NIVEL - anchoJugador1);
 
-		if (posXJugador2 + anchoJugador2 > ANCHO_NIVEL)
-			modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(ANCHO_NIVEL - anchoJugador2);
+	if (posXJugador2 + anchoJugador2 > ANCHO_NIVEL)
+		modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(
+		ANCHO_NIVEL - anchoJugador2);
 
-		if (posXJugador1 < 0) {
-			modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(0);
-			posXJugador1 = 0;
-		}
-		if (posXJugador2 < 0) {
-			modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(0);
-			posXJugador2 = 0;
-		}
+	if (posXJugador1 < 0) {
+		modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(0);
+		posXJugador1 = 0;
+	}
+	if (posXJugador2 < 0) {
+		modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(0);
+		posXJugador2 = 0;
+	}
 
-		//Muevo la cámara si algún jugador se está saliendo de ella
-		if (posXJugador1 + anchoJugador1 > this->camara->x + this->camara->w)
-			this->camara->x += modelo->getEquipoNro(0)->getJugadorActivo()->estado->getVelX();
-		else if (posXJugador1 < this->camara->x)
-			this->camara->x = posXJugador1;
+	//Muevo la cámara si algún jugador se está saliendo de ella
+	if (posXJugador1 + anchoJugador1 > this->camara->x + this->camara->w)
+		this->camara->x +=
+				modelo->getEquipoNro(0)->getJugadorActivo()->estado->getVelX();
+	else if (posXJugador1 < this->camara->x)
+		this->camara->x = posXJugador1;
 
-		if (posXJugador2 + anchoJugador2 > this->camara->x + this->camara->w)
-			this->camara->x += modelo->getEquipoNro(1)->getJugadorActivo()->estado->getVelX();
-		else if (posXJugador2 < this->camara->x)
-			this->camara->x = posXJugador2;
+	if (posXJugador2 + anchoJugador2 > this->camara->x + this->camara->w)
+		this->camara->x +=
+				modelo->getEquipoNro(1)->getJugadorActivo()->estado->getVelX();
+	else if (posXJugador2 < this->camara->x)
+		this->camara->x = posXJugador2;
 
-		//Keep the this->camara->in bounds
-		if (this->camara->x < 0) {
-			this->camara->x = 0;
-		}
-		if (this->camara->y < 0) {
-			this->camara->y = 0;
-		}
-		if (this->camara->x > ANCHO_NIVEL - this->camara->w) {
-			this->camara->x = ANCHO_NIVEL - this->camara->w;
-		}
-		if (this->camara->y > ALTO_NIVEL - this->camara->h) {
-			this->camara->y = ALTO_NIVEL - this->camara->h;
-		}
+	//Keep the this->camara->in bounds
+	if (this->camara->x < 0) {
+		this->camara->x = 0;
+	}
+	if (this->camara->y < 0) {
+		this->camara->y = 0;
+	}
+	if (this->camara->x > ANCHO_NIVEL - this->camara->w) {
+		this->camara->x = ANCHO_NIVEL - this->camara->w;
+	}
+	if (this->camara->y > ALTO_NIVEL - this->camara->h) {
+		this->camara->y = ALTO_NIVEL - this->camara->h;
+	}
 }
 
-ModeloEstado  Partida::GetModeloEstado(){
+ModeloEstado Partida::GetModeloEstado() {
 	ModeloEstado unModelo;
 	unModelo = modelo->GetModelEstado();
 //	unModelo.activoEquipo1 = GetTitularJugando(0).numeroJugador;
@@ -85,41 +91,49 @@ void Partida::ActualizarModelo() {
 	list<ClienteConectado>::iterator it;
 	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
 		if (it->titular == true) {
-			modelo->getEquipoNro(it->equipo)->setJugadorActivo(it->numeroJugador);
+			modelo->getEquipoNro(it->equipo)->setJugadorActivo(
+					it->numeroJugador);
 		}
 	}
 
 }
-void Partida::SetComando(int equipo, int comando){
-	if(comando != 99)
+void Partida::SwapTitularSuplente(int equipo) {
+	list<ClienteConectado>::iterator it;
+	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+		if (it->equipo == equipo) {
+			if (!it->titular) {
+				it->titular = true;
+			} else {
+				it->titular = false;
+			}
+		}
+	}
+}
+void Partida::SetComando(int equipo, int comando) {
+	if (comando != 99) {
+		if (comando == CAMBIAR_PERSONAJE) {
+			if (TieneSuplente(equipo)) {
+				SwapTitularSuplente(equipo);
+			}
+		}
 		controlador->SetComando(equipo, comando);
+
+	}
+
 	modelo->update();
 	AjustarCamara();
-
-	cout << "Equipo 0 JugadorActivo: " << modelo->getEquipoNro(0)->nroJugadorActivo << endl;
-	cout << "Equipo 1 JugadorActivo: " << modelo->getEquipoNro(1)->nroJugadorActivo << endl;
-	cout << "Camara X: " << camara->x<< endl;
-	cout << "Camara Y: " << camara->y<< endl;
-	cout << "Equipo 0 - Pos x: " << modelo->getEquipoNro(0)->getJugadorActivo()->getPosX()<< endl;
-	cout << "Equipo 0 - Pos y: " << modelo->getEquipoNro(0)->getJugadorActivo()->getPosY()<< endl;
-	cout << "Equipo 1 - Pos x: " << modelo->getEquipoNro(1)->getJugadorActivo()->getPosX()<< endl;
-	cout << "Equipo 1 - Pos y: " << modelo->getEquipoNro(1)->getJugadorActivo()->getPosY()<< endl;
-	cout << "*****************************************************" << endl;
-
-
 
 }
 void Partida::SetModelo(Model* model) {
 	modelo = model;
-	controlador =  new Controller();
+	controlador = new Controller();
 	controlador->SetModel(modelo);
 
-
 }
-Model * Partida::GetModelo(){
+Model * Partida::GetModelo() {
 	return modelo;
 }
-Controller * Partida::GetControlador(){
+Controller * Partida::GetControlador() {
 	return controlador;
 }
 bool Partida::EquipoCompleto() {
@@ -184,19 +198,51 @@ void Partida::EliminarDesconectado(string nombre) {
 void Partida::JugadorDesconectado(string nombre) {
 	ClienteConectado unCliente;
 	unCliente = GetClienteJugando(nombre);
+	//Borra de lista de jugadores
+	EliminarJugador(nombre);
+	// Agrego a la lista de desconectados
+	listaDesconectados.push_back(unCliente);
 	if (unCliente.titular) {
 		if (TieneSuplente(unCliente.equipo)) {
 			//Suplente ocupa el lugar del titular
 			JuegaSuplente(unCliente.equipo);
 		} else {
-			partidaFinalizada = true;
+			//espero algunos segundos para que el cliente se reconecte
+			partidaFinalizada = !jugadorReconectado(unCliente.equipo);
 		}
 	}
-	//Borra de lista de jugadores
-	EliminarJugador(nombre);
-	// Agrego a la lista de desconectados
-	listaDesconectados.push_back(unCliente);
 
+}
+bool Partida::jugadorReconectado(int equipo) {
+	//Espero la cantidad de segundos indicado en la variable i
+	for (int i = 0; i < 20; i++) {
+		if(hayJugadorParaEquipo(equipo)){
+			cout << "Jugador de equipo " << equipo << " se reconectó! La partida continú. "<< endl;
+			return true;
+		}
+		cout << "Esperando que se reconecte jugador de equipo " << equipo << endl;
+		sleep(1);
+	}
+	return false;
+}
+
+bool Partida::hayJugadorParaEquipo(int equipo) {
+	ClienteConectado unCliente;
+	list<ClienteConectado>::iterator it;
+	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+		if (it->equipo == equipo)
+			return true;
+	}
+	return false;
+}
+bool Partida::existeJugador(string nombre) {
+	ClienteConectado unCliente;
+	list<ClienteConectado>::iterator it;
+	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+		if (it->nombre == nombre)
+			return true;
+	}
+	return false;
 }
 void Partida::JuegaTitular(int equipo, ClienteConectado reconectado) {
 	list<ClienteConectado>::iterator it;
@@ -209,7 +255,7 @@ void Partida::JuegaTitular(int equipo, ClienteConectado reconectado) {
 		}
 		it++;
 	}
-	ActualizarModelo();
+//	ActualizarModelo();
 }
 bool Partida::TieneSuplente(int equipo) {
 	list<ClienteConectado>::iterator it;
@@ -236,6 +282,8 @@ void Partida::JuegaSuplente(int equipo) {
 }
 void Partida::AgregarCliente(ClienteConectado * cliente) {
 	if (!partidaIniciada) {
+		cout << "Partida NO iniciada, agregando al nuevo cliente "
+				<< cliente->nombre << endl;
 		int cantidad = listaEspera.size();
 		if (cantidad < 2) {
 			cliente->titular = true;
@@ -257,24 +305,38 @@ void Partida::AgregarCliente(ClienteConectado * cliente) {
 	} else {
 		// Equipo 0 se usa para verificar que no es un Cliente reconectado.
 		if (EsClienteDesconectado(cliente->nombre)) {
+			cout << "es un cliente desconectado " << endl;
 			//Recupero el equipo para el cliente reconectado.
 			ClienteConectado unClienteDesconectado;
 			unClienteDesconectado = GetClienteDesconectado(cliente->nombre);
 			cliente->equipo = unClienteDesconectado.equipo;
+			cliente->numeroJugador = unClienteDesconectado.numeroJugador;
+			cout << "Cliente reasignado a equipo: " << cliente->equipo
+					<< " y a jugador: " << cliente->numeroJugador << endl;
 			//Es cliente reconectado?
-			if (unClienteDesconectado.titular) {
-				// El cliente reconectado era titular
+			if (!this->hayJugadorParaEquipo(cliente->equipo)){
+				cliente->titular = true;
+				cout << "Cliente reconectado pasa a ser TITULAR porque no había nadie de su equipo" << endl;
+			}
+			else if (unClienteDesconectado.numeroJugador
+					== this->GetModelo()->equipos[unClienteDesconectado.equipo]->nroJugadorActivo) {
+				// El cliente reconectado pasa a ser titular porque su personaje está peleando
 				JuegaTitular(unClienteDesconectado.equipo, *cliente);
 				cliente->titular = true;
-				//Agrego a la lista de jugadores
-				listaJugadores.push_back(*cliente);
-			} else {
+				cout << "Cliente reconectado pasa a ser TITULAR porque estaba jugando su personaje" << endl;
+				} else {
 				//El cliente era suplente.
 				cliente->titular = false;
-				listaJugadores.push_back(*cliente);
-			}
+				cout << "Cliente reconectado pasa a ser SUPLENTE porque NO estaba jugando su personaje" << endl;
+				}
+			//Agrego a la lista de jugadores
+			listaJugadores.push_back(*cliente);
+			cout << "Cliente reconectado agregado a listaJugadores" << endl;
 			//Elimino de la lista de desconectados
 			EliminarDesconectado(cliente->nombre);
+			cout
+					<< "Cliente reconectado eliminado de listaJugadoresDesconectados"
+					<< endl;
 		}
 	}
 }
@@ -326,6 +388,19 @@ bool Partida::EsClienteDesconectado(string nombre) {
 	for (it = listaDesconectados.begin(); it != listaDesconectados.end();
 			it++) {
 		if (it->nombre == nombre) {
+			cout << "Cliente desconectado con nombre: " << it->nombre << endl;
+			cout << "Cliente reconectado con nombre: " << nombre << endl;
+			return true;
+		}
+	}
+	return false;
+}
+bool Partida::EsClienteDesconectadoBySock(int sock) {
+	ClienteConectado unCliente;
+	list<ClienteConectado>::iterator it;
+	for (it = listaDesconectados.begin(); it != listaDesconectados.end();
+			it++) {
+		if (it->socket == sock) {
 			return true;
 		}
 	}
@@ -352,3 +427,10 @@ int Partida::GetCantidadEspera() {
 	return listaEspera.size();
 }
 
+void Partida::DetenerJugadores(){
+		list<ClienteConectado>::iterator it;
+		for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+			// Asigno a todos como suplentes para dejar de recibir comandos
+			it->titular = false;
+		}
+}

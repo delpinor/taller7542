@@ -16,12 +16,16 @@ void * controlPartida(void *) {
 		if (miPartida.EquipoCompleto()) {
 			miPartida.IniciarPartida();
 		}
+		if (miPartida.Finalizada()){
+			miPartida.DetenerJugadores();
+		}
 	}
 }
 
 //Hilo de loggeo de informacion
 void * loggeoPartida(void *) {
 	while (1) {
+//		system("clear");
 		cout << "Inicio partida: "
 				<< (miPartida.Iniciada() == true ? "Iniciada" : "No iniciada")
 				<< endl;
@@ -68,30 +72,39 @@ void * enviarDatos(void * datos) {
 	while (corriendo) {
 		////------->Mensaje de conexión
 		IDMENSAJE idPing = PING;
-		if (send(sock, &idPing, sizeof(idPing), 0) == -1) {
-			cout << "Jugador " << usuario << " desconectado..." << endl;
-			miPartida.JugadorDesconectado(usuario);
+		int errorSock = send(sock, &idPing, sizeof(idPing), MSG_DONTWAIT | MSG_CONFIRM );
+		if (errorSock < 0) {
+			cout << "Jugador " << usuario << " desconectado... ##################################################################################" << endl;
 			// Cierro los sockets
 			shutdown(sock, SHUT_RDWR);
 			close(sock);
+			miPartida.JugadorDesconectado(usuario);
 			pthread_exit(NULL);
 			corriendo = false;
+			break;
 		}
 
 		//------->Mensaje de Equipo
 		IDMENSAJE idEquipo = EQUIPO;
 		ClienteEquipo unEquipo;
+		unEquipo.equipo = 99;
 		pthread_mutex_lock(&mutex_server);
 		if(!miPartida.Iniciada()){
-			unEquipo.equipo = miPartida.GetClienteEspera(usuario).equipo;
-			unEquipo.titular = miPartida.GetClienteEspera(usuario).titular ;
+			if (miPartida.existeJugador(usuario)){
+				unEquipo.equipo = miPartida.GetClienteEspera(usuario).equipo;
+				unEquipo.titular = miPartida.GetClienteEspera(usuario).titular;
+			}
 		}else{
-			unEquipo.equipo = miPartida.GetClienteJugando(usuario).equipo;
-			unEquipo.titular = miPartida.GetClienteJugando(usuario).titular ;
+			if (miPartida.existeJugador(usuario)){
+				unEquipo.equipo = miPartida.GetClienteJugando(usuario).equipo;
+				unEquipo.titular = miPartida.GetClienteJugando(usuario).titular;
+			}
 		}
 		pthread_mutex_unlock(&mutex_server);
-		send(sock, &idEquipo, sizeof(idEquipo), 0);
-		send(sock, &unEquipo, sizeof(unEquipo),0);
+		if (unEquipo.equipo != 99){
+			send(sock, &idEquipo, sizeof(idEquipo), 0);
+			send(sock, &unEquipo, sizeof(unEquipo),0);
+		}
 
 
 		//------->Envio de Jugador
@@ -118,6 +131,7 @@ void * recibirDatos(void * datos) {
 	unCliente.socket = sock;
 	unCliente.tid = pthread_self();
 	unCliente.nombre = usuario;
+	cout << "Hilo de RECIBIR DATOS creado, enviará datos con soket: "<<unCliente.socket<< endl;
 
 	//Completo datos cliente
 	pthread_mutex_lock(&mutex_server);
@@ -126,9 +140,19 @@ void * recibirDatos(void * datos) {
 
 	//-------->Loop de escucha
 	bool corriendo = true;
+	cout << "Por entrar a while del hilo." << endl;
 	while (corriendo) {
+		if(miPartida.EsClienteDesconectadoBySock(unCliente.socket)){
+			cout << "Cliente desconectado!!!########################## Hilo termminado" << endl;
+			corriendo = false;
+			pthread_exit(NULL);
+			break;
+		}
+
 		IDMENSAJE idMsg;
 		recv(unCliente.socket, &idMsg, sizeof(idMsg), 0);
+//		perror("Error recibiendo tipo de mensaje");
+//		cout << "Tipo mensaje recibido: " << idMsg << "por socket: "<<unCliente.socket<< endl;
 		if (idMsg == MENSAJE) {
 			Mensaje unMensaje;
 			recv(sock, &unMensaje, sizeof(unMensaje), 0);
@@ -138,11 +162,12 @@ void * recibirDatos(void * datos) {
 		if ((idMsg == COMANDO) && (miPartida.Iniciada())) {
 			ComandoAlServidor unComando;
 			recv(unCliente.socket, &unComando, sizeof(unComando), 0);
+//			perror("Error recibiendo COMANDO de mensaje");
 			pthread_mutex_lock(&mutex_server);
 			miPartida.SetComando(unCliente.equipo, unComando.comando);
 			pthread_mutex_unlock(&mutex_server);
-			cout << "Comando recibido: " << unComando.comando << endl;
-			cout << "*****************************************************" << endl;
+//			cout << "Comando recibido: " << unComando.comando << "por socket: "<<unCliente.socket<< endl;
+//			cout << "*****************************************************" << endl;
 
 		}
 	}
@@ -166,9 +191,11 @@ void Servidor::AceptarClientes(int maxClientes) {
 	bool corriendo = true;
 	while (corriendo) {
 		int socketComunicacion;
-		socketComunicacion = accept(connServidor.socketConexion,
-				(struct sockaddr *) &paramentrosCliente, &tamanho);
-
+		socketComunicacion = accept(connServidor.socketConexion,(struct sockaddr *) &paramentrosCliente, &tamanho);
+	    struct timeval tv;
+		tv.tv_sec = 2;
+		setsockopt(socketComunicacion, SOL_SOCKET, SO_SNDTIMEO, (char *)&tv,  sizeof tv);
+		cout << "Se aceptó una conexión nueva" << endl;
 		//Primer mensaje recibido.
 		JugadorLogin login;
 		IDMENSAJE idMsg;
@@ -176,9 +203,9 @@ void Servidor::AceptarClientes(int maxClientes) {
 		if (idMsg == LOGIN) {
 			recv(socketComunicacion, &login, sizeof(login), 0);
 		}
-		if ((miPartida.GetCantidadJugando() < maxClientes)
-				|| miPartida.EsClienteDesconectado(login.usuario)) {
+		if(!miPartida.Iniciada() || miPartida.EsClienteDesconectado(login.usuario)){
 
+			cout << "Recibiendo al nuevo cliente: " << login.usuario << endl;
 			// Datos para el thread
 			DatosHiloServidor datos;
 			datos.sock = socketComunicacion;
@@ -195,12 +222,11 @@ void Servidor::AceptarClientes(int maxClientes) {
 			pthread_detach(hiloEnvio);
 
 		} else {
-			Mensaje msg;
-			// Puede ser otro tipo de mensaje....
-			IDMENSAJE idMsg = MENSAJE;
-			strcpy(msg.mensaje, "Partida completa!");
+			IDMENSAJE idMsg = COMPLETO;
 			send(socketComunicacion, &idMsg, sizeof(idMsg), 0);
-			send(socketComunicacion, &msg, sizeof(msg), 0);
+
+			shutdown(socketComunicacion, SHUT_RDWR);
+			close(socketComunicacion);
 
 			shutdown(socketComunicacion, SHUT_RDWR);
 			close(socketComunicacion);
@@ -223,7 +249,7 @@ void Servidor::IniciarServidor(int maxClientes, char * puerto) {
 	miPartida.SetMaximoJugadores(maxClientes);
 	connServidor.IniciarConexion(puerto);
 	LanzarHiloControl();
-	//LanzarHiloLoggeo();
+	LanzarHiloLoggeo();
 	AceptarClientes(maxClientes);
 
 }
