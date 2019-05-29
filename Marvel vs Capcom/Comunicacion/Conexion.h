@@ -8,21 +8,26 @@
 #define CONEXIONCLIENTE_H_
 #define SOCKET_NO_VALIDO -1
 
+
 #include <iostream>
 #include "EstructuraDatos.h"
-
-#define IP "127.0.0.1"
-#define PUERTO 11000
-
-
+#include <unistd.h>
+#include <sys/socket.h>
+#include <stdlib.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 
 class Conexion{
 	private:
 		int socketCliente;
-		int socketServidor;
 		bool falloConexion;
+		struct sockaddr_in direcionServidor;
+		char * _ip;
+		char * _puerto;
+
 	public:
 		Conexion();
+		int Reconectar();
 		int conectarConServidor(char * ip, char * puerto);
 		void Cerrar();
 		int prepararSocketServidor();

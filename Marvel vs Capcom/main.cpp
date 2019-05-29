@@ -109,7 +109,6 @@ int main(int argc, char* argv[]) {
 			if (cliente.Titular) {
 				cliente.enviarComandoAServidor(comandoParaServidor);
 			}
-
 			usleep(50);
 			model.updateCliente();
 			view.render();
