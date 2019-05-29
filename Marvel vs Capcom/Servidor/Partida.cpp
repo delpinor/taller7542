@@ -244,6 +244,16 @@ bool Partida::existeJugador(string nombre) {
 	}
 	return false;
 }
+int Partida::cantidadJugadoresConNombre(string nombre) {
+	int cant = 0;
+	ClienteConectado unCliente;
+	list<ClienteConectado>::iterator it;
+	for (it = listaEspera.begin(); it != listaEspera.end(); it++) {
+		if (it->nombre == nombre)
+			cant = cant + 1;
+	}
+	return cant;
+}
 void Partida::JuegaTitular(int equipo, ClienteConectado reconectado) {
 	list<ClienteConectado>::iterator it;
 	it = listaJugadores.begin();
@@ -282,8 +292,12 @@ void Partida::JuegaSuplente(int equipo) {
 }
 void Partida::AgregarCliente(ClienteConectado * cliente) {
 	if (!partidaIniciada) {
+
+		cliente->nombre = validarNombreUsuario(cliente->nombre);
+
 		cout << "Partida NO iniciada, agregando al nuevo cliente "
 				<< cliente->nombre << endl;
+
 		int cantidad = listaEspera.size();
 		if (cantidad < 2) {
 			cliente->titular = true;
@@ -433,4 +447,15 @@ void Partida::DetenerJugadores(){
 			// Asigno a todos como suplentes para dejar de recibir comandos
 			it->titular = false;
 		}
+}
+string Partida::validarNombreUsuario(string nombreUsuario){
+	cout << "nombre recibido: " << nombreUsuario << endl;
+	int cantJugadoresConNombreIgual = this->cantidadJugadoresConNombre(nombreUsuario);
+	std::ostringstream ss;
+	ss << cantJugadoresConNombreIgual;
+	if (cantJugadoresConNombreIgual > 0){
+		cout << "nombre final: " << nombreUsuario + ss.str() << endl;
+		return nombreUsuario + ss.str();
+	}
+	return nombreUsuario;
 }
