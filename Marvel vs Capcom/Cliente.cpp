@@ -34,8 +34,8 @@ void * hilo_conexion(void * cliente) {
 		p->Ping= false;
 		sleep(1);
 		if (!p->Ping) {
-			p->getConexion()->Cerrar();
 			p->ServidorVivo = false;
+			p->getConexion()->Cerrar();
 			cout << "Falla en la comunicacion. Intentando reconectar..." << endl;
 		}
 	}
@@ -143,7 +143,9 @@ int Cliente::recibirModeloDelServidor() {
 
 	//-------->Recibe PING
 	if ((idMsg == PING) && (errorRecv > 0)) {
+		pthread_mutex_lock(&mutexx);
 		this->Ping = true;
+		pthread_mutex_unlock(&mutexx);
 		// Respondo el ping
 		IDMENSAJE idCabecera = PING;
 		send(this->getConexion()->getSocketCliente(), &idCabecera,	sizeof(idCabecera), MSG_NOSIGNAL);
@@ -270,8 +272,8 @@ void Cliente::setCenexion(Conexion* conexion) {
 void Cliente::ChequearConexion() {
 	while (!this->ServidorVivo) {
 		Conexion nuevaConexion;
-		if (nuevaConexion.conectarConServidor(this->IPServidor, this->Puerto)
-				!= -1) {
+		if (nuevaConexion.conectarConServidor(this->IPServidor, this->Puerto) != -1) {
+			pthread_mutex_lock(&mutexx);
 			this->setCenexion(&nuevaConexion);
 			JugadorLogin loginUsuario;
 			IDMENSAJE idMsg = LOGIN;
@@ -282,6 +284,7 @@ void Cliente::ChequearConexion() {
 					sizeof(loginUsuario), 0);
 			this->ServidorVivo = true;
 			cout << "Conectado!" << endl;
+			pthread_mutex_unlock(&mutexx);
 
 		}
 		sleep(1);
