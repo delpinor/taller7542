@@ -8,6 +8,7 @@
 #include "Servidor/Servidor.h"
 #define MAX_CLIENTES 2
 /* nombre_ejecutable  nombre_archivo_configuracion niveldeDebug*/
+
 int main(int argc, char* argv[]) {
 
 	char* ip;
