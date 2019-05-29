@@ -133,7 +133,7 @@ void * enviarDatos(void * datos) {
 			break;
 		}
 
-		usleep(500);
+		usleep(1000);
 	}
 }
 
@@ -204,7 +204,7 @@ void * recibirDatos(void * datos) {
 			break;
 		}
 
-		usleep(10);
+		//usleep(10);
 	}
 }
 void Servidor::LanzarHiloControl() {
