@@ -104,13 +104,12 @@ int main(int argc, char* argv[]) {
 		// Hilo conexion.
 		cliente.LanzarHiloConexion();
 		while (!controller.quitPressed()) {
-			cliente.ChequearConexion();
+			//cliente.ChequearConexion();
 			ComandoAlServidor comandoParaServidor;
 			comandoParaServidor.comando = controller.processInputCliente();
 			if (cliente.Titular) {
 				cliente.enviarComandoAServidor(comandoParaServidor);
 			}
-
 			usleep(50);
 			model.updateCliente();
 			view.render();
