@@ -9,6 +9,24 @@ using namespace std;
 pthread_mutex_t mutex_server;
 Partida miPartida;
 
+// Hilo Conexion
+void * hilo_conexionServer(void * datosConexion) {
+	HiloConexion* p = (HiloConexion*) datosConexion;
+	while (1) {
+		p->ping = false;
+		sleep(1);
+		if (!p->ping) {
+			//shutdown(p->sock, SHUT_RDWR);
+			//close(p->sock);
+			pthread_mutex_lock(&mutex_server);
+			miPartida.JugadorDesconectado(p->usuario);
+			cout << "Falla en la comunicacion con el cliente: " << p->sock << endl;
+			pthread_mutex_unlock(&mutex_server);
+			pthread_exit(NULL);
+			break;
+		}
+	}
+}
 // Hilo de control de partida. Finalizacion, inicio, etc.
 void * controlPartida(void *) {
 
@@ -70,19 +88,17 @@ void * enviarDatos(void * datos) {
 
 	bool corriendo = true;
 	while (corriendo) {
-		////------->Mensaje de conexión
-		IDMENSAJE idPing = PING;
-		int errorSock = send(sock, &idPing, sizeof(idPing), MSG_DONTWAIT | MSG_CONFIRM );
-		if (errorSock < 0) {
-			cout << "Jugador " << usuario << " desconectado... ##################################################################################" << endl;
-			// Cierro los sockets
-			shutdown(sock, SHUT_RDWR);
-			close(sock);
-			miPartida.JugadorDesconectado(usuario);
-			pthread_exit(NULL);
+
+		if(miPartida.EsClienteDesconectadoBySock(sock)){
+			cout << "Cliente desconectado!!!######### Hilo enviar datos termminado" << endl;
 			corriendo = false;
+			pthread_exit(NULL);
 			break;
 		}
+
+		////------->Mensaje de conexión
+		IDMENSAJE idPing = PING;
+		send(sock, &idPing, sizeof(idPing), 0);
 
 		//------->Mensaje de Equipo
 		IDMENSAJE idEquipo = EQUIPO;
@@ -123,6 +139,7 @@ void * enviarDatos(void * datos) {
 //Escuchar mensajes de los clientes
 void * recibirDatos(void * datos) {
 
+
 	int sock = ((DatosHiloServidor*) datos)->sock;
 	string usuario = ((DatosHiloServidor*) datos)->usuario;
 
@@ -137,38 +154,55 @@ void * recibirDatos(void * datos) {
 	pthread_mutex_lock(&mutex_server);
 	miPartida.AgregarCliente(&unCliente);
 	pthread_mutex_unlock(&mutex_server);
+	cout << "Por entrar a while del hilo." << endl;
+
+	//Conexion
+	HiloConexion datosCone;
+	datosCone.sock = unCliente.socket;
+	datosCone.ping = false;
+	datosCone.usuario = unCliente.nombre;
+	pthread_t hiloConexion;
+
+	pthread_create(&hiloConexion, NULL, hilo_conexionServer, (void*) &datosCone);
+	pthread_detach(hiloConexion);
 
 	//-------->Loop de escucha
 	bool corriendo = true;
 	cout << "Por entrar a while del hilo." << endl;
 	while (corriendo) {
 		if(miPartida.EsClienteDesconectadoBySock(unCliente.socket)){
-			cout << "Cliente desconectado!!!########################## Hilo termminado" << endl;
+			cout << "Cliente desconectado!!!Hilo escucha: FIN" << endl;
 			corriendo = false;
 			pthread_exit(NULL);
 			break;
 		}
 
 		IDMENSAJE idMsg;
-		recv(unCliente.socket, &idMsg, sizeof(idMsg), 0);
-//		perror("Error recibiendo tipo de mensaje");
-//		cout << "Tipo mensaje recibido: " << idMsg << "por socket: "<<unCliente.socket<< endl;
-		if (idMsg == MENSAJE) {
-			Mensaje unMensaje;
-			recv(sock, &unMensaje, sizeof(unMensaje), 0);
-			cout << " Mensaje: " << unMensaje.mensaje << endl;
-		}
+		int errorRecv = recv(unCliente.socket, &idMsg, sizeof(idMsg), MSG_NOSIGNAL);
+		if (errorRecv > 0){
+			if ((idMsg == PING) && (errorRecv > 0)) {
+					pthread_mutex_lock(&mutex_server);
+					datosCone.ping = true;
+					pthread_mutex_unlock(&mutex_server);
+			}
 
-		if ((idMsg == COMANDO) && (miPartida.Iniciada())) {
-			ComandoAlServidor unComando;
-			recv(unCliente.socket, &unComando, sizeof(unComando), 0);
-//			perror("Error recibiendo COMANDO de mensaje");
-			pthread_mutex_lock(&mutex_server);
-			miPartida.SetComando(unCliente.equipo, unComando.comando);
-			pthread_mutex_unlock(&mutex_server);
-//			cout << "Comando recibido: " << unComando.comando << "por socket: "<<unCliente.socket<< endl;
-//			cout << "*****************************************************" << endl;
+			if (idMsg == MENSAJE) {
+				Mensaje unMensaje;
+				recv(sock, &unMensaje, sizeof(unMensaje), 0);
+				cout << " Mensaje: " << unMensaje.mensaje << endl;
+			}
 
+			if ((idMsg == COMANDO) && (miPartida.Iniciada())) {
+				ComandoAlServidor unComando;
+				recv(unCliente.socket, &unComando, sizeof(unComando), 0);
+	//			perror("Error recibiendo COMANDO de mensaje");
+				pthread_mutex_lock(&mutex_server);
+				miPartida.SetComando(unCliente.equipo, unComando.comando);
+				pthread_mutex_unlock(&mutex_server);
+	//			cout << "Comando recibido: " << unComando.comando << "por socket: "<<unCliente.socket<< endl;
+	//			cout << "*****************************************************" << endl;
+
+			}
 		}
 	}
 }
@@ -192,15 +226,13 @@ void Servidor::AceptarClientes(int maxClientes) {
 	while (corriendo) {
 		int socketComunicacion;
 		socketComunicacion = accept(connServidor.socketConexion,(struct sockaddr *) &paramentrosCliente, &tamanho);
-	    struct timeval tv;
-		tv.tv_sec = 2;
-		setsockopt(socketComunicacion, SOL_SOCKET, SO_SNDTIMEO, (char *)&tv,  sizeof tv);
+
 		cout << "Se aceptó una conexión nueva" << endl;
 		//Primer mensaje recibido.
 		JugadorLogin login;
 		IDMENSAJE idMsg;
-		recv(socketComunicacion, &idMsg, sizeof(idMsg), 0);
-		if (idMsg == LOGIN) {
+		int numError = recv(socketComunicacion, &idMsg, sizeof(idMsg), 0);
+		if (idMsg == LOGIN && numError > 0) {
 			recv(socketComunicacion, &login, sizeof(login), 0);
 		}
 		if(!miPartida.Iniciada() || miPartida.EsClienteDesconectado(login.usuario)){
@@ -214,15 +246,16 @@ void Servidor::AceptarClientes(int maxClientes) {
 			else
 				datos.usuario = login.usuario;
 
+			//Creo un hilo de envio
+			pthread_t hiloEnvio;
+			pthread_create(&hiloEnvio, NULL, enviarDatos, (void*) &datos);
+			pthread_detach(hiloEnvio);
+
 			//Creo hilo de recepcion
 			pthread_t hiloRecepcion;
 			pthread_create(&hiloRecepcion, NULL, recibirDatos, (void*) &datos);
 			pthread_detach(hiloRecepcion);
 
-			//Creo un hilo de envio
-			pthread_t hiloEnvio;
-			pthread_create(&hiloEnvio, NULL, enviarDatos, (void*) &datos);
-			pthread_detach(hiloEnvio);
 
 		} else {
 			IDMENSAJE idMsg = COMPLETO;

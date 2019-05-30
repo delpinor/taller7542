@@ -6,8 +6,8 @@
 #include "Logger/Logger.h"
 #include "Cliente.h"
 #include "Servidor/Servidor.h"
-#define MAX_CLIENTES 2
 /* nombre_ejecutable  nombre_archivo_configuracion niveldeDebug*/
+
 int main(int argc, char* argv[]) {
 
 	char* ip;
@@ -103,6 +103,7 @@ int main(int argc, char* argv[]) {
 		cliente.lanzarHilosDelJuego();
 		cout << "Hilos del cliente lanzados."<< endl;
 		// Hilo conexion.
+		cliente.LanzarHiloConexion();
 		//cliente.LanzarHiloConexion();
 		while (cliente.juegoCorriendo){
 			if (controller.quitPressed())
@@ -113,7 +114,6 @@ int main(int argc, char* argv[]) {
 			if (cliente.Titular) {
 				cliente.enviarComandoAServidor(comandoParaServidor);
 			}
-
 			usleep(50);
 			model.updateCliente();
 			view.render();

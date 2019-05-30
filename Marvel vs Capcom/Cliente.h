@@ -26,6 +26,7 @@ public:
 	char Usuario[50];
 	bool ServidorVivo = true;
 	bool juegoCorriendo = true;
+	bool Ping = false;
 
 	void LanzarHiloConexion();
 

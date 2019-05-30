@@ -70,6 +70,7 @@ public:
 	bool jugadorReconectado(int equipo);
 	bool hayJugadorParaEquipo(int equipo);
 	bool existeJugador(string nombre);
+	void SwapPersonaje(int equipo);
 	void SwapTitularSuplente(int equipo);
 	void DetenerJugadores();
 	string validarNombreUsuario(string nombreUsuario);
