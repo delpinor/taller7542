@@ -16,8 +16,8 @@ void * hilo_conexionServer(void * datosConexion) {
 		p->ping = false;
 		sleep(1);
 		if (!p->ping) {
-			shutdown(p->sock, SHUT_RDWR);
-			close(p->sock);
+			//shutdown(p->sock, SHUT_RDWR);
+			//close(p->sock);
 			pthread_mutex_lock(&mutex_server);
 			miPartida.JugadorDesconectado(p->usuario);
 			cout << "Falla en la comunicacion con el cliente: " << p->sock << endl;
@@ -89,6 +89,13 @@ void * enviarDatos(void * datos) {
 	bool corriendo = true;
 	while (corriendo) {
 
+		if(miPartida.EsClienteDesconectadoBySock(sock)){
+			cout << "Cliente desconectado!!!######### Hilo enviar datos termminado" << endl;
+			corriendo = false;
+			pthread_exit(NULL);
+			break;
+		}
+
 		////------->Mensaje de conexión
 		IDMENSAJE idPing = PING;
 		send(sock, &idPing, sizeof(idPing), 0);
@@ -125,14 +132,6 @@ void * enviarDatos(void * datos) {
 			send(sock, &idModelo, sizeof(idModelo), 0);
 			send(sock, &unModelo, sizeof(unModelo), 0);
 		}
-
-		if(miPartida.EsClienteDesconectadoBySock(sock)){
-			cout << "Cliente desconectado!!!######### Hilo enviar datos termminado" << endl;
-			corriendo = false;
-			pthread_exit(NULL);
-			break;
-		}
-
 		usleep(1000);
 	}
 }
@@ -170,6 +169,13 @@ void * recibirDatos(void * datos) {
 	//-------->Loop de escucha
 	bool corriendo = true;
 	while (corriendo) {
+		if(miPartida.EsClienteDesconectadoBySock(unCliente.socket)){
+			cout << "Cliente desconectado!!!Hilo escucha: FIN" << endl;
+			corriendo = false;
+			pthread_exit(NULL);
+			break;
+		}
+
 		IDMENSAJE idMsg;
 		int errorRecv = recv(unCliente.socket, &idMsg, sizeof(idMsg), MSG_NOSIGNAL);
 		if (errorRecv > 0){
@@ -197,12 +203,6 @@ void * recibirDatos(void * datos) {
 
 			}
 		}
-		if(miPartida.EsClienteDesconectadoBySock(unCliente.socket)){
-			cout << "Cliente desconectado!!!Hilo escucha: FIN" << endl;
-			corriendo = false;
-			pthread_exit(NULL);
-			break;
-		}
 
 		//usleep(10);
 	}
@@ -227,9 +227,7 @@ void Servidor::AceptarClientes(int maxClientes) {
 	while (corriendo) {
 		int socketComunicacion;
 		socketComunicacion = accept(connServidor.socketConexion,(struct sockaddr *) &paramentrosCliente, &tamanho);
-//	struct timeval tv;
-//	tv.tv_sec = 2;
-//	setsockopt(socketComunicacion, SOL_SOCKET, SO_SNDTIMEO, (char *)&tv,  sizeof tv);
+
 		cout << "Se aceptó una conexión nueva" << endl;
 		//Primer mensaje recibido.
 		JugadorLogin login;
