@@ -110,10 +110,13 @@ int main(int argc, char* argv[]) {
 				return -1;
 			//cliente.ChequearConexion();
 			ComandoAlServidor comandoParaServidor;
-			comandoParaServidor.comando = controller.processInputCliente();
+			int comando = controller.processInputCliente();
 			if (cliente.Titular) {
-				cliente.enviarComandoAServidor(comandoParaServidor);
+				comandoParaServidor.comando = comando;
+			}else {
+				comandoParaServidor.comando = 99;
 			}
+			cliente.enviarComandoAServidor(comandoParaServidor);
 			usleep(50);
 			model.updateCliente();
 			view.render();
