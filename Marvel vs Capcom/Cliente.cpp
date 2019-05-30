@@ -38,10 +38,10 @@ void * hilo_conexion(void * cliente) {
 		p->Ping = false;
 		sleep(1);
 		if (!p->Ping) {
-			p->getConexion()->Cerrar();
 			p->ServidorVivo = false;
-			pthread_exit(0);
+			p->getConexion()->Cerrar();
 			cout << "Falla en la comunicacion. Intentando reconectar..." << endl;
+			pthread_exit(0);
 			break;
 		}
 	}
@@ -277,7 +277,6 @@ void Cliente::setCenexion(Conexion* conexion) {
 }
 void Cliente::ChequearConexion() {
 	while (!this->ServidorVivo) {
-		cout << "Intentando restablecer conexion..." << endl;
 		sleep(2);
 		if (this->getConexion()->Reconectar() != -1) {
 			JugadorLogin loginUsuario;
