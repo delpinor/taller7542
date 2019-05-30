@@ -203,8 +203,6 @@ void * recibirDatos(void * datos) {
 
 			}
 		}
-
-		//usleep(10);
 	}
 }
 void Servidor::LanzarHiloControl() {
