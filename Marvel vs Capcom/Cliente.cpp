@@ -41,8 +41,20 @@ void * hilo_conexion(void * cliente) {
 			p->ServidorVivo = false;
 			p->getConexion()->Cerrar();
 			cout << "Falla en la comunicacion. Intentando reconectar..." << endl;
-			pthread_exit(0);
-			break;
+			while(!p->ServidorVivo){
+				if (p->getConexion()->Reconectar() != -1) {
+					JugadorLogin loginUsuario;
+					IDMENSAJE idMsg = LOGIN;
+					strcpy(loginUsuario.usuario, p->Usuario);
+					send(p->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
+					send(p->getConexion()->getSocketCliente(), &loginUsuario,	sizeof(loginUsuario), 0);
+					p->lanzarHilosDelJuego();
+					p->LanzarHiloConexion();
+					p->ServidorVivo = true;
+					pthread_exit(0);
+					break;
+				}
+			}
 		}
 	}
 }
@@ -118,30 +130,22 @@ int Cliente::ConectarConServidor(char* ip, char* puerto) {
 	Puerto = puerto;
 	cout << "conectando con servidor en ip: " << ip << " y en puerto: "
 			<< puerto << endl;
-	JugadorLogin jugLogin;
 	int error = this->getConexion()->conectarConServidor(ip, puerto);
 	if (error == -1) {
 		cout << "ERROR conectando con el servidor :(" << endl;
 		return -1;
 	}
 	cout << "conectando con el servidor!!" << endl;
-	bool corriendo = true;
 	int sockCliente = this->getConexion()->getSocketCliente();
-	DatosHiloCliente datosCliente;
-//	datosCliente.model = &model;
-	datosCliente.sock = sockCliente;
 	return 0;
 }
 
 void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
-	int error = 0;
-	IDMENSAJE com = COMANDO;
-	int tam_mensaje = sizeof(ComandoAlServidor);
-	error = send(this->getConexion()->getSocketCliente(), &com, sizeof(com),
-	MSG_NOSIGNAL);
-	error = send(this->getConexion()->getSocketCliente(), &comando,
-			sizeof(comando), MSG_NOSIGNAL);
-
+	if (this->ServidorVivo){
+		IDMENSAJE com = COMANDO;
+		send(this->getConexion()->getSocketCliente(), &com, sizeof(com), MSG_NOSIGNAL);
+		send(this->getConexion()->getSocketCliente(), &comando,	sizeof(comando), MSG_NOSIGNAL);
+	}
 }
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
@@ -277,20 +281,18 @@ void Cliente::setCenexion(Conexion* conexion) {
 }
 void Cliente::ChequearConexion() {
 	while (!this->ServidorVivo) {
-		sleep(2);
+		//sleep(2);
 		if (this->getConexion()->Reconectar() != -1) {
 			JugadorLogin loginUsuario;
 			IDMENSAJE idMsg = LOGIN;
 			strcpy(loginUsuario.usuario, this->Usuario);
 			send(this->conexion->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
-			send(this->conexion->getSocketCliente(), &loginUsuario,
-					sizeof(loginUsuario), 0);
+			send(this->conexion->getSocketCliente(), &loginUsuario,	sizeof(loginUsuario), 0);
 			this->lanzarHilosDelJuego();
 			this->LanzarHiloConexion();
 			this->ServidorVivo = true;
 		}
 	}
-
 }
 View * Cliente::getVista() {
 	return this->vista;
