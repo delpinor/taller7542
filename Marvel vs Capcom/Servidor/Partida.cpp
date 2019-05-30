@@ -245,14 +245,13 @@ bool Partida::existeJugador(string nombre) {
 	return false;
 }
 int Partida::cantidadJugadoresConNombre(string nombre) {
-	int cant = 0;
 	ClienteConectado unCliente;
 	list<ClienteConectado>::iterator it;
 	for (it = listaEspera.begin(); it != listaEspera.end(); it++) {
 		if (it->nombre == nombre)
-			cant = cant + 1;
+			return listaEspera.size();
 	}
-	return cant;
+	return 0;
 }
 void Partida::JuegaTitular(int equipo, ClienteConectado reconectado) {
 	list<ClienteConectado>::iterator it;
@@ -288,12 +287,11 @@ void Partida::JuegaSuplente(int equipo) {
 		}
 		it++;
 	}
-	ActualizarModelo();
 }
 void Partida::AgregarCliente(ClienteConectado * cliente) {
 	if (!partidaIniciada) {
 
-		cliente->nombre = validarNombreUsuario(cliente->nombre);
+//		cliente->nombre = validarNombreUsuario(cliente->nombre);
 
 		cout << "Partida NO iniciada, agregando al nuevo cliente "
 				<< cliente->nombre << endl;

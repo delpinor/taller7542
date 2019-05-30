@@ -209,7 +209,10 @@ void Servidor::AceptarClientes(int maxClientes) {
 			// Datos para el thread
 			DatosHiloServidor datos;
 			datos.sock = socketComunicacion;
-			datos.usuario = login.usuario;
+			if (!miPartida.Iniciada())
+				datos.usuario = miPartida.validarNombreUsuario(login.usuario);
+			else
+				datos.usuario = login.usuario;
 
 			//Creo hilo de recepcion
 			pthread_t hiloRecepcion;
