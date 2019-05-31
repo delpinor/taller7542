@@ -12,6 +12,7 @@
 #include <map>
 #include "../Logger/Logger.h"
 #include "../Comunicacion/EstructuraDatos.h"
+#include "../Helper/TimeHelper.h"
 
 class Model {
 public:// hay que pasar los parametros a pivados y generar los seters

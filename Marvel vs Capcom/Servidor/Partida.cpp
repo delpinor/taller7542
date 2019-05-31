@@ -89,7 +89,6 @@ ModeloPersonajes Partida::GetModeloPersonajes(){
 ModeloSeleccion  Partida::GetModeloSeleccion(){
 	ModeloSeleccion unModelo;
 	unModelo.seleccionFinalizada = FinalizadaSeleccionPersonajes();
-	int personajeNoValido = static_cast<int>(PERSONAJE::P_NA);
 	list<ClienteConectado>::iterator it;
 	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
 		ModeloSeleccionPersonaje unModeloSeleccionPersonaje;
@@ -98,6 +97,36 @@ ModeloSeleccion  Partida::GetModeloSeleccion(){
 		unModeloSeleccionPersonaje.confirmado =  it->personajeConfirmado;
 
 		unModelo.data.push_back(unModeloSeleccionPersonaje);
+	}
+	return unModelo;
+}
+ModeloSeleccion  Partida::GetModeloSeleccionInicial(){
+	ModeloSeleccion unModelo;
+	unModelo.seleccionFinalizada = false;
+	list<ClienteConectado>::iterator it;
+
+	list<int> idsPersonajes = this->modelo->GetIdsPersonajes();
+	int contador = 1;
+	int cantidadPersonajes = idsPersonajes.size();
+
+	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+		ModeloSeleccionPersonaje unModeloSeleccionPersonaje;
+
+		list<int>::iterator itInt = idsPersonajes.begin();
+		if(contador <= cantidadPersonajes){
+			advance(itInt, contador  -1);
+			unModeloSeleccionPersonaje.personajeId = *itInt;
+		}
+		else{
+			advance(itInt, cantidadPersonajes  -1);
+			unModeloSeleccionPersonaje.personajeId = *itInt;
+		}
+
+		unModeloSeleccionPersonaje.jugadorId = it->numeroJugadorJuego;
+		unModeloSeleccionPersonaje.confirmado =  false;
+
+		unModelo.data.push_back(unModeloSeleccionPersonaje);
+		contador = contador + 1;
 	}
 	return unModelo;
 }
@@ -273,16 +302,27 @@ void Partida::AgregarCliente(ClienteConectado * cliente) {
 			cliente->equipo = 1;
 			cantEquipo1++;
 		}
+		cliente->numeroJugadorJuego = cantEquipo0 + cantEquipo1;
+
+		cout << "PARTIDA - AgregarCliente: por agregar el cliente "<< cliente->nombre << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
 		listaEspera.push_back(*cliente);
+		cout << "PARTIDA - AgregarCliente: la lista de espera tiene "<< listaEspera.size() << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
+
 	} else {
+		cout << "PARTIDA - AgregarCliente: entro al else"<< cliente->nombre << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
+
 		// Equipo 0 se usa para verificar que no es un Cliente reconectado.
 		if (EsClienteDesconectado(cliente->nombre)) {
+
+			cout << "PARTIDA - AgregarCliente: entro al else de EsClienteDesconectado"<< cliente->nombre << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
+
 			//Recupero el equipo para el cliente reconectado.
 			ClienteConectado unClienteDesconectado;
 			unClienteDesconectado = GetClienteDesconectado(cliente->nombre);
 			cliente->equipo = unClienteDesconectado.equipo;
 			cliente->personajeId = unClienteDesconectado.personajeId;
 			cliente->personajeConfirmado = unClienteDesconectado.personajeConfirmado;
+			cliente->numeroJugadorJuego = unClienteDesconectado.numeroJugadorJuego;
 			//Es cliente reconectado?
 			if (unClienteDesconectado.titular) {
 				// El cliente reconectado era titular

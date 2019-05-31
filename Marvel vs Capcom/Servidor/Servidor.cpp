@@ -23,8 +23,11 @@ void * controlSeleccionPersonajes(void *) {
 
 	while (1) {
 		if (miPartida.EquipoCompleto() && !miPartida.IniciadaSeleccionPersonajes()) {
-			list<ClienteConectado> lista = miPartida.GetListaJugadores();
+			list<ClienteConectado> lista = miPartida.GetListaEspera();
 			list<ClienteConectado>::iterator it;
+
+			cout << "SERVIDOR - controlSeleccionPersonajes: Ingresó en while de controlSeleccionPersonajes | "<< TimeHelper::getStringLocalTimeNow() << endl;
+			cout << "SERVIDOR - controlSeleccionPersonajes: La cantidad de Clientes de la partida son "<< lista.size() << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
 
 			ModeloPersonajes unModelo = miPartida.GetModeloPersonajes();
 
@@ -32,14 +35,37 @@ void * controlSeleccionPersonajes(void *) {
 				int sock = it->socket;
 				std::string usuario = it->nombre;
 
+				cout << "SERVIDOR - controlSeleccionPersonajes: Enviando  DATAPERSONAJES para el ususario: "<< it->nombre << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
+
 				IDMENSAJE idModelo = DATAPERSONAJES;
 				send(sock, &idModelo, sizeof(idModelo), 0);
 				send(sock, &unModelo, sizeof(unModelo), 0);
+
+				cout << "SERVIDOR  - controlSeleccionPersonajes: Terminó el envío de DATAPERSONAJES para el ususario: "<< it->nombre << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 			}
+
+			for (it = lista.begin(); it != lista.end(); it++) {
+				int sock = it->socket;
+				std::string usuario = it->nombre;
+
+				cout << "SERVIDOR - controlSeleccionPersonajes: Enviando  MODELOSELECCION para el ususario: "<< it->nombre << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+
+				IDMENSAJE idModelo = MODELOSELECCION;
+				ModeloSeleccion unModelo = miPartida.GetModeloSeleccionInicial();
+				send(sock, &idModelo, sizeof(idModelo), 0);
+				send(sock, &unModelo, sizeof(unModelo), 0);
+
+				cout << "SERVIDOR - controlSeleccionPersonajes: Terminó el envío de MODELOSELECCION para el ususario: "<< it->nombre << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+			}
+
+			cout << "SERVIDOR: Por IniciarSeleccionPersonajes en Partida" << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 			miPartida.IniciarSeleccionPersonajes();
 		}
 		else
 			if(miPartida.IniciadaSeleccionPersonajes() && !miPartida.FinalizadaSeleccionPersonajes() && miPartida.PersonajesSeleccionCompleta()){
+
+				cout << "SERVIDOR: Por FinalizarSeleccionPersonajes en Partida" << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+
 				miPartida.SetPersonajes();
 				miPartida.FinalizarSeleccionPersonajes();
 			}
@@ -112,9 +138,11 @@ void * enviarDatos(void * datos) {
 		if(!miPartida.IniciadaSeleccionPersonajes()){//if(!miPartida.Iniciada()){
 			unEquipo.equipo = miPartida.GetClienteEspera(usuario).equipo;
 			unEquipo.titular = miPartida.GetClienteEspera(usuario).titular ;
+			unEquipo.nroJugador = miPartida.GetClienteEspera(usuario).numeroJugadorJuego;
 		}else{
 			unEquipo.equipo = miPartida.GetClienteJugando(usuario).equipo;
 			unEquipo.titular = miPartida.GetClienteJugando(usuario).titular ;
+			unEquipo.nroJugador = miPartida.GetClienteJugando(usuario).numeroJugadorJuego;
 		}
 		pthread_mutex_unlock(&mutex_server);
 		send(sock, &idEquipo, sizeof(idEquipo), 0);

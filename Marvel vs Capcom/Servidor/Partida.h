@@ -18,6 +18,8 @@ struct ClienteConectado{
 	string nombre;
 	int equipo = 0;
 	int numeroJugador;
+	//TODO : refactorizar para que solo quede el anterior
+	int numeroJugadorJuego;
 	bool titular;
 	int personajeId = static_cast<int>(PERSONAJE::P_NA);
 	bool personajeConfirmado = false;
@@ -73,6 +75,7 @@ public:
 	bool TieneSuplente(int equipo);
 
 	ModeloSeleccion GetModeloSeleccion();
+	ModeloSeleccion GetModeloSeleccionInicial();
 	void IniciarSeleccionPersonajes();
 	void FinalizarSeleccionPersonajes();
 	bool IniciadaSeleccionPersonajes();

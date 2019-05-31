@@ -219,5 +219,9 @@ std::list<int> Model::GetIdsPersonajes(){
 	for (map <int, Jugador*>::iterator it = this->jugadoresEquipo1.begin(); it != this->jugadoresEquipo1.end(); ++it){
 		idsPersonajes.push_back(it->first);
 	}
+
+	cout << "MODEL - GetIdsPersonajes: La cantidad de idsPersonajes es "<< idsPersonajes.size() << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
+	cout << "MODEL - GetIdsPersonajes: La cantidad de jugadoresEquipo1 es"<< this->jugadoresEquipo1.size() << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
+
 	return idsPersonajes;
 };

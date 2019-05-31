@@ -14,14 +14,20 @@
 #include <ctime>
 #include "Comunicacion/Conexion.h"
 #include "View/View.h"
-#include "View/Menu.h"
+#include "View/ViewMenu.h"
 #include "pthread.h"
+#include "Helper/TimeHelper.h"
 
 class Cliente {
 public:
-	Cliente(View* vista, Conexion* conexion);
+	Cliente(ViewMenu* vistaMenu, Conexion* conexion);
+	//Cliente(View* vista, Conexion* conexion);
 	int Equipo;
 	bool Titular;
+	int NroJugador;
+	bool seleccionPersonajeIniciada = false;
+	bool seleccionPersonajeFinalizada = false;
+
 	int ConectarConServidor(char* ip, char* puerto);
 	void PushModeloEnCola(ModeloEstado modelo);
 	ModeloEstado PopModeloDeCola();
@@ -32,6 +38,11 @@ public:
 	void MenuDeSeleccion();
 	std::queue<ModeloEstado> getModeloCambios();
 	void enviarDataSeleccionAServidor(DataSeleccionAlServidor data);
+	void IniciarSeleccionPersonaje();
+	void FinalizarSeleccionPersonaje();
+	bool EstaIniciadaSeleccionPersonaje();
+	bool EstaFinalizadaSeleccionPersonaje();
+
 
 	//TODO ver como imlementar la verificación de conexion del lado del cliente
 	void setTiempoUltimoMensajeRecibido(int tiempo);
@@ -48,6 +59,7 @@ private:
 	View* vista;
 	std::queue<ModeloEstado> ModeloCambios;
 	int tiempoUltimoMensajeRecivido;
+	ViewMenu* vistaMenu;
 
 };
 

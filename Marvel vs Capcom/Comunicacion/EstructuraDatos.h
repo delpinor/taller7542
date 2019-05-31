@@ -67,6 +67,7 @@ struct Mensaje {
 struct ClienteEquipo {
 	int equipo;
 	bool titular;
+	int nroJugador;
 };
 struct ClienteLogin{
 	char usuario[50];

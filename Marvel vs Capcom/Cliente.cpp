@@ -49,11 +49,16 @@ void * hilo_render(void * cliente) {
 	}
 }
 
-Cliente::Cliente(View* vista, Conexion* conexion) {
+Cliente::Cliente(ViewMenu* vistaMenu, Conexion* conexion) {
 	cout << "creando cliente." << endl;
-	this->vista = vista;
+	this->vistaMenu = vistaMenu;
 	this->conexion = conexion;
 }
+//Cliente::Cliente(View* vista, Conexion* conexion) {
+//	cout << "creando cliente." << endl;
+//	this->vista = vista;
+//	this->conexion = conexion;
+//}
 
 void Cliente::actualizarModelo(ModeloEstado modelo) {
 	pthread_mutex_lock(&mutexx);
@@ -138,22 +143,33 @@ int Cliente::recibirModeloDelServidor() {
 	recv(this->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
 	//-------->Recibe EQUIPO
 	if (idMsg == EQUIPO) {
+		cout << "CLIENTE - recibirModeloDelServidor: Recibiendo EQUIPO | "<< TimeHelper::getStringLocalTimeNow() << endl;
+
 		ClienteEquipo unClienteEquipo;
 		recv(this->getConexion()->getSocketCliente(), &unClienteEquipo,
 				sizeof(unClienteEquipo), 0);
 		Titular = unClienteEquipo.titular;
 		Equipo = unClienteEquipo.equipo;
+		NroJugador = unClienteEquipo.nroJugador;
+
+		cout << "CLIENTE - recibirModeloDelServidor: EQUIPO Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
 	}
 
 	//-------->Recibe MENSAJE
 	if (idMsg == MENSAJE) {
+		cout << "CLIENTE - recibirModeloDelServidor: Recibiendo MENSAJE | "<< TimeHelper::getStringLocalTimeNow() << endl;
+
 		Mensaje unMensaje;
 		recv(this->getConexion()->getSocketCliente(), &unMensaje,
 				sizeof(unMensaje), 0);
+
+		cout << "CLIENTE - recibirModeloDelServidor: MENSAJE Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
 	}
 
 	//-------->Recibe MODELO
 	if (idMsg == MODELO) {
+		cout << "CLIENTE - recibirModeloDelServidor: Recibiendo MODELO | "<< TimeHelper::getStringLocalTimeNow() << endl;
+
 		ModeloEstado unModelo;
 		recv(this->getConexion()->getSocketCliente(), &unModelo,sizeof(unModelo), 0);
 		pthread_mutex_lock(&mutexx);
@@ -185,18 +201,44 @@ int Cliente::recibirModeloDelServidor() {
 		this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaCambiandoPersonaje(unModelo.jugadoresEquipo2.isCambiandoPersonaje);
 
 		pthread_mutex_unlock(&mutexx);
+
+		cout << "CLIENTE - recibirModeloDelServidor: MODELO Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
 	}
 
-	//-------->Recibe MODELO SELECCION
+	//-------->Recibe DATA PERSONAJES
+	if (idMsg == DATAPERSONAJES) {
+		cout << "CLIENTE - recibirModeloDelServidor: Recibiendo DATAPERSONAJES | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
-	if (idMsg == MODELOSELECCION) {
+		ModeloPersonajes unModelo;
+		recv(this->getConexion()->getSocketCliente(), &unModelo,sizeof(unModelo), 0);
+		pthread_mutex_lock(&mutexx);
+		this->vistaMenu->setPersonajes(&unModelo);
+		pthread_mutex_unlock(&mutexx);
+
+		cout << "CLIENTE - recibirModeloDelServidor: DATAPERSONAJES la lista de personajes tiene "<< unModelo.idsPersonajes.size() << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
+		cout << "CLIENTE - recibirModeloDelServidor: DATAPERSONAJES Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
+	}
+
+
+	cout << "CLIENTE - recibirModeloDelServidor: antes del if de  MODELOSELECCION | "<< TimeHelper::getStringLocalTimeNow() << endl;
+	//-------->Recibe MODELO SELECCION
+	if (idMsg == MODELOSELECCION && this->vistaMenu->hayPersonajes()) {
+		cout << "CLIENTE - recibirModeloDelServidor: Recibiendo MODELOSELECCION | "<< TimeHelper::getStringLocalTimeNow() << endl;
+
 		ModeloSeleccion unModelo;
 		recv(this->getConexion()->getSocketCliente(), &unModelo,sizeof(unModelo), 0);
 		pthread_mutex_lock(&mutexx);
+
+		this->vistaMenu->setModeloSeleccion(unModelo);
+
+		if(!this->EstaIniciadaSeleccionPersonaje()){
+			this->IniciarSeleccionPersonaje();
+		}
 		//TODO: lógica para actualizar lo correspondiente
 		pthread_mutex_unlock(&mutexx);
-	}
 
+		cout << "CLIENTE - recibirModeloDelServidor: MODELOSELECCION Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
+	}
 
 	return NULL;
 }
@@ -210,7 +252,6 @@ void Cliente::lanzarHilosDelJuego() {
 	//pthread_detach(thid_hilo_render);
 }
 void Cliente::MenuDeSeleccion() {
-	Menu Menu();
 }
 std::queue<ModeloEstado> Cliente::getModeloCambios() {
 	return this->ModeloCambios;
@@ -246,6 +287,21 @@ View* Cliente::getVista() {
 }
 void Cliente::setVista(View* vista) {
 	this->vista = vista;
+}
+
+void Cliente::IniciarSeleccionPersonaje(){
+	this->seleccionPersonajeIniciada = true;
+}
+
+void Cliente::FinalizarSeleccionPersonaje(){
+	this->seleccionPersonajeFinalizada = true;
+}
+
+bool Cliente::EstaIniciadaSeleccionPersonaje(){
+	return this->seleccionPersonajeIniciada;
+}
+bool Cliente::EstaFinalizadaSeleccionPersonaje(){
+	return this->seleccionPersonajeFinalizada;
 }
 
 Cliente::~Cliente() {

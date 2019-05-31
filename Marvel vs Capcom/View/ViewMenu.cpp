@@ -1,34 +1,17 @@
 #include "ViewMenu.h"
-ViewMenu::ViewMenu(ModeloSeleccion * modelo, ModeloPersonajes * personajes) {
-	this->modelo = modelo;
-	this->personajes = personajes;
+ViewMenu::ViewMenu(int i) {
+
 	npersonaje = 0;
-
-	fondoclip.h = 460;
-	fondoclip.w = 400;
-	fondoclip.x = 0;
-	fondoclip.y = 0;
-
-	spidermanclip.h = ALTO_CUADRO_JUGADOR;
-	spidermanclip.w = ANCHO_CUADRO_JUGADOR;
-	spidermanclip.x = 160;
-	spidermanclip.y = 485;
-
-	chunliclip.h = ALTO_CUADRO_JUGADOR;
-	chunliclip.w = ANCHO_CUADRO_JUGADOR;
-	chunliclip.x = 170;
-	chunliclip.y = 24;
-
-	cajpitanclip.h = ALTO_CUADRO_JUGADOR;
-	cajpitanclip.w = ANCHO_CUADRO_JUGADOR;
-	cajpitanclip.x = 295;
-	cajpitanclip.y = 485;
-
-	venomclip.h = ALTO_CUADRO_JUGADOR;
-	venomclip.w = ANCHO_CUADRO_JUGADOR;
-	venomclip.x = 562;
-	venomclip.y = 485;
-
+	if (!this->inicializar()) {
+		printf("ViewMenu: Failed to initialize!\n");
+	} else {
+		//Load media
+		if (!this->loadMedia() || !this->loadText()) {
+			printf("Failed to load media!\n");
+		}else{
+			//TODO: verque hacemos acá.
+			}
+		}
 }
 
 ViewMenu::~ViewMenu() {
@@ -125,7 +108,7 @@ bool ViewMenu::loadText() {
 
 void ViewMenu::render() {
 	SDL_RenderClear(gRenderer);
-	CantidadDeJugadores = modelo->data.size();
+	CantidadDeJugadores = modelo.data.size();
 	//fondo
 	texturaFondo.render(0, 0, &fondoclip, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	//logo
@@ -173,7 +156,7 @@ void ViewMenu::render() {
 	texturaJugadorClienteSeleccionado4.setAlpha(framealpha+90);
 	texturaJugadorClienteSeleccionado4.setColor(0, 250, 250);
 	std::list<ModeloSeleccionPersonaje>::iterator it;
-	for (it = modelo->data.begin(); it != modelo->data.end(); it++) { //recorro la lista que recibo
+	for (it = modelo.data.begin(); it != modelo.data.end(); it++) { //recorro la lista que recibo
 		if (it->jugadorId == 1) {
 			texturaTextoSeleccionadoCliente1.render(
 					((it->personajeId - 1) * ANCHO_CUADRO_JUGADOR) + 20,
@@ -219,8 +202,36 @@ void ViewMenu::render() {
 	SDL_RenderPresent(gRenderer);
 }
 
+void ViewMenu::inicializarClips() {
+	fondoclip.h = 460;
+	fondoclip.w = 400;
+	fondoclip.x = 0;
+	fondoclip.y = 0;
+
+	spidermanclip.h = ALTO_CUADRO_JUGADOR;
+	spidermanclip.w = ANCHO_CUADRO_JUGADOR;
+	spidermanclip.x = 160;
+	spidermanclip.y = 485;
+
+	chunliclip.h = ALTO_CUADRO_JUGADOR;
+	chunliclip.w = ANCHO_CUADRO_JUGADOR;
+	chunliclip.x = 170;
+	chunliclip.y = 24;
+
+	cajpitanclip.h = ALTO_CUADRO_JUGADOR;
+	cajpitanclip.w = ANCHO_CUADRO_JUGADOR;
+	cajpitanclip.x = 295;
+	cajpitanclip.y = 485;
+
+	venomclip.h = ALTO_CUADRO_JUGADOR;
+	venomclip.w = ANCHO_CUADRO_JUGADOR;
+	venomclip.x = 562;
+	venomclip.y = 485;
+}
+
 bool ViewMenu::inicializar() {
 
+	this->inicializarClips();
 	bool exito = true;
 
 	if (SDL_Init( SDL_INIT_VIDEO) < 0) {
@@ -290,4 +301,72 @@ void ViewMenu::personajeSiguiente() {
 void ViewMenu::personajeAnterior() {
 	if (npersonaje > 0)
 		npersonaje -= 1;
+}
+
+void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId, bool *confirmado) {
+
+	while (SDL_PollEvent(&e) != 0) {
+		//User requests quit
+		if (e.type == SDL_QUIT) {
+			*quit = true;
+		}
+		//User presses a key
+		else if (e.type == SDL_KEYDOWN) {
+			//Select surfaces based on key press
+			switch (e.key.keysym.sym) {
+			case SDLK_RETURN:
+				*confirmado = true;
+				break;
+
+			case SDLK_LEFT: {
+				std::list<ModeloSeleccionPersonaje>::iterator it;
+				for (it = this->modelo.data.begin(); it != this->modelo.data.end(); it++) {
+					if (it->jugadorId == this->nroJugadorLocal) {
+						if (it->personajeId - 1 > 0){
+							//it->personajeId--;
+							*personajeSelecionadoId = it->personajeId - 1;
+						}
+					}
+				}
+			}
+			//necesito aumentar un contador para el seleccionado aca
+			break;
+			case SDLK_RIGHT: {
+				std::list<ModeloSeleccionPersonaje>::iterator it;
+				for (it = this->modelo.data.begin(); it != this->modelo.data.end(); it++) {
+					if (it->jugadorId == this->nroJugadorLocal) {
+						if ((it->personajeId - 1) < (this->modelo.data.size() - 1)){
+							//it->personajeId++;
+							*personajeSelecionadoId = it->personajeId + 1;
+						}
+					}
+				}
+			}
+			//necesito disminuir un contador para el seleccionado aca
+			break;
+
+			default:
+				//	0 =  P_NAP ; // no se si hace falta mandarle al server que no paso nada...
+				break;
+			}
+		}
+	}
+}
+
+void ViewMenu::setModeloSeleccion(ModeloSeleccion modelo){
+	cout << "Entró en setModeloSeleccion | "<< TimeHelper::getStringLocalTimeNow() << endl;
+	this->modelo = modelo;
+}
+
+void ViewMenu::setPersonajes(ModeloPersonajes *personajes){
+	this->personajes = personajes;
+}
+
+bool ViewMenu::hayPersonajes(){
+	if(this->personajes != NULL && this->personajes->idsPersonajes.size() > 0){
+		return true;
+	}
+	else{
+		return false;
+	}
 }
