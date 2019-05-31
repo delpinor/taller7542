@@ -113,7 +113,7 @@ int main(int argc, char* argv[]) {
 		while (!quitSeleccionMenu && !cliente.EstaFinalizadaSeleccionPersonaje()) {
 
 			if(cliente.EstaIniciadaSeleccionPersonaje()){
-				cout << "Ingreso en selección de personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;
+				cout << "Ingresó en selección de personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
 //				int personajeSeleccionadoId = static_cast<int>(PERSONAJE::P_NA);
 //				bool personajeEstaConfirmado = false;

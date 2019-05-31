@@ -232,6 +232,7 @@ int Cliente::recibirModeloDelServidor() {
 		this->vistaMenu->setModeloSeleccion(unModelo);
 
 		if(!this->EstaIniciadaSeleccionPersonaje()){
+			cout << "CLIENTE - recibirModeloDelServidor: Iniciando Seleccion Personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;
 			this->IniciarSeleccionPersonaje();
 		}
 		//TODO: lógica para actualizar lo correspondiente
