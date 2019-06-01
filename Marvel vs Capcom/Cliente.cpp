@@ -222,7 +222,7 @@ int Cliente::recibirModeloDelServidor() {
 
 	cout << "CLIENTE - recibirModeloDelServidor: antes del if de  MODELOSELECCION | "<< TimeHelper::getStringLocalTimeNow() << endl;
 	//-------->Recibe MODELO SELECCION
-	if (idMsg == MODELOSELECCION && this->vistaMenu->hayPersonajes()) {
+	if (idMsg == MODELOSELECCION) {
 		cout << "CLIENTE - recibirModeloDelServidor: Recibiendo MODELOSELECCION | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
 		ModeloSeleccion unModelo;
@@ -236,7 +236,6 @@ int Cliente::recibirModeloDelServidor() {
 			this->IniciarSeleccionPersonaje();
 			cout << "CLIENTE - recibirModeloDelServidor: Iniciando Seleccion Personaje HECHO | "<< TimeHelper::getStringLocalTimeNow() << endl;
 		}
-		//TODO: lógica para actualizar lo correspondiente
 		pthread_mutex_unlock(&mutexx);
 
 		cout << "CLIENTE - recibirModeloDelServidor: MODELOSELECCION Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;

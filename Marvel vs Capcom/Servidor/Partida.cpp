@@ -14,77 +14,77 @@ void Partida::IniciarPartida() {
 	camaraStatic = {CAMARAPOSICIONINICIALX,CAMARAPOSICIONINICIALY, modelo->ancho_Pantalla, modelo->alto_Pantalla};
 	camara = &(camaraStatic);
 	modelo->setCamara(this->camara);
-//	modelo->inicializarPosicionesEquipos();
+	//	modelo->inicializarPosicionesEquipos();
 	AjustarCamara();
 	partidaIniciada = true;
 
 }
 void Partida::AjustarCamara(){
 	// Este codigo se puede mejorar.
-		int posXJugador1 = modelo->getEquipoNro(0)->getJugadorActivo()->getPosX();
-		int posYJugador1 = modelo->getEquipoNro(0)->getJugadorActivo()->getPosY();
-		int posXJugador2 = modelo->getEquipoNro(1)->getJugadorActivo()->getPosX();
-		int posYJugador2 = modelo->getEquipoNro(1)->getJugadorActivo()->getPosY();
-		//
-		int anchoJugador1 = modelo->getEquipoNro(0)->getJugadorActivo()->get_ancho();
+	int posXJugador1 = modelo->getEquipoNro(0)->getJugadorActivo()->getPosX();
+	int posYJugador1 = modelo->getEquipoNro(0)->getJugadorActivo()->getPosY();
+	int posXJugador2 = modelo->getEquipoNro(1)->getJugadorActivo()->getPosX();
+	int posYJugador2 = modelo->getEquipoNro(1)->getJugadorActivo()->getPosY();
+	//
+	int anchoJugador1 = modelo->getEquipoNro(0)->getJugadorActivo()->get_ancho();
 
-		int anchoJugador2 = modelo->getEquipoNro(1)->getJugadorActivo()->get_ancho();
+	int anchoJugador2 = modelo->getEquipoNro(1)->getJugadorActivo()->get_ancho();
 
-		//Chequeo que los jugadores no se salgan del escenario
-		if (posXJugador1 + anchoJugador1 > ANCHO_NIVEL)
-			modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(ANCHO_NIVEL - anchoJugador1);
+	//Chequeo que los jugadores no se salgan del escenario
+	if (posXJugador1 + anchoJugador1 > ANCHO_NIVEL)
+		modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(ANCHO_NIVEL - anchoJugador1);
 
-		if (posXJugador2 + anchoJugador2 > ANCHO_NIVEL)
-			modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(ANCHO_NIVEL - anchoJugador2);
+	if (posXJugador2 + anchoJugador2 > ANCHO_NIVEL)
+		modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(ANCHO_NIVEL - anchoJugador2);
 
-		if (posXJugador1 < 0) {
-			modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(0);
-			posXJugador1 = 0;
-		}
-		if (posXJugador2 < 0) {
-			modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(0);
-			posXJugador2 = 0;
-		}
+	if (posXJugador1 < 0) {
+		modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(0);
+		posXJugador1 = 0;
+	}
+	if (posXJugador2 < 0) {
+		modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(0);
+		posXJugador2 = 0;
+	}
 
-		//Muevo la cámara si algún jugador se está saliendo de ella
-		if (posXJugador1 + anchoJugador1 > this->camara->x + this->camara->w)
-			this->camara->x += modelo->getEquipoNro(0)->getJugadorActivo()->estado->getVelX();
-		else if (posXJugador1 < this->camara->x)
-			this->camara->x = posXJugador1;
+	//Muevo la cámara si algún jugador se está saliendo de ella
+	if (posXJugador1 + anchoJugador1 > this->camara->x + this->camara->w)
+		this->camara->x += modelo->getEquipoNro(0)->getJugadorActivo()->estado->getVelX();
+	else if (posXJugador1 < this->camara->x)
+		this->camara->x = posXJugador1;
 
-		if (posXJugador2 + anchoJugador2 > this->camara->x + this->camara->w)
-			this->camara->x += modelo->getEquipoNro(1)->getJugadorActivo()->estado->getVelX();
-		else if (posXJugador2 < this->camara->x)
-			this->camara->x = posXJugador2;
+	if (posXJugador2 + anchoJugador2 > this->camara->x + this->camara->w)
+		this->camara->x += modelo->getEquipoNro(1)->getJugadorActivo()->estado->getVelX();
+	else if (posXJugador2 < this->camara->x)
+		this->camara->x = posXJugador2;
 
-		//Keep the this->camara->in bounds
-		if (this->camara->x < 0) {
-			this->camara->x = 0;
-		}
-		if (this->camara->y < 0) {
-			this->camara->y = 0;
-		}
-		if (this->camara->x > ANCHO_NIVEL - this->camara->w) {
-			this->camara->x = ANCHO_NIVEL - this->camara->w;
-		}
-		if (this->camara->y > ALTO_NIVEL - this->camara->h) {
-			this->camara->y = ALTO_NIVEL - this->camara->h;
-		}
+	//Keep the this->camara->in bounds
+	if (this->camara->x < 0) {
+		this->camara->x = 0;
+	}
+	if (this->camara->y < 0) {
+		this->camara->y = 0;
+	}
+	if (this->camara->x > ANCHO_NIVEL - this->camara->w) {
+		this->camara->x = ANCHO_NIVEL - this->camara->w;
+	}
+	if (this->camara->y > ALTO_NIVEL - this->camara->h) {
+		this->camara->y = ALTO_NIVEL - this->camara->h;
+	}
 }
 
 ModeloEstado  Partida::GetModeloEstado(){
 	ModeloEstado unModelo;
 	unModelo = modelo->GetModelEstado();
-//	unModelo.activoEquipo1 = GetTitularJugando(0).numeroJugador;
-//	unModelo.activoEquipo2 = GetTitularJugando(1).numeroJugador;
+	//	unModelo.activoEquipo1 = GetTitularJugando(0).numeroJugador;
+	//	unModelo.activoEquipo2 = GetTitularJugando(1).numeroJugador;
 	unModelo.activoEquipo1 = modelo->equipos[0]->nroJugadorActivo;
 	unModelo.activoEquipo2 = modelo->equipos[1]->nroJugadorActivo;
 	return unModelo;
 }
 ModeloPersonajes Partida::GetModeloPersonajes(){
-       ModeloPersonajes unModelo;
-       unModelo.idsPersonajes = this->modelo->GetIdsPersonajes();
-       return unModelo;
+	ModeloPersonajes unModelo;
+	unModelo.idsPersonajes = this->modelo->GetIdsPersonajes();
+	return unModelo;
 }
 ModeloSeleccion  Partida::GetModeloSeleccion(){
 	ModeloSeleccion unModelo;
@@ -100,11 +100,9 @@ ModeloSeleccion  Partida::GetModeloSeleccion(){
 	}
 	return unModelo;
 }
-ModeloSeleccion  Partida::GetModeloSeleccionInicial(){
-	ModeloSeleccion unModelo;
-	unModelo.seleccionFinalizada = false;
-	list<ClienteConectado>::iterator it;
+void  Partida::SetJugadoresPersonajeInicial(){
 
+	list<ClienteConectado>::iterator it;
 	list<int> idsPersonajes = this->modelo->GetIdsPersonajes();
 	int contador = 1;
 	int cantidadPersonajes = idsPersonajes.size();
@@ -115,20 +113,14 @@ ModeloSeleccion  Partida::GetModeloSeleccionInicial(){
 		list<int>::iterator itInt = idsPersonajes.begin();
 		if(contador <= cantidadPersonajes){
 			advance(itInt, contador  -1);
-			unModeloSeleccionPersonaje.personajeId = *itInt;
+			it->personajeId = *itInt;
 		}
 		else{
 			advance(itInt, cantidadPersonajes  -1);
-			unModeloSeleccionPersonaje.personajeId = *itInt;
+			it->personajeId = *itInt;
 		}
-
-		unModeloSeleccionPersonaje.jugadorId = it->numeroJugadorJuego;
-		unModeloSeleccionPersonaje.confirmado =  false;
-
-		unModelo.data.push_back(unModeloSeleccionPersonaje);
 		contador = contador + 1;
 	}
-	return unModelo;
 }
 void Partida::ActualizarModelo() {
 	list<ClienteConectado>::iterator it;
@@ -323,6 +315,7 @@ void Partida::AgregarCliente(ClienteConectado * cliente) {
 			cliente->personajeId = unClienteDesconectado.personajeId;
 			cliente->personajeConfirmado = unClienteDesconectado.personajeConfirmado;
 			cliente->numeroJugadorJuego = unClienteDesconectado.numeroJugadorJuego;
+			cliente->dataPersonajesEnviada = unClienteDesconectado.dataPersonajesEnviada;
 			//Es cliente reconectado?
 			if (unClienteDesconectado.titular) {
 				// El cliente reconectado era titular
@@ -417,6 +410,7 @@ int Partida::GetCantidadEspera() {
 void Partida::IniciarSeleccionPersonajes(){
 	listaJugadores = listaEspera;
 	listaEspera.clear();
+	this->SetJugadoresPersonajeInicial();
 	this->seleccionPersonajesIniciada = true;
 }
 
@@ -469,4 +463,38 @@ void Partida::SetPersonajes(){
 	}
 }
 
+bool Partida::EstaHabilitadoEnvioPersonajes(){
+	return this->habilitadoEnvioPersonajes;
+}
+
+void Partida::HabilitarEnvioPersonajes(){
+	this->habilitadoEnvioPersonajes = true;
+}
+
+
+bool Partida::EstaEnviadaDataPersonajes(){
+	list<ClienteConectado>::iterator it;
+	int contadorEnviado = 0;
+
+	for (it = listaEspera.begin(); it != listaEspera.end(); it++) {
+		if(it->dataPersonajesEnviada){
+			contadorEnviado++;
+		}
+	}
+	if(contadorEnviado == listaEspera.size()){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+void Partida::SetDataPersonajesEnviada(string nombre){
+	list<ClienteConectado>::iterator it;
+	for (it = listaEspera.begin(); it != listaEspera.end(); it++) {
+		if(it->nombre == nombre){
+			it->dataPersonajesEnviada = true;
+		}
+	}
+}
 

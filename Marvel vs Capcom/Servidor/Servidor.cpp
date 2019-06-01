@@ -20,56 +20,35 @@ void * controlPartida(void *) {
 }
 
 void * controlSeleccionPersonajes(void *) {
-
+	cout << "SERVIDOR - controlSeleccionPersonajes: INICIO de ciclo" << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 	while (1) {
-		if (miPartida.EquipoCompleto() && !miPartida.IniciadaSeleccionPersonajes()) {
-			list<ClienteConectado> lista = miPartida.GetListaEspera();
-			list<ClienteConectado>::iterator it;
+		if (miPartida.EquipoCompleto() && !miPartida.FinalizadaSeleccionPersonajes()) {
 
-			cout << "SERVIDOR - controlSeleccionPersonajes: Ingresó en while de controlSeleccionPersonajes | "<< TimeHelper::getStringLocalTimeNow() << endl;
-			cout << "SERVIDOR - controlSeleccionPersonajes: La cantidad de Clientes de la partida son "<< lista.size() << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
-
-			ModeloPersonajes unModelo = miPartida.GetModeloPersonajes();
-
-			for (it = lista.begin(); it != lista.end(); it++) {
-				int sock = it->socket;
-				std::string usuario = it->nombre;
-
-				cout << "SERVIDOR - controlSeleccionPersonajes: Enviando  DATAPERSONAJES para el ususario: "<< it->nombre << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
-
-				IDMENSAJE idModelo = DATAPERSONAJES;
-				send(sock, &idModelo, sizeof(idModelo), 0);
-				send(sock, &unModelo, sizeof(unModelo), 0);
-
-				cout << "SERVIDOR  - controlSeleccionPersonajes: Terminó el envío de DATAPERSONAJES para el ususario: "<< it->nombre << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+			if(!miPartida.EstaHabilitadoEnvioPersonajes()){
+				cout << "SERVIDOR - controlSeleccionPersonajes: Ingresó en 1er IF | "<< TimeHelper::getStringLocalTimeNow() << endl;
+				pthread_mutex_lock(&mutex_server);
+				miPartida.HabilitarEnvioPersonajes();
+				pthread_mutex_unlock(&mutex_server);
+				cout << "SERVIDOR - controlSeleccionPersonajes: Ejecutado 1er IF | "<< TimeHelper::getStringLocalTimeNow() << endl;
 			}
-
-			for (it = lista.begin(); it != lista.end(); it++) {
-				int sock = it->socket;
-				std::string usuario = it->nombre;
-
-				cout << "SERVIDOR - controlSeleccionPersonajes: Enviando  MODELOSELECCION para el ususario: "<< it->nombre << " | " << TimeHelper::getStringLocalTimeNow() << endl;
-
-				IDMENSAJE idModelo = MODELOSELECCION;
-				ModeloSeleccion unModelo = miPartida.GetModeloSeleccionInicial();
-				send(sock, &idModelo, sizeof(idModelo), 0);
-				send(sock, &unModelo, sizeof(unModelo), 0);
-
-				cout << "SERVIDOR - controlSeleccionPersonajes: Terminó el envío de MODELOSELECCION para el ususario: "<< it->nombre << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+			else if(miPartida.EstaEnviadaDataPersonajes() && !miPartida.IniciadaSeleccionPersonajes()){
+				cout << "SERVIDOR - controlSeleccionPersonajes: Ingresó en 2do IF | "<< TimeHelper::getStringLocalTimeNow() << endl;
+				pthread_mutex_lock(&mutex_server);
+				miPartida.IniciarSeleccionPersonajes();
+				pthread_mutex_unlock(&mutex_server);
+				cout << "SERVIDOR - controlSeleccionPersonajes: Ejecutado 2do IF | "<< TimeHelper::getStringLocalTimeNow() << endl;
 			}
-
-			cout << "SERVIDOR: Por IniciarSeleccionPersonajes en Partida" << " | " << TimeHelper::getStringLocalTimeNow() << endl;
-			miPartida.IniciarSeleccionPersonajes();
-		}
-		else
-			if(miPartida.IniciadaSeleccionPersonajes() && !miPartida.FinalizadaSeleccionPersonajes() && miPartida.PersonajesSeleccionCompleta()){
-
-				cout << "SERVIDOR: Por FinalizarSeleccionPersonajes en Partida" << " | " << TimeHelper::getStringLocalTimeNow() << endl;
-
+			else if(miPartida.IniciadaSeleccionPersonajes() && miPartida.PersonajesSeleccionCompleta()){
+				cout << "SERVIDOR - controlSeleccionPersonajes: Ingresó en 3er IF | "<< TimeHelper::getStringLocalTimeNow() << endl;
+				pthread_mutex_lock(&mutex_server);
 				miPartida.SetPersonajes();
 				miPartida.FinalizarSeleccionPersonajes();
+				pthread_mutex_unlock(&mutex_server);
+				cout << "SERVIDOR - controlSeleccionPersonajes: Ejecutado 3er IF | "<< TimeHelper::getStringLocalTimeNow() << endl;
 			}
+		}
 	}
+	cout << "SERVIDOR - controlSeleccionPersonajes: FIN de ciclo" << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 }
 
 //Hilo de loggeo de informacion
@@ -120,6 +99,7 @@ void * enviarDatos(void * datos) {
 	bool corriendo = true;
 	while (corriendo) {
 		////------->Mensaje de conexión
+		cout << "SERVIDOR - enviarDatos: PING | "<< usuario << " " << TimeHelper::getStringLocalTimeNow() << endl;
 		IDMENSAJE idPing = PING;
 		if (send(sock, &idPing, sizeof(idPing), 0) == -1) {
 			cout << "Jugador " << usuario << " desconectado..." << endl;
@@ -130,9 +110,11 @@ void * enviarDatos(void * datos) {
 			pthread_exit(NULL);
 			corriendo = false;
 		}
+		cout << "SERVIDOR - enviarDatos: PING ENVIADO | "<< usuario << " " << TimeHelper::getStringLocalTimeNow() << endl;
 
 		//------->Mensaje de Equipo
 		IDMENSAJE idEquipo = EQUIPO;
+		cout << "SERVIDOR - enviarDatos: EQUIPO | "<< usuario << " " << TimeHelper::getStringLocalTimeNow() << endl;
 		ClienteEquipo unEquipo;
 		pthread_mutex_lock(&mutex_server);
 		if(!miPartida.IniciadaSeleccionPersonajes()){//if(!miPartida.Iniciada()){
@@ -147,17 +129,46 @@ void * enviarDatos(void * datos) {
 		pthread_mutex_unlock(&mutex_server);
 		send(sock, &idEquipo, sizeof(idEquipo), 0);
 		send(sock, &unEquipo, sizeof(unEquipo),0);
+		cout << "SERVIDOR - enviarDatos: EQUIPO ENVIADO | "<< usuario << " " << TimeHelper::getStringLocalTimeNow() << endl;
+
+		//------->Envio de Info de Selección de Personajes
+		if(miPartida.EstaHabilitadoEnvioPersonajes() && !miPartida.IniciadaSeleccionPersonajes()){
+			cout << "SERVIDOR - enviarDatos: DATAPERSONAJES | "<< usuario << " " << TimeHelper::getStringLocalTimeNow() << endl;
+			IDMENSAJE idModelo = DATAPERSONAJES;
+			bool enviar = false;
+			ModeloPersonajes unModelo;
+
+			pthread_mutex_lock(&mutex_server);
+			ClienteConectado cliente = miPartida.GetClienteEspera(usuario);
+			if(!cliente.dataPersonajesEnviada){
+				unModelo = miPartida.GetModeloPersonajes();
+				enviar = true;
+			}
+			pthread_mutex_unlock(&mutex_server);
+			if(enviar){
+				send(sock, &idModelo, sizeof(idModelo), 0);
+				send(sock, &unModelo, sizeof(unModelo), 0);
+
+				pthread_mutex_lock(&mutex_server);
+				miPartida.SetDataPersonajesEnviada(usuario);
+				pthread_mutex_unlock(&mutex_server);
+				cout << "SERVIDOR - enviarDatos: DATAPERSONAJES ENVIADO | "<< usuario << " " << TimeHelper::getStringLocalTimeNow() << endl;
+			}
+		}
 
 		//------->Envio de Info de Selección de Personajes
 		if (miPartida.IniciadaSeleccionPersonajes() && !miPartida.FinalizadaSeleccionPersonajes()) {
+			cout << "SERVIDOR - enviarDatos: MODELOSELECCION | "<< usuario << " " << TimeHelper::getStringLocalTimeNow() << endl;
 			IDMENSAJE idModelo = MODELOSELECCION;
+
 			pthread_mutex_lock(&mutex_server);
 			ModeloSeleccion unModelo = miPartida.GetModeloSeleccion();
 			pthread_mutex_unlock(&mutex_server);
+
 			send(sock, &idModelo, sizeof(idModelo), 0);
 			send(sock, &unModelo, sizeof(unModelo), 0);
+			cout << "SERVIDOR - enviarDatos: MODELOSELECCION ENVIADO | "<< usuario << " " << TimeHelper::getStringLocalTimeNow() << endl;
 		}
-
 
 		//------->Envio de Jugador
 		if (miPartida.Iniciada()) {
