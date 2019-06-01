@@ -234,6 +234,7 @@ int Cliente::recibirModeloDelServidor() {
 		if(!this->EstaIniciadaSeleccionPersonaje()){
 			cout << "CLIENTE - recibirModeloDelServidor: Iniciando Seleccion Personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;
 			this->IniciarSeleccionPersonaje();
+			cout << "CLIENTE - recibirModeloDelServidor: Iniciando Seleccion Personaje HECHO | "<< TimeHelper::getStringLocalTimeNow() << endl;
 		}
 		//TODO: lógica para actualizar lo correspondiente
 		pthread_mutex_unlock(&mutexx);
