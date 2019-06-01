@@ -143,6 +143,8 @@ int Cliente::ConectarConServidor(char* ip, char* puerto) {
 void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
 	if (this->ServidorVivo){
 		IDMENSAJE com = COMANDO;
+		IDMENSAJE idCabecera = PING;
+		send(this->getConexion()->getSocketCliente(), &idCabecera,sizeof(idCabecera), MSG_NOSIGNAL);
 		send(this->getConexion()->getSocketCliente(), &com, sizeof(com), MSG_NOSIGNAL);
 		send(this->getConexion()->getSocketCliente(), &comando,	sizeof(comando), MSG_NOSIGNAL);
 	}
@@ -156,9 +158,6 @@ int Cliente::recibirModeloDelServidor() {
 		if ((idMsg == PING)) {
 			this->Ping = true;
 			// Respondo el ping
-			IDMENSAJE idCabecera = PING;
-			send(this->getConexion()->getSocketCliente(), &idCabecera,
-					sizeof(idCabecera), MSG_NOSIGNAL);
 		}
 		//-------->Recibe EQUIPO
 		if (idMsg == EQUIPO) {
