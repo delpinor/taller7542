@@ -94,6 +94,7 @@ void View::render() {
 
 	this->ajustarCamara();
 	SDL_SetRenderDrawColor(this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+
 	SDL_RenderClear(this->gRenderer);
 	pantalla->refrescarPosicion(camara);
 

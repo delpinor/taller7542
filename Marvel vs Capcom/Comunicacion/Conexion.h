@@ -26,13 +26,13 @@ class Conexion{
 		int socketCliente;
 		bool falloConexion;
 		struct sockaddr_in direcionServidor;
-		char * _ip;
-		char * _puerto;
+		char  _ip[100];
+		char  _puerto[10];
 
 	public:
 		Conexion();
 		int Reconectar();
-		int conectarConServidor(const char* hostname, char * puerto);
+		int conectarConServidor( char* hostname, char * puerto);
 		void Cerrar();
 		int prepararSocketServidor();
 		int aceptarConexionCliente();

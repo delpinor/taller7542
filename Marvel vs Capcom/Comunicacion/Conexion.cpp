@@ -15,20 +15,31 @@ Conexion::Conexion() {
 //	cout << "creando conexion" << endl;
 }
 int Conexion::Reconectar() {
+
+	cout<<"puerto: "<<_puerto;
+	cout<<"_ip"<<_ip;
 	conectarConServidor(_ip, _puerto);
 	if (falloConexion)
 		return -1;
 	return 0;
 }
-int Conexion::conectarConServidor(const char* hostname, char * puerto) {
-	//_ip = ip;
-	_puerto = puerto;
+int Conexion::conectarConServidor( char* hostname, char * puerto) {
+
+
+
+	strcpy (_ip , hostname );
+	strcpy (_puerto , puerto );
+	cout << "ip."<< _ip<<endl;
+
+	cout << "puerto"<< puerto<<endl;
+	//_ip = hostname;
+	//_puerto = puerto;
 //	cout << "creará un socket."<< endl;
 	char ip[100];
 	struct hostent *he;
 	   struct in_addr **addr_list;
 	   int i;
-	   if ( (he = gethostbyname( hostname ) ) == NULL)
+	   if ( (he = gethostbyname( _ip) ) == NULL)
 	   { herror("gethostbyname");
 	     return 1;}
 	   addr_list = (struct in_addr **) he->h_addr_list;

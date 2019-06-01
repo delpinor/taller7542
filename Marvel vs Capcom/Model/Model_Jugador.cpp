@@ -160,7 +160,18 @@ int Jugador::getVelX() {
 int Jugador::getVelY() {
 	return this->estado->getVelY();
 }
+void Jugador::set_desconectado(){
+this->desconectado=true;
 
+}
+void Jugador::set_conectado(){
+	this->desconectado=false;
+
+}
+bool Jugador::get_estado_desconexion(){
+
+	return desconectado;
+}
 void Jugador::detenerVelocidad() {
 	this->estado->detenerVelocidad();
 }

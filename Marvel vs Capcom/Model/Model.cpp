@@ -158,7 +158,18 @@ void Model::update() {
 	this->moverJuego();
 }
 
-void Model::updateCliente() {
+void Model::updateCliente(bool servidor_vivo) {
+
+	if (servidor_vivo==false){
+
+			this->equipos[0]->getJugadorActivo()->set_desconectado();
+			this->equipos[1]->getJugadorActivo()->set_desconectado();
+
+		}else{
+
+			this->equipos[0]->getJugadorActivo()->set_conectado();
+			this->equipos[1]->getJugadorActivo()->set_conectado();
+		}
 	this->moverJuegoCliente();
 }
 

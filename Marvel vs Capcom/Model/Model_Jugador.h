@@ -30,11 +30,16 @@ private:
 	Agachado agachado;
 	SDL_RendererFlip direccion;
 	int personaje;
+	bool desconectado=false;
+
 public:
 	Estado* estado;
 //	EstadoCliente * estado;
 
 	Jugador();
+	void set_desconectado();
+	void set_conectado();
+	bool get_estado_desconexion();
 	Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &pathImagen);
 	int get_alto();
 	int get_ancho();

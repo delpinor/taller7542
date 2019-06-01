@@ -31,7 +31,7 @@ public:
 	void LanzarHiloConexion();
 
 	void ChequearConexion();
-	int ConectarConServidor(const char* hostname, char* puerto);
+	int ConectarConServidor(char* hostname, char* puerto);
 	void PushModeloEnCola(ModeloEstado modelo);
 	ModeloEstado PopModeloDeCola();
 	void actualizarModelo(ModeloEstado modelo);
@@ -39,6 +39,7 @@ public:
 	void enviarComandoAServidor(ComandoAlServidor comando);
 	void lanzarHilosDelJuego();
 	void MenuDeSeleccion();
+	bool esta_conectado();
 	std::queue<ModeloEstado> getModeloCambios();
 
 	//TODO ver como imlementar la verificación de conexion del lado del cliente

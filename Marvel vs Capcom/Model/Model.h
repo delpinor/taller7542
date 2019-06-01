@@ -50,7 +50,7 @@ public:
 	void inicializarPosicionesEquipos();
 	ModeloEstado GetModelEstado();
 	virtual void update();
-	virtual void updateCliente();
+	virtual void updateCliente(bool servidor_vivo);
 	Equipo* getEquipoNro(int i);
 
 	virtual void moverJuego();

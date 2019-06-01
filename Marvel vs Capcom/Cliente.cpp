@@ -87,6 +87,7 @@ Cliente::Cliente(View* vista, Conexion* conexion) {
 
 void Cliente::actualizarModelo(ModeloEstado modelo) {
 	pthread_mutex_lock(&mutexx);
+
 	this->getVista()->model->equipos[0]->setJugadorActivo(modelo.activoEquipo1);
 	this->getVista()->model->equipos[1]->setJugadorActivo(modelo.activoEquipo2);
 
@@ -125,7 +126,12 @@ void Cliente::actualizarModelo(ModeloEstado modelo) {
 	pthread_mutex_unlock(&mutexx);
 }
 
-int Cliente::ConectarConServidor(const char* hostname, char* puerto) {
+bool Cliente:: esta_conectado(){
+
+	return (this->ServidorVivo);
+}
+
+int Cliente::ConectarConServidor( char* hostname, char* puerto) {
 	//IPServidor = ip;
 	Puerto = puerto;
 	cout << "conectando con servidor en ip: " << hostname << " y en puerto: "

@@ -20,6 +20,8 @@ void View_Jugador_CapAmerica::initialize(Jugador *model,
 	getSpritesAnimacion();
 	this->zIndex = model->get_zindex();
 	getSpritesCambioPersonaje();
+
+
 }
 
 void View_Jugador_CapAmerica::getSpritesCaminar() {
