@@ -125,12 +125,12 @@ void Cliente::actualizarModelo(ModeloEstado modelo) {
 	pthread_mutex_unlock(&mutexx);
 }
 
-int Cliente::ConectarConServidor(char* ip, char* puerto) {
-	IPServidor = ip;
+int Cliente::ConectarConServidor(const char* hostname, char* puerto) {
+	//IPServidor = ip;
 	Puerto = puerto;
-	cout << "conectando con servidor en ip: " << ip << " y en puerto: "
+	cout << "conectando con servidor en ip: " << hostname << " y en puerto: "
 			<< puerto << endl;
-	int error = this->getConexion()->conectarConServidor(ip, puerto);
+	int error = this->getConexion()->conectarConServidor(hostname, puerto);
 	if (error == -1) {
 		cout << "ERROR conectando con el servidor :(" << endl;
 		return -1;
@@ -143,6 +143,8 @@ int Cliente::ConectarConServidor(char* ip, char* puerto) {
 void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
 	if (this->ServidorVivo){
 		IDMENSAJE com = COMANDO;
+		IDMENSAJE idCabecera = PING;
+		send(this->getConexion()->getSocketCliente(), &idCabecera,sizeof(idCabecera), MSG_NOSIGNAL);
 		send(this->getConexion()->getSocketCliente(), &com, sizeof(com), MSG_NOSIGNAL);
 		send(this->getConexion()->getSocketCliente(), &comando,	sizeof(comando), MSG_NOSIGNAL);
 	}
@@ -156,9 +158,6 @@ int Cliente::recibirModeloDelServidor() {
 		if ((idMsg == PING)) {
 			this->Ping = true;
 			// Respondo el ping
-			IDMENSAJE idCabecera = PING;
-			send(this->getConexion()->getSocketCliente(), &idCabecera,
-					sizeof(idCabecera), MSG_NOSIGNAL);
 		}
 		//-------->Recibe EQUIPO
 		if (idMsg == EQUIPO) {

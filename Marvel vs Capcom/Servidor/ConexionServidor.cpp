@@ -14,7 +14,8 @@ void ConexionServidor::IniciarConexion(char * puerto){
 	//struct sockaddr_in direccionCliente;
 
 	direccionServidor.sin_family = AF_INET;
-	direccionServidor.sin_addr.s_addr = inet_addr(IP);
+	//direccionServidor.sin_addr.s_addr = inet_addr(IP);
+	direccionServidor.sin_addr.s_addr = INADDR_ANY;
 	direccionServidor.sin_port =  htons(atoi(puerto));
 	//Creacion socker conexion
 	if((socketConexion =  socket(AF_INET, SOCK_STREAM, 0)) < 0){

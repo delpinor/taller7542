@@ -20,10 +20,28 @@ int Conexion::Reconectar() {
 		return -1;
 	return 0;
 }
-int Conexion::conectarConServidor(char * ip, char * puerto) {
-	_ip = ip;
+int Conexion::conectarConServidor(const char* hostname, char * puerto) {
+	//_ip = ip;
 	_puerto = puerto;
 //	cout << "creará un socket."<< endl;
+	char ip[100];
+	struct hostent *he;
+	   struct in_addr **addr_list;
+	   int i;
+	   if ( (he = gethostbyname( hostname ) ) == NULL)
+	   { herror("gethostbyname");
+	     return 1;}
+	   addr_list = (struct in_addr **) he->h_addr_list;
+	    for(i = 0; addr_list[i] != NULL; i++)
+	    {   strcpy(ip , inet_ntoa(*addr_list[i]) );
+	    	break;
+	    }
+
+
+
+
+
+
 	direcionServidor.sin_family = AF_INET;
 	direcionServidor.sin_addr.s_addr = inet_addr(ip);
 	direcionServidor.sin_port = htons(atoi(puerto));

@@ -16,6 +16,10 @@
 #include <stdlib.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <errno.h>
+#include <netdb.h>
+#include <string.h>
+
 
 class Conexion{
 	private:
@@ -28,7 +32,7 @@ class Conexion{
 	public:
 		Conexion();
 		int Reconectar();
-		int conectarConServidor(char * ip, char * puerto);
+		int conectarConServidor(const char* hostname, char * puerto);
 		void Cerrar();
 		int prepararSocketServidor();
 		int aceptarConexionCliente();

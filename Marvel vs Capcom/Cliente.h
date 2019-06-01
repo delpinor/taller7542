@@ -31,7 +31,7 @@ public:
 	void LanzarHiloConexion();
 
 	void ChequearConexion();
-	int ConectarConServidor(char* ip, char* puerto);
+	int ConectarConServidor(const char* hostname, char* puerto);
 	void PushModeloEnCola(ModeloEstado modelo);
 	ModeloEstado PopModeloDeCola();
 	void actualizarModelo(ModeloEstado modelo);
