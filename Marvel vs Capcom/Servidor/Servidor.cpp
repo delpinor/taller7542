@@ -100,7 +100,7 @@ void * enviarDatos(void * datos) {
 	while (corriendo) {
 
 		////------->Mensaje de conexión
-		cout << "SERVIDOR - enviarDatos: PING | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+		//cout << "SERVIDOR - enviarDatos: PING | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 		IDMENSAJE idPing = PING;
 		if (send(sock, &idPing, sizeof(idPing), 0) == -1) {
 			cout << "Jugador " << usuario << " desconectado..." << endl;
@@ -111,11 +111,11 @@ void * enviarDatos(void * datos) {
 			pthread_exit(NULL);
 			corriendo = false;
 		}
-		cout << "SERVIDOR - enviarDatos: PING ENVIADO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+		//cout << "SERVIDOR - enviarDatos: PING ENVIADO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 
 		//------->Mensaje de Equipo
 		IDMENSAJE idEquipo = EQUIPO;
-		cout << "SERVIDOR - enviarDatos: EQUIPO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+		//cout << "SERVIDOR - enviarDatos: EQUIPO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 		ClienteEquipo unEquipo;
 		pthread_mutex_lock(&mutex_server);
 		if(!miPartida.IniciadaSeleccionPersonajes()){//if(!miPartida.Iniciada()){
@@ -130,7 +130,7 @@ void * enviarDatos(void * datos) {
 		pthread_mutex_unlock(&mutex_server);
 		send(sock, &idEquipo, sizeof(idEquipo), 0);
 		send(sock, &unEquipo, sizeof(unEquipo),0);
-		cout << "SERVIDOR - enviarDatos: EQUIPO ENVIADO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+		//cout << "SERVIDOR - enviarDatos: EQUIPO ENVIADO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 
 		//------->Envio de Info de Selección de Personajes
 		if(miPartida.EstaHabilitadoEnvioPersonajes() && !miPartida.IniciadaSeleccionPersonajes()){
@@ -159,7 +159,7 @@ void * enviarDatos(void * datos) {
 
 		//------->Envio de Info de Selección de Personajes
 		if (miPartida.IniciadaSeleccionPersonajes() && !miPartida.FinalizadaSeleccionPersonajes()) {
-			cout << "SERVIDOR - enviarDatos: MODELOSELECCION | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+			//cout << "SERVIDOR - enviarDatos: MODELOSELECCION | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 			IDMENSAJE idModelo = MODELOSELECCION;
 
 			pthread_mutex_lock(&mutex_server);
@@ -169,7 +169,7 @@ void * enviarDatos(void * datos) {
 			send(sock, &idModelo, sizeof(idModelo), 0);
 			send(sock, &unModelo, sizeof(unModelo), 0);
 
-			cout << "SERVIDOR - enviarDatos: MODELOSELECCION ENVIADO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+			//cout << "SERVIDOR - enviarDatos: MODELOSELECCION ENVIADO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 		}
 
 		//------->Envio de Jugador

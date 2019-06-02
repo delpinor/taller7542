@@ -122,7 +122,7 @@ int main(int argc, char* argv[]) {
 				DataSeleccionAlServidor unModelo;
 				unModelo.personajeId = personajeSeleccionadoId;
 				unModelo.confirmado = personajeEstaConfirmado;
-				cliente.enviarDataSeleccionAServidor(unModelo);
+				//cliente.enviarDataSeleccionAServidor(unModelo);
 
 				viewMenu.render();
 			}

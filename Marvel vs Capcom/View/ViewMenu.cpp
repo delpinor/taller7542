@@ -116,7 +116,12 @@ void ViewMenu::render() {
 	//personajes
 	int i = 0;
 	std::list<int>::iterator itpersonajes;
+
+	cout << "VIEWMENU - render: | " << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+	cout << "VIEWMENU - render: Cantidad de personajes  " << this->personajes.size()  << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+
 	for (itpersonajes = this->personajes.begin(); itpersonajes != this->personajes.end(); itpersonajes++) { //recorro la lista que recibo
+		cout << "VIEWMENU - render: Personaje | "<< *itpersonajes << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 		if (*itpersonajes==P_SPIDERMAN)
 			texturaSpiderman.render(
 					((P_SPIDERMAN - 1) * ANCHO_CUADRO_JUGADOR) + POS_CUADROX,
@@ -155,8 +160,8 @@ void ViewMenu::render() {
 	texturaJugadorClienteSeleccionado3.setColor(250, 0, 250);
 	texturaJugadorClienteSeleccionado4.setAlpha(framealpha+90);
 	texturaJugadorClienteSeleccionado4.setColor(0, 250, 250);
-	std::list<ModeloSeleccionPersonaje>::iterator it;
-	for (int i = 0; i < this->modelo.cantidadData; i++) { //recorro la lista que recibo
+	std::list<ModeloPersonajeVistaSeleccion>::iterator it;
+	for (it = modelo.data.begin(); it != modelo.data.end(); it++) { //recorro la lista que recibo
 		if (it->jugadorId == 1) {
 			texturaTextoSeleccionadoCliente1.render(
 					((it->personajeId - 1) * ANCHO_CUADRO_JUGADOR) + 20,
@@ -305,6 +310,8 @@ void ViewMenu::personajeAnterior() {
 
 void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId, bool *confirmado) {
 
+	cout << "VIEWMENU - handleEvent: Jugador | "<< this->nroJugadorLocal << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+
 	while (SDL_PollEvent(&e) != 0) {
 		//User requests quit
 		if (e.type == SDL_QUIT) {
@@ -357,18 +364,22 @@ void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId, bool *confir
 }
 
 void ViewMenu::setModeloSeleccion(ModeloSeleccion modelo){
-	cout << "Entró en setModeloSeleccion | "<< TimeHelper::getStringLocalTimeNow() << endl;
+	//cout << "Entró en setModeloSeleccion | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
 	ModeloVistaSeleccion unModelo;
 	unModelo.cantidadData = modelo.cantidadData;
 	unModelo.seleccionFinalizada = modelo.seleccionFinalizada;
+
+	//cout << "Entró en setModeloSeleccion | CantidadData "<< modelo.cantidadData << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 
 	for (int i = 0; i < unModelo.cantidadData; i++) {
 
 		ModeloPersonajeVistaSeleccion unModeloPersonaje;
 		unModeloPersonaje.confirmado = modelo.data[i].confirmado;
 		unModeloPersonaje.jugadorId = modelo.data[i].jugadorId;
+		//cout << "Entró en setModeloSeleccion | JugadorId "<< unModeloPersonaje.jugadorId << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 		unModeloPersonaje.personajeId = modelo.data[i].personajeId;
+		//cout << "Entró en setModeloSeleccion | Personaje "<< unModeloPersonaje.personajeId << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 
 		unModelo.data.push_back(unModeloPersonaje);
 	}
@@ -394,4 +405,8 @@ bool ViewMenu::hayPersonajes(){
 	else{
 		return false;
 	}
+}
+
+void ViewMenu::setNroJugadorLocal(int valor){
+	this->nroJugadorLocal = valor;
 }

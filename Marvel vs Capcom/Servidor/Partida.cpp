@@ -87,14 +87,6 @@ ModeloPersonajes Partida::GetModeloPersonajes(){
 
 	unModelo.cantidadPersonajes = idsPersonajes.size();
 
-
-//	for (unsigned i = 0; i < idsPersonajes.size(); i++){
-//		list<int>::iterator itInt = idsPersonajes.begin();
-//		advance(itInt, i);
-//		unModelo.idsPersonajes[i] = *itInt;
-//		cout << "PARTIDA - GetModeloPersonajes:  | Valor de i "<< i << " | Personaje" << unModelo.idsPersonajes[i] << " | " << TimeHelper::getStringLocalTimeNow() << endl;
-//	}
-
 	int contador = 0;
 	std::list<int>::iterator itpersonajes;
 	for (itpersonajes = idsPersonajes.begin(); itpersonajes != idsPersonajes.end(); itpersonajes++) {
@@ -118,11 +110,11 @@ ModeloSeleccion  Partida::GetModeloSeleccion(){
 
 		ModeloSeleccionPersonaje unModeloSeleccionPersonaje;
 		unModeloSeleccionPersonaje.personajeId = it->personajeId;
-		unModeloSeleccionPersonaje.jugadorId = it->numeroJugador;
+		unModeloSeleccionPersonaje.jugadorId = it->numeroJugadorJuego;
 		unModeloSeleccionPersonaje.confirmado =  it->personajeConfirmado;
 
 		unModelo.data[contador] = unModeloSeleccionPersonaje;
-
+		contador++;
 		//cout << "CLIENTE - GetModeloSeleccion: FINALIZADO | "<< it->nombre << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 	}
 	//cout << "CLIENTE - GetModeloSeleccion EJECUTADO | " << TimeHelper::getStringLocalTimeNow() << endl;

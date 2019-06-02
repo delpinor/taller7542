@@ -72,6 +72,7 @@ public:
 	void render();
 	void setPersonajes(ModeloPersonajes *personajes);
 	void setModeloSeleccion(ModeloSeleccion modelo);
+	void setNroJugadorLocal(int valor);
 	bool hayPersonajes();
 	virtual ~ViewMenu();
 };

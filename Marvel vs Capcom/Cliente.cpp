@@ -144,7 +144,7 @@ int Cliente::recibirModeloDelServidor() {
 
 	//-------->Recibe EQUIPO
 	if (idMsg == EQUIPO) {
-		cout << "CLIENTE - recibirModeloDelServidor: Recibiendo EQUIPO | "<< TimeHelper::getStringLocalTimeNow() << endl;
+		//cout << "CLIENTE - recibirModeloDelServidor: Recibiendo EQUIPO | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
 		ClienteEquipo unClienteEquipo;
 		recv(this->getConexion()->getSocketCliente(), &unClienteEquipo,
@@ -152,24 +152,28 @@ int Cliente::recibirModeloDelServidor() {
 		Titular = unClienteEquipo.titular;
 		Equipo = unClienteEquipo.equipo;
 		NroJugador = unClienteEquipo.nroJugador;
+		pthread_mutex_lock(&mutexx);
+		this->vistaMenu->setNroJugadorLocal(this->NroJugador);
+		cout << "CLIENTE - recibirModeloDelServidor: EQUIPO NroJugador | "<< unClienteEquipo.nroJugador << TimeHelper::getStringLocalTimeNow() << endl;
+		pthread_mutex_unlock(&mutexx);
 
-		cout << "CLIENTE - recibirModeloDelServidor: EQUIPO Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
+		//cout << "CLIENTE - recibirModeloDelServidor: EQUIPO Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
 	}
 
 	//-------->Recibe MENSAJE
 	if (idMsg == MENSAJE) {
-		cout << "CLIENTE - recibirModeloDelServidor: Recibiendo MENSAJE | "<< TimeHelper::getStringLocalTimeNow() << endl;
+		//cout << "CLIENTE - recibirModeloDelServidor: Recibiendo MENSAJE | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
 		Mensaje unMensaje;
 		recv(this->getConexion()->getSocketCliente(), &unMensaje,
 				sizeof(unMensaje), 0);
 
-		cout << "CLIENTE - recibirModeloDelServidor: MENSAJE Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
+		//cout << "CLIENTE - recibirModeloDelServidor: MENSAJE Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
 	}
 
 	//-------->Recibe MODELO
 	if (idMsg == MODELO) {
-		cout << "CLIENTE - recibirModeloDelServidor: Recibiendo MODELO | "<< TimeHelper::getStringLocalTimeNow() << endl;
+		//cout << "CLIENTE - recibirModeloDelServidor: Recibiendo MODELO | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
 		ModeloEstado unModelo;
 		recv(this->getConexion()->getSocketCliente(), &unModelo,sizeof(unModelo), 0);
@@ -203,12 +207,12 @@ int Cliente::recibirModeloDelServidor() {
 
 		pthread_mutex_unlock(&mutexx);
 
-		cout << "CLIENTE - recibirModeloDelServidor: MODELO Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
+		//cout << "CLIENTE - recibirModeloDelServidor: MODELO Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
 	}
 
 	//-------->Recibe DATA PERSONAJES
 	if (idMsg == DATAPERSONAJES) {
-		cout << "CLIENTE - recibirModeloDelServidor: Recibiendo DATAPERSONAJES | "<< TimeHelper::getStringLocalTimeNow() << endl;
+		//cout << "CLIENTE - recibirModeloDelServidor: Recibiendo DATAPERSONAJES | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
 		ModeloPersonajes unModelo;
 		recv(this->getConexion()->getSocketCliente(), &unModelo,sizeof(unModelo), 0);
@@ -217,12 +221,12 @@ int Cliente::recibirModeloDelServidor() {
 		pthread_mutex_unlock(&mutexx);
 
 		//cout << "CLIENTE - recibirModeloDelServidor: DATAPERSONAJES la lista de personajes tiene "<< unModelo.idsPersonajes.size() << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
-		cout << "CLIENTE - recibirModeloDelServidor: DATAPERSONAJES Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
+		//cout << "CLIENTE - recibirModeloDelServidor: DATAPERSONAJES Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
 	}
 
 	//-------->Recibe MODELO SELECCION
 	if (idMsg == MODELOSELECCION) {
-		cout << "CLIENTE - recibirModeloDelServidor: Recibiendo MODELOSELECCION | "<< TimeHelper::getStringLocalTimeNow() << endl;
+		//cout << "CLIENTE - recibirModeloDelServidor: Recibiendo MODELOSELECCION | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
 		ModeloSeleccion unModelo;
 
@@ -232,13 +236,13 @@ int Cliente::recibirModeloDelServidor() {
 		this->vistaMenu->setModeloSeleccion(unModelo);
 
 		if(!this->EstaIniciadaSeleccionPersonaje()){
-			cout << "CLIENTE - recibirModeloDelServidor: Iniciando Seleccion Personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;
+			//cout << "CLIENTE - recibirModeloDelServidor: Iniciando Seleccion Personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;
 			this->IniciarSeleccionPersonaje();
-			cout << "CLIENTE - recibirModeloDelServidor: Iniciando Seleccion Personaje HECHO | "<< TimeHelper::getStringLocalTimeNow() << endl;
+			//cout << "CLIENTE - recibirModeloDelServidor: Iniciando Seleccion Personaje HECHO | "<< TimeHelper::getStringLocalTimeNow() << endl;
 		}
 		pthread_mutex_unlock(&mutexx);
 
-		cout << "CLIENTE - recibirModeloDelServidor: MODELOSELECCION Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
+		//cout << "CLIENTE - recibirModeloDelServidor: MODELOSELECCION Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
 	}
 
 	return NULL;
