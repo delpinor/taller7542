@@ -87,15 +87,26 @@ ModeloPersonajes Partida::GetModeloPersonajes(){
 
 	unModelo.cantidadPersonajes = idsPersonajes.size();
 
-	list<int>::iterator itInt = idsPersonajes.begin();
-	for (unsigned i = 0; i < idsPersonajes.size(); i++){
-		advance(itInt, i);
-		unModelo.idsPersonajes[i] = *itInt;
+
+//	for (unsigned i = 0; i < idsPersonajes.size(); i++){
+//		list<int>::iterator itInt = idsPersonajes.begin();
+//		advance(itInt, i);
+//		unModelo.idsPersonajes[i] = *itInt;
+//		cout << "PARTIDA - GetModeloPersonajes:  | Valor de i "<< i << " | Personaje" << unModelo.idsPersonajes[i] << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+//	}
+
+	int contador = 0;
+	std::list<int>::iterator itpersonajes;
+	for (itpersonajes = idsPersonajes.begin(); itpersonajes != idsPersonajes.end(); itpersonajes++) {
+		unModelo.idsPersonajes[contador] = *itpersonajes;
+		cout << "PARTIDA - GetModeloPersonajes:  | Valor de i "<< contador << " | Personaje" << *itpersonajes << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+		contador++;
 	}
+
 	return unModelo;
 }
 ModeloSeleccion  Partida::GetModeloSeleccion(){
-	cout << "CLIENTE - GetModeloSeleccion: | " << TimeHelper::getStringLocalTimeNow() << endl;
+	//cout << "CLIENTE - GetModeloSeleccion: | " << TimeHelper::getStringLocalTimeNow() << endl;
 	ModeloSeleccion unModelo;
 	unModelo.seleccionFinalizada = FinalizadaSeleccionPersonajes();
 	unModelo.cantidadData = listaJugadores.size();
@@ -103,7 +114,7 @@ ModeloSeleccion  Partida::GetModeloSeleccion(){
 	int contador = 0;
 	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
 
-		cout << "CLIENTE - GetModeloSeleccion: INICIADO | "<< it->nombre << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+		//cout << "CLIENTE - GetModeloSeleccion: INICIADO | "<< it->nombre << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 
 		ModeloSeleccionPersonaje unModeloSeleccionPersonaje;
 		unModeloSeleccionPersonaje.personajeId = it->personajeId;
@@ -112,9 +123,9 @@ ModeloSeleccion  Partida::GetModeloSeleccion(){
 
 		unModelo.data[contador] = unModeloSeleccionPersonaje;
 
-		cout << "CLIENTE - GetModeloSeleccion: FINALIZADO | "<< it->nombre << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+		//cout << "CLIENTE - GetModeloSeleccion: FINALIZADO | "<< it->nombre << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 	}
-	cout << "CLIENTE - GetModeloSeleccion: | " << TimeHelper::getStringLocalTimeNow() << endl;
+	//cout << "CLIENTE - GetModeloSeleccion EJECUTADO | " << TimeHelper::getStringLocalTimeNow() << endl;
 	return unModelo;
 }
 void  Partida::SetJugadoresPersonajeInicial(){
