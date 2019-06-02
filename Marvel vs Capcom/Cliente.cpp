@@ -225,6 +225,7 @@ int Cliente::recibirModeloDelServidor() {
 		cout << "CLIENTE - recibirModeloDelServidor: Recibiendo MODELOSELECCION | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
 		ModeloSeleccion unModelo;
+
 		recv(this->getConexion()->getSocketCliente(), &unModelo,sizeof(unModelo), 0);
 
 		pthread_mutex_lock(&mutexx);

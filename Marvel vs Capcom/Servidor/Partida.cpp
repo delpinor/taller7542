@@ -95,33 +95,26 @@ ModeloPersonajes Partida::GetModeloPersonajes(){
 	return unModelo;
 }
 ModeloSeleccion  Partida::GetModeloSeleccion(){
+	cout << "CLIENTE - GetModeloSeleccion: | " << TimeHelper::getStringLocalTimeNow() << endl;
 	ModeloSeleccion unModelo;
 	unModelo.seleccionFinalizada = FinalizadaSeleccionPersonajes();
 	unModelo.cantidadData = listaJugadores.size();
 	list<ClienteConectado>::iterator it;
-	for (int i = 0; i < listaJugadores.size(); i++) {
+	int contador = 0;
+	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+
+		cout << "CLIENTE - GetModeloSeleccion: INICIADO | "<< it->nombre << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 
 		ModeloSeleccionPersonaje unModeloSeleccionPersonaje;
 		unModeloSeleccionPersonaje.personajeId = it->personajeId;
 		unModeloSeleccionPersonaje.jugadorId = it->numeroJugador;
 		unModeloSeleccionPersonaje.confirmado =  it->personajeConfirmado;
 
-		switch(i){
-			case 0:
-				unModelo.jugadorA = unModeloSeleccionPersonaje;
-				break;
-			case 1:
-				unModelo.jugadorB = unModeloSeleccionPersonaje;
-				break;
-			case 2:
-				unModelo.jugadorC = unModeloSeleccionPersonaje;
-				break;
-			case 3:
-				unModelo.jugadorD = unModeloSeleccionPersonaje;
-				break;
-		}
-	}
+		unModelo.data[contador] = unModeloSeleccionPersonaje;
 
+		cout << "CLIENTE - GetModeloSeleccion: FINALIZADO | "<< it->nombre << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+	}
+	cout << "CLIENTE - GetModeloSeleccion: | " << TimeHelper::getStringLocalTimeNow() << endl;
 	return unModelo;
 }
 void  Partida::SetJugadoresPersonajeInicial(){

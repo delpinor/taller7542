@@ -115,16 +115,16 @@ int main(int argc, char* argv[]) {
 			if(cliente.EstaIniciadaSeleccionPersonaje()){
 				//cout << "Ingresó en selección de personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
-//				int personajeSeleccionadoId = static_cast<int>(PERSONAJE::P_NA);
-//				bool personajeEstaConfirmado = false;
-//				viewMenu.handleEvent(&quitSeleccionMenu, &personajeSeleccionadoId, &personajeEstaConfirmado);
-//
-//				DataSeleccionAlServidor unModelo;
-//				unModelo.personajeId = personajeSeleccionadoId;
-//				unModelo.confirmado = personajeEstaConfirmado;
-//				cliente.enviarDataSeleccionAServidor(unModelo);
-//
-//				viewMenu.render();
+				int personajeSeleccionadoId = static_cast<int>(PERSONAJE::P_NA);
+				bool personajeEstaConfirmado = false;
+				viewMenu.handleEvent(&quitSeleccionMenu, &personajeSeleccionadoId, &personajeEstaConfirmado);
+
+				DataSeleccionAlServidor unModelo;
+				unModelo.personajeId = personajeSeleccionadoId;
+				unModelo.confirmado = personajeEstaConfirmado;
+				cliente.enviarDataSeleccionAServidor(unModelo);
+
+				viewMenu.render();
 			}
 			usleep(50);
 		}

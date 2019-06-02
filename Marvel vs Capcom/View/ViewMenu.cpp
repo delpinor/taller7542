@@ -365,25 +365,12 @@ void ViewMenu::setModeloSeleccion(ModeloSeleccion modelo){
 
 	for (int i = 0; i < unModelo.cantidadData; i++) {
 
-		ModeloSeleccionPersonaje modeloSelecPerj;
-		switch(i){
-			case 0:
-				modeloSelecPerj = modelo.jugadorA;
-				break;
-			case 1:
-				modeloSelecPerj = modelo.jugadorB;
-				break;
-			case 2:
-				modeloSelecPerj = modelo.jugadorC;
-				break;
-			case 3:
-				modeloSelecPerj = modelo.jugadorD;
-				break;
-		}
 		ModeloPersonajeVistaSeleccion unModeloPersonaje;
-		unModeloPersonaje.confirmado = modeloSelecPerj.confirmado;
-		unModeloPersonaje.jugadorId = modeloSelecPerj.jugadorId;
-		unModeloPersonaje.personajeId = modeloSelecPerj.personajeId;
+		unModeloPersonaje.confirmado = modelo.data[i].confirmado;
+		unModeloPersonaje.jugadorId = modelo.data[i].jugadorId;
+		unModeloPersonaje.personajeId = modelo.data[i].personajeId;
+
+		unModelo.data.push_back(unModeloPersonaje);
 	}
 
 	this->modelo = unModelo;

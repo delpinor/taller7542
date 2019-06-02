@@ -52,10 +52,7 @@ struct ModeloSeleccionPersonaje{
 struct ModeloSeleccion {
 	bool seleccionFinalizada;
 	int cantidadData;
-	struct ModeloSeleccionPersonaje jugadorA;
-	struct ModeloSeleccionPersonaje jugadorB;
-	struct ModeloSeleccionPersonaje jugadorC;
-	struct ModeloSeleccionPersonaje jugadorD;
+	struct ModeloSeleccionPersonaje data[4];
 };
 
 struct ModeloPersonajes {
@@ -92,7 +89,11 @@ struct ModeloTest{
 struct ModeloSeleccionTest {
 	bool seleccionFinalizada;
 	int cantidadData;
-	//ModeloSeleccionPersonaje data[4];
+	struct ModeloSeleccionPersonaje data[4];
+//	struct ModeloSeleccionPersonaje jugadorA;
+//	struct ModeloSeleccionPersonaje jugadorB;
+//	struct ModeloSeleccionPersonaje jugadorC;
+//	struct ModeloSeleccionPersonaje jugadorD;
 };
 
 

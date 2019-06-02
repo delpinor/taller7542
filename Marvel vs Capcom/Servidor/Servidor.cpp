@@ -61,7 +61,7 @@ void * loggeoPartida(void *) {
 				<< (miPartida.Finalizada() == true ?
 						"Finalizada" : "No finalizada") << endl;
 		cout << "Cantidad jugadores: " << miPartida.GetCantidadJugando()
-						<< endl;
+								<< endl;
 		cout << "Cantidad en espera: " << miPartida.GetCantidadEspera() << endl;
 		cout << "Cantidad en desconectados: "
 				<< miPartida.GetCantidadDesconectados() << endl;
