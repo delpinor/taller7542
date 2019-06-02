@@ -83,21 +83,45 @@ ModeloEstado  Partida::GetModeloEstado(){
 }
 ModeloPersonajes Partida::GetModeloPersonajes(){
 	ModeloPersonajes unModelo;
-	unModelo.idsPersonajes = this->modelo->GetIdsPersonajes();
+	list<int> idsPersonajes = this->modelo->GetIdsPersonajes();
+
+	unModelo.cantidadPersonajes = idsPersonajes.size();
+
+	list<int>::iterator itInt = idsPersonajes.begin();
+	for (unsigned i = 0; i < idsPersonajes.size(); i++){
+		advance(itInt, i);
+		unModelo.idsPersonajes[i] = *itInt;
+	}
 	return unModelo;
 }
 ModeloSeleccion  Partida::GetModeloSeleccion(){
 	ModeloSeleccion unModelo;
 	unModelo.seleccionFinalizada = FinalizadaSeleccionPersonajes();
+	unModelo.cantidadData = listaJugadores.size();
 	list<ClienteConectado>::iterator it;
-	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+	for (int i = 0; i < listaJugadores.size(); i++) {
+
 		ModeloSeleccionPersonaje unModeloSeleccionPersonaje;
 		unModeloSeleccionPersonaje.personajeId = it->personajeId;
 		unModeloSeleccionPersonaje.jugadorId = it->numeroJugador;
 		unModeloSeleccionPersonaje.confirmado =  it->personajeConfirmado;
 
-		unModelo.data.push_back(unModeloSeleccionPersonaje);
+		switch(i){
+			case 0:
+				unModelo.jugadorA = unModeloSeleccionPersonaje;
+				break;
+			case 1:
+				unModelo.jugadorB = unModeloSeleccionPersonaje;
+				break;
+			case 2:
+				unModelo.jugadorC = unModeloSeleccionPersonaje;
+				break;
+			case 3:
+				unModelo.jugadorD = unModeloSeleccionPersonaje;
+				break;
+		}
 	}
+
 	return unModelo;
 }
 void  Partida::SetJugadoresPersonajeInicial(){

@@ -141,6 +141,7 @@ void Cliente::enviarDataSeleccionAServidor(DataSeleccionAlServidor data) {
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
 	recv(this->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
+
 	//-------->Recibe EQUIPO
 	if (idMsg == EQUIPO) {
 		cout << "CLIENTE - recibirModeloDelServidor: Recibiendo EQUIPO | "<< TimeHelper::getStringLocalTimeNow() << endl;
@@ -215,20 +216,18 @@ int Cliente::recibirModeloDelServidor() {
 		this->vistaMenu->setPersonajes(&unModelo);
 		pthread_mutex_unlock(&mutexx);
 
-		cout << "CLIENTE - recibirModeloDelServidor: DATAPERSONAJES la lista de personajes tiene "<< unModelo.idsPersonajes.size() << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
+		//cout << "CLIENTE - recibirModeloDelServidor: DATAPERSONAJES la lista de personajes tiene "<< unModelo.idsPersonajes.size() << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
 		cout << "CLIENTE - recibirModeloDelServidor: DATAPERSONAJES Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
 	}
 
-
-	cout << "CLIENTE - recibirModeloDelServidor: antes del if de  MODELOSELECCION | "<< TimeHelper::getStringLocalTimeNow() << endl;
 	//-------->Recibe MODELO SELECCION
 	if (idMsg == MODELOSELECCION) {
 		cout << "CLIENTE - recibirModeloDelServidor: Recibiendo MODELOSELECCION | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
 		ModeloSeleccion unModelo;
 		recv(this->getConexion()->getSocketCliente(), &unModelo,sizeof(unModelo), 0);
-		pthread_mutex_lock(&mutexx);
 
+		pthread_mutex_lock(&mutexx);
 		this->vistaMenu->setModeloSeleccion(unModelo);
 
 		if(!this->EstaIniciadaSeleccionPersonaje()){

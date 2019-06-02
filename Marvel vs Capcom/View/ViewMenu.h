@@ -6,6 +6,19 @@
 #include <list>
 #include <iterator>
 #include "../Helper/TimeHelper.h"
+
+
+struct ModeloPersonajeVistaSeleccion{
+	int jugadorId;
+	int personajeId;
+	bool confirmado;
+};
+struct ModeloVistaSeleccion {
+	bool seleccionFinalizada;
+	int cantidadData;
+	list<ModeloPersonajeVistaSeleccion> data;
+};
+
 class ViewMenu {
 
 
@@ -15,8 +28,8 @@ private:
 	bool loadMedia();
 	bool loadText();
 	SDL_Event e;
-	ModeloSeleccion modelo;
-	ModeloPersonajes * personajes;
+	ModeloVistaSeleccion modelo;
+	std::list<int> personajes;
 	int nroJugadorLocal;
 
 	int CantidadDeJugadores;

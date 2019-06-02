@@ -61,7 +61,7 @@ void * loggeoPartida(void *) {
 				<< (miPartida.Finalizada() == true ?
 						"Finalizada" : "No finalizada") << endl;
 		cout << "Cantidad jugadores: " << miPartida.GetCantidadJugando()
-				<< endl;
+						<< endl;
 		cout << "Cantidad en espera: " << miPartida.GetCantidadEspera() << endl;
 		cout << "Cantidad en desconectados: "
 				<< miPartida.GetCantidadDesconectados() << endl;
@@ -98,8 +98,9 @@ void * enviarDatos(void * datos) {
 
 	bool corriendo = true;
 	while (corriendo) {
+
 		////------->Mensaje de conexión
-		cout << "SERVIDOR - enviarDatos: PING | "<< usuario << " " << TimeHelper::getStringLocalTimeNow() << endl;
+		cout << "SERVIDOR - enviarDatos: PING | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 		IDMENSAJE idPing = PING;
 		if (send(sock, &idPing, sizeof(idPing), 0) == -1) {
 			cout << "Jugador " << usuario << " desconectado..." << endl;
@@ -110,11 +111,11 @@ void * enviarDatos(void * datos) {
 			pthread_exit(NULL);
 			corriendo = false;
 		}
-		cout << "SERVIDOR - enviarDatos: PING ENVIADO | "<< usuario << " " << TimeHelper::getStringLocalTimeNow() << endl;
+		cout << "SERVIDOR - enviarDatos: PING ENVIADO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 
 		//------->Mensaje de Equipo
 		IDMENSAJE idEquipo = EQUIPO;
-		cout << "SERVIDOR - enviarDatos: EQUIPO | "<< usuario << " " << TimeHelper::getStringLocalTimeNow() << endl;
+		cout << "SERVIDOR - enviarDatos: EQUIPO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 		ClienteEquipo unEquipo;
 		pthread_mutex_lock(&mutex_server);
 		if(!miPartida.IniciadaSeleccionPersonajes()){//if(!miPartida.Iniciada()){
@@ -129,11 +130,11 @@ void * enviarDatos(void * datos) {
 		pthread_mutex_unlock(&mutex_server);
 		send(sock, &idEquipo, sizeof(idEquipo), 0);
 		send(sock, &unEquipo, sizeof(unEquipo),0);
-		cout << "SERVIDOR - enviarDatos: EQUIPO ENVIADO | "<< usuario << " " << TimeHelper::getStringLocalTimeNow() << endl;
+		cout << "SERVIDOR - enviarDatos: EQUIPO ENVIADO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 
 		//------->Envio de Info de Selección de Personajes
 		if(miPartida.EstaHabilitadoEnvioPersonajes() && !miPartida.IniciadaSeleccionPersonajes()){
-			cout << "SERVIDOR - enviarDatos: DATAPERSONAJES | "<< usuario << " " << TimeHelper::getStringLocalTimeNow() << endl;
+			cout << "SERVIDOR - enviarDatos: DATAPERSONAJES | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 			IDMENSAJE idModelo = DATAPERSONAJES;
 			bool enviar = false;
 			ModeloPersonajes unModelo;
@@ -152,13 +153,13 @@ void * enviarDatos(void * datos) {
 				pthread_mutex_lock(&mutex_server);
 				miPartida.SetDataPersonajesEnviada(usuario);
 				pthread_mutex_unlock(&mutex_server);
-				cout << "SERVIDOR - enviarDatos: DATAPERSONAJES ENVIADO | "<< usuario << " " << TimeHelper::getStringLocalTimeNow() << endl;
+				cout << "SERVIDOR - enviarDatos: DATAPERSONAJES ENVIADO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 			}
 		}
 
 		//------->Envio de Info de Selección de Personajes
 		if (miPartida.IniciadaSeleccionPersonajes() && !miPartida.FinalizadaSeleccionPersonajes()) {
-			cout << "SERVIDOR - enviarDatos: MODELOSELECCION | "<< usuario << " " << TimeHelper::getStringLocalTimeNow() << endl;
+			cout << "SERVIDOR - enviarDatos: MODELOSELECCION | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 			IDMENSAJE idModelo = MODELOSELECCION;
 
 			pthread_mutex_lock(&mutex_server);
@@ -167,7 +168,8 @@ void * enviarDatos(void * datos) {
 
 			send(sock, &idModelo, sizeof(idModelo), 0);
 			send(sock, &unModelo, sizeof(unModelo), 0);
-			cout << "SERVIDOR - enviarDatos: MODELOSELECCION ENVIADO | "<< usuario << " " << TimeHelper::getStringLocalTimeNow() << endl;
+
+			cout << "SERVIDOR - enviarDatos: MODELOSELECCION ENVIADO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 		}
 
 		//------->Envio de Jugador
@@ -179,6 +181,7 @@ void * enviarDatos(void * datos) {
 			send(sock, &idModelo, sizeof(idModelo), 0);
 			send(sock, &unModelo, sizeof(unModelo), 0);
 		}
+
 		usleep(1000);
 	}
 }

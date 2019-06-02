@@ -9,9 +9,9 @@ ViewMenu::ViewMenu(int i) {
 		if (!this->loadMedia() || !this->loadText()) {
 			printf("Failed to load media!\n");
 		}else{
-			//TODO: verque hacemos acá.
-			}
+
 		}
+	}
 }
 
 ViewMenu::~ViewMenu() {
@@ -108,7 +108,7 @@ bool ViewMenu::loadText() {
 
 void ViewMenu::render() {
 	SDL_RenderClear(gRenderer);
-	CantidadDeJugadores = modelo.data.size();
+	CantidadDeJugadores = modelo.cantidadData;
 	//fondo
 	texturaFondo.render(0, 0, &fondoclip, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	//logo
@@ -116,7 +116,7 @@ void ViewMenu::render() {
 	//personajes
 	int i = 0;
 	std::list<int>::iterator itpersonajes;
-	for (itpersonajes = personajes->idsPersonajes.begin(); itpersonajes != personajes->idsPersonajes.end(); itpersonajes++) { //recorro la lista que recibo
+	for (itpersonajes = this->personajes.begin(); itpersonajes != this->personajes.end(); itpersonajes++) { //recorro la lista que recibo
 		if (*itpersonajes==P_SPIDERMAN)
 			texturaSpiderman.render(
 					((P_SPIDERMAN - 1) * ANCHO_CUADRO_JUGADOR) + POS_CUADROX,
@@ -130,7 +130,7 @@ void ViewMenu::render() {
 		if (*itpersonajes==P_CAPITAN_AMERICA)
 			texturaCapitan.render(
 					((P_CAPITAN_AMERICA - 1) * ANCHO_CUADRO_JUGADOR)
-							+ POS_CUADROX, POS_CUADROY, &cajpitanclip, 0.0,
+					+ POS_CUADROX, POS_CUADROY, &cajpitanclip, 0.0,
 					NULL, SDL_FLIP_NONE, gRenderer);
 		if (*itpersonajes==P_VENOM)
 			texturaVenom.render(
@@ -156,7 +156,7 @@ void ViewMenu::render() {
 	texturaJugadorClienteSeleccionado4.setAlpha(framealpha+90);
 	texturaJugadorClienteSeleccionado4.setColor(0, 250, 250);
 	std::list<ModeloSeleccionPersonaje>::iterator it;
-	for (it = modelo.data.begin(); it != modelo.data.end(); it++) { //recorro la lista que recibo
+	for (int i = 0; i < this->modelo.cantidadData; i++) { //recorro la lista que recibo
 		if (it->jugadorId == 1) {
 			texturaTextoSeleccionadoCliente1.render(
 					((it->personajeId - 1) * ANCHO_CUADRO_JUGADOR) + 20,
@@ -164,7 +164,7 @@ void ViewMenu::render() {
 					NULL, SDL_FLIP_NONE, gRenderer); //it->personajeId-1 reempazo con map(it->personajeId)
 			texturaJugadorClienteSeleccionado1.render(
 					((it->personajeId - 1) * ANCHO_CUADRO_JUGADOR)
-							+ POS_CUADROX, POS_CUADROY,
+					+ POS_CUADROX, POS_CUADROY,
 					NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 		}
 		if (it->jugadorId == 2) {
@@ -174,7 +174,7 @@ void ViewMenu::render() {
 					NULL, SDL_FLIP_NONE, gRenderer);
 			texturaJugadorClienteSeleccionado2.render(
 					((it->personajeId - 1) * ANCHO_CUADRO_JUGADOR)
-							+ POS_CUADROX, POS_CUADROY,
+					+ POS_CUADROX, POS_CUADROY,
 					NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 		}
 		if (it->jugadorId == 3) {
@@ -184,7 +184,7 @@ void ViewMenu::render() {
 					NULL, SDL_FLIP_NONE, gRenderer);
 			texturaJugadorClienteSeleccionado3.render(
 					((it->personajeId - 1) * ANCHO_CUADRO_JUGADOR)
-							+ POS_CUADROX, POS_CUADROY,
+					+ POS_CUADROX, POS_CUADROY,
 					NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 		}
 		if (it->jugadorId == 4) {
@@ -194,7 +194,7 @@ void ViewMenu::render() {
 					NULL, SDL_FLIP_NONE, gRenderer);
 			texturaJugadorClienteSeleccionado4.render(
 					((it->personajeId - 1) * ANCHO_CUADRO_JUGADOR)
-							+ POS_CUADROX, POS_CUADROY,
+					+ POS_CUADROX, POS_CUADROY,
 					NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 		}
 	}
@@ -244,7 +244,7 @@ bool ViewMenu::inicializar() {
 
 		//Create window
 		window = SDL_CreateWindow("Taller de Programacion - Marvel vs Capcom",
-		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
+				SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
 				SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 		if (window == NULL) {
 			SDL_GetError();
@@ -282,10 +282,10 @@ bool ViewMenu::inicializar() {
 
 void ViewMenu::close() {
 	//Deallocate surfaces
-//	for (int i = 0; i < 5; ++i) {
-//		SDL_FreeSurface(gKeyPressSurfaces[i]);
-//		gKeyPressSurfaces[i] = NULL;
-//	}
+	//	for (int i = 0; i < 5; ++i) {
+	//		SDL_FreeSurface(gKeyPressSurfaces[i]);
+	//		gKeyPressSurfaces[i] = NULL;
+	//	}
 
 	//Destroy window
 	SDL_DestroyWindow(window);
@@ -319,21 +319,24 @@ void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId, bool *confir
 				break;
 
 			case SDLK_LEFT: {
-				std::list<ModeloSeleccionPersonaje>::iterator it;
-				for (it = this->modelo.data.begin(); it != this->modelo.data.end(); it++) {
+				std::list<ModeloPersonajeVistaSeleccion>::iterator it;
+				for (it = modelo.data.begin(); it != modelo.data.end(); it++){
+
 					if (it->jugadorId == this->nroJugadorLocal) {
 						if (it->personajeId - 1 > 0){
 							//it->personajeId--;
 							*personajeSelecionadoId = it->personajeId - 1;
 						}
 					}
+
 				}
 			}
 			//necesito aumentar un contador para el seleccionado aca
 			break;
 			case SDLK_RIGHT: {
-				std::list<ModeloSeleccionPersonaje>::iterator it;
-				for (it = this->modelo.data.begin(); it != this->modelo.data.end(); it++) {
+				std::list<ModeloPersonajeVistaSeleccion>::iterator it;
+				for (it = modelo.data.begin(); it != modelo.data.end(); it++){
+
 					if (it->jugadorId == this->nroJugadorLocal) {
 						if ((it->personajeId - 1) < (this->modelo.data.size() - 1)){
 							//it->personajeId++;
@@ -355,15 +358,50 @@ void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId, bool *confir
 
 void ViewMenu::setModeloSeleccion(ModeloSeleccion modelo){
 	cout << "Entró en setModeloSeleccion | "<< TimeHelper::getStringLocalTimeNow() << endl;
-	this->modelo = modelo;
+
+	ModeloVistaSeleccion unModelo;
+	unModelo.cantidadData = modelo.cantidadData;
+	unModelo.seleccionFinalizada = modelo.seleccionFinalizada;
+
+	for (int i = 0; i < unModelo.cantidadData; i++) {
+
+		ModeloSeleccionPersonaje modeloSelecPerj;
+		switch(i){
+			case 0:
+				modeloSelecPerj = modelo.jugadorA;
+				break;
+			case 1:
+				modeloSelecPerj = modelo.jugadorB;
+				break;
+			case 2:
+				modeloSelecPerj = modelo.jugadorC;
+				break;
+			case 3:
+				modeloSelecPerj = modelo.jugadorD;
+				break;
+		}
+		ModeloPersonajeVistaSeleccion unModeloPersonaje;
+		unModeloPersonaje.confirmado = modeloSelecPerj.confirmado;
+		unModeloPersonaje.jugadorId = modeloSelecPerj.jugadorId;
+		unModeloPersonaje.personajeId = modeloSelecPerj.personajeId;
+	}
+
+	this->modelo = unModelo;
 }
 
 void ViewMenu::setPersonajes(ModeloPersonajes *personajes){
-	this->personajes = personajes;
+
+	int idPersonajeNoValido = static_cast<int>(PERSONAJE::P_NA);
+
+	for (int i = 0; i < personajes->cantidadPersonajes; i++){
+		if(personajes->idsPersonajes[i] != idPersonajeNoValido){
+			this->personajes.push_back(personajes->idsPersonajes[i]);
+		}
+	}
 }
 
 bool ViewMenu::hayPersonajes(){
-	if(this->personajes != NULL && this->personajes->idsPersonajes.size() > 0){
+	if(this->personajes.size() > 0){
 		return true;
 	}
 	else{
