@@ -40,7 +40,7 @@ void * hilo_conexion(void * cliente) {
 		if (!p->Ping) {
 			p->ServidorVivo = false;
 			p->getConexion()->Cerrar();
-			cout << "Falla en la comunicacion. Intentando reconectar..." << endl;
+			p->getVista()->CajaMensaje("Conexión", "Falla en la comunicación. Intentando reconectar...");
 			while(!p->ServidorVivo){
 				if (p->getConexion()->Reconectar() != -1) {
 					JugadorLogin loginUsuario;
@@ -142,7 +142,6 @@ int Cliente::ConectarConServidor( char* hostname, char* puerto) {
 		return -1;
 	}
 	cout << "conectando con el servidor!!" << endl;
-	int sockCliente = this->getConexion()->getSocketCliente();
 	return 0;
 }
 
@@ -178,8 +177,7 @@ int Cliente::recibirModeloDelServidor() {
 	if (idMsg == COMPLETO) {
 		this->juegoCorriendo = false;
 		this->getConexion()->Cerrar();
-		// Mostrar Mensaje
-		cout << "EQUIPOS COMPLETOS." << endl;
+		this->getVista()->CajaMensaje("Equipos", "Juego iniciado. No hay lugar");
 	}
 
 		//-------->Recibe MODELO

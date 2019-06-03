@@ -71,6 +71,7 @@ int main(int argc, char* argv[]) {
 		cout << "puerto: " << puerto << endl;
 
 		// Envio de usuario
+		//caja.MensajeConEntrada("Titulo","Cuerpo");
 		JugadorLogin loginUsuario;
 		IDMENSAJE idMsg = LOGIN;
 		// Capturo datos del jugador
@@ -104,11 +105,9 @@ int main(int argc, char* argv[]) {
 		cout << "Hilos del cliente lanzados."<< endl;
 		// Hilo conexion.
 		cliente.LanzarHiloConexion();
-		//cliente.LanzarHiloConexion();
 		while (cliente.juegoCorriendo){
 			if (controller.quitPressed())
 				return -1;
-			//cliente.ChequearConexion();
 			ComandoAlServidor comandoParaServidor;
 			int comando = controller.processInputCliente();
 			if (cliente.Titular) {
