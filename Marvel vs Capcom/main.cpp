@@ -119,10 +119,11 @@ int main(int argc, char* argv[]) {
 				bool personajeEstaConfirmado = false;
 				viewMenu.handleEvent(&quitSeleccionMenu, &personajeSeleccionadoId, &personajeEstaConfirmado);
 
+
 				DataSeleccionAlServidor unModelo;
 				unModelo.personajeId = personajeSeleccionadoId;
 				unModelo.confirmado = personajeEstaConfirmado;
-				//cliente.enviarDataSeleccionAServidor(unModelo);
+				cliente.enviarDataSeleccionAServidor(unModelo);
 
 				viewMenu.render();
 			}

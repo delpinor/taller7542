@@ -117,11 +117,11 @@ void ViewMenu::render() {
 	int i = 0;
 	std::list<int>::iterator itpersonajes;
 
-	cout << "VIEWMENU - render: | " << " | " << TimeHelper::getStringLocalTimeNow() << endl;
-	cout << "VIEWMENU - render: Cantidad de personajes  " << this->personajes.size()  << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+	//cout << "VIEWMENU - render: | " << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+	//cout << "VIEWMENU - render: Cantidad de personajes  " << this->personajes.size()  << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 
 	for (itpersonajes = this->personajes.begin(); itpersonajes != this->personajes.end(); itpersonajes++) { //recorro la lista que recibo
-		cout << "VIEWMENU - render: Personaje | "<< *itpersonajes << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+		//cout << "VIEWMENU - render: Personaje | "<< *itpersonajes << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 		if (*itpersonajes==P_SPIDERMAN)
 			texturaSpiderman.render(
 					((P_SPIDERMAN - 1) * ANCHO_CUADRO_JUGADOR) + POS_CUADROX,
@@ -310,7 +310,7 @@ void ViewMenu::personajeAnterior() {
 
 void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId, bool *confirmado) {
 
-	cout << "VIEWMENU - handleEvent: Jugador | "<< this->nroJugadorLocal << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+	//cout << "VIEWMENU - handleEvent: Jugador | "<< this->nroJugadorLocal << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 
 	while (SDL_PollEvent(&e) != 0) {
 		//User requests quit
@@ -333,6 +333,8 @@ void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId, bool *confir
 						if (it->personajeId - 1 > 0){
 							//it->personajeId--;
 							*personajeSelecionadoId = it->personajeId - 1;
+							cout << "VIEWMENU: Jugador Personaje | "<< it->personajeId  << TimeHelper::getStringLocalTimeNow() << endl;
+							cout << "VIEWMENU: personajeSeleccionadoId | "<< *personajeSelecionadoId  << TimeHelper::getStringLocalTimeNow() << endl;
 						}
 					}
 
@@ -345,7 +347,7 @@ void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId, bool *confir
 				for (it = modelo.data.begin(); it != modelo.data.end(); it++){
 
 					if (it->jugadorId == this->nroJugadorLocal) {
-						if ((it->personajeId - 1) < (this->modelo.data.size() - 1)){
+						if ((it->personajeId - 1) < (this->personajes.size() - 1)){//(this->modelo.data.size() - 1)){
 							//it->personajeId++;
 							*personajeSelecionadoId = it->personajeId + 1;
 						}

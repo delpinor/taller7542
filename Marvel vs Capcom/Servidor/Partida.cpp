@@ -449,11 +449,13 @@ bool Partida::FinalizadaSeleccionPersonajes(){
 void Partida::HandleEventSeleccionPersonajes(string nombreJugador, DataSeleccionAlServidor *data){
 	list<ClienteConectado>::iterator it;
 
-	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+	if(data->personajeId >= 0){
+		for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
 
-		if(it->nombre == nombreJugador){
-			it->personajeId = data->personajeId;
-			it->personajeConfirmado = data->confirmado;
+			if(it->nombre == nombreJugador){
+				it->personajeId = data->personajeId;
+				it->personajeConfirmado = data->confirmado;
+			}
 		}
 	}
 }

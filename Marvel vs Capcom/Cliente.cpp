@@ -154,7 +154,7 @@ int Cliente::recibirModeloDelServidor() {
 		NroJugador = unClienteEquipo.nroJugador;
 		pthread_mutex_lock(&mutexx);
 		this->vistaMenu->setNroJugadorLocal(this->NroJugador);
-		cout << "CLIENTE - recibirModeloDelServidor: EQUIPO NroJugador | "<< unClienteEquipo.nroJugador << TimeHelper::getStringLocalTimeNow() << endl;
+		//cout << "CLIENTE - recibirModeloDelServidor: EQUIPO NroJugador | "<< unClienteEquipo.nroJugador << TimeHelper::getStringLocalTimeNow() << endl;
 		pthread_mutex_unlock(&mutexx);
 
 		//cout << "CLIENTE - recibirModeloDelServidor: EQUIPO Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
