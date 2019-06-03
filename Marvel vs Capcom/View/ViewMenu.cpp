@@ -163,6 +163,8 @@ void ViewMenu::render() {
 	std::list<ModeloPersonajeVistaSeleccion>::iterator it;
 	for (it = modelo.data.begin(); it != modelo.data.end(); it++) { //recorro la lista que recibo
 		if (it->jugadorId == 1) {
+			if (it->confirmado)
+				texturaJugadorClienteSeleccionado1.setAlpha(100);
 			texturaTextoSeleccionadoCliente1.render(
 					((it->personajeId - 1) * ANCHO_CUADRO_JUGADOR) + 20,
 					POS_CUADROY, NULL, 0.0,
@@ -173,6 +175,8 @@ void ViewMenu::render() {
 					NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 		}
 		if (it->jugadorId == 2) {
+			if (it->confirmado)
+						texturaJugadorClienteSeleccionado2.setAlpha(100);
 			texturaTextoSeleccionadoCliente2.render(
 					((it->personajeId - 1) * ANCHO_CUADRO_JUGADOR) + 20,
 					POS_CUADROY + 26, NULL, 0.0,
@@ -183,6 +187,8 @@ void ViewMenu::render() {
 					NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 		}
 		if (it->jugadorId == 3) {
+			if (it->confirmado)
+						texturaJugadorClienteSeleccionado3.setAlpha(100);
 			texturaTextoSeleccionadoCliente3.render(
 					((it->personajeId - 1) * ANCHO_CUADRO_JUGADOR) + 20,
 					POS_CUADROY + 52, NULL, 0.0,
@@ -193,6 +199,8 @@ void ViewMenu::render() {
 					NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 		}
 		if (it->jugadorId == 4) {
+			if (it->confirmado)
+						texturaJugadorClienteSeleccionado4.setAlpha(100);
 			texturaTextoSeleccionadoCliente4.render(
 					((it->personajeId - 1) * ANCHO_CUADRO_JUGADOR) + 20,
 					POS_CUADROY + 68, NULL, 0.0,
