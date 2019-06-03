@@ -34,7 +34,7 @@ private:
 
 	int CantidadDeJugadores;
 	SDL_Rect spidermanclip, chunliclip, cajpitanclip, venomclip, fondoclip;
-	int npersonaje,framealpha;
+	int framealpha;
 	SDL_Renderer* gRenderer;
 	SDL_Window* window;
 	const int SCREEN_WIDTH = 640;

@@ -1,7 +1,7 @@
 #include "ViewMenu.h"
 ViewMenu::ViewMenu(int i) {
 
-	npersonaje = 0;
+	//npersonaje = 0;
 	if (!this->inicializar()) {
 		printf("ViewMenu: Failed to initialize!\n");
 	} else {
@@ -306,15 +306,7 @@ void ViewMenu::close() {
 	SDL_Quit();
 }
 
-void ViewMenu::personajeSiguiente() {
-	if (npersonaje < (CantidadDeJugadores - 1))
-		npersonaje += 1;
-}
 
-void ViewMenu::personajeAnterior() {
-	if (npersonaje > 0)
-		npersonaje -= 1;
-}
 
 void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId, bool *confirmado) {
 
@@ -337,7 +329,7 @@ void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId, bool *confir
 				std::list<ModeloPersonajeVistaSeleccion>::iterator it;
 				for (it = modelo.data.begin(); it != modelo.data.end(); it++){
 
-					if (it->jugadorId == this->nroJugadorLocal) {
+					if ((it->jugadorId == this->nroJugadorLocal) && (!it->confirmado)){
 						if (it->personajeId - 1 > 0){
 							//it->personajeId--;
 							*personajeSelecionadoId = it->personajeId - 1;
@@ -354,7 +346,7 @@ void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId, bool *confir
 				std::list<ModeloPersonajeVistaSeleccion>::iterator it;
 				for (it = modelo.data.begin(); it != modelo.data.end(); it++){
 
-					if (it->jugadorId == this->nroJugadorLocal) {
+					if ((it->jugadorId == this->nroJugadorLocal)  && (!it->confirmado)){
 						if ((it->personajeId - 1) < (this->personajes.size() - 1)){//(this->modelo.data.size() - 1)){
 							//it->personajeId++;
 							*personajeSelecionadoId = it->personajeId + 1;
