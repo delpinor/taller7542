@@ -379,9 +379,7 @@ void ViewMenu::setModeloSeleccion(ModeloSeleccion modelo){
 		ModeloPersonajeVistaSeleccion unModeloPersonaje;
 		unModeloPersonaje.confirmado = modelo.data[i].confirmado;
 		unModeloPersonaje.jugadorId = modelo.data[i].jugadorId;
-		//cout << "Entró en setModeloSeleccion | JugadorId "<< unModeloPersonaje.jugadorId << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 		unModeloPersonaje.personajeId = modelo.data[i].personajeId;
-		//cout << "Entró en setModeloSeleccion | Personaje "<< unModeloPersonaje.personajeId << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 
 		unModelo.data.push_back(unModeloPersonaje);
 	}
