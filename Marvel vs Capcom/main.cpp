@@ -118,11 +118,6 @@ int main(int argc, char* argv[]) {
 				int personajeSeleccionadoId = static_cast<int>(PERSONAJE::P_NA);
 				bool personajeEstaConfirmado = false;
 				viewMenu.handleEvent(&quitSeleccionMenu, &personajeSeleccionadoId, &personajeEstaConfirmado);
-				if(personajeEstaConfirmado){
-					cout << "Personaje confirmado: " << personajeEstaConfirmado << endl;
-					cout << "Personaje seleccionado: " << personajeSeleccionadoId << endl;
-				}
-
 				DataSeleccionAlServidor unModelo;
 				unModelo.personajeId = personajeSeleccionadoId;
 				unModelo.confirmado = personajeEstaConfirmado;
@@ -131,7 +126,7 @@ int main(int argc, char* argv[]) {
 
 				viewMenu.render();
 			}
-			usleep(500);
+			usleep(50);
 		}
 
 
