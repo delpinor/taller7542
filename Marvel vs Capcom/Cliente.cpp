@@ -132,11 +132,8 @@ void Cliente::enviarDataSeleccionAServidor(DataSeleccionAlServidor data) {
 
 	int error = 0;
 	IDMENSAJE com = DATASELECCION;
-	int tam_mensaje = sizeof(ComandoAlServidor);
-	error = send(this->getConexion()->getSocketCliente(), &com, sizeof(com),
-			MSG_NOSIGNAL);
-	error = send(this->getConexion()->getSocketCliente(), &data,
-			sizeof(data), MSG_NOSIGNAL);
+	error = send(this->getConexion()->getSocketCliente(), &com, sizeof(com), MSG_NOSIGNAL);
+	error = send(this->getConexion()->getSocketCliente(), &data, sizeof(data), MSG_NOSIGNAL);
 }
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
@@ -147,8 +144,7 @@ int Cliente::recibirModeloDelServidor() {
 		//cout << "CLIENTE - recibirModeloDelServidor: Recibiendo EQUIPO | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
 		ClienteEquipo unClienteEquipo;
-		recv(this->getConexion()->getSocketCliente(), &unClienteEquipo,
-				sizeof(unClienteEquipo), 0);
+		recv(this->getConexion()->getSocketCliente(), &unClienteEquipo,	sizeof(unClienteEquipo), 0);
 		Titular = unClienteEquipo.titular;
 		Equipo = unClienteEquipo.equipo;
 		NroJugador = unClienteEquipo.nroJugador;
@@ -165,8 +161,7 @@ int Cliente::recibirModeloDelServidor() {
 		//cout << "CLIENTE - recibirModeloDelServidor: Recibiendo MENSAJE | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
 		Mensaje unMensaje;
-		recv(this->getConexion()->getSocketCliente(), &unMensaje,
-				sizeof(unMensaje), 0);
+		recv(this->getConexion()->getSocketCliente(), &unMensaje, sizeof(unMensaje), 0);
 
 		//cout << "CLIENTE - recibirModeloDelServidor: MENSAJE Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
 	}
@@ -234,6 +229,7 @@ int Cliente::recibirModeloDelServidor() {
 
 		pthread_mutex_lock(&mutexx);
 		this->vistaMenu->setModeloSeleccion(unModelo);
+
 
 		if(!this->EstaIniciadaSeleccionPersonaje()){
 			//cout << "CLIENTE - recibirModeloDelServidor: Iniciando Seleccion Personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;

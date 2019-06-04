@@ -232,6 +232,8 @@ void * recibirDatos(void * datos) {
 			miPartida.HandleEventSeleccionPersonajes(unCliente.nombre, &data);
 			pthread_mutex_unlock(&mutex_server);
 			cout << "Data Selección recibida: " << data.personajeId << endl;
+			cout << "Confirmado: " << data.confirmado << endl;
+
 		}
 	}
 }
