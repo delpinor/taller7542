@@ -29,8 +29,6 @@ public:
 	bool Ping = false;
 
 	void LanzarHiloConexion();
-
-	void ChequearConexion();
 	int ConectarConServidor(char* hostname, char* puerto);
 	void PushModeloEnCola(ModeloEstado modelo);
 	ModeloEstado PopModeloDeCola();

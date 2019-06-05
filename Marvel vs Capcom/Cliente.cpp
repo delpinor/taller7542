@@ -284,21 +284,6 @@ Conexion * Cliente::getConexion() {
 void Cliente::setCenexion(Conexion* conexion) {
 	this->conexion = conexion;
 }
-//void Cliente::ChequearConexion() {
-//	while (!this->ServidorVivo) {
-//		//sleep(2);
-//		if (this->getConexion()->Reconectar() != -1) {
-//			JugadorLogin loginUsuario;
-//			IDMENSAJE idMsg = LOGIN;
-//			strcpy(loginUsuario.usuario, this->Usuario);
-//			send(this->conexion->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
-//			send(this->conexion->getSocketCliente(), &loginUsuario,	sizeof(loginUsuario), 0);
-//			this->lanzarHilosDelJuego();
-//			this->LanzarHiloConexion();
-//			this->ServidorVivo = true;
-//		}
-//	}
-//}
 View * Cliente::getVista() {
 	return this->vista;
 }
