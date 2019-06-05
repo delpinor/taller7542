@@ -159,20 +159,24 @@ void * enviarDatos(void * datos) {
 		ClienteEquipo unEquipo;
 		unEquipo.equipo = 99;
 		pthread_mutex_lock(&mutex_server);
-		if (!miPartida.Iniciada()) {			//if(!miPartida.Iniciada()){
-			unEquipo.equipo = miPartida.GetClienteEspera(usuario).equipo;
-			unEquipo.titular = miPartida.GetClienteEspera(usuario).titular;
-			unEquipo.nroJugador =
-					miPartida.GetClienteEspera(usuario).numeroJugadorJuego;
+		if (!miPartida.Iniciada()) {
+			if (miPartida.existeJugador(usuario)) {	//if(!miPartida.Iniciada()){
+				unEquipo.equipo = miPartida.GetClienteEspera(usuario).equipo;
+				unEquipo.titular = miPartida.GetClienteEspera(usuario).titular;
+//				unEquipo.nroJugador = miPartida.GetClienteEspera(usuario).numeroJugadorJuego;
+			}
 		} else {
-			unEquipo.equipo = miPartida.GetClienteJugando(usuario).equipo;
-			unEquipo.titular = miPartida.GetClienteJugando(usuario).titular;
-			unEquipo.nroJugador =
-					miPartida.GetClienteJugando(usuario).numeroJugadorJuego;
+			if (miPartida.existeJugador(usuario)) {
+				unEquipo.equipo = miPartida.GetClienteJugando(usuario).equipo;
+				unEquipo.titular = miPartida.GetClienteJugando(usuario).titular;
+//				unEquipo.nroJugador = miPartida.GetClienteJugando(usuario).numeroJugadorJuego;
+			}
 		}
 		pthread_mutex_unlock(&mutex_server);
-		send(sock, &idEquipo, sizeof(idEquipo), 0);
-		send(sock, &unEquipo, sizeof(unEquipo), 0);
+		if (unEquipo.equipo != 99) {
+			send(sock, &idEquipo, sizeof(idEquipo), 0);
+			send(sock, &unEquipo, sizeof(unEquipo), 0);
+		}
 		//cout << "SERVIDOR - enviarDatos: EQUIPO ENVIADO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 
 		//------->Envio de Info de Selección de Personajes

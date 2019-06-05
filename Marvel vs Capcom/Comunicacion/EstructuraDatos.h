@@ -51,7 +51,7 @@ struct ModeloSeleccionPersonaje{
 	int equipo;
 	bool confirmado;
 	//0 o 1
-	int jugadorEquipoId;
+//	int jugadorEquipoId;
 };
 struct ModeloSeleccion {
 	bool seleccionFinalizada;
