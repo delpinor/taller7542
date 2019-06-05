@@ -135,6 +135,7 @@ int main(int argc, char* argv[]) {
 		}
 
 		View view(&model);
+		cliente.setVista(&view);
 		cout << "vista creada."<< endl;
 		view.setEstadoCliente();
 		cout << "EstadoCliente seteados."<< endl;
