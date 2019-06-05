@@ -337,7 +337,7 @@ void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId,
 				}
 				break;
 			}
-			case SDLK_LEFT: {
+			case SDLK_a: {
 				std::list<ModeloPersonajeVistaSeleccion>::iterator it;
 				for (it = modelo.data.begin(); it != modelo.data.end(); it++) {
 
@@ -361,7 +361,7 @@ void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId,
 			}
 				//necesito aumentar un contador para el seleccionado aca
 				break;
-			case SDLK_RIGHT: {
+			case SDLK_d: {
 				std::list<ModeloPersonajeVistaSeleccion>::iterator it;
 				for (it = modelo.data.begin(); it != modelo.data.end(); it++) {
 
