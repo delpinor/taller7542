@@ -36,7 +36,7 @@ void * hilo_conexion(void * cliente) {
 	Cliente* p = (Cliente*) cliente;
 	while (1) {
 		p->Ping = false;
-		sleep(1);
+		sleep(6);
 		if (!p->Ping) {
 			p->ServidorVivo = false;
 			p->getConexion()->Cerrar();
@@ -137,12 +137,9 @@ void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
 	if (this->ServidorVivo) {
 		IDMENSAJE com = COMANDO;
 		IDMENSAJE idCabecera = PING;
-		send(this->getConexion()->getSocketCliente(), &idCabecera,
-				sizeof(idCabecera), MSG_NOSIGNAL);
-		send(this->getConexion()->getSocketCliente(), &com, sizeof(com),
-		MSG_NOSIGNAL);
-		send(this->getConexion()->getSocketCliente(), &comando, sizeof(comando),
-		MSG_NOSIGNAL);
+		send(this->getConexion()->getSocketCliente(), &idCabecera, sizeof(idCabecera), MSG_NOSIGNAL);
+		send(this->getConexion()->getSocketCliente(), &com, sizeof(com),MSG_NOSIGNAL);
+		send(this->getConexion()->getSocketCliente(), &comando, sizeof(comando),	MSG_NOSIGNAL);
 	}
 }
 void Cliente::enviarDataSeleccionAServidor(DataSeleccionAlServidor data) {
@@ -185,8 +182,13 @@ int Cliente::recibirModeloDelServidor() {
 					"Juego iniciado. No hay lugar");
 		}
 
+		//-------->Recibe JUEGO INICIADO
+		if (idMsg == JUEGOINICIADO){
+			this->FinalizarSeleccionPersonaje();
+		}
+
 		//-------->Recibe MODELO
-		if (idMsg == MODELO) {
+		if (idMsg == MODELO && this->JuegoIniciado) {
 			ModeloEstado unModelo;
 			recv(this->getConexion()->getSocketCliente(), &unModelo,
 					sizeof(unModelo), 0);

@@ -113,7 +113,6 @@ int main(int argc, char* argv[]) {
 
 		bool quitSeleccionMenu = false;
 		while (!quitSeleccionMenu && !cliente.EstaFinalizadaSeleccionPersonaje()) {
-
 			if(cliente.EstaIniciadaSeleccionPersonaje()){
 				cout << "Ingresó en selección de personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
@@ -131,9 +130,11 @@ int main(int argc, char* argv[]) {
 			}
 			usleep(50);
 		}
-
+		viewMenu.close();
 		View view(&model);
 		cliente.setVista(&view);
+		// Habilito a recibir el modelo
+		cliente.JuegoIniciado = true;
 		cout << "vista creada."<< endl;
 		view.setEstadoCliente();
 		cout << "EstadoCliente seteados."<< endl;
@@ -141,9 +142,9 @@ int main(int argc, char* argv[]) {
 		cout << "Hilos del cliente lanzados."<< endl;
 		// Hilo conexion.
 		cliente.LanzarHiloConexion();
-		while (cliente.juegoCorriendo){
-			if (controller.quitPressed())
-				return -1;
+		while (!controller.quitPressed()){
+			//if (controller.quitPressed())
+				//return -1;
 			ComandoAlServidor comandoParaServidor;
 			int comando = controller.processInputCliente();
 			if (cliente.Titular) {

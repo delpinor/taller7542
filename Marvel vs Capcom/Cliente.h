@@ -28,6 +28,7 @@ public:
 	char * Puerto;
 	char Usuario[50];
 	bool ServidorVivo = true;
+	bool JuegoIniciado = false;
 	bool juegoCorriendo = true;
 	bool Ping = false;
 
