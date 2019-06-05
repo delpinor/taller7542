@@ -136,7 +136,7 @@ int main(int argc, char* argv[]) {
 		if(quitSeleccionMenu){
 			return 1;
 		}
-
+		cliente.LanzarHiloPing();
 		View view(&model);
 		cliente.setVista(&view);
 		// Habilito a recibir el modelo
@@ -145,6 +145,7 @@ int main(int argc, char* argv[]) {
 		view.setEstadoCliente();
 		cout << "EstadoCliente seteados."<< endl;
 		// Hilo conexion.
+		cliente.PararHiloPing();
 		cliente.LanzarHiloConexion();
 		while (!controller.quitPressed()){
 			//if (controller.quitPressed())

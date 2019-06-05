@@ -32,6 +32,18 @@ void * hilo_escucha(void * cliente) {
 		}
 	}
 }
+void * hilo_ping(void * cliente) {
+	Cliente* p = (Cliente*) cliente;
+	while (1) {
+			IDMENSAJE idMsg = PING;
+			send(p->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
+			if (!p->EnviarPingHilo) {
+				pthread_exit(NULL);
+				break;
+			}
+			usleep(1000);
+		}
+}
 void * hilo_conexion(void * cliente) {
 	Cliente* p = (Cliente*) cliente;
 	while (1) {
@@ -118,7 +130,14 @@ bool Cliente::esta_conectado() {
 
 	return (this->ServidorVivo);
 }
-
+void Cliente::LanzarHiloPing(){
+	pthread_t thid_hilo_ping;
+	pthread_create(&thid_hilo_ping, NULL, hilo_ping, this);
+	pthread_detach(thid_hilo_ping);
+}
+void Cliente::PararHiloPing(){
+	this->EnviarPingHilo = false;
+}
 int Cliente::ConectarConServidor(char* hostname, char* puerto) {
 	//IPServidor = ip;
 	Puerto = puerto;

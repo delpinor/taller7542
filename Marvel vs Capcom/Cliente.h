@@ -29,6 +29,7 @@ public:
 	char Usuario[50];
 	bool ServidorVivo = true;
 	bool JuegoIniciado = false;
+	bool EnviarPingHilo = true;
 	bool juegoCorriendo = true;
 	bool Ping = false;
 
@@ -43,6 +44,8 @@ public:
 	int recibirModeloDelServidor();
 	void enviarComandoAServidor(ComandoAlServidor comando);
 	void EnviarPing();
+	void LanzarHiloPing();
+	void PararHiloPing();
 	void lanzarHilosDelJuego();
 	void MenuDeSeleccion();
 	bool esta_conectado();

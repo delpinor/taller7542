@@ -14,7 +14,7 @@ void * hilo_conexionServer(void * datosConexion) {
 	HiloConexion* p = (HiloConexion*) datosConexion;
 	while (1) {
 		p->ping = false;
-		sleep(2);
+		sleep(1);
 		if (!p->ping && miPartida.Iniciada()) {
 			//shutdown(p->sock, SHUT_RDWR);
 			//close(p->sock);
