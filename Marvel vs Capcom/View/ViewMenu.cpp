@@ -204,7 +204,7 @@ void ViewMenu::render() {
 				texturaJugadorClienteSeleccionado4.setAlpha(100);
 			texturaTextoSeleccionadoCliente4.render(
 					((it->personajeId - 1) * ANCHO_CUADRO_JUGADOR) + 20,
-					POS_CUADROY + 68, NULL, 0.0,
+					POS_CUADROY + 78, NULL, 0.0,
 					NULL, SDL_FLIP_NONE, gRenderer);
 			texturaJugadorClienteSeleccionado4.render(
 					((it->personajeId - 1) * ANCHO_CUADRO_JUGADOR)
