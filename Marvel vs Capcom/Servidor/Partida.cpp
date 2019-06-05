@@ -119,6 +119,8 @@ ModeloSeleccion  Partida::GetModeloSeleccion(){
 		unModeloSeleccionPersonaje.personajeId = it->personajeId;
 		unModeloSeleccionPersonaje.jugadorId = it->numeroJugadorJuego;
 		unModeloSeleccionPersonaje.confirmado =  it->personajeConfirmado;
+		unModeloSeleccionPersonaje.jugadorEquipoId = it->numeroJugador;
+		unModeloSeleccionPersonaje.equipo = it->equipo;
 
 		unModelo.data[contador] = unModeloSeleccionPersonaje;
 		contador++;

@@ -401,6 +401,8 @@ void ViewMenu::setModeloSeleccion(ModeloSeleccion modelo) {
 		unModeloPersonaje.confirmado = modelo.data[i].confirmado;
 		unModeloPersonaje.jugadorId = modelo.data[i].jugadorId;
 		unModeloPersonaje.personajeId = modelo.data[i].personajeId;
+		unModeloPersonaje.jugadorEquipoId = modelo.data[i].jugadorEquipoId;
+		unModeloPersonaje.equipo = modelo.data[i].equipo;
 
 		unModelo.data.push_back(unModeloPersonaje);
 	}
@@ -429,4 +431,8 @@ bool ViewMenu::hayPersonajes() {
 
 void ViewMenu::setNroJugadorLocal(int valor) {
 	this->nroJugadorLocal = valor;
+}
+
+list<ModeloPersonajeVistaSeleccion> ViewMenu::getDataSeleccionada(){
+	return this->modelo.data;
 }

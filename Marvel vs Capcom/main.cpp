@@ -136,6 +136,18 @@ int main(int argc, char* argv[]) {
 		if(quitSeleccionMenu){
 			return 1;
 		}
+
+//		list<ModeloPersonajeVistaSeleccion> dataSeleccionada = viewMenu.getDataSeleccionada();
+//		list<ModeloPersonajeVistaSeleccion>::iterator it;
+//		for (it = dataSeleccionada.begin(); it != dataSeleccionada.end(); it++) {
+//			//cout << "Seteo de personajes |  Equipo "<< it->equipo << " | JugadorEquipoId" << << TimeHelper::getStringLocalTimeNow() << endl;
+//			model.set_equipos_with_jugador(it->equipo, it->jugadorEquipoId, it->personajeId);
+//		}
+//		model.inicializar();
+//		model.getEquipoNro(0)->setJugadorActivo(0);
+//		model.getEquipoNro(1)->setJugadorActivo(0);
+
+
 		cliente.LanzarHiloPing();
 		View view(&model);
 		cliente.setVista(&view);

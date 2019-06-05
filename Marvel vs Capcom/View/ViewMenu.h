@@ -12,6 +12,8 @@ struct ModeloPersonajeVistaSeleccion{
 	int jugadorId;
 	int personajeId;
 	bool confirmado;
+	int jugadorEquipoId;
+	int equipo;
 };
 struct ModeloVistaSeleccion {
 	bool seleccionFinalizada;
@@ -74,6 +76,7 @@ public:
 	void setModeloSeleccion(ModeloSeleccion modelo);
 	void setNroJugadorLocal(int valor);
 	bool hayPersonajes();
+	list<ModeloPersonajeVistaSeleccion> getDataSeleccionada();
 	virtual ~ViewMenu();
 };
 
