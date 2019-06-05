@@ -131,6 +131,11 @@ int main(int argc, char* argv[]) {
 			usleep(50);
 		}
 		viewMenu.close();
+
+		if(quitSeleccionMenu){
+			return 1;
+		}
+
 		View view(&model);
 		cliente.setVista(&view);
 		// Habilito a recibir el modelo
