@@ -106,6 +106,11 @@ int main(int argc, char* argv[]) {
 		send(conexion.getSocketCliente(), &idMsg, sizeof(idMsg),0);
 		send(conexion.getSocketCliente(), &loginUsuario, sizeof(loginUsuario),0);
 
+		// el cliente recibe el numero de personajes que debe seleccionar
+		int num_personajes_a_seleccionar;
+		recv(conexion.getSocketCliente(), &num_personajes_a_seleccionar, sizeof(num_personajes_a_seleccionar), 0);
+		cout<<endl<<"EL numero de personajes a selecccionar es:"<<num_personajes_a_seleccionar<<endl;
+
 		cliente.lanzarHilosDelJuego();
 		cout << "Hilos del cliente lanzados | "<< TimeHelper::getStringLocalTimeNow() << endl;
 

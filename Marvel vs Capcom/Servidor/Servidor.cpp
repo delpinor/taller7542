@@ -257,7 +257,29 @@ void Servidor::LanzarHiloLoggeo() {
 	pthread_create(&pthread_log, NULL, loggeoPartida, NULL);
 	pthread_detach(pthread_log);
 }
+
+int Servidor::calcular_num_personajes(int orden_jugador){
+	//si hay dos jugadores , cada uno debe sereccionar 2 pesonajes
+	if (this->num_jugadores==2){
+		return 2;
+	}else{
+			if (this->num_jugadores==3){
+				if (orden_jugador==1){
+					return 2;
+				}else {
+					return 1;
+				}
+			//si hay 4 jugadores el cada uno elije un personaje
+			}else {
+				return 1;
+			}
+	}
+}
+
 void Servidor::AceptarClientes(int maxClientes) {
+
+	int num_orden_cliente=1;
+		int num_personajes;
 	//Aceptar clientes
 	struct sockaddr_in paramentrosCliente;
 	unsigned int tamanho = sizeof(paramentrosCliente);
@@ -274,6 +296,18 @@ void Servidor::AceptarClientes(int maxClientes) {
 		if (idMsg == LOGIN) {
 			recv(socketComunicacion, &login, sizeof(login), 0);
 		}
+		//le envio el numero del personajes que puede elegir el cliente
+		if (miPartida.GetCantidadJugando() < maxClientes){
+
+					num_personajes=calcular_num_personajes(num_orden_cliente);
+					cout<<"el numero de personajes es:"<<num_personajes<<endl;
+					//emvio la cantida de personajes que puede seleccionar el cliente
+					send(socketComunicacion, &num_personajes, sizeof(num_personajes), 0);
+
+					num_orden_cliente++;
+
+				}
+
 		if ((miPartida.GetCantidadJugando() < maxClientes)
 				|| miPartida.EsClienteDesconectado(login.usuario)) {
 
@@ -323,6 +357,7 @@ void Servidor::IniciarServidor(int maxClientes, char * puerto) {
 	LanzarHiloControl();
 	LanzarHiloControlSeleccionPersonajes();
 	//LanzarHiloLoggeo();
+	this->num_jugadores=maxClientes;
 	AceptarClientes(maxClientes);
 
 }
