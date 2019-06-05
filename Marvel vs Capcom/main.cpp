@@ -123,6 +123,9 @@ int main(int argc, char* argv[]) {
 				DataSeleccionAlServidor unModelo;
 				unModelo.personajeId = personajeSeleccionadoId;
 				unModelo.confirmado = personajeEstaConfirmado;
+				cout << "Personaje: " << personajeSeleccionadoId << endl;
+				cout << "Confirmado: " << personajeEstaConfirmado << endl;
+
 				if (personajeSeleccionadoId != -1)
 					cliente.enviarDataSeleccionAServidor(unModelo);
 
