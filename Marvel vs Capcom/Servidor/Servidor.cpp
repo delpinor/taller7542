@@ -288,7 +288,7 @@ void * recibirDatos(void * datos) {
 			if (idMsg == PING) {
 				pthread_mutex_lock(&mutex_server);
 				datosCone.ping = true;
-				cout << "Ping de socket: " << datosCone.sock << endl;
+//				cout << "Ping de socket: " << datosCone.sock << endl;
 				pthread_mutex_unlock(&mutex_server);
 			}
 
