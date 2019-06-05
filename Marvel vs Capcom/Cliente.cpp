@@ -59,31 +59,16 @@ void * hilo_conexion(void * cliente) {
 	}
 }
 
-//éste hilo va a tomar cada elementos de la cola y va a actualizar el modelo
-//y va a renderizar
-//void * hilo_render(void * cliente) {
-//	cout << "HILO RENDER lanzado." << endl;
-//	Cliente* p = (Cliente*) cliente;
-//	int tamModelo = NULL;
-//	while (1) {
-//		pthread_mutex_lock(&mutexx);
-//		tamModelo = p->getModeloCambios().size();
-//		pthread_mutex_unlock(&mutexx);
-//		if (tamModelo > 0) {
-//			ModeloEstado modelo = p->PopModeloDeCola();
-//			p->actualizarModelo(modelo);
-//		}
-//		//p->getVista()->render();
-//		//p->getVista()->model->update();
-//		//usleep(50);
-//	}
-//}
-
-Cliente::Cliente(View* vista, Conexion* conexion) {
+Cliente::Cliente(ViewMenu* vistaMenu, Conexion* conexion) {
 	cout << "creando cliente." << endl;
-	this->vista = vista;
+	this->vistaMenu = vistaMenu;
 	this->conexion = conexion;
 }
+//Cliente::Cliente(View* vista, Conexion* conexion) {
+//	cout << "creando cliente." << endl;
+//	this->vista = vista;
+//	this->conexion = conexion;
+//}
 
 void Cliente::actualizarModelo(ModeloEstado modelo) {
 	pthread_mutex_lock(&mutexx);
@@ -153,6 +138,13 @@ void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
 		send(this->getConexion()->getSocketCliente(), &com, sizeof(com), MSG_NOSIGNAL);
 		send(this->getConexion()->getSocketCliente(), &comando,	sizeof(comando), MSG_NOSIGNAL);
 	}
+}
+void Cliente::enviarDataSeleccionAServidor(DataSeleccionAlServidor data) {
+
+	int error = 0;
+	IDMENSAJE com = DATASELECCION;
+	error = send(this->getConexion()->getSocketCliente(), &com, sizeof(com), MSG_NOSIGNAL);
+	error = send(this->getConexion()->getSocketCliente(), &data, sizeof(data), MSG_NOSIGNAL);
 }
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
@@ -234,6 +226,43 @@ int Cliente::recibirModeloDelServidor() {
 			pthread_mutex_unlock(&mutexx);
 		}
 	}
+
+	//-------->Recibe DATA PERSONAJES
+	if (idMsg == DATAPERSONAJES) {
+		//cout << "CLIENTE - recibirModeloDelServidor: Recibiendo DATAPERSONAJES | "<< TimeHelper::getStringLocalTimeNow() << endl;
+
+		ModeloPersonajes unModelo;
+		recv(this->getConexion()->getSocketCliente(), &unModelo,sizeof(unModelo), 0);
+		pthread_mutex_lock(&mutexx);
+		this->vistaMenu->setPersonajes(&unModelo);
+		pthread_mutex_unlock(&mutexx);
+
+		//cout << "CLIENTE - recibirModeloDelServidor: DATAPERSONAJES la lista de personajes tiene "<< unModelo.idsPersonajes.size() << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
+		//cout << "CLIENTE - recibirModeloDelServidor: DATAPERSONAJES Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
+	}
+
+	//-------->Recibe MODELO SELECCION
+	if (idMsg == MODELOSELECCION) {
+		//cout << "CLIENTE - recibirModeloDelServidor: Recibiendo MODELOSELECCION | "<< TimeHelper::getStringLocalTimeNow() << endl;
+
+		ModeloSeleccion unModelo;
+
+		recv(this->getConexion()->getSocketCliente(), &unModelo,sizeof(unModelo), 0);
+
+		pthread_mutex_lock(&mutexx);
+		this->vistaMenu->setModeloSeleccion(unModelo);
+
+
+		if(!this->EstaIniciadaSeleccionPersonaje()){
+			//cout << "CLIENTE - recibirModeloDelServidor: Iniciando Seleccion Personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;
+			this->IniciarSeleccionPersonaje();
+			//cout << "CLIENTE - recibirModeloDelServidor: Iniciando Seleccion Personaje HECHO | "<< TimeHelper::getStringLocalTimeNow() << endl;
+		}
+		pthread_mutex_unlock(&mutexx);
+
+		//cout << "CLIENTE - recibirModeloDelServidor: MODELOSELECCION Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
+	}
+
 	return NULL;
 
 }
@@ -253,7 +282,6 @@ void Cliente::LanzarHiloConexion() {
 	pthread_detach(thid_hilo_conexion);
 }
 void Cliente::MenuDeSeleccion() {
-	//TODO
 }
 std::queue<ModeloEstado> Cliente::getModeloCambios() {
 	return this->ModeloCambios;
@@ -289,6 +317,21 @@ View * Cliente::getVista() {
 }
 void Cliente::setVista(View* vista) {
 	this->vista = vista;
+}
+
+void Cliente::IniciarSeleccionPersonaje(){
+	this->seleccionPersonajeIniciada = true;
+}
+
+void Cliente::FinalizarSeleccionPersonaje(){
+	this->seleccionPersonajeFinalizada = true;
+}
+
+bool Cliente::EstaIniciadaSeleccionPersonaje(){
+	return this->seleccionPersonajeIniciada;
+}
+bool Cliente::EstaFinalizadaSeleccionPersonaje(){
+	return this->seleccionPersonajeFinalizada;
 }
 
 Cliente::~Cliente() {

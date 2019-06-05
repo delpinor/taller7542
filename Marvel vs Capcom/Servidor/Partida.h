@@ -7,6 +7,7 @@
 #include "../Comunicacion/EstructuraDatos.h"
 #include "../Controller/Controller.h"
 #include "../View/View.h"
+#include "../Enums/Personajes.h"
 #define ANCHO_NIVEL 1040
 #define ALTO_NIVEL 1080
 using namespace std;
@@ -17,7 +18,15 @@ struct ClienteConectado{
 	string nombre;
 	int equipo = 0;
 	int numeroJugador;
+	//TODO : refactorizar para que solo quede el anterior
+	int numeroJugadorJuego;
 	bool titular;
+	int personajeId = static_cast<int>(PERSONAJE::P_NA);
+	int personajeIdSuplente = static_cast<int>(PERSONAJE::P_NA);
+
+	bool personajeConfirmado = false;
+	bool personajeConfirmadoSuplente = false;
+	bool dataPersonajesEnviada = false;
 };
 class Partida{
 private:
@@ -33,6 +42,9 @@ private:
 	list<ClienteConectado> listaEspera;
 	list<ClienteConectado> listaJugadores;
 	list<ClienteConectado> listaDesconectados;
+	bool seleccionPersonajesIniciada = false;
+	bool seleccionPersonajesFinalizada = false;
+	bool habilitadoEnvioPersonajes = false;
 public:
 	list<ClienteConectado> GetListaJugadores();
 	list<ClienteConectado> GetListaEspera();
@@ -76,5 +88,19 @@ public:
 	string validarNombreUsuario(string nombreUsuario);
 	int cantidadJugadoresConNombre(string nombre);
 
+	ModeloSeleccion GetModeloSeleccion();
+	void SetJugadoresPersonajeInicial();
+	void IniciarSeleccionPersonajes();
+	void FinalizarSeleccionPersonajes();
+	bool IniciadaSeleccionPersonajes();
+	bool FinalizadaSeleccionPersonajes();
+	void HandleEventSeleccionPersonajes(string nombreJugador, DataSeleccionAlServidor *data);
+	bool PersonajesSeleccionCompleta();
+	void SetPersonajes();
+	bool EstaHabilitadoEnvioPersonajes();
+	void HabilitarEnvioPersonajes();
+	bool EstaEnviadaDataPersonajes();
+	ModeloPersonajes GetModeloPersonajes();
+	void SetDataPersonajesEnviada(string nombre);
 };
 

@@ -11,6 +11,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include "../Helper/TimeHelper.h"
 
 struct DatosHiloServidor {
 	string usuario;
@@ -31,10 +32,12 @@ private:
 	int num_jugadores;
 public:
 	void SetModel(Model * model);
+	int calcular_num_personajes(int orden_de_jugador);
 	void LanzarHiloControl();
 	void LanzarHiloLoggeo();
 	void IniciarServidor(int maxClientes, char * puerto);
 	void AceptarClientes(int maxClientes);
+	void LanzarHiloControlSeleccionPersonajes();
 	//virtual ~Funciones();
 };
 

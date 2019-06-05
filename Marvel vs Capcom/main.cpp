@@ -2,10 +2,12 @@
 #include "Controller/Controller.h"
 #include "Model/Model.h"
 #include "View/View.h"
+#include "View/ViewMenu.h"
 #include "Configuracion.h"
 #include "Logger/Logger.h"
 #include "Cliente.h"
 #include "Servidor/Servidor.h"
+#include "Helper/TimeHelper.h"
 /* nombre_ejecutable  nombre_archivo_configuracion niveldeDebug*/
 
 int main(int argc, char* argv[]) {
@@ -45,12 +47,18 @@ int main(int argc, char* argv[]) {
 	model.CargarFondos(mapFondoPantalla);
 	//metodo que carga los personajes ( jugador =personaje)
 	model.cargar_Jugadores(mapPersonajes);
+
+	cout << "MAIN: La cantidad de mapPersonajes es "<< mapPersonajes.size() << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
+	cout << "MAIN: La cantidad de jugadoresEquipo1 es "<< model.jugadoresEquipo1.size() << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
+
 	//seteo los jugadores en los equipos
 	//set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int nroJugador)
-	model.set_equipos_with_jugador(0, 0, 0);
+	//OJO ACA, SI LO DESCOMENTO EL 3ER PARAMETRO TIENE QUE SER EL ENUM DE LOS PERSONAJES
+	model.set_equipos_with_jugador(0, 0, 4);
 	model.set_equipos_with_jugador(0, 1, 1);
 	model.set_equipos_with_jugador(1, 0, 2);
 	model.set_equipos_with_jugador(1, 1, 3);
+
 	//designo que jugadores van a estar activos
 	model.inicializar();
 	model.getEquipoNro(0)->setJugadorActivo(0);
@@ -67,6 +75,7 @@ int main(int argc, char* argv[]) {
 	} else if (strcmp(argv[1], "cliente") == 0) {
 		ip = argv[2];
 		cout << "ip: " << ip << endl;
+
 		puerto = argv[3];
 		cout << "puerto: " << puerto << endl;
 
@@ -82,23 +91,59 @@ int main(int argc, char* argv[]) {
 		cout << "vista creada."<< endl;
 		Controller controller;
 		controller.SetModel(&model);
-		cout << "controller creado."<< endl;
+		cout << "controller creado | "<< TimeHelper::getStringLocalTimeNow() << endl;
+
+		ViewMenu viewMenu(0);
+		cout << "Vista Menu creada | "<< TimeHelper::getStringLocalTimeNow() << endl;
+
 		Conexion conexion;
-		Cliente cliente(&view, &conexion);
-		cout << "Cliente creado."<< endl;
+		Cliente cliente(&viewMenu, &conexion);
+		cout << "Cliente creado | "<< TimeHelper::getStringLocalTimeNow() << endl;
 		if (cliente.ConectarConServidor(ip, puerto) == -1)
 			return -1;
-		cout << "conectado con servidor."<< endl;
+		cout << "conectado con servidor | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
 		strcpy(cliente.Usuario, loginUsuario.usuario);
 
 		send(conexion.getSocketCliente(), &idMsg, sizeof(idMsg),0);
 		send(conexion.getSocketCliente(), &loginUsuario, sizeof(loginUsuario),0);
 
-		//TODO menu de seleccion
-		cliente.MenuDeSeleccion();
-//		cout << "pasó el menu de selección."<< endl;
-//		cliente.setVista(view);
+		// el cliente recibe el numero de personajes que debe seleccionar
+		int num_personajes_a_seleccionar;
+		recv(conexion.getSocketCliente(), &num_personajes_a_seleccionar, sizeof(num_personajes_a_seleccionar), 0);
+		cout<<endl<<"EL numero de personajes a selecccionar es:"<<num_personajes_a_seleccionar<<endl;
+
+		cliente.lanzarHilosDelJuego();
+		cout << "Hilos del cliente lanzados | "<< TimeHelper::getStringLocalTimeNow() << endl;
+
+		bool quitSeleccionMenu = false;
+		while (!quitSeleccionMenu && !cliente.EstaFinalizadaSeleccionPersonaje()) {
+
+			if(cliente.EstaIniciadaSeleccionPersonaje()){
+				//cout << "Ingresó en selección de personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;
+
+				int personajeSeleccionadoId = static_cast<int>(PERSONAJE::P_NA);
+				bool personajeEstaConfirmado = false;
+				viewMenu.handleEvent(&quitSeleccionMenu, &personajeSeleccionadoId, &personajeEstaConfirmado);
+				DataSeleccionAlServidor unModelo;
+				unModelo.personajeId = personajeSeleccionadoId;
+				unModelo.confirmado = personajeEstaConfirmado;
+				if (personajeSeleccionadoId != -1)
+					cliente.enviarDataSeleccionAServidor(unModelo);
+
+				viewMenu.render();
+			}
+			usleep(50);
+		}
+
+
+
+
+
+
+		View view(&model);
+		cout << "vista creada."<< endl;
+
 		view.setEstadoCliente();
 		cout << "EstadoCliente seteados."<< endl;
 		cliente.lanzarHilosDelJuego();

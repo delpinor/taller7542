@@ -12,6 +12,7 @@
 #include <map>
 #include "../Logger/Logger.h"
 #include "../Comunicacion/EstructuraDatos.h"
+#include "../Helper/TimeHelper.h"
 
 class Model {
 public:// hay que pasar los parametros a pivados y generar los seters
@@ -30,7 +31,7 @@ public:
 	Model();
 	// metodo que crea y carga los personajes en un map
 	void cargar_Jugadores (std::map< int, std::map<std::string, std::string> > &mapPersonajes);
-	void set_equipos_with_jugador(int equipo,int nroJugadorEquipo, int jugador);
+	void set_equipos_with_jugador(int equipo,int nroJugadorEquipo, int personajeId);
 	std::string get_pathImagenJugador(int equipo, int indice_jugador);
 	int GetAltoJugador(int equipo, int indice_jugador);
 	int GetAnchoJugador(int equipo, int indice_jugador);
@@ -56,6 +57,7 @@ public:
 	virtual void moverJuego();
 	virtual void moverJuegoCliente();
 
+	std::list<int> GetIdsPersonajes();
 };
 
 #endif // MODEL_H

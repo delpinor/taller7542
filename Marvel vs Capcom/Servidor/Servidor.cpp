@@ -31,13 +31,47 @@ void * hilo_conexionServer(void * datosConexion) {
 void * controlPartida(void *) {
 
 	while (1) {
-		if (miPartida.EquipoCompleto()) {
+		if (miPartida.FinalizadaSeleccionPersonajes()) {//if (miPartida.EquipoCompleto()) {
 			miPartida.IniciarPartida();
 		}
 		if (miPartida.Finalizada()){
 			miPartida.DetenerJugadores();
 		}
 	}
+}
+
+void * controlSeleccionPersonajes(void *) {
+	cout << "SERVIDOR - controlSeleccionPersonajes: INICIO de ciclo" << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+	while (1) {
+		if (miPartida.EquipoCompleto() && !miPartida.FinalizadaSeleccionPersonajes()) {
+
+			if(!miPartida.EstaHabilitadoEnvioPersonajes()){
+				cout << "SERVIDOR - controlSeleccionPersonajes: Ingresó en 1er IF | "<< TimeHelper::getStringLocalTimeNow() << endl;
+				pthread_mutex_lock(&mutex_server);
+				miPartida.HabilitarEnvioPersonajes();
+				pthread_mutex_unlock(&mutex_server);
+				cout << "SERVIDOR - controlSeleccionPersonajes: Ejecutado 1er IF | "<< TimeHelper::getStringLocalTimeNow() << endl;
+			}
+			else if(miPartida.EstaEnviadaDataPersonajes() && !miPartida.IniciadaSeleccionPersonajes()){
+				cout << "SERVIDOR - controlSeleccionPersonajes: Ingresó en 2do IF | "<< TimeHelper::getStringLocalTimeNow() << endl;
+				pthread_mutex_lock(&mutex_server);
+				miPartida.IniciarSeleccionPersonajes();
+				pthread_mutex_unlock(&mutex_server);
+				cout << "SERVIDOR - controlSeleccionPersonajes: Ejecutado 2do IF | "<< TimeHelper::getStringLocalTimeNow() << endl;
+			}
+			else if(miPartida.IniciadaSeleccionPersonajes() && miPartida.PersonajesSeleccionCompleta()){
+				cout << "SERVIDOR - controlSeleccionPersonajes: Ingresó en 3er IF | "<< TimeHelper::getStringLocalTimeNow() << endl;
+				pthread_mutex_lock(&mutex_server);
+				miPartida.SetPersonajes();
+				miPartida.FinalizarSeleccionPersonajes();
+				pthread_mutex_unlock(&mutex_server);
+				cout << "SERVIDOR - controlSeleccionPersonajes: Ejecutado 3er IF | "<< TimeHelper::getStringLocalTimeNow() << endl;
+			}
+		}
+	//	cout << "Personajes seleccion compelta: " << miPartida.IniciadaSeleccionPersonajes() << endl;
+
+	}
+	cout << "SERVIDOR - controlSeleccionPersonajes: FIN de ciclo" << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 }
 
 //Hilo de loggeo de informacion
@@ -51,7 +85,7 @@ void * loggeoPartida(void *) {
 				<< (miPartida.Finalizada() == true ?
 						"Finalizada" : "No finalizada") << endl;
 		cout << "Cantidad jugadores: " << miPartida.GetCantidadJugando()
-				<< endl;
+								<< endl;
 		cout << "Cantidad en espera: " << miPartida.GetCantidadEspera() << endl;
 		cout << "Cantidad en desconectados: "
 				<< miPartida.GetCantidadDesconectados() << endl;
@@ -95,6 +129,7 @@ void * enviarDatos(void * datos) {
 			pthread_exit(NULL);
 			break;
 		}
+		//cout << "SERVIDOR - enviarDatos: PING ENVIADO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 
 		////------->Mensaje de conexión
 		IDMENSAJE idPing = PING;
@@ -102,26 +137,63 @@ void * enviarDatos(void * datos) {
 
 		//------->Mensaje de Equipo
 		IDMENSAJE idEquipo = EQUIPO;
+		//cout << "SERVIDOR - enviarDatos: EQUIPO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 		ClienteEquipo unEquipo;
 		unEquipo.equipo = 99;
 		pthread_mutex_lock(&mutex_server);
-		if(!miPartida.Iniciada()){
-			if (miPartida.existeJugador(usuario)){
-				unEquipo.equipo = miPartida.GetClienteEspera(usuario).equipo;
-				unEquipo.titular = miPartida.GetClienteEspera(usuario).titular;
-			}
+		if(!miPartida.IniciadaSeleccionPersonajes()){//if(!miPartida.Iniciada()){
+			unEquipo.equipo = miPartida.GetClienteEspera(usuario).equipo;
+			unEquipo.titular = miPartida.GetClienteEspera(usuario).titular ;
+			unEquipo.nroJugador = miPartida.GetClienteEspera(usuario).numeroJugadorJuego;
 		}else{
-			if (miPartida.existeJugador(usuario)){
-				unEquipo.equipo = miPartida.GetClienteJugando(usuario).equipo;
-				unEquipo.titular = miPartida.GetClienteJugando(usuario).titular;
-			}
+			unEquipo.equipo = miPartida.GetClienteJugando(usuario).equipo;
+			unEquipo.titular = miPartida.GetClienteJugando(usuario).titular ;
+			unEquipo.nroJugador = miPartida.GetClienteJugando(usuario).numeroJugadorJuego;
 		}
 		pthread_mutex_unlock(&mutex_server);
-		if (unEquipo.equipo != 99){
-			send(sock, &idEquipo, sizeof(idEquipo), 0);
-			send(sock, &unEquipo, sizeof(unEquipo),0);
+		send(sock, &idEquipo, sizeof(idEquipo), 0);
+		send(sock, &unEquipo, sizeof(unEquipo),0);
+		//cout << "SERVIDOR - enviarDatos: EQUIPO ENVIADO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+
+		//------->Envio de Info de Selección de Personajes
+		if(miPartida.EstaHabilitadoEnvioPersonajes() && !miPartida.IniciadaSeleccionPersonajes()){
+			cout << "SERVIDOR - enviarDatos: DATAPERSONAJES | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+			IDMENSAJE idModelo = DATAPERSONAJES;
+			bool enviar = false;
+			ModeloPersonajes unModelo;
+
+			pthread_mutex_lock(&mutex_server);
+			ClienteConectado cliente = miPartida.GetClienteEspera(usuario);
+			if(!cliente.dataPersonajesEnviada){
+				unModelo = miPartida.GetModeloPersonajes();
+				enviar = true;
+			}
+			pthread_mutex_unlock(&mutex_server);
+			if(enviar){
+				send(sock, &idModelo, sizeof(idModelo), 0);
+				send(sock, &unModelo, sizeof(unModelo), 0);
+
+				pthread_mutex_lock(&mutex_server);
+				miPartida.SetDataPersonajesEnviada(usuario);
+				pthread_mutex_unlock(&mutex_server);
+				cout << "SERVIDOR - enviarDatos: DATAPERSONAJES ENVIADO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+			}
 		}
 
+		//------->Envio de Info de Selección de Personajes
+		if (miPartida.IniciadaSeleccionPersonajes() && !miPartida.FinalizadaSeleccionPersonajes()) {
+			//cout << "SERVIDOR - enviarDatos: MODELOSELECCION | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+			IDMENSAJE idModelo = MODELOSELECCION;
+
+			pthread_mutex_lock(&mutex_server);
+			ModeloSeleccion unModelo = miPartida.GetModeloSeleccion();
+			pthread_mutex_unlock(&mutex_server);
+
+			send(sock, &idModelo, sizeof(idModelo), 0);
+			send(sock, &unModelo, sizeof(unModelo), 0);
+
+			//cout << "SERVIDOR - enviarDatos: MODELOSELECCION ENVIADO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+		}
 
 		//------->Envio de Jugador
 		if (miPartida.Iniciada()) {
@@ -132,6 +204,7 @@ void * enviarDatos(void * datos) {
 			send(sock, &idModelo, sizeof(idModelo), 0);
 			send(sock, &unModelo, sizeof(unModelo), 0);
 		}
+
 		usleep(1000);
 	}
 }
@@ -204,7 +277,24 @@ void * recibirDatos(void * datos) {
 
 			}
 		}
+
+		if ((idMsg == DATASELECCION) && (miPartida.IniciadaSeleccionPersonajes())) {
+			DataSeleccionAlServidor data;
+			recv(unCliente.socket, &data, sizeof(data), 0);
+			pthread_mutex_lock(&mutex_server);
+			miPartida.HandleEventSeleccionPersonajes(unCliente.nombre, &data);
+			pthread_mutex_unlock(&mutex_server);
+			cout << "Data Selección recibida: " << data.personajeId << endl;
+			cout << "Confirmado: " << data.confirmado << endl;
+
+		}
 	}
+}
+void Servidor::LanzarHiloControlSeleccionPersonajes() {
+	//Hilo de control
+	pthread_t thread_control_seleccionPersonajes;
+	pthread_create(&thread_control_seleccionPersonajes, NULL, controlSeleccionPersonajes, NULL);
+	pthread_detach(thread_control_seleccionPersonajes);
 }
 void Servidor::LanzarHiloControl() {
 	//Hilo de control
@@ -218,7 +308,29 @@ void Servidor::LanzarHiloLoggeo() {
 	pthread_create(&pthread_log, NULL, loggeoPartida, NULL);
 	pthread_detach(pthread_log);
 }
+
+int Servidor::calcular_num_personajes(int orden_jugador){
+	//si hay dos jugadores , cada uno debe sereccionar 2 pesonajes
+	if (this->num_jugadores==2){
+		return 2;
+	}else{
+			if (this->num_jugadores==3){
+				if (orden_jugador==1){
+					return 2;
+				}else {
+					return 1;
+				}
+			//si hay 4 jugadores el cada uno elije un personaje
+			}else {
+				return 1;
+			}
+	}
+}
+
 void Servidor::AceptarClientes(int maxClientes) {
+
+	int num_orden_cliente=1;
+		int num_personajes;
 	//Aceptar clientes
 	struct sockaddr_in paramentrosCliente;
 	unsigned int tamanho = sizeof(paramentrosCliente);
@@ -285,6 +397,7 @@ void Servidor::IniciarServidor(int maxClientes, char * puerto) {
 	miPartida.SetMaximoJugadores(maxClientes);
 	connServidor.IniciarConexion(puerto);
 	LanzarHiloControl();
+	LanzarHiloControlSeleccionPersonajes();
 	LanzarHiloLoggeo();
 	AceptarClientes(maxClientes);
 
