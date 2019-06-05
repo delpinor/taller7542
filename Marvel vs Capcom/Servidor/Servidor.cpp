@@ -13,7 +13,7 @@ Partida miPartida;
 void * controlPartida(void *) {
 
 	while (1) {
-		if (miPartida.FinalizadaSeleccionPersonajes() && !miPartida.Iniciada()) {//if (miPartida.EquipoCompleto()) {
+		if (miPartida.FinalizadaSeleccionPersonajes()) {//if (miPartida.EquipoCompleto()) {
 			miPartida.IniciarPartida();
 		}
 	}
@@ -47,6 +47,8 @@ void * controlSeleccionPersonajes(void *) {
 				cout << "SERVIDOR - controlSeleccionPersonajes: Ejecutado 3er IF | "<< TimeHelper::getStringLocalTimeNow() << endl;
 			}
 		}
+	//	cout << "Personajes seleccion compelta: " << miPartida.IniciadaSeleccionPersonajes() << endl;
+
 	}
 	cout << "SERVIDOR - controlSeleccionPersonajes: FIN de ciclo" << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 }

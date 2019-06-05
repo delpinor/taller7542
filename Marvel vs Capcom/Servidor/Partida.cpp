@@ -429,7 +429,7 @@ int Partida::GetCantidadEspera() {
 
 void Partida::IniciarSeleccionPersonajes(){
 	listaJugadores = listaEspera;
-	listaEspera.clear();
+//	listaEspera.clear();
 	this->SetJugadoresPersonajeInicial();
 	this->seleccionPersonajesIniciada = true;
 }
@@ -465,12 +465,13 @@ void Partida::HandleEventSeleccionPersonajes(string nombreJugador, DataSeleccion
 bool Partida::PersonajesSeleccionCompleta(){
 	list<ClienteConectado>::iterator it;
 	int personajeIdNoValido = static_cast<int>(PERSONAJE::P_NA);
-	int cantidadSeleccionada = 0;
+	unsigned int cantidadSeleccionada = 0;
 
 	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
 
 		if(it->personajeId != personajeIdNoValido && it->personajeConfirmado){
-			cantidadSeleccionada++;		}
+			cantidadSeleccionada++;
+		}
 	}
 	if(listaJugadores.size() == cantidadSeleccionada){
 		return true;

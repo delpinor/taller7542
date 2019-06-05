@@ -22,7 +22,10 @@ struct ClienteConectado{
 	int numeroJugadorJuego;
 	bool titular;
 	int personajeId = static_cast<int>(PERSONAJE::P_NA);
+	int personajeIdSuplente = static_cast<int>(PERSONAJE::P_NA);
+
 	bool personajeConfirmado = false;
+	bool personajeConfirmadoSuplente = false;
 	bool dataPersonajesEnviada = false;
 };
 class Partida{

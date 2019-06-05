@@ -55,15 +55,15 @@ int main(int argc, char* argv[]) {
 	//seteo los jugadores en los equipos
 	//set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int nroJugador)
 	//OJO ACA, SI LO DESCOMENTO EL 3ER PARAMETRO TIENE QUE SER EL ENUM DE LOS PERSONAJES
-	//model.set_equipos_with_jugador(0, 0, 0);
-//	model.set_equipos_with_jugador(0, 1, 1);
-//	model.set_equipos_with_jugador(1, 0, 2);
-//	model.set_equipos_with_jugador(1, 1, 3);
+	model.set_equipos_with_jugador(0, 0, 4);
+	model.set_equipos_with_jugador(0, 1, 1);
+	model.set_equipos_with_jugador(1, 0, 2);
+	model.set_equipos_with_jugador(1, 1, 3);
 
 	//designo que jugadores van a estar activos
-//	model.inicializar();
-//	model.getEquipoNro(0)->setJugadorActivo(0);
-//	model.getEquipoNro(1)->setJugadorActivo(0);
+	model.inicializar();
+	model.getEquipoNro(0)->setJugadorActivo(0);
+	model.getEquipoNro(1)->setJugadorActivo(0);
 
 	int num_jugadores= appConfig.get_NumJugadores();
 
@@ -134,26 +134,25 @@ int main(int argc, char* argv[]) {
 
 
 
+		View view(&model);
+		cout << "vista creada."<< endl;
 
-//		View view(&model);
-//		cout << "vista creada."<< endl;
-//
-//		view.setEstadoCliente();
-//		cout << "EstadoCliente seteados."<< endl;
-//
-//		ComandoAlServidor comandoDefault;
-//		comandoDefault.comando = 7; //PARAR
-//		while (!controller.quitPressed()) {
-//			ComandoAlServidor comandoParaServidor;
-//			if (cliente.Titular)
-//				comandoParaServidor.comando = controller.processInputCliente();
-//			else
-//				comandoParaServidor.comando = 99;
-//			cliente.enviarComandoAServidor(comandoParaServidor);
-//			usleep(50);
-//			model.updateCliente();
-//			view.render();
-//		}
+		view.setEstadoCliente();
+		cout << "EstadoCliente seteados."<< endl;
+
+		ComandoAlServidor comandoDefault;
+		comandoDefault.comando = 7; //PARAR
+		while (!controller.quitPressed()) {
+			ComandoAlServidor comandoParaServidor;
+			if (cliente.Titular)
+				comandoParaServidor.comando = controller.processInputCliente();
+			else
+				comandoParaServidor.comando = 99;
+			cliente.enviarComandoAServidor(comandoParaServidor);
+			usleep(50);
+			model.updateCliente();
+			view.render();
+		}
 
 		return 0;
 	}

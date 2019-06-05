@@ -47,6 +47,7 @@ struct ModeloEstado {
 struct ModeloSeleccionPersonaje{
 	int jugadorId;
 	int personajeId;
+	int equipo;
 	bool confirmado;
 };
 struct ModeloSeleccion {
