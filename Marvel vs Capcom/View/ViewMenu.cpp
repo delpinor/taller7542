@@ -204,7 +204,7 @@ void ViewMenu::render() {
 				texturaJugadorClienteSeleccionado4.setAlpha(100);
 			texturaTextoSeleccionadoCliente4.render(
 					((it->personajeId - 1) * ANCHO_CUADRO_JUGADOR) + 20,
-					POS_CUADROY + 68, NULL, 0.0,
+					POS_CUADROY + 78, NULL, 0.0,
 					NULL, SDL_FLIP_NONE, gRenderer);
 			texturaJugadorClienteSeleccionado4.render(
 					((it->personajeId - 1) * ANCHO_CUADRO_JUGADOR)
@@ -337,7 +337,7 @@ void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId,
 				}
 				break;
 			}
-			case SDLK_LEFT: {
+			case SDLK_a: {
 				std::list<ModeloPersonajeVistaSeleccion>::iterator it;
 				for (it = modelo.data.begin(); it != modelo.data.end(); it++) {
 
@@ -361,7 +361,7 @@ void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId,
 			}
 				//necesito aumentar un contador para el seleccionado aca
 				break;
-			case SDLK_RIGHT: {
+			case SDLK_d: {
 				std::list<ModeloPersonajeVistaSeleccion>::iterator it;
 				for (it = modelo.data.begin(); it != modelo.data.end(); it++) {
 
