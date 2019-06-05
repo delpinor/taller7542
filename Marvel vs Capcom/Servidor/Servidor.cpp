@@ -15,12 +15,12 @@ void * hilo_conexionServer(void * datosConexion) {
 	while (1) {
 		p->ping = false;
 		sleep(1);
-		if (!p->ping) {
+		if (!p->ping && miPartida.Iniciada()) {
 			//shutdown(p->sock, SHUT_RDWR);
 			//close(p->sock);
 			pthread_mutex_lock(&mutex_server);
-			miPartida.JugadorDesconectado(p->usuario);
 			cout << "Falla en la comunicacion con el cliente: " << p->sock << endl;
+			miPartida.JugadorDesconectado(p->usuario);
 			pthread_mutex_unlock(&mutex_server);
 			pthread_exit(NULL);
 			break;
@@ -122,7 +122,6 @@ void * enviarDatos(void * datos) {
 
 	bool corriendo = true;
 	while (corriendo) {
-
 		if(miPartida.EsClienteDesconectadoBySock(sock)){
 			cout << "Cliente desconectado!!!######### Hilo enviar datos termminado" << endl;
 			corriendo = false;
@@ -141,7 +140,7 @@ void * enviarDatos(void * datos) {
 		ClienteEquipo unEquipo;
 		unEquipo.equipo = 99;
 		pthread_mutex_lock(&mutex_server);
-		if(!miPartida.IniciadaSeleccionPersonajes()){//if(!miPartida.Iniciada()){
+		if(!miPartida.Iniciada()){//if(!miPartida.Iniciada()){
 			unEquipo.equipo = miPartida.GetClienteEspera(usuario).equipo;
 			unEquipo.titular = miPartida.GetClienteEspera(usuario).titular ;
 			unEquipo.nroJugador = miPartida.GetClienteEspera(usuario).numeroJugadorJuego;
@@ -256,6 +255,7 @@ void * recibirDatos(void * datos) {
 			if ((idMsg == PING) && (errorRecv > 0)) {
 					pthread_mutex_lock(&mutex_server);
 					datosCone.ping = true;
+					cout << "Ping de socket: " << datosCone.sock << endl;
 					pthread_mutex_unlock(&mutex_server);
 			}
 
@@ -276,17 +276,16 @@ void * recibirDatos(void * datos) {
 	//			cout << "*****************************************************" << endl;
 
 			}
-		}
+			if ((idMsg == DATASELECCION) && (miPartida.IniciadaSeleccionPersonajes())) {
+				DataSeleccionAlServidor data;
+				recv(unCliente.socket, &data, sizeof(data), 0);
+				pthread_mutex_lock(&mutex_server);
+				miPartida.HandleEventSeleccionPersonajes(unCliente.nombre, &data);
+				pthread_mutex_unlock(&mutex_server);
+				cout << "Data Selección recibida: " << data.personajeId << endl;
+				cout << "Confirmado: " << data.confirmado << endl;
 
-		if ((idMsg == DATASELECCION) && (miPartida.IniciadaSeleccionPersonajes())) {
-			DataSeleccionAlServidor data;
-			recv(unCliente.socket, &data, sizeof(data), 0);
-			pthread_mutex_lock(&mutex_server);
-			miPartida.HandleEventSeleccionPersonajes(unCliente.nombre, &data);
-			pthread_mutex_unlock(&mutex_server);
-			cout << "Data Selección recibida: " << data.personajeId << endl;
-			cout << "Confirmado: " << data.confirmado << endl;
-
+			}
 		}
 	}
 }
@@ -398,7 +397,7 @@ void Servidor::IniciarServidor(int maxClientes, char * puerto) {
 	connServidor.IniciarConexion(puerto);
 	LanzarHiloControl();
 	LanzarHiloControlSeleccionPersonajes();
-	LanzarHiloLoggeo();
+	//LanzarHiloLoggeo();
 	AceptarClientes(maxClientes);
 
 }

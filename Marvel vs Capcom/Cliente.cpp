@@ -40,14 +40,17 @@ void * hilo_conexion(void * cliente) {
 		if (!p->Ping) {
 			p->ServidorVivo = false;
 			p->getConexion()->Cerrar();
-			p->getVista()->CajaMensaje("Conexión", "Falla en la comunicación. Intentando reconectar...");
-			while(!p->ServidorVivo){
+			p->getVista()->CajaMensaje("Conexión",
+					"Falla en la comunicación. Intentando reconectar...");
+			while (!p->ServidorVivo) {
 				if (p->getConexion()->Reconectar() != -1) {
 					JugadorLogin loginUsuario;
 					IDMENSAJE idMsg = LOGIN;
 					strcpy(loginUsuario.usuario, p->Usuario);
-					send(p->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
-					send(p->getConexion()->getSocketCliente(), &loginUsuario,	sizeof(loginUsuario), 0);
+					send(p->getConexion()->getSocketCliente(), &idMsg,
+							sizeof(idMsg), 0);
+					send(p->getConexion()->getSocketCliente(), &loginUsuario,
+							sizeof(loginUsuario), 0);
 					p->lanzarHilosDelJuego();
 					p->LanzarHiloConexion();
 					p->ServidorVivo = true;
@@ -111,12 +114,12 @@ void Cliente::actualizarModelo(ModeloEstado modelo) {
 	pthread_mutex_unlock(&mutexx);
 }
 
-bool Cliente:: esta_conectado(){
+bool Cliente::esta_conectado() {
 
 	return (this->ServidorVivo);
 }
 
-int Cliente::ConectarConServidor( char* hostname, char* puerto) {
+int Cliente::ConectarConServidor(char* hostname, char* puerto) {
 	//IPServidor = ip;
 	Puerto = puerto;
 	cout << "conectando con servidor en ip: " << hostname << " y en puerto: "
@@ -131,20 +134,25 @@ int Cliente::ConectarConServidor( char* hostname, char* puerto) {
 }
 
 void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
-	if (this->ServidorVivo){
+	if (this->ServidorVivo) {
 		IDMENSAJE com = COMANDO;
 		IDMENSAJE idCabecera = PING;
-		send(this->getConexion()->getSocketCliente(), &idCabecera,sizeof(idCabecera), MSG_NOSIGNAL);
-		send(this->getConexion()->getSocketCliente(), &com, sizeof(com), MSG_NOSIGNAL);
-		send(this->getConexion()->getSocketCliente(), &comando,	sizeof(comando), MSG_NOSIGNAL);
+		send(this->getConexion()->getSocketCliente(), &idCabecera,
+				sizeof(idCabecera), MSG_NOSIGNAL);
+		send(this->getConexion()->getSocketCliente(), &com, sizeof(com),
+		MSG_NOSIGNAL);
+		send(this->getConexion()->getSocketCliente(), &comando, sizeof(comando),
+		MSG_NOSIGNAL);
 	}
 }
 void Cliente::enviarDataSeleccionAServidor(DataSeleccionAlServidor data) {
 
 	int error = 0;
 	IDMENSAJE com = DATASELECCION;
-	error = send(this->getConexion()->getSocketCliente(), &com, sizeof(com), MSG_NOSIGNAL);
-	error = send(this->getConexion()->getSocketCliente(), &data, sizeof(data), MSG_NOSIGNAL);
+	error = send(this->getConexion()->getSocketCliente(), &com, sizeof(com),
+	MSG_NOSIGNAL);
+	error = send(this->getConexion()->getSocketCliente(), &data, sizeof(data),
+	MSG_NOSIGNAL);
 }
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
@@ -165,12 +173,13 @@ int Cliente::recibirModeloDelServidor() {
 			Equipo = unClienteEquipo.equipo;
 		}
 
-	//-------->Recibe COMPLETO
-	if (idMsg == COMPLETO) {
-		this->juegoCorriendo = false;
-		this->getConexion()->Cerrar();
-		this->getVista()->CajaMensaje("Equipos", "Juego iniciado. No hay lugar");
-	}
+		//-------->Recibe COMPLETO
+		if (idMsg == COMPLETO) {
+			this->juegoCorriendo = false;
+			this->getConexion()->Cerrar();
+			this->getVista()->CajaMensaje("Equipos",
+					"Juego iniciado. No hay lugar");
+		}
 
 		//-------->Recibe MODELO
 		if (idMsg == MODELO) {
@@ -225,44 +234,43 @@ int Cliente::recibirModeloDelServidor() {
 
 			pthread_mutex_unlock(&mutexx);
 		}
-	}
 
-	//-------->Recibe DATA PERSONAJES
-	if (idMsg == DATAPERSONAJES) {
-		//cout << "CLIENTE - recibirModeloDelServidor: Recibiendo DATAPERSONAJES | "<< TimeHelper::getStringLocalTimeNow() << endl;
+		//-------->Recibe DATA PERSONAJES
+		if (idMsg == DATAPERSONAJES) {
+			//cout << "CLIENTE - recibirModeloDelServidor: Recibiendo DATAPERSONAJES | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
-		ModeloPersonajes unModelo;
-		recv(this->getConexion()->getSocketCliente(), &unModelo,sizeof(unModelo), 0);
-		pthread_mutex_lock(&mutexx);
-		this->vistaMenu->setPersonajes(&unModelo);
-		pthread_mutex_unlock(&mutexx);
+			ModeloPersonajes unModelo;
+			recv(this->getConexion()->getSocketCliente(), &unModelo,
+					sizeof(unModelo), 0);
+			pthread_mutex_lock(&mutexx);
+			this->vistaMenu->setPersonajes(&unModelo);
+			pthread_mutex_unlock(&mutexx);
 
-		//cout << "CLIENTE - recibirModeloDelServidor: DATAPERSONAJES la lista de personajes tiene "<< unModelo.idsPersonajes.size() << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
-		//cout << "CLIENTE - recibirModeloDelServidor: DATAPERSONAJES Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
-	}
-
-	//-------->Recibe MODELO SELECCION
-	if (idMsg == MODELOSELECCION) {
-		//cout << "CLIENTE - recibirModeloDelServidor: Recibiendo MODELOSELECCION | "<< TimeHelper::getStringLocalTimeNow() << endl;
-
-		ModeloSeleccion unModelo;
-
-		recv(this->getConexion()->getSocketCliente(), &unModelo,sizeof(unModelo), 0);
-
-		pthread_mutex_lock(&mutexx);
-		this->vistaMenu->setModeloSeleccion(unModelo);
-
-
-		if(!this->EstaIniciadaSeleccionPersonaje()){
-			//cout << "CLIENTE - recibirModeloDelServidor: Iniciando Seleccion Personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;
-			this->IniciarSeleccionPersonaje();
-			//cout << "CLIENTE - recibirModeloDelServidor: Iniciando Seleccion Personaje HECHO | "<< TimeHelper::getStringLocalTimeNow() << endl;
+			//cout << "CLIENTE - recibirModeloDelServidor: DATAPERSONAJES la lista de personajes tiene "<< unModelo.idsPersonajes.size() << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
+			//cout << "CLIENTE - recibirModeloDelServidor: DATAPERSONAJES Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
 		}
-		pthread_mutex_unlock(&mutexx);
 
-		//cout << "CLIENTE - recibirModeloDelServidor: MODELOSELECCION Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
+		//-------->Recibe MODELO SELECCION
+		if (idMsg == MODELOSELECCION) {
+			//cout << "CLIENTE - recibirModeloDelServidor: Recibiendo MODELOSELECCION | "<< TimeHelper::getStringLocalTimeNow() << endl;
+
+			ModeloSeleccion unModelo;
+
+			recv(this->getConexion()->getSocketCliente(), &unModelo,sizeof(unModelo), 0);
+
+			pthread_mutex_lock(&mutexx);
+			this->vistaMenu->setModeloSeleccion(unModelo);
+
+			if (!this->EstaIniciadaSeleccionPersonaje()) {
+				//cout << "CLIENTE - recibirModeloDelServidor: Iniciando Seleccion Personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;
+				this->IniciarSeleccionPersonaje();
+				//cout << "CLIENTE - recibirModeloDelServidor: Iniciando Seleccion Personaje HECHO | "<< TimeHelper::getStringLocalTimeNow() << endl;
+			}
+			pthread_mutex_unlock(&mutexx);
+
+			//cout << "CLIENTE - recibirModeloDelServidor: MODELOSELECCION Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
+		}
 	}
-
 	return NULL;
 
 }
@@ -319,18 +327,18 @@ void Cliente::setVista(View* vista) {
 	this->vista = vista;
 }
 
-void Cliente::IniciarSeleccionPersonaje(){
+void Cliente::IniciarSeleccionPersonaje() {
 	this->seleccionPersonajeIniciada = true;
 }
 
-void Cliente::FinalizarSeleccionPersonaje(){
+void Cliente::FinalizarSeleccionPersonaje() {
 	this->seleccionPersonajeFinalizada = true;
 }
 
-bool Cliente::EstaIniciadaSeleccionPersonaje(){
+bool Cliente::EstaIniciadaSeleccionPersonaje() {
 	return this->seleccionPersonajeIniciada;
 }
-bool Cliente::EstaFinalizadaSeleccionPersonaje(){
+bool Cliente::EstaFinalizadaSeleccionPersonaje() {
 	return this->seleccionPersonajeFinalizada;
 }
 

@@ -87,8 +87,7 @@ int main(int argc, char* argv[]) {
 		cout << "Usuario:";
 		cin >> loginUsuario.usuario;
 
-		View view(&model);
-		cout << "vista creada."<< endl;
+
 		Controller controller;
 		controller.SetModel(&model);
 		cout << "controller creado | "<< TimeHelper::getStringLocalTimeNow() << endl;
@@ -108,10 +107,6 @@ int main(int argc, char* argv[]) {
 		send(conexion.getSocketCliente(), &idMsg, sizeof(idMsg),0);
 		send(conexion.getSocketCliente(), &loginUsuario, sizeof(loginUsuario),0);
 
-		// el cliente recibe el numero de personajes que debe seleccionar
-		int num_personajes_a_seleccionar;
-		recv(conexion.getSocketCliente(), &num_personajes_a_seleccionar, sizeof(num_personajes_a_seleccionar), 0);
-		cout<<endl<<"EL numero de personajes a selecccionar es:"<<num_personajes_a_seleccionar<<endl;
 
 		cliente.lanzarHilosDelJuego();
 		cout << "Hilos del cliente lanzados | "<< TimeHelper::getStringLocalTimeNow() << endl;
@@ -120,7 +115,7 @@ int main(int argc, char* argv[]) {
 		while (!quitSeleccionMenu && !cliente.EstaFinalizadaSeleccionPersonaje()) {
 
 			if(cliente.EstaIniciadaSeleccionPersonaje()){
-				//cout << "Ingresó en selección de personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;
+				cout << "Ingresó en selección de personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
 				int personajeSeleccionadoId = static_cast<int>(PERSONAJE::P_NA);
 				bool personajeEstaConfirmado = false;
@@ -136,14 +131,8 @@ int main(int argc, char* argv[]) {
 			usleep(50);
 		}
 
-
-
-
-
-
 		View view(&model);
 		cout << "vista creada."<< endl;
-
 		view.setEstadoCliente();
 		cout << "EstadoCliente seteados."<< endl;
 		cliente.lanzarHilosDelJuego();
