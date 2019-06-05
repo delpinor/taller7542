@@ -14,13 +14,12 @@ void * hilo_conexionServer(void * datosConexion) {
 	HiloConexion* p = (HiloConexion*) datosConexion;
 	while (1) {
 		p->ping = false;
-		sleep(1);
+		sleep(2);
 		if (!p->ping && miPartida.Iniciada()) {
 			//shutdown(p->sock, SHUT_RDWR);
 			//close(p->sock);
 			pthread_mutex_lock(&mutex_server);
-			cout << "Falla en la comunicacion con el cliente: " << p->sock
-					<< endl;
+			cout << "Falla en la comunicacion con el cliente: " << p->sock	<< endl;
 			miPartida.JugadorDesconectado(p->usuario);
 			pthread_mutex_unlock(&mutex_server);
 			pthread_exit(NULL);
