@@ -93,7 +93,7 @@ void * controlSeleccionPersonajes(void *) {
 //Hilo de loggeo de informacion
 void * loggeoPartida(void *) {
 	while (1) {
-//		system("clear");
+		system("clear");
 		cout << "Inicio partida: "
 				<< (miPartida.Iniciada() == true ? "Iniciada" : "No iniciada")
 				<< endl;
@@ -163,13 +163,13 @@ void * enviarDatos(void * datos) {
 			if (miPartida.existeJugador(usuario)) {	//if(!miPartida.Iniciada()){
 				unEquipo.equipo = miPartida.GetClienteEspera(usuario).equipo;
 				unEquipo.titular = miPartida.GetClienteEspera(usuario).titular;
-//				unEquipo.nroJugador = miPartida.GetClienteEspera(usuario).numeroJugadorJuego;
+				unEquipo.nroJugador = miPartida.GetClienteEspera(usuario).numeroJugadorJuego;
 			}
 		} else {
 			if (miPartida.existeJugador(usuario)) {
 				unEquipo.equipo = miPartida.GetClienteJugando(usuario).equipo;
 				unEquipo.titular = miPartida.GetClienteJugando(usuario).titular;
-//				unEquipo.nroJugador = miPartida.GetClienteJugando(usuario).numeroJugadorJuego;
+				unEquipo.nroJugador = miPartida.GetClienteJugando(usuario).numeroJugadorJuego;
 			}
 		}
 		pthread_mutex_unlock(&mutex_server);
@@ -438,7 +438,7 @@ void Servidor::IniciarServidor(int maxClientes, char * puerto) {
 	connServidor.IniciarConexion(puerto);
 	LanzarHiloControl();
 	LanzarHiloControlSeleccionPersonajes();
-	//LanzarHiloLoggeo();
+	LanzarHiloLoggeo();
 	AceptarClientes(maxClientes);
 
 }
