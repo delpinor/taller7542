@@ -200,8 +200,8 @@ void * enviarDatos(void * datos) {
 			pthread_mutex_lock(&mutex_server);
 			ModeloEstado unModelo = miPartida.GetModeloEstado();
 			pthread_mutex_unlock(&mutex_server);
-			send(sock, &idModelo, sizeof(idModelo), 0);
-			send(sock, &unModelo, sizeof(unModelo), 0);
+			//send(sock, &idModelo, sizeof(idModelo), 0);
+			//send(sock, &unModelo, sizeof(unModelo), 0);
 		}
 
 		usleep(1000);

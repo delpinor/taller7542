@@ -167,10 +167,14 @@ int Cliente::recibirModeloDelServidor() {
 		//-------->Recibe EQUIPO
 		if (idMsg == EQUIPO) {
 			ClienteEquipo unClienteEquipo;
-			recv(this->getConexion()->getSocketCliente(), &unClienteEquipo,
-					sizeof(unClienteEquipo), 0);
+			recv(this->getConexion()->getSocketCliente(), &unClienteEquipo,	sizeof(unClienteEquipo), 0);
+			pthread_mutex_lock(&mutexx);
 			Titular = unClienteEquipo.titular;
 			Equipo = unClienteEquipo.equipo;
+			NroJugador = unClienteEquipo.nroJugador;
+			this->vistaMenu->setNroJugadorLocal(this->NroJugador);
+			pthread_mutex_unlock(&mutexx);
+
 		}
 
 		//-------->Recibe COMPLETO
