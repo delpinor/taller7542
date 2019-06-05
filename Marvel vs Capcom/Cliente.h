@@ -42,6 +42,7 @@ public:
 	void actualizarModelo(ModeloEstado modelo);
 	int recibirModeloDelServidor();
 	void enviarComandoAServidor(ComandoAlServidor comando);
+	void EnviarPing();
 	void lanzarHilosDelJuego();
 	void MenuDeSeleccion();
 	bool esta_conectado();

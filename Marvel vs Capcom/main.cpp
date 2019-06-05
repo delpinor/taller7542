@@ -111,6 +111,7 @@ int main(int argc, char* argv[]) {
 		cliente.lanzarHilosDelJuego();
 		cout << "Hilos del cliente lanzados | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
+		cout << "Socket: " << cliente.getConexion()->getSocketCliente()<< endl;
 		bool quitSeleccionMenu = false;
 		while (!quitSeleccionMenu && !cliente.EstaFinalizadaSeleccionPersonaje()) {
 			if(cliente.EstaIniciadaSeleccionPersonaje()){
@@ -122,7 +123,7 @@ int main(int argc, char* argv[]) {
 				DataSeleccionAlServidor unModelo;
 				unModelo.personajeId = personajeSeleccionadoId;
 				unModelo.confirmado = personajeEstaConfirmado;
-
+				cliente.EnviarPing();
 				if (personajeSeleccionadoId != -1)
 					cliente.enviarDataSeleccionAServidor(unModelo);
 
@@ -138,13 +139,12 @@ int main(int argc, char* argv[]) {
 		cout << "vista creada."<< endl;
 		view.setEstadoCliente();
 		cout << "EstadoCliente seteados."<< endl;
-		cliente.lanzarHilosDelJuego();
-		cout << "Hilos del cliente lanzados."<< endl;
 		// Hilo conexion.
 		cliente.LanzarHiloConexion();
 		while (!controller.quitPressed()){
 			//if (controller.quitPressed())
 				//return -1;
+			cout << "Socket: " << cliente.getConexion()->getSocketCliente()<< endl;
 			ComandoAlServidor comandoParaServidor;
 			int comando = controller.processInputCliente();
 			if (cliente.Titular) {

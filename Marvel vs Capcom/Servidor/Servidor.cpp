@@ -14,7 +14,7 @@ void * hilo_conexionServer(void * datosConexion) {
 	HiloConexion* p = (HiloConexion*) datosConexion;
 	while (1) {
 		p->ping = false;
-		sleep(3);
+		sleep(1);
 		if (!p->ping && miPartida.Iniciada()) {
 			//shutdown(p->sock, SHUT_RDWR);
 			//close(p->sock);
@@ -32,7 +32,8 @@ void * hilo_conexionServer(void * datosConexion) {
 void * controlPartida(void *) {
 
 	while (1) {
-		if (miPartida.FinalizadaSeleccionPersonajes()) {//if (miPartida.EquipoCompleto()) {
+		if (miPartida.FinalizadaSeleccionPersonajes() && !miPartida.Iniciada()) {//if (miPartida.EquipoCompleto()) {
+			sleep(2);
 			miPartida.IniciarPartida();
 		}
 		if (miPartida.Finalizada()) {
@@ -285,7 +286,7 @@ void * recibirDatos(void * datos) {
 		int errorRecv = recv(unCliente.socket, &idMsg, sizeof(idMsg),
 				MSG_NOSIGNAL);
 		if (errorRecv > 0) {
-			if ((idMsg == PING) && (errorRecv > 0)) {
+			if (idMsg == PING) {
 				pthread_mutex_lock(&mutex_server);
 				datosCone.ping = true;
 				cout << "Ping de socket: " << datosCone.sock << endl;
@@ -305,8 +306,8 @@ void * recibirDatos(void * datos) {
 				pthread_mutex_lock(&mutex_server);
 				miPartida.SetComando(unCliente.equipo, unComando.comando);
 				pthread_mutex_unlock(&mutex_server);
-				cout << "Comando recibido: " << unComando.comando << "por socket: "<<unCliente.socket<< endl;
-				cout << "*****************************************************" << endl;
+//				cout << "Comando recibido: " << unComando.comando << "por socket: "<<unCliente.socket<< endl;
+//				cout << "*****************************************************" << endl;
 
 			}
 			if ((idMsg == DATASELECCION)

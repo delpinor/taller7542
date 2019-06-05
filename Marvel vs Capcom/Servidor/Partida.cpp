@@ -17,6 +17,7 @@ void Partida::IniciarPartida() {
 	//	modelo->inicializarPosicionesEquipos();
 	AjustarCamara();
 	partidaIniciada = true;
+	cout << "Partida INICA#########################################################################DA!" << endl;
 
 }
 void Partida::AjustarCamara() {
