@@ -54,15 +54,15 @@ int main(int argc, char* argv[]) {
 	//seteo los jugadores en los equipos
 	//set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int nroJugador)
 	//OJO ACA, SI LO DESCOMENTO EL 3ER PARAMETRO TIENE QUE SER EL ENUM DE LOS PERSONAJES
-	model.set_equipos_with_jugador(0, 0, 4);
-	model.set_equipos_with_jugador(0, 1, 1);
-	model.set_equipos_with_jugador(1, 0, 2);
-	model.set_equipos_with_jugador(1, 1, 3);
-
-	//designo que jugadores van a estar activos
-	model.inicializar();
-	model.getEquipoNro(0)->setJugadorActivo(0);
-	model.getEquipoNro(1)->setJugadorActivo(0);
+//	model.set_equipos_with_jugador(0, 0, 4);
+//	model.set_equipos_with_jugador(0, 1, 1);
+//	model.set_equipos_with_jugador(1, 0, 2);
+//	model.set_equipos_with_jugador(1, 1, 3);
+//
+//	//designo que jugadores van a estar activos
+//	model.inicializar();
+//	model.getEquipoNro(0)->setJugadorActivo(0);
+//	model.getEquipoNro(1)->setJugadorActivo(0);
 
 	int num_jugadores= appConfig.get_NumJugadores();
 
@@ -115,7 +115,7 @@ int main(int argc, char* argv[]) {
 		bool quitSeleccionMenu = false;
 		while (!quitSeleccionMenu && !cliente.EstaFinalizadaSeleccionPersonaje()) {
 			if(cliente.EstaIniciadaSeleccionPersonaje()){
-				cout << "Ingresó en selección de personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;
+				//cout << "Ingresó en selección de personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
 				int personajeSeleccionadoId = static_cast<int>(PERSONAJE::P_NA);
 				bool personajeEstaConfirmado = false;
@@ -137,15 +137,15 @@ int main(int argc, char* argv[]) {
 			return 1;
 		}
 
-//		list<ModeloPersonajeVistaSeleccion> dataSeleccionada = viewMenu.getDataSeleccionada();
-//		list<ModeloPersonajeVistaSeleccion>::iterator it;
-//		for (it = dataSeleccionada.begin(); it != dataSeleccionada.end(); it++) {
-//			//cout << "Seteo de personajes |  Equipo "<< it->equipo << " | JugadorEquipoId" << << TimeHelper::getStringLocalTimeNow() << endl;
-//			model.set_equipos_with_jugador(it->equipo, it->jugadorEquipoId, it->personajeId);
-//		}
-//		model.inicializar();
-//		model.getEquipoNro(0)->setJugadorActivo(0);
-//		model.getEquipoNro(1)->setJugadorActivo(0);
+		list<ModeloPersonajeVistaSeleccion> dataSeleccionada = viewMenu.getDataSeleccionada();
+		list<ModeloPersonajeVistaSeleccion>::iterator it;
+		for (it = dataSeleccionada.begin(); it != dataSeleccionada.end(); it++) {
+			//cout << "Seteo de personajes |  Equipo "<< it->equipo << " | JugadorEquipoId" << << TimeHelper::getStringLocalTimeNow() << endl;
+			model.set_equipos_with_jugador(it->equipo, it->numeroJugador, it->personajeId);
+		}
+		model.inicializar();
+		model.getEquipoNro(0)->setJugadorActivo(0);
+		model.getEquipoNro(1)->setJugadorActivo(0);
 
 
 		cliente.LanzarHiloPing();

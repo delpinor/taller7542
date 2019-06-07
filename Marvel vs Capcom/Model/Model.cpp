@@ -28,9 +28,32 @@ void Model::set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int pe
 
 		jugadoresEquipo1[personajeId]->setDireccion(SDL_FLIP_HORIZONTAL);
 	}
-	this->equipos[nroEquipo]->agregar_Jugador(nroJugadorEquipo, jugadoresEquipo1[personajeId]);
+	//this->equipos[nroEquipo]->agregar_Jugador(nroJugadorEquipo, jugadoresEquipo1[personajeId]);
+	this->equipos[nroEquipo]->agregar_Jugador(nroJugadorEquipo, this->crearJugador(personajeId));
+
+}
 
 
+Jugador* Model::crearJugador(int personajeId){
+	//Jugador* jActual = jugadoresEquipo1[personajeId];
+//	int ancho, alto, zIndex;
+//	std::string nombre, path;
+//	ancho = jActual->get_ancho();
+//	alto = jActual->get_alto();
+//	zIndex = jActual->get_zindex();
+//	nombre = jActual->getNombre();
+//	path = jActual->getPathImagen();
+
+	int ancho, alto, zIndex;
+	std::string nombre, path;
+	ancho = jugadoresEquipo1[personajeId]->get_ancho();
+	alto = jugadoresEquipo1[personajeId]->get_alto();
+	zIndex = jugadoresEquipo1[personajeId]->get_zindex();
+	nombre = jugadoresEquipo1[personajeId]->getNombre();
+	path = jugadoresEquipo1[personajeId]->getPathImagen();
+
+	Jugador* jNuevo = new Jugador(ancho, alto, zIndex, nombre, path);
+	return jNuevo;
 }
 
 void Model::cargar_Tam_Pantalla(int &ancho, int &alto) {

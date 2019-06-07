@@ -58,6 +58,8 @@ public:
 	virtual void moverJuegoCliente();
 
 	std::list<int> GetIdsPersonajes();
+private:
+	Jugador* crearJugador(int personajeId);
 };
 
 #endif // MODEL_H

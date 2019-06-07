@@ -182,8 +182,7 @@ void * enviarDatos(void * datos) {
 		//------->Envio de Info de Selección de Personajes
 		if (miPartida.EstaHabilitadoEnvioPersonajes()
 				&& !miPartida.IniciadaSeleccionPersonajes()) {
-			cout << "SERVIDOR - enviarDatos: DATAPERSONAJES | " << usuario
-					<< " | " << TimeHelper::getStringLocalTimeNow() << endl;
+			cout << "SERVIDOR - enviarDatos: DATAPERSONAJES LALALALALALALALALALALALALALALALALALALAL| " << usuario<< " | " << TimeHelper::getStringLocalTimeNow() << endl;
 			IDMENSAJE idModelo = DATAPERSONAJES;
 			bool enviar = false;
 			ModeloPersonajes unModelo;
