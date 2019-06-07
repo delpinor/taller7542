@@ -184,8 +184,8 @@ void Partida::SetComando(int equipo, int comando) {
 
 	}
 
-	modelo->update();
-	AjustarCamara();
+//	modelo->update();
+//	AjustarCamara();
 
 }
 void Partida::SetModelo(Model* model) {

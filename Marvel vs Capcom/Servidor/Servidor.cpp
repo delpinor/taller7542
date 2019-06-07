@@ -27,6 +27,19 @@ void * hilo_conexionServer(void * datosConexion) {
 		}
 	}
 }
+void * updateModelo(void *) {
+	cout << "Hilo UpdateModelo corriendo." << endl;
+	bool corriendo = true;
+	while (corriendo) {
+		if (miPartida.Iniciada()) {
+			usleep(15000);
+			miPartida.GetModelo()->update();
+			miPartida.AjustarCamara();
+		}
+		if (miPartida.Finalizada())
+			corriendo = false;
+	}
+}
 // Hilo de control de partida. Finalizacion, inicio, etc.
 void * controlPartida(void *) {
 
@@ -347,6 +360,13 @@ void Servidor::LanzarHiloLoggeo() {
 	pthread_detach(pthread_log);
 }
 
+void Servidor::LanzarHiloUpdateModelo() {
+	//Hilo de control
+	pthread_t thread_update_modelo;
+	pthread_create(&thread_update_modelo, NULL, updateModelo, NULL);
+	pthread_detach(thread_update_modelo);
+}
+
 int Servidor::calcular_num_personajes(int orden_jugador) {
 	//si hay dos jugadores , cada uno debe sereccionar 2 pesonajes
 	if (this->num_jugadores == 2) {
@@ -438,7 +458,10 @@ void Servidor::IniciarServidor(int maxClientes, char * puerto) {
 	LanzarHiloControl();
 	LanzarHiloControlSeleccionPersonajes();
 	LanzarHiloLoggeo();
+	LanzarHiloUpdateModelo();
 	AceptarClientes(maxClientes);
 
 }
+
+
 

@@ -38,6 +38,7 @@ public:
 	void IniciarServidor(int maxClientes, char * puerto);
 	void AceptarClientes(int maxClientes);
 	void LanzarHiloControlSeleccionPersonajes();
+	void LanzarHiloUpdateModelo();
 	//virtual ~Funciones();
 };
 
