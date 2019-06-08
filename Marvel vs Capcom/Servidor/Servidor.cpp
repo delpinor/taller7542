@@ -239,7 +239,9 @@ void * enviarDatos(void * datos) {
 		//------->Envio de confirmacion de inicio de juego
 		if (miPartida.Iniciada() && !avisoJuegoIniciado) {
 			IDMENSAJE idModelo = JUEGOINICIADO;
+			ModeloResultadoSeleccionPersonaje unModelo = miPartida.getResultadoSeleccionPersonaje();
 			send(sock, &idModelo, sizeof(idModelo), 0);
+			send(sock, &unModelo, sizeof(unModelo), 0);
 			avisoJuegoIniciado = true;
 		}
 

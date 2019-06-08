@@ -32,6 +32,7 @@ struct ClienteConectado{
 	bool personajeConfirmado = false;
 	bool personajeConfirmadoSuplente = false;
 	bool dataPersonajesEnviada = false;
+	int cantidadPersonajes = 0;
 };
 class Partida{
 private:
@@ -112,5 +113,6 @@ public:
 	bool EstaEnviadaDataPersonajes();
 	ModeloPersonajes GetModeloPersonajes();
 	void SetDataPersonajesEnviada(string nombre);
+	ModeloResultadoSeleccionPersonaje getResultadoSeleccionPersonaje();
 };
 

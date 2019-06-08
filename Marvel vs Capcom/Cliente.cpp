@@ -23,7 +23,7 @@ void * hilo_escucha(void * cliente) {
 	cout << "HILO ESCUCHA lanzado." << endl;
 	Cliente* p = (Cliente*) cliente;
 	while (1) {
-//		cout << "adentro del while de escucha." << endl;
+		//		cout << "adentro del while de escucha." << endl;
 		p->recibirModeloDelServidor();
 		usleep(60);
 		if (!p->ServidorVivo) {
@@ -35,14 +35,14 @@ void * hilo_escucha(void * cliente) {
 void * hilo_ping(void * cliente) {
 	Cliente* p = (Cliente*) cliente;
 	while (1) {
-			IDMENSAJE idMsg = PING;
-			send(p->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
-			if (!p->EnviarPingHilo) {
-				pthread_exit(NULL);
-				break;
-			}
-			usleep(1000);
+		IDMENSAJE idMsg = PING;
+		send(p->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
+		if (!p->EnviarPingHilo) {
+			pthread_exit(NULL);
+			break;
 		}
+		usleep(1000);
+	}
 }
 void * hilo_conexion(void * cliente) {
 	Cliente* p = (Cliente*) cliente;
@@ -52,8 +52,8 @@ void * hilo_conexion(void * cliente) {
 		if (!p->Ping) {
 			p->ServidorVivo = false;
 			p->getConexion()->Cerrar();
-//			p->getVista()->CajaMensaje("Conexión",
-//					"Falla en la comunicación. Intentando reconectar...");
+			//			p->getVista()->CajaMensaje("Conexión",
+			//					"Falla en la comunicación. Intentando reconectar...");
 			while (!p->ServidorVivo) {
 				sleep(1);
 				if (p->getConexion()->Reconectar() != -1) {
@@ -171,9 +171,9 @@ void Cliente::enviarDataSeleccionAServidor(DataSeleccionAlServidor data) {
 	int error = 0;
 	IDMENSAJE com = DATASELECCION;
 	error = send(this->getConexion()->getSocketCliente(), &com, sizeof(com),
-	MSG_NOSIGNAL);
+			MSG_NOSIGNAL);
 	error = send(this->getConexion()->getSocketCliente(), &data, sizeof(data),
-	MSG_NOSIGNAL);
+			MSG_NOSIGNAL);
 }
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
@@ -182,7 +182,7 @@ int Cliente::recibirModeloDelServidor() {
 	if (errorRecv > 0) {
 		//-------->Recibe PING
 		if ((idMsg == PING)) {
-//			cout << "Ping recibido..." << endl;
+			//			cout << "Ping recibido..." << endl;
 			this->Ping = true;
 			// Respondo el ping
 		}
@@ -205,13 +205,16 @@ int Cliente::recibirModeloDelServidor() {
 		if (idMsg == COMPLETO) {
 			this->juegoCorriendo = false;
 			this->getConexion()->Cerrar();
-//			this->getVista()->CajaMensaje("Equipos",
-//					"Juego iniciado. No hay lugar");
+			//			this->getVista()->CajaMensaje("Equipos",
+			//					"Juego iniciado. No hay lugar");
 		}
 
 		//-------->Recibe JUEGO INICIADO
 		if (idMsg == JUEGOINICIADO){
+			ModeloResultadoSeleccionPersonaje unModelo;
+			recv(this->getConexion()->getSocketCliente(), &unModelo, sizeof(unModelo), 0);
 			this->FinalizarSeleccionPersonaje();
+			this->ResultadoSeleccionPersonaje = unModelo;
 		}
 
 		//-------->Recibe MODELO
@@ -310,7 +313,7 @@ int Cliente::recibirModeloDelServidor() {
 void Cliente::lanzarHilosDelJuego() {
 	cout << "por lanzar hilos del cliente" << endl;
 	pthread_t thid_hilo_escucha;
-//	pthread_t thid_hilo_render;
+	//	pthread_t thid_hilo_render;
 	pthread_create(&thid_hilo_escucha, NULL, hilo_escucha, this);
 	pthread_detach(thid_hilo_escucha);
 

@@ -116,14 +116,15 @@ ModeloSeleccion  Partida::GetModeloSeleccion(){
 		//cout << "CLIENTE - GetModeloSeleccion: INICIADO | "<< it->nombre << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 
 		ModeloSeleccionPersonaje unModeloSeleccionPersonaje;
-		unModeloSeleccionPersonaje.personajeId = it->personajeId;
 		unModeloSeleccionPersonaje.jugadorId = it->numeroJugadorJuego;
 		unModeloSeleccionPersonaje.numeroJugador = it->numeroJugador;
 		unModeloSeleccionPersonaje.equipo = it->equipo;
 
 
+		unModeloSeleccionPersonaje.personajeId = it->personajeId;
 		unModeloSeleccionPersonaje.confirmado =  it->personajeConfirmado;
-		if(PersonajesSeleccionCompletaTitular()){
+		if(PersonajesSeleccionCompletaTitular() && it->cantidadPersonajes == 2){
+			unModeloSeleccionPersonaje.personajeId = it->personajeIdSuplente;
 			unModeloSeleccionPersonaje.confirmado = it->personajeConfirmadoSuplente;
 		}
 
@@ -143,6 +144,14 @@ void  Partida::SetJugadoresPersonajeInicial(){
 
 	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
 		ModeloSeleccionPersonaje unModeloSeleccionPersonaje;
+
+		int cantidadEquipo = this->GetCantidadJugando(it->equipo);
+		if(cantidadEquipo == 2){
+			it->cantidadPersonajes = 1;
+		}
+		else{
+			it->cantidadPersonajes = 2;
+		}
 
 		list<int>::iterator itInt = idsPersonajes.begin();
 		if(contador <= cantidadPersonajes){
@@ -584,13 +593,17 @@ void Partida::HandleEventSeleccionPersonajes(string nombreJugador, DataSeleccion
 		if(it->nombre == nombreJugador){
 			if(PersonajesSeleccionCompletaTitular()){
 				it->personajeConfirmadoSuplente = data->confirmado;
-
+				if (data->personajeId >= 0) {
+					it->personajeIdSuplente = data->personajeId;
+				}
 			}else{
 				it->personajeConfirmado = data->confirmado;
-
-			}
-			if (data->personajeId >= 0) {
-				it->personajeId = data->personajeId;
+				if (data->personajeId >= 0) {
+					it->personajeId = data->personajeId;
+				}
+				if(data->confirmado && it->cantidadPersonajes == 2){
+					it->personajeIdSuplente = it->personajeId;
+				}
 			}
 			//			it->personajeConfirmado = data->confirmado;
 			//			if(data->personajeId >= 0){
@@ -633,7 +646,7 @@ bool Partida::PersonajesSeleccionCompletaTitular() {
 
 	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
 
-		if (it->personajeId != personajeIdNoValido && it->personajeConfirmado) {
+		if (it->titular && it->personajeId != personajeIdNoValido && it->personajeConfirmado) {
 			cantidadSeleccionada++;
 		}
 	}
@@ -650,9 +663,17 @@ bool Partida::PersonajesSeleccionCompletaSuplente() {
 
 	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
 
-		if (it->personajeId != personajeIdNoValido	&& it->personajeConfirmadoSuplente) {
-			cantidadSeleccionada++;
+		if(it->cantidadPersonajes == 2){
+			if (it->personajeIdSuplente != personajeIdNoValido	&& it->personajeConfirmadoSuplente) {
+				cantidadSeleccionada++;
+			}
 		}
+		else{
+			if (!it->titular && it->personajeId != personajeIdNoValido	&& it->personajeConfirmado) {
+				cantidadSeleccionada++;
+			}
+		}
+		//if (it->personajeId != personajeIdNoValido	&& it->personajeConfirmadoSuplente) {
 	}
 	if (2 == cantidadSeleccionada) {
 		return true;
@@ -663,7 +684,13 @@ bool Partida::PersonajesSeleccionCompletaSuplente() {
 void Partida::SetPersonajes(){
 	list<ClienteConectado>::iterator it;
 	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
-		this->modelo->set_equipos_with_jugador(it->equipo, it->numeroJugador, it->personajeId);
+		if(it->cantidadPersonajes == 2){
+			this->modelo->set_equipos_with_jugador(it->equipo, 0, it->personajeId);
+			this->modelo->set_equipos_with_jugador(it->equipo, 1, it->personajeIdSuplente);
+		}
+		else{
+			this->modelo->set_equipos_with_jugador(it->equipo, it->numeroJugador, it->personajeId);
+		}
 	}
 }
 
@@ -700,5 +727,26 @@ void Partida::SetDataPersonajesEnviada(string nombre){
 			it->dataPersonajesEnviada = true;
 		}
 	}
+}
+ModeloResultadoSeleccionPersonaje Partida::getResultadoSeleccionPersonaje(){
+
+	ModeloResultadoSeleccionPersonaje unModelo;
+	list<ClienteConectado>::iterator it;
+	int contador = 0;
+	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+		ModeloResultadoSeleccionItem item;
+		item.cantidadPersonajes = it->cantidadPersonajes;
+		item.equipo = it->equipo;
+		item.numeroJugador = it->numeroJugador;
+		item.personaje1Id = it->personajeId;
+		if(item.cantidadPersonajes == 2){
+			item.personaje2Id = it->personajeIdSuplente;
+		}
+		unModelo.data[contador] = item;
+		contador++;
+	}
+	unModelo.cantidadData = contador;
+
+	return unModelo;
 }
 

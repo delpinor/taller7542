@@ -100,6 +100,17 @@ struct ModeloSeleccionTest {
 //	struct ModeloSeleccionPersonaje jugadorC;
 //	struct ModeloSeleccionPersonaje jugadorD;
 };
+struct ModeloResultadoSeleccionItem{
+	int cantidadPersonajes;
+	int personaje1Id;
+	int personaje2Id;
+	int equipo;
+	int numeroJugador;
+};
+struct ModeloResultadoSeleccionPersonaje{
+	struct ModeloResultadoSeleccionItem data[4];
+	int cantidadData;
+};
 
 
 

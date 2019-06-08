@@ -56,7 +56,7 @@ public:
 	void FinalizarSeleccionPersonaje();
 	bool EstaIniciadaSeleccionPersonaje();
 	bool EstaFinalizadaSeleccionPersonaje();
-
+	ModeloResultadoSeleccionPersonaje ResultadoSeleccionPersonaje;
 
 	//TODO ver como imlementar la verificación de conexion del lado del cliente
 	void setTiempoUltimoMensajeRecibido(int tiempo);
