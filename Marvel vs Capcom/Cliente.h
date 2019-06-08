@@ -32,6 +32,7 @@ public:
 	bool EnviarPingHilo = true;
 	bool juegoCorriendo = true;
 	bool Ping = false;
+	int CantidadEquipo = 0;
 
 	void LanzarHiloConexion();
 	int ConectarConServidor(char* hostname, char* puerto);

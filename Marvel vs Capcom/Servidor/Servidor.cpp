@@ -51,6 +51,7 @@ void * controlPartida(void *) {
 		if (miPartida.Finalizada()) {
 			miPartida.DetenerJugadores();
 		}
+		usleep(10);
 	}
 }
 
@@ -177,12 +178,14 @@ void * enviarDatos(void * datos) {
 				unEquipo.equipo = miPartida.GetClienteEspera(usuario).equipo;
 				unEquipo.titular = miPartida.GetClienteEspera(usuario).titular;
 				unEquipo.nroJugador = miPartida.GetClienteEspera(usuario).numeroJugadorJuego;
+				unEquipo.cantidadEquipo = miPartida.GetCantidadEnEspera(unEquipo.equipo);
 			}
 		} else {
 			if (miPartida.existeJugador(usuario)) {
 				unEquipo.equipo = miPartida.GetClienteJugando(usuario).equipo;
 				unEquipo.titular = miPartida.GetClienteJugando(usuario).titular;
 				unEquipo.nroJugador = miPartida.GetClienteJugando(usuario).numeroJugadorJuego;
+				unEquipo.cantidadEquipo = miPartida.GetCantidadJugando(unEquipo.equipo);
 			}
 		}
 		pthread_mutex_unlock(&mutex_server);
@@ -195,7 +198,7 @@ void * enviarDatos(void * datos) {
 		//------->Envio de Info de Selección de Personajes
 		if (miPartida.EstaHabilitadoEnvioPersonajes()
 				&& !miPartida.IniciadaSeleccionPersonajes()) {
-			cout << "SERVIDOR - enviarDatos: DATAPERSONAJES LALALALALALALALALALALALALALALALALALALAL| " << usuario<< " | " << TimeHelper::getStringLocalTimeNow() << endl;
+
 			IDMENSAJE idModelo = DATAPERSONAJES;
 			bool enviar = false;
 			ModeloPersonajes unModelo;
@@ -221,8 +224,7 @@ void * enviarDatos(void * datos) {
 		}
 
 		//------->Envio de Info de Selección de Personajes
-		if (miPartida.IniciadaSeleccionPersonajes()
-				&& !miPartida.FinalizadaSeleccionPersonajes()) {
+		if (miPartida.IniciadaSeleccionPersonajes() && !miPartida.FinalizadaSeleccionPersonajes()) {
 			//cout << "SERVIDOR - enviarDatos: MODELOSELECCION | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 			IDMENSAJE idModelo = MODELOSELECCION;
 
@@ -330,11 +332,10 @@ void * recibirDatos(void * datos) {
 				DataSeleccionAlServidor data;
 				recv(unCliente.socket, &data, sizeof(data), 0);
 				pthread_mutex_lock(&mutex_server);
-				miPartida.HandleEventSeleccionPersonajes(unCliente.nombre,
-						&data);
+				miPartida.HandleEventSeleccionPersonajes(unCliente.nombre, &data);
 				pthread_mutex_unlock(&mutex_server);
-				cout << "Data Selección recibida: " << data.personajeId << endl;
-				cout << "Confirmado: " << data.confirmado << endl;
+				//cout << "Data Selección recibida: " << data.personajeId << endl;
+				//cout << "Confirmado: " << data.confirmado << endl;
 
 			}
 		}

@@ -36,11 +36,11 @@ void Partida::AjustarCamara() {
 	//Chequeo que los jugadores no se salgan del escenario
 	if (posXJugador1 + anchoJugador1 > ANCHO_NIVEL)
 		modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(
-		ANCHO_NIVEL - anchoJugador1);
+				ANCHO_NIVEL - anchoJugador1);
 
 	if (posXJugador2 + anchoJugador2 > ANCHO_NIVEL)
 		modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(
-		ANCHO_NIVEL - anchoJugador2);
+				ANCHO_NIVEL - anchoJugador2);
 
 	if (posXJugador1 < 0) {
 		modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(0);
@@ -118,11 +118,11 @@ ModeloSeleccion  Partida::GetModeloSeleccion(){
 		ModeloSeleccionPersonaje unModeloSeleccionPersonaje;
 		unModeloSeleccionPersonaje.personajeId = it->personajeId;
 		unModeloSeleccionPersonaje.jugadorId = it->numeroJugadorJuego;
-		unModeloSeleccionPersonaje.confirmado =  it->personajeConfirmado;
 		unModeloSeleccionPersonaje.numeroJugador = it->numeroJugador;
 		unModeloSeleccionPersonaje.equipo = it->equipo;
 
-		//NUEVO - ver si va así
+
+		unModeloSeleccionPersonaje.confirmado =  it->personajeConfirmado;
 		if(PersonajesSeleccionCompletaTitular()){
 			unModeloSeleccionPersonaje.confirmado = it->personajeConfirmadoSuplente;
 		}
@@ -146,11 +146,11 @@ void  Partida::SetJugadoresPersonajeInicial(){
 
 		list<int>::iterator itInt = idsPersonajes.begin();
 		if(contador <= cantidadPersonajes){
-			advance(itInt, contador  -1);
+			advance(itInt, contador -1);
 			it->personajeId = *itInt;
 		}
 		else{
-			advance(itInt, cantidadPersonajes  -1);
+			advance(itInt, cantidadPersonajes -1);
 			it->personajeId = *itInt;
 		}
 		contador = contador + 1;
@@ -189,8 +189,8 @@ void Partida::SetComando(int equipo, int comando) {
 
 	}
 
-//	modelo->update();
-//	AjustarCamara();
+	//	modelo->update();
+	//	AjustarCamara();
 
 }
 void Partida::SetModelo(Model* model) {
@@ -287,12 +287,12 @@ void Partida::JugadorDesconectado(string nombre) {
 }
 void Partida::SwapPersonaje(int equipo){
 	list<ClienteConectado>::iterator it;
-		for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
-			if (it->equipo == equipo) {
-				if (it->numeroJugador == 0) {
-					it->numeroJugador = 1;
-				} else {
-					it->numeroJugador = 0;
+	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+		if (it->equipo == equipo) {
+			if (it->numeroJugador == 0) {
+				it->numeroJugador = 1;
+			} else {
+				it->numeroJugador = 0;
 			}
 		}
 	}
@@ -348,7 +348,7 @@ void Partida::JuegaTitular(int equipo, ClienteConectado reconectado) {
 		}
 		it++;
 	}
-//	ActualizarModelo();
+	//	ActualizarModelo();
 }
 bool Partida::TieneSuplente(int equipo) {
 	list<ClienteConectado>::iterator it;
@@ -425,19 +425,19 @@ void Partida::AgregarCliente(ClienteConectado * cliente) {
 				JuegaTitular(unClienteDesconectado.equipo, *cliente);
 				cliente->titular = true;
 				cout << "Cliente reconectado pasa a ser TITULAR porque estaba jugando su personaje" << endl;
-				} else {
+			} else {
 				//El cliente era suplente.
 				cliente->titular = false;
 				cout << "Cliente reconectado pasa a ser SUPLENTE porque NO estaba jugando su personaje" << endl;
-				}
+			}
 			//Agrego a la lista de jugadores
 			listaJugadores.push_back(*cliente);
 			cout << "Cliente reconectado agregado a listaJugadores" << endl;
 			//Elimino de la lista de desconectados
 			EliminarDesconectado(cliente->nombre);
 			cout
-					<< "Cliente reconectado eliminado de listaJugadoresDesconectados"
-					<< endl;
+			<< "Cliente reconectado eliminado de listaJugadoresDesconectados"
+			<< endl;
 		}
 	}
 }
@@ -521,6 +521,16 @@ int Partida::GetCantidadJugando(int equipo) {
 	}
 	return contador;
 }
+int Partida::GetCantidadEnEspera(int equipo) {
+	int contador = 0;
+	list<ClienteConectado>::iterator it;
+	for (it = listaEspera.begin(); it != listaEspera.end(); it++) {
+		if (it->equipo == equipo) {
+			contador++;
+		}
+	}
+	return contador;
+}
 int Partida::GetCantidadDesconectados() {
 	return listaDesconectados.size();
 }
@@ -530,16 +540,16 @@ int Partida::GetCantidadEspera() {
 
 void Partida::IniciarSeleccionPersonajes(){
 	listaJugadores = listaEspera;
-//	listaEspera.clear();
+	//	listaEspera.clear();
 	this->SetJugadoresPersonajeInicial();
 	this->seleccionPersonajesIniciada = true;
 }
 void Partida::DetenerJugadores(){
-		list<ClienteConectado>::iterator it;
-		for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
-			// Asigno a todos como suplentes para dejar de recibir comandos
-			it->titular = false;
-		}
+	list<ClienteConectado>::iterator it;
+	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+		// Asigno a todos como suplentes para dejar de recibir comandos
+		it->titular = false;
+	}
 }
 string Partida::validarNombreUsuario(string nombreUsuario){
 	cout << "nombre recibido: " << nombreUsuario << endl;
@@ -572,10 +582,20 @@ void Partida::HandleEventSeleccionPersonajes(string nombreJugador, DataSeleccion
 	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
 
 		if(it->nombre == nombreJugador){
-			it->personajeConfirmado = data->confirmado;
-			if(data->personajeId >= 0){
+			if(PersonajesSeleccionCompletaTitular()){
+				it->personajeConfirmadoSuplente = data->confirmado;
+
+			}else{
+				it->personajeConfirmado = data->confirmado;
+
+			}
+			if (data->personajeId >= 0) {
 				it->personajeId = data->personajeId;
 			}
+			//			it->personajeConfirmado = data->confirmado;
+			//			if(data->personajeId >= 0){
+			//				it->personajeId = data->personajeId;
+			//			}
 		}
 	}
 
@@ -589,22 +609,22 @@ bool Partida::PersonajesSeleccionCompleta(){
 		return false;
 	}
 
-//	list<ClienteConectado>::iterator it;
-//	int personajeIdNoValido = static_cast<int>(PERSONAJE::P_NA);
-//	unsigned int cantidadSeleccionada = 0;
-//
-//	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
-//
-//		if(it->personajeId != personajeIdNoValido && it->personajeConfirmado){
-//			cantidadSeleccionada++;
-//		}
-//	}
-//	if(listaJugadores.size() == cantidadSeleccionada){
-//		return true;
-//	}
-//	else{
-//		return false;
-//	}
+	//	list<ClienteConectado>::iterator it;
+	//	int personajeIdNoValido = static_cast<int>(PERSONAJE::P_NA);
+	//	unsigned int cantidadSeleccionada = 0;
+	//
+	//	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+	//
+	//		if(it->personajeId != personajeIdNoValido && it->personajeConfirmado){
+	//			cantidadSeleccionada++;
+	//		}
+	//	}
+	//	if(listaJugadores.size() == cantidadSeleccionada){
+	//		return true;
+	//	}
+	//	else{
+	//		return false;
+	//	}
 }
 bool Partida::PersonajesSeleccionCompletaTitular() {
 	list<ClienteConectado>::iterator it;

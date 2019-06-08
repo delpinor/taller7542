@@ -28,7 +28,6 @@ private:
 	void inicializarClips();
 	bool inicializar();
 	bool loadMedia();
-	bool loadText();
 	SDL_Event e;
 	ModeloVistaSeleccion modelo;
 	std::list<int> personajes;
@@ -68,6 +67,8 @@ private:
 	void personajeSiguiente();
 	void personajeAnterior();
 public:
+	bool loadText();
+	std::string TextoMensaje = "Presione ESPACIO para Confirmar";
 	ViewMenu(int i);
 	void handleEvent(bool *quit, int *personajeSelecionadoId, bool *personajeEstaConfirmado);
 	void close();

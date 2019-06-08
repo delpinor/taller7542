@@ -81,6 +81,7 @@ public:
 	ClienteConectado GetClienteDesconectado(string nombre);
 	int GetCantidadJugando();
 	int GetCantidadJugando(int equipo);
+	int GetCantidadEnEspera(int equipo);
 	int GetCantidadDesconectados();
 	int GetCantidadEspera();
 	bool TieneSuplente(int equipo);

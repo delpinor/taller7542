@@ -194,6 +194,8 @@ int Cliente::recibirModeloDelServidor() {
 			Titular = unClienteEquipo.titular;
 			Equipo = unClienteEquipo.equipo;
 			NroJugador = unClienteEquipo.nroJugador;
+			CantidadEquipo = unClienteEquipo.cantidadEquipo;
+
 			this->vistaMenu->setNroJugadorLocal(this->NroJugador);
 			pthread_mutex_unlock(&mutexx);
 

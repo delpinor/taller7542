@@ -112,22 +112,27 @@ int main(int argc, char* argv[]) {
 		cout << "Hilos del cliente lanzados | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
 		cout << "Socket: " << cliente.getConexion()->getSocketCliente()<< endl;
-		DataSeleccionAlServidor unModelo;
-		int personajeSeleccionadoId = static_cast<int>(PERSONAJE::P_NA);
-		bool personajeEstaConfirmado = false;
+
 		bool quitSeleccionMenu = false;
 		while (!quitSeleccionMenu && !cliente.EstaFinalizadaSeleccionPersonaje()) {
 			if(cliente.EstaIniciadaSeleccionPersonaje()){
 				//cout << "Ingresó en selección de personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
-
+				int personajeSeleccionadoId = static_cast<int>(PERSONAJE::P_NA);
+				bool personajeEstaConfirmado = false;
 				viewMenu.handleEvent(&quitSeleccionMenu, &personajeSeleccionadoId, &personajeEstaConfirmado);
 
+				DataSeleccionAlServidor unModelo;
 				unModelo.personajeId = personajeSeleccionadoId;
 				unModelo.confirmado = personajeEstaConfirmado;
 				cliente.EnviarPing();
-				if (personajeSeleccionadoId != -1)
+				if (personajeSeleccionadoId != -1){
 					cliente.enviarDataSeleccionAServidor(unModelo);
+				}
+				if(unModelo.confirmado  && cliente.CantidadEquipo == 1 ){
+					viewMenu.TextoMensaje = "Elija su SEGUNDO personaje";
+					viewMenu.loadText();
+				}
 
 				viewMenu.render();
 			}

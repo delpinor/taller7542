@@ -72,7 +72,7 @@ bool ViewMenu::loadText() {
 			success = false;
 		}
 
-		if (!gTextTexture2.loadFromRenderedText("Presione ESPACIO para Confirmar",
+		if (!gTextTexture2.loadFromRenderedText(TextoMensaje,
 				textColor, gRenderer, gFont2)) {
 			printf("Failed to render text texture!\n");
 			success = false;
@@ -109,6 +109,8 @@ bool ViewMenu::loadText() {
 void ViewMenu::render() {
 	SDL_RenderClear(gRenderer);
 	CantidadDeJugadores = modelo.cantidadData;
+
+	gTextTexture2.render(4, 250, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	//fondo
 	texturaFondo.render(0, 0, &fondoclip, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	//logo
