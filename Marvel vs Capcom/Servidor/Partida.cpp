@@ -122,6 +122,11 @@ ModeloSeleccion  Partida::GetModeloSeleccion(){
 		unModeloSeleccionPersonaje.numeroJugador = it->numeroJugador;
 		unModeloSeleccionPersonaje.equipo = it->equipo;
 
+		//NUEVO - ver si va así
+		if(PersonajesSeleccionCompletaTitular()){
+			unModeloSeleccionPersonaje.confirmado = it->personajeConfirmadoSuplente;
+		}
+
 		unModelo.data[contador] = unModeloSeleccionPersonaje;
 		contador++;
 		//cout << "CLIENTE - GetModeloSeleccion: FINALIZADO | "<< it->nombre << " | " << TimeHelper::getStringLocalTimeNow() << endl;
@@ -577,24 +582,64 @@ void Partida::HandleEventSeleccionPersonajes(string nombreJugador, DataSeleccion
 }
 
 bool Partida::PersonajesSeleccionCompleta(){
+	if(PersonajesSeleccionCompletaTitular() && PersonajesSeleccionCompletaSuplente()){
+		return true;
+	}
+	else{
+		return false;
+	}
+
+//	list<ClienteConectado>::iterator it;
+//	int personajeIdNoValido = static_cast<int>(PERSONAJE::P_NA);
+//	unsigned int cantidadSeleccionada = 0;
+//
+//	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+//
+//		if(it->personajeId != personajeIdNoValido && it->personajeConfirmado){
+//			cantidadSeleccionada++;
+//		}
+//	}
+//	if(listaJugadores.size() == cantidadSeleccionada){
+//		return true;
+//	}
+//	else{
+//		return false;
+//	}
+}
+bool Partida::PersonajesSeleccionCompletaTitular() {
 	list<ClienteConectado>::iterator it;
 	int personajeIdNoValido = static_cast<int>(PERSONAJE::P_NA);
 	unsigned int cantidadSeleccionada = 0;
 
 	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
 
-		if(it->personajeId != personajeIdNoValido && it->personajeConfirmado){
+		if (it->personajeId != personajeIdNoValido && it->personajeConfirmado) {
 			cantidadSeleccionada++;
 		}
 	}
-	if(listaJugadores.size() == cantidadSeleccionada){
+	if (2 == cantidadSeleccionada) {
 		return true;
-	}
-	else{
+	} else {
 		return false;
 	}
 }
+bool Partida::PersonajesSeleccionCompletaSuplente() {
+	list<ClienteConectado>::iterator it;
+	int personajeIdNoValido = static_cast<int>(PERSONAJE::P_NA);
+	unsigned int cantidadSeleccionada = 0;
 
+	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+
+		if (it->personajeId != personajeIdNoValido	&& it->personajeConfirmadoSuplente) {
+			cantidadSeleccionada++;
+		}
+	}
+	if (2 == cantidadSeleccionada) {
+		return true;
+	} else {
+		return false;
+	}
+}
 void Partida::SetPersonajes(){
 	list<ClienteConectado>::iterator it;
 	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {

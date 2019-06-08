@@ -17,9 +17,14 @@ struct ClienteConectado{
 	pthread_t tid;
 	string nombre;
 	int equipo = 0;
+
+	//indica si es 0,1. Su uso vale si tiene que seleccionar solo un personaje
+	//va a dejar de usarse, manda el flag "titular"
 	int numeroJugador;
-	//TODO : refactorizar para que solo quede el anterior
+
+	//Indica si es 1p, 2p, 3p,4p
 	int numeroJugadorJuego;
+
 	bool titular;
 	int personajeId = static_cast<int>(PERSONAJE::P_NA);
 	int personajeIdSuplente = static_cast<int>(PERSONAJE::P_NA);
@@ -94,8 +99,12 @@ public:
 	void FinalizarSeleccionPersonajes();
 	bool IniciadaSeleccionPersonajes();
 	bool FinalizadaSeleccionPersonajes();
+
 	void HandleEventSeleccionPersonajes(string nombreJugador, DataSeleccionAlServidor *data);
 	bool PersonajesSeleccionCompleta();
+	bool PersonajesSeleccionCompletaSuplente();
+	bool PersonajesSeleccionCompletaTitular();
+
 	void SetPersonajes();
 	bool EstaHabilitadoEnvioPersonajes();
 	void HabilitarEnvioPersonajes();
