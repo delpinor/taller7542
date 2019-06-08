@@ -18,6 +18,7 @@ struct ClienteConectado{
 	int equipo = 0;
 	int numeroJugador;
 	bool titular;
+	bool esperandoReconexion = false;
 };
 class Partida{
 private:
@@ -66,6 +67,7 @@ public:
 	int GetCantidadJugando(int equipo);
 	int GetCantidadDesconectados();
 	int GetCantidadEspera();
+	ClienteConectado * GetDesconectado(string nombre);
 	bool TieneSuplente(int equipo);
 	bool jugadorReconectado(int equipo);
 	bool hayJugadorParaEquipo(int equipo);

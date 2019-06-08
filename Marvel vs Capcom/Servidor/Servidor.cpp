@@ -14,14 +14,14 @@ void * hilo_conexionServer(void * datosConexion) {
 	HiloConexion* p = (HiloConexion*) datosConexion;
 	while (1) {
 		p->ping = false;
-		sleep(2);
+		sleep(1);
 		if (!p->ping) {
 			//shutdown(p->sock, SHUT_RDWR);
 			//close(p->sock);
-			pthread_mutex_lock(&mutex_server);
+			//pthread_mutex_lock(&mutex_server);
 			miPartida.JugadorDesconectado(p->usuario);
 			cout << "Falla en la comunicacion con el cliente: " << p->sock << endl;
-			pthread_mutex_unlock(&mutex_server);
+			//pthread_mutex_unlock(&mutex_server);
 			pthread_exit(NULL);
 			break;
 		}
@@ -88,8 +88,9 @@ void * enviarDatos(void * datos) {
 
 	bool corriendo = true;
 	while (corriendo) {
-
+		//pthread_mutex_lock(&mutex_server);
 		if(miPartida.EsClienteDesconectadoBySock(sock)){
+			//pthread_mutex_unlock(&mutex_server);
 			cout << "Cliente desconectado!!!######### Hilo enviar datos termminado" << endl;
 			corriendo = false;
 			pthread_exit(NULL);
@@ -259,8 +260,10 @@ void Servidor::AceptarClientes(int maxClientes) {
 
 
 		} else {
-			IDMENSAJE idMsg = COMPLETO;
-			send(socketComunicacion, &idMsg, sizeof(idMsg), 0);
+//			IDMENSAJE idMsg = COMPLETO;
+//			send(socketComunicacion, &idMsg, sizeof(idMsg), 0);
+
+			cout << "NO entra al juego" << endl;
 
 			shutdown(socketComunicacion, SHUT_RDWR);
 			close(socketComunicacion);

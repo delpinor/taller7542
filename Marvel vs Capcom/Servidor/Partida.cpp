@@ -195,23 +195,46 @@ void Partida::EliminarDesconectado(string nombre) {
 		it++;
 	}
 }
+ClienteConectado * Partida::GetDesconectado(string nombre){
+	ClienteConectado * unCliente;
+		list<ClienteConectado>::iterator it;
+		for (it = listaDesconectados.begin(); it != listaDesconectados.end();
+				it++) {
+			if (it->nombre == nombre) {
+				unCliente = &(*it);
+			}
+		}
+		return unCliente;
+}
+
 void Partida::JugadorDesconectado(string nombre) {
 	ClienteConectado unCliente;
 	unCliente = GetClienteJugando(nombre);
+
 	//Borra de lista de jugadores
 	EliminarJugador(nombre);
-	// Agrego a la lista de desconectados
+
+	//
+	unCliente.esperandoReconexion = true;
+
+	// Lista desconectados
 	listaDesconectados.push_back(unCliente);
 	if (unCliente.titular) {
 		if (TieneSuplente(unCliente.equipo)) {
+
+			// No espera reconexion...
+			GetDesconectado(nombre)->esperandoReconexion = false;
+
 			//Suplente ocupa el lugar del titular
 			JuegaSuplente(unCliente.equipo);
-			//Mantiene Personaje/Numero de jugador
-			//SwapPersonaje(unCliente.equipo);
+
 
 		} else {
-			//espero algunos segundos para que el cliente se reconecte
 			partidaFinalizada = !jugadorReconectado(unCliente.equipo);
+			if(partidaFinalizada){
+				GetDesconectado(nombre)->esperandoReconexion = false;
+			}
+
 		}
 	}
 
@@ -229,14 +252,15 @@ void Partida::SwapPersonaje(int equipo){
 	}
 }
 bool Partida::jugadorReconectado(int equipo) {
+	int contador = 20;
 	//Espero la cantidad de segundos indicado en la variable i
-	for (int i = 0; i < 20; i++) {
+	for (int i = 0; i < contador; i++) {
 		if(hayJugadorParaEquipo(equipo)){
 			cout << "Jugador de equipo " << equipo << " se reconectó! La partida continú. "<< endl;
 			return true;
 		}
-		cout << "Esperando que se reconecte jugador de equipo " << equipo << endl;
-		sleep(1);
+		cout << "Esperando que se reconecte en..." << contador - i << endl;
+		sleep(2);
 	}
 	return false;
 }
@@ -425,9 +449,10 @@ bool Partida::EsClienteDesconectado(string nombre) {
 bool Partida::EsClienteDesconectadoBySock(int sock) {
 	ClienteConectado unCliente;
 	list<ClienteConectado>::iterator it;
+
 	for (it = listaDesconectados.begin(); it != listaDesconectados.end();
 			it++) {
-		if (it->socket == sock) {
+		if (it->socket == sock && !it->esperandoReconexion) {
 			return true;
 		}
 	}
