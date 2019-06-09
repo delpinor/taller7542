@@ -16,7 +16,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 		//printf("No se pone gris la imagen!!!!\n");
 		this->desgrisar_imagen();
 	}else{
-		printf("se pone gris la imagen!!!!\n");
+		//printf("se pone gris la imagen!!!!\n");
 		this->grisar_imagen();
 	}
 	if ((this->jugador->estado->getVelX() != 0)

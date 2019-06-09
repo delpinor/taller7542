@@ -18,10 +18,8 @@ int Conexion::Reconectar() {
 
 	cout<<"puerto: "<<_puerto;
 	cout<<"_ip"<<_ip;
-	conectarConServidor(_ip, _puerto);
-	if (falloConexion)
-		return -1;
-	return 0;
+	return conectarConServidor(_ip, _puerto);
+
 }
 int Conexion::conectarConServidor( char* hostname, char * puerto) {
 

@@ -117,7 +117,6 @@ int main(int argc, char* argv[]) {
 		cout << "Hilos del cliente lanzados | "
 				<< TimeHelper::getStringLocalTimeNow() << endl;
 
-		cout << "Socket: " << cliente.getConexion()->getSocketCliente() << endl;
 
 		bool quitSeleccionMenu = false;
 		bool primerSeleccion = true;
@@ -192,10 +191,6 @@ int main(int argc, char* argv[]) {
 		cliente.PararHiloPing();
 		cliente.LanzarHiloConexion();
 		while (!controller.quitPressed()) {
-			//if (controller.quitPressed())
-			//return -1;
-			cout << "Socket: " << cliente.getConexion()->getSocketCliente()
-					<< endl;
 			ComandoAlServidor comandoParaServidor;
 			int comando = controller.processInputCliente();
 			if (cliente.Titular) {

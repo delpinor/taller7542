@@ -41,7 +41,7 @@ void * hilo_ping(void * cliente) {
 			pthread_exit(NULL);
 			break;
 		}
-		usleep(1000);
+		usleep(18000);
 	}
 }
 void * hilo_conexion(void * cliente) {
