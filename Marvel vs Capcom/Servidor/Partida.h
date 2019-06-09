@@ -33,6 +33,7 @@ struct ClienteConectado{
 	bool personajeConfirmadoSuplente = false;
 	bool dataPersonajesEnviada = false;
 	int cantidadPersonajes = 0;
+	bool esperandoReconexion = false;
 };
 class Partida{
 private:
@@ -85,6 +86,7 @@ public:
 	int GetCantidadEnEspera(int equipo);
 	int GetCantidadDesconectados();
 	int GetCantidadEspera();
+	ClienteConectado * GetDesconectado(string nombre);
 	bool TieneSuplente(int equipo);
 	bool jugadorReconectado(int equipo);
 	bool hayJugadorParaEquipo(int equipo);

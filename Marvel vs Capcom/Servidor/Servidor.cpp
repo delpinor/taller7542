@@ -18,10 +18,10 @@ void * hilo_conexionServer(void * datosConexion) {
 		if (!p->ping && miPartida.Iniciada()) {
 			//shutdown(p->sock, SHUT_RDWR);
 			//close(p->sock);
-			pthread_mutex_lock(&mutex_server);
-			cout << "Falla en la comunicacion con el cliente: " << p->sock	<< endl;
+			//pthread_mutex_lock(&mutex_server);
 			miPartida.JugadorDesconectado(p->usuario);
-			pthread_mutex_unlock(&mutex_server);
+			cout << "Falla en la comunicacion con el cliente: " << p->sock << endl;
+			//pthread_mutex_unlock(&mutex_server);
 			pthread_exit(NULL);
 			break;
 		}
@@ -254,8 +254,7 @@ void * enviarDatos(void * datos) {
 			send(sock, &idModelo, sizeof(idModelo), 0);
 			send(sock, &unModelo, sizeof(unModelo), 0);
 		}
-
-		usleep(1000);
+		usleep(18000);
 	}
 }
 
@@ -341,6 +340,7 @@ void * recibirDatos(void * datos) {
 
 			}
 		}
+		usleep(10);
 	}
 }
 void Servidor::LanzarHiloControlSeleccionPersonajes() {
@@ -432,8 +432,10 @@ void Servidor::AceptarClientes(int maxClientes) {
 			pthread_detach(hiloRecepcion);
 
 		} else {
-			IDMENSAJE idMsg = COMPLETO;
-			send(socketComunicacion, &idMsg, sizeof(idMsg), 0);
+//			IDMENSAJE idMsg = COMPLETO;
+//			send(socketComunicacion, &idMsg, sizeof(idMsg), 0);
+
+			cout << "NO entra al juego" << endl;
 
 			shutdown(socketComunicacion, SHUT_RDWR);
 			close(socketComunicacion);

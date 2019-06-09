@@ -25,7 +25,7 @@ void * hilo_escucha(void * cliente) {
 	while (1) {
 		//		cout << "adentro del while de escucha." << endl;
 		p->recibirModeloDelServidor();
-		usleep(60);
+		usleep(10);
 		if (!p->ServidorVivo) {
 			pthread_exit(0);
 			break;
@@ -48,14 +48,13 @@ void * hilo_conexion(void * cliente) {
 	Cliente* p = (Cliente*) cliente;
 	while (1) {
 		p->Ping = false;
-		sleep(1);
+		sleep(2);
 		if (!p->Ping) {
 			p->ServidorVivo = false;
 			p->getConexion()->Cerrar();
-			//			p->getVista()->CajaMensaje("Conexión",
-			//					"Falla en la comunicación. Intentando reconectar...");
-			while (!p->ServidorVivo) {
-				sleep(1);
+			cout << "Falla en la comunicacion. Intentando reconectar..." << endl;
+			while(!p->ServidorVivo){
+				sleep(2);
 				if (p->getConexion()->Reconectar() != -1) {
 					JugadorLogin loginUsuario;
 					IDMENSAJE idMsg = LOGIN;

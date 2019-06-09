@@ -204,8 +204,8 @@ int main(int argc, char* argv[]) {
 				comandoParaServidor.comando = 99;
 			}
 			cliente.enviarComandoAServidor(comandoParaServidor);
-			usleep(50);
 			model.updateCliente(cliente.esta_conectado());
+			usleep(18000);
 			view.render();
 		}
 
