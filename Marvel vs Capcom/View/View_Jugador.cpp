@@ -68,6 +68,7 @@ void View_Jugador::grisar_imagen(){
 void View_Jugador::desgrisar_imagen(){
 
 	this->texturaJugador->setColor(255,255,255); //seto el color a grisb
+	this->texturaJugador->setColor(this->jugador->getR(),this->jugador->getG(),this->jugador->getB());
 
 }
 int View_Jugador::getZIndex() {

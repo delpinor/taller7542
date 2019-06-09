@@ -323,3 +323,19 @@ bool Jugador::movimientoDerecha(){
 bool Jugador::movimientoIzquierda(){
 	return (this->estado->getVelX() < 0);
 }
+
+void Jugador::setColor(int red,int green,int blue){
+	this->r=red;
+	this->g=green;
+	this->b=blue;
+}
+
+int Jugador::getR(){
+return r;
+}
+int Jugador::getG(){
+return g;
+}
+int Jugador::getB(){
+return b;
+}
