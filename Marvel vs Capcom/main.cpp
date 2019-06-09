@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
 	Logger::Inicio(nivelLog, salida);
 	Logger::Log(nivelLog, "INICIO", "Iniciando el programa...");
 
-	char  argConfig[] = "config.json";
+	char argConfig[] = "config.json";
 	Configuracion appConfig(argConfig);
 
 	mapPersonajes = appConfig.get_Config_Personajes();
@@ -36,7 +36,6 @@ int main(int argc, char* argv[]) {
 	altoVentana = appConfig.get_Config_AltoVentana();
 	anchoVentana = appConfig.get_Config_AnchoVentana();
 	nivelLog = appConfig.get_Config_NivelLog();
-
 
 	Logger::Cambiar_nivelLog(nivelLog);
 
@@ -48,8 +47,11 @@ int main(int argc, char* argv[]) {
 	//metodo que carga los personajes ( jugador =personaje)
 	model.cargar_Jugadores(mapPersonajes);
 
-	cout << "MAIN: La cantidad de mapPersonajes es "<< mapPersonajes.size() << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
-	cout << "MAIN: La cantidad de jugadoresEquipo1 es "<< model.jugadoresEquipo1.size() << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
+	cout << "MAIN: La cantidad de mapPersonajes es " << mapPersonajes.size()
+			<< " | " << TimeHelper::getStringLocalTimeNow() << endl;
+	cout << "MAIN: La cantidad de jugadoresEquipo1 es "
+			<< model.jugadoresEquipo1.size() << " | "
+			<< TimeHelper::getStringLocalTimeNow() << endl;
 
 	//seteo los jugadores en los equipos
 	//set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int nroJugador)
@@ -64,7 +66,7 @@ int main(int argc, char* argv[]) {
 	//	model.getEquipoNro(0)->setJugadorActivo(0);
 	//	model.getEquipoNro(1)->setJugadorActivo(0);
 
-	int num_jugadores= appConfig.get_NumJugadores();
+	int num_jugadores = appConfig.get_NumJugadores();
 
 	if (strcmp(argv[1], "servidor") == 0) {
 		puerto = argv[2];
@@ -87,72 +89,90 @@ int main(int argc, char* argv[]) {
 		cout << "Usuario:";
 		cin >> loginUsuario.usuario;
 
-
 		Controller controller;
 		controller.SetModel(&model);
-		cout << "controller creado | "<< TimeHelper::getStringLocalTimeNow() << endl;
+		cout << "controller creado | " << TimeHelper::getStringLocalTimeNow()
+				<< endl;
 
 		ViewMenu viewMenu(0);
-		cout << "Vista Menu creada | "<< TimeHelper::getStringLocalTimeNow() << endl;
+		cout << "Vista Menu creada | " << TimeHelper::getStringLocalTimeNow()
+				<< endl;
 
 		Conexion conexion;
 		Cliente cliente(&viewMenu, &conexion);
-		cout << "Cliente creado | "<< TimeHelper::getStringLocalTimeNow() << endl;
+		cout << "Cliente creado | " << TimeHelper::getStringLocalTimeNow()
+				<< endl;
 		if (cliente.ConectarConServidor(ip, puerto) == -1)
 			return -1;
-		cout << "conectado con servidor | "<< TimeHelper::getStringLocalTimeNow() << endl;
+		cout << "conectado con servidor | "
+				<< TimeHelper::getStringLocalTimeNow() << endl;
 
 		strcpy(cliente.Usuario, loginUsuario.usuario);
 
-		send(conexion.getSocketCliente(), &idMsg, sizeof(idMsg),0);
-		send(conexion.getSocketCliente(), &loginUsuario, sizeof(loginUsuario),0);
-
+		send(conexion.getSocketCliente(), &idMsg, sizeof(idMsg), 0);
+		send(conexion.getSocketCliente(), &loginUsuario, sizeof(loginUsuario),
+				0);
 
 		cliente.lanzarHilosDelJuego();
-		cout << "Hilos del cliente lanzados | "<< TimeHelper::getStringLocalTimeNow() << endl;
+		cout << "Hilos del cliente lanzados | "
+				<< TimeHelper::getStringLocalTimeNow() << endl;
 
-		cout << "Socket: " << cliente.getConexion()->getSocketCliente()<< endl;
+		cout << "Socket: " << cliente.getConexion()->getSocketCliente() << endl;
 
 		bool quitSeleccionMenu = false;
+		bool primerSeleccion = true;
+
 		while (!quitSeleccionMenu && !cliente.EstaFinalizadaSeleccionPersonaje()) {
-			if(cliente.EstaIniciadaSeleccionPersonaje()){
+			if (cliente.EstaIniciadaSeleccionPersonaje()) {
 				//cout << "Ingresó en selección de personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;
+				viewMenu.TextoTitulo = "SELECCION DE PERSONAJE";
 
 				int personajeSeleccionadoId = static_cast<int>(PERSONAJE::P_NA);
 				bool personajeEstaConfirmado = false;
-				viewMenu.handleEvent(&quitSeleccionMenu, &personajeSeleccionadoId, &personajeEstaConfirmado);
+				viewMenu.handleEvent(&quitSeleccionMenu,
+						&personajeSeleccionadoId, &personajeEstaConfirmado);
 
 				DataSeleccionAlServidor unModelo;
 				unModelo.personajeId = personajeSeleccionadoId;
 				unModelo.confirmado = personajeEstaConfirmado;
 				cliente.EnviarPing();
-				if (personajeSeleccionadoId != -1){
+				if (personajeSeleccionadoId != -1) {
 					cliente.enviarDataSeleccionAServidor(unModelo);
 				}
-				if(unModelo.confirmado  && cliente.CantidadEquipo == 1 ){
-					viewMenu.TextoMensaje = "Elija su SEGUNDO personaje";
-					viewMenu.loadText();
-				}
+				if (unModelo.confirmado && cliente.CantidadEquipo == 1) {
+					viewMenu.TextoMensaje =
+							"Elija su SEGUNDO personaje y presione la tecla ESPACIO";
+					primerSeleccion = false;
 
-				viewMenu.render();
+				}
+				if (primerSeleccion) {
+					viewMenu.TextoMensaje =
+							"Elija su personaje y presione la tecla ESPACIO";
+				}
+				viewMenu.loadText();
 			}
-			usleep(50);
+			viewMenu.render();
+			usleep(18000);
 		}
 		viewMenu.close();
 
-		if(quitSeleccionMenu){
+		if (quitSeleccionMenu) {
 			return 1;
 		}
 
-		ModeloResultadoSeleccionPersonaje resultadoSeleccionPersonaje = cliente.ResultadoSeleccionPersonaje;
+		ModeloResultadoSeleccionPersonaje resultadoSeleccionPersonaje =
+				cliente.ResultadoSeleccionPersonaje;
 		for (int i = 0; i < resultadoSeleccionPersonaje.cantidadData; i++) {
-			ModeloResultadoSeleccionItem item = resultadoSeleccionPersonaje.data[i];
-			if(item.cantidadPersonajes == 2){
-				model.set_equipos_with_jugador(item.equipo, 0, item.personaje1Id);
-				model.set_equipos_with_jugador(item.equipo, 1, item.personaje2Id);
-			}
-			else{
-				model.set_equipos_with_jugador(item.equipo, item.numeroJugador, item.personaje1Id);
+			ModeloResultadoSeleccionItem item =
+					resultadoSeleccionPersonaje.data[i];
+			if (item.cantidadPersonajes == 2) {
+				model.set_equipos_with_jugador(item.equipo, 0,
+						item.personaje1Id);
+				model.set_equipos_with_jugador(item.equipo, 1,
+						item.personaje2Id);
+			} else {
+				model.set_equipos_with_jugador(item.equipo, item.numeroJugador,
+						item.personaje1Id);
 			}
 			//cout << "Seteo de personajes |  Equipo "<< it->equipo << " | JugadorEquipoId" << << TimeHelper::getStringLocalTimeNow() << endl;
 		}
@@ -160,27 +180,27 @@ int main(int argc, char* argv[]) {
 		model.getEquipoNro(0)->setJugadorActivo(0);
 		model.getEquipoNro(1)->setJugadorActivo(0);
 
-
 		cliente.LanzarHiloPing();
 		View view(&model);
 		cliente.setVista(&view);
 		// Habilito a recibir el modelo
 		cliente.JuegoIniciado = true;
-		cout << "vista creada."<< endl;
+		cout << "vista creada." << endl;
 		view.setEstadoCliente();
-		cout << "EstadoCliente seteados."<< endl;
+		cout << "EstadoCliente seteados." << endl;
 		// Hilo conexion.
 		cliente.PararHiloPing();
 		cliente.LanzarHiloConexion();
-		while (!controller.quitPressed()){
+		while (!controller.quitPressed()) {
 			//if (controller.quitPressed())
 			//return -1;
-			cout << "Socket: " << cliente.getConexion()->getSocketCliente()<< endl;
+			cout << "Socket: " << cliente.getConexion()->getSocketCliente()
+					<< endl;
 			ComandoAlServidor comandoParaServidor;
 			int comando = controller.processInputCliente();
 			if (cliente.Titular) {
 				comandoParaServidor.comando = comando;
-			}else {
+			} else {
 				comandoParaServidor.comando = 99;
 			}
 			cliente.enviarComandoAServidor(comandoParaServidor);

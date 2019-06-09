@@ -68,7 +68,8 @@ private:
 	void personajeAnterior();
 public:
 	bool loadText();
-	std::string TextoMensaje = "Presione ESPACIO para Confirmar";
+	std::string TextoMensaje = "";
+	std::string TextoTitulo = "ESPERANDO OTROS JUGADORES...";
 	ViewMenu(int i);
 	void handleEvent(bool *quit, int *personajeSelecionadoId, bool *personajeEstaConfirmado);
 	void close();
