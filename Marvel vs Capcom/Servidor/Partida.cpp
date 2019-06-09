@@ -616,7 +616,7 @@ void Partida::HandleEventSeleccionPersonajes(string nombreJugador, DataSeleccion
 	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
 
 		if(it->nombre == nombreJugador){
-			if(PersonajesSeleccionCompletaTitular()){
+			if(PersonajesSeleccionCompletaTitular() && it->cantidadPersonajes == 2){
 				it->personajeConfirmadoSuplente = data->confirmado;
 				if (data->personajeId >= 0) {
 					it->personajeIdSuplente = data->personajeId;
@@ -626,6 +626,7 @@ void Partida::HandleEventSeleccionPersonajes(string nombreJugador, DataSeleccion
 				if (data->personajeId >= 0) {
 					it->personajeId = data->personajeId;
 				}
+				//Para que una vez confirmado, sea visible el puntero del segundo
 				if(data->confirmado && it->cantidadPersonajes == 2){
 					it->personajeIdSuplente = it->personajeId;
 				}

@@ -162,8 +162,16 @@ int main(int argc, char* argv[]) {
 		ModeloResultadoSeleccionPersonaje resultadoSeleccionPersonaje =
 				cliente.ResultadoSeleccionPersonaje;
 		for (int i = 0; i < resultadoSeleccionPersonaje.cantidadData; i++) {
-			ModeloResultadoSeleccionItem item =
-					resultadoSeleccionPersonaje.data[i];
+
+			ModeloResultadoSeleccionItem item = resultadoSeleccionPersonaje.data[i];
+
+			cout << "Equipo: " << item.equipo
+					<< " | Numero Jugador: " << item.numeroJugador
+					<< " | Personaje1: " << item.personaje1Id
+					<< " | Personaje2: " << item.personaje2Id
+					<< endl;
+
+
 			if (item.cantidadPersonajes == 2) {
 				model.set_equipos_with_jugador(item.equipo, 0,
 						item.personaje1Id);
