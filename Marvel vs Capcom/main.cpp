@@ -148,7 +148,7 @@ int main(int argc, char* argv[]) {
 					viewMenu.TextoMensaje =
 							"Elija su personaje y presione la tecla ESPACIO";
 				}
-				viewMenu.loadText();
+				//viewMenu.loadText();
 			}
 			viewMenu.render();
 			usleep(18000);
