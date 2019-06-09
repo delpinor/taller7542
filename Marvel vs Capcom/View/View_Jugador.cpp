@@ -16,7 +16,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 		//printf("No se pone gris la imagen!!!!\n");
 		this->desgrisar_imagen();
 	}else{
-		printf("se pone gris la imagen!!!!\n");
+		//printf("se pone gris la imagen!!!!\n");
 		this->grisar_imagen();
 	}
 	if ((this->jugador->estado->getVelX() != 0)
@@ -68,6 +68,7 @@ void View_Jugador::grisar_imagen(){
 void View_Jugador::desgrisar_imagen(){
 
 	this->texturaJugador->setColor(255,255,255); //seto el color a grisb
+	this->texturaJugador->setColor(this->jugador->getR(),this->jugador->getG(),this->jugador->getB());
 
 }
 int View_Jugador::getZIndex() {

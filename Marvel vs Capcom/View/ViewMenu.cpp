@@ -66,7 +66,7 @@ bool ViewMenu::loadText() {
 	} else {
 		//Render text
 		SDL_Color textColor = { 250, 250, 250 };
-		if (!gTextTexture.loadFromRenderedText("SELECCION DE PERSONAJES",
+		if (!gTextTexture.loadFromRenderedText(TextoTitulo,
 				textColor, gRenderer, gFont2)) {
 			printf("Failed to render text texture!\n");
 			success = false;

@@ -70,6 +70,19 @@ void Model::inicializar(){
 	}
 	this->equipos[0]->setEquipoRival(equipos[1]);
 	this->equipos[1]->setEquipoRival(equipos[0]);
+	if ((this->equipos[0]->jugadores[0]->getNombre() == this->equipos[1]->jugadores[0]->getNombre() )|| (this->equipos[0]->jugadores[0]->getNombre() == this->equipos[1]->jugadores[1]->getNombre() )){
+		this->equipos[0]->jugadores[0]->setColor(255,0,0);
+	}
+	if ((this->equipos[0]->jugadores[1]->getNombre() == this->equipos[1]->jugadores[0]->getNombre() )|| (this->equipos[0]->jugadores[1]->getNombre() == this->equipos[1]->jugadores[1]->getNombre() )){
+		this->equipos[0]->jugadores[1]->setColor(255,0,0);
+	}
+	if (this->equipos[0]->jugadores[0]->getNombre() == this->equipos[0]->jugadores[1]->getNombre() ){
+			this->equipos[0]->jugadores[1]->setColor(255,255,0);
+		}
+	if (this->equipos[1]->jugadores[0]->getNombre() == this->equipos[1]->jugadores[1]->getNombre() ){
+			this->equipos[1]->jugadores[0]->setColor(255,0,255);
+		}
+
 }
 
 int Model::get_alto_Pantalla() {

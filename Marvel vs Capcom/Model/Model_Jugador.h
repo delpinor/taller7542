@@ -20,6 +20,9 @@ private:
 	 int height;
 	 int width;
 	 int zindex;
+	 int r = 255;
+	 int g = 255;
+	 int b = 255;
 	static const int VELOCIDAD_JUGADOR = 1;
 
 	SDL_Rect mCollider;
@@ -46,8 +49,10 @@ public:
 	int get_zindex();
 	std::string getNombre();
 	std::string getPath();
-
-
+	void setColor(int,int,int);
+	int getR();
+	int getG();
+	int getB();
 	//void move();
 	void move(Jugador* jugadorRival, SDL_Rect* camara);
 	int getPosX();

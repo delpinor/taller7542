@@ -16,6 +16,7 @@ void View_Jugador_Venom::initialize(Jugador * model,
 	getSpritesAgachar();
 	getSpritesCambioPersonaje();
 	getSpritesAnimacion();
+	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
 }
 
 void View_Jugador_Venom::getSpritesAnimacion() {
