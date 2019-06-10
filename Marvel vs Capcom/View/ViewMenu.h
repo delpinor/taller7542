@@ -50,6 +50,7 @@ private:
 	LTexture texturaVenom;
 	LTexture texturaMenuSelec;
 	LTexture texturaFondo;
+	LTexture texturaFondoLogin;
 	LTexture texturaLogo;
 	LTexture texturaJugadorClienteSeleccionado1;
 	LTexture texturaJugadorClienteSeleccionado2;
@@ -61,14 +62,17 @@ private:
 	LTexture texturaTextoSeleccionadoCliente2;
 	LTexture texturaTextoSeleccionadoCliente3;
 	LTexture texturaTextoSeleccionadoCliente4;
+	LTexture gPromptTextTexture;
+	LTexture gInputTextTexture;
 	TTF_Font *gFont = NULL;
 	TTF_Font *gFont2 = NULL;
 	int ancho_Pantalla, alto_Pantalla;
 	void personajeSiguiente();
 	void personajeAnterior();
 public:
+	int getNombre_usuario(std::string &nombre);
 	bool loadText();
-	std::string TextoMensaje = "";
+	std::string TextoMensaje = " ";
 	std::string TextoTitulo = "ESPERANDO OTROS JUGADORES...";
 	ViewMenu(int i);
 	void handleEvent(bool *quit, int *personajeSelecionadoId, bool *personajeEstaConfirmado);

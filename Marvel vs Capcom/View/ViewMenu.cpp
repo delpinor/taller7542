@@ -44,6 +44,8 @@ bool ViewMenu::loadMedia() {
 			gRenderer, ANCHO_CUADRO_JUGADOR, ALTO_CUADRO_JUGADOR);
 	texturaFondo.loadFromFile("Images/fondoc.png", gRenderer, SCREEN_WIDTH,
 			SCREEN_HEIGHT);
+	texturaFondoLogin.loadFromFile("Images/fondologin.jpg", gRenderer, 0,
+			0);
 	return true;
 
 }
@@ -438,3 +440,122 @@ void ViewMenu::setNroJugadorLocal(int valor) {
 list<ModeloPersonajeVistaSeleccion> ViewMenu::getDataSeleccionada(){
 	return this->modelo.data;
 }
+
+
+int ViewMenu::getNombre_usuario(std::string &nombre)
+{
+	//Main loop flag
+	bool quit = false;
+	//Event handler
+	SDL_Event e;
+	//The current input text.
+	std::string inputText = " ";
+	SDL_Color textColor = { 250, 50, 50 };
+
+	gInputTextTexture.loadFromRenderedText(inputText.c_str(), textColor,
+			gRenderer, gFont);
+	gPromptTextTexture.loadFromRenderedText("Ingrese Nombre: ", textColor, gRenderer,
+			gFont);
+	//Enable text input
+	SDL_StartTextInput();
+	//While application is running
+	while ((!quit)) {
+		//The rerender text flag
+		bool renderText = false;
+
+		//Handle events on queue
+		while (SDL_PollEvent(&e) != 0) {
+			//User requests quit
+			if (e.type == SDL_QUIT) {
+				//quit = true;
+			}
+
+			//Special key input
+			else if (e.type == SDL_KEYDOWN) {
+				if (e.key.keysym.sym == SDLK_RETURN && inputText.length() > 0 && inputText != " ") {
+					quit = true;
+				}
+				//Handle backspace
+				if (e.key.keysym.sym == SDLK_BACKSPACE
+						&& inputText.length() > 0) {
+					//lop off character
+					inputText.pop_back();
+					renderText = true;
+				}
+				//Handle copy
+				else if (e.key.keysym.sym
+						== SDLK_c&& SDL_GetModState() & KMOD_CTRL) {
+					SDL_SetClipboardText(inputText.c_str());
+				}
+				//Handle paste
+				else if (e.key.keysym.sym
+						== SDLK_v&& SDL_GetModState() & KMOD_CTRL) {
+					inputText = SDL_GetClipboardText();
+					renderText = true;
+				}
+			}
+			//Special text input event
+			else if (e.type == SDL_TEXTINPUT) {
+				//Not copy or pasting
+				if (!((e.text.text[0] == 'c' || e.text.text[0] == 'C')
+						&& (e.text.text[0] == 'v' || e.text.text[0] == 'V')
+						&& SDL_GetModState() & KMOD_CTRL)) {
+					//Append character
+					inputText += e.text.text;
+					renderText = true;
+				}
+			}
+		}
+
+		//Rerender text if needed
+		if (renderText) {
+			//Text is not empty
+			if (inputText != "") {
+				//Render new text
+				gInputTextTexture.loadFromRenderedText(inputText.c_str(),
+						textColor, gRenderer, gFont);
+			}
+			//Text is empty
+			else {
+				//Render space texture
+				gInputTextTexture.loadFromRenderedText(" ", textColor,
+						gRenderer, gFont);
+			}
+		}
+
+		//Clear screen
+		SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+
+		SDL_RenderClear(gRenderer);
+
+		framealpha += (10);
+		//fondo
+		texturaFondoLogin.render(0, 0, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
+		//logo
+		texturaLogo.render(((SCREEN_WIDTH)/2)-150, ((SCREEN_HEIGHT)/2)-83, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
+		//Render text textures
+		gPromptTextTexture.render((SCREEN_WIDTH)/2 - gPromptTextTexture.getWidth()/2 , ((SCREEN_HEIGHT)/2)+ 130, NULL, 0.0, NULL, SDL_FLIP_NONE,
+				gRenderer);
+		gPromptTextTexture.setAlpha(framealpha);
+
+		 textColor.r = 0;
+		 textColor.g = 0;
+		 textColor.b = 0;
+		gInputTextTexture.render((SCREEN_WIDTH)/2 - gInputTextTexture.getWidth()/2, ((SCREEN_HEIGHT)/2)+ 130+ gPromptTextTexture.getHeight(), NULL, 0.0, NULL, SDL_FLIP_NONE,
+				gRenderer);
+		gInputTextTexture.setAlpha(framealpha*10);
+
+
+		//Update screen
+		SDL_RenderPresent(gRenderer);
+	}
+
+	//Disable text input
+	SDL_StopTextInput();
+	nombre = inputText;
+	return  0;
+
+}
+
+
+

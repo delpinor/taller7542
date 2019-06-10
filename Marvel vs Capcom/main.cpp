@@ -81,13 +81,7 @@ int main(int argc, char* argv[]) {
 		puerto = argv[3];
 		cout << "puerto: " << puerto << endl;
 
-		// Envio de usuario
-		//caja.MensajeConEntrada("Titulo","Cuerpo");
-		JugadorLogin loginUsuario;
 		IDMENSAJE idMsg = LOGIN;
-		// Capturo datos del jugador
-		cout << "Usuario:";
-		cin >> loginUsuario.usuario;
 
 		Controller controller;
 		controller.SetModel(&model);
@@ -106,11 +100,11 @@ int main(int argc, char* argv[]) {
 			return -1;
 		cout << "conectado con servidor | "
 				<< TimeHelper::getStringLocalTimeNow() << endl;
-
-		strcpy(cliente.Usuario, loginUsuario.usuario);
-
+		std::string nombre_usuario;
+		viewMenu.getNombre_usuario(nombre_usuario);
+		strcpy(cliente.Usuario, nombre_usuario.c_str());
 		send(conexion.getSocketCliente(), &idMsg, sizeof(idMsg), 0);
-		send(conexion.getSocketCliente(), &loginUsuario, sizeof(loginUsuario),
+		send(conexion.getSocketCliente(), &cliente.Usuario, sizeof(cliente.Usuario),
 				0);
 
 		cliente.lanzarHilosDelJuego();
