@@ -36,8 +36,8 @@ class Conexion{
 		void Cerrar();
 		int prepararSocketServidor();
 		int aceptarConexionCliente();
-		int enviar_mensaje(int socket, void* mensaje, int tam_mensaje);
-		int recibir_mensaje(int socket, void* mensaje, int tam_mensaje);
+		int enviar_mensaje(int socket, char* mensaje, int tam_mensaje);
+		int recibir_mensaje(int socket, char* mensaje, int tam_mensaje);
 		int recibirMensajeDelServidor();
 		int getSocketCliente();
 		void close_socket(int socket);

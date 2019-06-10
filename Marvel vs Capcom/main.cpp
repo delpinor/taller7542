@@ -103,9 +103,24 @@ int main(int argc, char* argv[]) {
 		std::string nombre_usuario;
 		viewMenu.getNombre_usuario(nombre_usuario);
 		strcpy(cliente.Usuario, nombre_usuario.c_str());
-		send(conexion.getSocketCliente(), &idMsg, sizeof(idMsg), 0);
-		send(conexion.getSocketCliente(), &cliente.Usuario, sizeof(cliente.Usuario),
-				0);
+		int error_conexion;
+
+				error_conexion=conexion.enviar_mensaje(conexion.getSocketCliente(),(char *) &idMsg, sizeof(idMsg));
+				//verifico que no haya error de conexion
+				if (error_conexion<0){
+					cout<<"Main, error de conexion"<<endl;
+					//falta cerrar socktes
+					return -1;
+				}
+				error_conexion=conexion.enviar_mensaje(conexion.getSocketCliente(),(char *) &cliente.Usuario, sizeof(cliente.Usuario));
+
+				if (error_conexion<0){
+							cout<<"Main, error de conexion"<<endl;
+							//falta cerrar socktes
+							return -1;
+		}
+		//send(conexion.getSocketCliente(), &idMsg, sizeof(idMsg), 0);
+		//send(conexion.getSocketCliente(), &cliente.Usuario, sizeof(cliente.Usuario),0);
 
 		cliente.lanzarHilosDelJuego();
 		cout << "Hilos del cliente lanzados | "

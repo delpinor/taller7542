@@ -34,9 +34,19 @@ void * hilo_escucha(void * cliente) {
 }
 void * hilo_ping(void * cliente) {
 	Cliente* p = (Cliente*) cliente;
+	int sock=p->getConexion()->getSocketCliente();
+	int error_conexion;
 	while (1) {
 		IDMENSAJE idMsg = PING;
-		send(p->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
+		/*
+		error_conexion=p->getConexion()->enviar_mensaje(sock, (char *) &idMsg, sizeof(idMsg));
+				//verifico que no haya error de conexion
+				if (error_conexion<0){
+					cout<<"Cliente , hilo_ping: error de conexion"<<endl;
+					//falta cerrar socktes y enviar error
+				}
+				*/
+				send(p->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
 		if (!p->EnviarPingHilo) {
 			pthread_exit(NULL);
 			break;
@@ -46,6 +56,8 @@ void * hilo_ping(void * cliente) {
 }
 void * hilo_conexion(void * cliente) {
 	Cliente* p = (Cliente*) cliente;
+	int sock=p->getConexion()->getSocketCliente();
+	int error_conexion;
 	while (1) {
 		p->Ping = false;
 		sleep(2);
@@ -59,10 +71,23 @@ void * hilo_conexion(void * cliente) {
 					JugadorLogin loginUsuario;
 					IDMENSAJE idMsg = LOGIN;
 					strcpy(loginUsuario.usuario, p->Usuario);
-					send(p->getConexion()->getSocketCliente(), &idMsg,
-							sizeof(idMsg), 0);
-					send(p->getConexion()->getSocketCliente(), &loginUsuario,
-							sizeof(loginUsuario), 0);
+
+					error_conexion=p->getConexion()->enviar_mensaje(sock, (char *) &idMsg, sizeof(idMsg));
+					//verifico que no haya error de conexion
+					if (error_conexion<0){
+						cout<<"Cliente , hilo_ping: error de conexion"<<endl;
+						//falta cerrar socktes y enviar error
+					}
+					error_conexion=p->getConexion()->enviar_mensaje(sock, (char *) &loginUsuario,sizeof(loginUsuario));
+					//verifico que no haya error de conexion
+					if (error_conexion<0){
+						cout<<"Cliente , hilo_ping: error de conexion"<<endl;
+						//falta cerrar socktes y enviar error
+					}
+
+
+					//send(p->getConexion()->getSocketCliente(), &idMsg,sizeof(idMsg), 0);
+					//send(p->getConexion()->getSocketCliente(), &loginUsuario,sizeof(loginUsuario), 0);
 					p->lanzarHilosDelJuego();
 					p->LanzarHiloConexion();
 					p->ServidorVivo = true;
@@ -154,30 +179,80 @@ int Cliente::ConectarConServidor(char* hostname, char* puerto) {
 
 void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
 	if (this->ServidorVivo) {
+		int sock=this->getConexion()->getSocketCliente();
+		int error_conexion;
 		IDMENSAJE com = COMANDO;
 		IDMENSAJE idCabecera = PING;
-		send(this->getConexion()->getSocketCliente(), &idCabecera, sizeof(idCabecera), MSG_NOSIGNAL);
-		send(this->getConexion()->getSocketCliente(), &com, sizeof(com),MSG_NOSIGNAL);
-		send(this->getConexion()->getSocketCliente(), &comando, sizeof(comando),	MSG_NOSIGNAL);
+		error_conexion=this->getConexion()->enviar_mensaje(sock, (char *) &idCabecera, sizeof(idCabecera));
+		//verifico que no haya error de conexion
+		if (error_conexion<0){
+			cout<<"Cliente , enviarComandoAServidor: error de conexion"<<endl;
+			//falta cerrar socktes y enviar error
+		}
+		error_conexion=this->getConexion()->enviar_mensaje(sock, (char *) &com, sizeof(com));
+		//verifico que no haya error de conexion
+		if (error_conexion<0){
+			cout<<"Cliente , enviarComandoAServidor: error de conexion"<<endl;
+			//falta cerrar socktes y enviar error
+		}
+		error_conexion=this->getConexion()->enviar_mensaje(sock, (char *) &comando, sizeof(comando));
+		//verifico que no haya error de conexion
+		if (error_conexion<0){
+			cout<<"Cliente , enviarComandoAServidor: error de conexion"<<endl;
+			//falta cerrar socktes y enviar error
+		}
+
+
+		//send(this->getConexion()->getSocketCliente(), &idCabecera, sizeof(idCabecera), MSG_NOSIGNAL);
+		//send(this->getConexion()->getSocketCliente(), &com, sizeof(com),MSG_NOSIGNAL);
+		//send(this->getConexion()->getSocketCliente(), &comando, sizeof(comando),	MSG_NOSIGNAL);
 	}
 }
 void Cliente::EnviarPing(){
+	int sock=this->getConexion()->getSocketCliente();
+	int error_conexion;
 	IDMENSAJE idCabecera = PING;
+	/*
+	error_conexion=this->getConexion()->enviar_mensaje(sock, (char *) &idCabecera, sizeof(idCabecera));
+		//verifico que no haya error de conexion
+		if (error_conexion<0){
+			cout<<"Cliente , EnviarPing: error de conexion"<<endl;
+			//falta cerrar socktes y enviar error
+		}*/
 	send(this->getConexion()->getSocketCliente(), &idCabecera, sizeof(idCabecera), MSG_NOSIGNAL);
 }
 void Cliente::enviarDataSeleccionAServidor(DataSeleccionAlServidor data) {
-
-	int error = 0;
+	int sock=this->getConexion()->getSocketCliente();
+	int error_conexion;
 	IDMENSAJE com = DATASELECCION;
-	error = send(this->getConexion()->getSocketCliente(), &com, sizeof(com),
-			MSG_NOSIGNAL);
-	error = send(this->getConexion()->getSocketCliente(), &data, sizeof(data),
-			MSG_NOSIGNAL);
+	error_conexion=this->getConexion()->enviar_mensaje(sock, (char *)&com, sizeof(com));
+	//verifico que no haya error de conexion
+	if (error_conexion<0){
+		cout<<"Cliente , EnviarPing: error de conexion"<<endl;
+		//falta cerrar socktes y enviar error
+	}
+	error_conexion=this->getConexion()->enviar_mensaje(sock, (char *) &data, sizeof(data));
+	//verifico que no haya error de conexion
+	if (error_conexion<0){
+		cout<<"Cliente , EnviarPing: error de conexion"<<endl;
+		//falta cerrar socktes y enviar error
+	}
+	//error = send(this->getConexion()->getSocketCliente(), &com, sizeof(com),MSG_NOSIGNAL);
+	//error = send(this->getConexion()->getSocketCliente(), &data, sizeof(data),MSG_NOSIGNAL);
 }
 int Cliente::recibirModeloDelServidor() {
+	int sock=this->getConexion()->getSocketCliente();
+	int errorRecv;
 	IDMENSAJE idMsg;
-	int errorRecv = recv(this->getConexion()->getSocketCliente(), &idMsg,
-			sizeof(idMsg), 0);
+	errorRecv=this->getConexion()->enviar_mensaje(sock, (char *)&idMsg,sizeof(idMsg));
+	//verifico que no haya error de conexion
+	if (errorRecv<0){
+		cout<<"Cliente , recibirModeloDelServidor: error de conexion"<<endl;
+		//falta cerrar socktes y enviar error
+	}
+
+
+	// errorRecv = recv(this->getConexion()->getSocketCliente(), &idMsg,sizeof(idMsg), 0);
 	if (errorRecv > 0) {
 		//-------->Recibe PING
 		if ((idMsg == PING)) {
@@ -188,7 +263,14 @@ int Cliente::recibirModeloDelServidor() {
 		//-------->Recibe EQUIPO
 		if (idMsg == EQUIPO) {
 			ClienteEquipo unClienteEquipo;
-			recv(this->getConexion()->getSocketCliente(), &unClienteEquipo,	sizeof(unClienteEquipo), 0);
+			errorRecv=this->getConexion()->enviar_mensaje(sock, (char *) &unClienteEquipo,	sizeof(unClienteEquipo));
+			//verifico que no haya error de conexion
+			if (errorRecv<0){
+				cout<<"Cliente , recibirModeloDelServidor: error de conexion"<<endl;
+				//falta cerrar socktes y enviar error
+			}
+
+			//recv(this->getConexion()->getSocketCliente(), &unClienteEquipo,	sizeof(unClienteEquipo), 0);
 			pthread_mutex_lock(&mutexx);
 			Titular = unClienteEquipo.titular;
 			Equipo = unClienteEquipo.equipo;
@@ -211,7 +293,14 @@ int Cliente::recibirModeloDelServidor() {
 		//-------->Recibe JUEGO INICIADO
 		if (idMsg == JUEGOINICIADO){
 			ModeloResultadoSeleccionPersonaje unModelo;
-			recv(this->getConexion()->getSocketCliente(), &unModelo, sizeof(unModelo), 0);
+			errorRecv=this->getConexion()->enviar_mensaje(sock, (char *)&unModelo, sizeof(unModelo));
+			//verifico que no haya error de conexion
+			if (errorRecv<0){
+				cout<<"Cliente , recibirModeloDelServidor: error de conexion"<<endl;
+				//falta cerrar socktes y enviar error
+			}
+
+			//recv(this->getConexion()->getSocketCliente(), &unModelo, sizeof(unModelo), 0);
 			this->FinalizarSeleccionPersonaje();
 			this->ResultadoSeleccionPersonaje = unModelo;
 		}
@@ -219,8 +308,14 @@ int Cliente::recibirModeloDelServidor() {
 		//-------->Recibe MODELO
 		if (idMsg == MODELO && this->JuegoIniciado) {
 			ModeloEstado unModelo;
-			recv(this->getConexion()->getSocketCliente(), &unModelo,
-					sizeof(unModelo), 0);
+			errorRecv=this->getConexion()->enviar_mensaje(sock, (char *)&unModelo, sizeof(unModelo));
+			//verifico que no haya error de conexion
+			if (errorRecv<0){
+				cout<<"Cliente , recibirModeloDelServidor: error de conexion"<<endl;
+				//falta cerrar socktes y enviar error
+			}
+
+			//recv(this->getConexion()->getSocketCliente(), &unModelo,sizeof(unModelo), 0);
 			pthread_mutex_lock(&mutexx);
 			//actualizarModelo(unModelo);
 			//this->PushModeloEnCola(unModelo);
@@ -275,8 +370,13 @@ int Cliente::recibirModeloDelServidor() {
 			//cout << "CLIENTE - recibirModeloDelServidor: Recibiendo DATAPERSONAJES | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
 			ModeloPersonajes unModelo;
-			recv(this->getConexion()->getSocketCliente(), &unModelo,
-					sizeof(unModelo), 0);
+			errorRecv=this->getConexion()->enviar_mensaje(sock, (char *)&unModelo, sizeof(unModelo));
+			//verifico que no haya error de conexion
+			if (errorRecv<0){
+				cout<<"Cliente , recibirModeloDelServidor: error de conexion"<<endl;
+				//falta cerrar socktes y enviar error
+			}
+			//recv(this->getConexion()->getSocketCliente(), &unModelo,sizeof(unModelo), 0);
 			pthread_mutex_lock(&mutexx);
 			this->vistaMenu->setPersonajes(&unModelo);
 			pthread_mutex_unlock(&mutexx);
@@ -290,8 +390,14 @@ int Cliente::recibirModeloDelServidor() {
 			//cout << "CLIENTE - recibirModeloDelServidor: Recibiendo MODELOSELECCION | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
 			ModeloSeleccion unModelo;
+			errorRecv=this->getConexion()->enviar_mensaje(sock, (char *)&unModelo, sizeof(unModelo));
+			//verifico que no haya error de conexion
+			if (errorRecv<0){
+				cout<<"Cliente , recibirModeloDelServidor: error de conexion"<<endl;
+				//falta cerrar socktes y enviar error
+			}
 
-			recv(this->getConexion()->getSocketCliente(), &unModelo,sizeof(unModelo), 0);
+			//recv(this->getConexion()->getSocketCliente(), &unModelo,sizeof(unModelo), 0);
 
 			pthread_mutex_lock(&mutexx);
 			this->vistaMenu->setModeloSeleccion(unModelo);

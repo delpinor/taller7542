@@ -8,6 +8,7 @@
 using namespace std;
 pthread_mutex_t mutex_server;
 Partida miPartida;
+Conexion conexion;
 
 // Hilo Conexion
 void * hilo_conexionServer(void * datosConexion) {
@@ -149,7 +150,7 @@ void * loggeoPartida(void *) {
 void * enviarDatos(void * datos) {
 	int sock = ((DatosHiloServidor*) datos)->sock;
 	string usuario = ((DatosHiloServidor*) datos)->usuario;
-
+	int error_conexion;
 	bool corriendo = true;
 	bool avisoJuegoIniciado = false;
 	while (corriendo) {
@@ -161,11 +162,18 @@ void * enviarDatos(void * datos) {
 			pthread_exit(NULL);
 			break;
 		}
-		//cout << "SERVIDOR - enviarDatos: PING ENVIADO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+
 
 		////------->Mensaje de conexión
 		IDMENSAJE idPing = PING;
-		send(sock, &idPing, sizeof(idPing), 0);
+		error_conexion=conexion.enviar_mensaje(sock, (char *) &idPing, sizeof(idPing));
+		//verifico que no haya error de conexion
+		if (error_conexion<0){
+			cout<<"Server, enviarDatos: error de conexion"<<endl;
+			//falta cerrar socktes y enviar error
+		}
+
+		//send(sock, &idPing, sizeof(idPing), 0);
 
 		//------->Mensaje de Equipo
 		IDMENSAJE idEquipo = EQUIPO;
@@ -190,8 +198,21 @@ void * enviarDatos(void * datos) {
 		}
 		pthread_mutex_unlock(&mutex_server);
 		if (unEquipo.equipo != 99) {
-			send(sock, &idEquipo, sizeof(idEquipo), 0);
-			send(sock, &unEquipo, sizeof(unEquipo), 0);
+			error_conexion=conexion.enviar_mensaje(sock, (char *)  &idEquipo, sizeof(idEquipo));
+			//verifico que no haya error de conexion
+			if (error_conexion<0){
+				cout<<"Server, enviarDatos: error de conexion"<<endl;
+				//falta cerrar socktes y enviar error
+			}
+			error_conexion=conexion.enviar_mensaje(sock, (char *) &unEquipo, sizeof(unEquipo));
+			//verifico que no haya error de conexion
+			if (error_conexion<0){
+				cout<<"Server, enviarDatos: error de conexion"<<endl;
+
+				//falta cerrar socktes y enviar error
+			}
+			//send(sock, &idEquipo, sizeof(idEquipo), 0);
+			//send(sock, &unEquipo, sizeof(unEquipo), 0);
 		}
 		//cout << "SERVIDOR - enviarDatos: EQUIPO ENVIADO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 
@@ -211,8 +232,20 @@ void * enviarDatos(void * datos) {
 			}
 			pthread_mutex_unlock(&mutex_server);
 			if (enviar) {
-				send(sock, &idModelo, sizeof(idModelo), 0);
-				send(sock, &unModelo, sizeof(unModelo), 0);
+				error_conexion=conexion.enviar_mensaje(sock, (char *)&idModelo, sizeof(idModelo));
+				//verifico que no haya error de conexion
+				if (error_conexion<0){
+					cout<<"Server, enviarDatos: error de conexion"<<endl;
+					//falta cerrar socktes y enviar error
+				}
+				error_conexion=conexion.enviar_mensaje(sock, (char *)  &unModelo, sizeof(unModelo));
+				//verifico que no haya error de conexion
+				if (error_conexion<0){
+					cout<<"Server, enviarDatos: error de conexion"<<endl;
+					//falta cerrar socktes y enviar error
+				}
+				//send(sock, &idModelo, sizeof(idModelo), 0);
+				//send(sock, &unModelo, sizeof(unModelo), 0);
 
 				pthread_mutex_lock(&mutex_server);
 				miPartida.SetDataPersonajesEnviada(usuario);
@@ -232,16 +265,43 @@ void * enviarDatos(void * datos) {
 			ModeloSeleccion unModelo = miPartida.GetModeloSeleccion();
 			pthread_mutex_unlock(&mutex_server);
 
-			send(sock, &idModelo, sizeof(idModelo), 0);
-			send(sock, &unModelo, sizeof(unModelo), 0);
+			error_conexion=conexion.enviar_mensaje(sock, (char *)&idModelo, sizeof(idModelo));
+			//verifico que no haya error de conexion
+			if (error_conexion<0){
+				cout<<"Server, enviarDatos: error de conexion"<<endl;
+				//falta cerrar socktes y enviar error
+			}
+			error_conexion=conexion.enviar_mensaje(sock, (char *)  &unModelo, sizeof(unModelo));
+			//verifico que no haya error de conexion
+			if (error_conexion<0){
+				cout<<"Server, enviarDatos: error de conexion"<<endl;
+				//falta cerrar socktes y enviar error
+							}
+			//send(sock, &idModelo, sizeof(idModelo), 0);
+			//send(sock, &unModelo, sizeof(unModelo), 0);
 
 		}
 		//------->Envio de confirmacion de inicio de juego
 		if (miPartida.Iniciada() && !avisoJuegoIniciado) {
 			IDMENSAJE idModelo = JUEGOINICIADO;
 			ModeloResultadoSeleccionPersonaje unModelo = miPartida.getResultadoSeleccionPersonaje();
-			send(sock, &idModelo, sizeof(idModelo), 0);
-			send(sock, &unModelo, sizeof(unModelo), 0);
+
+			error_conexion=conexion.enviar_mensaje(sock, (char *)&idModelo, sizeof(idModelo));
+			//verifico que no haya error de conexion
+			if (error_conexion<0){
+				cout<<"Server, enviarDatos: error de conexion"<<endl;
+				//falta cerrar socktes y enviar error
+			}
+			error_conexion=conexion.enviar_mensaje(sock, (char *)  &unModelo, sizeof(unModelo));
+			//verifico que no haya error de conexion
+			if (error_conexion<0){
+				cout<<"Server, enviarDatos: error de conexion"<<endl;
+				//falta cerrar socktes y enviar error
+			}
+
+
+			//send(sock, &idModelo, sizeof(idModelo), 0);
+			//send(sock, &unModelo, sizeof(unModelo), 0);
 			avisoJuegoIniciado = true;
 		}
 
@@ -251,8 +311,21 @@ void * enviarDatos(void * datos) {
 			pthread_mutex_lock(&mutex_server);
 			ModeloEstado unModelo = miPartida.GetModeloEstado();
 			pthread_mutex_unlock(&mutex_server);
-			send(sock, &idModelo, sizeof(idModelo), 0);
-			send(sock, &unModelo, sizeof(unModelo), 0);
+
+			error_conexion=conexion.enviar_mensaje(sock, (char *)&idModelo, sizeof(idModelo));
+			//verifico que no haya error de conexion
+			if (error_conexion<0){
+				cout<<"Server, enviarDatos: error de conexion"<<endl;
+				//falta cerrar socktes y enviar error
+			}
+			error_conexion=conexion.enviar_mensaje(sock, (char *)  &unModelo, sizeof(unModelo));
+			//verifico que no haya error de conexion
+			if (error_conexion<0){
+				cout<<"Server, enviarDatos: error de conexion"<<endl;
+				//falta cerrar socktes y enviar error
+			}
+			//send(sock, &idModelo, sizeof(idModelo), 0);
+			//send(sock, &unModelo, sizeof(unModelo), 0);
 		}
 		usleep(18000);
 	}
@@ -260,7 +333,7 @@ void * enviarDatos(void * datos) {
 
 //Escuchar mensajes de los clientes
 void * recibirDatos(void * datos) {
-
+	int errorRecv;
 	int sock = ((DatosHiloServidor*) datos)->sock;
 	string usuario = ((DatosHiloServidor*) datos)->usuario;
 
@@ -301,25 +374,46 @@ void * recibirDatos(void * datos) {
 		}
 
 		IDMENSAJE idMsg;
-		int errorRecv = recv(unCliente.socket, &idMsg, sizeof(idMsg),
-				MSG_NOSIGNAL);
+		errorRecv=conexion.recibir_mensaje(unCliente.socket, (char *) &idMsg, sizeof(idMsg));
+		//verifico que no haya error de conexion
+		if (errorRecv<0){
+			cout<<"Server, recibirDatos: error de conexion"<<endl;
+			//falta cerrar socktes y enviar error
+		}
+
+		cout<<"Server, recibirDatos: mensaje recibido"<<idMsg<<endl;
+	     //errorRecv = recv(unCliente.socket, &idMsg, sizeof(idMsg),MSG_NOSIGNAL);
 		if (errorRecv > 0) {
 			if (idMsg == PING) {
 				pthread_mutex_lock(&mutex_server);
 				datosCone.ping = true;
-//				cout << "Ping de socket: " << datosCone.sock << endl;
+			cout << "Ping de socket: " << datosCone.sock << endl;
 				pthread_mutex_unlock(&mutex_server);
 			}
 
 			if (idMsg == MENSAJE) {
 				Mensaje unMensaje;
-				recv(sock, &unMensaje, sizeof(unMensaje), 0);
+				errorRecv=conexion.recibir_mensaje(sock, (char *) &unMensaje, sizeof(unMensaje));
+				//verifico que no haya error de conexion
+				if (errorRecv<0){
+					cout<<"Server, recibirDatos: error de conexion"<<endl;
+					//falta cerrar socktes y enviar error
+				}
+				//recv(sock, &unMensaje, sizeof(unMensaje), 0);
 				cout << " Mensaje: " << unMensaje.mensaje << endl;
 			}
 
 			if ((idMsg == COMANDO) && (miPartida.Iniciada())) {
 				ComandoAlServidor unComando;
-				recv(unCliente.socket, &unComando, sizeof(unComando), 0);
+
+				errorRecv=conexion.recibir_mensaje(unCliente.socket, (char *) &unComando, sizeof(unComando));
+				//verifico que no haya error de conexion
+				if (errorRecv<0){
+					cout<<"Server, recibirDatos: error de conexion"<<endl;
+					//falta cerrar socktes y enviar error
+				}
+
+				//recv(unCliente.socket, &unComando, sizeof(unComando), 0);
 				//			perror("Error recibiendo COMANDO de mensaje");
 				pthread_mutex_lock(&mutex_server);
 				miPartida.SetComando(unCliente.equipo, unComando.comando);
@@ -331,7 +425,14 @@ void * recibirDatos(void * datos) {
 			if ((idMsg == DATASELECCION)
 					&& (miPartida.IniciadaSeleccionPersonajes())) {
 				DataSeleccionAlServidor data;
-				recv(unCliente.socket, &data, sizeof(data), 0);
+				errorRecv=conexion.recibir_mensaje(unCliente.socket, (char *) &data, sizeof(data));
+				//verifico que no haya error de conexion
+				if (errorRecv<0){
+					cout<<"Server, recibirDatos: error de conexion"<<endl;
+					//falta cerrar socktes y enviar error
+				}
+
+				//recv(unCliente.socket, &data, sizeof(data), 0);
 				pthread_mutex_lock(&mutex_server);
 				miPartida.HandleEventSeleccionPersonajes(unCliente.nombre, &data);
 				pthread_mutex_unlock(&mutex_server);
@@ -392,6 +493,7 @@ void Servidor::AceptarClientes(int maxClientes) {
 
 	int num_orden_cliente = 1;
 	int num_personajes;
+	int errorRecv;
 	//Aceptar clientes
 	struct sockaddr_in paramentrosCliente;
 	unsigned int tamanho = sizeof(paramentrosCliente);
@@ -407,7 +509,14 @@ void Servidor::AceptarClientes(int maxClientes) {
 		IDMENSAJE idMsg;
 		int numError = recv(socketComunicacion, &idMsg, sizeof(idMsg), 0);
 		if (idMsg == LOGIN && numError > 0) {
-			recv(socketComunicacion, &login, sizeof(login), 0);
+			errorRecv=conexion.recibir_mensaje(socketComunicacion, (char *) &login, sizeof(login));
+			//verifico que no haya error de conexion
+			if (errorRecv<0){
+				cout<<"Server, aceptador: error de conexion"<<endl;
+				//falta cerrar socktes y enviar error
+							}
+
+			//recv(socketComunicacion, &login, sizeof(login), 0);
 		}
 		if (!miPartida.Iniciada()
 				|| miPartida.EsClienteDesconectado(login.usuario)) {

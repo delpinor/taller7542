@@ -12,6 +12,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include "../Helper/TimeHelper.h"
+#include "../Comunicacion/Conexion.h"
 
 struct DatosHiloServidor {
 	string usuario;
