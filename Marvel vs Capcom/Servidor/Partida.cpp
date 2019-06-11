@@ -105,7 +105,7 @@ ModeloPersonajes Partida::GetModeloPersonajes(){
 	return unModelo;
 }
 ModeloSeleccion  Partida::GetModeloSeleccion(){
-	//cout << "CLIENTE - GetModeloSeleccion: | " << TimeHelper::getStringLocalTimeNow() << endl;
+	cout << "===============================CLIENTE - GetModeloSeleccion: | " << TimeHelper::getStringLocalTimeNow() << "===============================" << endl;
 	ModeloSeleccion unModelo;
 	unModelo.seleccionFinalizada = FinalizadaSeleccionPersonajes();
 	unModelo.cantidadData = listaJugadores.size();
@@ -132,6 +132,19 @@ ModeloSeleccion  Partida::GetModeloSeleccion(){
 		contador++;
 		//cout << "CLIENTE - GetModeloSeleccion: FINALIZADO | "<< it->nombre << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 	}
+
+	cout << "Despues de correr" << endl;
+	for (int i =0; i < unModelo.cantidadData; i++) {
+
+		cout << "| JugadorId: " << unModelo.data[i].jugadorId
+				<< " | Equipo: " << unModelo.data[i].equipo
+				<< " | Numero Jugador: " << unModelo.data[i].numeroJugador
+				<< " | Persoaje ID: " << unModelo.data[i].personajeId
+				<< " | Confirmado: " << unModelo.data[i].confirmado
+				<< endl;
+	};
+
+	cout << "===============================CLIENTE - GetModeloSeleccion EJECUTADO| " << TimeHelper::getStringLocalTimeNow() << "===============================" << endl;
 	//cout << "CLIENTE - GetModeloSeleccion EJECUTADO | " << TimeHelper::getStringLocalTimeNow() << endl;
 	return unModelo;
 }
@@ -275,14 +288,14 @@ void Partida::EliminarDesconectado(string nombre) {
 }
 ClienteConectado * Partida::GetDesconectado(string nombre){
 	ClienteConectado * unCliente;
-		list<ClienteConectado>::iterator it;
-		for (it = listaDesconectados.begin(); it != listaDesconectados.end();
-				it++) {
-			if (it->nombre == nombre) {
-				unCliente = &(*it);
-			}
+	list<ClienteConectado>::iterator it;
+	for (it = listaDesconectados.begin(); it != listaDesconectados.end();
+			it++) {
+		if (it->nombre == nombre) {
+			unCliente = &(*it);
 		}
-		return unCliente;
+	}
+	return unCliente;
 }
 
 void Partida::JugadorDesconectado(string nombre) {
@@ -615,8 +628,18 @@ bool Partida::FinalizadaSeleccionPersonajes(){
 void Partida::HandleEventSeleccionPersonajes(string nombreJugador, DataSeleccionAlServidor *data){
 	list<ClienteConectado>::iterator it;
 
+	cout << "##########################INICIANDO Partida::HandleEventSeleccionPersonajes######################################33" << endl;
+	cout << "Antes de iniciar" << endl;
 
 	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+
+		cout << "| Jugador: " << it->nombre
+				<< " | Persoaje1Id: " << it->personajeId
+				<< " | Persoaje2Id: " << it->personajeIdSuplente
+				<< " | Persoaje1 Confirmado: " << it->personajeConfirmado
+				<< " | Persoaje2 Confirmado: " << it->personajeConfirmadoSuplente
+				<< " | Es Titular: " << it->titular
+				<< endl;
 
 		if(it->nombre == nombreJugador){
 			if(PersonajesSeleccionCompletaTitular() && it->cantidadPersonajes == 2){
@@ -641,6 +664,18 @@ void Partida::HandleEventSeleccionPersonajes(string nombreJugador, DataSeleccion
 		}
 	}
 
+	cout << "Despues de correr" << endl;
+	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+
+		cout << "| Jugador: " << it->nombre
+				<< " | Persoaje1Id: " << it->personajeId
+				<< " | Persoaje2Id: " << it->personajeIdSuplente
+				<< " | Persoaje1 Confirmado: " << it->personajeConfirmado
+				<< " | Persoaje2 Confirmado: " << it->personajeConfirmadoSuplente
+				<< " | Es Titular: " << it->titular
+				<< endl;
+	}
+	cout << "##########################FIN Partida::HandleEventSeleccionPersonajes######################################33" << endl;
 }
 
 bool Partida::PersonajesSeleccionCompleta(){
@@ -721,6 +756,7 @@ void Partida::SetPersonajes(){
 			this->modelo->set_equipos_with_jugador(it->equipo, it->numeroJugador, it->personajeId);
 		}
 	}
+	cout << "PARTIDA - SetPersonajes: Finalizo el seteo de los Personajes en el modelo | " << TimeHelper::getStringLocalTimeNow() << endl;
 }
 
 bool Partida::EstaHabilitadoEnvioPersonajes(){

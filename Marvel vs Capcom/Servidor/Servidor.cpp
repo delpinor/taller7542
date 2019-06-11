@@ -64,37 +64,37 @@ void * controlSeleccionPersonajes(void *) {
 
 			if (!miPartida.EstaHabilitadoEnvioPersonajes()) {
 				cout
-						<< "SERVIDOR - controlSeleccionPersonajes: Ingresó en 1er IF | "
-						<< TimeHelper::getStringLocalTimeNow() << endl;
+				<< "SERVIDOR - controlSeleccionPersonajes: Ingresó en 1er IF | "
+				<< TimeHelper::getStringLocalTimeNow() << endl;
 				pthread_mutex_lock(&mutex_server);
 				miPartida.HabilitarEnvioPersonajes();
 				pthread_mutex_unlock(&mutex_server);
 				cout
-						<< "SERVIDOR - controlSeleccionPersonajes: Ejecutado 1er IF | "
-						<< TimeHelper::getStringLocalTimeNow() << endl;
+				<< "SERVIDOR - controlSeleccionPersonajes: Ejecutado 1er IF | "
+				<< TimeHelper::getStringLocalTimeNow() << endl;
 			} else if (miPartida.EstaEnviadaDataPersonajes()
 					&& !miPartida.IniciadaSeleccionPersonajes()) {
 				cout
-						<< "SERVIDOR - controlSeleccionPersonajes: Ingresó en 2do IF | "
-						<< TimeHelper::getStringLocalTimeNow() << endl;
+				<< "SERVIDOR - controlSeleccionPersonajes: Ingresó en 2do IF | "
+				<< TimeHelper::getStringLocalTimeNow() << endl;
 				pthread_mutex_lock(&mutex_server);
 				miPartida.IniciarSeleccionPersonajes();
 				pthread_mutex_unlock(&mutex_server);
 				cout
-						<< "SERVIDOR - controlSeleccionPersonajes: Ejecutado 2do IF | "
-						<< TimeHelper::getStringLocalTimeNow() << endl;
+				<< "SERVIDOR - controlSeleccionPersonajes: Ejecutado 2do IF | "
+				<< TimeHelper::getStringLocalTimeNow() << endl;
 			} else if (miPartida.IniciadaSeleccionPersonajes()
 					&& miPartida.PersonajesSeleccionCompleta()) {
 				cout
-						<< "SERVIDOR - controlSeleccionPersonajes: Ingresó en 3er IF | "
-						<< TimeHelper::getStringLocalTimeNow() << endl;
+				<< "SERVIDOR - controlSeleccionPersonajes: Ingresó en 3er IF | "
+				<< TimeHelper::getStringLocalTimeNow() << endl;
 				pthread_mutex_lock(&mutex_server);
 				miPartida.SetPersonajes();
 				miPartida.FinalizarSeleccionPersonajes();
 				pthread_mutex_unlock(&mutex_server);
 				cout
-						<< "SERVIDOR - controlSeleccionPersonajes: Ejecutado 3er IF | "
-						<< TimeHelper::getStringLocalTimeNow() << endl;
+				<< "SERVIDOR - controlSeleccionPersonajes: Ejecutado 3er IF | "
+				<< TimeHelper::getStringLocalTimeNow() << endl;
 			}
 		}
 		//	cout << "Personajes seleccion compelta: " << miPartida.IniciadaSeleccionPersonajes() << endl;
@@ -116,7 +116,7 @@ void * loggeoPartida(void *) {
 				<< (miPartida.Finalizada() == true ?
 						"Finalizada" : "No finalizada") << endl;
 		cout << "Cantidad jugadores: " << miPartida.GetCantidadJugando()
-				<< endl;
+						<< endl;
 		cout << "Cantidad en espera: " << miPartida.GetCantidadEspera() << endl;
 		cout << "Cantidad en desconectados: "
 				<< miPartida.GetCantidadDesconectados() << endl;
@@ -156,8 +156,8 @@ void * enviarDatos(void * datos) {
 	while (corriendo) {
 		if (miPartida.EsClienteDesconectadoBySock(sock)) {
 			cout
-					<< "Cliente desconectado!!!######### Hilo enviar datos termminado"
-					<< endl;
+			<< "Cliente desconectado!!!######### Hilo enviar datos termminado"
+			<< endl;
 			corriendo = false;
 			pthread_exit(NULL);
 			break;
@@ -212,6 +212,15 @@ void * enviarDatos(void * datos) {
 			}
 			pthread_mutex_unlock(&mutex_server);
 			if (enviar) {
+
+				cout << "SERVIDOR - enviarDatos: DATAPERSONAJES ENVIANDO | "
+										<< usuario << " | "
+										<< TimeHelper::getStringLocalTimeNow() << endl;
+
+				for(int i = 0; i < unModelo.cantidadPersonajes ; i++){
+					cout << "PersonajeId: " << unModelo.idsPersonajes[i] << endl;
+				}
+
 				send(sock, &idModelo, sizeof(idModelo), 0);
 				send(sock, &unModelo, sizeof(unModelo), 0);
 
@@ -308,7 +317,7 @@ void * recibirDatos(void * datos) {
 			if (idMsg == PING) {
 				pthread_mutex_lock(&mutex_server);
 				datosCone.ping = true;
-//				cout << "Ping de socket: " << datosCone.sock << endl;
+				//				cout << "Ping de socket: " << datosCone.sock << endl;
 				pthread_mutex_unlock(&mutex_server);
 			}
 
@@ -325,8 +334,8 @@ void * recibirDatos(void * datos) {
 				pthread_mutex_lock(&mutex_server);
 				miPartida.SetComando(unCliente.equipo, unComando.comando);
 				pthread_mutex_unlock(&mutex_server);
-//				cout << "Comando recibido: " << unComando.comando << "por socket: "<<unCliente.socket<< endl;
-//				cout << "*****************************************************" << endl;
+				//				cout << "Comando recibido: " << unComando.comando << "por socket: "<<unCliente.socket<< endl;
+				//				cout << "*****************************************************" << endl;
 
 			}
 			if ((idMsg == DATASELECCION)

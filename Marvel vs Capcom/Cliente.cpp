@@ -272,7 +272,7 @@ int Cliente::recibirModeloDelServidor() {
 
 		//-------->Recibe DATA PERSONAJES
 		if (idMsg == DATAPERSONAJES) {
-			//cout << "CLIENTE - recibirModeloDelServidor: Recibiendo DATAPERSONAJES | "<< TimeHelper::getStringLocalTimeNow() << endl;
+			cout << "CLIENTE - recibirModeloDelServidor: Recibiendo DATAPERSONAJES | "<< TimeHelper::getStringLocalTimeNow() << endl;
 
 			ModeloPersonajes unModelo;
 			recv(this->getConexion()->getSocketCliente(), &unModelo,
@@ -281,8 +281,12 @@ int Cliente::recibirModeloDelServidor() {
 			this->vistaMenu->setPersonajes(&unModelo);
 			pthread_mutex_unlock(&mutexx);
 
+			for(int i = 0; i < unModelo.cantidadPersonajes ; i++){
+				cout << "PersonajeId: " << unModelo.idsPersonajes[i] << endl;
+			}
+
 			//cout << "CLIENTE - recibirModeloDelServidor: DATAPERSONAJES la lista de personajes tiene "<< unModelo.idsPersonajes.size() << " | "  << TimeHelper::getStringLocalTimeNow() << endl;
-			//cout << "CLIENTE - recibirModeloDelServidor: DATAPERSONAJES Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
+			cout << "CLIENTE - recibirModeloDelServidor: DATAPERSONAJES Recibido | "<< TimeHelper::getStringLocalTimeNow() << endl;
 		}
 
 		//-------->Recibe MODELO SELECCION
