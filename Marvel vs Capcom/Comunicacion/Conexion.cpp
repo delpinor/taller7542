@@ -17,19 +17,17 @@ Conexion::Conexion() {
 int Conexion::Reconectar() {
 
 	cout<<"puerto: "<<_puerto;
-	cout<<"_ip"<<_ip;
+	cout<<"_ip: "<<_ip;
 	return conectarConServidor(_ip, _puerto);
 
 }
 int Conexion::conectarConServidor( char* hostname, char * puerto) {
 
-
-
 	strcpy (_ip , hostname );
 	strcpy (_puerto , puerto );
-	cout << "ip."<< _ip<<endl;
+	cout << "ip: "<< _ip<<endl;
 
-	cout << "puerto"<< puerto<<endl;
+	cout << "puerto: "<< puerto<<endl;
 	//_ip = hostname;
 	//_puerto = puerto;
 //	cout << "creará un socket."<< endl;
@@ -45,11 +43,6 @@ int Conexion::conectarConServidor( char* hostname, char * puerto) {
 	    {   strcpy(ip , inet_ntoa(*addr_list[i]) );
 	    	break;
 	    }
-
-
-
-
-
 
 	direcionServidor.sin_family = AF_INET;
 	direcionServidor.sin_addr.s_addr = inet_addr(ip);

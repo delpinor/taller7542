@@ -293,7 +293,7 @@ void Partida::JugadorDesconectado(string nombre) {
 	EliminarJugador(nombre);
 
 	//
-	unCliente.esperandoReconexion = true;
+//	unCliente.esperandoReconexion = true;
 
 	// Lista desconectados
 	listaDesconectados.push_back(unCliente);
@@ -301,7 +301,7 @@ void Partida::JugadorDesconectado(string nombre) {
 		if (TieneSuplente(unCliente.equipo)) {
 
 			// No espera reconexion...
-			GetDesconectado(nombre)->esperandoReconexion = false;
+//			GetDesconectado(nombre)->esperandoReconexion = false;
 
 			//Suplente ocupa el lugar del titular
 			JuegaSuplente(unCliente.equipo);
@@ -309,9 +309,9 @@ void Partida::JugadorDesconectado(string nombre) {
 
 		} else {
 			partidaFinalizada = !jugadorReconectado(unCliente.equipo);
-			if(partidaFinalizada){
-				GetDesconectado(nombre)->esperandoReconexion = false;
-			}
+//			if(partidaFinalizada){
+//				GetDesconectado(nombre)->esperandoReconexion = false;
+//			}
 
 		}
 	}
@@ -472,6 +472,9 @@ void Partida::AgregarCliente(ClienteConectado * cliente) {
 			<< "Cliente reconectado eliminado de listaJugadoresDesconectados"
 			<< endl;
 		}
+		else {
+			//TODO rechazar cliente porque está lleno?
+		}
 	}
 }
 ClienteConectado Partida::GetClienteJugando(string nombre) {
@@ -535,7 +538,7 @@ bool Partida::EsClienteDesconectadoBySock(int sock) {
 
 	for (it = listaDesconectados.begin(); it != listaDesconectados.end();
 			it++) {
-		if (it->socket == sock && !it->esperandoReconexion) {
+		if (it->socket == sock) {
 			return true;
 		}
 	}

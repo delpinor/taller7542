@@ -16,7 +16,7 @@ void * hilo_conexionServer(void * datosConexion) {
 		p->ping = false;
 		sleep(1);
 		if (!p->ping && miPartida.Iniciada()) {
-			//shutdown(p->sock, SHUT_RDWR);
+			shutdown(p->sock, SHUT_RDWR);
 			//close(p->sock);
 			//pthread_mutex_lock(&mutex_server);
 			miPartida.JugadorDesconectado(p->usuario);
@@ -98,6 +98,7 @@ void * controlSeleccionPersonajes(void *) {
 			}
 		}
 		//	cout << "Personajes seleccion compelta: " << miPartida.IniciadaSeleccionPersonajes() << endl;
+		//Por que no muere éste hilo?
 
 	}
 	cout << "SERVIDOR - controlSeleccionPersonajes: FIN de ciclo" << " | "
@@ -432,13 +433,10 @@ void Servidor::AceptarClientes(int maxClientes) {
 			pthread_detach(hiloRecepcion);
 
 		} else {
-//			IDMENSAJE idMsg = COMPLETO;
-//			send(socketComunicacion, &idMsg, sizeof(idMsg), 0);
+			IDMENSAJE idMsg = COMPLETO;
+			send(socketComunicacion, &idMsg, sizeof(idMsg), 0);
 
 			cout << "NO entra al juego" << endl;
-
-			shutdown(socketComunicacion, SHUT_RDWR);
-			close(socketComunicacion);
 
 			shutdown(socketComunicacion, SHUT_RDWR);
 			close(socketComunicacion);

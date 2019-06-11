@@ -27,6 +27,7 @@ void * hilo_escucha(void * cliente) {
 		p->recibirModeloDelServidor();
 		usleep(10);
 		if (!p->ServidorVivo) {
+			cout << "Muere el HILO ESCUCHA porque el ServidorVivo es FALSO" << endl;
 			pthread_exit(0);
 			break;
 		}
@@ -154,10 +155,10 @@ int Cliente::ConectarConServidor(char* hostname, char* puerto) {
 
 void Cliente::enviarComandoAServidor(ComandoAlServidor comando) {
 	if (this->ServidorVivo) {
-		IDMENSAJE com = COMANDO;
-		IDMENSAJE idCabecera = PING;
-		send(this->getConexion()->getSocketCliente(), &idCabecera, sizeof(idCabecera), MSG_NOSIGNAL);
-		send(this->getConexion()->getSocketCliente(), &com, sizeof(com),MSG_NOSIGNAL);
+		IDMENSAJE idComando = COMANDO;
+		IDMENSAJE idPing = PING;
+		send(this->getConexion()->getSocketCliente(), &idPing, sizeof(idPing), MSG_NOSIGNAL);
+		send(this->getConexion()->getSocketCliente(), &idComando, sizeof(idComando),MSG_NOSIGNAL);
 		send(this->getConexion()->getSocketCliente(), &comando, sizeof(comando),	MSG_NOSIGNAL);
 	}
 }
@@ -176,8 +177,7 @@ void Cliente::enviarDataSeleccionAServidor(DataSeleccionAlServidor data) {
 }
 int Cliente::recibirModeloDelServidor() {
 	IDMENSAJE idMsg;
-	int errorRecv = recv(this->getConexion()->getSocketCliente(), &idMsg,
-			sizeof(idMsg), 0);
+	int errorRecv = recv(this->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
 	if (errorRecv > 0) {
 		//-------->Recibe PING
 		if ((idMsg == PING)) {

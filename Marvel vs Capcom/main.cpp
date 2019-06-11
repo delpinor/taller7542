@@ -181,7 +181,7 @@ int main(int argc, char* argv[]) {
 		model.getEquipoNro(0)->setJugadorActivo(0);
 		model.getEquipoNro(1)->setJugadorActivo(0);
 
-		cliente.LanzarHiloPing();
+//		cliente.LanzarHiloPing();
 		View view(&model);
 		cliente.setVista(&view);
 		// Habilito a recibir el modelo
