@@ -398,8 +398,15 @@ void ViewMenu::setModeloSeleccion(ModeloSeleccion modelo) {
 	unModelo.seleccionFinalizada = modelo.seleccionFinalizada;
 
 	//cout << "Entró en setModeloSeleccion | CantidadData "<< modelo.cantidadData << " | " << TimeHelper::getStringLocalTimeNow() << endl;
-
+	cout << "================================================================================"<< endl;
 	for (int i = 0; i < unModelo.cantidadData; i++) {
+		cout << "MODELOSELECCION " << endl;
+		cout << "MODELOSELECCION se recibe confirmado: 		|" << modelo.data[i].confirmado << endl;
+		cout << "MODELOSELECCION se recibe jugadorId: 		|" << modelo.data[i].jugadorId << endl;
+		cout << "MODELOSELECCION se recibe personajeId: 	|" << modelo.data[i].personajeId << endl;
+		cout << "MODELOSELECCION se recibe numeroJugador: 	|" << modelo.data[i].numeroJugador << endl;
+		cout << "MODELOSELECCION se recibe equipo:			|" << modelo.data[i].equipo << endl;
+		cout << "MODELOSELECCION se recibe cantidadData: 	|"  << modelo.cantidadData << endl;
 
 		ModeloPersonajeVistaSeleccion unModeloPersonaje;
 		unModeloPersonaje.confirmado = modelo.data[i].confirmado;
