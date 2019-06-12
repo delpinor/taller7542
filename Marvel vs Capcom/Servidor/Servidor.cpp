@@ -45,7 +45,7 @@ void * updateModelo(void *) {
 	bool corriendo = true;
 	while (corriendo) {
 		if (miPartida.Iniciada()) {
-			usleep(15000);
+			usleep(10000);
 			miPartida.GetModelo()->update();
 			miPartida.AjustarCamara();
 		}
