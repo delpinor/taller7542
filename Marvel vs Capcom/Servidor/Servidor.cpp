@@ -5,9 +5,22 @@
  *      Author: delpinor
  */
 #include "Servidor.h"
+#include <signal.h>
 using namespace std;
 pthread_mutex_t mutex_server;
 Partida miPartida;
+bool servidor_cerrado=false;
+
+/* Signal Handler for SIGINT */
+void sigintHandler(int sig_num)
+{
+    /* Reset handler to catch SIGINT next time.
+       Refer http://en.cppreference.com/w/c/program/signal */
+    signal(SIGINT, sigintHandler);
+    servidor_cerrado=true;
+    printf("\n sERVIDOR CERRADO \n");
+    fflush(stdout);
+}
 
 // Hilo Conexion
 void * hilo_conexionServer(void * datosConexion) {
@@ -44,6 +57,7 @@ void * updateModelo(void *) {
 void * controlPartida(void *) {
 
 	while (1) {
+		signal(SIGINT, sigintHandler);
 		if (miPartida.FinalizadaSeleccionPersonajes() && !miPartida.Iniciada()) {//if (miPartida.EquipoCompleto()) {
 			sleep(2);
 			miPartida.IniciarPartida();
@@ -168,6 +182,12 @@ void * enviarDatos(void * datos) {
 		IDMENSAJE idPing = PING;
 		send(sock, &idPing, sizeof(idPing), 0);
 
+		if ( servidor_cerrado){
+					IDMENSAJE idPing = SERVIDORMUERTO;
+					send(sock, &idPing, sizeof(idPing), 0);
+
+
+		}
 		//------->Mensaje de Equipo
 		IDMENSAJE idEquipo = EQUIPO;
 		//cout << "SERVIDOR - enviarDatos: EQUIPO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;

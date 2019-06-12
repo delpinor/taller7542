@@ -207,6 +207,18 @@ int Cliente::recibirModeloDelServidor() {
 			//			this->getVista()->CajaMensaje("Equipos",
 			//					"Juego iniciado. No hay lugar");
 		}
+		if (idMsg ==SERVIDORMUERTO) {
+					cout << "SERVIDOR MUERTO" <<endl;
+					SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,
+					                         "SERVIDOR CERRADO",
+					                         "JUEGO FINALIZADO",
+					                         NULL);
+
+							this->juegoCorriendo = false;
+							this->getConexion()->Cerrar();
+							//			this->getVista()->CajaMensaje("Equipos",
+							//					"Juego iniciado. No hay lugar");
+		}
 
 		//-------->Recibe JUEGO INICIADO
 		if (idMsg == JUEGOINICIADO){
