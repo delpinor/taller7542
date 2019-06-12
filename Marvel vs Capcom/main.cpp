@@ -131,7 +131,16 @@ int main(int argc, char* argv[]) {
 		send(conexion.getSocketCliente(), &idMsg, sizeof(idMsg), 0);
 		send(conexion.getSocketCliente(), &cliente.Usuario, sizeof(cliente.Usuario),
 				0);
+		IDMENSAJE idMsg2;
+		int numError = recv(conexion.getSocketCliente(), &idMsg2, sizeof(idMsg2), 0);
+			if (idMsg2 == ACEPTADO) {
+				cout<<"Aceptado \n";
 
+				}else{
+
+					cout<<"PARTIDA COMPLETA \n";
+					return -1;
+				}
 		cliente.lanzarHilosDelJuego();
 		cout << "Hilos del cliente lanzados | "
 				<< TimeHelper::getStringLocalTimeNow() << endl;

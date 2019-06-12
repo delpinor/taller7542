@@ -437,6 +437,11 @@ void Servidor::AceptarClientes(int maxClientes) {
 	unsigned int tamanho = sizeof(paramentrosCliente);
 	bool corriendo = true;
 	while (corriendo) {
+		struct sigaction act;
+			    memset(&act, 0, sizeof(act));
+			    act.sa_handler = SIG_IGN;
+			    //act.sa_flags = SA_RESTART;
+			  sigaction(SIGPIPE, &act, NULL);
 		int socketComunicacion;
 		socketComunicacion = accept(connServidor.socketConexion,
 				(struct sockaddr *) &paramentrosCliente, &tamanho);
@@ -449,8 +454,18 @@ void Servidor::AceptarClientes(int maxClientes) {
 		if (idMsg == LOGIN && numError > 0) {
 			recv(socketComunicacion, &login, sizeof(login), 0);
 		}
+		if (miPartida.EquipoCompleto() && !miPartida.EsClienteDesconectado(login.usuario)){
+			IDMENSAJE idMsg = COMPLETO;
+			send(socketComunicacion, &idMsg, sizeof(idMsg), 0);
+		}else{
+			IDMENSAJE idMsg = ACEPTADO;
+			send(socketComunicacion, &idMsg, sizeof(idMsg), 0);
+
+		}
 		if (!miPartida.Iniciada()
 				|| miPartida.EsClienteDesconectado(login.usuario)) {
+
+
 
 			cout << "Recibiendo al nuevo cliente: " << login.usuario << endl;
 			// Datos para el thread
