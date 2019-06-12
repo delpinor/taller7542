@@ -23,7 +23,7 @@ public:
 	SDL_Rect  *gSpriteAnimacion;
 	SDL_Rect * gSprite;
 	int contador = 0;
-
+	bool salto = false;
 	int CANTSPRITECLIP;
 	int CANTSPRITECLIPCAMINA;
 	int MINFRAMECAMINA;

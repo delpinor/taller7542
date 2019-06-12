@@ -116,8 +116,12 @@ void Jugador::disminuirVelocidadY() {
 }
 
 void Jugador::cambiarPersonaje() {
+	if(this->estado->getVelY()==0 ){
+	this->estado->aumentarVelocidadY(20);
 	this->cambiandoPersonaje.copiarEstadoCambiarPersonaje(this->estado);
+
 	this->estado = &(this->cambiandoPersonaje);
+	}
 }
 
 void Jugador::Agachar() {

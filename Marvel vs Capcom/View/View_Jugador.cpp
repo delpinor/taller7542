@@ -29,22 +29,26 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 		currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
 		++frame;
 	}
-	if (this->jugador->estado->getVelY() != 0) {
-		if (this->jugador->estado->getVelY() >= 18) {
-			frame = 0;
-		}
-		if (frame / MAXFRAMESALTA >= MAXFRAMESALTA) {
-			frame = MINFRAMESALTA;
-		}
-		currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
-		++frame;
-	}
+
 	if ((this->jugador->estado->getVelY() == 0)
-			&& (this->jugador->estado->getVelX() == 0)) {
+			&& (this->jugador->estado->getVelX() == 0) && !salto) {
 		currentClip = &gSpriteAnimacion[frame / MAXFRAMEANIMACION];
 		if (frame / MAXFRAMEANIMACION >= MAXFRAMEANIMACION ) {
 			frame = MINFRAMEANIMACION;
 		}
+		++frame;
+	}
+	if ((this->jugador->estado->getVelY() != 0) || (salto) ){
+		salto = true;
+		if (this->jugador->estado->getVelY() >= 18)  {
+			frame = 0;
+		}
+		if ((salto) && (this->jugador->estado->getVelY()== 0))
+			salto = false;
+		if (frame / MAXFRAMESALTA >= MAXFRAMESALTA) {
+			frame = MINFRAMESALTA;
+		}
+		currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
 		++frame;
 	}
 
