@@ -30,7 +30,7 @@ void * hilo_conexionServer(void * datosConexion) {
 		sleep(1);
 		if (!p->ping && miPartida.Iniciada()) {
 			shutdown(p->sock, SHUT_RDWR);
-			//close(p->sock);
+			close(p->sock);
 			//pthread_mutex_lock(&mutex_server);
 			miPartida.JugadorDesconectado(p->usuario);
 			cout << "Falla en la comunicacion con el cliente: " << p->sock << endl;
@@ -164,11 +164,12 @@ void * loggeoPartida(void *) {
 void * enviarDatos(void * datos) {
 	int sock = ((DatosHiloServidor*) datos)->sock;
 	string usuario = ((DatosHiloServidor*) datos)->usuario;
+	int error;
 
 	bool corriendo = true;
 	bool avisoJuegoIniciado = false;
 	while (corriendo) {
-		if (miPartida.EsClienteDesconectadoBySock(sock)) {
+		if ((miPartida.EsClienteDesconectadoBySock(sock))) {
 			cout
 			<< "Cliente desconectado!!!######### Hilo enviar datos termminado"
 			<< endl;
@@ -179,8 +180,16 @@ void * enviarDatos(void * datos) {
 		//cout << "SERVIDOR - enviarDatos: PING ENVIADO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 
 		////------->Mensaje de conexión
+
+
 		IDMENSAJE idPing = PING;
-		send(sock, &idPing, sizeof(idPing), 0);
+		error=send(sock, &idPing, sizeof(idPing), 0);
+
+		if(error<0){
+			cout<<"error ping\n";
+			break;
+
+		}
 
 		if ( servidor_cerrado){
 					IDMENSAJE idPing = SERVIDORMUERTO;
@@ -194,7 +203,7 @@ void * enviarDatos(void * datos) {
 		ClienteEquipo unEquipo;
 		unEquipo.equipo = 99;
 		pthread_mutex_lock(&mutex_server);
-		if (!miPartida.Iniciada()) {
+		if (!miPartida.Iniciada()) {signal(SIGINT, sigintHandler);
 			if (miPartida.existeJugador(usuario)) {	//if(!miPartida.Iniciada()){
 				unEquipo.equipo = miPartida.GetClienteEspera(usuario).equipo;
 				unEquipo.titular = miPartida.GetClienteEspera(usuario).titular;

@@ -8,9 +8,18 @@
 #include "Cliente.h"
 #include "Servidor/Servidor.h"
 #include "Helper/TimeHelper.h"
+#include <signal.h>
 /* nombre_ejecutable  nombre_archivo_configuracion niveldeDebug*/
+/* Catch Signal Handler functio */
+void signal_callback_handler(int signum){
+
+        printf("Caught signal SIGPIPE %d\n",signum);
+}
 
 int main(int argc, char* argv[]) {
+
+	/* Catch Signal Handler SIGPIPE */
+	signal(SIGPIPE, signal_callback_handler);
 
 	char* ip;
 	char* puerto;
