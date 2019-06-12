@@ -96,12 +96,15 @@ int main(int argc, char* argv[]) {
 		Cliente cliente(&viewMenu, &conexion);
 		cout << "Cliente creado | " << TimeHelper::getStringLocalTimeNow()
 				<< endl;
-		if (cliente.ConectarConServidor(ip, puerto) == -1)
-			return -1;
+
 		cout << "conectado con servidor | "
 				<< TimeHelper::getStringLocalTimeNow() << endl;
 		std::string nombre_usuario;
 		viewMenu.getNombre_usuario(nombre_usuario);
+
+		if (cliente.ConectarConServidor(ip, puerto) == -1)
+			return -1;
+
 		strcpy(cliente.Usuario, nombre_usuario.c_str());
 		send(conexion.getSocketCliente(), &idMsg, sizeof(idMsg), 0);
 		send(conexion.getSocketCliente(), &cliente.Usuario, sizeof(cliente.Usuario),
