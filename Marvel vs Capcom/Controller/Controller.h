@@ -14,6 +14,7 @@ public:
 	int processInputCliente();
 	bool quitPressed();
 	void SetComando(int equipo, int comando);
+	void set_quit();
 protected:
 private:
 	Model* model;

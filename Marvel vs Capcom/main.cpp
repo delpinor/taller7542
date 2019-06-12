@@ -15,12 +15,25 @@ void signal_callback_handler(int signum){
 
         printf("Caught signal SIGPIPE %d\n",signum);
 }
+void ignore_sigpipe(void)
+{
+
+struct sigaction act;
+    memset(&act, 0, sizeof(act));
+    act.sa_handler = SIG_IGN;
+    act.sa_flags = SA_RESTART;
+  sigaction(SIGPIPE, &act, NULL);
+
+}
 
 int main(int argc, char* argv[]) {
-
-	/* Catch Signal Handler SIGPIPE */
-	signal(SIGPIPE, signal_callback_handler);
-
+	struct sigaction act;
+	    memset(&act, 0, sizeof(act));
+	    act.sa_handler = SIG_IGN;
+	    //act.sa_flags = SA_RESTART;
+	  sigaction(SIGPIPE, &act, NULL);
+	//sigaction(SIGPIPE, &(struct sigaction){SIG_IGN}, NULL);
+	//ignore_sigpipe;
 	char* ip;
 	char* puerto;
 

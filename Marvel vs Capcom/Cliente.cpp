@@ -7,6 +7,7 @@
 #include "Cliente.h"
 
 pthread_mutex_t mutexx;
+bool servidor_vivo=true;
 
 // Estructura para enviar al hilo.
 struct DatosHiloCliente {
@@ -22,7 +23,7 @@ struct DatosHiloCliente {
 void * hilo_escucha(void * cliente) {
 	cout << "HILO ESCUCHA lanzado." << endl;
 	Cliente* p = (Cliente*) cliente;
-	while (1) {
+	while (servidor_vivo) {
 		//		cout << "adentro del while de escucha." << endl;
 		p->recibirModeloDelServidor();
 		usleep(10);
@@ -33,9 +34,12 @@ void * hilo_escucha(void * cliente) {
 		}
 	}
 }
+bool servidor_esta_vivo(){
+	return servidor_vivo;
+}
 void * hilo_ping(void * cliente) {
 	Cliente* p = (Cliente*) cliente;
-	while (1) {
+	while (servidor_vivo) {
 		IDMENSAJE idMsg = PING;
 		send(p->getConexion()->getSocketCliente(), &idMsg, sizeof(idMsg), 0);
 		if (!p->EnviarPingHilo) {
@@ -203,12 +207,16 @@ int Cliente::recibirModeloDelServidor() {
 		//-------->Recibe COMPLETO
 		if (idMsg == COMPLETO) {
 			this->juegoCorriendo = false;
+			servidor_vivo=false;
 			this->getConexion()->Cerrar();
+
 			//			this->getVista()->CajaMensaje("Equipos",
 			//					"Juego iniciado. No hay lugar");
 		}
 		if (idMsg ==SERVIDORMUERTO) {
 					cout << "SERVIDOR MUERTO" <<endl;
+					servidor_vivo=false;
+					this->servidor_vivo=false;
 					SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,
 					                         "SERVIDOR CERRADO",
 					                         "JUEGO FINALIZADO",

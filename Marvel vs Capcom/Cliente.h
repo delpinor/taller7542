@@ -33,13 +33,14 @@ public:
 	bool juegoCorriendo = true;
 	bool Ping = false;
 	int CantidadEquipo = 0;
-
+	bool servidor_vivo=true;
 	void LanzarHiloConexion();
 	int ConectarConServidor(char* hostname, char* puerto);
 	int NroJugador;
 	bool seleccionPersonajeIniciada = false;
 	bool seleccionPersonajeFinalizada = false;
 	void PushModeloEnCola(ModeloEstado modelo);
+	bool servidor_esta_vivo();
 	ModeloEstado PopModeloDeCola();
 	void actualizarModelo(ModeloEstado modelo);
 	int recibirModeloDelServidor();
