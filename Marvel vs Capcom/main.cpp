@@ -185,7 +185,7 @@ int main(int argc, char* argv[]) {
 		model.getEquipoNro(1)->setJugadorActivo(0);
 
 		cout << "Finalizo el seteo de los Personajes en el modelo | " << TimeHelper::getStringLocalTimeNow() << endl;
-//		cliente.LanzarHiloPing();
+		cliente.LanzarHiloPing();
 		View view(&model);
 		cliente.setVista(&view);
 		// Habilito a recibir el modelo
