@@ -115,7 +115,7 @@ void View::render() {
 		}
 	}
 	//this->viewModel->render();
-
+	textoDeJuego.render(this->camara->x  , this->camara->y, NULL, 0.0, NULL, SDL_FLIP_NONE, this->gRenderer);
 	SDL_RenderPresent(this->gRenderer);
 }
 
@@ -198,7 +198,7 @@ void View::loadMedia(Model *model) {
 	texturasEquipo2[0].loadFromFile(path, gRenderer, model->GetAnchoJugador(1, 0), model->GetAltoJugador(1, 0));
 	path = model->get_pathImagenJugador(1, 1);
 	texturasEquipo2[1].loadFromFile(path, gRenderer, model->GetAnchoJugador(1, 1), model->GetAltoJugador(1, 1));
-
+	loadtext();
 }
 
 void View::setElementoFondo(int pZIndex, int id){
@@ -264,5 +264,17 @@ void View::close() {
 	IMG_Quit();
 	SDL_Quit();
 
+}
+
+void View::loadtext(){
+	SDL_Color textColor = { 250, 250, 250 };
+	fuente = TTF_OpenFont("Images/OpenSans-Bold.ttf", 30);
+	textoDeJuego.loadFromRenderedText(textoAMostrar,
+					textColor, gRenderer, fuente);
+}
+void View::actualizarTextoEnPantalla(std::string texto){
+	SDL_Color textColor = { 250, 250, 250 };
+	textoDeJuego.loadFromRenderedText(textoAMostrar,
+					textColor, gRenderer, fuente);
 }
 

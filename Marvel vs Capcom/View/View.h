@@ -31,11 +31,11 @@ public:
 	SDL_Rect* getCamara();
 	void close();
 	virtual ~View();
-
+	void actualizarTextoEnPantalla(std::string texto);
 	Model* model;
 
 private:
-
+	void loadtext();
 	Jugador* jugadorAnterior;
 	ViewModel* viewModel;
 	SDL_Rect* camara;
@@ -48,7 +48,10 @@ private:
 	LTexture texturaCaptainAmerica;
 	LTexture texturaVenom;
 	LTexture texturaJugador;
+	LTexture textoDeJuego;
+	std::string textoAMostrar = " un texto  ";
 	int ancho_Pantalla, alto_Pantalla;
+	TTF_Font *fuente = NULL;
 	std::map<int, std::map<int, std::map<string, int > > >  mapElementosRenderizables;
 	void setElementoFondo(int pZIndex, int id);
 	void setElementoPersonaje(Model* model);
