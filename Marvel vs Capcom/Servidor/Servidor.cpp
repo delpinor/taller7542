@@ -12,6 +12,14 @@ Partida miPartida;
 bool servidor_cerrado=false;
 
 /* Signal Handler for SIGINT */
+
+bool Servidor::servidor_esta_cerrado(){
+	if (servidor_cerrado){
+	return true;
+	}else{
+		return false;
+	}
+}
 void sigintHandler(int sig_num)
 {
     /* Reset handler to catch SIGINT next time.
@@ -192,6 +200,7 @@ void * enviarDatos(void * datos) {
 		}
 
 		if ( servidor_cerrado){
+
 					IDMENSAJE idPing = SERVIDORMUERTO;
 					send(sock, &idPing, sizeof(idPing), 0);
 

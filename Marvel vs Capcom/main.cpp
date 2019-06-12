@@ -96,6 +96,14 @@ int main(int argc, char* argv[]) {
 		Servidor server;
 		server.SetModel(&model);
 		server.IniciarServidor(num_jugadores, puerto);
+		/*
+		while (1){
+			if(server.servidor_esta_cerrado()){
+				return -1;
+			}
+			sleep(1);
+
+		}*/
 	} else if (strcmp(argv[1], "cliente") == 0) {
 		ip = argv[2];
 		cout << "ip: " << ip << endl;
@@ -228,6 +236,9 @@ int main(int argc, char* argv[]) {
 		cliente.PararHiloPing();
 		cliente.LanzarHiloConexion();
 		while (!controller.quitPressed()) {
+			if(!cliente.servidor_esta_vivo()){
+				return -1;
+			}
 			ComandoAlServidor comandoParaServidor;
 			int comando = controller.processInputCliente();
 			if (cliente.Titular) {

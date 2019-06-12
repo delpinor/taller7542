@@ -30,6 +30,7 @@ private:
 	Model model;
 	//Controller controlador;
 	int num_jugadores;
+
 public:
 	void SetModel(Model * model);
 	int calcular_num_personajes(int orden_de_jugador);
@@ -39,6 +40,8 @@ public:
 	void AceptarClientes(int maxClientes);
 	void LanzarHiloControlSeleccionPersonajes();
 	void LanzarHiloUpdateModelo();
+	bool servidor_esta_cerrado();
+
 	//virtual ~Funciones();
 };
 

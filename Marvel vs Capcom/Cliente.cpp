@@ -34,7 +34,7 @@ void * hilo_escucha(void * cliente) {
 		}
 	}
 }
-bool servidor_esta_vivo(){
+bool Cliente::servidor_esta_vivo(){
 	return servidor_vivo;
 }
 void * hilo_ping(void * cliente) {
