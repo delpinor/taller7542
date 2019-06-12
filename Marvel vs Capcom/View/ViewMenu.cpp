@@ -112,6 +112,7 @@ void ViewMenu::render() {
 	SDL_RenderClear(gRenderer);
 	CantidadDeJugadores = modelo.cantidadData;
 
+
 	gTextTexture2.render(4, 250, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	//fondo
 	texturaFondo.render(0, 0, &fondoclip, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
@@ -313,9 +314,10 @@ void ViewMenu::close() {
 
 void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId,
 		bool *confirmado) {
-
+	actualizarTitulo("SELECCION DE PERSONAJE");
 	//cout << "VIEWMENU - handleEvent: Jugador | "<< this->nroJugadorLocal << " | " << TimeHelper::getStringLocalTimeNow() << endl;
-
+	if (primerSeleccion)
+		actualizarMensaje("Elija su PRIMER personaje y presione la tecla ESPACIO");
 	while (SDL_PollEvent(&this->e) != 0) {
 		//User requests quit
 		if (this->e.type == SDL_QUIT) {
@@ -327,7 +329,8 @@ void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId,
 		if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
 			switch (e.key.keysym.sym) {
 			case SDLK_SPACE:{
-
+				 primerSeleccion = false;
+				actualizarMensaje( "Elija su SEGUNDO personaje y presione la tecla ESPACIO");
 				std::list<ModeloPersonajeVistaSeleccion>::iterator it;
 				for (it = modelo.data.begin(); it != modelo.data.end(); it++) {
 					if ((it->jugadorId == this->nroJugadorLocal)&& (!it->confirmado)) {
@@ -563,6 +566,20 @@ int ViewMenu::getNombre_usuario(std::string &nombre)
 	return  0;
 
 }
+
+void ViewMenu::actualizarTitulo(std::string texto) {
+	SDL_Color textColor = { 250, 250, 250 };
+	gTextTexture.loadFromRenderedText(texto,
+				textColor, gRenderer, gFont2);
+}
+
+void ViewMenu::actualizarMensaje(std::string texto) {
+	SDL_Color textColor = { 250, 250, 250 };
+	gTextTexture2.loadFromRenderedText(texto,
+				textColor, gRenderer, gFont2);
+}
+
+
 
 
 

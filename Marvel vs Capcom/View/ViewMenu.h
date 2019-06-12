@@ -72,6 +72,7 @@ private:
 public:
 	int getNombre_usuario(std::string &nombre);
 	bool loadText();
+	bool primerSeleccion = true;
 	std::string TextoMensaje = " ";
 	std::string TextoTitulo = "ESPERANDO OTROS JUGADORES...";
 	ViewMenu(int i);
@@ -82,6 +83,8 @@ public:
 	void setModeloSeleccion(ModeloSeleccion modelo);
 	void setNroJugadorLocal(int valor);
 	bool hayPersonajes();
+	void actualizarTitulo(std::string texto);
+	void actualizarMensaje(std::string texto);
 	list<ModeloPersonajeVistaSeleccion> getDataSeleccionada();
 	virtual ~ViewMenu();
 };
