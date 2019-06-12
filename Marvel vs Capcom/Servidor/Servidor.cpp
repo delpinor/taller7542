@@ -196,6 +196,7 @@ void * enviarDatos(void * datos) {
 					send(sock, &idPing, sizeof(idPing), 0);
 
 
+
 		}
 		//------->Mensaje de Equipo
 		IDMENSAJE idEquipo = EQUIPO;
