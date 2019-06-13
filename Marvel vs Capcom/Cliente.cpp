@@ -208,7 +208,7 @@ int Cliente::recibirModeloDelServidor() {
 		if (idMsg == COMPLETO) {
 			this->juegoCorriendo = false;
 			servidor_vivo=false;
-			this->getConexion()->Cerrar();
+//			this->getConexion()->Cerrar();
 
 			//			this->getVista()->CajaMensaje("Equipos",
 			//					"Juego iniciado. No hay lugar");

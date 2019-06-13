@@ -37,8 +37,8 @@ void * hilo_conexionServer(void * datosConexion) {
 		p->ping = false;
 		sleep(1);
 		if (!p->ping && miPartida.Iniciada()) {
-			shutdown(p->sock, SHUT_RDWR);
-			close(p->sock);
+//			shutdown(p->sock, SHUT_RDWR);
+//			close(p->sock);
 			//pthread_mutex_lock(&mutex_server);
 			miPartida.JugadorDesconectado(p->usuario);
 			cout << "Falla en la comunicacion con el cliente: " << p->sock << endl;
