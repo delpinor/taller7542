@@ -89,11 +89,17 @@ void View::ajustarCamara() {
 		this->camara->y = ALTO_NIVEL - this->camara->h;
 	}
 }
-
+void View::CajaMensaje(string titulo, string cuerpo) {
+	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,
+	                         titulo.c_str(),
+	                         cuerpo.c_str(),
+	                         window);
+}
 void View::render() {
 
 	this->ajustarCamara();
 	SDL_SetRenderDrawColor(this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+
 	SDL_RenderClear(this->gRenderer);
 	pantalla->refrescarPosicion(camara);
 

@@ -116,8 +116,11 @@ void Jugador::disminuirVelocidadY() {
 }
 
 void Jugador::cambiarPersonaje() {
+	if(this->estado->getVelY()==0){
+	this->estado->aumentarVelocidadY(20);
 	this->cambiandoPersonaje.copiarEstadoCambiarPersonaje(this->estado);
 	this->estado = &(this->cambiandoPersonaje);
+	}
 }
 
 void Jugador::Agachar() {
@@ -160,7 +163,18 @@ int Jugador::getVelX() {
 int Jugador::getVelY() {
 	return this->estado->getVelY();
 }
+void Jugador::set_desconectado(){
+this->desconectado=true;
 
+}
+void Jugador::set_conectado(){
+	this->desconectado=false;
+
+}
+bool Jugador::get_estado_desconexion(){
+
+	return desconectado;
+}
 void Jugador::detenerVelocidad() {
 	this->estado->detenerVelocidad();
 }
@@ -311,4 +325,20 @@ bool Jugador::movimientoDerecha(){
 
 bool Jugador::movimientoIzquierda(){
 	return (this->estado->getVelX() < 0);
+}
+
+void Jugador::setColor(int red,int green,int blue){
+	this->r=red;
+	this->g=green;
+	this->b=blue;
+}
+
+int Jugador::getR(){
+return r;
+}
+int Jugador::getG(){
+return g;
+}
+int Jugador::getB(){
+return b;
 }

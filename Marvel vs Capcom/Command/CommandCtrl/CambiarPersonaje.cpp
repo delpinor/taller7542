@@ -19,7 +19,7 @@ CambiarPersonaje::~CambiarPersonaje() {
 
 void CambiarPersonaje::execute(int i) {
 	this->model->equipos[i]->iniciarCambioPersonaje();
-	this->model->equipos[i]->jugadorActivoAumentaVelocidadEnY(20);
+	//this->model->equipos[i]->jugadorActivoAumentaVelocidadEnY(20);
 
 //	if(i == 0)
 //		this->model->equipos[i]->jugadorActivoAumentaVelocidadEnX(-10);

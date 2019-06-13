@@ -20,6 +20,9 @@ private:
 	 int height;
 	 int width;
 	 int zindex;
+	 int r = 255;
+	 int g = 255;
+	 int b = 255;
 	static const int VELOCIDAD_JUGADOR = 1;
 
 	SDL_Rect mCollider;
@@ -30,19 +33,26 @@ private:
 	Agachado agachado;
 	SDL_RendererFlip direccion;
 	int personaje;
+	bool desconectado=false;
+
 public:
 	Estado* estado;
 //	EstadoCliente * estado;
 
 	Jugador();
+	void set_desconectado();
+	void set_conectado();
+	bool get_estado_desconexion();
 	Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &pathImagen);
 	int get_alto();
 	int get_ancho();
 	int get_zindex();
 	std::string getNombre();
 	std::string getPath();
-
-
+	void setColor(int,int,int);
+	int getR();
+	int getG();
+	int getB();
 	//void move();
 	void move(Jugador* jugadorRival, SDL_Rect* camara);
 	int getPosX();

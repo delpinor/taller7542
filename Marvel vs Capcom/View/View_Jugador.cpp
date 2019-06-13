@@ -12,8 +12,16 @@ void View_Jugador::initialize(Jugador * model, LTexture * texturaJugador) {
 
 void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 	SDL_Rect* currentClip;
+	if(this->jugador->get_estado_desconexion()==false){
+		//printf("No se pone gris la imagen!!!!\n");
+		this->desgrisar_imagen();
+	}else{
+		//printf("se pone gris la imagen!!!!\n");
+		this->grisar_imagen();
+	}
 	if ((this->jugador->estado->getVelX() != 0)
 			&& (this->jugador->estado->getVelY() == 0)) {
+
 
 		if (frame / MAXFRAMECAMINA >= MAXFRAMECAMINA ) {
 			frame = MINFRAMECAMINA;
@@ -40,8 +48,10 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 		++frame;
 	}
 
-	if (this->jugador->estaAgachado())
+	if (this->jugador->estaAgachado()){
+
 		currentClip = &gSpriteAgachar[0];
+	}
 	if (this->jugador->estaCambiandoPersonaje())
 		currentClip = &gSpriteCambiarPersonaje[0];
 	if (this->jugador->estaActivo()) {
@@ -50,7 +60,17 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 				this->jugador->getDireccion(), gRenderer);
 	}
 }
+void View_Jugador::grisar_imagen(){
 
+	this->texturaJugador->setColor(55,55,55); //seto el color a gris
+
+}
+void View_Jugador::desgrisar_imagen(){
+
+	this->texturaJugador->setColor(255,255,255); //seto el color a grisb
+	this->texturaJugador->setColor(this->jugador->getR(),this->jugador->getG(),this->jugador->getB());
+
+}
 int View_Jugador::getZIndex() {
 	return this->zIndex;
 }

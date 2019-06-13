@@ -8,21 +8,21 @@
 #include "Configuracion.h"
 
 Configuracion::Configuracion(char* filepath) {
-/* Se carga los personajes disponibles*/
+	/* Se carga los personajes disponibles*/
 
 
-		nombresPersonajes.push_back("captain america");
-		nombresPersonajes.push_back("venom");
-		nombresPersonajes.push_back("captain america black");
-		nombresPersonajes.push_back("venom black");
-		nombresPersonajes.push_back("spiderman");
-		nombresPersonajes.push_back("spiderman black");
-		nombresPersonajes.push_back("chun li");
-		nombresPersonajes.push_back("chun li black");
-		nombresPersonajes.push_back("default");
+	nombresPersonajes.push_back("captain america");
+	nombresPersonajes.push_back("venom");
+	nombresPersonajes.push_back("captain america black");
+	nombresPersonajes.push_back("venom black");
+	nombresPersonajes.push_back("spiderman");
+	nombresPersonajes.push_back("spiderman black");
+	nombresPersonajes.push_back("chun li");
+	nombresPersonajes.push_back("chun li black");
+	nombresPersonajes.push_back("default");
 
 
-int error;
+	int error;
 	ParserConfig parser;
 
 	if(filepath == NULL || filepath[0] == '\0'){
@@ -39,13 +39,13 @@ int error;
 			Logger::Log(LOGGER_NIVEL::INFO, "Configuracion::Se carga correctamente la configuracion del archivo" ,"");
 		}
 	}
-				parser.devolver_Map_Personajes(&mapPersonajes);
-					parser.devolver_Map_Fondo(&mapFondoPantalla);
-					parser.devolver_Tam_Imagen(&anchoVentana,&altoVentana);
-					parser.devolver_Map_Nivel(&mapNivel);
-					this->num_jugadores=parser.devolverNumeroJugadores();
-					this->nivelLog = parser.devolver_Tipo_Log();
-					this->ValidarConfigs(&nombresPersonajes);
+	parser.devolver_Map_Personajes(&mapPersonajes);
+	parser.devolver_Map_Fondo(&mapFondoPantalla);
+	parser.devolver_Tam_Imagen(&anchoVentana,&altoVentana);
+	parser.devolver_Map_Nivel(&mapNivel);
+	this->num_jugadores=parser.devolverNumeroJugadores();
+	this->nivelLog = parser.devolver_Tipo_Log();
+	this->ValidarConfigs(&nombresPersonajes);
 
 }
 
@@ -79,7 +79,7 @@ LOGGER_NIVEL Configuracion::get_Config_NivelLog(){
 }
 int Configuracion::get_NumJugadores(){
 
-return this->num_jugadores;
+	return this->num_jugadores;
 
 }
 
@@ -106,7 +106,7 @@ void Configuracion::ValidarConfigs(vector<string> *nombresPersonajes){
 	}
 
 	if((!StringHelper::esUnNumero(this->altoVentana)) || (NumericHelper::parseStringToInt(this->altoVentana) <= 0)
-		|| (NumericHelper::parseStringToInt(this->altoVentana) !=600)){
+			|| (NumericHelper::parseStringToInt(this->altoVentana) !=600)){
 		Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se establace el alto de ventana default: " ,altoVentana);
 		this->altoVentana = alto_ventana_default;
 	}
@@ -131,7 +131,7 @@ void Configuracion::ValidarConfigs(vector<string> *nombresPersonajes){
 			}
 
 			if ((!StringHelper::esUnNumero(mapPersonajes[i]["alto"])) || (NumericHelper::parseStringToInt(mapPersonajes[i]["alto"]) <= 0)
-				||(NumericHelper::parseStringToInt(mapPersonajes[i]["alto"]) <100) || (NumericHelper::parseStringToInt(mapPersonajes[i]["alto"]) >300) ){
+					||(NumericHelper::parseStringToInt(mapPersonajes[i]["alto"]) <100) || (NumericHelper::parseStringToInt(mapPersonajes[i]["alto"]) >300) ){
 				Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se establace el alto del personaje default: " ,alto_personaje_default);
 				mapPersonajes[i]["alto"] = alto_personaje_default;
 
@@ -149,7 +149,7 @@ void Configuracion::ValidarConfigs(vector<string> *nombresPersonajes){
 			}
 			else{
 				if(!FileHelper::archivoEsValido(mapPersonajes[i]["rutaArchivoImagen"])
-					|| !FileHelper::archivoEsImagen(mapPersonajes[i]["rutaArchivoImagen"])){
+				|| !FileHelper::archivoEsImagen(mapPersonajes[i]["rutaArchivoImagen"])){
 					// TODO LOGUEAR QUE SE TOMA EL VALOR DEFAULT
 					mapPersonajes[i]["rutaArchivoImagen"] = ruta_imagen_personaje_default;
 					mapPersonajes[i]["nombre"] = nombre_personaje_default;
@@ -184,7 +184,7 @@ void Configuracion::ValidarConfigs(vector<string> *nombresPersonajes){
 		for (unsigned int i = 0; i < mapFondoPantalla.size(); i++){
 
 			if(!FileHelper::archivoEsValido(mapFondoPantalla[i]["rutaArchivoImagen"])
-				|| !FileHelper::archivoEsImagen(mapFondoPantalla[i]["rutaArchivoImagen"])){
+			|| !FileHelper::archivoEsImagen(mapFondoPantalla[i]["rutaArchivoImagen"])){
 				Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se carga el fondo de pantalla default" ,ruta_imagen_fondoPantalla_default);
 				mapFondoPantalla[i]["rutaArchivoImagen"] = ruta_imagen_fondoPantalla_default;
 			}

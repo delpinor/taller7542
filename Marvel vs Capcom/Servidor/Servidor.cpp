@@ -5,27 +5,132 @@
  *      Author: delpinor
  */
 #include "Servidor.h"
+#include <signal.h>
 using namespace std;
 pthread_mutex_t mutex_server;
 Partida miPartida;
+bool servidor_cerrado=false;
 
+/* Signal Handler for SIGINT */
+
+bool Servidor::servidor_esta_cerrado(){
+	if (servidor_cerrado){
+	return true;
+	}else{
+		return false;
+	}
+}
+void sigintHandler(int sig_num)
+{
+    /* Reset handler to catch SIGINT next time.
+       Refer http://en.cppreference.com/w/c/program/signal */
+    signal(SIGINT, sigintHandler);
+    servidor_cerrado=true;
+    printf("\n sERVIDOR CERRADO \n");
+    fflush(stdout);
+}
+
+// Hilo Conexion
+void * hilo_conexionServer(void * datosConexion) {
+	HiloConexion* p = (HiloConexion*) datosConexion;
+	while (1) {
+		p->ping = false;
+		sleep(1);
+		if (!p->ping && miPartida.Iniciada()) {
+//			shutdown(p->sock, SHUT_RDWR);
+//			close(p->sock);
+			//pthread_mutex_lock(&mutex_server);
+			miPartida.JugadorDesconectado(p->usuario);
+			cout << "Falla en la comunicacion con el cliente: " << p->sock << endl;
+			//pthread_mutex_unlock(&mutex_server);
+			pthread_exit(NULL);
+			break;
+		}
+	}
+}
+void * updateModelo(void *) {
+	cout << "Hilo UpdateModelo corriendo." << endl;
+	bool corriendo = true;
+	while (corriendo) {
+		if (miPartida.Iniciada()) {
+			usleep(10000);
+			miPartida.GetModelo()->update();
+			miPartida.AjustarCamara();
+		}
+		if (miPartida.Finalizada())
+			corriendo = false;
+	}
+}
 // Hilo de control de partida. Finalizacion, inicio, etc.
 void * controlPartida(void *) {
 
 	while (1) {
-		if (miPartida.EquipoCompleto()) {
+		signal(SIGINT, sigintHandler);
+		if (miPartida.FinalizadaSeleccionPersonajes() && !miPartida.Iniciada()) {//if (miPartida.EquipoCompleto()) {
+			sleep(2);
 			miPartida.IniciarPartida();
 		}
-		if (miPartida.Finalizada()){
+		if (miPartida.Finalizada()) {
 			miPartida.DetenerJugadores();
 		}
+		usleep(10);
 	}
+}
+
+void * controlSeleccionPersonajes(void *) {
+	cout << "SERVIDOR - controlSeleccionPersonajes: INICIO de ciclo" << " | "
+			<< TimeHelper::getStringLocalTimeNow() << endl;
+	while (1) {
+		if (miPartida.EquipoCompleto()
+				&& !miPartida.FinalizadaSeleccionPersonajes()) {
+
+			if (!miPartida.EstaHabilitadoEnvioPersonajes()) {
+				cout
+				<< "SERVIDOR - controlSeleccionPersonajes: Ingresó en 1er IF | "
+				<< TimeHelper::getStringLocalTimeNow() << endl;
+				pthread_mutex_lock(&mutex_server);
+				miPartida.HabilitarEnvioPersonajes();
+				pthread_mutex_unlock(&mutex_server);
+				cout
+				<< "SERVIDOR - controlSeleccionPersonajes: Ejecutado 1er IF | "
+				<< TimeHelper::getStringLocalTimeNow() << endl;
+			} else if (miPartida.EstaEnviadaDataPersonajes()
+					&& !miPartida.IniciadaSeleccionPersonajes()) {
+				cout
+				<< "SERVIDOR - controlSeleccionPersonajes: Ingresó en 2do IF | "
+				<< TimeHelper::getStringLocalTimeNow() << endl;
+				pthread_mutex_lock(&mutex_server);
+				miPartida.IniciarSeleccionPersonajes();
+				pthread_mutex_unlock(&mutex_server);
+				cout
+				<< "SERVIDOR - controlSeleccionPersonajes: Ejecutado 2do IF | "
+				<< TimeHelper::getStringLocalTimeNow() << endl;
+			} else if (miPartida.IniciadaSeleccionPersonajes()
+					&& miPartida.PersonajesSeleccionCompleta()) {
+				cout
+				<< "SERVIDOR - controlSeleccionPersonajes: Ingresó en 3er IF | "
+				<< TimeHelper::getStringLocalTimeNow() << endl;
+				pthread_mutex_lock(&mutex_server);
+				miPartida.SetPersonajes();
+				miPartida.FinalizarSeleccionPersonajes();
+				pthread_mutex_unlock(&mutex_server);
+				cout
+				<< "SERVIDOR - controlSeleccionPersonajes: Ejecutado 3er IF | "
+				<< TimeHelper::getStringLocalTimeNow() << endl;
+			}
+		}
+		//	cout << "Personajes seleccion compelta: " << miPartida.IniciadaSeleccionPersonajes() << endl;
+		//Por que no muere éste hilo?
+
+	}
+	cout << "SERVIDOR - controlSeleccionPersonajes: FIN de ciclo" << " | "
+			<< TimeHelper::getStringLocalTimeNow() << endl;
 }
 
 //Hilo de loggeo de informacion
 void * loggeoPartida(void *) {
 	while (1) {
-//		system("clear");
+		system("clear");
 		cout << "Inicio partida: "
 				<< (miPartida.Iniciada() == true ? "Iniciada" : "No iniciada")
 				<< endl;
@@ -33,7 +138,7 @@ void * loggeoPartida(void *) {
 				<< (miPartida.Finalizada() == true ?
 						"Finalizada" : "No finalizada") << endl;
 		cout << "Cantidad jugadores: " << miPartida.GetCantidadJugando()
-				<< endl;
+						<< endl;
 		cout << "Cantidad en espera: " << miPartida.GetCantidadEspera() << endl;
 		cout << "Cantidad en desconectados: "
 				<< miPartida.GetCantidadDesconectados() << endl;
@@ -67,45 +172,127 @@ void * loggeoPartida(void *) {
 void * enviarDatos(void * datos) {
 	int sock = ((DatosHiloServidor*) datos)->sock;
 	string usuario = ((DatosHiloServidor*) datos)->usuario;
+	int error;
 
 	bool corriendo = true;
+	bool avisoJuegoIniciado = false;
 	while (corriendo) {
-		////------->Mensaje de conexión
-		IDMENSAJE idPing = PING;
-		int errorSock = send(sock, &idPing, sizeof(idPing), MSG_DONTWAIT | MSG_CONFIRM );
-		if (errorSock < 0) {
-			cout << "Jugador " << usuario << " desconectado... ##################################################################################" << endl;
-			// Cierro los sockets
-			shutdown(sock, SHUT_RDWR);
-			close(sock);
-			miPartida.JugadorDesconectado(usuario);
-			pthread_exit(NULL);
+		if ((miPartida.EsClienteDesconectadoBySock(sock))) {
+			cout
+			<< "Cliente desconectado!!!######### Hilo enviar datos termminado"
+			<< endl;
 			corriendo = false;
+			pthread_exit(NULL);
 			break;
 		}
+		//cout << "SERVIDOR - enviarDatos: PING ENVIADO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 
+		////------->Mensaje de conexión
+
+
+		IDMENSAJE idPing = PING;
+		error=send(sock, &idPing, sizeof(idPing), 0);
+
+		if(error<0){
+			cout<<"error ping\n";
+			break;
+
+		}
+
+		if ( servidor_cerrado){
+
+					IDMENSAJE idPing = SERVIDORMUERTO;
+					send(sock, &idPing, sizeof(idPing), 0);
+
+
+
+		}
 		//------->Mensaje de Equipo
 		IDMENSAJE idEquipo = EQUIPO;
+		//cout << "SERVIDOR - enviarDatos: EQUIPO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 		ClienteEquipo unEquipo;
 		unEquipo.equipo = 99;
 		pthread_mutex_lock(&mutex_server);
-		if(!miPartida.Iniciada()){
-			if (miPartida.existeJugador(usuario)){
+		if (!miPartida.Iniciada()) {signal(SIGINT, sigintHandler);
+			if (miPartida.existeJugador(usuario)) {	//if(!miPartida.Iniciada()){
 				unEquipo.equipo = miPartida.GetClienteEspera(usuario).equipo;
 				unEquipo.titular = miPartida.GetClienteEspera(usuario).titular;
+				unEquipo.nroJugador = miPartida.GetClienteEspera(usuario).numeroJugadorJuego;
+				unEquipo.cantidadEquipo = miPartida.GetCantidadEnEspera(unEquipo.equipo);
 			}
-		}else{
-			if (miPartida.existeJugador(usuario)){
+		} else {
+			if (miPartida.existeJugador(usuario)) {
 				unEquipo.equipo = miPartida.GetClienteJugando(usuario).equipo;
 				unEquipo.titular = miPartida.GetClienteJugando(usuario).titular;
+				unEquipo.nroJugador = miPartida.GetClienteJugando(usuario).numeroJugadorJuego;
+				unEquipo.cantidadEquipo = miPartida.GetCantidadJugando(unEquipo.equipo);
 			}
 		}
 		pthread_mutex_unlock(&mutex_server);
-		if (unEquipo.equipo != 99){
+		if (unEquipo.equipo != 99) {
 			send(sock, &idEquipo, sizeof(idEquipo), 0);
-			send(sock, &unEquipo, sizeof(unEquipo),0);
+			send(sock, &unEquipo, sizeof(unEquipo), 0);
+		}
+		//cout << "SERVIDOR - enviarDatos: EQUIPO ENVIADO | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+
+		//------->Envio de Info de Selección de Personajes
+		if (miPartida.EstaHabilitadoEnvioPersonajes()
+				&& !miPartida.IniciadaSeleccionPersonajes()) {
+
+			IDMENSAJE idModelo = DATAPERSONAJES;
+			bool enviar = false;
+			ModeloPersonajes unModelo;
+
+			pthread_mutex_lock(&mutex_server);
+			ClienteConectado cliente = miPartida.GetClienteEspera(usuario);
+			if (!cliente.dataPersonajesEnviada) {
+				unModelo = miPartida.GetModeloPersonajes();
+				enviar = true;
+			}
+			pthread_mutex_unlock(&mutex_server);
+			if (enviar) {
+
+				cout << "SERVIDOR - enviarDatos: DATAPERSONAJES ENVIANDO | "
+										<< usuario << " | "
+										<< TimeHelper::getStringLocalTimeNow() << endl;
+
+				for(int i = 0; i < unModelo.cantidadPersonajes ; i++){
+					cout << "PersonajeId: " << unModelo.idsPersonajes[i] << endl;
+				}
+
+				send(sock, &idModelo, sizeof(idModelo), 0);
+				send(sock, &unModelo, sizeof(unModelo), 0);
+
+				pthread_mutex_lock(&mutex_server);
+				miPartida.SetDataPersonajesEnviada(usuario);
+				pthread_mutex_unlock(&mutex_server);
+				cout << "SERVIDOR - enviarDatos: DATAPERSONAJES ENVIADO | "
+						<< usuario << " | "
+						<< TimeHelper::getStringLocalTimeNow() << endl;
+			}
 		}
 
+		//------->Envio de Info de Selección de Personajes
+		if (miPartida.IniciadaSeleccionPersonajes() && !miPartida.FinalizadaSeleccionPersonajes()) {
+			//cout << "SERVIDOR - enviarDatos: MODELOSELECCION | "<< usuario << " | " << TimeHelper::getStringLocalTimeNow() << endl;
+			IDMENSAJE idModelo = MODELOSELECCION;
+
+			pthread_mutex_lock(&mutex_server);
+			ModeloSeleccion unModelo = miPartida.GetModeloSeleccion();
+			pthread_mutex_unlock(&mutex_server);
+
+			send(sock, &idModelo, sizeof(idModelo), 0);
+			send(sock, &unModelo, sizeof(unModelo), 0);
+
+		}
+		//------->Envio de confirmacion de inicio de juego
+		if (miPartida.Iniciada() && !avisoJuegoIniciado) {
+			IDMENSAJE idModelo = JUEGOINICIADO;
+			ModeloResultadoSeleccionPersonaje unModelo = miPartida.getResultadoSeleccionPersonaje();
+			send(sock, &idModelo, sizeof(idModelo), 0);
+			send(sock, &unModelo, sizeof(unModelo), 0);
+			avisoJuegoIniciado = true;
+		}
 
 		//------->Envio de Jugador
 		if (miPartida.Iniciada()) {
@@ -116,7 +303,7 @@ void * enviarDatos(void * datos) {
 			send(sock, &idModelo, sizeof(idModelo), 0);
 			send(sock, &unModelo, sizeof(unModelo), 0);
 		}
-		usleep(1000);
+		usleep(18000);
 	}
 }
 
@@ -131,46 +318,86 @@ void * recibirDatos(void * datos) {
 	unCliente.socket = sock;
 	unCliente.tid = pthread_self();
 	unCliente.nombre = usuario;
-	cout << "Hilo de RECIBIR DATOS creado, enviará datos con soket: "<<unCliente.socket<< endl;
+	cout << "Hilo de RECIBIR DATOS creado, enviará datos con soket: "
+			<< unCliente.socket << endl;
 
 	//Completo datos cliente
 	pthread_mutex_lock(&mutex_server);
 	miPartida.AgregarCliente(&unCliente);
 	pthread_mutex_unlock(&mutex_server);
+	cout << "Por entrar a while del hilo." << endl;
+
+	//Conexion
+	HiloConexion datosCone;
+	datosCone.sock = unCliente.socket;
+	datosCone.ping = false;
+	datosCone.usuario = unCliente.nombre;
+	pthread_t hiloConexion;
+
+	pthread_create(&hiloConexion, NULL, hilo_conexionServer,
+			(void*) &datosCone);
+	pthread_detach(hiloConexion);
 
 	//-------->Loop de escucha
 	bool corriendo = true;
 	cout << "Por entrar a while del hilo." << endl;
 	while (corriendo) {
-		if(miPartida.EsClienteDesconectadoBySock(unCliente.socket)){
-			cout << "Cliente desconectado!!!########################## Hilo termminado" << endl;
+		if (miPartida.EsClienteDesconectadoBySock(unCliente.socket)) {
+			cout << "Cliente desconectado!!!Hilo escucha: FIN" << endl;
 			corriendo = false;
 			pthread_exit(NULL);
 			break;
 		}
 
 		IDMENSAJE idMsg;
-		recv(unCliente.socket, &idMsg, sizeof(idMsg), 0);
-//		perror("Error recibiendo tipo de mensaje");
-//		cout << "Tipo mensaje recibido: " << idMsg << "por socket: "<<unCliente.socket<< endl;
-		if (idMsg == MENSAJE) {
-			Mensaje unMensaje;
-			recv(sock, &unMensaje, sizeof(unMensaje), 0);
-			cout << " Mensaje: " << unMensaje.mensaje << endl;
-		}
+		int errorRecv = recv(unCliente.socket, &idMsg, sizeof(idMsg),
+				MSG_NOSIGNAL);
+		if (errorRecv > 0) {
+			if (idMsg == PING) {
+				pthread_mutex_lock(&mutex_server);
+				datosCone.ping = true;
+				//				cout << "Ping de socket: " << datosCone.sock << endl;
+				pthread_mutex_unlock(&mutex_server);
+			}
 
-		if ((idMsg == COMANDO) && (miPartida.Iniciada())) {
-			ComandoAlServidor unComando;
-			recv(unCliente.socket, &unComando, sizeof(unComando), 0);
-//			perror("Error recibiendo COMANDO de mensaje");
-			pthread_mutex_lock(&mutex_server);
-			miPartida.SetComando(unCliente.equipo, unComando.comando);
-			pthread_mutex_unlock(&mutex_server);
-//			cout << "Comando recibido: " << unComando.comando << "por socket: "<<unCliente.socket<< endl;
-//			cout << "*****************************************************" << endl;
+			if (idMsg == MENSAJE) {
+				Mensaje unMensaje;
+				recv(sock, &unMensaje, sizeof(unMensaje), 0);
+				cout << " Mensaje: " << unMensaje.mensaje << endl;
+			}
 
+			if ((idMsg == COMANDO) && (miPartida.Iniciada())) {
+				ComandoAlServidor unComando;
+				recv(unCliente.socket, &unComando, sizeof(unComando), 0);
+				//			perror("Error recibiendo COMANDO de mensaje");
+				pthread_mutex_lock(&mutex_server);
+				miPartida.SetComando(unCliente.equipo, unComando.comando);
+				pthread_mutex_unlock(&mutex_server);
+				//				cout << "Comando recibido: " << unComando.comando << "por socket: "<<unCliente.socket<< endl;
+				//				cout << "*****************************************************" << endl;
+
+			}
+			if ((idMsg == DATASELECCION)
+					&& (miPartida.IniciadaSeleccionPersonajes())) {
+				DataSeleccionAlServidor data;
+				recv(unCliente.socket, &data, sizeof(data), 0);
+				pthread_mutex_lock(&mutex_server);
+				miPartida.HandleEventSeleccionPersonajes(unCliente.nombre, &data);
+				pthread_mutex_unlock(&mutex_server);
+				//cout << "Data Selección recibida: " << data.personajeId << endl;
+				//cout << "Confirmado: " << data.confirmado << endl;
+
+			}
 		}
+		usleep(10);
 	}
+}
+void Servidor::LanzarHiloControlSeleccionPersonajes() {
+	//Hilo de control
+	pthread_t thread_control_seleccionPersonajes;
+	pthread_create(&thread_control_seleccionPersonajes, NULL,
+			controlSeleccionPersonajes, NULL);
+	pthread_detach(thread_control_seleccionPersonajes);
 }
 void Servidor::LanzarHiloControl() {
 	//Hilo de control
@@ -184,49 +411,95 @@ void Servidor::LanzarHiloLoggeo() {
 	pthread_create(&pthread_log, NULL, loggeoPartida, NULL);
 	pthread_detach(pthread_log);
 }
+
+void Servidor::LanzarHiloUpdateModelo() {
+	//Hilo de control
+	pthread_t thread_update_modelo;
+	pthread_create(&thread_update_modelo, NULL, updateModelo, NULL);
+	pthread_detach(thread_update_modelo);
+}
+
+int Servidor::calcular_num_personajes(int orden_jugador) {
+	//si hay dos jugadores , cada uno debe sereccionar 2 pesonajes
+	if (this->num_jugadores == 2) {
+		return 2;
+	} else {
+		if (this->num_jugadores == 3) {
+			if (orden_jugador == 1) {
+				return 2;
+			} else {
+				return 1;
+			}
+			//si hay 4 jugadores el cada uno elije un personaje
+		} else {
+			return 1;
+		}
+	}
+}
+
 void Servidor::AceptarClientes(int maxClientes) {
+
+	int num_orden_cliente = 1;
+	int num_personajes;
 	//Aceptar clientes
 	struct sockaddr_in paramentrosCliente;
 	unsigned int tamanho = sizeof(paramentrosCliente);
 	bool corriendo = true;
 	while (corriendo) {
+		struct sigaction act;
+			    memset(&act, 0, sizeof(act));
+			    act.sa_handler = SIG_IGN;
+			    //act.sa_flags = SA_RESTART;
+			  sigaction(SIGPIPE, &act, NULL);
 		int socketComunicacion;
-		socketComunicacion = accept(connServidor.socketConexion,(struct sockaddr *) &paramentrosCliente, &tamanho);
-	    struct timeval tv;
-		tv.tv_sec = 2;
-		setsockopt(socketComunicacion, SOL_SOCKET, SO_SNDTIMEO, (char *)&tv,  sizeof tv);
+		socketComunicacion = accept(connServidor.socketConexion,
+				(struct sockaddr *) &paramentrosCliente, &tamanho);
+
 		cout << "Se aceptó una conexión nueva" << endl;
 		//Primer mensaje recibido.
 		JugadorLogin login;
 		IDMENSAJE idMsg;
-		recv(socketComunicacion, &idMsg, sizeof(idMsg), 0);
-		if (idMsg == LOGIN) {
+		int numError = recv(socketComunicacion, &idMsg, sizeof(idMsg), 0);
+		if (idMsg == LOGIN && numError > 0) {
 			recv(socketComunicacion, &login, sizeof(login), 0);
 		}
-		if(!miPartida.Iniciada() || miPartida.EsClienteDesconectado(login.usuario)){
+		if (miPartida.EquipoCompleto() && !miPartida.EsClienteDesconectado(login.usuario)){
+			IDMENSAJE idMsg = COMPLETO;
+			send(socketComunicacion, &idMsg, sizeof(idMsg), 0);
+		}else{
+			IDMENSAJE idMsg = ACEPTADO;
+			send(socketComunicacion, &idMsg, sizeof(idMsg), 0);
+
+		}
+		if (!miPartida.Iniciada()
+				|| miPartida.EsClienteDesconectado(login.usuario)) {
+
+
 
 			cout << "Recibiendo al nuevo cliente: " << login.usuario << endl;
 			// Datos para el thread
 			DatosHiloServidor datos;
 			datos.sock = socketComunicacion;
-			datos.usuario = login.usuario;
-
-			//Creo hilo de recepcion
-			pthread_t hiloRecepcion;
-			pthread_create(&hiloRecepcion, NULL, recibirDatos, (void*) &datos);
-			pthread_detach(hiloRecepcion);
+			if (!miPartida.Iniciada())
+				datos.usuario = miPartida.validarNombreUsuario(login.usuario);
+			else
+				datos.usuario = login.usuario;
 
 			//Creo un hilo de envio
 			pthread_t hiloEnvio;
 			pthread_create(&hiloEnvio, NULL, enviarDatos, (void*) &datos);
 			pthread_detach(hiloEnvio);
 
+			//Creo hilo de recepcion
+			pthread_t hiloRecepcion;
+			pthread_create(&hiloRecepcion, NULL, recibirDatos, (void*) &datos);
+			pthread_detach(hiloRecepcion);
+
 		} else {
 			IDMENSAJE idMsg = COMPLETO;
 			send(socketComunicacion, &idMsg, sizeof(idMsg), 0);
 
-			shutdown(socketComunicacion, SHUT_RDWR);
-			close(socketComunicacion);
+			cout << "NO entra al juego" << endl;
 
 			shutdown(socketComunicacion, SHUT_RDWR);
 			close(socketComunicacion);
@@ -249,9 +522,12 @@ void Servidor::IniciarServidor(int maxClientes, char * puerto) {
 	miPartida.SetMaximoJugadores(maxClientes);
 	connServidor.IniciarConexion(puerto);
 	LanzarHiloControl();
+	LanzarHiloControlSeleccionPersonajes();
 	LanzarHiloLoggeo();
+	LanzarHiloUpdateModelo();
 	AceptarClientes(maxClientes);
 
 }
+
 
 

@@ -7,6 +7,7 @@
 #include "../Comunicacion/EstructuraDatos.h"
 #include "../Controller/Controller.h"
 #include "../View/View.h"
+#include "../Enums/Personajes.h"
 #define ANCHO_NIVEL 1040
 #define ALTO_NIVEL 1080
 using namespace std;
@@ -16,8 +17,23 @@ struct ClienteConectado{
 	pthread_t tid;
 	string nombre;
 	int equipo = 0;
+
+	//indica si es 0,1. Su uso vale si tiene que seleccionar solo un personaje
+	//va a dejar de usarse, manda el flag "titular"
 	int numeroJugador;
+
+	//Indica si es 1p, 2p, 3p,4p
+	int numeroJugadorJuego;
+
 	bool titular;
+	int personajeId = static_cast<int>(PERSONAJE::P_NA);
+	int personajeIdSuplente = static_cast<int>(PERSONAJE::P_NA);
+
+	bool personajeConfirmado = false;
+	bool personajeConfirmadoSuplente = false;
+	bool dataPersonajesEnviada = false;
+	int cantidadPersonajes = 0;
+	bool esperandoReconexion = false;
 };
 class Partida{
 private:
@@ -33,6 +49,9 @@ private:
 	list<ClienteConectado> listaEspera;
 	list<ClienteConectado> listaJugadores;
 	list<ClienteConectado> listaDesconectados;
+	bool seleccionPersonajesIniciada = false;
+	bool seleccionPersonajesFinalizada = false;
+	bool habilitadoEnvioPersonajes = false;
 public:
 	list<ClienteConectado> GetListaJugadores();
 	list<ClienteConectado> GetListaEspera();
@@ -64,14 +83,38 @@ public:
 	ClienteConectado GetClienteDesconectado(string nombre);
 	int GetCantidadJugando();
 	int GetCantidadJugando(int equipo);
+	int GetCantidadEnEspera(int equipo);
 	int GetCantidadDesconectados();
 	int GetCantidadEspera();
+	ClienteConectado * GetDesconectado(string nombre);
 	bool TieneSuplente(int equipo);
 	bool jugadorReconectado(int equipo);
 	bool hayJugadorParaEquipo(int equipo);
 	bool existeJugador(string nombre);
+	void SwapPersonaje(int equipo);
 	void SwapTitularSuplente(int equipo);
 	void DetenerJugadores();
+	string validarNombreUsuario(string nombreUsuario);
+	int cantidadJugadoresConNombre(string nombre);
 
+	ModeloSeleccion GetModeloSeleccion();
+	void SetJugadoresPersonajeInicial();
+	void IniciarSeleccionPersonajes();
+	void FinalizarSeleccionPersonajes();
+	bool IniciadaSeleccionPersonajes();
+	bool FinalizadaSeleccionPersonajes();
+
+	void HandleEventSeleccionPersonajes(string nombreJugador, DataSeleccionAlServidor *data);
+	bool PersonajesSeleccionCompleta();
+	bool PersonajesSeleccionCompletaSuplente();
+	bool PersonajesSeleccionCompletaTitular();
+
+	void SetPersonajes();
+	bool EstaHabilitadoEnvioPersonajes();
+	void HabilitarEnvioPersonajes();
+	bool EstaEnviadaDataPersonajes();
+	ModeloPersonajes GetModeloPersonajes();
+	void SetDataPersonajesEnviada(string nombre);
+	ModeloResultadoSeleccionPersonaje getResultadoSeleccionPersonaje();
 };
 

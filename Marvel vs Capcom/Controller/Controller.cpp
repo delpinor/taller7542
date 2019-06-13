@@ -40,6 +40,10 @@ void Controller::SetComando(int equipo, int comando) {
 bool Controller::quitPressed() {
 	return this->quit;
 }
+void Controller::set_quit(){
+	this->quit=true;
+
+}
 void Controller::processInput() {
 	while (SDL_PollEvent(&(this->e)) != 0) {
 		if (this->e.type == SDL_QUIT) {

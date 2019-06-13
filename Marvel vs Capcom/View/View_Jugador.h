@@ -10,6 +10,8 @@ public:
 	View_Jugador(Jugador *model);
 	View_Jugador();
 	virtual void initialize(Jugador *model, LTexture * texturaJugador);
+	void grisar_imagen();
+	void desgrisar_imagen();
 	void render(int camX, int camY, SDL_Renderer * gRenderer);
 	Jugador *jugador;
 	int getZIndex();

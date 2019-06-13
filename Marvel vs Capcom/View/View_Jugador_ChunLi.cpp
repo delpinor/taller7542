@@ -20,6 +20,7 @@ void View_Jugador_ChunLi::initialize(Jugador *model,
 	getSpritesAnimacion();
 	this->zIndex = model->get_zindex();
 	getSpritesCambioPersonaje();
+	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
 }
 
 void View_Jugador_ChunLi::getSpritesCaminar() {
