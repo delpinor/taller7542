@@ -33,6 +33,7 @@ struct JugadorCliente {
 	bool isActivo = false;
 	bool isAgachado = false;
 	bool isCambiandoPersonaje = false;
+	bool isSaltando = false;
 };
 struct CamaraCliente {
 	int posX;

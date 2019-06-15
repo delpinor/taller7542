@@ -25,6 +25,9 @@ bool EstadoCliente::estaCambiandoPersonaje(){
 bool EstadoCliente::isFueraDePantalla(){
 	return this->fueraDePantalla;
 }
+bool EstadoCliente::estaSaltando(){
+	return this->saltando;
+}
 void EstadoCliente::setEstaActivo(bool activo){
 	this->activo = activo;
 }
@@ -37,7 +40,9 @@ void EstadoCliente::setEstaFueraDePantalla(bool fueraDePantalla){
 void EstadoCliente::setEstaCambiandoPersonaje(bool cambiandoPersonaje){
 	this->cambiandoPersonaje = cambiandoPersonaje;
 }
-
+void EstadoCliente::setEstaSaltando(bool saltando){
+	this->saltando = saltando;
+}
 EstadoCliente::~EstadoCliente() {
 	// TODO Auto-generated destructor stub
 }

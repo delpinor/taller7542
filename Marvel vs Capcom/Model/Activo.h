@@ -14,16 +14,18 @@ public:
 	bool estaAgachado();
 	bool isFueraDePantalla();
 	bool estaCambiandoPersonaje();
+	bool estaSaltando();
 	bool estaQuieto();
 	//métodos para cliente
 	void setEstaActivo(bool estaActivo);
 	void setEstaAgachado(bool estaAgachado);
 	void setEstaFueraDePantalla(bool estaEstaFueraDePantalla);
 	void setEstaCambiandoPersonaje(bool estaEstaCambiandoPersonaje);
+	void setEstaSaltando(bool saltando);
 protected:
 
 private:
-	bool quieto=true;
+//	bool quieto=true;
 };
 
 #endif // ACTIVO_H

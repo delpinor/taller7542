@@ -34,6 +34,9 @@ bool Inactivo::isFueraDePantalla(){
 bool Inactivo::estaCambiandoPersonaje(){
 	return false;
 }
+bool Inactivo::estaSaltando(){
+	return false;
+}
 //métodos para cliente
 void Inactivo::setEstaActivo(bool activo){
 	this->activo = activo;
@@ -46,4 +49,7 @@ void Inactivo::setEstaFueraDePantalla(bool fueraDePantalla){
 }
 void Inactivo::setEstaCambiandoPersonaje(bool cambiandoPersonaje){
 	this->cambiandoPersonaje = cambiandoPersonaje;
+}
+void Inactivo::setEstaSaltando(bool saltando){
+	this->saltando = saltando;
 }

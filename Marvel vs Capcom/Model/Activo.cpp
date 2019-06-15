@@ -12,31 +12,11 @@ Activo::~Activo() {
 }
 
 void Activo::move() {
-	quieto=false;
-
-		this->mPosX += this->mVelX * aceleracion;
-		if ((mPosX < 0) || (mPosX + ANCHO_JUGADOR >= ANCHO_NIVEL)) {
-			mPosX -= mVelX * aceleracion;
-		}
-		mVelY -= aceleracion;
-		mPosY -= mVelY;
-		if ((mPosY < 0) || (mPosY + ALTO_JUGADOR >= ALTO_NIVEL)) {
-			mPosY += mVelY;
-			mVelY = 0;
-		}
-		quieto=true;
+	Estado::move();
 }
 
 void Activo::moveVertical() {
-	quieto=false;
-
-		mVelY -= aceleracion;
-		mPosY -= mVelY;
-		if ((mPosY < 0) || (mPosY + ALTO_JUGADOR >= ALTO_NIVEL)) {
-			mPosY += mVelY;
-			mVelY = 0;
-		}
-		quieto=true;
+	Estado::moveVertical();
 }
 
 bool Activo::estaQuieto(){
@@ -57,6 +37,9 @@ bool Activo::estaAgachado() {
 bool Activo::estaCambiandoPersonaje(){
 	return this->cambiandoPersonaje;
 }
+bool Activo::estaSaltando(){
+	return this->saltando;
+}
 //métodos para cliente
 
 void Activo::setEstaActivo(bool activo){
@@ -71,4 +54,6 @@ void Activo::setEstaFueraDePantalla(bool fueraDePantalla){
 void Activo::setEstaCambiandoPersonaje(bool cambiandoPersonaje){
 	this->cambiandoPersonaje = cambiandoPersonaje;
 }
-
+void Activo::setEstaSaltando(bool saltando){
+	this->saltando = saltando;
+}

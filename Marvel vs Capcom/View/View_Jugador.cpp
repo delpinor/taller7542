@@ -28,8 +28,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 		}
 		currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
 		++frame;
-	}
-	if (this->jugador->estado->getVelY() != 0) {
+	}else if (this->jugador->estado->estaSaltando()) {
 		if (this->jugador->estado->getVelY() >= 18) {
 			frame = 0;
 		}
@@ -38,22 +37,21 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 		}
 		currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
 		++frame;
-	}
-	if ((this->jugador->estado->getVelY() == 0)
+	}else if ((this->jugador->estado->getVelY() == 0)
 			&& (this->jugador->estado->getVelX() == 0)) {
 		currentClip = &gSpriteAnimacion[frame / MAXFRAMEANIMACION];
 		if (frame / MAXFRAMEANIMACION >= MAXFRAMEANIMACION ) {
 			frame = MINFRAMEANIMACION;
 		}
 		++frame;
-	}
+	}else
+	if (this->jugador->estaCambiandoPersonaje())
+			currentClip = &gSpriteCambiarPersonaje[0];
 
 	if (this->jugador->estaAgachado()){
-
 		currentClip = &gSpriteAgachar[0];
 	}
-	if (this->jugador->estaCambiandoPersonaje())
-		currentClip = &gSpriteCambiarPersonaje[0];
+
 	if (this->jugador->estaActivo()) {
 		this->texturaJugador->render(this->jugador->getPosX() - camX,
 				this->jugador->getPosY() - camY, currentClip, 0, NULL,
