@@ -40,7 +40,9 @@ public:
 	void AceptarClientes(int maxClientes);
 	void LanzarHiloControlSeleccionPersonajes();
 	void LanzarHiloUpdateModelo();
+	void LanzarHiloBatalla();
 	bool servidor_esta_cerrado();
+	void SetConfiguracion(std::map<std::string, std::string> &mapRound);
 
 	//virtual ~Funciones();
 };

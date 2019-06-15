@@ -41,6 +41,7 @@ public:
 	void devolver_Tam_Imagen(std::string *ancho, std::string *alto);
 	void devolver_Map_Nivel(std::map<std::string, std::string> *mapNivel);
 	int devolverNumeroJugadores();
+	void devolver_Map_Batalla(std::map<std::string, std::string> *mapBatalla);
 	virtual ~ParserConfig();
 
 

@@ -45,6 +45,7 @@ Configuracion::Configuracion(char* filepath) {
 	parser.devolver_Map_Nivel(&mapNivel);
 	this->num_jugadores=parser.devolverNumeroJugadores();
 	this->nivelLog = parser.devolver_Tipo_Log();
+	parser.devolver_Map_Batalla(&mapBatalla);
 	this->ValidarConfigs(&nombresPersonajes);
 
 }
@@ -89,6 +90,10 @@ int Configuracion::get_Config_AnchoVentana(){
 
 int Configuracion::get_Config_AltoVentana(){
 	return NumericHelper::parseStringToInt(this->altoVentana);
+}
+
+std::map<std::string, std::string> Configuracion::get_Config_Batalla(){
+	return mapBatalla;
 }
 
 Configuracion::~Configuracion() {
@@ -237,4 +242,21 @@ void Configuracion::ValidarConfigs(vector<string> *nombresPersonajes){
 
 	}
 
+	//Round
+	if(this->mapBatalla.size() == 0){
+		ParserConfig parser;
+		Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::se cargan la info de Batalla default" ,"");
+		parser.devolver_Map_Nivel(&mapBatalla);
+	}
+	else{
+		if(!StringHelper::esUnNumero(mapBatalla["cantidad"]) || NumericHelper::parseStringToInt(mapBatalla["cantidad"]) <= 0){
+			Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::se carga cantidad de Batalla default" ,batalla_cantidad_default);
+			mapBatalla["cantidad"] = batalla_cantidad_default;
+		}
+
+		if(!StringHelper::esUnNumero(mapBatalla["tiempo"]) || NumericHelper::parseStringToInt(mapBatalla["tiempo"]) <= 0){
+			Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::se cargan tiempo de Batalla default" ,batalla_tiempo_default);
+			mapBatalla["tiempo"] = batalla_tiempo_default;
+		}
+	}
 }

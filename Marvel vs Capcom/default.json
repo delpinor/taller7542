@@ -65,6 +65,10 @@
 	"server" : 
 	{
 		"players" : 4
+	},
+	"round" :
+	{
+		"batalla" : 3,
+		"tiempo" : 10
 	}
-
 }

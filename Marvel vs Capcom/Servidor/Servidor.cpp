@@ -61,6 +61,31 @@ void * updateModelo(void *) {
 			corriendo = false;
 	}
 }
+
+void * controlBatalla(void *) {
+
+	while (1) {
+
+		if (miPartida.EstaEnEjecucionDeBatalla()){
+			sleep(1);
+			pthread_mutex_lock(&mutex_server);
+			miPartida.AvanzarTiempo();
+			pthread_mutex_unlock(&mutex_server);
+
+			if(miPartida.DebeFinalizarBatalla()){
+				pthread_mutex_lock(&mutex_server);
+				miPartida.FinalizarBatalla();
+				pthread_mutex_unlock(&mutex_server);
+			}
+		}
+		else{
+			if(!miPartida.Finalizada()){
+				miPartida.IniciarBatalla();
+			}
+		}
+		usleep(10);
+	}
+}
 // Hilo de control de partida. Finalizacion, inicio, etc.
 void * controlPartida(void *) {
 
@@ -92,10 +117,9 @@ void * controlSeleccionPersonajes(void *) {
 				miPartida.HabilitarEnvioPersonajes();
 				pthread_mutex_unlock(&mutex_server);
 				cout
-				<< "SERVIDOR - controlSeleccionPersonajes: Ejecutado 1er IF | "
-				<< TimeHelper::getStringLocalTimeNow() << endl;
-			} else if (miPartida.EstaEnviadaDataPersonajes()
-					&& !miPartida.IniciadaSeleccionPersonajes()) {
+					<< "SERVIDOR - controlSeleccionPersonajes: Ejecutado 1er IF | "
+					<< TimeHelper::getStringLocalTimeNow() << endl;
+			} else if (miPartida.EstaEnviadaDataPersonajes() && !miPartida.IniciadaSeleccionPersonajes()) {
 				cout
 				<< "SERVIDOR - controlSeleccionPersonajes: Ingresó en 2do IF | "
 				<< TimeHelper::getStringLocalTimeNow() << endl;
@@ -103,20 +127,19 @@ void * controlSeleccionPersonajes(void *) {
 				miPartida.IniciarSeleccionPersonajes();
 				pthread_mutex_unlock(&mutex_server);
 				cout
-				<< "SERVIDOR - controlSeleccionPersonajes: Ejecutado 2do IF | "
-				<< TimeHelper::getStringLocalTimeNow() << endl;
-			} else if (miPartida.IniciadaSeleccionPersonajes()
-					&& miPartida.PersonajesSeleccionCompleta()) {
+					<< "SERVIDOR - controlSeleccionPersonajes: Ejecutado 2do IF | "
+					<< TimeHelper::getStringLocalTimeNow() << endl;
+			} else if (miPartida.IniciadaSeleccionPersonajes() && miPartida.PersonajesSeleccionCompleta()) {
 				cout
-				<< "SERVIDOR - controlSeleccionPersonajes: Ingresó en 3er IF | "
-				<< TimeHelper::getStringLocalTimeNow() << endl;
+					<< "SERVIDOR - controlSeleccionPersonajes: Ingresó en 3er IF | "
+					<< TimeHelper::getStringLocalTimeNow() << endl;
 				pthread_mutex_lock(&mutex_server);
 				miPartida.SetPersonajes();
 				miPartida.FinalizarSeleccionPersonajes();
 				pthread_mutex_unlock(&mutex_server);
 				cout
-				<< "SERVIDOR - controlSeleccionPersonajes: Ejecutado 3er IF | "
-				<< TimeHelper::getStringLocalTimeNow() << endl;
+					<< "SERVIDOR - controlSeleccionPersonajes: Ejecutado 3er IF | "
+					<< TimeHelper::getStringLocalTimeNow() << endl;
 			}
 		}
 		//	cout << "Personajes seleccion compelta: " << miPartida.IniciadaSeleccionPersonajes() << endl;
@@ -418,6 +441,12 @@ void Servidor::LanzarHiloUpdateModelo() {
 	pthread_create(&thread_update_modelo, NULL, updateModelo, NULL);
 	pthread_detach(thread_update_modelo);
 }
+void Servidor::LanzarHiloBatalla() {
+	//Hilo de control
+	pthread_t thread_control;
+	pthread_create(&thread_control, NULL, controlBatalla, NULL);
+	pthread_detach(thread_control);
+}
 
 int Servidor::calcular_num_personajes(int orden_jugador) {
 	//si hay dos jugadores , cada uno debe sereccionar 2 pesonajes
@@ -516,6 +545,9 @@ void Servidor::AceptarClientes(int maxClientes) {
 void Servidor::SetModel(Model * model) {
 	miPartida.SetModelo(model);
 }
+void Servidor::SetConfiguracion(std::map<std::string, std::string> &mapRound){
+	miPartida.SetConfiguracion(mapRound);
+}
 void Servidor::IniciarServidor(int maxClientes, char * puerto) {
 
 	// Valores iniciales
@@ -525,6 +557,7 @@ void Servidor::IniciarServidor(int maxClientes, char * puerto) {
 	LanzarHiloControlSeleccionPersonajes();
 	LanzarHiloLoggeo();
 	LanzarHiloUpdateModelo();
+	LanzarHiloBatalla();
 	AceptarClientes(maxClientes);
 
 }

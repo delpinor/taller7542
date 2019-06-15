@@ -40,6 +40,9 @@
 #define MAXIMO_JUGADORES 4
 #define NUM_JUGADORES_DEFAUT 2
 
+#define batalla_cantidad_default "3"
+#define batalla_tiempo_default "99"
+
 //----------------------------------------//
 
 class Configuracion {
@@ -53,6 +56,7 @@ private:
 	std::string anchoVentana, altoVentana;
 	int num_jugadores;
 	std::vector<string> nombresPersonajes;
+	std::map<std::string, std::string>  mapBatalla;
 	void ValidarConfigs(std::vector<string> *nombresPersonajes);
 
 public:
@@ -64,6 +68,7 @@ public:
 	int get_Config_AnchoVentana();
 	int get_Config_AltoVentana();
 	int get_NumJugadores();
+	std::map<std::string, std::string> get_Config_Batalla();
 	virtual ~Configuracion();
 };
 
