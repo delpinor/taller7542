@@ -72,6 +72,15 @@ void Equipo::move(SDL_Rect* camara){
 	for (int i = 0; i < 2; ++i) {
 		this->jugadores[i]->move(this->equipoRival->getJugadorActivo(), camara);
 	}
+	if(getJugadorActivo()->estado->estaSaltando() && getJugadorActivo()->estado->getVelY() == 0){
+		if (!getJugadorActivo()->isDebeTerminarSalto()){
+			getJugadorActivo()->setDebeTerminarSalto(true);
+		}
+		else {
+			getJugadorActivo()->setDebeTerminarSalto(false);
+			getJugadorActivo()->terminarSalto();
+		}
+		}
 	if (this->getJugadorActivo()->isFueraDePantalla()){
 		this->cambiarPersonaje(camara);
 	}
@@ -96,7 +105,6 @@ void Equipo::cambiarPersonaje(SDL_Rect* camara){
 void Equipo::iniciarCambioPersonaje(){
 	this->jugadores[this->nroJugadorActivo]->cambiarPersonaje();
 }
-
 
 void Equipo::jugadorActivoAumentaVelocidadEnX() {
 	this->jugadores[this->nroJugadorActivo]->aumentarVelocidadX();

@@ -153,7 +153,12 @@ void Jugador::aumentarVelocidadY(int vel) {
 }
 
 void Jugador::Saltar() {
-	this->estado->Saltar();
+//	this->estado->Saltar();
+	if(!this->estado->estaSaltando()){
+		this->estado->setVelocidadY(20);
+		this->saltando.copiarEstado(this->estado);
+		this->estado = &(this->saltando);
+		}
 }
 
 int Jugador::getVelX() {
@@ -187,6 +192,9 @@ bool Jugador::estaAgachado() {
 bool Jugador::estaCambiandoPersonaje() {
 	return this->estado->estaCambiandoPersonaje();
 }
+bool Jugador::estaSaltando() {
+	return this->estado->estaSaltando();
+}
 void Jugador::activar() {
 	this->activo.copiarEstado(this->estado);
 	this->estado = &(this->activo);
@@ -196,6 +204,10 @@ void Jugador::desactivar() {
 	this->inactivo.copiarEstado(this->estado);
 	this->estado = &(this->inactivo);
 	this->detenerVelocidad();
+}
+void Jugador::terminarSalto() {
+	this->activo.copiarEstado(this->estado);
+	this->estado = &(this->activo);
 }
 bool Jugador::collide(SDL_Rect * camara) {
 
@@ -341,4 +353,11 @@ return g;
 }
 int Jugador::getB(){
 return b;
+}
+bool Jugador::isDebeTerminarSalto() {
+	return debeTerminarSalto;
+}
+
+void Jugador::setDebeTerminarSalto(bool debeTerminarSalto) {
+	this->debeTerminarSalto = debeTerminarSalto;
 }

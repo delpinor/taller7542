@@ -20,11 +20,13 @@ public:
 	bool estaAgachado();
 	bool estaCambiandoPersonaje();
 	bool isFueraDePantalla();
+	bool estaSaltando();
 	//métodos para cliente
 	void setEstaActivo(bool estaActivo);
 	void setEstaAgachado(bool estaAgachado);
 	void setEstaFueraDePantalla(bool estaEstaFueraDePantalla);
 	void setEstaCambiandoPersonaje(bool estaEstaCambiandoPersonaje);
+	void setEstaSaltando(bool estaSaltando);
 };
 
 #endif /* MODEL_CAMBIANDOPERSONAJE_H_ */

@@ -37,6 +37,9 @@ bool CambiandoPersonaje::estaAgachado() {
 bool CambiandoPersonaje::estaCambiandoPersonaje(){
 	return true;
 }
+bool CambiandoPersonaje::estaSaltando(){
+	return false;
+}
 //métodos para cliente
 void CambiandoPersonaje::setEstaActivo(bool activo){
 	this->activo = activo;
@@ -49,4 +52,7 @@ void CambiandoPersonaje::setEstaFueraDePantalla(bool fueraDePantalla){
 }
 void CambiandoPersonaje::setEstaCambiandoPersonaje(bool cambiandoPersonaje){
 	this->cambiandoPersonaje = cambiandoPersonaje;
+}
+void CambiandoPersonaje::setEstaSaltando(bool saltando){
+	this->saltando = saltando;
 }

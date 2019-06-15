@@ -6,6 +6,7 @@
 #include "../Model/Activo.h"
 #include "../Model/Inactivo.h"
 #include "../Model/Agachado.h"
+#include "../Model/Saltando.h"
 #include "../Model/CambiandoPersonaje.h"
 #include "../Model/EstadoCliente.h"
 #define VENOM 0x01
@@ -20,6 +21,7 @@ private:
 	 int height;
 	 int width;
 	 int zindex;
+	 bool debeTerminarSalto = false;
 	 int r = 255;
 	 int g = 255;
 	 int b = 255;
@@ -31,6 +33,7 @@ private:
 	Activo activo;
 	Inactivo inactivo;
 	Agachado agachado;
+	Saltando saltando;
 	SDL_RendererFlip direccion;
 	int personaje;
 	bool desconectado=false;
@@ -74,9 +77,11 @@ public:
 	bool estaActivo();
 	bool estaAgachado();
 	bool estaCambiandoPersonaje();
+	bool estaSaltando();
 	void detenerVelocidad();
 	void activar();
 	void desactivar();
+	void terminarSalto();
 	void setDireccion(SDL_RendererFlip direccion);
 	bool collide(SDL_Rect * camara);
 	bool collideDerecha(SDL_Rect * camara);
@@ -93,6 +98,7 @@ public:
 	bool isFueraDePantalla();
 	bool movimientoDerecha();
 	bool movimientoIzquierda();
-
-};
+	bool isDebeTerminarSalto();
+	void setDebeTerminarSalto(bool debeTerminarSalto);
+	};
 #endif

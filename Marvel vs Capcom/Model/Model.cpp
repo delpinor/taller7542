@@ -238,6 +238,7 @@ ModeloEstado Model::GetModelEstado(){
 	unModeloEstado.jugadoresEquipo1.isActivo = this->getEquipoNro(0)->getJugadorActivo()->estaActivo();
 	unModeloEstado.jugadoresEquipo1.isAgachado = this->getEquipoNro(0)->getJugadorActivo()->estaAgachado();
 	unModeloEstado.jugadoresEquipo1.isCambiandoPersonaje = this->getEquipoNro(0)->getJugadorActivo()->estaCambiandoPersonaje();
+	unModeloEstado.jugadoresEquipo1.isSaltando = this->getEquipoNro(0)->getJugadorActivo()->estaSaltando();
 	unModeloEstado.jugadoresEquipo1.posX = this->getEquipoNro(0)->getJugadorActivo()->getPosX();
 	unModeloEstado.jugadoresEquipo1.posY = this->getEquipoNro(0)->getJugadorActivo()->getPosY();
 	unModeloEstado.jugadoresEquipo1.velX = this->getEquipoNro(0)->getJugadorActivo()->getVelX();
@@ -248,6 +249,7 @@ ModeloEstado Model::GetModelEstado(){
 	unModeloEstado.jugadoresEquipo2.isActivo = this->getEquipoNro(1)->getJugadorActivo()->estaActivo();
 	unModeloEstado.jugadoresEquipo2.isAgachado = this->getEquipoNro(1)->getJugadorActivo()->estaAgachado();
 	unModeloEstado.jugadoresEquipo2.isCambiandoPersonaje = this->getEquipoNro(1)->getJugadorActivo()->estaCambiandoPersonaje();
+	unModeloEstado.jugadoresEquipo2.isSaltando = this->getEquipoNro(1)->getJugadorActivo()->estaSaltando();
 	unModeloEstado.jugadoresEquipo2.posX = this->getEquipoNro(1)->getJugadorActivo()->getPosX();
 	unModeloEstado.jugadoresEquipo2.posY = this->getEquipoNro(1)->getJugadorActivo()->getPosY();
 	unModeloEstado.jugadoresEquipo2.velX = this->getEquipoNro(1)->getJugadorActivo()->getVelX();

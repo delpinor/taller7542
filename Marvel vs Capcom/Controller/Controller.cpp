@@ -77,7 +77,7 @@ Command* Controller::handleEvent(SDL_Event& e) {
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
 		switch (e.key.keysym.sym) {
 		case SDLK_UP:
-			command = this->commands[INCVELY];
+			command = this->commands[SALTAR];
 			this->model->equipos[0]->agregarCambio(command);
 			break;
 		case SDLK_DOWN:
@@ -122,7 +122,7 @@ Command* Controller::handleEvent(SDL_Event& e) {
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
 		switch (e.key.keysym.sym) {
 		case SDLK_w:
-			command = this->commands[INCVELY];
+			command = this->commands[SALTAR];
 			this->model->equipos[1]->agregarCambio(command);
 			break;
 		case SDLK_s:
@@ -185,7 +185,7 @@ int Controller::handleEventCliente(SDL_Event& e) {
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
 		switch (e.key.keysym.sym) {
 		case SDLK_w:
-			comando =  INCVELY;
+			comando =  SALTAR;
 			break;
 		case SDLK_s:
 			comando =  AGACHAR;

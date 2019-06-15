@@ -32,6 +32,7 @@ public:
 	virtual bool estaActivo() = 0;
 	virtual bool estaAgachado() = 0;
 	virtual bool estaCambiandoPersonaje() = 0;
+	virtual bool estaSaltando() = 0;
 	int getAceleracion();
 	void desacelerar();
 	bool getAcelero();
@@ -46,6 +47,7 @@ public:
 	virtual void setEstaAgachado(bool estaAgachado) = 0;
 	virtual void setEstaFueraDePantalla(bool estaEstaFueraDePantalla) = 0;
 	virtual void setEstaCambiandoPersonaje(bool estaEstaCambiandoPersonaje) = 0;
+	virtual void setEstaSaltando(bool estaSaltando) = 0;
 
 protected:
 	int mPosX, mPosY;
@@ -58,6 +60,8 @@ protected:
 	bool agachado = false;
 	bool fueraDePantalla = false;
 	bool cambiandoPersonaje = false;
+	bool saltando = false;
+	bool quieto=true;
 
 private:
 };

@@ -1,4 +1,6 @@
 #include "Estado.h"
+#include "../View/View.h"
+#include "GeneralPantalla.h"
 
 #define VELOCIDAD_JUGADOR 3
 #define VELOCIDAD_JUGADOR_SALTO 20
@@ -16,6 +18,34 @@ Estado::Estado() {
 
 Estado::~Estado() {
 	//dtor
+}
+
+void Estado::move() {
+//	quieto=false;
+
+		this->mPosX += this->mVelX * aceleracion;
+		if ((mPosX < 0) || (mPosX + ANCHO_JUGADOR >= ANCHO_NIVEL)) {
+			mPosX -= mVelX * aceleracion;
+		}
+		mVelY -= aceleracion;
+		mPosY -= mVelY;
+		if ((mPosY < 0) || (mPosY + ALTO_JUGADOR >= ALTO_NIVEL)) {
+			mPosY += mVelY;
+			mVelY = 0;
+		}
+//		quieto=true;
+}
+
+void Estado::moveVertical() {
+//	quieto=false;
+
+		mVelY -= aceleracion;
+		mPosY -= mVelY;
+		if ((mPosY < 0) || (mPosY + ALTO_JUGADOR >= ALTO_NIVEL)) {
+			mPosY += mVelY;
+			mVelY = 0;
+		}
+//		quieto=true;
 }
 
 int Estado::getPosX() {
@@ -161,4 +191,7 @@ void Estado::setEstaFueraDePantalla(bool fueraDePantalla){
 }
 void Estado::setEstaCambiandoPersonaje(bool cambiandoPersonaje){
 	this->cambiandoPersonaje = cambiandoPersonaje;
+}
+void Estado::setEstaSaltando(bool saltando){
+	this->saltando = saltando;
 }

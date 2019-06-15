@@ -271,6 +271,8 @@ int Cliente::recibirModeloDelServidor() {
 					unModelo.jugadoresEquipo1.isAgachado);
 			this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaCambiandoPersonaje(
 					unModelo.jugadoresEquipo1.isCambiandoPersonaje);
+			this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaSaltando(
+					unModelo.jugadoresEquipo1.isSaltando);
 
 			this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setPosX(
 					unModelo.jugadoresEquipo2.posX);
@@ -286,6 +288,8 @@ int Cliente::recibirModeloDelServidor() {
 					unModelo.jugadoresEquipo2.isAgachado);
 			this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaCambiandoPersonaje(
 					unModelo.jugadoresEquipo2.isCambiandoPersonaje);
+			this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaSaltando(
+					unModelo.jugadoresEquipo2.isSaltando);
 
 			pthread_mutex_unlock(&mutexx);
 		}

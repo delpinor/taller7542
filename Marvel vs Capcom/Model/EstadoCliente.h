@@ -20,12 +20,14 @@ public:
 	bool estaActivo();
 	bool estaAgachado();
 	bool estaCambiandoPersonaje();
+	bool estaSaltando();
 	//métodos para cliente
 	bool isFueraDePantalla();
 	void setEstaActivo(bool estaActivo);
 	void setEstaAgachado(bool estaAgachado);
 	void setEstaFueraDePantalla(bool estaEstaFueraDePantalla);
 	void setEstaCambiandoPersonaje(bool estaEstaCambiandoPersonaje);
+	void setEstaSaltando(bool estaSaltando);
 	~EstadoCliente();
 };
 
