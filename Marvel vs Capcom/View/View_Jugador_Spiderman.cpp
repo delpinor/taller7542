@@ -153,39 +153,39 @@ void View_Jugador_Spiderman::getSpritesSaltar() {
 	this->gSpriteSaltar = new SDL_Rect[CANTSPRITECLIPSALTA];
 
 	gSpriteSaltar[0].x = 184;
-	gSpriteSaltar[0].y = 226;
+	gSpriteSaltar[0].y = 220;
 	gSpriteSaltar[0].w = 107;
-	gSpriteSaltar[0].h = 113;
+	gSpriteSaltar[0].h = 110;
 
 	gSpriteSaltar[1].x = 287;
-	gSpriteSaltar[1].y = 226;
+	gSpriteSaltar[1].y = 220;
 	gSpriteSaltar[1].w = 107;
-	gSpriteSaltar[1].h = 113;
+	gSpriteSaltar[1].h = 110;
 
 	gSpriteSaltar[2].x = 395;
-	gSpriteSaltar[2].y = 226;
+	gSpriteSaltar[2].y = 220;
 	gSpriteSaltar[2].w = 107;
-	gSpriteSaltar[2].h = 113;
+	gSpriteSaltar[2].h = 110;
 
-	gSpriteSaltar[3].x = 498;
-	gSpriteSaltar[3].y = 226;
+	gSpriteSaltar[3].x = 395;
+	gSpriteSaltar[3].y = 220;
 	gSpriteSaltar[3].w = 107;
-	gSpriteSaltar[3].h = 113;
+	gSpriteSaltar[3].h = 110;
 
-	gSpriteSaltar[4].x = 599;
-	gSpriteSaltar[4].y = 226;
+	gSpriteSaltar[4].x = 603;
+	gSpriteSaltar[4].y = 220;
 	gSpriteSaltar[4].w = 107;
-	gSpriteSaltar[4].h = 113;
+	gSpriteSaltar[4].h = 110;
 
 	gSpriteSaltar[5].x = 706;
-	gSpriteSaltar[5].y = 224;
+	gSpriteSaltar[5].y = 220;
 	gSpriteSaltar[5].w = 107;
-	gSpriteSaltar[5].h = 113;
+	gSpriteSaltar[5].h = 110;
 
 	gSpriteSaltar[6].x = 812;
-	gSpriteSaltar[6].y = 226;
+	gSpriteSaltar[6].y = 220;
 	gSpriteSaltar[6].w = 107;
-	gSpriteSaltar[6].h = 113;
+	gSpriteSaltar[6].h = 110;
 
 
 }
