@@ -84,6 +84,8 @@ public:
 	bool hayPersonajes();
 	list<ModeloPersonajeVistaSeleccion> getDataSeleccionada();
 	virtual ~ViewMenu();
+	void actualizarTitulo(std::string texto);
+	void actualizarMensaje(std::string texto);
 };
 
 #endif /* VIEWMENU_H_ */

@@ -313,6 +313,8 @@ void ViewMenu::close() {
 
 void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId,
 		bool *confirmado) {
+	actualizarTitulo("SELECCION DE PERSONAJE JUGADOR: " + std::to_string(this->nroJugadorLocal));
+	actualizarMensaje("Elija personaje y presione la tecla ESPACIO");
 
 	//cout << "VIEWMENU - handleEvent: Jugador | "<< this->nroJugadorLocal << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 
@@ -565,4 +567,14 @@ int ViewMenu::getNombre_usuario(std::string &nombre)
 }
 
 
+void ViewMenu::actualizarTitulo(std::string texto) {
+	SDL_Color textColor = { 250, 250, 250 };
+	gTextTexture.loadFromRenderedText(texto,
+				textColor, gRenderer, gFont2);
+}
 
+void ViewMenu::actualizarMensaje(std::string texto) {
+	SDL_Color textColor = { 250, 250, 250 };
+	gTextTexture2.loadFromRenderedText(texto,
+				textColor, gRenderer, gFont2);
+}
