@@ -134,12 +134,12 @@ void View_Jugador_Spiderman::getSpritesCaminar() {
 	gSpriteCaminar[9].w = 89;
 	gSpriteCaminar[9].h = 103;
 
-	gSpriteCaminar[10].x = 910;
+	gSpriteCaminar[10].x = 914;
 	gSpriteCaminar[10].y = 118;
-	gSpriteCaminar[10].w = 89;
+	gSpriteCaminar[10].w = 88;
 	gSpriteCaminar[10].h = 103;
 
-	gSpriteCaminar[11].x = 995;
+	gSpriteCaminar[11].x = 999;
 	gSpriteCaminar[11].y = 118;
 	gSpriteCaminar[11].w = 89;
 	gSpriteCaminar[11].h = 103;
