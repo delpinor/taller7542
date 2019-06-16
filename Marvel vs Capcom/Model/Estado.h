@@ -26,6 +26,10 @@ public:
 	void aumentarVelocidadX();
 	void aumentarVelocidadY();
 	void Saltar();
+	void Pinia();
+	void Pinion();
+	void Patada();
+	void Patadon();
 	void detenerVelocidad();
 	virtual void move() = 0;
 	virtual void moveVertical() = 0;

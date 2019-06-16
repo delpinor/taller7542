@@ -74,6 +74,10 @@ public:
 	void aumentarVelocidadX();
 	void aumentarVelocidadY();
 	void Saltar();
+	void Pinia();
+	void Pinion();
+	void Patada();
+	void Patadon();
 	bool estaActivo();
 	bool estaAgachado();
 	bool estaCambiandoPersonaje();

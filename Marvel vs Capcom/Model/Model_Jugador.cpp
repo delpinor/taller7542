@@ -152,6 +152,22 @@ void Jugador::aumentarVelocidadY(int vel) {
 	this->estado->aumentarVelocidadY(vel);
 }
 
+void Jugador::Pinia() {
+	this->estado->Pinia();
+}
+
+void Jugador::Pinion() {
+	this->estado->Pinion();
+}
+
+void Jugador::Patada() {
+	this->estado->Patada();
+}
+
+void Jugador::Patadon() {
+	this->estado->Patadon();
+}
+
 void Jugador::Saltar() {
 //	this->estado->Saltar();
 	if(!this->estado->estaSaltando()){

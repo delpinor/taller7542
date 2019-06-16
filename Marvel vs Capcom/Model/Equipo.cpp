@@ -125,7 +125,18 @@ void Equipo::jugadorActivoAumentaVelocidadEnY(int vel) {
 void Equipo::jugadorActivoSalta() {
 	this->jugadores[this->nroJugadorActivo]->Saltar();
 }
-
+void Equipo::jugadorActivoPinia() {
+	this->jugadores[this->nroJugadorActivo]->Pinia();
+}
+void Equipo::jugadorActivoPinion() {
+	this->jugadores[this->nroJugadorActivo]->Pinion();
+}
+void Equipo::jugadorActivoPatada() {
+	this->jugadores[this->nroJugadorActivo]->Patada();
+}
+void Equipo::jugadorActivoPatadon() {
+	this->jugadores[this->nroJugadorActivo]->Patadon();
+}
 void Equipo::jugadorActivoDisminuyeVelocidadEnX() {
 	this->jugadores[this->nroJugadorActivo]->disminuirVelocidadX();
 }
