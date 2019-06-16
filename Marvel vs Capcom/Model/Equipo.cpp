@@ -98,7 +98,7 @@ void Equipo::cambiarPersonaje(SDL_Rect* camara){
 	int jugadorInactivo = this->getNumeroJugadorInactivo();
 	int posXActual = this->getJugadorActivo()->estado->getPosX();
 	this->setJugadorActivo(jugadorInactivo);
-	this->getJugadorActivo()->estado->setPosY(10);
+	this->getJugadorActivo()->estado->setPosY(100);
 	this->getJugadorActivo()->estado->setPosX(posXActual);
 }
 

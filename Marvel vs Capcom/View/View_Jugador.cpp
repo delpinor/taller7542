@@ -44,13 +44,14 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 			frame = MINFRAMEANIMACION;
 		}
 		++frame;
-	}else
-	if (this->jugador->estaCambiandoPersonaje())
+	}else if (this->jugador->estaCambiandoPersonaje())
 			currentClip = &gSpriteCambiarPersonaje[0];
+	else
+		currentClip = &gSpriteCambiarPersonaje[0];
 
 	if (this->jugador->estaAgachado()){
-		currentClip = &gSpriteAgachar[0];
-	}
+			currentClip = &gSpriteAgachar[0];
+		}
 
 	if (this->jugador->estaActivo()) {
 		this->texturaJugador->render(this->jugador->getPosX() - camX,
