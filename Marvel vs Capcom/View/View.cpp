@@ -4,6 +4,7 @@
 #include "../Logger/Logger.h"
 #include "../Model/EstadoCliente.h"
 
+
 #define MARGEN 0
 int posAnteriorX1, posAnteriorY1;
 int posAnteriorX2, posAnteriorY2;
@@ -27,6 +28,10 @@ View::View(Model* model) {
 			this->model->inicializarPosicionesEquipos();
 			this->viewModel = new ViewModel(this->model, this->gRenderer, this->camara,	this->texturasEquipo1, this->texturasEquipo2);
 			this->setElementoPersonaje(model);
+
+
+
+
 		}
 
 }
@@ -96,6 +101,7 @@ void View::CajaMensaje(string titulo, string cuerpo) {
 	                         window);
 }
 void View::render() {
+
 
 	this->ajustarCamara();
 	SDL_SetRenderDrawColor(this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -183,6 +189,7 @@ bool View::inicializar(Model *model) {
 			}
 		}
 	}
+
 
 	return exito;
 }

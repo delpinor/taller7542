@@ -9,31 +9,34 @@
 #include "Servidor/Servidor.h"
 #include "Helper/TimeHelper.h"
 #include <signal.h>
-/* nombre_ejecutable  nombre_archivo_configuracion niveldeDebug*/
-/* Catch Signal Handler functio */
-void signal_callback_handler(int signum){
+#include "Sonido.h"
+#include "EfectoSonido.h"
 
-        printf("Caught signal SIGPIPE %d\n",signum);
+
+
+bool parar_musica=false;
+
+void * reproducir_musica_fondo(void* arg){
+	Sonido sonido_juego(1);
+	//sonido_juego.init();
+	sonido_juego.loadMedia("Sonidos/05-theme-of-captain-america.mp3");
+	sonido_juego.reproducir_sonido();
+	while(!parar_musica){
+
+		cout<<"Reproduciendo!!\n\n";
+		//sigo reproduciondo
+
+	}
+	sonido_juego.parar_sonido();
+
 }
-void ignore_sigpipe(void)
-{
-
-struct sigaction act;
-    memset(&act, 0, sizeof(act));
-    act.sa_handler = SIG_IGN;
-    act.sa_flags = SA_RESTART;
-  sigaction(SIGPIPE, &act, NULL);
-
-}
-
 int main(int argc, char* argv[]) {
 	struct sigaction act;
 	    memset(&act, 0, sizeof(act));
 	    act.sa_handler = SIG_IGN;
 	    //act.sa_flags = SA_RESTART;
 	  sigaction(SIGPIPE, &act, NULL);
-	//sigaction(SIGPIPE, &(struct sigaction){SIG_IGN}, NULL);
-	//ignore_sigpipe;
+
 	char* ip;
 	char* puerto;
 
@@ -75,18 +78,7 @@ int main(int argc, char* argv[]) {
 			<< model.jugadoresEquipo1.size() << " | "
 			<< TimeHelper::getStringLocalTimeNow() << endl;
 
-	//seteo los jugadores en los equipos
-	//set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int nroJugador)
-	//OJO ACA, SI LO DESCOMENTO EL 3ER PARAMETRO TIENE QUE SER EL ENUM DE LOS PERSONAJES
-	//	model.set_equipos_with_jugador(0, 0, 4);
-	//	model.set_equipos_with_jugador(0, 1, 1);
-	//	model.set_equipos_with_jugador(1, 0, 2);
-	//	model.set_equipos_with_jugador(1, 1, 3);
-	//
-	//	//designo que jugadores van a estar activos
-	//	model.inicializar();
-	//	model.getEquipoNro(0)->setJugadorActivo(0);
-	//	model.getEquipoNro(1)->setJugadorActivo(0);
+
 
 	int num_jugadores = appConfig.get_NumJugadores();
 
@@ -96,15 +88,11 @@ int main(int argc, char* argv[]) {
 		Servidor server;
 		server.SetModel(&model);
 		server.IniciarServidor(num_jugadores, puerto);
-		/*
-		while (1){
-			if(server.servidor_esta_cerrado()){
-				return -1;
-			}
-			sleep(1);
 
-		}*/
 	} else if (strcmp(argv[1], "cliente") == 0) {
+
+
+
 		ip = argv[2];
 		cout << "ip: " << ip << endl;
 
@@ -124,6 +112,45 @@ int main(int argc, char* argv[]) {
 
 		Conexion conexion;
 		Cliente cliente(&viewMenu, &conexion);
+		bool success;
+
+		Sonido sonido_espera(0);
+
+		success=sonido_espera.init();
+		if (!success){
+			return -1;
+
+		}else{
+				sonido_espera.loadMedia("Sonidos/01-opening.mp3");
+		}
+
+
+
+		Sonido sonido_seleccion(1);
+		 //success=sonido_seleccion.init();
+		if (!success){
+				return -1;
+
+		}else{
+
+			sonido_seleccion.loadMedia("Sonidos/02-player-select.mp3");
+		}
+
+
+		Sonido sonido_juego(1);
+				 success=sonido_juego.init();
+				if (!success){
+						return -1;
+
+				}else{
+							sonido_juego.loadMedia("Sonidos/05-theme-of-captain-america.mp3");
+				}
+
+
+
+
+
+
 		cout << "Cliente creado | " << TimeHelper::getStringLocalTimeNow()
 				<< endl;
 
@@ -134,6 +161,10 @@ int main(int argc, char* argv[]) {
 
 		if (cliente.ConectarConServidor(ip, puerto) == -1)
 			return -1;
+		sonido_espera.reproducir_sonido();
+
+
+
 
 		strcpy(cliente.Usuario, nombre_usuario.c_str());
 		send(conexion.getSocketCliente(), &idMsg, sizeof(idMsg), 0);
@@ -145,7 +176,7 @@ int main(int argc, char* argv[]) {
 				cout<<"Aceptado \n";
 
 				}else{
-
+					sonido_espera.parar_sonido();
 					cout<<"PARTIDA COMPLETA \n";
 					return -1;
 				}
@@ -157,8 +188,34 @@ int main(int argc, char* argv[]) {
 		bool quitSeleccionMenu = false;
 		bool primerSeleccion = true;
 
+		bool cambiar_sonido=true;
+
+		/*
+		EfectoSonido efecto(1);
+		efecto.loadMedia("Sonidos/cambio_captain.wav");
+		efecto.reproducir_sonido();
+		sleep(2);
+		efecto.reproducir_sonido();
+		sleep(2);
+		efecto.reproducir_sonido();
+		sleep(2);
+		efecto.reproducir_sonido();
+
+	*/
+
+
+
+
 		while (!quitSeleccionMenu && !cliente.EstaFinalizadaSeleccionPersonaje()) {
 			if (cliente.EstaIniciadaSeleccionPersonaje()) {
+				if (cliente.EstaIniciadaSeleccionPersonaje() && cambiar_sonido){
+					sonido_espera.parar_sonido();
+					sonido_seleccion.reproducir_sonido();
+					cambiar_sonido=false;
+				}
+
+
+
 				//cout << "Ingresó en selección de personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;
 				viewMenu.TextoTitulo = "SELECCION DE PERSONAJE";
 
@@ -189,11 +246,19 @@ int main(int argc, char* argv[]) {
 			viewMenu.render();
 			usleep(18000);
 		}
+
+		sonido_seleccion.parar_sonido();
+		//sonido_espera.~Sonido();
+		//sonido_seleccion.~Sonido();
 		viewMenu.close();
+
+
+
 
 		if (quitSeleccionMenu) {
 			return 1;
 		}
+
 
 		ModeloResultadoSeleccionPersonaje resultadoSeleccionPersonaje =
 				cliente.ResultadoSeleccionPersonaje;
@@ -232,9 +297,22 @@ int main(int argc, char* argv[]) {
 		cout << "vista creada." << endl;
 		view.setEstadoCliente();
 		cout << "EstadoCliente seteados." << endl;
+
+
 		// Hilo conexion.
 		cliente.PararHiloPing();
 		cliente.LanzarHiloConexion();
+
+/*
+
+		pthread_t hilo_musica_fondo;
+
+			pthread_create(&hilo_musica_fondo, NULL, reproducir_musica_fondo, NULL);
+			pthread_detach(hilo_musica_fondo);
+*/
+		sonido_juego.reproducir_sonido();
+
+		//cliente.lanzar_musica_juego();
 		while (!controller.quitPressed()) {
 			if(!cliente.servidor_esta_vivo()){
 				return -1;
@@ -248,6 +326,7 @@ int main(int argc, char* argv[]) {
 			}
 			cliente.enviarComandoAServidor(comandoParaServidor);
 			model.updateCliente(cliente.esta_conectado());
+
 			usleep(18000);
 			view.render();
 		}

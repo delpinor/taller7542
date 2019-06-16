@@ -8,6 +8,7 @@ public:
 	View_Jugador_ChunLiBlack();
 	void initialize(Jugador *model, LTexture * texturaJugador);
 
+
 };
 
 #endif

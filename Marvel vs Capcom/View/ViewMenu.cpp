@@ -308,7 +308,7 @@ void ViewMenu::close() {
 	//Destroy window
 	SDL_DestroyWindow(window);
 	window = NULL;
-	SDL_Quit();
+	//SDL_Quit();  // non hacer sdl_quit sino no funcion la musica de fondo!!!
 }
 
 void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId,

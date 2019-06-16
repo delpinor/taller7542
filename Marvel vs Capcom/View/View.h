@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <vector>
 #include "FondoParallax.h"
+#include "../Sonido.h"
 
 #define ANCHO_JUGADOR 146
 #define ALTO_JUGADOR 146
@@ -35,6 +36,8 @@ public:
 	Model* model;
 
 private:
+
+
 
 	Jugador* jugadorAnterior;
 	ViewModel* viewModel;

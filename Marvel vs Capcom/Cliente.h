@@ -17,6 +17,7 @@
 #include "View/ViewMenu.h"
 #include "pthread.h"
 #include "Helper/TimeHelper.h"
+#include "Sonido.h"
 
 class Cliente {
 public:
@@ -67,9 +68,13 @@ public:
 	void setCenexion(Conexion* conexion);
 	View* getVista();
 	void setVista(View* vista);
+
+	void lanzar_musica_juego();
+
 	virtual ~Cliente();
 
 private:
+
 	Conexion* conexion;
 	View* vista;
 	std::queue<ModeloEstado> ModeloCambios;

@@ -8,6 +8,24 @@
 
 pthread_mutex_t mutexx;
 bool servidor_vivo=true;
+bool parar_musica2=false;
+
+void * reproducir_musica_fondo2(void* arg){
+	Sonido sonido_juego(1);
+	sonido_juego.init();
+	sonido_juego.loadMedia("Sonidos/05-theme-of-captain-america.mp3");
+	sonido_juego.reproducir_sonido();
+	sleep(10);
+	while(!parar_musica2){
+
+		cout<<"Reproduciendo!!\n\n";
+		//sigo reproduciondo
+
+	}
+	sonido_juego.parar_sonido();
+
+
+}
 
 // Estructura para enviar al hilo.
 struct DatosHiloCliente {
@@ -333,12 +351,19 @@ int Cliente::recibirModeloDelServidor() {
 	return NULL;
 
 }
+void Cliente::lanzar_musica_juego(){
+	pthread_t hilo_musica_fondo;
+	pthread_create(&hilo_musica_fondo, NULL, reproducir_musica_fondo2, NULL);
+	pthread_detach(hilo_musica_fondo);
+
+}
 void Cliente::lanzarHilosDelJuego() {
 	cout << "por lanzar hilos del cliente" << endl;
 	pthread_t thid_hilo_escucha;
 	//	pthread_t thid_hilo_render;
 	pthread_create(&thid_hilo_escucha, NULL, hilo_escucha, this);
 	pthread_detach(thid_hilo_escucha);
+
 
 	//pthread_create(&thid_hilo_render, NULL, hilo_render, this);
 	//pthread_detach(thid_hilo_render);
@@ -382,8 +407,10 @@ void Cliente::setCenexion(Conexion* conexion) {
 View * Cliente::getVista() {
 	return this->vista;
 }
+
 void Cliente::setVista(View* vista) {
 	this->vista = vista;
+
 }
 
 void Cliente::IniciarSeleccionPersonaje() {

@@ -8,6 +8,9 @@ void View_Jugador::initialize(Jugador * model, LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
 	this->jugador = model;
 	this->zIndex = model->get_zindex();
+
+
+
 }
 
 void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
@@ -38,6 +41,10 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 		}
 		currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
 		++frame;
+		if(this->jugador->estado->getVelY() > 0){
+			this->reproducir_sonido_salto();
+
+		}
 	}
 	if ((this->jugador->estado->getVelY() == 0)
 			&& (this->jugador->estado->getVelX() == 0)) {
@@ -52,19 +59,25 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 
 		currentClip = &gSpriteAgachar[0];
 	}
-	if (this->jugador->estaCambiandoPersonaje())
+	if (this->jugador->estaCambiandoPersonaje()){
 		currentClip = &gSpriteCambiarPersonaje[0];
+		this->reproducir_sonido_cambio();
+	}
 	if (this->jugador->estaActivo()) {
 		this->texturaJugador->render(this->jugador->getPosX() - camX,
 				this->jugador->getPosY() - camY, currentClip, 0, NULL,
 				this->jugador->getDireccion(), gRenderer);
 	}
+
 }
+
 void View_Jugador::grisar_imagen(){
 
 	this->texturaJugador->setColor(55,55,55); //seto el color a gris
 
 }
+
+
 void View_Jugador::desgrisar_imagen(){
 
 	this->texturaJugador->setColor(255,255,255); //seto el color a grisb
