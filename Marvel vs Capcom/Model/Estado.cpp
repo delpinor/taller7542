@@ -158,7 +158,18 @@ void Estado::aumentarVelocidadY(int vel) {
 void Estado::Saltar() {
 
 }
+void Estado::Pinia() {
 
+}
+void Estado::Pinion() {
+
+}
+void Estado::Patada() {
+
+}
+void Estado::Patadon() {
+
+}
 void Estado::detenerVelocidad() {
 	this->mVelX = 0;
 	this->mVelY = 0;

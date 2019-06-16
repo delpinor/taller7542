@@ -8,6 +8,10 @@
 #include "../Command/CommandCtrl/AumentarVelocidadX.h"
 #include "../Command/CommandCtrl/Saltar.h"
 #include "../Command/CommandCtrl/CambiarPersonaje.h"
+#include "../Command/CommandCtrl/Pinia.h"
+#include "../Command/CommandCtrl/Pinion.h"
+#include "../Command/CommandCtrl/Patada.h"
+#include "../Command/CommandCtrl/Patadon.h"
 #include <iostream>
 void Controller::SetModel(Model* model) {
 	this->model = model;
@@ -20,6 +24,10 @@ void Controller::SetModel(Model* model) {
 	this->commands[PARAR] = new Parar(model);
 	this->commands[SALTAR] = new Saltar(model);
 	this->commands[CAMBIAR_PERSONAJE] = new CambiarPersonaje(model);
+	this->commands[PINIA] = new Pinia(model);
+	this->commands[PINION] = new Pinion(model);
+	this->commands[PATADA] = new Patada(model);
+	this->commands[PATADON] = new Patadon(model);
 	this->quit = false;
 }
 Controller::Controller() {
@@ -43,129 +51,6 @@ bool Controller::quitPressed() {
 void Controller::set_quit(){
 	this->quit=true;
 
-}
-void Controller::processInput() {
-	while (SDL_PollEvent(&(this->e)) != 0) {
-		if (this->e.type == SDL_QUIT) {
-			this->quit = true;
-		}
-		handleEvent(this->e);
-		Logger::Log(LOGGER_NIVEL::DEBUG, "Controller::Event",
-				"Personaje:"
-						+ this->model->getEquipoNro(0)->getJugadorActivo()->getNombre()
-						+ " Pos x:"
-						+ std::to_string(
-								this->model->getEquipoNro(0)->getJugadorActivo()->getPosX())
-						+ " Pos y:"
-						+ std::to_string(
-								this->model->getEquipoNro(0)->getJugadorActivo()->getPosY()));
-
-		Logger::Log(LOGGER_NIVEL::DEBUG, "Controller::Event",
-				"Personaje:"
-						+ this->model->getEquipoNro(1)->getJugadorActivo()->getNombre()
-						+ " Pos x:"
-						+ std::to_string(
-								this->model->getEquipoNro(1)->getJugadorActivo()->getPosX())
-						+ " Pos y:"
-						+ std::to_string(
-								this->model->getEquipoNro(1)->getJugadorActivo()->getPosY()));
-	}
-}
-Command* Controller::handleEvent(SDL_Event& e) {
-	Command* command = NULL;
-
-	if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
-		switch (e.key.keysym.sym) {
-		case SDLK_UP:
-			command = this->commands[SALTAR];
-			this->model->equipos[0]->agregarCambio(command);
-			break;
-		case SDLK_DOWN:
-			command = this->commands[AGACHAR];
-			this->model->equipos[0]->agregarCambio(command);
-			break;
-		case SDLK_LEFT:
-			command = this->commands[DECVELX];
-			this->model->equipos[0]->agregarCambio(command);
-			break;
-		case SDLK_RIGHT:
-			command = this->commands[INCVELX];
-			this->model->equipos[0]->agregarCambio(command);
-			break;
-		case SDLK_RCTRL:
-			command = this->commands[CAMBIAR_PERSONAJE];
-			this->model->equipos[0]->agregarCambio(command);
-			break;
-		}
-	}
-	//If a key was released
-	else if (e.type == SDL_KEYUP && e.key.repeat == 0) {
-		switch (e.key.keysym.sym) {
-		case SDLK_UP:
-
-			break;
-		case SDLK_DOWN:
-			command = this->commands[PARAR];
-			this->model->equipos[0]->agregarCambio(command);
-			break;
-		case SDLK_LEFT:
-			command = this->commands[INCVELX];
-			this->model->equipos[0]->agregarCambio(command);
-			break;
-		case SDLK_RIGHT:
-			command = this->commands[DECVELX];
-			this->model->equipos[0]->agregarCambio(command);
-			break;
-		}
-	}
-
-	if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
-		switch (e.key.keysym.sym) {
-		case SDLK_w:
-			command = this->commands[SALTAR];
-			this->model->equipos[1]->agregarCambio(command);
-			break;
-		case SDLK_s:
-			command = this->commands[AGACHAR];
-			this->model->equipos[1]->agregarCambio(command);
-			break;
-		case SDLK_a:
-			command = this->commands[DECVELX];
-			this->model->equipos[1]->agregarCambio(command);
-			break;
-		case SDLK_d:
-			command = this->commands[INCVELX];
-			this->model->equipos[1]->agregarCambio(command);
-			break;
-		case SDLK_LCTRL:
-			command = this->commands[CAMBIAR_PERSONAJE];
-			this->model->equipos[1]->agregarCambio(command);
-			break;
-		}
-	}
-	//If a key was released
-	else if (e.type == SDL_KEYUP && e.key.repeat == 0) {
-
-		switch (e.key.keysym.sym) {
-		case SDLK_w:
-
-			break;
-		case SDLK_s:
-			command = this->commands[PARAR];
-			this->model->equipos[1]->agregarCambio(command);
-			break;
-		case SDLK_a:
-			command = this->commands[INCVELX];
-			this->model->equipos[1]->agregarCambio(command);
-			break;
-		case SDLK_d:
-			command = this->commands[DECVELX];
-			this->model->equipos[1]->agregarCambio(command);
-			break;
-		}
-	}
-
-	return command;
 }
 
 int Controller::processInputCliente() {
@@ -195,6 +80,18 @@ int Controller::handleEventCliente(SDL_Event& e) {
 			break;
 		case SDLK_d:
 			comando =  INCVELX;
+			break;
+		case SDLK_j:
+			comando =  PINIA;
+			break;
+		case SDLK_k:
+			comando =  PATADA;
+			break;
+		case SDLK_u:
+			comando =  PINION;
+			break;
+		case SDLK_i:
+			comando =  PATADON;
 			break;
 		case SDLK_LCTRL:
 			comando =  CAMBIAR_PERSONAJE;

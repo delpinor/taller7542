@@ -8,7 +8,11 @@
 #define SALTAR  0x05
 #define CAMBIAR_PERSONAJE  0x06
 #define PARAR  0x07
-#define CANTCOMMANDS 8
+#define PINIA  0x08
+#define PINION  0x09
+#define PATADA  0x10
+#define PATADON  0x11
+#define CANTCOMMANDS 12
 
 class Command {
 public:
