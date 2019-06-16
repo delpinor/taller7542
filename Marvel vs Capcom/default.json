@@ -66,9 +66,9 @@
 	{
 		"players" : 4
 	},
-	"round" :
+	"batalla" :
 	{
-		"batalla" : 3,
+		"cantidad" : 3,
 		"tiempo" : 10
 	}
 }

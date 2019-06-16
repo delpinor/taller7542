@@ -4,16 +4,31 @@ void Partida::IniciarPartida() {
 	//listaJugadores = listaEspera;
 	//listaEspera.clear();
 	modelo->inicializar();
-	partidaIniciada = true;
 	this->IniciarBatalla();
+	partidaIniciada = true;
 	cout << "Partida INICA#########################################################################DA!" << endl;
 
 }
 void Partida::IniciarBatalla(){
+	cout
+	<< "PARTIDA - IniciarBatalla |"
+	<< TimeHelper::getStringLocalTimeNow() << endl;
 	this->IniciarTitularidadClientes();
+	cout
+	<< "PARTIDA - IniciarBatalla - IniciarTitularidadClientes FINALIZADO|"
+	<< TimeHelper::getStringLocalTimeNow() << endl;
 	ActualizarModelo();
+	cout
+	<< "PARTIDA - IniciarBatalla - ActualizarModelo FINALIZADO|"
+	<< TimeHelper::getStringLocalTimeNow() << endl;
 	this->IniciarPosiciones();
+	cout
+	<< "PARTIDA - IniciarBatalla - IniciarPosiciones FINALIZADO|"
+	<< TimeHelper::getStringLocalTimeNow() << endl;
 	this->IniciarCamara();
+	cout
+		<< "PARTIDA - IniciarBatalla - IniciarCamara FINALIZADO|"
+		<< TimeHelper::getStringLocalTimeNow() << endl;
 	this->roundActual++;
 	this->cronometro = this->tiempoRound;
 	this->roundCorriendo = true;
@@ -846,6 +861,9 @@ ModeloResultadoSeleccionPersonaje Partida::getResultadoSeleccionPersonaje(){
 
 void Partida::AvanzarTiempo(){
 	this->cronometro--;
+	cout
+	<< "PARTIDA - Tiempo:   " << this->cronometro << " | "
+	<< TimeHelper::getStringLocalTimeNow() << endl;
 }
 
 

@@ -56,7 +56,7 @@ private:
 	int tiempoRound;
 	int cronometro = 0;
 	int cantidadRounds;
-	int roundActual = 1;
+	int roundActual = 0;
 	bool roundCorriendo = false;
 	void IniciarPosiciones();
 	void IniciarCamara();
