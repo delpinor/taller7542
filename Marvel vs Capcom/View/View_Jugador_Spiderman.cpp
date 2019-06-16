@@ -17,7 +17,41 @@ void View_Jugador_Spiderman::initialize(Jugador *model,
 	this->zIndex = model->get_zindex();
 	getSpritesCambioPersonaje();
 	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
+
+	this->sonido_salto=new EfectoSonido(1);
+		this->sonido_ataque_pu=new EfectoSonido(1);
+		this->sonido_defensa=new EfectoSonido(1);
+		this->sonido_cambio=new EfectoSonido(1);
+
+		this->sonido_ataque_pu->loadMedia("../Sonidos/spider_Atk2.wav");
+			this->sonido_salto->loadMedia("../Sonidos/salto_spider.wav");
+	this->sonido_cambio->loadMedia("../Sonidos/cambio_spider.wav");
 }
+void  View_Jugador_Spiderman::reproducir_sonido_salto(){
+
+		this->sonido_salto->reproducir_sonido();
+
+
+}
+void  View_Jugador_Spiderman::reproducir_sonido_cambio(){
+
+		this->sonido_cambio->reproducir_sonido();
+
+
+}
+	void  View_Jugador_Spiderman::reproducir_sonido_ataque_pu(){
+
+		this->sonido_ataque_pu->reproducir_sonido();
+
+
+}
+void   View_Jugador_Spiderman::reproducir_sonido_defensa(){
+
+		this->sonido_defensa->reproducir_sonido();
+
+
+}
+
 
 void View_Jugador_Spiderman::getSpritesAnimacion() {
 	CANTSPRITEANIMACION = 10;
