@@ -10,26 +10,14 @@ void Partida::IniciarPartida() {
 
 }
 void Partida::IniciarBatalla(){
-	cout
-	<< "PARTIDA - IniciarBatalla |"
-	<< TimeHelper::getStringLocalTimeNow() << endl;
 	this->IniciarTitularidadClientes();
-	cout
-	<< "PARTIDA - IniciarBatalla - IniciarTitularidadClientes FINALIZADO|"
-	<< TimeHelper::getStringLocalTimeNow() << endl;
 	ActualizarModelo();
-	cout
-	<< "PARTIDA - IniciarBatalla - ActualizarModelo FINALIZADO|"
-	<< TimeHelper::getStringLocalTimeNow() << endl;
 	this->IniciarPosiciones();
-	cout
-	<< "PARTIDA - IniciarBatalla - IniciarPosiciones FINALIZADO|"
-	<< TimeHelper::getStringLocalTimeNow() << endl;
 	this->IniciarCamara();
-	cout
-		<< "PARTIDA - IniciarBatalla - IniciarCamara FINALIZADO|"
-		<< TimeHelper::getStringLocalTimeNow() << endl;
 	this->roundActual++;
+	cout
+			<< "PARTIDA - IniciarBatalla - ROUND " << this->roundActual << " | "
+			<< TimeHelper::getStringLocalTimeNow() << endl;
 	this->cronometro = this->tiempoRound;
 	this->roundCorriendo = true;
 }
@@ -882,4 +870,18 @@ bool Partida::DebeFinalizarBatalla(){
 }
 void Partida::FinalizarBatalla(){
 	this->roundCorriendo = false;
+}
+
+
+bool Partida::HayBatallasPendientes(){
+	if(this->roundActual < this->cantidadRounds){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+int Partida::GetNroBatallaActual(){
+	return this->roundActual;
 }

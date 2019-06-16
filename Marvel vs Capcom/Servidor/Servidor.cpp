@@ -65,9 +65,8 @@ void * updateModelo(void *) {
 void * controlBatalla(void *) {
 
 	while (1) {
-		if(miPartida.Iniciada()){
+		if(miPartida.Iniciada() && !miPartida.Finalizada()){
 			if (miPartida.EstaEnEjecucionDeBatalla()){
-
 				sleep(1);
 				pthread_mutex_lock(&mutex_server);
 				miPartida.AvanzarTiempo();
@@ -77,11 +76,6 @@ void * controlBatalla(void *) {
 					pthread_mutex_lock(&mutex_server);
 					miPartida.FinalizarBatalla();
 					pthread_mutex_unlock(&mutex_server);
-				}
-			}
-			else{
-				if(!miPartida.Finalizada()){
-					miPartida.IniciarBatalla();
 				}
 			}
 		}
@@ -98,8 +92,26 @@ void * controlPartida(void *) {
 			sleep(2);
 			miPartida.IniciarPartida();
 		}
-		if (miPartida.Finalizada()) {
-			miPartida.DetenerJugadores();
+		if (miPartida.Iniciada() && !miPartida.Finalizada()){
+			pthread_mutex_lock(&mutex_server);
+			if(miPartida.GetNroBatallaActual() >= 1 && !miPartida.EstaEnEjecucionDeBatalla()){
+				cout
+				<< "SERVIDOR - controlPartida: Ingresó en IF de GetNroBatallaActual() >= 1 y no EstaEnEjecucionDeBatalla  | "
+				<< TimeHelper::getStringLocalTimeNow() << endl;
+
+				//TODO: aca con el correr del desarrollo se van a ir agregando otras condiciones.
+				if(miPartida.HayBatallasPendientes()){
+					cout
+					<< "SERVIDOR - controlPartida: Ingresó en IF de batallas pendientes | "
+					<< TimeHelper::getStringLocalTimeNow() << endl;
+					miPartida.IniciarBatalla();
+				}
+				else{
+					miPartida.FinalizarPartida();
+					miPartida.DetenerJugadores();
+				}
+			}
+			pthread_mutex_unlock(&mutex_server);
 		}
 		usleep(10);
 	}
@@ -329,6 +341,13 @@ void * enviarDatos(void * datos) {
 			send(sock, &idModelo, sizeof(idModelo), 0);
 			send(sock, &unModelo, sizeof(unModelo), 0);
 		}
+
+		//------->Envio de finalizacion de juego
+		if (miPartida.Iniciada() && miPartida.Finalizada()){
+			IDMENSAJE idModelo = JUEGOFINALIZADO;
+			send(sock, &idModelo, sizeof(idModelo), 0);
+		}
+
 		usleep(18000);
 	}
 }

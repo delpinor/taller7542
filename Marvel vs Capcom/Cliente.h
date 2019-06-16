@@ -29,6 +29,7 @@ public:
 	char Usuario[50];
 	bool ServidorVivo = true;
 	bool JuegoIniciado = false;
+	bool JuegoFinalizado = false;
 	bool EnviarPingHilo = true;
 	bool juegoCorriendo = true;
 	bool Ping = false;

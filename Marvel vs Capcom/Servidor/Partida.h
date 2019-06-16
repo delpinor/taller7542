@@ -133,5 +133,7 @@ public:
 	void FinalizarBatalla();
 	void IniciarBatalla();
 	void IniciarTitularidadClientes();
+	bool HayBatallasPendientes();
+	int GetNroBatallaActual();
 };
 

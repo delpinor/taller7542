@@ -228,17 +228,19 @@ int main(int argc, char* argv[]) {
 
 		cout << "Finalizo el seteo de los Personajes en el modelo | " << TimeHelper::getStringLocalTimeNow() << endl;
 		cliente.LanzarHiloPing();
+		cout << "Finalizo el LanzarHiloPing | " << TimeHelper::getStringLocalTimeNow() << endl;
 		View view(&model);
+		cout << "Finalizo la creacion de la entidad View | " << TimeHelper::getStringLocalTimeNow() << endl;
 		cliente.setVista(&view);
+		cout << "Finalizo el seteo de la vista en el cliente | " << TimeHelper::getStringLocalTimeNow() << endl;
 		// Habilito a recibir el modelo
 		cliente.JuegoIniciado = true;
-		cout << "vista creada." << endl;
 		view.setEstadoCliente();
 		cout << "EstadoCliente seteados." << endl;
 		// Hilo conexion.
 		cliente.PararHiloPing();
 		cliente.LanzarHiloConexion();
-		while (!controller.quitPressed()) {
+		while (!controller.quitPressed() && !cliente.JuegoFinalizado) {
 			if(!cliente.servidor_esta_vivo()){
 				return -1;
 			}
@@ -255,6 +257,7 @@ int main(int argc, char* argv[]) {
 			view.render();
 		}
 
+		cout << "Finalizo la partida | " << TimeHelper::getStringLocalTimeNow() << endl;
 		return 0;
 	}
 }

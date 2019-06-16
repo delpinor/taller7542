@@ -208,24 +208,24 @@ int Cliente::recibirModeloDelServidor() {
 		if (idMsg == COMPLETO) {
 			this->juegoCorriendo = false;
 			servidor_vivo=false;
-//			this->getConexion()->Cerrar();
+			//			this->getConexion()->Cerrar();
 
 			//			this->getVista()->CajaMensaje("Equipos",
 			//					"Juego iniciado. No hay lugar");
 		}
 		if (idMsg ==SERVIDORMUERTO) {
-					cout << "SERVIDOR MUERTO" <<endl;
-					servidor_vivo=false;
-					this->servidor_vivo=false;
-					SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,
-					                         "SERVIDOR CERRADO",
-					                         "JUEGO FINALIZADO",
-					                         NULL);
+			cout << "SERVIDOR MUERTO" <<endl;
+			servidor_vivo=false;
+			this->servidor_vivo=false;
+			SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,
+					"SERVIDOR CERRADO",
+					"JUEGO FINALIZADO",
+					NULL);
 
-							this->juegoCorriendo = false;
-							this->getConexion()->Cerrar();
-							//			this->getVista()->CajaMensaje("Equipos",
-							//					"Juego iniciado. No hay lugar");
+			this->juegoCorriendo = false;
+			this->getConexion()->Cerrar();
+			//			this->getVista()->CajaMensaje("Equipos",
+			//					"Juego iniciado. No hay lugar");
 		}
 
 		//-------->Recibe JUEGO INICIADO
@@ -234,6 +234,13 @@ int Cliente::recibirModeloDelServidor() {
 			recv(this->getConexion()->getSocketCliente(), &unModelo, sizeof(unModelo), 0);
 			this->FinalizarSeleccionPersonaje();
 			this->ResultadoSeleccionPersonaje = unModelo;
+		}
+
+		//-------->Recibe JUEGO FINALIZADO
+		if (idMsg == JUEGOFINALIZADO){
+			pthread_mutex_lock(&mutexx);
+			this->JuegoFinalizado = true;
+			pthread_mutex_unlock(&mutexx);
 		}
 
 		//-------->Recibe MODELO
