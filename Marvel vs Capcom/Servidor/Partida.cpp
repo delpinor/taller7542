@@ -842,8 +842,8 @@ ModeloResultadoSeleccionPersonaje Partida::getResultadoSeleccionPersonaje(){
 }
 
 void Partida::SetConfiguracion(int tiempoBatalla, int cantidadBatallas){
-	this->cantidadRounds = 3;//;
-	this->tiempoRound = 15;//atoi((mapRound["tiempo"]).c_str());
+	this->cantidadRounds = cantidadBatallas;
+	this->tiempoRound = tiempoBatalla;
 }
 
 void Partida::AvanzarTiempo(){

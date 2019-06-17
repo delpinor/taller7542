@@ -583,9 +583,7 @@ void Servidor::IniciarServidor(int maxClientes, char * puerto) {
 
 }
 
-void Servidor::SetConfiguracion(std::map<std::string, std::string> &mapRound){
-	int cantidad = atoi((mapRound["cantidad"]).c_str());
-	int tiempo = atoi((mapRound["tiempo"]).c_str());
-	miPartida.SetConfiguracion(tiempo, cantidad);
+void Servidor::SetConfiguracion(int tiempoBatalla, int cantidadBatallas){
+	miPartida.SetConfiguracion(tiempoBatalla, cantidadBatallas);
 }
 

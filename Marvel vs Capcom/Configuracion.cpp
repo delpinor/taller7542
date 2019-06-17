@@ -43,7 +43,7 @@ Configuracion::Configuracion(char* filepath) {
 	parser.devolver_Map_Fondo(&mapFondoPantalla);
 	parser.devolver_Tam_Imagen(&anchoVentana,&altoVentana);
 	parser.devolver_Map_Nivel(&mapNivel);
-	parser.devolver_Map_Batalla(&mapBatalla);
+	parser.devolver_Config_Batalla(&tiempoBatalla,&cantidadBatallas);
 	this->num_jugadores=parser.devolverNumeroJugadores();
 	this->nivelLog = parser.devolver_Tipo_Log();
 	this->ValidarConfigs(&nombresPersonajes);
@@ -92,8 +92,12 @@ int Configuracion::get_Config_AltoVentana(){
 	return NumericHelper::parseStringToInt(this->altoVentana);
 }
 
-std::map<std::string, std::string> Configuracion::get_Config_Batalla(){
-	return mapBatalla;
+int Configuracion::get_Config_TiempoBatalla(){
+	return NumericHelper::parseStringToInt(this->tiempoBatalla);
+}
+
+int Configuracion::get_Config_CantidadBatallas(){
+	return NumericHelper::parseStringToInt(this->cantidadBatallas);
 }
 
 Configuracion::~Configuracion() {
@@ -242,22 +246,14 @@ void Configuracion::ValidarConfigs(vector<string> *nombresPersonajes){
 
 	}
 
-	//Round
-	if(this->mapBatalla.size() == 0){
-		ParserConfig parser;
-		Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::se cargan la info de Batalla default" ,"");
-		parser.devolver_Map_Nivel(&mapBatalla);
-	}
-	else{
-		if(!StringHelper::esUnNumero(mapBatalla["cantidad"]) || NumericHelper::parseStringToInt(mapBatalla["cantidad"]) <= 0){
-			Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::se carga cantidad de Batalla default" ,batalla_cantidad_default);
-			mapBatalla["cantidad"] = batalla_cantidad_default;
-		}
-
-		if(!StringHelper::esUnNumero(mapBatalla["tiempo"]) || NumericHelper::parseStringToInt(mapBatalla["tiempo"]) <= 0){
-			Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::se cargan tiempo de Batalla default" ,batalla_tiempo_default);
-			mapBatalla["tiempo"] = batalla_tiempo_default;
-		}
+	//Batalla
+	if((!StringHelper::esUnNumero(this->tiempoBatalla) ) || (NumericHelper::parseStringToInt(this->tiempoBatalla) <= 0)){
+		Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se establace el tiempoBatalla default: " ,tiempoBatalla);
+		this->tiempoBatalla = batalla_tiempo_default;
 	}
 
+	if((!StringHelper::esUnNumero(this->cantidadBatallas)) || (NumericHelper::parseStringToInt(this->cantidadBatallas) <= 0)){
+		Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se establace el alto de ventana default: " ,cantidadBatallas);
+		this->cantidadBatallas = batalla_cantidad_default;
+	}
 }

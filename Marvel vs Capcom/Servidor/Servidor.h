@@ -42,7 +42,7 @@ public:
 	void LanzarHiloUpdateModelo();
 	bool servidor_esta_cerrado();
 	void LanzarHiloBatalla();
-	void SetConfiguracion(std::map<std::string, std::string> &mapRound);
+	void SetConfiguracion(int tiempoBatalla, int cantidadBatallas);
 
 	//virtual ~Funciones();
 };

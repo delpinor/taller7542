@@ -53,10 +53,9 @@ private:
 	std::map<int, std::map<std::string, std::string> > mapFondoPantalla;
 	std::map<std::string, std::string>  mapNivel;
 	std::string nivelLog;
-	std::string anchoVentana, altoVentana;
+	std::string anchoVentana, altoVentana, tiempoBatalla, cantidadBatallas;
 	int num_jugadores;
 	std::vector<string> nombresPersonajes;
-	std::map<std::string, std::string>  mapBatalla;
 	void ValidarConfigs(std::vector<string> *nombresPersonajes);
 
 public:
@@ -68,7 +67,8 @@ public:
 	int get_Config_AnchoVentana();
 	int get_Config_AltoVentana();
 	int get_NumJugadores();
-	std::map<std::string, std::string> get_Config_Batalla();
+	int get_Config_TiempoBatalla();
+	int get_Config_CantidadBatallas();
 	virtual ~Configuracion();
 };
 
