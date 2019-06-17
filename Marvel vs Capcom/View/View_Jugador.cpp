@@ -19,38 +19,52 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 		//printf("se pone gris la imagen!!!!\n");
 		this->grisar_imagen();
 	}
-	if ((this->jugador->estado->getVelX() != 0)
-			&& (this->jugador->estado->getVelY() == 0)) {
-
-
-		if (frame / MAXFRAMECAMINA >= MAXFRAMECAMINA ) {
-			frame = MINFRAMECAMINA;
-		}
-		currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
-		++frame;
-	}else if (this->jugador->estado->estaSaltando()) {
-		if (this->jugador->estado->getVelY() >= 18) {
-			frame = 0;
-		}
-		if (frame / MAXFRAMESALTA >= MAXFRAMESALTA) {
-			frame = MINFRAMESALTA;
-		}
-		currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
-		++frame;
-	}else if ((this->jugador->estado->getVelY() == 0)
-			&& (this->jugador->estado->getVelX() == 0)) {
-		currentClip = &gSpriteAnimacion[frame / MAXFRAMEANIMACION];
-		if (frame / MAXFRAMEANIMACION >= MAXFRAMEANIMACION ) {
-			frame = MINFRAMEANIMACION;
-		}
-		++frame;
-	}else if (this->jugador->estaCambiandoPersonaje())
-			currentClip = &gSpriteCambiarPersonaje[0];
-	else
-		currentClip = &gSpriteCambiarPersonaje[0];
-
-	if (this->jugador->estaAgachado()){
+	if ((this->jugador->estado->getVelY() == 0)) {
+		std::cout << "tipoGolpe: " << this->jugador->getTipoGolpe() << std::endl;
+		if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADON){
+			if (this->jugador->isIniciarGolpe()){
+				std::cout << "se inicia la patada: " << std::endl;
+				frame = 0;
+				this->jugador->setIniciarGolpe(false);
+			}
+			std::cout << "frame pegando patadon: " << frame << std::endl;
+			if (frame / MAXFRAMEPATADON <= MAXFRAMEPATADON ) {
+				currentClip = &gSpritePatadadon[frame / MAXFRAMEPATADON];
+				++frame;
+			} else {
+				std::cout << "golpe terminado" << std::endl;
+				this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
+			}
+		} else if (this->jugador->estaAgachado()){
 			currentClip = &gSpriteAgachar[0];
+		} else if ((this->jugador->estado->getVelX() != 0)){
+
+			if (frame / MAXFRAMECAMINA >= MAXFRAMECAMINA ) {
+				frame = MINFRAMECAMINA;
+			}
+			currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
+			++frame;
+		} else if ((this->jugador->estado->getVelX() == 0)) {
+			currentClip = &gSpriteAnimacion[frame / MAXFRAMEANIMACION];
+			if (frame / MAXFRAMEANIMACION >= MAXFRAMEANIMACION ) {
+				frame = MINFRAMEANIMACION;
+			}
+			++frame;
+		}
+	}else {
+		if (this->jugador->estado->estaSaltando()) {
+			if (this->jugador->estado->getVelY() >= 18) {
+				frame = 0;
+			}
+			if (frame / MAXFRAMESALTA >= MAXFRAMESALTA) {
+				frame = MINFRAMESALTA;
+			}
+			currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
+			++frame;
+		} else if (this->jugador->estaCambiandoPersonaje())
+			currentClip = &gSpriteCambiarPersonaje[0];
+		else
+			currentClip = &gSpriteCambiarPersonaje[0];
 		}
 
 	if (this->jugador->estaActivo()) {

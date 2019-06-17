@@ -18,6 +18,7 @@ void View_Jugador_CapAmerica::initialize(Jugador *model,
 	getSpritesSaltar();
 	getSpritesAgachar();
 	getSpritesAnimacion();
+	getSpritesPatadaFuerte();
 	this->zIndex = model->get_zindex();
 	getSpritesCambioPersonaje();
 	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
@@ -221,30 +222,40 @@ void View_Jugador_CapAmerica::getSpritesAgachar() {
 }
 
 void View_Jugador_CapAmerica::getSpritesPatadaFuerte() {
-	gSpritePatadaFuerte[0].x = 184;
-	gSpritePatadaFuerte[0].y = 220;
-	gSpritePatadaFuerte[0].w = 107;
-	gSpritePatadaFuerte[0].h = 110;
+	CANTSPRITECLIPPATADON = 6;
+	MINFRAMEPATADON = 0;
+	MAXFRAMEPATADON = 5;
+	this->gSpritePatadadon = new SDL_Rect[CANTSPRITECLIPPATADON];
 
-	gSpritePatadaFuerte[1].x = 287;
-	gSpritePatadaFuerte[1].y = 220;
-	gSpritePatadaFuerte[1].w = 107;
-	gSpritePatadaFuerte[1].h = 110;
+	gSpritePatadadon[0].x = 323;
+	gSpritePatadadon[0].y = 1297;
+	gSpritePatadadon[0].w = 261;
+	gSpritePatadadon[0].h = 150;
 
-	gSpritePatadaFuerte[2].x = 395;
-	gSpritePatadaFuerte[2].y = 220;
-	gSpritePatadaFuerte[2].w = 107;
-	gSpritePatadaFuerte[2].h = 110;
+	gSpritePatadadon[1].x = 543;
+	gSpritePatadadon[1].y = 1296;
+	gSpritePatadadon[1].w = 261;
+	gSpritePatadadon[1].h = 150;
 
-	gSpritePatadaFuerte[3].x = 395;
-	gSpritePatadaFuerte[3].y = 220;
-	gSpritePatadaFuerte[3].w = 107;
-	gSpritePatadaFuerte[3].h = 110;
+	gSpritePatadadon[2].x = 744;
+	gSpritePatadadon[2].y = 1293;
+	gSpritePatadadon[2].w = 261;
+	gSpritePatadadon[2].h = 150;
 
-	gSpritePatadaFuerte[4].x = 603;
-	gSpritePatadaFuerte[4].y = 220;
-	gSpritePatadaFuerte[4].w = 107;
-	gSpritePatadaFuerte[4].h = 110;
+	gSpritePatadadon[3].x = 948;
+	gSpritePatadadon[3].y = 1296;
+	gSpritePatadadon[3].w = 261;
+	gSpritePatadadon[3].h = 150;
+
+	gSpritePatadadon[4].x = 1183;
+	gSpritePatadadon[4].y = 1295;
+	gSpritePatadadon[4].w = 261;
+	gSpritePatadadon[4].h = 150;
+
+	gSpritePatadadon[5].x = 119;
+	gSpritePatadadon[5].y = 1490;
+	gSpritePatadadon[5].w = 261;
+	gSpritePatadadon[5].h = 150;
 
 }
 

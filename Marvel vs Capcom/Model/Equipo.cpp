@@ -72,15 +72,25 @@ void Equipo::move(SDL_Rect* camara){
 	for (int i = 0; i < 2; ++i) {
 		this->jugadores[i]->move(this->equipoRival->getJugadorActivo(), camara);
 	}
-	if(getJugadorActivo()->estado->estaSaltando() && getJugadorActivo()->estado->getVelY() == 0){
-		if (!getJugadorActivo()->isDebeTerminarSalto()){
+	if (getJugadorActivo()->estado->estaSaltando()
+			&& getJugadorActivo()->estado->getVelY() == 0) {
+		if (!getJugadorActivo()->isDebeTerminarSalto()) {
 			getJugadorActivo()->setDebeTerminarSalto(true);
-		}
-		else {
+		} else {
 			getJugadorActivo()->setDebeTerminarSalto(false);
 			getJugadorActivo()->terminarSalto();
 		}
+	}
+	if (getJugadorActivo()->getTipoGolpe() != TIPO_GOLPE::NADA){
+		if (contadorGolpe < 10){
+			std::cout << "pegando patada!!!!!!!!!!!!!!!!" << std::endl;
+			contadorGolpe++;
 		}
+		else{
+			getJugadorActivo()->setTipoGolpe(TIPO_GOLPE::NADA);
+			contadorGolpe = 0;
+		}
+	}
 	if (this->getJugadorActivo()->isFueraDePantalla()){
 		this->cambiarPersonaje(camara);
 	}

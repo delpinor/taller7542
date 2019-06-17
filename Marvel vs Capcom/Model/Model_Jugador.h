@@ -8,11 +8,14 @@
 #include "../Model/Agachado.h"
 #include "../Model/Saltando.h"
 #include "../Model/CambiandoPersonaje.h"
+#include "../Model/PegandoPatadon.h"
 #include "../Model/EstadoCliente.h"
+#include "../Model/TipoGolpe.h"
 #define VENOM 0x01
 #define CAPAMERICA 0x00
 
 class Jugador {
+
 private:
 	 //int ANCHO_JUGADOR = 90;
 	 //int ALTO_JUGADOR = 120;
@@ -22,6 +25,7 @@ private:
 	 int width;
 	 int zindex;
 	 bool debeTerminarSalto = false;
+	 bool iniciarGolpe = false;
 	 int r = 255;
 	 int g = 255;
 	 int b = 255;
@@ -37,6 +41,7 @@ private:
 	SDL_RendererFlip direccion;
 	int personaje;
 	bool desconectado=false;
+	TIPO_GOLPE tipoGolpe = NADA;
 
 public:
 	Estado* estado;
@@ -104,5 +109,10 @@ public:
 	bool movimientoIzquierda();
 	bool isDebeTerminarSalto();
 	void setDebeTerminarSalto(bool debeTerminarSalto);
+	TIPO_GOLPE getTipoGolpe();
+	void setTipoGolpe(TIPO_GOLPE tipoGolpe);
+	bool isIniciarGolpe();
+	void setIniciarGolpe(bool iniciarGolpe);
+	void TerminarGolpe();
 	};
 #endif

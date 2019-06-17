@@ -165,7 +165,13 @@ void Jugador::Patada() {
 }
 
 void Jugador::Patadon() {
-	this->estado->Patadon();
+	if (this->getTipoGolpe() == TIPO_GOLPE::NADA)
+		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADON);
+}
+void Jugador::TerminarGolpe() {
+	this->activo.copiarEstado(this->estado);
+	this->estado = &(this->activo);
+	this->estado->setPegandoPatadon(false);
 }
 
 void Jugador::Saltar() {
@@ -376,4 +382,16 @@ bool Jugador::isDebeTerminarSalto() {
 
 void Jugador::setDebeTerminarSalto(bool debeTerminarSalto) {
 	this->debeTerminarSalto = debeTerminarSalto;
+}
+bool Jugador::isIniciarGolpe(){
+	return this->iniciarGolpe;
+}
+void Jugador::setIniciarGolpe(bool iniciarGolpe){
+	this->iniciarGolpe = iniciarGolpe;
+}
+TIPO_GOLPE Jugador::getTipoGolpe(){
+	return this->tipoGolpe;
+}
+void Jugador::setTipoGolpe(TIPO_GOLPE tipoGolpe){
+	this->tipoGolpe = tipoGolpe;
 }

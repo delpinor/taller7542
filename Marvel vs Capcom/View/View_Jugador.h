@@ -21,7 +21,7 @@ public:
 	SDL_Rect  *gSpriteAgachar;
 	SDL_Rect  *gSpriteGolpear;
 	SDL_Rect  *gSpriteAnimacion;
-	SDL_Rect  *gSpritePatadaFuerte;
+	SDL_Rect  *gSpritePatadadon;
 	SDL_Rect * gSprite;
 	int contador = 0;
 
@@ -35,6 +35,9 @@ public:
 	int CANTSPRITEANIMACION;
 	int MINFRAMEANIMACION;
 	int MAXFRAMEANIMACION;
+	int CANTSPRITECLIPPATADON;
+	int MINFRAMEPATADON;
+	int MAXFRAMEPATADON;
 
 protected:
 

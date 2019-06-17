@@ -12,7 +12,8 @@
 #define PINION  0x09
 #define PATADA  0x10
 #define PATADON  0x11
-#define CANTCOMMANDS 12
+#define DEFENSA 0x12
+#define CANTCOMMANDS 13
 
 class Command {
 public:

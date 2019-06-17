@@ -26,6 +26,7 @@ public:
 	int nroJugadorActivo;
 	bool cambiandoJugador = false;
 	std::queue<Command*> cambios;
+	int contadorGolpe = 0;
 
 public:
 	Equipo();
