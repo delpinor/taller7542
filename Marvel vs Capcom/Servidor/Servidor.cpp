@@ -167,42 +167,42 @@ void * controlSeleccionPersonajes(void *) {
 
 //Hilo de loggeo de informacion
 void * loggeoPartida(void *) {
-	//	while (1) {
-	//		system("clear");
-	//		cout << "Inicio partida: "
-	//				<< (miPartida.Iniciada() == true ? "Iniciada" : "No iniciada")
-	//				<< endl;
-	//		cout << "Final partida: "
-	//				<< (miPartida.Finalizada() == true ?
-	//						"Finalizada" : "No finalizada") << endl;
-	//		cout << "Cantidad jugadores: " << miPartida.GetCantidadJugando()
-	//						<< endl;
-	//		cout << "Cantidad en espera: " << miPartida.GetCantidadEspera() << endl;
-	//		cout << "Cantidad en desconectados: "
-	//				<< miPartida.GetCantidadDesconectados() << endl;
-	//		cout << "Jugadores:" << endl;
-	//
-	//		list<ClienteConectado> lista = miPartida.GetListaJugadores();
-	//		list<ClienteConectado>::iterator it;
-	//		for (it = lista.begin(); it != lista.end(); it++) {
-	//			cout << "Socket: " << it->socket << endl;
-	//			cout << "Nombre: " << it->nombre << endl;
-	//			cout << "Numero de Jugador: " << it->numeroJugador << endl;
-	//			cout << "Equipo: " << it->equipo << endl;
-	//			cout << "Titular: "
-	//					<< (it->titular == true ? "Es titular" : "Es suplente")
-	//					<< endl;
-	//			cout << "------------------------" << endl;
-	//			cout << "------------------------" << endl;
-	//		}
-	//		if (miPartida.Finalizada()) {
-	//			cout << "Partida finalizada!" << it->nombre << endl;
-	//			pthread_exit(NULL);
-	//
-	//		}
-	//
-	//		sleep(1);
-	//	}
+		while (1) {
+			system("clear");
+			cout << "Inicio partida: "
+					<< (miPartida.Iniciada() == true ? "Iniciada" : "No iniciada")
+					<< endl;
+			cout << "Final partida: "
+					<< (miPartida.Finalizada() == true ?
+							"Finalizada" : "No finalizada") << endl;
+			cout << "Cantidad jugadores: " << miPartida.GetCantidadJugando()
+							<< endl;
+			cout << "Cantidad en espera: " << miPartida.GetCantidadEspera() << endl;
+			cout << "Cantidad en desconectados: "
+					<< miPartida.GetCantidadDesconectados() << endl;
+			cout << "Jugadores:" << endl;
+
+			list<ClienteConectado> lista = miPartida.GetListaJugadores();
+			list<ClienteConectado>::iterator it;
+			for (it = lista.begin(); it != lista.end(); it++) {
+				cout << "Socket: " << it->socket << endl;
+				cout << "Nombre: " << it->nombre << endl;
+				cout << "Numero de Jugador: " << it->numeroJugador << endl;
+				cout << "Equipo: " << it->equipo << endl;
+				cout << "Titular: "
+						<< (it->titular == true ? "Es titular" : "Es suplente")
+						<< endl;
+				cout << "------------------------" << endl;
+				cout << "------------------------" << endl;
+			}
+			if (miPartida.Finalizada()) {
+				cout << "Partida finalizada!" << it->nombre << endl;
+				pthread_exit(NULL);
+
+			}
+
+			sleep(1);
+		}
 
 }
 
