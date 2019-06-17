@@ -4,11 +4,28 @@ void Partida::IniciarPartida() {
 	//listaJugadores = listaEspera;
 	//listaEspera.clear();
 	modelo->inicializar();
+	IniciarBatalla();
+	partidaIniciada = true;
+	cout << "Partida INICA#########################################################################DA!" << endl;
+
+}
+void Partida::IniciarBatalla(){
+	this->IniciarTitularidadClientes();
 	ActualizarModelo();
+	this->IniciarPosiciones();
+	this->IniciarCamara();
+	this->roundActual++;
+	cout << "Iniciando Batalla " << this->roundActual << endl;
+	this->cronometro = this->tiempoRound;
+	this->roundCorriendo = true;
+}
+void Partida::IniciarPosiciones(){
 	modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(120 - 80);
 	modelo->getEquipoNro(0)->getJugadorActivo()->setPosY(931);
 	modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(780 - 80);
 	modelo->getEquipoNro(1)->getJugadorActivo()->setPosY(931);
+}
+void Partida::IniciarCamara(){
 	int CAMARAPOSICIONINICIALX = ANCHO_NIVEL / 2 - modelo->ancho_Pantalla / 2;
 	int CAMARAPOSICIONINICIALY = ALTO_NIVEL / 2 - modelo->alto_Pantalla / 2;
 	camaraStatic = {CAMARAPOSICIONINICIALX,CAMARAPOSICIONINICIALY, modelo->ancho_Pantalla, modelo->alto_Pantalla};
@@ -16,9 +33,16 @@ void Partida::IniciarPartida() {
 	modelo->setCamara(this->camara);
 	//	modelo->inicializarPosicionesEquipos();
 	AjustarCamara();
-	partidaIniciada = true;
-	cout << "Partida INICA#########################################################################DA!" << endl;
-
+}
+void Partida::IniciarTitularidadClientes(){
+	list<ClienteConectado>::iterator it;
+	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+		if (it->titularEquipo) {
+			it->titular = true;
+		}else{
+			it->titular = false;
+		}
+	}
 }
 void Partida::AjustarCamara() {
 	// Este codigo se puede mejorar.
@@ -423,8 +447,10 @@ void Partida::AgregarCliente(ClienteConectado * cliente) {
 		int cantidad = listaEspera.size();
 		if (cantidad < 2) {
 			cliente->titular = true;
+			cliente->titularEquipo = true;
 		} else {
 			cliente->titular = false;
+			cliente->titularEquipo = false;
 		}
 		// Seleccion de equipos
 		cantidad++;
@@ -815,3 +841,45 @@ ModeloResultadoSeleccionPersonaje Partida::getResultadoSeleccionPersonaje(){
 	return unModelo;
 }
 
+void Partida::SetConfiguracion(int tiempoBatalla, int cantidadBatallas){
+	this->cantidadRounds = cantidadBatallas;
+	this->tiempoRound = tiempoBatalla;
+}
+
+void Partida::AvanzarTiempo(){
+	this->cronometro--;
+	cout
+	<< "PARTIDA - Tiempo:   " << this->cronometro << " | "
+	<< TimeHelper::getStringLocalTimeNow() << endl;
+}
+
+
+bool Partida::EstaEnEjecucionDeBatalla(){
+	return this->roundCorriendo;
+}
+
+bool Partida::DebeFinalizarBatalla(){
+	//TODO CHEQUEAR VIDA DE LOS EQUIPOS
+	if(this->cronometro <= 0){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+void Partida::FinalizarBatalla(){
+	this->roundCorriendo = false;
+}
+
+bool Partida::HayBatallasPendientes(){
+	if(this->roundActual < this->cantidadRounds){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+int Partida::GetNroBatallaActual(){
+	return this->roundActual;
+}

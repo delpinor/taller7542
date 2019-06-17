@@ -26,6 +26,7 @@ struct ClienteConectado{
 	int numeroJugadorJuego;
 
 	bool titular;
+	bool titularEquipo;
 	int personajeId = static_cast<int>(PERSONAJE::P_NA);
 	int personajeIdSuplente = static_cast<int>(PERSONAJE::P_NA);
 
@@ -52,6 +53,14 @@ private:
 	bool seleccionPersonajesIniciada = false;
 	bool seleccionPersonajesFinalizada = false;
 	bool habilitadoEnvioPersonajes = false;
+	int tiempoRound;
+	int cronometro = 0;
+	int cantidadRounds;
+	int roundActual = 0;
+	bool roundCorriendo = false;
+	void IniciarPosiciones();
+	void IniciarCamara();
+	void ResetTitularidadClientes();
 public:
 	list<ClienteConectado> GetListaJugadores();
 	list<ClienteConectado> GetListaEspera();
@@ -116,5 +125,14 @@ public:
 	ModeloPersonajes GetModeloPersonajes();
 	void SetDataPersonajesEnviada(string nombre);
 	ModeloResultadoSeleccionPersonaje getResultadoSeleccionPersonaje();
+	void SetConfiguracion(int tiempoBatalla, int cantidadBatallas);
+	void AvanzarTiempo();
+	bool EstaEnEjecucionDeBatalla();
+	bool DebeFinalizarBatalla();
+	void FinalizarBatalla();
+	void IniciarBatalla();
+	void IniciarTitularidadClientes();
+	bool HayBatallasPendientes();
+	int GetNroBatallaActual();
 };
 

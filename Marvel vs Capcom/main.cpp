@@ -28,10 +28,11 @@ int main(int argc, char* argv[]) {
 	std::map<int, std::map<std::string, std::string> > mapPersonajes;
 	std::map<int, std::map<std::string, std::string> > mapFondoPantalla;
 	std::map<std::string, std::string> mapNivel;
+	std::map<std::string, std::string> mapBatalla;
 
 	LOGGER_SALIDA salida = ARCHIVO;
 
-	int anchoVentana, altoVentana;
+	int anchoVentana, altoVentana, tiempoBatalla, cantidadBatallas;
 	/*Se inicia el logger en modeo debug*/
 	Logger::Inicio(nivelLog, salida);
 	Logger::Log(nivelLog, "INICIO", "Iniciando el programa...");
@@ -44,6 +45,9 @@ int main(int argc, char* argv[]) {
 	altoVentana = appConfig.get_Config_AltoVentana();
 	anchoVentana = appConfig.get_Config_AnchoVentana();
 	nivelLog = appConfig.get_Config_NivelLog();
+	tiempoBatalla = appConfig.get_Config_TiempoBatalla();
+	cantidadBatallas = appConfig.get_Config_CantidadBatallas();
+	//mapBatalla = appConfig.get_Config_Batalla();
 
 	Logger::Cambiar_nivelLog(nivelLog);
 
@@ -70,6 +74,9 @@ int main(int argc, char* argv[]) {
 		cout << "puerto: " << puerto << endl;
 		Servidor server;
 		server.SetModel(&model);
+//		int cantidad = atoi((mapRound["cantidad"]).c_str());
+//			int tiempo = atoi((mapRound["tiempo"]).c_str());
+		server.SetConfiguracion(tiempoBatalla, cantidadBatallas);
 		server.IniciarServidor(num_jugadores, puerto);
 
 	} else if (strcmp(argv[1], "cliente") == 0) {
@@ -248,7 +255,7 @@ int main(int argc, char* argv[]) {
 
 		//reproduzco sonido del juego
 		sonido_juego.reproducir_sonido();
-		while (!controller.quitPressed()) {
+		while (!controller.quitPressed() && !cliente.JuegoFinalizado) {
 			if(!cliente.servidor_esta_vivo()){
 				return -1;
 			}

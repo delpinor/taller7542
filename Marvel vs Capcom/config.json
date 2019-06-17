@@ -62,6 +62,11 @@
 	"server" : 
 	{
 		"players" : 2
+	},
+	"batalla" :
+	{
+		"cantidad" : "3",
+		"tiempo" : "10"
 	}
 }
 		
