@@ -138,7 +138,7 @@ void Configuracion::ValidarConfigs(vector<string> *nombresPersonajes){
 			}
 
 			if((!StringHelper::esUnNumero(mapPersonajes[i]["ancho"])) || (NumericHelper::parseStringToInt(mapPersonajes[i]["ancho"]) <= 0)
-					|| (NumericHelper::parseStringToInt(mapPersonajes[i]["ancho"]) <50) || (NumericHelper::parseStringToInt(mapPersonajes[i]["ancho"]) >250)){
+					|| (NumericHelper::parseStringToInt(mapPersonajes[i]["ancho"]) <50) || (NumericHelper::parseStringToInt(mapPersonajes[i]["ancho"]) >400)){
 				Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se establace el ancho del personaje default: " ,ancho_personaje_default);
 				mapPersonajes[i]["ancho"] = ancho_personaje_default;
 			}
