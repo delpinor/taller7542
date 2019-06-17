@@ -77,6 +77,7 @@ private:
 public:
 	int getNombre_usuario(std::string &nombre);
 	bool loadText();
+	void MostrarMensaje(std::string mensaje);
 	std::string TextoMensaje = " ";
 	std::string TextoTitulo = "ESPERANDO OTROS JUGADORES...";
 	ViewMenu(int i);

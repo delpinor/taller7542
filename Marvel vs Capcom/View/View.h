@@ -7,6 +7,8 @@
 #include <cstdlib>
 #include <vector>
 #include "FondoParallax.h"
+#include "Timer.h"
+#include "Barras.h"
 
 #define ANCHO_JUGADOR 146
 #define ALTO_JUGADOR 146
@@ -43,6 +45,8 @@ private:
 	SDL_Renderer* gRenderer;
 	SDL_Window* window;
 	FondoParallax * pantalla;
+	Timer * timerJuego;
+	Barras * barrasVida;
 	LTexture texturasEquipo1[2];
 	LTexture texturasEquipo2[2];
 	LTexture texturaCaptainAmerica;

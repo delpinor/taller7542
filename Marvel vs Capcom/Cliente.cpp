@@ -224,8 +224,7 @@ int Cliente::recibirModeloDelServidor() {
 
 							this->juegoCorriendo = false;
 							this->getConexion()->Cerrar();
-							//			this->getVista()->CajaMensaje("Equipos",
-							//					"Juego iniciado. No hay lugar");
+
 		}
 
 		//-------->Recibe JUEGO INICIADO
@@ -290,8 +289,22 @@ int Cliente::recibirModeloDelServidor() {
 					unModelo.jugadoresEquipo2.isCambiandoPersonaje);
 			this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaSaltando(
 					unModelo.jugadoresEquipo2.isSaltando);
-
+			this->getVista()->model->SetTiempoJuego(unModelo.tiempo);
 			pthread_mutex_unlock(&mutexx);
+		}
+		//-------->Datos IGAME
+		if (idMsg == INGAME && this->JuegoIniciado) {
+			ModeloInGame inGame;
+			recv(this->getConexion()->getSocketCliente(), &inGame, sizeof(inGame), 0);
+			this->getVista()->model->SetTiempoJuego(inGame.tiempo);
+
+			this->getVista()->model->getEquipoNro(0)->getJugadorNro(0)->SetVida(inGame.personajesEquipo0[0].vida);
+			this->getVista()->model->getEquipoNro(0)->getJugadorNro(1)->SetVida(inGame.personajesEquipo0[1].vida);
+
+			this->getVista()->model->getEquipoNro(1)->getJugadorNro(0)->SetVida(inGame.personajesEquipo1[0].vida);
+			this->getVista()->model->getEquipoNro(1)->getJugadorNro(1)->SetVida(inGame.personajesEquipo1[1].vida);
+
+
 		}
 
 		//-------->Recibe DATA PERSONAJES

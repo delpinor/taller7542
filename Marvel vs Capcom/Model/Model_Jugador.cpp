@@ -20,9 +20,15 @@ Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &
 	this->pathImagen=path;
 	this->mCollider.w = width;
 	this->mCollider.h = height;
+	this->vidaJugador = 100;
 
 }
-
+void Jugador::SetVida(int vida){
+	this->vidaJugador = vida;
+}
+int Jugador::GetVida(){
+	return this->vidaJugador;
+}
 int Jugador::get_alto(){
 
 	return height;

@@ -101,7 +101,10 @@ void View::render() {
 	SDL_SetRenderDrawColor(this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
 	SDL_RenderClear(this->gRenderer);
+
+	//Refresh Parallax
 	pantalla->refrescarPosicion(camara);
+
 
 	for (auto iter = this->mapElementosRenderizables.begin(); iter != this->mapElementosRenderizables.end(); ++iter) {
 		for (unsigned int i = 0; i < (iter->second).size(); ++i) {
@@ -115,6 +118,10 @@ void View::render() {
 		}
 	}
 	//this->viewModel->render();
+	barrasVida->render(model->equipos);
+
+	//Render Timer
+	timerJuego->render(model->GetTiempoJuego());
 
 	SDL_RenderPresent(this->gRenderer);
 }
@@ -169,6 +176,13 @@ bool View::inicializar(Model *model) {
 				if(pathZ3 != ""){
 					this->setElementoFondo(model->GetZIndexFondoParallaxByOrden(3), 3);
 				}
+
+				//Inicializacion contador
+				timerJuego =  new Timer(this->gRenderer);
+
+
+				//Inicializacion de la barras de vida
+				barrasVida = new Barras(this->gRenderer);
 
 				//Initialize renderer color
 				SDL_SetRenderDrawColor(this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -251,6 +265,8 @@ SDL_Rect* View::getCamara(){
 }
 
 void View::close() {
+
+	timerJuego->Apagar();
 
 	//Destroy this->window}
 

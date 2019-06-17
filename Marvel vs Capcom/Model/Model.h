@@ -24,6 +24,7 @@ public:// hay que pasar los parametros a pivados y generar los seters
 	std:: map<int, Jugador> jugadores;
 	std::map <int, std::string> fondos;
 	int ancho_Pantalla, alto_Pantalla;
+	int tiempoJuego;
 	std:: map<int, Jugador*> jugadoresEquipo1;
 	//std:: map<int, Jugador> jugadoresEquipo2;
 
@@ -35,6 +36,8 @@ public:
 	std::string get_pathImagenJugador(int equipo, int indice_jugador);
 	int GetAltoJugador(int equipo, int indice_jugador);
 	int GetAnchoJugador(int equipo, int indice_jugador);
+	int GetTiempoJuego();
+	void SetTiempoJuego(int tiempo);
 	void inicializar();
 	void cargar_Fondos(std::map<int, std::map<std::string, std::string> > &mapFondoPantalla);
 	std::string GetPathFondoParallax(int indice_Z);
@@ -50,6 +53,7 @@ public:
 	virtual void setCamara(SDL_Rect * camara);
 	void inicializarPosicionesEquipos();
 	ModeloEstado GetModelEstado();
+	ModeloInGame GetModeloInGame();
 	virtual void update();
 	virtual void updateCliente(bool servidor_vivo);
 	Equipo* getEquipoNro(int i);
