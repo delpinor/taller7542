@@ -182,7 +182,9 @@ void Jugador::Patadon(Jugador * rival) {
 	rival->recibeDanio(this->estado->getDanioPatadon());
 }
 void Jugador::recibeDanio(int danio) {
-	//this-estado->disminuirVida(danio);
+	if (this->vidaJugador - danio >= 0)
+		this->vidaJugador =this->vidaJugador - danio;
+	//std::cout << "me pego y mi vida es : " + std::to_string(this->vidaJugador) << std::endl;
 }
 
 void Jugador::Saltar() {
