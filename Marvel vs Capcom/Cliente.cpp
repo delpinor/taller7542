@@ -236,6 +236,13 @@ int Cliente::recibirModeloDelServidor() {
 			this->ResultadoSeleccionPersonaje = unModelo;
 		}
 
+		//-------->Recibe JUEGO FINALIZADO
+		if (idMsg == JUEGOFINALIZADO){
+			pthread_mutex_lock(&mutexx);
+			this->JuegoFinalizado = true;
+			pthread_mutex_unlock(&mutexx);
+		}
+
 		//-------->Recibe MODELO
 		if (idMsg == MODELO && this->JuegoIniciado) {
 			ModeloEstado unModelo;

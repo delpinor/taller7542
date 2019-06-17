@@ -255,7 +255,7 @@ int main(int argc, char* argv[]) {
 
 		//reproduzco sonido del juego
 		sonido_juego.reproducir_sonido();
-		while (!controller.quitPressed()) {
+		while (!controller.quitPressed() && !cliente.JuegoFinalizado) {
 			if(!cliente.servidor_esta_vivo()){
 				return -1;
 			}

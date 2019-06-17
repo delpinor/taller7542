@@ -15,6 +15,7 @@ void Partida::IniciarBatalla(){
 	this->IniciarPosiciones();
 	this->IniciarCamara();
 	this->roundActual++;
+	cout << "Iniciando Batalla " << this->roundActual << endl;
 	this->cronometro = this->tiempoRound;
 	this->roundCorriendo = true;
 }
@@ -870,3 +871,15 @@ void Partida::FinalizarBatalla(){
 	this->roundCorriendo = false;
 }
 
+bool Partida::HayBatallasPendientes(){
+	if(this->roundActual < this->cantidadRounds){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+int Partida::GetNroBatallaActual(){
+	return this->roundActual;
+}
