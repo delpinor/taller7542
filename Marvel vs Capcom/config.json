@@ -38,15 +38,15 @@
 	"fondosPantalla" :
 	[
 		{
-			"rutaArchivoImagen" : "Images/z12.png",
+			"rutaArchivoImagen" : "Images/z1.png",
 			"zIndex" : "3"
 		},
 		{
-			"rutaArchivoImagen" : "Images/z22.png",
+			"rutaArchivoImagen" : "Images/z2.png",
 			"zIndex" : "2"
 		},
 		{
-			"rutaArchivoImagen" : "Images/z32.png",
+			"rutaArchivoImagen" : "Images/z3.png",
 			"zIndex" : "1"
 		}
 	],

@@ -119,8 +119,11 @@ void View::render() {
 	}
 	//this->viewModel->render();
 
-	//Render
-	timerJuego->render(gRenderer, camara);
+	//Render Barras de vida
+	barrasVida->render(camara);
+
+	//Render Timer
+	timerJuego->render(camara);
 
 	SDL_RenderPresent(this->gRenderer);
 }
@@ -178,6 +181,11 @@ bool View::inicializar(Model *model) {
 
 				//Inicializacion contador
 				timerJuego =  new Timer(this->gRenderer);
+
+
+				//Inicializacion de la barras de vida
+				barrasVida = new Barras(this->gRenderer);
+
 				//Initialize renderer color
 				SDL_SetRenderDrawColor(this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
@@ -261,6 +269,8 @@ SDL_Rect* View::getCamara(){
 void View::close() {
 
 	timerJuego->Apagar();
+
+	barrasVida->Apagar();
 
 	//Destroy this->window}
 
