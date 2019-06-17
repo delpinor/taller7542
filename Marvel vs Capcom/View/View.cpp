@@ -118,12 +118,10 @@ void View::render() {
 		}
 	}
 	//this->viewModel->render();
-
-	//Render Barras de vida
-	barrasVida->render(camara);
+	barrasVida->render(model->equipos);
 
 	//Render Timer
-	timerJuego->render(camara);
+	timerJuego->render(model->GetTiempoJuego());
 
 	SDL_RenderPresent(this->gRenderer);
 }
@@ -269,8 +267,6 @@ SDL_Rect* View::getCamara(){
 void View::close() {
 
 	timerJuego->Apagar();
-
-	barrasVida->Apagar();
 
 	//Destroy this->window}
 

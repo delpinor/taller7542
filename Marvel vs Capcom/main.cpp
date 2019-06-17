@@ -156,7 +156,6 @@ int main(int argc, char* argv[]) {
 
 		bool quitSeleccionMenu = false;
 		bool primerSeleccion = true;
-
 		while (!quitSeleccionMenu && !cliente.EstaFinalizadaSeleccionPersonaje()) {
 			if (cliente.EstaIniciadaSeleccionPersonaje()) {
 				//cout << "Ingresó en selección de personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;
@@ -175,16 +174,13 @@ int main(int argc, char* argv[]) {
 					cliente.enviarDataSeleccionAServidor(unModelo);
 				}
 				if (unModelo.confirmado && cliente.CantidadEquipo == 1) {
-					viewMenu.TextoMensaje =
-							"Elija su SEGUNDO personaje y presione la tecla ESPACIO";
+					viewMenu.MostrarMensaje("Elija su SEGUNDO personaje y presione la tecla ESPACIO");
 					primerSeleccion = false;
 
+				}else{
+					if(primerSeleccion)
+						viewMenu.MostrarMensaje("Elija su personaje y presione la tecla ESPACIO");
 				}
-				if (primerSeleccion) {
-					viewMenu.TextoMensaje =
-							"Elija su personaje y presione la tecla ESPACIO";
-				}
-				//viewMenu.loadText();
 			}
 			viewMenu.render();
 			usleep(18000);

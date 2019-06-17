@@ -1,6 +1,7 @@
 #include "../Model/LTexture.h"
 #include "Timer.h"
 using namespace std;
+#define ANCHO_PANTALLA 800
 Timer::Timer(SDL_Renderer * gRen){
 		//Ref. renderer
 		gRenderer =  gRen;
@@ -22,16 +23,16 @@ Timer::Timer(SDL_Renderer * gRen){
 void Timer::Reset(){
 	startTime = SDL_GetTicks();
 }
-void Timer::render(SDL_Rect * camara){
+void Timer::render(int tiempo){
 
-	Uint32 tiempo = (SDL_GetTicks() - startTime)/100;
+	//Uint32 tiempo = (SDL_GetTicks() - startTime)/1000;
 
 	//Set text to be rendered
 	timeText.str( "" );
 	timeText << tiempo;
 	int pxCentrar = 0;
 	if(tiempo > 99){
-		pxCentrar = 43;
+		pxCentrar = 42;
 
 	}else{
 		if(tiempo < 10){
@@ -51,7 +52,7 @@ void Timer::render(SDL_Rect * camara){
 
 
 	//Alinear cuando el valor del timepo es menor a 100 y 10.
-	int posX = (camara->w/2 - 60);
+	int posX = (ANCHO_PANTALLA/2 - 60);
 	gFondoTimer.render(posX,  2, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 
 	gTimeTextTexture.render(posX+pxCentrar, 18, NULL,0.0, NULL, SDL_FLIP_NONE,gRenderer);

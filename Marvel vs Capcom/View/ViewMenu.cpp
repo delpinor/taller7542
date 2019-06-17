@@ -49,7 +49,13 @@ bool ViewMenu::loadMedia() {
 	return true;
 
 }
-
+void ViewMenu::MostrarMensaje(std::string mensaje){
+	SDL_Color textColor = { 250, 250, 250 };
+	if (!gTextTexture2.loadFromRenderedText(mensaje,
+					textColor, gRenderer, gFont2)) {
+				printf("Failed to render text texture!\n");
+	}
+}
 bool ViewMenu::loadText() {
 	//Loading success flag
 	bool success = true;

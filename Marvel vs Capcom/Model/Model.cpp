@@ -21,8 +21,14 @@ Model::Model() {
 	this->camara = NULL;
 	this->equipos[0] = new Equipo();
 	this->equipos[1] = new Equipo();
+	this->tiempoJuego = 0;
 }
-
+int Model::GetTiempoJuego(){
+	return tiempoJuego;
+}
+void Model::SetTiempoJuego(int tiempo){
+	tiempoJuego = tiempo;
+}
 void Model::set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int personajeId){
 	if (nroEquipo==1){
 
@@ -228,6 +234,15 @@ void Model::setCamara(SDL_Rect * camara) {
 void Model::inicializarPosicionesEquipos(){
 	this->equipos[0]->getJugadorActivo()->estado->setPosX(this->camara->x);
 	this->equipos[1]->getJugadorActivo()->estado->setPosX(this->camara->x + this->camara->w);//- this->equipos[1]->getJugadorActivo()->get_ancho());
+}
+ModeloInGame Model::GetModeloInGame(){
+	ModeloInGame inGame;
+	inGame.tiempo = this->GetTiempoJuego();
+	inGame.personajesEquipo0[0].vida = this->getEquipoNro(0)->getJugadorNro(0)->GetVida();
+	inGame.personajesEquipo0[1].vida = this->getEquipoNro(0)->getJugadorNro(1)->GetVida();
+	inGame.personajesEquipo1[0].vida = this->getEquipoNro(1)->getJugadorNro(0)->GetVida();
+	inGame.personajesEquipo1[1].vida = this->getEquipoNro(1)->getJugadorNro(1)->GetVida();
+	return inGame;
 }
 ModeloEstado Model::GetModelEstado(){
 	ModeloEstado unModeloEstado;

@@ -16,13 +16,23 @@
 //Enumera de cabecera
 enum IDMENSAJE {
 	PING = 100, JUGADOR = 2, MENSAJE = 3, LOGIN = 4, COMPLETO = 5, EQUIPO = 6, TITULAR = 7, MODELO = 8, COMANDO = 9,
-	MODELOSELECCION = 10, DATASELECCION = 11, DATAPERSONAJES = 12, TEST = 13, JUEGOINICIADO = 14, SERVIDORMUERTO = 15,ACEPTADO = 16
+	MODELOSELECCION = 10, DATASELECCION = 11, DATAPERSONAJES = 12, TEST = 13, JUEGOINICIADO = 14, SERVIDORMUERTO = 15,ACEPTADO = 16,
+	INGAME = 17
 };
 struct JugadorLogin{
 	char usuario[20];
 
 };
 //Estructuras de envio
+struct PersonajeJugando{
+	int vida;
+};
+struct ModeloInGame{
+	int tiempo;
+	PersonajeJugando personajesEquipo0[2];
+	PersonajeJugando personajesEquipo1[2];
+
+};
 
 struct JugadorCliente {
 	int equipo;
@@ -35,11 +45,13 @@ struct JugadorCliente {
 	bool isCambiandoPersonaje = false;
 	bool isSaltando = false;
 };
+
 struct CamaraCliente {
 	int posX;
 	int posY;
 };
 struct ModeloEstado {
+	int tiempo;
 	int activoEquipo1;
 	int activoEquipo2;
 	struct JugadorCliente jugadoresEquipo1;

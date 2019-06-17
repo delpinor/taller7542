@@ -17,6 +17,6 @@ public:
 	Timer(SDL_Renderer * gRenderer);
 	void Reset();
 	void Apagar();
-	void render(SDL_Rect * cam);
+	void render(int tiempo);
 
 };

@@ -18,6 +18,7 @@ private:
 	 //int ALTO_JUGADOR = 120;
 	 std:: string nombre;
 	 std:: string pathImagen;
+	 int vidaJugador;
 	 int height;
 	 int width;
 	 int zindex;
@@ -43,6 +44,8 @@ public:
 //	EstadoCliente * estado;
 
 	Jugador();
+	int GetVida();
+	void SetVida(int vida);
 	void set_desconectado();
 	void set_conectado();
 	bool get_estado_desconexion();
