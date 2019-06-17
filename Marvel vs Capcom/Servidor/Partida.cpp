@@ -10,7 +10,7 @@ void Partida::IniciarPartida() {
 
 }
 void Partida::IniciarBatalla(){
-	//this->IniciarTitularidadClientes();
+	this->IniciarTitularidadClientes();
 	ActualizarModelo();
 	this->IniciarPosiciones();
 	this->IniciarCamara();
