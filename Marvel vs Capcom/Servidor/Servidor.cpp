@@ -310,9 +310,9 @@ void * enviarDatos(void * datos) {
 			pthread_mutex_lock(&mutex_server);
 			ModeloInGame unModeloGame = miPartida.GetModelo()->GetModeloInGame();
 			//Estas 3 lineas son de prueba!!!!
-			unModeloGame.tiempo = 60;
-			unModeloGame.personajesEquipo0[0].vida = 35;
-			unModeloGame.personajesEquipo0[1].vida = 65;
+//			unModeloGame.tiempo = 60;
+//			unModeloGame.personajesEquipo0[0].vida = 35;
+//			unModeloGame.personajesEquipo0[1].vida = 65;
 
 			pthread_mutex_unlock(&mutex_server);
 			send(sock, &idGame, sizeof(idGame), 0);
