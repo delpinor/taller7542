@@ -17,7 +17,41 @@ void View_Jugador_Spiderman::initialize(Jugador *model,
 	this->zIndex = model->get_zindex();
 	getSpritesCambioPersonaje();
 	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
+
+	this->sonido_salto=new EfectoSonido(1);
+		this->sonido_ataque_pu=new EfectoSonido(1);
+		this->sonido_defensa=new EfectoSonido(1);
+		this->sonido_cambio=new EfectoSonido(1);
+
+		this->sonido_ataque_pu->loadMedia("../Sonidos/spider_Atk2.wav");
+			this->sonido_salto->loadMedia("../Sonidos/salto_spider.wav");
+	this->sonido_cambio->loadMedia("../Sonidos/cambio_spider.wav");
 }
+void  View_Jugador_Spiderman::reproducir_sonido_salto(){
+
+		this->sonido_salto->reproducir_sonido();
+
+
+}
+void  View_Jugador_Spiderman::reproducir_sonido_cambio(){
+
+		this->sonido_cambio->reproducir_sonido();
+
+
+}
+	void  View_Jugador_Spiderman::reproducir_sonido_ataque_pu(){
+
+		this->sonido_ataque_pu->reproducir_sonido();
+
+
+}
+void   View_Jugador_Spiderman::reproducir_sonido_defensa(){
+
+		this->sonido_defensa->reproducir_sonido();
+
+
+}
+
 
 void View_Jugador_Spiderman::getSpritesAnimacion() {
 	CANTSPRITEANIMACION = 10;
@@ -134,12 +168,12 @@ void View_Jugador_Spiderman::getSpritesCaminar() {
 	gSpriteCaminar[9].w = 89;
 	gSpriteCaminar[9].h = 103;
 
-	gSpriteCaminar[10].x = 910;
+	gSpriteCaminar[10].x = 914;
 	gSpriteCaminar[10].y = 118;
-	gSpriteCaminar[10].w = 89;
+	gSpriteCaminar[10].w = 88;
 	gSpriteCaminar[10].h = 103;
 
-	gSpriteCaminar[11].x = 995;
+	gSpriteCaminar[11].x = 999;
 	gSpriteCaminar[11].y = 118;
 	gSpriteCaminar[11].w = 89;
 	gSpriteCaminar[11].h = 103;

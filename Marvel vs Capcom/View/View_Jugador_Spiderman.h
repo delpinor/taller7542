@@ -9,6 +9,14 @@ public:
 	void initialize(Jugador *model,
 		LTexture * texturaJugador);
 
+	void reproducir_sonido_salto();
+	void reproducir_sonido_cambio();
+	void reproducir_sonido_ataque_pu();
+	void reproducir_sonido_defensa();
+	EfectoSonido *sonido_salto;
+	EfectoSonido *sonido_ataque_pu; // sonido ataque puño
+	EfectoSonido *sonido_defensa;
+	EfectoSonido *sonido_cambio;
 protected:
 	void getSpritesAnimacion();
 	void getSpritesCaminar();

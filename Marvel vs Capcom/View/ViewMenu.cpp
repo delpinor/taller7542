@@ -11,6 +11,14 @@ ViewMenu::ViewMenu(int i) {
 		} else {
 
 		}
+
+		this->sonido_cursor= new EfectoSonido(1);
+		this->sonido_selection= new EfectoSonido(1);
+		this->sonido_cursor->init();
+		this->sonido_cursor->loadMedia("../Sonidos/selection.wav");
+		this->sonido_selection->loadMedia("../Sonidos/selection_confirm.wav");
+
+
 	}
 }
 
@@ -308,11 +316,13 @@ void ViewMenu::close() {
 	//Destroy window
 	SDL_DestroyWindow(window);
 	window = NULL;
-	SDL_Quit();
+
 }
 
 void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId,
 		bool *confirmado) {
+	actualizarTitulo("SELECCION DE PERSONAJE JUGADOR: " + std::to_string(this->nroJugadorLocal));
+	actualizarMensaje("Elija personaje y presione la tecla ESPACIO");
 
 	//cout << "VIEWMENU - handleEvent: Jugador | "<< this->nroJugadorLocal << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 
@@ -328,6 +338,8 @@ void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId,
 			switch (e.key.keysym.sym) {
 			case SDLK_SPACE:{
 
+				this->sonido_selection->reproducir_sonido();
+
 				std::list<ModeloPersonajeVistaSeleccion>::iterator it;
 				for (it = modelo.data.begin(); it != modelo.data.end(); it++) {
 					if ((it->jugadorId == this->nroJugadorLocal)&& (!it->confirmado)) {
@@ -342,6 +354,7 @@ void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId,
 				break;
 			}
 			case SDLK_a: {
+				this->sonido_cursor->reproducir_sonido();
 				std::list<ModeloPersonajeVistaSeleccion>::iterator it;
 				for (it = modelo.data.begin(); it != modelo.data.end(); it++) {
 
@@ -366,6 +379,7 @@ void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId,
 				//necesito aumentar un contador para el seleccionado aca
 				break;
 			case SDLK_d: {
+				this->sonido_cursor->reproducir_sonido();
 				std::list<ModeloPersonajeVistaSeleccion>::iterator it;
 				for (it = modelo.data.begin(); it != modelo.data.end(); it++) {
 
@@ -565,4 +579,14 @@ int ViewMenu::getNombre_usuario(std::string &nombre)
 }
 
 
+void ViewMenu::actualizarTitulo(std::string texto) {
+	SDL_Color textColor = { 250, 250, 250 };
+	gTextTexture.loadFromRenderedText(texto,
+				textColor, gRenderer, gFont2);
+}
 
+void ViewMenu::actualizarMensaje(std::string texto) {
+	SDL_Color textColor = { 250, 250, 250 };
+	gTextTexture2.loadFromRenderedText(texto,
+				textColor, gRenderer, gFont2);
+}

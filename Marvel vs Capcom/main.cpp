@@ -9,31 +9,17 @@
 #include "Servidor/Servidor.h"
 #include "Helper/TimeHelper.h"
 #include <signal.h>
-/* nombre_ejecutable  nombre_archivo_configuracion niveldeDebug*/
-/* Catch Signal Handler functio */
-void signal_callback_handler(int signum){
+#include "Sonido.h"
 
-        printf("Caught signal SIGPIPE %d\n",signum);
-}
-void ignore_sigpipe(void)
-{
-
-struct sigaction act;
-    memset(&act, 0, sizeof(act));
-    act.sa_handler = SIG_IGN;
-    act.sa_flags = SA_RESTART;
-  sigaction(SIGPIPE, &act, NULL);
-
-}
 
 int main(int argc, char* argv[]) {
+	//ignore_sigpipe;
 	struct sigaction act;
 	    memset(&act, 0, sizeof(act));
 	    act.sa_handler = SIG_IGN;
 	    //act.sa_flags = SA_RESTART;
 	  sigaction(SIGPIPE, &act, NULL);
-	//sigaction(SIGPIPE, &(struct sigaction){SIG_IGN}, NULL);
-	//ignore_sigpipe;
+
 	char* ip;
 	char* puerto;
 
@@ -75,18 +61,7 @@ int main(int argc, char* argv[]) {
 			<< model.jugadoresEquipo1.size() << " | "
 			<< TimeHelper::getStringLocalTimeNow() << endl;
 
-	//seteo los jugadores en los equipos
-	//set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int nroJugador)
-	//OJO ACA, SI LO DESCOMENTO EL 3ER PARAMETRO TIENE QUE SER EL ENUM DE LOS PERSONAJES
-	//	model.set_equipos_with_jugador(0, 0, 4);
-	//	model.set_equipos_with_jugador(0, 1, 1);
-	//	model.set_equipos_with_jugador(1, 0, 2);
-	//	model.set_equipos_with_jugador(1, 1, 3);
-	//
-	//	//designo que jugadores van a estar activos
-	//	model.inicializar();
-	//	model.getEquipoNro(0)->setJugadorActivo(0);
-	//	model.getEquipoNro(1)->setJugadorActivo(0);
+
 
 	int num_jugadores = appConfig.get_NumJugadores();
 
@@ -96,14 +71,7 @@ int main(int argc, char* argv[]) {
 		Servidor server;
 		server.SetModel(&model);
 		server.IniciarServidor(num_jugadores, puerto);
-		/*
-		while (1){
-			if(server.servidor_esta_cerrado()){
-				return -1;
-			}
-			sleep(1);
 
-		}*/
 	} else if (strcmp(argv[1], "cliente") == 0) {
 		ip = argv[2];
 		cout << "ip: " << ip << endl;
@@ -123,6 +91,39 @@ int main(int argc, char* argv[]) {
 				<< endl;
 
 		Conexion conexion;
+
+		/* Cargo la musica de espera, la de seleccion y la del juego*/
+		bool success;
+
+		Sonido sonido_espera(0);
+
+		success=sonido_espera.init();
+		if (!success){
+			return -1;
+
+		}else{
+				sonido_espera.loadMedia("Sonidos/01-opening.mp3");
+		}
+
+		Sonido sonido_seleccion(1);
+				 //success=sonido_seleccion.init();
+				if (!success){
+						return -1;
+
+				}else{
+
+				sonido_seleccion.loadMedia("Sonidos/02-player-select.mp3");
+				}
+		Sonido sonido_juego(1);
+						 success=sonido_juego.init();
+						if (!success){
+								return -1;
+
+						}else{
+									sonido_juego.loadMedia("Sonidos/05-theme-of-captain-america.mp3");
+		}
+
+
 		Cliente cliente(&viewMenu, &conexion);
 		cout << "Cliente creado | " << TimeHelper::getStringLocalTimeNow()
 				<< endl;
@@ -134,6 +135,7 @@ int main(int argc, char* argv[]) {
 
 		if (cliente.ConectarConServidor(ip, puerto) == -1)
 			return -1;
+
 
 		strcpy(cliente.Usuario, nombre_usuario.c_str());
 		send(conexion.getSocketCliente(), &idMsg, sizeof(idMsg), 0);
@@ -149,6 +151,9 @@ int main(int argc, char* argv[]) {
 					cout<<"PARTIDA COMPLETA \n";
 					return -1;
 				}
+		//reproduce la musica de espera
+		sonido_espera.reproducir_sonido();
+
 		cliente.lanzarHilosDelJuego();
 		cout << "Hilos del cliente lanzados | "
 				<< TimeHelper::getStringLocalTimeNow() << endl;
@@ -157,9 +162,17 @@ int main(int argc, char* argv[]) {
 		bool quitSeleccionMenu = false;
 		bool primerSeleccion = true;
 
+		//variable para indicar el cambio de musica desde la de seleccion a la de espera
+		bool cambiar_sonido=true;
+
 		while (!quitSeleccionMenu && !cliente.EstaFinalizadaSeleccionPersonaje()) {
 			if (cliente.EstaIniciadaSeleccionPersonaje()) {
-				//cout << "Ingresó en selección de personaje | "<< TimeHelper::getStringLocalTimeNow() << endl;
+				if (cliente.EstaIniciadaSeleccionPersonaje() && cambiar_sonido){
+									sonido_espera.parar_sonido();
+									sonido_seleccion.reproducir_sonido();
+									cambiar_sonido=false;
+				}
+
 				viewMenu.TextoTitulo = "SELECCION DE PERSONAJE";
 
 				int personajeSeleccionadoId = static_cast<int>(PERSONAJE::P_NA);
@@ -189,6 +202,7 @@ int main(int argc, char* argv[]) {
 			viewMenu.render();
 			usleep(18000);
 		}
+		sonido_seleccion.parar_sonido();
 		viewMenu.close();
 
 		if (quitSeleccionMenu) {
@@ -235,6 +249,9 @@ int main(int argc, char* argv[]) {
 		// Hilo conexion.
 		cliente.PararHiloPing();
 		cliente.LanzarHiloConexion();
+
+		//reproduzco sonido del juego
+		sonido_juego.reproducir_sonido();
 		while (!controller.quitPressed()) {
 			if(!cliente.servidor_esta_vivo()){
 				return -1;

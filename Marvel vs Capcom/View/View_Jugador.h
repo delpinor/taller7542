@@ -4,6 +4,7 @@
 #include "../Model/LTexture.h"
 #include "../Model/Model_Jugador.h"
 #include "../Logger/Logger.h"
+#include "../EfectoSonido.h"
 class View_Jugador { // @suppress("Class has a virtual method and non-virtual destructor")
 public:
 
@@ -38,6 +39,11 @@ public:
 	int CANTSPRITECLIPPATADON;
 	int MINFRAMEPATADON;
 	int MAXFRAMEPATADON;
+
+	virtual void reproducir_sonido_salto(){};
+	virtual void reproducir_sonido_cambio(){};
+	virtual void reproducir_sonido_ataque_pu(){};
+	virtual void reproducir_sonido_defensa(){};
 
 protected:
 
