@@ -65,7 +65,6 @@ protected:
 	bool fueraDePantalla = false;
 	bool cambiandoPersonaje = false;
 	bool saltando = false;
-	bool quieto=true;
 
 private:
 };

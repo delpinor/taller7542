@@ -19,11 +19,6 @@ void Activo::moveVertical() {
 	Estado::moveVertical();
 }
 
-bool Activo::estaQuieto(){
-
-	return quieto;
-}
-
 bool Activo::isFueraDePantalla(){
 	return (mPosY < 0);
 }

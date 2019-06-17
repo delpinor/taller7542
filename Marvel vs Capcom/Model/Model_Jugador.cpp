@@ -168,11 +168,6 @@ void Jugador::Patadon() {
 	if (this->getTipoGolpe() == TIPO_GOLPE::NADA)
 		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADON);
 }
-void Jugador::TerminarGolpe() {
-	this->activo.copiarEstado(this->estado);
-	this->estado = &(this->activo);
-	this->estado->setPegandoPatadon(false);
-}
 
 void Jugador::Saltar() {
 //	this->estado->Saltar();

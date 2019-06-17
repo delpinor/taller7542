@@ -8,7 +8,6 @@
 #include "../Model/Agachado.h"
 #include "../Model/Saltando.h"
 #include "../Model/CambiandoPersonaje.h"
-#include "../Model/PegandoPatadon.h"
 #include "../Model/EstadoCliente.h"
 #include "../Model/TipoGolpe.h"
 #define VENOM 0x01
@@ -113,6 +112,5 @@ public:
 	void setTipoGolpe(TIPO_GOLPE tipoGolpe);
 	bool isIniciarGolpe();
 	void setIniciarGolpe(bool iniciarGolpe);
-	void TerminarGolpe();
 	};
 #endif
