@@ -56,7 +56,7 @@ private:
 	int tiempoRound;
 	int cronometro = 0;
 	int cantidadRounds;
-	int roundActual = 1;
+	int roundActual = 0;
 	bool roundCorriendo = false;
 	void IniciarPosiciones();
 	void IniciarCamara();
@@ -125,7 +125,7 @@ public:
 	ModeloPersonajes GetModeloPersonajes();
 	void SetDataPersonajesEnviada(string nombre);
 	ModeloResultadoSeleccionPersonaje getResultadoSeleccionPersonaje();
-	void SetConfiguracion(std::map<std::string, std::string> &mapRound);
+	void SetConfiguracion(int tiempoBatalla, int cantidadBatallas);
 	void AvanzarTiempo();
 	bool EstaEnEjecucionDeBatalla();
 	bool DebeFinalizarBatalla();

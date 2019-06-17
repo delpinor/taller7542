@@ -43,6 +43,7 @@ Configuracion::Configuracion(char* filepath) {
 	parser.devolver_Map_Fondo(&mapFondoPantalla);
 	parser.devolver_Tam_Imagen(&anchoVentana,&altoVentana);
 	parser.devolver_Map_Nivel(&mapNivel);
+	parser.devolver_Map_Batalla(&mapBatalla);
 	this->num_jugadores=parser.devolverNumeroJugadores();
 	this->nivelLog = parser.devolver_Tipo_Log();
 	this->ValidarConfigs(&nombresPersonajes);

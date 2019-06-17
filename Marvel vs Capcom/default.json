@@ -68,8 +68,8 @@
 	},
 	"batalla" :
 	{
-		"cantidad" : 3,
-		"tiempo" : 10
+		"cantidad" : "3",
+		"tiempo" : "10"
 	}
 
 }

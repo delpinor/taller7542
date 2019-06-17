@@ -10,7 +10,7 @@ void Partida::IniciarPartida() {
 
 }
 void Partida::IniciarBatalla(){
-	this->IniciarTitularidadClientes();
+	//this->IniciarTitularidadClientes();
 	ActualizarModelo();
 	this->IniciarPosiciones();
 	this->IniciarCamara();
@@ -840,13 +840,16 @@ ModeloResultadoSeleccionPersonaje Partida::getResultadoSeleccionPersonaje(){
 	return unModelo;
 }
 
-void Partida::SetConfiguracion(std::map<std::string, std::string> &mapRound){
-	this->cantidadRounds = atoi((mapRound["cantidad"]).c_str());
-	this->tiempoRound = atoi((mapRound["tiempo"]).c_str());
+void Partida::SetConfiguracion(int tiempoBatalla, int cantidadBatallas){
+	this->cantidadRounds = 3;//;
+	this->tiempoRound = 15;//atoi((mapRound["tiempo"]).c_str());
 }
 
 void Partida::AvanzarTiempo(){
 	this->cronometro--;
+	cout
+	<< "PARTIDA - Tiempo:   " << this->cronometro << " | "
+	<< TimeHelper::getStringLocalTimeNow() << endl;
 }
 
 

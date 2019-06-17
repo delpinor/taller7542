@@ -61,6 +61,33 @@ void * updateModelo(void *) {
 			corriendo = false;
 	}
 }
+void * controlBatalla(void *) {
+
+	while (1) {
+		if(miPartida.Iniciada()){
+			if (miPartida.EstaEnEjecucionDeBatalla()){
+
+				sleep(1);
+				pthread_mutex_lock(&mutex_server);
+				miPartida.AvanzarTiempo();
+				pthread_mutex_unlock(&mutex_server);
+
+				if(miPartida.DebeFinalizarBatalla()){
+					pthread_mutex_lock(&mutex_server);
+					miPartida.FinalizarBatalla();
+					pthread_mutex_unlock(&mutex_server);
+				}
+			}
+			else{
+				if(!miPartida.Finalizada()){
+					miPartida.IniciarBatalla();
+				}
+			}
+		}
+
+		usleep(10);
+	}
+}
 // Hilo de control de partida. Finalizacion, inicio, etc.
 void * controlPartida(void *) {
 
@@ -130,38 +157,38 @@ void * controlSeleccionPersonajes(void *) {
 //Hilo de loggeo de informacion
 void * loggeoPartida(void *) {
 	while (1) {
-		system("clear");
-		cout << "Inicio partida: "
-				<< (miPartida.Iniciada() == true ? "Iniciada" : "No iniciada")
-				<< endl;
-		cout << "Final partida: "
-				<< (miPartida.Finalizada() == true ?
-						"Finalizada" : "No finalizada") << endl;
-		cout << "Cantidad jugadores: " << miPartida.GetCantidadJugando()
-						<< endl;
-		cout << "Cantidad en espera: " << miPartida.GetCantidadEspera() << endl;
-		cout << "Cantidad en desconectados: "
-				<< miPartida.GetCantidadDesconectados() << endl;
-		cout << "Jugadores:" << endl;
-
-		list<ClienteConectado> lista = miPartida.GetListaJugadores();
-		list<ClienteConectado>::iterator it;
-		for (it = lista.begin(); it != lista.end(); it++) {
-			cout << "Socket: " << it->socket << endl;
-			cout << "Nombre: " << it->nombre << endl;
-			cout << "Numero de Jugador: " << it->numeroJugador << endl;
-			cout << "Equipo: " << it->equipo << endl;
-			cout << "Titular: "
-					<< (it->titular == true ? "Es titular" : "Es suplente")
-					<< endl;
-			cout << "------------------------" << endl;
-			cout << "------------------------" << endl;
-		}
-		if (miPartida.Finalizada()) {
-			cout << "Partida finalizada!" << it->nombre << endl;
-			pthread_exit(NULL);
-
-		}
+//		system("clear");
+//		cout << "Inicio partida: "
+//				<< (miPartida.Iniciada() == true ? "Iniciada" : "No iniciada")
+//				<< endl;
+//		cout << "Final partida: "
+//				<< (miPartida.Finalizada() == true ?
+//						"Finalizada" : "No finalizada") << endl;
+//		cout << "Cantidad jugadores: " << miPartida.GetCantidadJugando()
+//						<< endl;
+//		cout << "Cantidad en espera: " << miPartida.GetCantidadEspera() << endl;
+//		cout << "Cantidad en desconectados: "
+//				<< miPartida.GetCantidadDesconectados() << endl;
+//		cout << "Jugadores:" << endl;
+//
+//		list<ClienteConectado> lista = miPartida.GetListaJugadores();
+//		list<ClienteConectado>::iterator it;
+//		for (it = lista.begin(); it != lista.end(); it++) {
+//			cout << "Socket: " << it->socket << endl;
+//			cout << "Nombre: " << it->nombre << endl;
+//			cout << "Numero de Jugador: " << it->numeroJugador << endl;
+//			cout << "Equipo: " << it->equipo << endl;
+//			cout << "Titular: "
+//					<< (it->titular == true ? "Es titular" : "Es suplente")
+//					<< endl;
+//			cout << "------------------------" << endl;
+//			cout << "------------------------" << endl;
+//		}
+//		if (miPartida.Finalizada()) {
+//			cout << "Partida finalizada!" << it->nombre << endl;
+//			pthread_exit(NULL);
+//
+//		}
 
 		sleep(1);
 	}
@@ -419,6 +446,13 @@ void Servidor::LanzarHiloUpdateModelo() {
 	pthread_detach(thread_update_modelo);
 }
 
+void Servidor::LanzarHiloBatalla() {
+	//Hilo de control
+	pthread_t thread_control_batalla;
+	pthread_create(&thread_control_batalla, NULL, controlBatalla, NULL);
+	pthread_detach(thread_control_batalla);
+}
+
 int Servidor::calcular_num_personajes(int orden_jugador) {
 	//si hay dos jugadores , cada uno debe sereccionar 2 pesonajes
 	if (this->num_jugadores == 2) {
@@ -525,9 +559,14 @@ void Servidor::IniciarServidor(int maxClientes, char * puerto) {
 	LanzarHiloControlSeleccionPersonajes();
 	LanzarHiloLoggeo();
 	LanzarHiloUpdateModelo();
+	LanzarHiloBatalla();
 	AceptarClientes(maxClientes);
 
 }
 
-
+void Servidor::SetConfiguracion(std::map<std::string, std::string> &mapRound){
+	int cantidad = atoi((mapRound["cantidad"]).c_str());
+	int tiempo = atoi((mapRound["tiempo"]).c_str());
+	miPartida.SetConfiguracion(tiempo, cantidad);
+}
 
