@@ -91,6 +91,10 @@ int Configuracion::get_Config_AltoVentana(){
 	return NumericHelper::parseStringToInt(this->altoVentana);
 }
 
+std::map<std::string, std::string> Configuracion::get_Config_Batalla(){
+	return mapBatalla;
+}
+
 Configuracion::~Configuracion() {
 	// TODO Auto-generated destructor stub
 }
@@ -235,6 +239,24 @@ void Configuracion::ValidarConfigs(vector<string> *nombresPersonajes){
 		Logger::Log(LOGGER_NIVEL::DEBUG, "Configuracion::Se carga el numero de jugadores ingresado" ,num_str );
 
 
+	}
+
+	//Round
+	if(this->mapBatalla.size() == 0){
+		ParserConfig parser;
+		Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::se cargan la info de Batalla default" ,"");
+		parser.devolver_Map_Nivel(&mapBatalla);
+	}
+	else{
+		if(!StringHelper::esUnNumero(mapBatalla["cantidad"]) || NumericHelper::parseStringToInt(mapBatalla["cantidad"]) <= 0){
+			Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::se carga cantidad de Batalla default" ,batalla_cantidad_default);
+			mapBatalla["cantidad"] = batalla_cantidad_default;
+		}
+
+		if(!StringHelper::esUnNumero(mapBatalla["tiempo"]) || NumericHelper::parseStringToInt(mapBatalla["tiempo"]) <= 0){
+			Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::se cargan tiempo de Batalla default" ,batalla_tiempo_default);
+			mapBatalla["tiempo"] = batalla_tiempo_default;
+		}
 	}
 
 }

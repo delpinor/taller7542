@@ -28,6 +28,7 @@ int main(int argc, char* argv[]) {
 	std::map<int, std::map<std::string, std::string> > mapPersonajes;
 	std::map<int, std::map<std::string, std::string> > mapFondoPantalla;
 	std::map<std::string, std::string> mapNivel;
+	std::map<std::string, std::string> mapBatalla;
 
 	LOGGER_SALIDA salida = ARCHIVO;
 

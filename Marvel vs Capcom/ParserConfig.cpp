@@ -79,6 +79,11 @@ void ParserConfig::devolver_Map_Nivel(std::map<std::string, std::string>  *mapNi
 	(*mapNivel)["alto"]=this->configuracion["nivel"]["alto"].asString();
 }
 
+void ParserConfig::devolver_Map_Batalla(std::map<std::string, std::string>  *mapBatalla){
+
+	(*mapBatalla)["cantidad"]=this->configuracion["batalla"]["cantidad"].asString();
+	(*mapBatalla)["tiempo"]=this->configuracion["batalla"]["tiempo"].asString();
+}
 
 ParserConfig::~ParserConfig() {
 	// TODO Auto-generated destructor stub
