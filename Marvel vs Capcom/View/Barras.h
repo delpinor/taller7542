@@ -1,3 +1,4 @@
+#pragma once
 #include "../Model/LTexture.h"
 #include <sstream>
 #include <stdio.h>
@@ -24,7 +25,7 @@ private:
 	SDL_Renderer * gRenderer;
 
 	TTF_Font * gFont = NULL;
-	SDL_Color textColor = { 255, 165, 0, 255 };
+	SDL_Color textColor = { 4, 147, 199, 255 };
 	std::stringstream nombrePersonaje;
 	void CargarTexto(std::string nombre);
 	void SetVida(int equipo, int jugador, int vida);

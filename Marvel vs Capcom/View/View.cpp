@@ -3,6 +3,8 @@
 #include <string>
 #include "../Logger/Logger.h"
 #include "../Model/EstadoCliente.h"
+#include "Timer.h"
+#include "Barras.h"
 
 #define MARGEN 0
 int posAnteriorX1, posAnteriorY1;

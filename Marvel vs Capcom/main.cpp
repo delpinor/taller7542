@@ -189,11 +189,10 @@ int main(int argc, char* argv[]) {
 				}
 				if (unModelo.confirmado && cliente.CantidadEquipo == 1) {
 					viewMenu.MostrarMensaje("Elija su SEGUNDO personaje y presione la tecla ESPACIO");
-					primerSeleccion = false;
-
-				}else{
-					if(primerSeleccion)
-						viewMenu.MostrarMensaje("Elija su personaje y presione la tecla ESPACIO");
+				}
+				if(primerSeleccion){
+					viewMenu.MostrarMensaje("Elija su personaje y presione la tecla ESPACIO");
+					primerSeleccion =  false;
 				}
 			}
 			viewMenu.render();

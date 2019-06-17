@@ -328,7 +328,7 @@ void ViewMenu::close() {
 void ViewMenu::handleEvent(bool *quit, int *personajeSelecionadoId,
 		bool *confirmado) {
 	actualizarTitulo("SELECCION DE PERSONAJE JUGADOR: " + std::to_string(this->nroJugadorLocal));
-	actualizarMensaje("Elija personaje y presione la tecla ESPACIO");
+	//actualizarMensaje("Elija personaje y presione la tecla ESPACIO");
 
 	//cout << "VIEWMENU - handleEvent: Jugador | "<< this->nroJugadorLocal << " | " << TimeHelper::getStringLocalTimeNow() << endl;
 
