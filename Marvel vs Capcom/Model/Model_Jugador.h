@@ -92,6 +92,7 @@ public:
 	void terminarSalto();
 	void setDireccion(SDL_RendererFlip direccion);
 	bool collide(SDL_Rect * camara);
+	bool collideConJugador(SDL_Rect * camara);
 	bool collideDerecha(SDL_Rect * camara);
 	bool collideIzquierda(SDL_Rect * camara);
 	SDL_RendererFlip getDireccion();

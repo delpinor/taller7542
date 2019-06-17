@@ -161,24 +161,28 @@ void Jugador::aumentarVelocidadY(int vel) {
 void Jugador::Pinia(Jugador * rival) {
 	this->estado->Pinia();
 	//aca va el if del collide
+	if(rival->collideConJugador(&mCollider))
 	rival->recibeDanio(this->estado->getDanioPinia());
 }
 
 void Jugador::Pinion(Jugador * rival) {
 	this->estado->Pinion();
 	//aca va el if del collide
+	if(rival->collideConJugador(&mCollider))
 	rival->recibeDanio(this->estado->getDanioPinion());
 }
 
 void Jugador::Patada(Jugador * rival) {
 	this->estado->Patada();
 	//aca va el if del collide
+	if(rival->collideConJugador(&mCollider))
 	rival->recibeDanio(this->estado->getDanioPatada());
 }
 
 void Jugador::Patadon(Jugador * rival) {
 	this->estado->Patadon();
 	//aca va el if del collide
+	if(rival->collideConJugador(&mCollider))
 	rival->recibeDanio(this->estado->getDanioPatadon());
 }
 void Jugador::recibeDanio(int danio) {
@@ -277,6 +281,45 @@ bool Jugador::collide(SDL_Rect * camara) {
 	}
 
 	if (rightJugador <= leftCam) {
+		return false;
+	}
+
+	return true;
+}
+
+bool Jugador::collideConJugador(SDL_Rect * jugador) {
+
+	int leftRival, leftJugador;
+	int rightRival, rightJugador;
+	int topRival, topJugador;
+	int bottomRival, bottomJugador;
+
+	leftRival = jugador->x;
+
+	rightRival = jugador->x + jugador->w;
+
+	topRival = jugador->y;
+
+	bottomRival = jugador->y + jugador->h;
+
+	leftJugador = this->mCollider.x;
+	rightJugador = this->mCollider.x + this->mCollider.w;
+	topJugador = this->mCollider.y;
+	bottomJugador = this->mCollider.y + this->mCollider.h;
+
+	if (bottomJugador <= topRival) {
+		return false;
+	}
+
+	if (topJugador >= bottomRival) {
+		return false;
+	}
+
+	if (leftJugador >= rightRival) {
+		return false;
+	}
+
+	if (rightJugador <= leftRival) {
 		return false;
 	}
 
