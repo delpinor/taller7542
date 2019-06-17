@@ -42,6 +42,9 @@ public:
 			SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE,
 			SDL_Renderer *gRenderer = NULL);
 
+	void render(int x, int y, int ancho, int alto, SDL_Rect* clip, double angle,
+			SDL_Point* center, SDL_RendererFlip flip, SDL_Renderer *gRenderer);
+
 	//Gets image dimensions
 	int getWidth();
 	int getHeight();

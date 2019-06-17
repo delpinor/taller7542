@@ -6,7 +6,6 @@
 class Timer{
 private:
 	SDL_Renderer * gRenderer;
-	LTexture gPromptTextTexture;
 	LTexture gTimeTextTexture;
 	LTexture gFondoTimer;
 	TTF_Font * gFont = NULL;

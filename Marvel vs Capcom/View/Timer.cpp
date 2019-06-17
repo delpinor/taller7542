@@ -62,7 +62,6 @@ void Timer::render(SDL_Rect * camara){
 void Timer::Apagar(){
 	//Free loaded images
 	gTimeTextTexture.free();
-	gPromptTextTexture.free();
 
 	//Free global font
 	TTF_CloseFont( gFont );
