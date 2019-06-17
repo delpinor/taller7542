@@ -161,6 +161,18 @@ void Estado::Saltar() {
 void Estado::Pinia() {
 
 }
+int  Estado::getDanioPinia(){
+	return 10;
+}
+int  Estado::getDanioPinion(){
+	return 10;
+}
+int  Estado::getDanioPatada(){
+	return 10;
+}
+int  Estado::getDanioPatadon(){
+	return 10;
+}
 void Estado::Pinion() {
 
 }

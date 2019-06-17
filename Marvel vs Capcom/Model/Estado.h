@@ -30,6 +30,10 @@ public:
 	void Pinion();
 	void Patada();
 	void Patadon();
+	int  getDanioPinia();
+	int  getDanioPinion();
+	int  getDanioPatada();
+	int  getDanioPatadon();
 	void detenerVelocidad();
 	virtual void move() = 0;
 	virtual void moveVertical() = 0;

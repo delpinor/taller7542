@@ -48,10 +48,10 @@ public:
 	virtual void jugadorActivoAumentaVelocidadEnX();
 	virtual void jugadorActivoAumentaVelocidadEnY();
 	virtual void jugadorActivoSalta();
-	virtual void jugadorActivoPinia();
-	virtual void jugadorActivoPinion();
-	virtual void jugadorActivoPatada();
-	virtual void jugadorActivoPatadon();
+	virtual void jugadorActivoPinia(Jugador * rival);
+	virtual void jugadorActivoPinion(Jugador * rival);
+	virtual void jugadorActivoPatada(Jugador * rival);
+	virtual void jugadorActivoPatadon(Jugador * rival);
 	virtual void jugadorActivoDisminuyeVelocidadEnX();
 	virtual void jugadorActivoAumentaVelocidadEnX(int vel);
 	virtual void jugadorActivoAumentaVelocidadEnY(int vel);

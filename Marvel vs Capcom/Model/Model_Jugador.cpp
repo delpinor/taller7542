@@ -152,20 +152,31 @@ void Jugador::aumentarVelocidadY(int vel) {
 	this->estado->aumentarVelocidadY(vel);
 }
 
-void Jugador::Pinia() {
+void Jugador::Pinia(Jugador * rival) {
 	this->estado->Pinia();
+	//aca va el if del collide
+	rival->recibeDanio(this->estado->getDanioPinia());
 }
 
-void Jugador::Pinion() {
+void Jugador::Pinion(Jugador * rival) {
 	this->estado->Pinion();
+	//aca va el if del collide
+	rival->recibeDanio(this->estado->getDanioPinion());
 }
 
-void Jugador::Patada() {
+void Jugador::Patada(Jugador * rival) {
 	this->estado->Patada();
+	//aca va el if del collide
+	rival->recibeDanio(this->estado->getDanioPatada());
 }
 
-void Jugador::Patadon() {
+void Jugador::Patadon(Jugador * rival) {
 	this->estado->Patadon();
+	//aca va el if del collide
+	rival->recibeDanio(this->estado->getDanioPatadon());
+}
+void Jugador::recibeDanio(int danio) {
+	//this-estado->disminuirVida(danio);
 }
 
 void Jugador::Saltar() {
