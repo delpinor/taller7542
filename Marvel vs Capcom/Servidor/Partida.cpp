@@ -848,6 +848,7 @@ void Partida::SetConfiguracion(int tiempoBatalla, int cantidadBatallas){
 
 void Partida::AvanzarTiempo(){
 	this->cronometro--;
+	modelo->SetTiempoJuego(this->cronometro);
 	cout
 	<< "PARTIDA - Tiempo:   " << this->cronometro << " | "
 	<< TimeHelper::getStringLocalTimeNow() << endl;
