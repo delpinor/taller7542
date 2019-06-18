@@ -165,8 +165,10 @@ void Jugador::Patada() {
 }
 
 void Jugador::Patadon() {
-	if (this->getTipoGolpe() == TIPO_GOLPE::NADA)
+	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
+		std::cout << "Agregar PATADON!!!!!: " << std::endl;
 		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADON);
+	}
 }
 
 void Jugador::Saltar() {

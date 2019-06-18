@@ -16,6 +16,7 @@ void View_Jugador_Venom::initialize(Jugador * model,
 	getSpritesAgachar();
 	getSpritesCambioPersonaje();
 	getSpritesAnimacion();
+	getSpritesPatadaFuerte();
 	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
 
 	this->sonido_salto=new EfectoSonido(1);
@@ -232,6 +233,54 @@ void View_Jugador_Venom::getSpritesCambioPersonaje() {
 	gSpriteCambiarPersonaje[0].y = 1924;
 	gSpriteCambiarPersonaje[0].w = 261;
 	gSpriteCambiarPersonaje[0].h = 150;
+}
+
+void View_Jugador_Venom::getSpritesPatadaFuerte() {
+	CANTSPRITECLIPPATADON = 8;
+	MINFRAMEPATADON = 0;
+	MAXFRAMEPATADON = 7;
+	this->gSpritePatadadon = new SDL_Rect[CANTSPRITECLIPPATADON];
+
+	gSpritePatadadon[0].x = 24;
+	gSpritePatadadon[0].y = 2541;
+	gSpritePatadadon[0].w = 261;
+	gSpritePatadadon[0].h = 150;
+
+	gSpritePatadadon[1].x = 304;
+	gSpritePatadadon[1].y = 2541;
+	gSpritePatadadon[1].w = 261;
+	gSpritePatadadon[1].h = 150;
+
+	gSpritePatadadon[2].x = 601;
+	gSpritePatadadon[2].y = 2541;
+	gSpritePatadadon[2].w = 304;
+	gSpritePatadadon[2].h = 150;
+
+	gSpritePatadadon[3].x = 1020;
+	gSpritePatadadon[3].y = 2541;
+	gSpritePatadadon[3].w = 337;
+	gSpritePatadadon[3].h = 150;
+
+	gSpritePatadadon[4].x = 44;
+	gSpritePatadadon[4].y = 2799;
+	gSpritePatadadon[4].w = 321;
+	gSpritePatadadon[4].h = 150;
+
+	gSpritePatadadon[5].x = 425;
+	gSpritePatadadon[5].y = 2799;
+	gSpritePatadadon[5].w = 261;
+	gSpritePatadadon[5].h = 150;
+
+	gSpritePatadadon[6].x = 755;
+	gSpritePatadadon[6].y = 2799;
+	gSpritePatadadon[6].w = 261;
+	gSpritePatadadon[6].h = 150;
+
+	gSpritePatadadon[7].x = 1059;
+	gSpritePatadadon[7].y = 2799;
+	gSpritePatadadon[7].w = 261;
+	gSpritePatadadon[7].h = 150;
+
 }
 
 View_Jugador_Venom::~View_Jugador_Venom() {
