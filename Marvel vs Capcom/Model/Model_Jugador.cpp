@@ -181,7 +181,10 @@ void Jugador::Patada(Jugador * rival) {
 
 void Jugador::Patadon(Jugador * rival) {
 	this->estado->Patadon();
-	//aca va el if del collide
+	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
+		std::cout << "Agregar PATADON!!!!!: " << std::endl;
+		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADON);
+	}
 	if(rival->collideConJugador(&mCollider))
 	rival->recibeDanio(this->estado->getDanioPatadon());
 }
@@ -438,4 +441,16 @@ bool Jugador::isDebeTerminarSalto() {
 
 void Jugador::setDebeTerminarSalto(bool debeTerminarSalto) {
 	this->debeTerminarSalto = debeTerminarSalto;
+}
+bool Jugador::isIniciarGolpe(){
+	return this->iniciarGolpe;
+}
+void Jugador::setIniciarGolpe(bool iniciarGolpe){
+	this->iniciarGolpe = iniciarGolpe;
+}
+TIPO_GOLPE Jugador::getTipoGolpe(){
+	return this->tipoGolpe;
+}
+void Jugador::setTipoGolpe(TIPO_GOLPE tipoGolpe){
+	this->tipoGolpe = tipoGolpe;
 }

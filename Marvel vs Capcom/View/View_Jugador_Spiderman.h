@@ -23,6 +23,7 @@ protected:
 	void getSpritesSaltar();
 	void getSpritesAgachar();
 	void getSpritesCambioPersonaje();
+	void getSpritesPatadaFuerte();
 };
 
 #endif

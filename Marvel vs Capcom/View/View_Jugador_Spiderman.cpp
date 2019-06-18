@@ -241,3 +241,32 @@ void View_Jugador_Spiderman::getSpritesCambioPersonaje() {
 	gSpriteCambiarPersonaje[0].h = 141;
 }
 
+void View_Jugador_Spiderman::getSpritesPatadaFuerte() {
+
+	gSpritePatadadon[0].x = 184;
+	gSpritePatadadon[0].y = 220;
+	gSpritePatadadon[0].w = 107;
+	gSpritePatadadon[0].h = 110;
+
+	gSpritePatadadon[1].x = 287;
+	gSpritePatadadon[1].y = 220;
+	gSpritePatadadon[1].w = 107;
+	gSpritePatadadon[1].h = 110;
+
+	gSpritePatadadon[2].x = 395;
+	gSpritePatadadon[2].y = 220;
+	gSpritePatadadon[2].w = 107;
+	gSpritePatadadon[2].h = 110;
+
+	gSpritePatadadon[3].x = 395;
+	gSpritePatadadon[3].y = 220;
+	gSpritePatadadon[3].w = 107;
+	gSpritePatadadon[3].h = 110;
+
+	gSpritePatadadon[4].x = 603;
+	gSpritePatadadon[4].y = 220;
+	gSpritePatadadon[4].w = 107;
+	gSpritePatadadon[4].h = 110;
+
+}
+

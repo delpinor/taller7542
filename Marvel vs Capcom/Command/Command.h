@@ -10,9 +10,10 @@
 #define PARAR  0x07
 #define PINIA  0x08
 #define PINION  0x09
-#define PATADA  0x10
-#define PATADON  0x11
-#define CANTCOMMANDS 12
+#define PATADA  0x0A
+#define PATADON  0x0B
+#define DEFENSA 0x0C
+#define CANTCOMMANDS 13
 
 class Command {
 public:

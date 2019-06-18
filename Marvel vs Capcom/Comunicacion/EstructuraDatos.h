@@ -12,6 +12,7 @@
 #include <list>
 #include <map>
 #include <iterator>
+#include "../Model/TipoGolpe.h"
 
 //Enumera de cabecera
 enum IDMENSAJE {
@@ -44,6 +45,7 @@ struct JugadorCliente {
 	bool isAgachado = false;
 	bool isCambiandoPersonaje = false;
 	bool isSaltando = false;
+	TIPO_GOLPE tipoGolpe = TIPO_GOLPE::NADA;
 };
 
 struct CamaraCliente {

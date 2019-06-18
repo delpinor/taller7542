@@ -18,6 +18,7 @@ void View_Jugador_CapAmerica::initialize(Jugador *model,
 	getSpritesSaltar();
 	getSpritesAgachar();
 	getSpritesAnimacion();
+	getSpritesPatadaFuerte();
 	this->zIndex = model->get_zindex();
 	getSpritesCambioPersonaje();
 	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
@@ -63,64 +64,94 @@ void View_Jugador_CapAmerica::getSpritesCaminar() {
 	this->gSpriteCaminar = new SDL_Rect[CANTSPRITECLIPCAMINA];
 
 	gSpriteCaminar[0].x = 0;
-	gSpriteCaminar[0].y = 150;
-	gSpriteCaminar[0].w = 90;
-	gSpriteCaminar[0].h = 130;
+	gSpriteCaminar[0].y = 190;
+	gSpriteCaminar[0].w = 261;
+	gSpriteCaminar[0].h = 150;
 
-	gSpriteCaminar[1].x = 100;
-	gSpriteCaminar[1].y = 150;
-	gSpriteCaminar[1].w = 90;
-	gSpriteCaminar[1].h = 130;
+	gSpriteCaminar[1].x = 0;
+	gSpriteCaminar[1].y = 190;
+	gSpriteCaminar[1].w = 261;
+	gSpriteCaminar[1].h = 150;
 
-	gSpriteCaminar[2].x = 200;
-	gSpriteCaminar[2].y = 150;
-	gSpriteCaminar[2].w = 90;
-	gSpriteCaminar[2].h = 130;
+	gSpriteCaminar[2].x = 184;
+	gSpriteCaminar[2].y = 190;
+	gSpriteCaminar[2].w = 261;
+	gSpriteCaminar[2].h = 150;
 
-	gSpriteCaminar[3].x = 300;
-	gSpriteCaminar[3].y = 150;
-	gSpriteCaminar[3].w = 90;
-	gSpriteCaminar[3].h = 130;
+	gSpriteCaminar[3].x = 184;
+	gSpriteCaminar[3].y = 190;
+	gSpriteCaminar[3].w = 261;
+	gSpriteCaminar[3].h = 150;
 
-	gSpriteCaminar[4].x = 400;
-	gSpriteCaminar[4].y = 150;
-	gSpriteCaminar[4].w = 90;
-	gSpriteCaminar[4].h = 130;
+	gSpriteCaminar[4].x = 379;
+	gSpriteCaminar[4].y = 190;
+	gSpriteCaminar[4].w = 261;
+	gSpriteCaminar[4].h = 150;
 
-	gSpriteCaminar[5].x = 500;
-	gSpriteCaminar[5].y = 150;
-	gSpriteCaminar[5].w = 90;
-	gSpriteCaminar[5].h = 130;
+	gSpriteCaminar[5].x = 379;
+	gSpriteCaminar[5].y = 190;
+	gSpriteCaminar[5].w = 261;
+	gSpriteCaminar[5].h = 150;
 
-	gSpriteCaminar[6].x = 5;
-	gSpriteCaminar[6].y = 280;
-	gSpriteCaminar[6].w = 100;
-	gSpriteCaminar[6].h = 130;
+	gSpriteCaminar[6].x = 592;
+	gSpriteCaminar[6].y = 190;
+	gSpriteCaminar[6].w = 261;
+	gSpriteCaminar[6].h = 150;
 
-	gSpriteCaminar[7].x = 105;
-	gSpriteCaminar[7].y = 280;
-	gSpriteCaminar[7].w = 90;
-	gSpriteCaminar[7].h = 130;
+	gSpriteCaminar[7].x = 592;
+	gSpriteCaminar[7].y = 190;
+	gSpriteCaminar[7].w = 261;
+	gSpriteCaminar[7].h = 150;
 
-	gSpriteCaminar[8].x = 195;
-	gSpriteCaminar[8].y = 280;
-	gSpriteCaminar[8].w = 90;
-	gSpriteCaminar[8].h = 130;
+	gSpriteCaminar[8].x = 766;
+	gSpriteCaminar[8].y = 190;
+	gSpriteCaminar[8].w = 261;
+	gSpriteCaminar[8].h = 150;
 
-	gSpriteCaminar[9].x = 295;
-	gSpriteCaminar[9].y = 280;
-	gSpriteCaminar[9].w = 105;
-	gSpriteCaminar[9].h = 130;
+	gSpriteCaminar[9].x = 766;
+	gSpriteCaminar[9].y = 190;
+	gSpriteCaminar[9].w = 261;
+	gSpriteCaminar[9].h = 150;
 
-	gSpriteCaminar[10].x = 400;
-	gSpriteCaminar[10].y = 285;
-	gSpriteCaminar[10].w = 90;
-	gSpriteCaminar[10].h = 130;
+	gSpriteCaminar[10].x = 971;
+	gSpriteCaminar[10].y = 190;
+	gSpriteCaminar[10].w = 261;
+	gSpriteCaminar[10].h = 150;
 
-	gSpriteCaminar[11].x = 495;
-	gSpriteCaminar[11].y = 285;
-	gSpriteCaminar[11].w = 90;
-	gSpriteCaminar[11].h = 130;
+	gSpriteCaminar[11].x = 971;
+	gSpriteCaminar[11].y = 190;
+	gSpriteCaminar[11].w = 261;
+	gSpriteCaminar[11].h = 150;
+//
+//	gSpriteCaminar[6].x = 1170;
+//	gSpriteCaminar[6].y = 190;
+//	gSpriteCaminar[6].w = 261;
+//	gSpriteCaminar[6].h = 150;
+//
+//	gSpriteCaminar[7].x = 1403;
+//	gSpriteCaminar[7].y = 190;
+//	gSpriteCaminar[7].w = 261;
+//	gSpriteCaminar[7].h = 150;
+//
+//	gSpriteCaminar[8].x = 1602;
+//	gSpriteCaminar[8].y = 190;
+//	gSpriteCaminar[8].w = 261;
+//	gSpriteCaminar[8].h = 150;
+//
+//	gSpriteCaminar[9].x = 1815;
+//	gSpriteCaminar[9].y = 190;
+//	gSpriteCaminar[9].w = 261;
+//	gSpriteCaminar[9].h = 150;
+//
+//	gSpriteCaminar[10].x = 2040;
+//	gSpriteCaminar[10].y = 190;
+//	gSpriteCaminar[10].w = 261;
+//	gSpriteCaminar[10].h = 150;
+//
+//	gSpriteCaminar[11].x = 2286;
+//	gSpriteCaminar[11].y = 190;
+//	gSpriteCaminar[11].w = 261;
+//	gSpriteCaminar[11].h = 150;
 }
 
 void View_Jugador_CapAmerica::getSpritesAnimacion() {
@@ -129,50 +160,50 @@ void View_Jugador_CapAmerica::getSpritesAnimacion() {
 	MAXFRAMEANIMACION = 8;
 	this->gSpriteAnimacion = new SDL_Rect[CANTSPRITEANIMACION];
 
-		gSpriteAnimacion[0].x = 3;
-		gSpriteAnimacion[0].y = 20;
-		gSpriteAnimacion[0].w = 96;
-		gSpriteAnimacion[0].h = 114;
+		gSpriteAnimacion[0].x = 0;
+		gSpriteAnimacion[0].y = 11;
+		gSpriteAnimacion[0].w = 261;
+		gSpriteAnimacion[0].h = 150;
 
-		gSpriteAnimacion[1].x = 97;
-		gSpriteAnimacion[1].y = 20;
-		gSpriteAnimacion[1].w = 96;
-		gSpriteAnimacion[1].h = 114;
+		gSpriteAnimacion[1].x = 180;
+		gSpriteAnimacion[1].y = 11;
+		gSpriteAnimacion[1].w = 261;
+		gSpriteAnimacion[1].h = 150;
 
-		gSpriteAnimacion[2].x = 192;
-		gSpriteAnimacion[2].y = 20;
-		gSpriteAnimacion[2].w = 96;
-		gSpriteAnimacion[2].h = 114;
+		gSpriteAnimacion[2].x = 371;
+		gSpriteAnimacion[2].y = 11;
+		gSpriteAnimacion[2].w = 261;
+		gSpriteAnimacion[2].h = 150;
 
-		gSpriteAnimacion[3].x = 288;
-		gSpriteAnimacion[3].y = 20;
-		gSpriteAnimacion[3].w = 96;
-		gSpriteAnimacion[3].h = 114;
+		gSpriteAnimacion[3].x = 588;
+		gSpriteAnimacion[3].y = 11;
+		gSpriteAnimacion[3].w = 261;
+		gSpriteAnimacion[3].h = 150;
 
-		gSpriteAnimacion[4].x = 389;
-		gSpriteAnimacion[4].y = 20;
-		gSpriteAnimacion[4].w = 96;
-		gSpriteAnimacion[4].h = 114;
+		gSpriteAnimacion[4].x = 784;
+		gSpriteAnimacion[4].y = 11;
+		gSpriteAnimacion[4].w = 261;
+		gSpriteAnimacion[4].h = 150;
 
-		gSpriteAnimacion[5].x = 485;
-		gSpriteAnimacion[5].y = 20;
-		gSpriteAnimacion[5].w = 96;
-		gSpriteAnimacion[5].h = 114;
+		gSpriteAnimacion[5].x = 961;
+		gSpriteAnimacion[5].y = 11;
+		gSpriteAnimacion[5].w = 261;
+		gSpriteAnimacion[5].h = 150;
 
-		gSpriteAnimacion[6].x = 580;
-		gSpriteAnimacion[6].y = 20;
-		gSpriteAnimacion[6].w = 96;
-		gSpriteAnimacion[6].h = 114;
+		gSpriteAnimacion[6].x = 1169;
+		gSpriteAnimacion[6].y = 11;
+		gSpriteAnimacion[6].w = 261;
+		gSpriteAnimacion[6].h = 150;
 
-		gSpriteAnimacion[7].x = 677;
-		gSpriteAnimacion[7].y = 20;
-		gSpriteAnimacion[7].w = 96;
-		gSpriteAnimacion[7].h = 114;
+		gSpriteAnimacion[7].x = 1380;
+		gSpriteAnimacion[7].y = 11;
+		gSpriteAnimacion[7].w = 261;
+		gSpriteAnimacion[7].h = 150;
 
-		gSpriteAnimacion[8].x = 772;
-		gSpriteAnimacion[8].y = 20;
-		gSpriteAnimacion[8].w = 96;
-		gSpriteAnimacion[8].h = 114;
+		gSpriteAnimacion[8].x = 1595;
+		gSpriteAnimacion[8].y = 11;
+		gSpriteAnimacion[8].w = 261;
+		gSpriteAnimacion[8].h = 150;
 
 }
 
@@ -182,44 +213,92 @@ void View_Jugador_CapAmerica::getSpritesSaltar() {
 	MAXFRAMESALTA = 5;
 	this->gSpriteSaltar = new SDL_Rect[CANTSPRITECLIPSALTA];
 
-	gSpriteSaltar[0].x = 4;
-	gSpriteSaltar[0].y = 481;
-	gSpriteSaltar[0].w = 88;
-	gSpriteSaltar[0].h = 119;
+	gSpriteSaltar[0].x = 17;
+	gSpriteSaltar[0].y = 363;
+	gSpriteSaltar[0].w = 261;
+	gSpriteSaltar[0].h = 150;
 
-	gSpriteSaltar[1].x = 104;
-	gSpriteSaltar[1].y = 421;
-	gSpriteSaltar[1].w = 86;
-	gSpriteSaltar[1].h = 165;
+	gSpriteSaltar[1].x = 211;
+	gSpriteSaltar[1].y = 357;
+	gSpriteSaltar[1].w = 261;
+	gSpriteSaltar[1].h = 150;
 
-	gSpriteSaltar[2].x = 296;
-	gSpriteSaltar[2].y = 424;
-	gSpriteSaltar[2].w = 106;
-	gSpriteSaltar[2].h = 90;
+	gSpriteSaltar[2].x = 409;
+	gSpriteSaltar[2].y = 364;
+	gSpriteSaltar[2].w = 261;
+	gSpriteSaltar[2].h = 150;
 
-	gSpriteSaltar[3].x = 404;
-	gSpriteSaltar[3].y = 424;
-	gSpriteSaltar[3].w = 88;
-	gSpriteSaltar[3].h = 97;
+	gSpriteSaltar[3].x = 627;
+	gSpriteSaltar[3].y = 384;
+	gSpriteSaltar[3].w = 261;
+	gSpriteSaltar[3].h = 150;
 
-	gSpriteSaltar[4].x = 493;
-	gSpriteSaltar[4].y = 425;
-	gSpriteSaltar[4].w = 109;
-	gSpriteSaltar[4].h = 166;
+	gSpriteSaltar[4].x = 855;
+	gSpriteSaltar[4].y = 374;
+	gSpriteSaltar[4].w = 261;
+	gSpriteSaltar[4].h = 150;
 
-	gSpriteSaltar[5].x = 4;
-	gSpriteSaltar[5].y = 481;
-	gSpriteSaltar[5].w = 88;
-	gSpriteSaltar[5].h = 119;
+	gSpriteSaltar[5].x = 17;
+	gSpriteSaltar[5].y = 363;
+	gSpriteSaltar[5].w = 261;
+	gSpriteSaltar[5].h = 150;
 }
 
 void View_Jugador_CapAmerica::getSpritesAgachar() {
 	this->gSpriteAgachar = new SDL_Rect[1];
 
-	gSpriteAgachar[0].x = 92;
-	gSpriteAgachar[0].y = 732;
-	gSpriteAgachar[0].w = 97;
-	gSpriteAgachar[0].h = 116;
+	gSpriteAgachar[0].x = 17;
+	gSpriteAgachar[0].y = 363;
+	gSpriteAgachar[0].w = 261;
+	gSpriteAgachar[0].h = 150;
+}
+
+void View_Jugador_CapAmerica::getSpritesPatadaFuerte() {
+	CANTSPRITECLIPPATADON = 8;
+	MINFRAMEPATADON = 0;
+	MAXFRAMEPATADON = 7;
+	this->gSpritePatadadon = new SDL_Rect[CANTSPRITECLIPPATADON];
+
+	gSpritePatadadon[0].x = 323;
+	gSpritePatadadon[0].y = 1297;
+	gSpritePatadadon[0].w = 261;
+	gSpritePatadadon[0].h = 150;
+
+	gSpritePatadadon[1].x = 543;
+	gSpritePatadadon[1].y = 1296;
+	gSpritePatadadon[1].w = 261;
+	gSpritePatadadon[1].h = 150;
+
+	gSpritePatadadon[2].x = 744;
+	gSpritePatadadon[2].y = 1293;
+	gSpritePatadadon[2].w = 261;
+	gSpritePatadadon[2].h = 150;
+
+	gSpritePatadadon[3].x = 948;
+	gSpritePatadadon[3].y = 1296;
+	gSpritePatadadon[3].w = 261;
+	gSpritePatadadon[3].h = 150;
+
+	gSpritePatadadon[4].x = 948;
+	gSpritePatadadon[4].y = 1296;
+	gSpritePatadadon[4].w = 261;
+	gSpritePatadadon[4].h = 150;
+
+	gSpritePatadadon[5].x = 1183;
+	gSpritePatadadon[5].y = 1295;
+	gSpritePatadadon[5].w = 261;
+	gSpritePatadadon[5].h = 150;
+
+	gSpritePatadadon[6].x = 1183;
+	gSpritePatadadon[6].y = 1295;
+	gSpritePatadadon[6].w = 261;
+	gSpritePatadadon[6].h = 150;
+
+	gSpritePatadadon[7].x = 119;
+	gSpritePatadadon[7].y = 1490;
+	gSpritePatadadon[7].w = 261;
+	gSpritePatadadon[7].h = 150;
+
 }
 
 void View_Jugador_CapAmerica::getSpritesCambioPersonaje() {
