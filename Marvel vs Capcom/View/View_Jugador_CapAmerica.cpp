@@ -222,9 +222,9 @@ void View_Jugador_CapAmerica::getSpritesAgachar() {
 }
 
 void View_Jugador_CapAmerica::getSpritesPatadaFuerte() {
-	CANTSPRITECLIPPATADON = 6;
+	CANTSPRITECLIPPATADON = 8;
 	MINFRAMEPATADON = 0;
-	MAXFRAMEPATADON = 5;
+	MAXFRAMEPATADON = 7;
 	this->gSpritePatadadon = new SDL_Rect[CANTSPRITECLIPPATADON];
 
 	gSpritePatadadon[0].x = 323;
@@ -247,15 +247,25 @@ void View_Jugador_CapAmerica::getSpritesPatadaFuerte() {
 	gSpritePatadadon[3].w = 261;
 	gSpritePatadadon[3].h = 150;
 
-	gSpritePatadadon[4].x = 1183;
-	gSpritePatadadon[4].y = 1295;
+	gSpritePatadadon[4].x = 948;
+	gSpritePatadadon[4].y = 1296;
 	gSpritePatadadon[4].w = 261;
 	gSpritePatadadon[4].h = 150;
 
-	gSpritePatadadon[5].x = 119;
-	gSpritePatadadon[5].y = 1490;
+	gSpritePatadadon[5].x = 1183;
+	gSpritePatadadon[5].y = 1295;
 	gSpritePatadadon[5].w = 261;
 	gSpritePatadadon[5].h = 150;
+
+	gSpritePatadadon[6].x = 1183;
+	gSpritePatadadon[6].y = 1295;
+	gSpritePatadadon[6].w = 261;
+	gSpritePatadadon[6].h = 150;
+
+	gSpritePatadadon[7].x = 119;
+	gSpritePatadadon[7].y = 1490;
+	gSpritePatadadon[7].w = 261;
+	gSpritePatadadon[7].h = 150;
 
 }
 
