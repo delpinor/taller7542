@@ -29,6 +29,7 @@ struct PersonajeJugando{
 };
 struct ModeloInGame{
 	int tiempo;
+	bool nuevaRonda;
 	PersonajeJugando personajesEquipo0[2];
 	PersonajeJugando personajesEquipo1[2];
 

@@ -26,6 +26,7 @@ public:
 	void SetPosicionInicialJugadores();
 	void ajustarCamara();
 	void render();
+	void renderMensajes();
 	void CajaMensaje(string titulo, string cuerpo);
 	bool inicializar(Model *model);
 	void loadMedia(Model *model);

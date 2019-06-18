@@ -125,9 +125,9 @@ void View::render() {
 	//Render Timer
 	timerJuego->render(model->GetTiempoJuego());
 
+
 	SDL_RenderPresent(this->gRenderer);
 }
-
 bool View::inicializar(Model *model) {
 	bool exito = true;
 
@@ -214,7 +214,7 @@ void View::loadMedia(Model *model) {
 	texturasEquipo2[0].loadFromFile(path, gRenderer, model->GetAnchoJugador(1, 0), model->GetAltoJugador(1, 0));
 	path = model->get_pathImagenJugador(1, 1);
 	texturasEquipo2[1].loadFromFile(path, gRenderer, model->GetAnchoJugador(1, 1), model->GetAltoJugador(1, 1));
-
+	gReady.loadFromFile("Images/ready_ok.png", gRenderer, 400, 300);
 }
 
 void View::setElementoFondo(int pZIndex, int id){
