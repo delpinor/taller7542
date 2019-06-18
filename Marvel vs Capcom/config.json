@@ -15,9 +15,9 @@
 		},
 		{
 			"nombre" : "Venom",
-			"alto" : "200",
-			"ancho" : "120",
-			"rutaArchivoImagen" : "Images/Venom.png",
+			"alto" : "250",
+			"ancho" : "400",
+			"rutaArchivoImagen" : "Images/VenomSeparado.png",
 			"zIndex" : "46"
 		},
 		{
