@@ -114,7 +114,8 @@ void Equipo::cambiarPersonaje(SDL_Rect* camara){
 }
 
 void Equipo::iniciarCambioPersonaje(){
-	this->jugadores[this->nroJugadorActivo]->cambiarPersonaje();
+		if(	!this->jugadores[getNumeroJugadorInactivo()]->murio())
+			this->jugadores[this->nroJugadorActivo]->cambiarPersonaje();
 }
 
 void Equipo::jugadorActivoAumentaVelocidadEnX() {

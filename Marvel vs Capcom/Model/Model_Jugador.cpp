@@ -456,3 +456,6 @@ TIPO_GOLPE Jugador::getTipoGolpe(){
 void Jugador::setTipoGolpe(TIPO_GOLPE tipoGolpe){
 	this->tipoGolpe = tipoGolpe;
 }
+bool Jugador::murio(){
+	return this->vidaJugador==0;
+}
