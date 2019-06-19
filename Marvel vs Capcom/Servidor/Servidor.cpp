@@ -325,7 +325,7 @@ void * enviarDatos(void * datos) {
 
 		}
 		//------->Envio de confirmacion de inicio de juego
-		if (miPartida.Iniciada() && !avisoJuegoIniciado) {
+		if (!avisoJuegoIniciado && miPartida.FinalizadaSeleccionPersonajes()) {
 			IDMENSAJE idModelo = JUEGOINICIADO;
 			ModeloResultadoSeleccionPersonaje unModelo = miPartida.getResultadoSeleccionPersonaje();
 			send(sock, &idModelo, sizeof(idModelo), 0);
@@ -420,6 +420,12 @@ void * recibirDatos(void * datos) {
 				Mensaje unMensaje;
 				recv(sock, &unMensaje, sizeof(unMensaje), 0);
 				cout << " Mensaje: " << unMensaje.mensaje << endl;
+			}
+
+			//Mensaje de confirmacion de carga.
+			if (idMsg == CARGACOMPLETA) {
+				miPartida.GetCliente(unCliente.nombre)->cargaCompleta = true;
+				cout << "Confirmacion de cliente: " << unCliente.socket << endl;
 			}
 
 			if ((idMsg == COMANDO) && (miPartida.Iniciada())) {

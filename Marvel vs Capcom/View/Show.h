@@ -1,3 +1,4 @@
+#pragma once
 #include "../Model/LTexture.h"
 #include "../Model/LTexture.h"
 #include "../Comunicacion/EstructuraDatos.h"

@@ -33,7 +33,7 @@ public:
 	int EquipoGanador;
 	int NumeroDeRonda;
 	TIPOLEYENDA TipoMensaje = NINGUNO;
-	std::string TextoMensaje = " ";
+	std::string TextoMensaje = "!";
 	// metodo que crea y carga los personajes en un map
 	void cargar_Jugadores (std::map< int, std::map<std::string, std::string> > &mapPersonajes);
 	void set_equipos_with_jugador(int equipo,int nroJugadorEquipo, int personajeId);

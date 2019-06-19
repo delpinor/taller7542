@@ -35,6 +35,7 @@ struct ClienteConectado{
 	bool dataPersonajesEnviada = false;
 	int cantidadPersonajes = 0;
 	bool esperandoReconexion = false;
+	bool cargaCompleta = false;
 };
 class Partida{
 private:
@@ -62,6 +63,7 @@ private:
 	void IniciarCamara();
 	void ResetTitularidadClientes();
 public:
+	bool ClientesCargados();
 	list<ClienteConectado> GetListaJugadores();
 	list<ClienteConectado> GetListaEspera();
 	list<ClienteConectado> GetListaJugadores(int equipo);
@@ -97,6 +99,7 @@ public:
 	int GetCantidadDesconectados();
 	int GetCantidadEspera();
 	ClienteConectado * GetDesconectado(string nombre);
+	ClienteConectado * GetCliente(string nombre);
 	bool TieneSuplente(int equipo);
 	bool jugadorReconectado(int equipo);
 	bool hayJugadorParaEquipo(int equipo);

@@ -6,8 +6,12 @@ void Partida::IniciarPartida() {
 	//listaEspera.clear();
 	modelo->inicializar();
 	IniciarBatalla();
+	cout << "Esperando confimacion de carga de los clientes..." << endl;
+	while(!ClientesCargados()){
+		usleep(10);
+	}
+	cout << "Carga de clientes complete. Inicia la partida..." << endl;
 	partidaIniciada = true;
-	cout << "Partida INICA#########################################################################DA!" << endl;
 
 }
 void Partida::IniciarBatalla(){
@@ -34,6 +38,15 @@ void Partida::IniciarCamara(){
 	modelo->setCamara(this->camara);
 	//	modelo->inicializarPosicionesEquipos();
 	AjustarCamara();
+}
+bool Partida::ClientesCargados(){
+	list<ClienteConectado>::iterator it;
+	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+		if (!it->cargaCompleta) {
+			return false;
+		}
+	}
+	return true;
 }
 void Partida::IniciarTitularidadClientes(){
 	list<ClienteConectado>::iterator it;
@@ -337,7 +350,17 @@ ClienteConectado * Partida::GetDesconectado(string nombre){
 	}
 	return unCliente;
 }
-
+ClienteConectado * Partida::GetCliente(string nombre){
+	ClienteConectado * unCliente;
+	list<ClienteConectado>::iterator it;
+	for (it = listaJugadores.begin(); it != listaJugadores.end();
+			it++) {
+		if (it->nombre == nombre) {
+			unCliente = &(*it);
+		}
+	}
+	return unCliente;
+}
 void Partida::JugadorDesconectado(string nombre) {
 	ClienteConectado unCliente;
 	unCliente = GetClienteJugando(nombre);

@@ -5,6 +5,7 @@
 #include "../Model/EstadoCliente.h"
 #include "Timer.h"
 #include "Barras.h"
+#include "Show.h"
 
 #define MARGEN 0
 int posAnteriorX1, posAnteriorY1;
@@ -30,7 +31,6 @@ View::View(Model* model) {
 			this->viewModel = new ViewModel(this->model, this->gRenderer, this->camara,	this->texturasEquipo1, this->texturasEquipo2);
 			this->setElementoPersonaje(model);
 		}
-
 }
 
 View::~View() {
@@ -123,6 +123,7 @@ void View::render() {
 			}
 		}
 	}
+
 	//this->viewModel->render();
 	barrasVida->render(model->equipos);
 
@@ -136,12 +137,15 @@ void View::render() {
 	SDL_RenderPresent(this->gRenderer);
 }
 bool View::inicializar(Model *model) {
+	Uint32 startTime = 0;
+
 	bool exito = true;
 
 	if (SDL_Init( SDL_INIT_VIDEO) < 0) {
 		Logger::Log(LOGGER_NIVEL::ERROR, "View::Inicializar", SDL_GetError());
 		exito = false;
 	} else {
+		startTime = 0;
 		if (!SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
 			Logger::Log(LOGGER_NIVEL::ERROR, "View::Inicializar",
 					SDL_GetError());
@@ -210,6 +214,7 @@ bool View::inicializar(Model *model) {
 			}
 		}
 	}
+	cout << "Tiempo de carga: "<< (SDL_GetTicks() - startTime)/1000 << endl;
 
 	return exito;
 }

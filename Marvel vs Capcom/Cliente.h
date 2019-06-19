@@ -47,6 +47,7 @@ public:
 	int recibirModeloDelServidor();
 	void enviarComandoAServidor(ComandoAlServidor comando);
 	void EnviarPing();
+	void EnviarConfirmacion();
 	void LanzarHiloPing();
 	void PararHiloPing();
 	void lanzarHilosDelJuego();

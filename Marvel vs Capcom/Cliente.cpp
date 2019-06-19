@@ -170,6 +170,11 @@ void Cliente::EnviarPing(){
 	IDMENSAJE idCabecera = PING;
 	send(this->getConexion()->getSocketCliente(), &idCabecera, sizeof(idCabecera), MSG_NOSIGNAL);
 }
+void Cliente::EnviarConfirmacion(){
+	IDMENSAJE idCabecera = CARGACOMPLETA;
+	send(this->getConexion()->getSocketCliente(), &idCabecera, sizeof(idCabecera), MSG_NOSIGNAL);
+	cout << "Enviado confirmacion..." << endl;
+}
 void Cliente::enviarDataSeleccionAServidor(DataSeleccionAlServidor data) {
 
 	int error = 0;
