@@ -84,6 +84,10 @@ void ParserConfig::devolver_Config_Batalla(std::string *tiempoBatalla, std::stri
 	*cantidadBatallas = this->configuracion["batalla"]["cantidad"].asString();
 }
 
+bool ParserConfig::devolver_Modo_Test(){
+	return this->configuracion["server"]["modeTest"].asBool();
+}
+
 ParserConfig::~ParserConfig() {
 	// TODO Auto-generated destructor stub
 }

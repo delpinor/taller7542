@@ -42,6 +42,7 @@ private:
 	int personaje;
 	bool desconectado=false;
 	TIPO_GOLPE tipoGolpe = NADA;
+	bool inmortal;
 
 public:
 	Estado* estado;
@@ -53,7 +54,7 @@ public:
 	void set_desconectado();
 	void set_conectado();
 	bool get_estado_desconexion();
-	Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &pathImagen);
+	Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &pathImagen, bool &inmortal);
 	int get_alto();
 	int get_ancho();
 	int get_zindex();
@@ -120,5 +121,6 @@ public:
 	bool murio();
 	bool estaVivo();
 	void inicializarVida();
+	bool esInmortal();
 	};
 #endif

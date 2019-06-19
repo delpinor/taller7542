@@ -33,6 +33,7 @@ int main(int argc, char* argv[]) {
 	LOGGER_SALIDA salida = ARCHIVO;
 
 	int anchoVentana, altoVentana, tiempoBatalla, cantidadBatallas;
+	bool modoTest;
 	/*Se inicia el logger en modeo debug*/
 	Logger::Inicio(nivelLog, salida);
 	Logger::Log(nivelLog, "INICIO", "Iniciando el programa...");
@@ -47,6 +48,7 @@ int main(int argc, char* argv[]) {
 	nivelLog = appConfig.get_Config_NivelLog();
 	tiempoBatalla = appConfig.get_Config_TiempoBatalla();
 	cantidadBatallas = appConfig.get_Config_CantidadBatallas();
+	modoTest = appConfig.get_Config_ModoTest();
 	//mapBatalla = appConfig.get_Config_Batalla();
 
 	Logger::Cambiar_nivelLog(nivelLog);
@@ -57,7 +59,7 @@ int main(int argc, char* argv[]) {
 
 	model.CargarFondos(mapFondoPantalla);
 	//metodo que carga los personajes ( jugador =personaje)
-	model.cargar_Jugadores(mapPersonajes);
+	model.cargar_Jugadores(mapPersonajes, modoTest);
 
 	cout << "MAIN: La cantidad de mapPersonajes es " << mapPersonajes.size()
 			<< " | " << TimeHelper::getStringLocalTimeNow() << endl;
@@ -76,7 +78,7 @@ int main(int argc, char* argv[]) {
 		server.SetModel(&model);
 //		int cantidad = atoi((mapRound["cantidad"]).c_str());
 //			int tiempo = atoi((mapRound["tiempo"]).c_str());
-		server.SetConfiguracion(tiempoBatalla, cantidadBatallas);
+		server.SetConfiguracion(tiempoBatalla, cantidadBatallas, modoTest);
 		server.IniciarServidor(num_jugadores, puerto);
 
 	} else if (strcmp(argv[1], "cliente") == 0) {

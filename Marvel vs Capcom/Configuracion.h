@@ -57,6 +57,7 @@ private:
 	int num_jugadores;
 	std::vector<string> nombresPersonajes;
 	void ValidarConfigs(std::vector<string> *nombresPersonajes);
+	bool esModoTest;
 
 public:
 	Configuracion(char* filepath);
@@ -69,6 +70,7 @@ public:
 	int get_NumJugadores();
 	int get_Config_TiempoBatalla();
 	int get_Config_CantidadBatallas();
+	bool get_Config_ModoTest();
 	virtual ~Configuracion();
 };
 

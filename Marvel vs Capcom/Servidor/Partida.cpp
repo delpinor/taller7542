@@ -842,13 +842,16 @@ ModeloResultadoSeleccionPersonaje Partida::getResultadoSeleccionPersonaje(){
 	return unModelo;
 }
 
-void Partida::SetConfiguracion(int tiempoBatalla, int cantidadBatallas){
+void Partida::SetConfiguracion(int tiempoBatalla, int cantidadBatallas, bool modoTest){
 	this->cantidadRounds = cantidadBatallas;
 	this->tiempoRound = tiempoBatalla;
+	this->modoTest = modoTest;
 }
 
 void Partida::AvanzarTiempo(){
-	this->cronometro--;
+	if(this->cronometro > 0){
+		this->cronometro--;
+	}
 	modelo->SetTiempoJuego(this->cronometro);
 	cout
 	<< "PARTIDA - Tiempo:   " << this->cronometro << " | "
@@ -861,8 +864,7 @@ bool Partida::EstaEnEjecucionDeBatalla(){
 }
 
 bool Partida::DebeFinalizarBatalla(){
-	//TODO CHEQUEAR VIDA DE LOS EQUIPOS
-	if(this->cronometro <= 0 || !this->modelo->EquiposEstanVivos()){
+	if(!this->EsModoTest() && (this->cronometro <= 0 || !this->modelo->EquiposEstanVivos())){
 		return true;
 	}
 	else{
@@ -884,4 +886,7 @@ bool Partida::HayBatallasPendientes(){
 
 int Partida::GetNroBatallaActual(){
 	return this->roundActual;
+}
+bool Partida::EsModoTest(){
+	return this->modoTest;
 }

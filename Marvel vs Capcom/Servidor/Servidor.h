@@ -42,7 +42,7 @@ public:
 	void LanzarHiloUpdateModelo();
 	bool servidor_esta_cerrado();
 	void LanzarHiloBatalla();
-	void SetConfiguracion(int tiempoBatalla, int cantidadBatallas);
+	void SetConfiguracion(int tiempoBatalla, int cantidadBatallas, bool modoTest);
 
 	//virtual ~Funciones();
 };
