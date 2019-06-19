@@ -19,7 +19,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 		//printf("se pone gris la imagen!!!!\n");
 		this->grisar_imagen();
 	}
-	if ((this->jugador->estado->getVelY() == 0)) {
+	if ((this->jugador->estado->getVelY() == 0) && !(this->jugador->estado->estaSaltando())) {
 		std::cout << "tipoGolpe: " << this->jugador->getTipoGolpe() << std::endl;
 		if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADON){
 			if (this->jugador->isIniciarGolpe()){
@@ -56,7 +56,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 			if (this->jugador->estado->getVelY() >= 18) {
 				frame = 0;
 			}
-			if (frame / MAXFRAMESALTA >= MAXFRAMESALTA) {
+			if (frame / MAXFRAMESALTA >= CANTSPRITECLIPSALTA-1) {
 				frame = MINFRAMESALTA;
 			}
 			currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
