@@ -62,6 +62,8 @@ public:
 	virtual void moverJuegoCliente();
 
 	std::list<int> GetIdsPersonajes();
+	bool EquiposEstanVivos();
+	void InicializarVidas();
 private:
 	Jugador* crearJugador(int personajeId);
 };

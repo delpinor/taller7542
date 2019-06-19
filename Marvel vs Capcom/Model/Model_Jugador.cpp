@@ -454,3 +454,19 @@ TIPO_GOLPE Jugador::getTipoGolpe(){
 void Jugador::setTipoGolpe(TIPO_GOLPE tipoGolpe){
 	this->tipoGolpe = tipoGolpe;
 }
+bool Jugador::estaVivo(){
+	std::cout
+		<< "Jugador - estaVivo:  | "
+		<< this->vidaJugador
+		<< std::endl;
+	if(this->vidaJugador > 0 ){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+void Jugador::inicializarVida(){
+	this->vidaJugador = 100;
+}

@@ -293,3 +293,19 @@ std::list<int> Model::GetIdsPersonajes(){
 
 	return idsPersonajes;
 };
+bool Model::EquiposEstanVivos(){
+	cout
+	<< "MODEL - EquiposEstanVivos:  | "
+	<< TimeHelper::getStringLocalTimeNow() << endl;
+	if(!this->getEquipoNro(0)->estaVivo() || !this->getEquipoNro(1)->estaVivo() ){
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+
+void Model::InicializarVidas(){
+	this->getEquipoNro(0)->inicializarVida();
+	this->getEquipoNro(1)->inicializarVida();
+}

@@ -175,3 +175,19 @@ void Equipo::setEquipoRival(Equipo* equipo_rival){
 Equipo* Equipo::getEquipoRival(){
 	return this->equipoRival;
 }
+bool Equipo::estaVivo(){
+	cout
+	<< "Equipo - estaVivo:  | "
+	<< endl;
+	if(!this->jugadores[0]->estaVivo() && !this->jugadores[1]->estaVivo() ){
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+
+void Equipo::inicializarVida(){
+	this->jugadores[0]->inicializarVida();
+	this->jugadores[1]->inicializarVida();
+}

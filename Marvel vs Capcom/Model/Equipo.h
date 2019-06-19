@@ -70,6 +70,8 @@ public:
 	void setCambiandoPersonaje(bool cambiandoJugador);
 	void setEquipoRival(Equipo* equipoRival);
 	Equipo* getEquipoRival();
+	bool estaVivo();
+	void inicializarVida();
 };
 
 #endif /* MODEL_EQUIPO_H_ */

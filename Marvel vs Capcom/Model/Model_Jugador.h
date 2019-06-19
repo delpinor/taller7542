@@ -117,5 +117,7 @@ public:
 	void setTipoGolpe(TIPO_GOLPE tipoGolpe);
 	bool isIniciarGolpe();
 	void setIniciarGolpe(bool iniciarGolpe);
+	bool estaVivo();
+	void inicializarVida();
 	};
 #endif
