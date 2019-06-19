@@ -34,6 +34,10 @@ View::View(Model* model) {
 }
 
 View::~View() {
+	delete this->leyendas;
+	delete this->barrasVida;
+	delete this->pantalla;
+	delete this->timerJuego;
 	delete this->viewModel;
 	this->close();
 }
@@ -125,9 +129,12 @@ void View::render() {
 	//Render Timer
 	timerJuego->render(model->GetTiempoJuego());
 
+	//Leyendas
+	leyendas->render(model->TipoMensaje, model->TextoMensaje);
+
+
 	SDL_RenderPresent(this->gRenderer);
 }
-
 bool View::inicializar(Model *model) {
 	bool exito = true;
 
@@ -186,6 +193,10 @@ bool View::inicializar(Model *model) {
 				//Inicializacion de la barras de vida
 				barrasVida = new Barras(this->gRenderer);
 
+
+				//Inicializacion Mensajes
+				leyendas =  new Show(this->gRenderer);
+
 				//Initialize renderer color
 				SDL_SetRenderDrawColor(this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
@@ -214,7 +225,6 @@ void View::loadMedia(Model *model) {
 	texturasEquipo2[0].loadFromFile(path, gRenderer, model->GetAnchoJugador(1, 0), model->GetAltoJugador(1, 0));
 	path = model->get_pathImagenJugador(1, 1);
 	texturasEquipo2[1].loadFromFile(path, gRenderer, model->GetAnchoJugador(1, 1), model->GetAltoJugador(1, 1));
-
 }
 
 void View::setElementoFondo(int pZIndex, int id){

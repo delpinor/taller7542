@@ -1,5 +1,6 @@
 #include "Partida.h"
 #include <iostream>
+#define DURACIONMENSAJE 3
 void Partida::IniciarPartida() {
 	//listaJugadores = listaEspera;
 	//listaEspera.clear();
@@ -110,6 +111,21 @@ ModeloEstado Partida::GetModeloEstado() {
 	//	unModelo.activoEquipo2 = GetTitularJugando(1).numeroJugador;
 	unModelo.activoEquipo1 = modelo->equipos[0]->nroJugadorActivo;
 	unModelo.activoEquipo2 = modelo->equipos[1]->nroJugadorActivo;
+	return unModelo;
+}
+ModeloInGame Partida::GetModeloGame(){
+	ModeloInGame unModelo;
+	unModelo = modelo->GetModeloInGame();
+
+	if(tiempoRound < (cronometro+DURACIONMENSAJE)){
+		unModelo.tipoMensaje = READY;
+		std::string msg = "Ronda " + std::to_string(roundActual);
+		strcpy(unModelo.mensaje, msg.c_str());
+
+
+	}else{
+		unModelo.tipoMensaje = NINGUNO;
+	}
 	return unModelo;
 }
 ModeloPersonajes Partida::GetModeloPersonajes(){
@@ -847,8 +863,8 @@ void Partida::SetConfiguracion(int tiempoBatalla, int cantidadBatallas){
 }
 
 void Partida::AvanzarTiempo(){
-	this->cronometro--;
 	modelo->SetTiempoJuego(this->cronometro);
+	this->cronometro--;
 	cout
 	<< "PARTIDA - Tiempo:   " << this->cronometro << " | "
 	<< TimeHelper::getStringLocalTimeNow() << endl;
