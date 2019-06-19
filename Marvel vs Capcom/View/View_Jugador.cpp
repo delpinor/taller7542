@@ -54,6 +54,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 	}else {
 		if (this->jugador->estado->estaSaltando()) {
 			if (this->jugador->estado->getVelY() >= 18) {
+				reproducir_sonido_salto();
 				frame = 0;
 			}
 			if (frame / MAXFRAMESALTA >= MAXFRAMESALTA) {
@@ -61,9 +62,10 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 			}
 			currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
 			++frame;
-		} else if (this->jugador->estaCambiandoPersonaje())
-			currentClip = &gSpriteCambiarPersonaje[0];
-		else
+		} else if (this->jugador->estaCambiandoPersonaje()){
+				currentClip = &gSpriteCambiarPersonaje[0];
+				reproducir_sonido_cambio();
+			}else
 			currentClip = &gSpriteCambiarPersonaje[0];
 		}
 
