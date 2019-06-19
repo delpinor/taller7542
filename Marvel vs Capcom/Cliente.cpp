@@ -305,6 +305,10 @@ int Cliente::recibirModeloDelServidor() {
 			recv(this->getConexion()->getSocketCliente(), &inGame, sizeof(inGame), 0);
 			this->getVista()->model->SetTiempoJuego(inGame.tiempo);
 
+			this->getVista()->model->TipoMensaje = inGame.tipoMensaje;
+			this->getVista()->model->TextoMensaje = inGame.mensaje;
+
+
 			this->getVista()->model->getEquipoNro(0)->getJugadorNro(0)->SetVida(inGame.personajesEquipo0[0].vida);
 			this->getVista()->model->getEquipoNro(0)->getJugadorNro(1)->SetVida(inGame.personajesEquipo0[1].vida);
 

@@ -53,7 +53,7 @@ private:
 	bool seleccionPersonajesIniciada = false;
 	bool seleccionPersonajesFinalizada = false;
 	bool habilitadoEnvioPersonajes = false;
-	int tiempoRound;
+	int tiempoRound = 0;
 	int cronometro = 0;
 	int cantidadRounds;
 	int roundActual = 0;
@@ -72,6 +72,7 @@ public:
 	Controller * GetControlador();
 	Model * GetModelo();
 	ModeloEstado GetModeloEstado();
+	ModeloInGame GetModeloGame();
 	void ActualizarModelo();
 	void FinalizarPartida();
 	void IniciarPartida();

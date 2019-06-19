@@ -270,7 +270,6 @@ int main(int argc, char* argv[]) {
 			model.updateCliente(cliente.esta_conectado());
 			usleep(18000);
 			view.render();
-			view.renderMensajes();
 		}
 
 		return 0;

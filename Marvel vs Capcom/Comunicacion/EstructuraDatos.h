@@ -13,6 +13,10 @@
 #include <map>
 #include <iterator>
 
+//Mensajes a clientes
+enum TIPOLEYENDA{
+	READY = 901, YOUWIN = 902, YOULOSE = 903, RESULTADOS = 904, NINGUNO = 910
+};
 //Enumera de cabecera
 enum IDMENSAJE {
 	PING = 100, JUGADOR = 2, MENSAJE = 3, LOGIN = 4, COMPLETO = 5, EQUIPO = 6, TITULAR = 7, MODELO = 8, COMANDO = 9,
@@ -29,7 +33,8 @@ struct PersonajeJugando{
 };
 struct ModeloInGame{
 	int tiempo;
-	bool nuevaRonda;
+	char mensaje[200];
+	TIPOLEYENDA tipoMensaje; //1 READY - 2 YOU WIN - 3 YOULOSE - 10 NINGUNO
 	PersonajeJugando personajesEquipo0[2];
 	PersonajeJugando personajesEquipo1[2];
 

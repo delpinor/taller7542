@@ -9,6 +9,7 @@
 #include "FondoParallax.h"
 #include "Timer.h"
 #include "Barras.h"
+#include "Show.h"
 
 #define ANCHO_JUGADOR 146
 #define ALTO_JUGADOR 146
@@ -48,6 +49,7 @@ private:
 	FondoParallax * pantalla;
 	Timer * timerJuego;
 	Barras * barrasVida;
+	Show * leyendas;
 	LTexture texturasEquipo1[2];
 	LTexture texturasEquipo2[2];
 	LTexture texturaCaptainAmerica;
