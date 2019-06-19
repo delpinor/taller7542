@@ -273,9 +273,9 @@ void View_Jugador_CapAmerica::getSpritesCambioPersonaje() {
 
 	this->gSpriteCambiarPersonaje = new SDL_Rect[1];
 
-	gSpriteCambiarPersonaje[0].x = 97;
-	gSpriteCambiarPersonaje[0].y = 581;
-	gSpriteCambiarPersonaje[0].w = 100;
-	gSpriteCambiarPersonaje[0].h = 163;
+	gSpriteCambiarPersonaje[0].x = 211;
+	gSpriteCambiarPersonaje[0].y = 357;
+	gSpriteCambiarPersonaje[0].w = 261;
+	gSpriteCambiarPersonaje[0].h = 150;
 }
 

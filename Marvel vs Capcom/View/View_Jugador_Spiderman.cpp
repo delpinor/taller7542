@@ -14,6 +14,7 @@ void View_Jugador_Spiderman::initialize(Jugador *model,
 	getSpritesSaltar();
 	getSpritesAgachar();
 	getSpritesAnimacion();
+	getSpritesPatadaFuerte();
 	this->zIndex = model->get_zindex();
 	getSpritesCambioPersonaje();
 	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
@@ -90,52 +91,52 @@ void View_Jugador_Spiderman::getSpritesCaminar() {
 	gSpriteCaminar[0].h = 150;
 
 	gSpriteCaminar[1].x = 234;
-	gSpriteCaminar[1].y = 118;
+	gSpriteCaminar[1].y = 156;
 	gSpriteCaminar[1].w = 261;
 	gSpriteCaminar[1].h = 150;
 
 	gSpriteCaminar[2].x = 467;
-	gSpriteCaminar[2].y = 118;
+	gSpriteCaminar[2].y = 156;
 	gSpriteCaminar[2].w = 261;
 	gSpriteCaminar[2].h = 150;
 
 	gSpriteCaminar[3].x = 666;
-	gSpriteCaminar[3].y = 118;
+	gSpriteCaminar[3].y = 156;
 	gSpriteCaminar[3].w = 261;
 	gSpriteCaminar[3].h = 150;
 
 	gSpriteCaminar[4].x = 884;
-	gSpriteCaminar[4].y = 118;
+	gSpriteCaminar[4].y = 156;
 	gSpriteCaminar[4].w = 261;
 	gSpriteCaminar[4].h = 150;
 
 	gSpriteCaminar[5].x = 1074;
-	gSpriteCaminar[5].y = 118;
+	gSpriteCaminar[5].y = 156;
 	gSpriteCaminar[5].w = 261;
 	gSpriteCaminar[5].h = 150;
 
 	gSpriteCaminar[6].x = 1273;
-	gSpriteCaminar[6].y = 118;
+	gSpriteCaminar[6].y = 156;
 	gSpriteCaminar[6].w = 261;
 	gSpriteCaminar[6].h = 150;
 
 	gSpriteCaminar[7].x = 1501;
-	gSpriteCaminar[7].y = 118;
+	gSpriteCaminar[7].y = 156;
 	gSpriteCaminar[7].w = 261;
 	gSpriteCaminar[7].h = 150;
 
 	gSpriteCaminar[8].x = 1700;
-	gSpriteCaminar[8].y = 118;
+	gSpriteCaminar[8].y = 156;
 	gSpriteCaminar[8].w = 261;
 	gSpriteCaminar[8].h = 150;
 
 	gSpriteCaminar[9].x = 1911;
-	gSpriteCaminar[9].y = 118;
+	gSpriteCaminar[9].y = 156;
 	gSpriteCaminar[9].w = 261;
 	gSpriteCaminar[9].h = 150;
 
 	gSpriteCaminar[10].x = 2084;
-	gSpriteCaminar[10].y = 118;
+	gSpriteCaminar[10].y = 156;
 	gSpriteCaminar[10].w = 261;
 	gSpriteCaminar[10].h = 150;
 
@@ -208,6 +209,10 @@ void View_Jugador_Spiderman::getSpritesCambioPersonaje() {
 }
 
 void View_Jugador_Spiderman::getSpritesPatadaFuerte() {
+	CANTSPRITECLIPPATADON = 8;
+	MINFRAMEPATADON = 0;
+	MAXFRAMEPATADON = 7;
+	this->gSpritePatadadon = new SDL_Rect[CANTSPRITECLIPPATADON];
 
 	gSpritePatadadon[0].x = 43;
 	gSpritePatadadon[0].y = 803;
