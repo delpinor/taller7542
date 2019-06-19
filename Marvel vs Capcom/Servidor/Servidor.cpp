@@ -598,7 +598,7 @@ void Servidor::IniciarServidor(int maxClientes, char * puerto) {
 
 }
 
-void Servidor::SetConfiguracion(int tiempoBatalla, int cantidadBatallas){
-	miPartida.SetConfiguracion(tiempoBatalla, cantidadBatallas);
+void Servidor::SetConfiguracion(int tiempoBatalla, int cantidadBatallas, bool modoTest){
+	miPartida.SetConfiguracion(tiempoBatalla, cantidadBatallas, modoTest);
 }
 

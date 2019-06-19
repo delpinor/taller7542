@@ -52,13 +52,15 @@ Jugador* Model::crearJugador(int personajeId){
 
 	int ancho, alto, zIndex;
 	std::string nombre, path;
+	bool inmortal;
 	ancho = jugadoresEquipo1[personajeId]->get_ancho();
 	alto = jugadoresEquipo1[personajeId]->get_alto();
 	zIndex = jugadoresEquipo1[personajeId]->get_zindex();
 	nombre = jugadoresEquipo1[personajeId]->getNombre();
 	path = jugadoresEquipo1[personajeId]->getPathImagen();
+	inmortal = jugadoresEquipo1[personajeId]->esInmortal();
 
-	Jugador* jNuevo = new Jugador(ancho, alto, zIndex, nombre, path);
+	Jugador* jNuevo = new Jugador(ancho, alto, zIndex, nombre, path, inmortal);
 	return jNuevo;
 }
 
@@ -162,7 +164,7 @@ void Model::CargarFondos(std::map<int, std::map<std::string, std::string> > &map
 	Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaFondos", "Carga finalizada");
 }
 void Model::cargar_Jugadores(
-		std::map<int, std::map<std::string, std::string> > &mapPersonajes) {
+		std::map<int, std::map<std::string, std::string> > &mapPersonajes, bool modoTest) {
 
 	int ancho, alto, zindex;
 	std::string nombre, path;
@@ -182,7 +184,8 @@ void Model::cargar_Jugadores(
 		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Ancho: " + std::to_string(ancho));
 		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "zindex: " + std::to_string(zindex));
 		int personajeId = Personaje::getPersonajeId(nombre);
-		jugadoresEquipo1.insert(std::make_pair(personajeId,new Jugador(ancho, alto, zindex, nombre, path)));
+		bool inmortal = modoTest;
+		jugadoresEquipo1.insert(std::make_pair(personajeId,new Jugador(ancho, alto, zindex, nombre, path, inmortal)));
 	}
 	Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Carga Finalizada");
 }

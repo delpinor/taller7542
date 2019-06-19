@@ -42,6 +42,7 @@ public:
 	void devolver_Map_Nivel(std::map<std::string, std::string> *mapNivel);
 	int devolverNumeroJugadores();
 	void devolver_Config_Batalla(std::string *tiempoBatalla, std::string *cantidadBatallas);
+	bool devolver_Modo_Test();
 	virtual ~ParserConfig();
 
 

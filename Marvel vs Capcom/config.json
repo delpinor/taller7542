@@ -61,7 +61,8 @@
 	},
 	"server" : 
 	{
-		"players" : 2
+		"players" : 2,
+		"modeTest" : true
 	},
 	"batalla" :
 	{

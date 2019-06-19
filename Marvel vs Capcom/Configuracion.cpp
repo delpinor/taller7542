@@ -46,6 +46,7 @@ Configuracion::Configuracion(char* filepath) {
 	parser.devolver_Config_Batalla(&tiempoBatalla,&cantidadBatallas);
 	this->num_jugadores=parser.devolverNumeroJugadores();
 	this->nivelLog = parser.devolver_Tipo_Log();
+	this->esModoTest = parser.devolver_Modo_Test();
 	this->ValidarConfigs(&nombresPersonajes);
 
 }
@@ -99,6 +100,10 @@ int Configuracion::get_Config_TiempoBatalla(){
 int Configuracion::get_Config_CantidadBatallas(){
 	return NumericHelper::parseStringToInt(this->cantidadBatallas);
 }
+
+bool Configuracion::get_Config_ModoTest(){
+	return this->esModoTest;
+};
 
 Configuracion::~Configuracion() {
 	// TODO Auto-generated destructor stub

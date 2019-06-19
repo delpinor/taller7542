@@ -5,7 +5,7 @@
 Jugador::Jugador() {
 
 }*/
-Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &path) {
+Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &path, bool &inmortal) {
 	this->estado = &(this->inactivo);
 	this->mCollider.x = this->estado->getPosX();
 	this->mCollider.y = this->estado->getPosY();
@@ -21,6 +21,7 @@ Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &
 	this->mCollider.w = width;
 	this->mCollider.h = height;
 	this->vidaJugador = 100;
+	this->inmortal = inmortal;
 
 }
 void Jugador::SetVida(int vida){
@@ -66,7 +67,7 @@ void Jugador::setDireccion(SDL_RendererFlip direccion) {
 }
 
 void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
-	if( this->vidaJugador==0)
+	if( this->murio())
 		this->cambiarPersonaje();
 	if (this->estado->estaCambiandoPersonaje()){
 		this->estado->move();
@@ -457,21 +458,20 @@ void Jugador::setTipoGolpe(TIPO_GOLPE tipoGolpe){
 	this->tipoGolpe = tipoGolpe;
 }
 bool Jugador::murio(){
-	return this->vidaJugador==0;
-}
-bool Jugador::estaVivo(){
-	std::cout
-		<< "Jugador - estaVivo:  | "
-		<< this->vidaJugador
-		<< std::endl;
-	if(this->vidaJugador > 0 ){
-		return true;
-	}
-	else{
+	if(this->inmortal){
 		return false;
 	}
+	else{
+		return this->vidaJugador==0;
+	}
+}
+bool Jugador::estaVivo(){
+	return !this->murio();
 }
 
 void Jugador::inicializarVida(){
 	this->vidaJugador = 100;
+}
+bool Jugador::esInmortal(){
+	return this->inmortal;
 }

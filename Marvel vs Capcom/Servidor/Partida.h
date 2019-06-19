@@ -58,6 +58,7 @@ private:
 	int cantidadRounds;
 	int roundActual = 0;
 	bool roundCorriendo = false;
+	bool modoTest;
 	void IniciarPosiciones();
 	void IniciarCamara();
 	void ResetTitularidadClientes();
@@ -125,7 +126,7 @@ public:
 	ModeloPersonajes GetModeloPersonajes();
 	void SetDataPersonajesEnviada(string nombre);
 	ModeloResultadoSeleccionPersonaje getResultadoSeleccionPersonaje();
-	void SetConfiguracion(int tiempoBatalla, int cantidadBatallas);
+	void SetConfiguracion(int tiempoBatalla, int cantidadBatallas, bool modoTest);
 	void AvanzarTiempo();
 	bool EstaEnEjecucionDeBatalla();
 	bool DebeFinalizarBatalla();
@@ -134,5 +135,6 @@ public:
 	void IniciarTitularidadClientes();
 	bool HayBatallasPendientes();
 	int GetNroBatallaActual();
+	bool EsModoTest();
 };
 
