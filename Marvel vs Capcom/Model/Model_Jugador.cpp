@@ -66,6 +66,8 @@ void Jugador::setDireccion(SDL_RendererFlip direccion) {
 }
 
 void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
+	if( this->vidaJugador==0)
+		this->cambiarPersonaje();
 	if (this->estado->estaCambiandoPersonaje()){
 		this->estado->move();
 	}
