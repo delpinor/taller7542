@@ -17,6 +17,7 @@ void Partida::IniciarBatalla(){
 	this->roundActual++;
 	cout << "Iniciando Batalla " << this->roundActual << endl;
 	this->cronometro = this->tiempoRound;
+	this->modelo->InicializarVidas();
 	this->roundCorriendo = true;
 }
 void Partida::IniciarPosiciones(){
@@ -861,7 +862,7 @@ bool Partida::EstaEnEjecucionDeBatalla(){
 
 bool Partida::DebeFinalizarBatalla(){
 	//TODO CHEQUEAR VIDA DE LOS EQUIPOS
-	if(this->cronometro <= 0){
+	if(this->cronometro <= 0 || !this->modelo->EquiposEstanVivos()){
 		return true;
 	}
 	else{

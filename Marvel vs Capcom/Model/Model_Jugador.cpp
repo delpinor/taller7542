@@ -459,3 +459,19 @@ void Jugador::setTipoGolpe(TIPO_GOLPE tipoGolpe){
 bool Jugador::murio(){
 	return this->vidaJugador==0;
 }
+bool Jugador::estaVivo(){
+	std::cout
+		<< "Jugador - estaVivo:  | "
+		<< this->vidaJugador
+		<< std::endl;
+	if(this->vidaJugador > 0 ){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+void Jugador::inicializarVida(){
+	this->vidaJugador = 100;
+}

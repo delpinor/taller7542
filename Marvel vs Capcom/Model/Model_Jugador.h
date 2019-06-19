@@ -118,5 +118,7 @@ public:
 	bool isIniciarGolpe();
 	void setIniciarGolpe(bool iniciarGolpe);
 	bool murio();
+	bool estaVivo();
+	void inicializarVida();
 	};
 #endif
