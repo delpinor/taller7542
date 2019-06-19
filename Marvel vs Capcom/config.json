@@ -10,14 +10,14 @@
 			"nombre" : "Captain America",
 			"alto" : "250",
 			"ancho" : "400",
-			"rutaArchivoImagen" : "Images/CapitanAmerica.png",
+			"rutaArchivoImagen" : "Images/CapAmerica.gif",
 			"zIndex" : "47"
 		},
 		{
 			"nombre" : "Venom",
 			"alto" : "250",
 			"ancho" : "400",
-			"rutaArchivoImagen" : "Images/VenomSeparado.png",
+			"rutaArchivoImagen" : "Images/VenomSeparado.gif",
 			"zIndex" : "46"
 		},
 		{
@@ -29,9 +29,9 @@
 		},
 		{
 			"nombre" : "Spiderman",
-			"alto" : "200",
-			"ancho" : "120",
-			"rutaArchivoImagen" : "Images/Spiderman.png",
+			"alto" : "250",
+			"ancho" : "400",
+			"rutaArchivoImagen" : "Images/SpidermanSeparado.gif",
 			"zIndex" : "47"
 		}
 	],
@@ -61,13 +61,7 @@
 	},
 	"server" : 
 	{
-		"players" : 2,
-		"modeTest" : true
-	},
-	"batalla" :
-	{
-		"cantidad" : "3",
-		"tiempo" : "10"
+		"players" : 2
 	}
 }
 		

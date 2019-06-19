@@ -18,10 +18,12 @@ Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &
 	this->zindex= zind;
 	this->nombre=nom;
 	this->pathImagen=path;
-	this->mCollider.w = width;
-	this->mCollider.h = height;
+	this->mCollider.w = width + 7;
+	this->mCollider.h = height ;
 	this->vidaJugador = 100;
 	this->inmortal = inmortal;
+
+
 
 }
 void Jugador::SetVida(int vida){
@@ -72,7 +74,7 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 	if (this->estado->estaCambiandoPersonaje()){
 		this->estado->move();
 	}
-	else if (movimientoDerecha()) {
+	else if (movimientoDerecha() &&( !checkCollision( mCollider, jugadorRival->get_rectangulo_colision() ))) {
 		if (!collideDerecha(camara)) {
 			this->estado->move();
 		} else {
@@ -83,7 +85,7 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 				this->estado->moveVertical();
 			}
 		}
-	} else if (movimientoIzquierda()) {
+	} else if (movimientoIzquierda()  &&( !checkCollision( mCollider, jugadorRival->get_rectangulo_colision() ))) {
 			if (!collideIzquierda(camara)) {
 				this->estado->move();
 			} else {
@@ -97,7 +99,7 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 		this->estado->move();
 	}
 	updateDirection(*jugadorRival);
-	this->mCollider.x = this->estado->getPosX();
+	this->mCollider.x = this->estado->getPosX() +7 ;
 	this->mCollider.y = this->estado->getPosY();
 }
 
@@ -404,6 +406,56 @@ void Jugador::updateDirection(Jugador &oponente) {
 
 
 }
+SDL_Rect Jugador::get_rectangulo_colision(){
+
+	return this->mCollider;
+}
+//funcion que veifica si los  rectangulos asociados a una imagen colisionan
+bool Jugador::checkCollision( SDL_Rect a, SDL_Rect b )
+{
+    //The sides of the rectangles
+    int leftA, leftB;
+    int rightA, rightB;
+    int topA, topB;
+    int bottomA, bottomB;
+
+    //Calculate the sides of rect A
+    leftA = a.x;
+    rightA = a.x + a.w;
+    topA = a.y;
+    bottomA = a.y + a.h;
+
+    //Calculate the sides of rect B
+    leftB = b.x;
+    rightB = b.x + b.w;
+    topB = b.y;
+    bottomB = b.y + b.h;
+
+    //If any of the sides from A are outside of B
+    if( bottomA <= topB )
+    {
+        return false;
+    }
+
+    if( topA >= bottomB )
+    {
+        return false;
+    }
+
+    if( rightA <= leftB )
+    {
+        return false;
+    }
+
+    if( leftA >= rightB )
+    {
+        return false;
+    }
+
+    //If none of the sides from A are outside B
+    return true;
+}
+
 int Jugador::Personaje() {
 	return this->personaje;
 }

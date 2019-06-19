@@ -10,6 +10,7 @@
 #include "../Model/CambiandoPersonaje.h"
 #include "../Model/EstadoCliente.h"
 #include "../Model/TipoGolpe.h"
+
 #define VENOM 0x01
 #define CAPAMERICA 0x00
 
@@ -18,6 +19,8 @@ class Jugador {
 private:
 	 //int ANCHO_JUGADOR = 90;
 	 //int ALTO_JUGADOR = 120;
+
+
 	 std:: string nombre;
 	 std:: string pathImagen;
 	 int vidaJugador;
@@ -122,5 +125,7 @@ public:
 	bool estaVivo();
 	void inicializarVida();
 	bool esInmortal();
+	SDL_Rect get_rectangulo_colision();
+	bool checkCollision( SDL_Rect a, SDL_Rect b );
 	};
 #endif
