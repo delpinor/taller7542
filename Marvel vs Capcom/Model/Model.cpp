@@ -22,8 +22,6 @@ Model::Model() {
 	this->equipos[0] = new Equipo();
 	this->equipos[1] = new Equipo();
 	this->tiempoJuego = 0;
-	this->EquipoGanador = 99;
-	this->NumeroDeRonda = 0;
 }
 int Model::GetTiempoJuego(){
 	return tiempoJuego;
