@@ -72,6 +72,8 @@ public:
 	Equipo* getEquipoRival();
 	bool estaVivo();
 	void inicializarVida();
+	int getVidaTotal();
+	int getCantidadJugadoresVivos();
 };
 
 #endif /* MODEL_EQUIPO_H_ */

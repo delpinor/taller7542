@@ -37,6 +37,13 @@ struct ClienteConectado{
 	bool esperandoReconexion = false;
 	bool cargaCompleta = false;
 };
+struct ResultadoEquipo{
+	list<int> nrosRound;
+};
+struct ResultadoPartida{
+	ResultadoEquipo resultadoEquipo0;
+	ResultadoEquipo resultadoEquipo1;
+};
 class Partida{
 private:
 	Model * modelo;
@@ -60,9 +67,11 @@ private:
 	int roundActual = 0;
 	bool roundCorriendo = false;
 	bool modoTest;
+	ResultadoPartida resultado;
 	void IniciarPosiciones();
 	void IniciarCamara();
 	void ResetTitularidadClientes();
+	void SetResultadosBatallaTerminada();
 public:
 	bool ClientesCargados();
 	list<ClienteConectado> GetListaJugadores();
@@ -140,5 +149,7 @@ public:
 	bool HayBatallasPendientes();
 	int GetNroBatallaActual();
 	bool EsModoTest();
+
+	ModeloResultadoEquipo GetModeloResultadoEquipo(int nroEquipo);
 };
 

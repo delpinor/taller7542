@@ -32,13 +32,19 @@ struct JugadorLogin{
 struct PersonajeJugando{
 	int vida;
 };
+struct ModeloResultadoEquipo{
+	int cantidadResultados = 0;
+	int NrosBatallasGanadas[10];
+};
 struct ModeloInGame{
 	int tiempo;
 	char mensaje[200];
 	TIPOLEYENDA tipoMensaje; //1 READY - 2 YOU WIN - 3 YOULOSE - 10 NINGUNO
 	PersonajeJugando personajesEquipo0[2];
 	PersonajeJugando personajesEquipo1[2];
-
+	int cantidadResultados;
+	ModeloResultadoEquipo resultadoEquipo0;
+	ModeloResultadoEquipo resultadoEquipo1;
 };
 
 struct JugadorCliente {

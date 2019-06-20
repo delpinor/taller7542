@@ -257,7 +257,7 @@ ModeloEstado Model::GetModelEstado(){
 	unModeloEstado.jugadoresEquipo1.isAgachado = this->getEquipoNro(0)->getJugadorActivo()->estaAgachado();
 	unModeloEstado.jugadoresEquipo1.isCambiandoPersonaje = this->getEquipoNro(0)->getJugadorActivo()->estaCambiandoPersonaje();
 	unModeloEstado.jugadoresEquipo1.isSaltando = this->getEquipoNro(0)->getJugadorActivo()->estaSaltando();
-	cout << "Tipo GolpeEnviado jugador 0: " << this->getEquipoNro(0)->getJugadorActivo()->getTipoGolpe() << endl;
+	//cout << "Tipo GolpeEnviado jugador 0: " << this->getEquipoNro(0)->getJugadorActivo()->getTipoGolpe() << endl;
 	unModeloEstado.jugadoresEquipo1.tipoGolpe = this->getEquipoNro(0)->getJugadorActivo()->getTipoGolpe();
 	unModeloEstado.jugadoresEquipo1.posX = this->getEquipoNro(0)->getJugadorActivo()->getPosX();
 	unModeloEstado.jugadoresEquipo1.posY = this->getEquipoNro(0)->getJugadorActivo()->getPosY();
@@ -270,7 +270,7 @@ ModeloEstado Model::GetModelEstado(){
 	unModeloEstado.jugadoresEquipo2.isAgachado = this->getEquipoNro(1)->getJugadorActivo()->estaAgachado();
 	unModeloEstado.jugadoresEquipo2.isCambiandoPersonaje = this->getEquipoNro(1)->getJugadorActivo()->estaCambiandoPersonaje();
 	unModeloEstado.jugadoresEquipo2.isSaltando = this->getEquipoNro(1)->getJugadorActivo()->estaSaltando();
-	cout << "Tipo GolpeEnviado jugador 1: " << this->getEquipoNro(1)->getJugadorActivo()->getTipoGolpe() << endl;
+	//cout << "Tipo GolpeEnviado jugador 1: " << this->getEquipoNro(1)->getJugadorActivo()->getTipoGolpe() << endl;
 	unModeloEstado.jugadoresEquipo2.tipoGolpe = this->getEquipoNro(1)->getJugadorActivo()->getTipoGolpe();
 	unModeloEstado.jugadoresEquipo2.posX = this->getEquipoNro(1)->getJugadorActivo()->getPosX();
 	unModeloEstado.jugadoresEquipo2.posY = this->getEquipoNro(1)->getJugadorActivo()->getPosY();
@@ -311,4 +311,19 @@ bool Model::EquiposEstanVivos(){
 void Model::InicializarVidas(){
 	this->getEquipoNro(0)->inicializarVida();
 	this->getEquipoNro(1)->inicializarVida();
+}
+
+int Model::GetNroEquipoVivo(){
+	if(this->getEquipoNro(0)->estaVivo()){
+		return 0;
+	}
+	else{
+		return 1;
+	}
+}
+int Model::GetVidaEquipo(int nroEquipo){
+	return this->getEquipoNro(nroEquipo)->getVidaTotal();
+}
+int Model::GetEquipoCantidadJugadoresVivos(int nroEquipo){
+	return this->getEquipoNro(nroEquipo)->getCantidadJugadoresVivos();
 }

@@ -135,12 +135,36 @@ ModeloInGame Partida::GetModeloGame(){
 		unModelo.tipoMensaje = READY;
 		std::string msg = "Ronda " + std::to_string(roundActual);
 		strcpy(unModelo.mensaje, msg.c_str());
-
-
 	}else{
 		unModelo.tipoMensaje = NINGUNO;
 	}
+
+	unModelo.resultadoEquipo0 = this->GetModeloResultadoEquipo(0);
+	unModelo.resultadoEquipo1 = this->GetModeloResultadoEquipo(1);
+
 	return unModelo;
+}
+ModeloResultadoEquipo Partida::GetModeloResultadoEquipo(int nroEquipo){
+	ResultadoEquipo resultado;
+	ModeloResultadoEquipo unModeloResultado;
+
+	if(nroEquipo == 0){
+		resultado = this->resultado.resultadoEquipo0;
+	}
+	else{
+		resultado = this->resultado.resultadoEquipo1;
+	}
+
+	std::list<int>::iterator itResultados;
+	std::list<int>::iterator itRounds;
+	int i = 0;
+	for (itRounds = resultado.nrosRound.begin(); itRounds != resultado.nrosRound.end(); itRounds++) {
+		unModeloResultado.NrosBatallasGanadas[i] = *itRounds;
+		i++;
+	}
+	unModeloResultado.cantidadResultados = resultado.nrosRound.size();
+
+	return unModeloResultado;
 }
 ModeloPersonajes Partida::GetModeloPersonajes(){
 	ModeloPersonajes unModelo;
@@ -912,8 +936,8 @@ bool Partida::DebeFinalizarBatalla(){
 }
 void Partida::FinalizarBatalla(){
 	this->roundCorriendo = false;
+	this->SetResultadosBatallaTerminada();
 }
-
 bool Partida::HayBatallasPendientes(){
 	if(this->roundActual < this->cantidadRounds){
 		return true;
@@ -928,4 +952,39 @@ int Partida::GetNroBatallaActual(){
 }
 bool Partida::EsModoTest(){
 	return this->modoTest;
+}
+void Partida::SetResultadosBatallaTerminada(){
+	int nroEquipoGanador = -1;
+	int equipo0CantPersjVivos = this->modelo->GetEquipoCantidadJugadoresVivos(0);
+	int equipo1CantPersjVivos = this->modelo->GetEquipoCantidadJugadoresVivos(1);
+
+	if(equipo0CantPersjVivos == equipo1CantPersjVivos){
+		int equipo0Vida = this->modelo->GetVidaEquipo(0);
+		int equipo1Vida = this->modelo->GetVidaEquipo(1);
+
+		if(equipo0Vida > equipo1Vida){
+			nroEquipoGanador = 0;
+		}
+		else{
+			nroEquipoGanador = 1;
+		}
+	}
+	else
+	{
+		if(equipo0CantPersjVivos > equipo1CantPersjVivos){
+			nroEquipoGanador = 0;
+		}
+		else{
+			nroEquipoGanador = 1;
+		}
+	}
+
+	if(nroEquipoGanador == 0){
+		cout << "Equipo 0 GANÓ EL ROUND " << this->roundActual << endl;
+		this->resultado.resultadoEquipo0.nrosRound.push_back(this->roundActual);
+	}
+	else{
+		cout << "Equipo 1 GANÓ EL ROUND " << this->roundActual << endl;
+		this->resultado.resultadoEquipo1.nrosRound.push_back(this->roundActual);
+	}
 }

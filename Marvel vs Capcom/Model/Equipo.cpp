@@ -180,7 +180,7 @@ bool Equipo::estaVivo(){
 	cout
 	<< "Equipo - estaVivo:  | "
 	<< endl;
-	if(!this->jugadores[0]->estaVivo() && !this->jugadores[1]->estaVivo() ){
+	if(this->getCantidadJugadoresVivos() == 0){
 		return false;
 	}
 	else{
@@ -191,4 +191,16 @@ bool Equipo::estaVivo(){
 void Equipo::inicializarVida(){
 	this->jugadores[0]->inicializarVida();
 	this->jugadores[1]->inicializarVida();
+}
+int Equipo::getVidaTotal(){
+	return this->jugadores[0]->GetVida() + this->jugadores[1]->GetVida();
+}
+int Equipo::getCantidadJugadoresVivos(){
+	int cantidadVivos = 0;
+	for(int i = 0; i < 2; i++){
+		if(this->jugadores[i]->estaVivo()){
+			cantidadVivos++;
+		}
+	}
+	return cantidadVivos;
 }
