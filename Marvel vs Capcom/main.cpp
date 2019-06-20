@@ -245,6 +245,7 @@ int main(int argc, char* argv[]) {
 		cout << "Finalizo el seteo de los Personajes en el modelo | " << TimeHelper::getStringLocalTimeNow() << endl;
 		cliente.LanzarHiloPing();
 		View view(&model);
+
 		cliente.setVista(&view);
 		// Habilito a recibir el modelo
 		cliente.JuegoIniciado = true;
@@ -253,9 +254,10 @@ int main(int argc, char* argv[]) {
 		cout << "EstadoCliente seteados." << endl;
 		// Hilo conexion.
 		cliente.PararHiloPing();
-		cliente.LanzarHiloConexion();
-
+		// Enviar confirmacion de carga.
+		cliente.EnviarConfirmacion();
 		//reproduzco sonido del juego
+		cliente.LanzarHiloConexion();
 		sonido_juego.reproducir_sonido();
 		while (!controller.quitPressed() && !cliente.JuegoFinalizado) {
 			if(!cliente.servidor_esta_vivo()){

@@ -30,6 +30,10 @@ public:// hay que pasar los parametros a pivados y generar los seters
 
 public:
 	Model();
+	int EquipoGanador;
+	int NumeroDeRonda;
+	TIPOLEYENDA TipoMensaje = NINGUNO;
+	std::string TextoMensaje = "!";
 	// metodo que crea y carga los personajes en un map
 	void cargar_Jugadores (std::map< int, std::map<std::string, std::string> > &mapPersonajes, bool modoTest);
 	void set_equipos_with_jugador(int equipo,int nroJugadorEquipo, int personajeId);

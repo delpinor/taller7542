@@ -1,12 +1,17 @@
 #include "Partida.h"
 #include <iostream>
+#define DURACIONMENSAJE 3
 void Partida::IniciarPartida() {
 	//listaJugadores = listaEspera;
 	//listaEspera.clear();
 	modelo->inicializar();
 	IniciarBatalla();
+	cout << "Esperando confimacion de carga de los clientes..." << endl;
+	while(!ClientesCargados()){
+		usleep(10);
+	}
+	cout << "Carga de clientes complete. Inicia la partida..." << endl;
 	partidaIniciada = true;
-	cout << "Partida INICA#########################################################################DA!" << endl;
 
 }
 void Partida::IniciarBatalla(){
@@ -34,6 +39,15 @@ void Partida::IniciarCamara(){
 	modelo->setCamara(this->camara);
 	//	modelo->inicializarPosicionesEquipos();
 	AjustarCamara();
+}
+bool Partida::ClientesCargados(){
+	list<ClienteConectado>::iterator it;
+	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+		if (!it->cargaCompleta) {
+			return false;
+		}
+	}
+	return true;
 }
 void Partida::IniciarTitularidadClientes(){
 	list<ClienteConectado>::iterator it;
@@ -111,6 +125,21 @@ ModeloEstado Partida::GetModeloEstado() {
 	//	unModelo.activoEquipo2 = GetTitularJugando(1).numeroJugador;
 	unModelo.activoEquipo1 = modelo->equipos[0]->nroJugadorActivo;
 	unModelo.activoEquipo2 = modelo->equipos[1]->nroJugadorActivo;
+	return unModelo;
+}
+ModeloInGame Partida::GetModeloGame(){
+	ModeloInGame unModelo;
+	unModelo = modelo->GetModeloInGame();
+
+	if(tiempoRound < (cronometro+DURACIONMENSAJE)){
+		unModelo.tipoMensaje = READY;
+		std::string msg = "Ronda " + std::to_string(roundActual);
+		strcpy(unModelo.mensaje, msg.c_str());
+
+
+	}else{
+		unModelo.tipoMensaje = NINGUNO;
+	}
 	return unModelo;
 }
 ModeloPersonajes Partida::GetModeloPersonajes(){
@@ -322,7 +351,17 @@ ClienteConectado * Partida::GetDesconectado(string nombre){
 	}
 	return unCliente;
 }
-
+ClienteConectado * Partida::GetCliente(string nombre){
+	ClienteConectado * unCliente;
+	list<ClienteConectado>::iterator it;
+	for (it = listaJugadores.begin(); it != listaJugadores.end();
+			it++) {
+		if (it->nombre == nombre) {
+			unCliente = &(*it);
+		}
+	}
+	return unCliente;
+}
 void Partida::JugadorDesconectado(string nombre) {
 	ClienteConectado unCliente;
 	unCliente = GetClienteJugando(nombre);

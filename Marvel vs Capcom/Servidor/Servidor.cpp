@@ -325,7 +325,7 @@ void * enviarDatos(void * datos) {
 
 		}
 		//------->Envio de confirmacion de inicio de juego
-		if (miPartida.Iniciada() && !avisoJuegoIniciado) {
+		if (!avisoJuegoIniciado && miPartida.FinalizadaSeleccionPersonajes()) {
 			IDMENSAJE idModelo = JUEGOINICIADO;
 			ModeloResultadoSeleccionPersonaje unModelo = miPartida.getResultadoSeleccionPersonaje();
 			send(sock, &idModelo, sizeof(idModelo), 0);
@@ -347,12 +347,7 @@ void * enviarDatos(void * datos) {
 		if (miPartida.Iniciada()) {
 			IDMENSAJE idGame = INGAME;
 			pthread_mutex_lock(&mutex_server);
-			ModeloInGame unModeloGame = miPartida.GetModelo()->GetModeloInGame();
-			//Estas 3 lineas son de prueba!!!!
-			//unModeloGame.tiempo = 60;
-			//unModeloGame.personajesEquipo0[0].vida = 35;
-		//	unModeloGame.personajesEquipo0[1].vida = 65;
-
+			ModeloInGame unModeloGame = miPartida.GetModeloGame();
 			pthread_mutex_unlock(&mutex_server);
 			send(sock, &idGame, sizeof(idGame), 0);
 			send(sock, &unModeloGame, sizeof(unModeloGame), 0);
@@ -425,6 +420,12 @@ void * recibirDatos(void * datos) {
 				Mensaje unMensaje;
 				recv(sock, &unMensaje, sizeof(unMensaje), 0);
 				cout << " Mensaje: " << unMensaje.mensaje << endl;
+			}
+
+			//Mensaje de confirmacion de carga.
+			if (idMsg == CARGACOMPLETA) {
+				miPartida.GetCliente(unCliente.nombre)->cargaCompleta = true;
+				cout << "Confirmacion de cliente: " << unCliente.socket << endl;
 			}
 
 			if ((idMsg == COMANDO) && (miPartida.Iniciada())) {

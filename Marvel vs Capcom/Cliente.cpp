@@ -170,6 +170,11 @@ void Cliente::EnviarPing(){
 	IDMENSAJE idCabecera = PING;
 	send(this->getConexion()->getSocketCliente(), &idCabecera, sizeof(idCabecera), MSG_NOSIGNAL);
 }
+void Cliente::EnviarConfirmacion(){
+	IDMENSAJE idCabecera = CARGACOMPLETA;
+	send(this->getConexion()->getSocketCliente(), &idCabecera, sizeof(idCabecera), MSG_NOSIGNAL);
+	cout << "Enviado confirmacion..." << endl;
+}
 void Cliente::enviarDataSeleccionAServidor(DataSeleccionAlServidor data) {
 
 	int error = 0;
@@ -319,6 +324,10 @@ int Cliente::recibirModeloDelServidor() {
 			ModeloInGame inGame;
 			recv(this->getConexion()->getSocketCliente(), &inGame, sizeof(inGame), 0);
 			this->getVista()->model->SetTiempoJuego(inGame.tiempo);
+
+			this->getVista()->model->TipoMensaje = inGame.tipoMensaje;
+			this->getVista()->model->TextoMensaje = inGame.mensaje;
+
 
 			this->getVista()->model->getEquipoNro(0)->getJugadorNro(0)->SetVida(inGame.personajesEquipo0[0].vida);
 			this->getVista()->model->getEquipoNro(0)->getJugadorNro(1)->SetVida(inGame.personajesEquipo0[1].vida);

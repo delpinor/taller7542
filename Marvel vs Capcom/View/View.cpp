@@ -5,6 +5,7 @@
 #include "../Model/EstadoCliente.h"
 #include "Timer.h"
 #include "Barras.h"
+#include "Show.h"
 
 #define MARGEN 0
 int posAnteriorX1, posAnteriorY1;
@@ -30,10 +31,13 @@ View::View(Model* model) {
 			this->viewModel = new ViewModel(this->model, this->gRenderer, this->camara,	this->texturasEquipo1, this->texturasEquipo2);
 			this->setElementoPersonaje(model);
 		}
-
 }
 
 View::~View() {
+	delete this->leyendas;
+	delete this->barrasVida;
+	delete this->pantalla;
+	delete this->timerJuego;
 	delete this->viewModel;
 	this->close();
 }
@@ -119,22 +123,29 @@ void View::render() {
 			}
 		}
 	}
+
 	//this->viewModel->render();
 	barrasVida->render(model->equipos);
 
 	//Render Timer
 	timerJuego->render(model->GetTiempoJuego());
 
+	//Leyendas
+	leyendas->render(model->TipoMensaje, model->TextoMensaje);
+
+
 	SDL_RenderPresent(this->gRenderer);
 }
-
 bool View::inicializar(Model *model) {
+	Uint32 startTime = 0;
+
 	bool exito = true;
 
 	if (SDL_Init( SDL_INIT_VIDEO) < 0) {
 		Logger::Log(LOGGER_NIVEL::ERROR, "View::Inicializar", SDL_GetError());
 		exito = false;
 	} else {
+		startTime = 0;
 		if (!SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
 			Logger::Log(LOGGER_NIVEL::ERROR, "View::Inicializar",
 					SDL_GetError());
@@ -186,6 +197,10 @@ bool View::inicializar(Model *model) {
 				//Inicializacion de la barras de vida
 				barrasVida = new Barras(this->gRenderer);
 
+
+				//Inicializacion Mensajes
+				leyendas =  new Show(this->gRenderer);
+
 				//Initialize renderer color
 				SDL_SetRenderDrawColor(this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
@@ -199,6 +214,7 @@ bool View::inicializar(Model *model) {
 			}
 		}
 	}
+	cout << "Tiempo de carga: "<< (SDL_GetTicks() - startTime)/1000 << endl;
 
 	return exito;
 }
@@ -214,7 +230,6 @@ void View::loadMedia(Model *model) {
 	texturasEquipo2[0].loadFromFile(path, gRenderer, model->GetAnchoJugador(1, 0), model->GetAltoJugador(1, 0));
 	path = model->get_pathImagenJugador(1, 1);
 	texturasEquipo2[1].loadFromFile(path, gRenderer, model->GetAnchoJugador(1, 1), model->GetAltoJugador(1, 1));
-
 }
 
 void View::setElementoFondo(int pZIndex, int id){
