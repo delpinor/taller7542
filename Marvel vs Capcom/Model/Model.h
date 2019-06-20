@@ -68,6 +68,9 @@ public:
 	std::list<int> GetIdsPersonajes();
 	bool EquiposEstanVivos();
 	void InicializarVidas();
+	int GetNroEquipoVivo();
+	int GetVidaEquipo(int nroEquipo);
+	int GetEquipoCantidadJugadoresVivos(int nroEquipo);
 private:
 	Jugador* crearJugador(int personajeId);
 };

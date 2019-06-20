@@ -335,7 +335,14 @@ int Cliente::recibirModeloDelServidor() {
 			this->getVista()->model->getEquipoNro(1)->getJugadorNro(0)->SetVida(inGame.personajesEquipo1[0].vida);
 			this->getVista()->model->getEquipoNro(1)->getJugadorNro(1)->SetVida(inGame.personajesEquipo1[1].vida);
 
-
+			cout << "Resultados Equipo0: Cantidad: " << inGame.resultadoEquipo0.cantidadResultados << endl;
+			for(int i = 0; i < inGame.resultadoEquipo0.cantidadResultados; i++){
+				cout << "Equipo0: Round: " << inGame.resultadoEquipo0.NrosBatallasGanadas[i] << endl;
+			}
+			cout << "Resultados Equipo1: Cantidad: " << inGame.resultadoEquipo1.cantidadResultados << endl;
+			for(int i = 0; i < inGame.resultadoEquipo1.cantidadResultados; i++){
+				cout << "Equipo1: Round: " << inGame.resultadoEquipo1.NrosBatallasGanadas[i] << endl;
+			}
 		}
 
 		//-------->Recibe DATA PERSONAJES
