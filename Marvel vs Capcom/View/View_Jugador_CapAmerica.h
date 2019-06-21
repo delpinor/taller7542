@@ -26,6 +26,11 @@ protected:
 	void getSpritesAgachar();
 	void getSpritesCambioPersonaje();
 	void getSpritesPatadaFuerte();
+	void getSpritesPatadaDebil();
+	void getSpritesPinaFuerte();
+	void getSpritesPinaDebil();
+
+
 };
 
 #endif

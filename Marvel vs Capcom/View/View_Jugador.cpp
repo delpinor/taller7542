@@ -35,7 +35,22 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 				std::cout << "golpe terminado" << std::endl;
 				this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
 			}
-		} else if (this->jugador->estaAgachado()){
+		} else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADA){
+			if (this->jugador->isIniciarGolpe()){
+				std::cout << "se inicia la patada debil: " << std::endl;
+				frame = 0;
+				this->jugador->setIniciarGolpe(false);
+			}
+			std::cout << "frame pegando patadon: " << frame << std::endl;
+			if (frame / MAXFRAMEPATADITA <= MAXFRAMEPATADITA ) {
+				currentClip = &gSpritePatadadebil[frame / MAXFRAMEPATADITA	];
+				++frame;
+			} else {
+				std::cout << "golpe terminado" << std::endl;
+				this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
+			}
+		}
+		else if (this->jugador->estaAgachado()){
 			currentClip = &gSpriteAgachar[0];
 		} else if ((this->jugador->estado->getVelX() != 0)){
 

@@ -177,6 +177,10 @@ void Jugador::Pinion(Jugador * rival) {
 
 void Jugador::Patada(Jugador * rival) {
 	this->estado->Patada();
+	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
+
+			this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADA);
+		}
 	//aca va el if del collide
 	if(rival->collideConJugador(&mCollider))
 	rival->recibeDanio(this->estado->getDanioPatada());

@@ -23,6 +23,9 @@ public:
 	SDL_Rect  *gSpriteGolpear;
 	SDL_Rect  *gSpriteAnimacion;
 	SDL_Rect  *gSpritePatadadon;
+	SDL_Rect  *gSpritePatadadebil;
+	SDL_Rect  *gSpritePinaFuerte;
+	SDL_Rect  *gSpritePinaDebil;
 	SDL_Rect * gSprite;
 	int contador = 0;
 
@@ -37,8 +40,11 @@ public:
 	int MINFRAMEANIMACION;
 	int MAXFRAMEANIMACION;
 	int CANTSPRITECLIPPATADON;
+	int CANTSPRITECLIPPATADITA;
+
 	int MINFRAMEPATADON;
 	int MAXFRAMEPATADON;
+	int MAXFRAMEPATADITA;
 
 	virtual void reproducir_sonido_salto(){};
 	virtual void reproducir_sonido_cambio(){};

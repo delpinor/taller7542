@@ -19,6 +19,7 @@ void View_Jugador_CapAmerica::initialize(Jugador *model,
 	getSpritesAgachar();
 	getSpritesAnimacion();
 	getSpritesPatadaFuerte();
+	getSpritesPatadaDebil();
 	this->zIndex = model->get_zindex();
 	getSpritesCambioPersonaje();
 	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
@@ -298,6 +299,50 @@ void View_Jugador_CapAmerica::getSpritesPatadaFuerte() {
 	gSpritePatadadon[7].y = 1490;
 	gSpritePatadadon[7].w = 261;
 	gSpritePatadadon[7].h = 150;
+
+}
+void View_Jugador_CapAmerica::getSpritesPatadaDebil(){
+	CANTSPRITECLIPPATADITA = 5;
+	this->gSpritePatadadebil = new SDL_Rect[CANTSPRITECLIPPATADITA];
+	MAXFRAMEPATADITA=4;
+	gSpritePatadadebil[0].x = 323;
+	gSpritePatadadebil[0].y = 1297;
+	gSpritePatadadebil[0].w = 261;
+	gSpritePatadadebil[0].h = 150;
+
+	gSpritePatadadebil[1].x = 113;
+	gSpritePatadadebil[1].y = 1297;
+	gSpritePatadadebil[1].w = 261;
+	gSpritePatadadebil[1].h = 150;
+
+	gSpritePatadadebil[2].x = 113;
+	gSpritePatadadebil[2].y = 1297;
+	gSpritePatadadebil[2].w = 261;
+	gSpritePatadadebil[2].h = 150;
+
+	gSpritePatadadebil[3].x = 113;
+	gSpritePatadadebil[3].y = 1297;
+	gSpritePatadadebil[3].w = 261;
+	gSpritePatadadebil[3].h = 150;
+
+	gSpritePatadadebil[4].x = 113;
+	gSpritePatadadebil[4].y = 1297;
+	gSpritePatadadebil[4].w = 261;
+	gSpritePatadadebil[4].h = 150;
+
+
+
+
+
+
+
+}
+void View_Jugador_CapAmerica::getSpritesPinaFuerte(){
+
+
+}
+void View_Jugador_CapAmerica::getSpritesPinaDebil(){
+
 
 }
 
