@@ -12,6 +12,7 @@ void View_Jugador::initialize(Jugador * model, LTexture * texturaJugador) {
 
 void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 	SDL_Rect* currentClip;
+	std::cout << "RENDERISZAAAAR!!!!!!!" << std::endl;
 	if(this->jugador->get_estado_desconexion()==false){
 		//printf("No se pone gris la imagen!!!!\n");
 		this->desgrisar_imagen();
@@ -28,8 +29,8 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 				this->jugador->setIniciarGolpe(false);
 			}
 			std::cout << "frame pegando patadon: " << frame << std::endl;
-			if (frame / MAXFRAMEPATADON <= MAXFRAMEPATADON ) {
-				currentClip = &gSpritePatadadon[frame / MAXFRAMEPATADON];
+			if (frame / FACTORPATADON <= MAXFRAMEPATADON ) {
+				currentClip = &gSpritePatadadon[frame / FACTORPATADON];
 				++frame;
 			} else {
 				std::cout << "golpe terminado" << std::endl;
@@ -39,16 +40,17 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 			currentClip = &gSpriteAgachar[0];
 		} else if ((this->jugador->estado->getVelX() != 0)){
 
-			if (frame / MAXFRAMECAMINA >= MAXFRAMECAMINA ) {
+			if (frame / FACTORCAMINA > MAXFRAMECAMINA ) {
 				frame = MINFRAMECAMINA;
 			}
-			currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
+			std::cout << "frame CAMINAAAAAAA: " << frame << std::endl;
+			currentClip = &gSpriteCaminar[frame / FACTORCAMINA];
 			++frame;
 		} else if ((this->jugador->estado->getVelX() == 0)) {
-			currentClip = &gSpriteAnimacion[frame / MAXFRAMEANIMACION];
-			if (frame / MAXFRAMEANIMACION >= MAXFRAMEANIMACION ) {
+			if (frame / FACTORANIMACION > MAXFRAMEANIMACION ) {
 				frame = MINFRAMEANIMACION;
 			}
+			currentClip = &gSpriteAnimacion[frame / FACTORANIMACION];
 			++frame;
 		}
 	}else {
@@ -56,10 +58,10 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 			if (this->jugador->estado->getVelY() >= 18) {
 				frame = 0;
 			}
-			if (frame / MAXFRAMESALTA >= CANTSPRITECLIPSALTA-1) {
+			if (frame / FACTORSALTA > MAXFRAMESALTA) {
 				frame = MINFRAMESALTA;
 			}
-			currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
+			currentClip = &gSpriteSaltar[frame / FACTORSALTA];
 			++frame;
 		} else if (this->jugador->estaCambiandoPersonaje())
 			currentClip = &gSpriteCambiarPersonaje[0];

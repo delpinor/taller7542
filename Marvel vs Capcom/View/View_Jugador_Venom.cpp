@@ -24,8 +24,9 @@ void View_Jugador_Venom::getSpritesAnimacion() {
 	CANTSPRITEANIMACION = 13;
 	MINFRAMEANIMACION = 0;
 	MAXFRAMEANIMACION = 12;
-
+	FACTORANIMACION =12;
 	this->gSpriteAnimacion = new SDL_Rect[CANTSPRITEANIMACION];
+
 	gSpriteAnimacion[0].x = 42;
 	gSpriteAnimacion[0].y = 610;
 	gSpriteAnimacion[0].w = 261;
@@ -97,7 +98,7 @@ void View_Jugador_Venom::getSpritesCaminar() {
 	CANTSPRITECLIPCAMINA = 10;
 	MINFRAMECAMINA = 0;
 	MAXFRAMECAMINA = 9;
-
+	FACTORCAMINA = 9;
 	this->gSpriteCaminar = new SDL_Rect[CANTSPRITECLIPCAMINA];
 	gSpriteCaminar[9].x = 18;
 	gSpriteCaminar[9].y = 1256;
@@ -153,8 +154,8 @@ void View_Jugador_Venom::getSpritesCaminar() {
 void View_Jugador_Venom::getSpritesSaltar() {
 	CANTSPRITECLIPSALTA = 4;
 	MINFRAMESALTA = 0;
-	MAXFRAMESALTA = 5;
-
+	MAXFRAMESALTA = 3;
+	FACTORSALTA = 5;
 	this->gSpriteSaltar = new SDL_Rect[CANTSPRITECLIPSALTA];
 	gSpriteSaltar[0].x = 24;
 	gSpriteSaltar[0].y = 1924;
@@ -207,6 +208,7 @@ void View_Jugador_Venom::getSpritesPatadaFuerte() {
 	CANTSPRITECLIPPATADON = 8;
 	MINFRAMEPATADON = 0;
 	MAXFRAMEPATADON = 7;
+	FACTORPATADON = 7;
 	this->gSpritePatadadon = new SDL_Rect[CANTSPRITECLIPPATADON];
 
 	gSpritePatadadon[0].x = 24;
