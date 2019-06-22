@@ -100,6 +100,9 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 	updateDirection(*jugadorRival);
 	this->mCollider.x = this->estado->getPosX();
 	this->mCollider.y = this->estado->getPosY();
+	//aca iria el contador
+	if (this->getTipoGolpe() == TIPO_GOLPE::GOLPE_ARROJAR)
+				this->setTipoGolpe(TIPO_GOLPE::NADA);
 }
 
 int Jugador::getPosX() {
