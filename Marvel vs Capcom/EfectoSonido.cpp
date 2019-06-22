@@ -15,14 +15,14 @@ EfectoSonido::EfectoSonido(int tecla) {
 bool EfectoSonido::init(){
 
 	//Initialize SDL_mixer
-	/*
+
 	if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
 	{
 		printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
 
 		return false;
 	}else
-	*/
+
 		return true;
 
 
@@ -32,7 +32,7 @@ bool EfectoSonido::loadMedia(char* path) {
 	//Loading success flag
 	bool success = true;
 
-/*
+
 	//Load sound effects
 	audio= Mix_LoadWAV(path);
 	if(audio== NULL )
@@ -40,7 +40,7 @@ bool EfectoSonido::loadMedia(char* path) {
 		printf( "Sonido, LaadMedia: SDL_mixer Error: %s\n", Mix_GetError() );
 		success = false;
 	}
-*/
+
 	return success;
 }
 const int EfectoSonido::get_tecla(){
@@ -57,15 +57,15 @@ ejemplo Mix_PlayChannel( -1, gScratch, 0 );
  */
 void EfectoSonido::reproducir_sonido(){
 
-/*
+
 	Mix_PlayChannel( -1,this->audio, 0 );
-	*/
+
 
 }
 void EfectoSonido::parar_sonido(){
-/*
+
 	Mix_HaltMusic();
-	*/
+
 
 }
 EfectoSonido::~EfectoSonido() {

@@ -22,14 +22,14 @@ the chunks we use when playing sound. 2048 bytes (AKA 2 kilobyes) worked fine fo
 with this value to minimize lag when playing sounds.
  */
 bool Sonido::init(){
-/*
+
 	//Initialize SDL_mixer
 	if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
 	{
 		printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
 
 		return false;
-	}else   */
+	}else
 		return true;
 
 
@@ -40,7 +40,7 @@ bool Sonido::loadMedia(char* path) {
 
 	bool success = true;
 
-	/*
+
 	//Load sound effects
 	audio= Mix_LoadMUS( path);
 	if(audio== NULL )
@@ -48,7 +48,7 @@ bool Sonido::loadMedia(char* path) {
 		printf( "Sonido, LaadMedia: SDL_mixer Error: %s\n", Mix_GetError() );
 		success = false;
 	}
-*/
+
 	return success;
 
 }
@@ -65,21 +65,21 @@ so we have it repeat 0 times.
 ejemplo Mix_PlayChannel( -1, gScratch, 0 );
  */
 void Sonido::reproducir_sonido(){
-/*
+
 	Mix_PlayMusic( this->audio, -1 );
-*/
+
 
 }
 void Sonido::parar_sonido(){
-/*
+
 	Mix_HaltMusic();
-*/
+
 }
 Sonido::~Sonido() {
-/*
+
 	Mix_FreeMusic(audio);
 	audio= NULL;
 	Mix_Quit();
-	*/
+
 }
 
