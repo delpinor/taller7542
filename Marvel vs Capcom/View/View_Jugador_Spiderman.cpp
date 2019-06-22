@@ -58,7 +58,7 @@ void View_Jugador_Spiderman::getSpritesAnimacion() {
 	CANTSPRITEANIMACION = 10;
 	MINFRAMEANIMACION = 0;
 	MAXFRAMEANIMACION = 9;
-
+	FACTORANIMACION = 9;
 	this->gSpriteAnimacion = new SDL_Rect[CANTSPRITEANIMACION];
 
 	gSpriteAnimacion[0].x = 31;
@@ -117,6 +117,7 @@ void View_Jugador_Spiderman::getSpritesCaminar() {
 	CANTSPRITECLIPCAMINA = 12;
 	MINFRAMECAMINA = 0;
 	MAXFRAMECAMINA = 11;
+	FACTORCAMINA = 6;
 	this->gSpriteCaminar = new SDL_Rect[CANTSPRITECLIPCAMINA];
 
 	gSpriteCaminar[0].x = 24;
@@ -182,9 +183,10 @@ void View_Jugador_Spiderman::getSpritesCaminar() {
 }
 
 void View_Jugador_Spiderman::getSpritesSaltar() {
-	CANTSPRITECLIPSALTA = 4;
+	CANTSPRITECLIPSALTA = 7;
 	MINFRAMESALTA = 0;
-	MAXFRAMESALTA = 5;
+	MAXFRAMESALTA = 6;
+	FACTORSALTA = 2;
 	this->gSpriteSaltar = new SDL_Rect[CANTSPRITECLIPSALTA];
 
 	gSpriteSaltar[0].x = 448;
@@ -192,35 +194,35 @@ void View_Jugador_Spiderman::getSpritesSaltar() {
 	gSpriteSaltar[0].w = 261;
 	gSpriteSaltar[0].h = 150;
 
-//	gSpriteSaltar[1].x = 658;
-//	gSpriteSaltar[1].y = 341;
-//	gSpriteSaltar[1].w = 261;
-//	gSpriteSaltar[1].h = 150;
-
-	gSpriteSaltar[1].x = 880;
-	gSpriteSaltar[1].y = 352;
+	gSpriteSaltar[1].x = 658;
+	gSpriteSaltar[1].y = 341;
 	gSpriteSaltar[1].w = 261;
 	gSpriteSaltar[1].h = 150;
 
-//	gSpriteSaltar[3].x = 880;
-//	gSpriteSaltar[3].y = 352;
-//	gSpriteSaltar[3].w = 261;
-//	gSpriteSaltar[3].h = 150;
-
-	gSpriteSaltar[2].x = 1499;
-	gSpriteSaltar[2].y = 327;
+	gSpriteSaltar[2].x = 880;
+	gSpriteSaltar[2].y = 352;
 	gSpriteSaltar[2].w = 261;
 	gSpriteSaltar[2].h = 150;
 
-	gSpriteSaltar[3].x = 1698;
-	gSpriteSaltar[3].y = 324;
+	gSpriteSaltar[3].x = 880;
+	gSpriteSaltar[3].y = 352;
 	gSpriteSaltar[3].w = 261;
 	gSpriteSaltar[3].h = 150;
 
-//	gSpriteSaltar[5].x = 1898;
-//	gSpriteSaltar[5].y = 320;
-//	gSpriteSaltar[5].w = 261;
-//	gSpriteSaltar[5].h = 150;
+	gSpriteSaltar[4].x = 1499;
+	gSpriteSaltar[4].y = 327;
+	gSpriteSaltar[4].w = 261;
+	gSpriteSaltar[4].h = 150;
+
+	gSpriteSaltar[5].x = 1698;
+	gSpriteSaltar[5].y = 324;
+	gSpriteSaltar[5].w = 261;
+	gSpriteSaltar[5].h = 150;
+
+	gSpriteSaltar[6].x = 1898;
+	gSpriteSaltar[6].y = 320;
+	gSpriteSaltar[6].w = 261;
+	gSpriteSaltar[6].h = 150;
 
 
 }
@@ -246,47 +248,48 @@ void View_Jugador_Spiderman::getSpritesPatadaFuerte() {
 	CANTSPRITECLIPPATADON = 8;
 	MINFRAMEPATADON = 0;
 	MAXFRAMEPATADON = 7;
-	this->gSpritePatadadon = new SDL_Rect[CANTSPRITECLIPPATADON];
+	FACTORPATADON = 7;
+	this->gSpritePatadon = new SDL_Rect[CANTSPRITECLIPPATADON];
 
-	gSpritePatadadon[0].x = 43;
-	gSpritePatadadon[0].y = 803;
-	gSpritePatadadon[0].w = 261;
-	gSpritePatadadon[0].h = 150;
+	gSpritePatadon[0].x = 43;
+	gSpritePatadon[0].y = 803;
+	gSpritePatadon[0].w = 261;
+	gSpritePatadon[0].h = 150;
 
-	gSpritePatadadon[1].x = 291;
-	gSpritePatadadon[1].y = 803;
-	gSpritePatadadon[1].w = 261;
-	gSpritePatadadon[1].h = 150;
+	gSpritePatadon[1].x = 291;
+	gSpritePatadon[1].y = 803;
+	gSpritePatadon[1].w = 261;
+	gSpritePatadon[1].h = 150;
 
-	gSpritePatadadon[2].x = 563;
-	gSpritePatadadon[2].y = 803;
-	gSpritePatadadon[2].w = 261;
-	gSpritePatadadon[2].h = 150;
+	gSpritePatadon[2].x = 563;
+	gSpritePatadon[2].y = 803;
+	gSpritePatadon[2].w = 261;
+	gSpritePatadon[2].h = 150;
 
-	gSpritePatadadon[3].x = 848;
-	gSpritePatadadon[3].y = 803;
-	gSpritePatadadon[3].w = 261;
-	gSpritePatadadon[3].h = 150;
+	gSpritePatadon[3].x = 848;
+	gSpritePatadon[3].y = 803;
+	gSpritePatadon[3].w = 261;
+	gSpritePatadon[3].h = 150;
 
-	gSpritePatadadon[4].x = 1113;
-	gSpritePatadadon[4].y = 803;
-	gSpritePatadadon[4].w = 261;
-	gSpritePatadadon[4].h = 150;
+	gSpritePatadon[4].x = 1113;
+	gSpritePatadon[4].y = 803;
+	gSpritePatadon[4].w = 261;
+	gSpritePatadon[4].h = 150;
 
-	gSpritePatadadon[5].x = 1380;
-	gSpritePatadadon[5].y = 803;
-	gSpritePatadadon[5].w = 261;
-	gSpritePatadadon[5].h = 150;
+	gSpritePatadon[5].x = 1380;
+	gSpritePatadon[5].y = 803;
+	gSpritePatadon[5].w = 261;
+	gSpritePatadon[5].h = 150;
 
-	gSpritePatadadon[6].x = 1667;
-	gSpritePatadadon[6].y = 803;
-	gSpritePatadadon[6].w = 261;
-	gSpritePatadadon[6].h = 150;
+	gSpritePatadon[6].x = 1667;
+	gSpritePatadon[6].y = 803;
+	gSpritePatadon[6].w = 261;
+	gSpritePatadon[6].h = 150;
 
-	gSpritePatadadon[7].x = 1966;
-	gSpritePatadadon[7].y = 803;
-	gSpritePatadadon[7].w = 261;
-	gSpritePatadadon[7].h = 150;
+	gSpritePatadon[7].x = 1966;
+	gSpritePatadon[7].y = 803;
+	gSpritePatadon[7].w = 261;
+	gSpritePatadon[7].h = 150;
 
 }
 
