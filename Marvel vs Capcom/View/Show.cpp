@@ -83,4 +83,11 @@ void Show::RenderPersonaje(int x, int y, std::string nombre){
 }
 Show::~Show(){
 	gReady.free();
+	gBorde.free();
+	gAmerica.free();
+	gVenom.free();
+	gChunlee.free();
+	gSpider.free();
+	gWin.free();
+	gLose.free();
 }
