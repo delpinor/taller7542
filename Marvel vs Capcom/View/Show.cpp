@@ -41,12 +41,12 @@ void Show::render(TIPOLEYENDA tipo, std::string mensaje, Equipo * equipos[2]){
 		gReady.render(155, 200, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	}
 
-	bool ganoEquipo0 = false;
+	//bool ganoEquipo0 = false;
 	if(tipo == RESULTADOS){
 			if(equipos[0]->getRondasGanadas() > equipos[1]->getRondasGanadas()){
 				gWin.render(50, 160,300, 156, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 				gLose.render(460, 160,300,131, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
-				ganoEquipo0 = true;
+				//ganoEquipo0 = true;
 			}else{
 				gWin.render(460, 160,300, 156, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 				gLose.render(50, 160,300,131, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
@@ -60,7 +60,6 @@ void Show::render(TIPOLEYENDA tipo, std::string mensaje, Equipo * equipos[2]){
 	}
 }
 void Show::RenderPersonaje(int x, int y, std::string nombre){
-	std::cout << "Campeon: " << nombre << std::endl;
 	if( nombre == "Captain America"){
 		gAmerica.render(x, y, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	}
