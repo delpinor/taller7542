@@ -29,6 +29,12 @@ protected:
 	void getSpritesPatadaDebil();
 	void getSpritesPinaFuerte();
 	void getSpritesPinaDebil();
+	void getSpritesDefensa();
+	void getSpritesPatadaFuerte_agachado();
+	void getSpritesPatadaDebil_agachado();
+	void getSpritesPinaFuerte_agachado();
+	void getSpritesPinaDebil_agachado();
+	void getSpritesDefensa_agachado();
 
 
 };

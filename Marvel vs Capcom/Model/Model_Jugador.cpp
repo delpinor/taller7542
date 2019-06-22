@@ -160,17 +160,40 @@ void Jugador::aumentarVelocidadY() {
 void Jugador::aumentarVelocidadY(int vel) {
 	this->estado->aumentarVelocidadY(vel);
 }
+void Jugador::Defensa() {
+	this->estado->Defensa();
+	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
+
+				this->setTipoGolpe(TIPO_GOLPE::GOLPE_DEFENSA);
+			}
+
+}
 
 void Jugador::Pinia(Jugador * rival) {
 	this->estado->Pinia();
-	//aca va el if del collide
+	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
+
+				this->setTipoGolpe(TIPO_GOLPE::GOLPE_PINIA);
+			}
 	if(rival->collideConJugador(&mCollider))
 	rival->recibeDanio(this->estado->getDanioPinia());
 }
 
 void Jugador::Pinion(Jugador * rival) {
 	this->estado->Pinion();
-	//aca va el if del collide
+	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
+
+				this->setTipoGolpe(TIPO_GOLPE::GOLPE_PINION);
+			}
+	if(rival->collideConJugador(&mCollider))
+	rival->recibeDanio(this->estado->getDanioPinion());
+}
+void Jugador::Pinion_agachado(Jugador * rival) {
+	this->estado->Pinion_agachado();
+	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
+
+				this->setTipoGolpe(TIPO_GOLPE::GOLPE_PINION_AGACHADO);
+			}
 	if(rival->collideConJugador(&mCollider))
 	rival->recibeDanio(this->estado->getDanioPinion());
 }
@@ -195,6 +218,18 @@ void Jugador::Patadon(Jugador * rival) {
 	if(rival->collideConJugador(&mCollider))
 	rival->recibeDanio(this->estado->getDanioPatadon());
 }
+
+void Jugador::Patada_agachado(Jugador * rival) {
+	this->estado->Patada_agachado();
+	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
+
+			this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADA_AGACHADO);
+		}
+	//aca va el if del collide
+	if(rival->collideConJugador(&mCollider))
+	rival->recibeDanio(this->estado->getDanioPatada());
+}
+
 void Jugador::recibeDanio(int danio) {
 	if (this->vidaJugador - danio >= 0)
 		this->vidaJugador =this->vidaJugador - danio;

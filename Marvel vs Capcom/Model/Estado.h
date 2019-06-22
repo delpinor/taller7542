@@ -28,8 +28,12 @@ public:
 	void Saltar();
 	void Pinia();
 	void Pinion();
+	void Pinion_agachado();
+
 	void Patada();
+	void Patada_agachado();
 	void Patadon();
+	void Defensa();
 	int  getDanioPinia();
 	int  getDanioPinion();
 	int  getDanioPatada();

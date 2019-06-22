@@ -13,7 +13,10 @@
 #define PATADA  0x0A
 #define PATADON  0x0B
 #define DEFENSA 0x0C
-#define CANTCOMMANDS 13
+#define PATADA_AGACHADO  0x0D
+#define PINION_AGACHADO  0x1D
+
+#define CANTCOMMANDS 14
 
 class Command {
 public:

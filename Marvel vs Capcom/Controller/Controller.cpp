@@ -12,6 +12,9 @@
 #include "../Command/CommandCtrl/Pinion.h"
 #include "../Command/CommandCtrl/Patada.h"
 #include "../Command/CommandCtrl/Patadon.h"
+#include "../Command/CommandCtrl/Defensa.h"
+#include "../Command/CommandCtrl/PatadaAgachado.h"
+#include "../Command/CommandCtrl/PinionAgachado.h"
 #include <iostream>
 void Controller::SetModel(Model* model) {
 	this->model = model;
@@ -28,6 +31,9 @@ void Controller::SetModel(Model* model) {
 	this->commands[PINION] = new Pinion(model);
 	this->commands[PATADA] = new Patada(model);
 	this->commands[PATADON] = new Patadon(model);
+	this->commands[DEFENSA] = new Defensa(model);
+	this->commands[PATADA_AGACHADO ] = new PatadaAgachado(model);
+	this->commands[PINION_AGACHADO ] = new PinionAgachado(model);
 	this->quit = false;
 }
 Controller::Controller() {
@@ -66,6 +72,17 @@ int Controller::processInputCliente() {
 
 int Controller::handleEventCliente(SDL_Event& e) {
 	int comando = 99;
+	  //Get the keystates
+//obtengo los estados de todas las teclas
+	const Uint8 *state =SDL_GetKeyboardState(NULL);
+//si esta presionada la s y la k . es decir si esta agachado y quiere hacer la patada
+	if  ((state[SDL_SCANCODE_S])&& (state[SDL_SCANCODE_K])){
+
+		comando=PATADA_AGACHADO;
+	} else if((state[SDL_SCANCODE_S])&& (state[SDL_SCANCODE_U])){
+		comando=PINION_AGACHADO;
+
+	}else{
 
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
 		switch (e.key.keysym.sym) {
@@ -73,8 +90,9 @@ int Controller::handleEventCliente(SDL_Event& e) {
 			comando =  SALTAR;
 			break;
 		case SDLK_s:
-			comando =  AGACHAR;
-			break;
+						comando =  AGACHAR;
+
+						break;
 		case SDLK_a:
 			comando =  DECVELX;
 			break;
@@ -92,6 +110,9 @@ int Controller::handleEventCliente(SDL_Event& e) {
 			break;
 		case SDLK_i:
 			comando =  PATADON;
+			break;
+		case  SDLK_h:
+			comando =  DEFENSA;
 			break;
 		case SDLK_LCTRL:
 			comando =  CAMBIAR_PERSONAJE;
@@ -115,6 +136,7 @@ int Controller::handleEventCliente(SDL_Event& e) {
 			comando = DECVELX;
 			break;
 		}
+	}
 	}
 	return comando;
 }

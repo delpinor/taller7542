@@ -176,10 +176,19 @@ int  Estado::getDanioPatadon(){
 void Estado::Pinion() {
 
 }
+void Estado::Pinion_agachado() {
+
+}
 void Estado::Patada() {
 
 }
+void Estado::Patada_agachado() {
+
+}
 void Estado::Patadon() {
+
+}
+void Estado::Defensa(){
 
 }
 void Estado::detenerVelocidad() {

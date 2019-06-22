@@ -82,10 +82,13 @@ public:
 	void aumentarVelocidadX();
 	void aumentarVelocidadY();
 	void Saltar();
+	void Defensa();
 	void Pinia(Jugador * rival);
 	void Pinion(Jugador * rival);
+	void Pinion_agachado(Jugador * rival);
 	void Patada(Jugador * rival);
 	void Patadon(Jugador * rival);
+	void Patada_agachado(Jugador * rival);
 	void recibeDanio(int danio);
 	bool estaActivo();
 	bool estaAgachado();

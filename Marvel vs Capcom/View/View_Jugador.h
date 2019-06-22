@@ -26,6 +26,14 @@ public:
 	SDL_Rect  *gSpritePatadadebil;
 	SDL_Rect  *gSpritePinaFuerte;
 	SDL_Rect  *gSpritePinaDebil;
+	SDL_Rect  *gSpriteDefensa;
+
+	SDL_Rect  *gSpritePatadadon_agachado;
+	SDL_Rect  *gSpritePatadadebil_agachado;
+	SDL_Rect  *gSpritePinaFuerte_agachado;
+	SDL_Rect  *gSpritePinaDebil_agachado;
+	SDL_Rect  *gSpriteDefensa_agachado;
+
 	SDL_Rect * gSprite;
 	int contador = 0;
 
@@ -41,10 +49,31 @@ public:
 	int MAXFRAMEANIMACION;
 	int CANTSPRITECLIPPATADON;
 	int CANTSPRITECLIPPATADITA;
+	int CANTSPRITEPINADEBIL;
+	int CANTSPRITEPINAFUERTE;
+	int CANTSPRITEDEFENSA;
+
+	int CANTSPRITECLIPPATADON_agachado;
+	int CANTSPRITECLIPPATADITA_agachado;
+	int CANTSPRITEPINADEBIL_agachado;
+	int CANTSPRITEPINAFUERTE_agachado;
+	int CANTSPRITEDEFENSA_agachado;
+
 
 	int MINFRAMEPATADON;
 	int MAXFRAMEPATADON;
 	int MAXFRAMEPATADITA;
+	int MAXFRAMEPINADEBIL;
+	int MAXFRAMEPINAFUERTE;
+	int MAXFRAMEDEFENSA;
+
+
+	int MAXFRAMEPATADON_agachado;
+	int MAXFRAMEPATADITA_agachado;
+	int MAXFRAMEPINADEBIL_agachado;
+	int MAXFRAMEPINAFUERTE_agachado;
+	int MAXFRAMEDEFENSA_agachado;
+
 
 	virtual void reproducir_sonido_salto(){};
 	virtual void reproducir_sonido_cambio(){};
