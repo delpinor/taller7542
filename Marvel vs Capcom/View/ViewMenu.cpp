@@ -44,7 +44,7 @@ bool ViewMenu::loadMedia() {
 			gRenderer, ANCHO_CUADRO_JUGADOR, ALTO_CUADRO_JUGADOR);
 	texturaFondo.loadFromFile("Images/fondoc.png", gRenderer, SCREEN_WIDTH,
 			SCREEN_HEIGHT);
-	texturaFondoLogin.loadFromFile("Images/fondologin.jpg", gRenderer, 0,
+	texturaFondoLogin.loadFromFile("Images/fondologin.gif", gRenderer, 0,
 			0);
 	return true;
 
