@@ -1,6 +1,6 @@
 #include "Partida.h"
 #include <iostream>
-#define DURACIONMENSAJE 3
+#define DURACIONMENSAJE 2
 void Partida::IniciarPartida() {
 	//listaJugadores = listaEspera;
 	//listaEspera.clear();
@@ -123,6 +123,7 @@ ModeloEstado Partida::GetModeloEstado() {
 	unModelo = modelo->GetModelEstado();
 	//	unModelo.activoEquipo1 = GetTitularJugando(0).numeroJugador;
 	//	unModelo.activoEquipo2 = GetTitularJugando(1).numeroJugador;
+
 	unModelo.activoEquipo1 = modelo->equipos[0]->nroJugadorActivo;
 	unModelo.activoEquipo2 = modelo->equipos[1]->nroJugadorActivo;
 	return unModelo;
@@ -130,17 +131,24 @@ ModeloEstado Partida::GetModeloEstado() {
 ModeloInGame Partida::GetModeloGame(){
 	ModeloInGame unModelo;
 	unModelo = modelo->GetModeloInGame();
+	unModelo.ganadosEquipo0 = this->GetModeloResultadoEquipo(0).cantidadResultados;
+	unModelo.ganadosEquipo1 =  this->GetModeloResultadoEquipo(1).cantidadResultados;
+	if (Iniciada()){
+		if(tiempoRound < (cronometro+DURACIONMENSAJE)){
+				unModelo.tipoMensaje = READY;
+				std::string msg = "Ronda " + std::to_string(roundActual);
+				strcpy(unModelo.mensaje, msg.c_str());
+		}else{
+			unModelo.tipoMensaje = NINGUNO;
+		}
 
-	if(tiempoRound < (cronometro+DURACIONMENSAJE)){
-		unModelo.tipoMensaje = READY;
-		std::string msg = "Ronda " + std::to_string(roundActual);
-		strcpy(unModelo.mensaje, msg.c_str());
-	}else{
-		unModelo.tipoMensaje = NINGUNO;
+	}
+	if(Finalizada()){
+		unModelo.tipoMensaje = RESULTADOS;
 	}
 
-	unModelo.resultadoEquipo0 = this->GetModeloResultadoEquipo(0);
-	unModelo.resultadoEquipo1 = this->GetModeloResultadoEquipo(1);
+	//unModelo.resultadoEquipo0 = this->GetModeloResultadoEquipo(0);
+	//unModelo.resultadoEquipo1 = this-> this->GetModeloResultadoEquipo(0);
 
 	return unModelo;
 }

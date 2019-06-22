@@ -32,6 +32,7 @@ private:
 
 
 public:
+	bool PantallaFija =  false;
 	void refrescarPosicion(SDL_Rect * cam);
 
 	FondoParallax(SDL_Window * ventana, SDL_Renderer * renderer, std::string rutaZ1, std::string rutaZ2, std::string rutaZ3);

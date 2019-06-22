@@ -19,8 +19,8 @@ Barras::Barras(SDL_Renderer * gRen){
 		gBordeDerecha.loadFromFile("Images/barra_borde_derecha.png", gRenderer, 350, 30);
 		gFondoDerecha.loadFromFile("Images/barra_vida_b.png", gRenderer, ANCHO_VIDA, 25);
 
-		gBordeIzquierdaInf.loadFromFile("Images/barra_borde_izquierda.png", gRenderer, 350, 30);
-		gBordeDerechaInf.loadFromFile("Images/barra_borde_derecha.png", gRenderer, 350, 30);
+		gBordeIzquierdaInf.loadFromFile("Images/barra_borde_izquierda.png", gRenderer, 300, 30);
+		gBordeDerechaInf.loadFromFile("Images/barra_borde_derecha.png", gRenderer, 300, 30);
 
 		gFondoIzquierdaInf.loadFromFile("Images/barra_vida_b.png", gRenderer, ANCHO_VIDA, 25);
 		gFondoDerechaInf.loadFromFile("Images/barra_vida_b.png", gRenderer, ANCHO_VIDA, 25);
@@ -38,12 +38,12 @@ Barras::Barras(SDL_Renderer * gRen){
 void Barras::Reset(){
 	//startTime = SDL_GetTicks();
 }
-void Barras::CargarTexto(string nombre){
+void Barras::CargarTexto(string nombre, SDL_Color color){
 	//Set text to be rendered
 	nombrePersonaje.str( "" );
 	nombrePersonaje << nombre;
 	//Render text
-	if(!gTextoPersonaje.loadFromRenderedText(nombrePersonaje.str(), textColor, gRenderer, gFont)){
+	if(!gTextoPersonaje.loadFromRenderedText(nombrePersonaje.str(), color, gRenderer, gFont)){
 		printf("Carga texto");
 	}
 }
@@ -54,13 +54,13 @@ void Barras::SetVida(int equipo, int jugador, int vida){
 		if(jugador == 0){
 			vidaEquipo0_titular = vidaBarra;
 		}else{
-			vidaEquipo0_suplente = vidaBarra;
+			vidaEquipo0_suplente = vidaBarra*0.86;
 		}
 	}else{
 		if(jugador == 0){
 			vidaEquipo1_titular = vidaBarra;
 		}else{
-			vidaEquipo1_suplente = vidaBarra;
+			vidaEquipo1_suplente = vidaBarra*0.86;
 		}
 	}
 }
@@ -71,42 +71,53 @@ void Barras::ActulializarColores(Equipo * equipos[2]){
 
 	//color para el fondo =  TITULARES
 
-	colorRojo = 255-(1*equipos[0]->getJugadorNro(0)->GetVida());
-	colorVerde = 2.55*equipos[0]->getJugadorNro(0)->GetVida();
+	colorRojo = 255-(1*equipos[0]->getJugadorActivo()->GetVida());
+	colorVerde = 2.55*equipos[0]->getJugadorActivo()->GetVida();
 	gFondoIzquierda.setColor(colorRojo, colorVerde, 20);
 
-	colorRojo = 255-(1*equipos[1]->getJugadorNro(0)->GetVida());
-	colorVerde = 2.55*equipos[1]->getJugadorNro(0)->GetVida();
+	colorRojo = 255-(1*equipos[1]->getJugadorActivo()->GetVida());
+	colorVerde = 2.55*equipos[1]->getJugadorActivo()->GetVida();
 	gFondoDerecha.setColor(colorRojo, colorVerde, 20);
 
 	//color para el fondo =  SUPLENTES
 
-	colorRojo = 255-(1*equipos[0]->getJugadorNro(1)->GetVida());
-	colorVerde = 2.55*equipos[0]->getJugadorNro(1)->GetVida();
+	colorRojo = 255-(1*equipos[0]->getJugadorInactivo()->GetVida());
+	colorVerde = 2.55*equipos[0]->getJugadorInactivo()->GetVida();
 	gFondoIzquierdaInf.setColor(colorRojo, colorVerde, 20);
 
 
-	colorRojo = 255-(1*equipos[1]->getJugadorNro(1)->GetVida());
-	colorVerde = 2.55*equipos[1]->getJugadorNro(1)->GetVida();
+	colorRojo = 255-(1*equipos[1]->getJugadorInactivo()->GetVida());
+	colorVerde = 2.55*equipos[1]->getJugadorInactivo()->GetVida();
 	gFondoDerechaInf.setColor(colorRojo, colorVerde, 20);
 
 
 }
 void Barras::render(Equipo * equipos[2]){
+	// Color nombres
+	SDL_Color colorNombres = { 4, 147, 199, 255 };
+
+	// Color score
+	SDL_Color colorScore= { 255, 255, 255, 255 };
+
 
 	// Calcular el ancho de la barra
-	SetVida(0, 0, equipos[0]->getJugadorNro(0)->GetVida());
-	SetVida(0, 1, equipos[0]->getJugadorNro(1)->GetVida());
-	SetVida(1, 0, equipos[1]->getJugadorNro(0)->GetVida());
-	SetVida(1, 1, equipos[1]->getJugadorNro(1)->GetVida());
+	SetVida(0, 0, equipos[0]->getJugadorActivo()->GetVida());
+	SetVida(0, 1, equipos[0]->getJugadorInactivo()->GetVida());
+
+	SetVida(1, 0, equipos[1]->getJugadorActivo()->GetVida());
+	SetVida(1, 1, equipos[1]->getJugadorInactivo()->GetVida());
 
 	//Obtener el nombre del personaje TITULARES
-	std::string nombreEquipo0Titular = equipos[0]->getJugadorNro(0)->getNombre();
-	std::string nombreEquipo1Titular = equipos[1]->getJugadorNro(0)->getNombre();
+	std::string nombreEquipo0Titular = equipos[0]->getJugadorActivo()->getNombre();
+	std::string nombreEquipo1Titular = equipos[1]->getJugadorActivo()->getNombre();
 
-	//Obtener el nombre del personaje TITULARES
-	std::string nombreEquipo0Suplente = equipos[0]->getJugadorNro(1)->getNombre();
-	std::string nombreEquipo1Suplente = equipos[1]->getJugadorNro(1)->getNombre();
+	//Obtener el nombre del personaje SUPLENTES
+	std::string nombreEquipo0Suplente = equipos[0]->getJugadorInactivo()->getNombre();
+	std::string nombreEquipo1Suplente = equipos[1]->getJugadorInactivo()->getNombre();
+
+	//Rondas ganadas
+	int rondasEquipo0 = equipos[0]->getRondasGanadas();
+	int rondasEquipo1 = equipos[1]->getRondasGanadas();
 
 	//Posicionescde las barras de vida
 	int posXIzquierdo = 2;
@@ -130,25 +141,32 @@ void Barras::render(Equipo * equipos[2]){
 	// Barra Superior
 	gFondoIzquierda.render(posXIzquierdo+8, 11,vidaEquipo0_titular,24, &vida, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	gBordeIzquierda.render(posXIzquierdo, 10, &barras, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
-	CargarTexto(nombreEquipo0Titular);
+	CargarTexto(nombreEquipo0Titular, colorNombres);
 	gTextoPersonaje.render(posXIzquierdo+115, 11, NULL,0.0, NULL, SDL_FLIP_NONE,gRenderer);
 
 
 	gFondoDerecha.render(posXDerecha+16+ANCHO_VIDA-vidaEquipo1_titular, 11,vidaEquipo1_titular ,24,&vida, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	gBordeDerecha.render(posXDerecha, 10, &barras, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
-	CargarTexto(nombreEquipo1Titular);
+	CargarTexto(nombreEquipo1Titular, colorNombres);
 	gTextoPersonaje.render(posXDerecha+135, 11, NULL,0.0, NULL, SDL_FLIP_NONE,gRenderer);
 
 	//Barra inferior
 	gFondoIzquierdaInf.render(posXIzquierdo+8, 41,vidaEquipo0_suplente,24, &vida, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	gBordeIzquierdaInf.render(posXIzquierdo, 40, &barras, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
-	CargarTexto(nombreEquipo0Suplente);
+	CargarTexto(nombreEquipo0Suplente, colorNombres);
 	gTextoPersonaje.render(posXIzquierdo+115, 11+30, NULL,0.0, NULL, SDL_FLIP_NONE,gRenderer);
 
 	gFondoDerechaInf.render(posXDerecha+16+ANCHO_VIDA-vidaEquipo1_suplente, 41,vidaEquipo1_suplente ,24,&vida, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
-	gBordeDerechaInf.render(posXDerecha, 40, &barras, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
-	CargarTexto(nombreEquipo1Suplente);
+	gBordeDerechaInf.render(posXDerecha+50, 40, &barras, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
+	CargarTexto(nombreEquipo1Suplente, colorNombres);
 	gTextoPersonaje.render(posXDerecha+135, 11+30, NULL,0.0, NULL, SDL_FLIP_NONE,gRenderer);
+
+	//Rondas ganadas
+
+	CargarTexto(std::to_string(rondasEquipo0) + " : " + std::to_string(rondasEquipo1), colorScore);
+	gTextoPersonaje.render(386, 60,30,24, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
+
+
 
 
 
@@ -165,4 +183,3 @@ Barras::~Barras(){
 	gFondoDerechaInf.free();
 	gBordeDerechaInf.free();
 }
-

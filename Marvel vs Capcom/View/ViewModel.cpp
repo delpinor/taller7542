@@ -19,7 +19,6 @@ ViewModel::~ViewModel() {
 }
 
 void ViewModel::render() {
-	//this->viewPantalla.render(this->camara, this->gRenderer);
 
 	for (int i = 0; i < 2; ++i) {
 		this->viewEquipo[i]->render(this->camara->x,model->alto_Pantalla -model->alto_Pantalla*0.4 + model->getEquipoNro(i)->getJugadorActivo()->get_alto(), this->gRenderer);

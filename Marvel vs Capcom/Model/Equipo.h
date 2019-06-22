@@ -27,6 +27,7 @@ public:
 	bool cambiandoJugador = false;
 	std::queue<Command*> cambios;
 	int contadorGolpe = 0;
+	int rondasGanadas = 0;
 
 public:
 	Equipo();
@@ -44,7 +45,8 @@ public:
 	virtual int getNumeroJugadorInactivo();
 	virtual void setJugadorActivo(int i);
 
-
+	virtual void setRondasGanadas(int rondas);
+	virtual int getRondasGanadas();
 	virtual void agregarCambio(Command* cambio);
 	virtual void jugadorActivoAumentaVelocidadEnX();
 	virtual void jugadorActivoAumentaVelocidadEnY();
