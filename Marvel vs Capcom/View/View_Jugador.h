@@ -13,6 +13,7 @@ public:
 	void grisar_imagen();
 	void desgrisar_imagen();
 	void render(int camX, int camY, SDL_Renderer * gRenderer);
+	void getSpriteByGolpe(SDL_Rect* currentClip, int &frame, TIPO_GOLPE tipoGolpe);
 	Jugador *jugador;
 	int getZIndex();
 	SDL_Rect * gSpriteCaminar;
@@ -21,7 +22,19 @@ public:
 	SDL_Rect  *gSpriteAgachar;
 	SDL_Rect  *gSpriteGolpear;
 	SDL_Rect  *gSpriteAnimacion;
-	SDL_Rect  *gSpritePatadadon;
+	SDL_Rect  *gSpritePatadon;
+	SDL_Rect  *gSpritePatada;
+	SDL_Rect  *gSpritePatadaSaltando;
+	SDL_Rect  *gSpritePatadonSaltando;
+	SDL_Rect  *gSpritePatadaAgachado;
+	SDL_Rect  *gSpritePatadonAgachado;
+	SDL_Rect  *gSpritePinia;
+	SDL_Rect  *gSpritePinion;
+	SDL_Rect  *gSpritePiniaSaltando;
+	SDL_Rect  *gSpritePinionSaltando;
+	SDL_Rect  *gSpritePiniaAgachado;
+	SDL_Rect  *gSpritePinionAgachado;
+
 	SDL_Rect * gSprite;
 	int contador = 0;
 
@@ -42,6 +55,37 @@ public:
 	int MINFRAMEPATADON;
 	int MAXFRAMEPATADON;
 	int FACTORPATADON;
+	int CANTSPRITECLIPPATADA;
+	int MINFRAMEPATADA;
+	int MAXFRAMEPATADA;
+	int FACTORPATADA;
+	int CANTSPRITECLIPPATADASALTANDO;
+	int MAXFRAMEPATADASALTANDO;
+	int MINFRAMEPATADASALTANDO;
+	int FACTORPATADASALTANDO;
+	int CANTSPRITECLIPPATADONSALTANDO;
+	int MINFRAMEPATADONSALTANDO;
+	int MAXFRAMEPATADONSALTANDO;
+	int FACTORPATADONSALTANDO;
+	int CANTSPRITECLIPPINIA;
+	int MINFRAMEPINIA;
+	int MAXFRAMEPINIA;
+	int FACTORPINIA;
+	int CANTSPRITECLIPPINION;
+	int MINFRAMEPINION;
+	int MAXFRAMEPINION;
+	int FACTORPINION;
+	int CANTSPRITECLIPPINIASALTANDO;
+	int MINFRAMEPINIASALTANDO;
+	int MAXFRAMEPINIASALTANDO;
+	int FACTORPINIASALTANDO;
+	int CANTSPRITECLIPPINIONSALTANDO;
+	int MINFRAMEPINIONSALTANDO;
+	int MAXFRAMEPINIONSALTANDO;
+	int FACTORPINIONSALTANDO;
+
+	int maxFrame;
+	int factor;
 
 protected:
 

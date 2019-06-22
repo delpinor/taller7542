@@ -215,47 +215,47 @@ void View_Jugador_Spiderman::getSpritesPatadaFuerte() {
 	MINFRAMEPATADON = 0;
 	MAXFRAMEPATADON = 7;
 	FACTORPATADON = 7;
-	this->gSpritePatadadon = new SDL_Rect[CANTSPRITECLIPPATADON];
+	this->gSpritePatadon = new SDL_Rect[CANTSPRITECLIPPATADON];
 
-	gSpritePatadadon[0].x = 43;
-	gSpritePatadadon[0].y = 803;
-	gSpritePatadadon[0].w = 261;
-	gSpritePatadadon[0].h = 150;
+	gSpritePatadon[0].x = 43;
+	gSpritePatadon[0].y = 803;
+	gSpritePatadon[0].w = 261;
+	gSpritePatadon[0].h = 150;
 
-	gSpritePatadadon[1].x = 291;
-	gSpritePatadadon[1].y = 803;
-	gSpritePatadadon[1].w = 261;
-	gSpritePatadadon[1].h = 150;
+	gSpritePatadon[1].x = 291;
+	gSpritePatadon[1].y = 803;
+	gSpritePatadon[1].w = 261;
+	gSpritePatadon[1].h = 150;
 
-	gSpritePatadadon[2].x = 563;
-	gSpritePatadadon[2].y = 803;
-	gSpritePatadadon[2].w = 261;
-	gSpritePatadadon[2].h = 150;
+	gSpritePatadon[2].x = 563;
+	gSpritePatadon[2].y = 803;
+	gSpritePatadon[2].w = 261;
+	gSpritePatadon[2].h = 150;
 
-	gSpritePatadadon[3].x = 848;
-	gSpritePatadadon[3].y = 803;
-	gSpritePatadadon[3].w = 261;
-	gSpritePatadadon[3].h = 150;
+	gSpritePatadon[3].x = 848;
+	gSpritePatadon[3].y = 803;
+	gSpritePatadon[3].w = 261;
+	gSpritePatadon[3].h = 150;
 
-	gSpritePatadadon[4].x = 1113;
-	gSpritePatadadon[4].y = 803;
-	gSpritePatadadon[4].w = 261;
-	gSpritePatadadon[4].h = 150;
+	gSpritePatadon[4].x = 1113;
+	gSpritePatadon[4].y = 803;
+	gSpritePatadon[4].w = 261;
+	gSpritePatadon[4].h = 150;
 
-	gSpritePatadadon[5].x = 1380;
-	gSpritePatadadon[5].y = 803;
-	gSpritePatadadon[5].w = 261;
-	gSpritePatadadon[5].h = 150;
+	gSpritePatadon[5].x = 1380;
+	gSpritePatadon[5].y = 803;
+	gSpritePatadon[5].w = 261;
+	gSpritePatadon[5].h = 150;
 
-	gSpritePatadadon[6].x = 1667;
-	gSpritePatadadon[6].y = 803;
-	gSpritePatadadon[6].w = 261;
-	gSpritePatadadon[6].h = 150;
+	gSpritePatadon[6].x = 1667;
+	gSpritePatadon[6].y = 803;
+	gSpritePatadon[6].w = 261;
+	gSpritePatadon[6].h = 150;
 
-	gSpritePatadadon[7].x = 1966;
-	gSpritePatadadon[7].y = 803;
-	gSpritePatadadon[7].w = 261;
-	gSpritePatadadon[7].h = 150;
+	gSpritePatadon[7].x = 1966;
+	gSpritePatadon[7].y = 803;
+	gSpritePatadon[7].w = 261;
+	gSpritePatadon[7].h = 150;
 
 }
 

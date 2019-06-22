@@ -161,11 +161,14 @@ void Jugador::Pinion() {
 }
 
 void Jugador::Patada() {
-	this->estado->Patada();
+	if ((this->getTipoGolpe() == TIPO_GOLPE::NADA) && (this->estado->getVelY() > -10)){
+		std::cout << "Agregar PATADA!!!!!: " << std::endl;
+		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADA);
+	}
 }
 
 void Jugador::Patadon() {
-	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
+	if ((this->getTipoGolpe() == TIPO_GOLPE::NADA) && (this->estado->getVelY() > -10)){
 		std::cout << "Agregar PATADON!!!!!: " << std::endl;
 		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADON);
 	}

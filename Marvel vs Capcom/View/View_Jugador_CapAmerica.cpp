@@ -192,36 +192,36 @@ void View_Jugador_CapAmerica::getSpritesPatadaFuerte() {
 	MINFRAMEPATADON = 0;
 	MAXFRAMEPATADON = 5;
 	FACTORPATADON = 6;
-	this->gSpritePatadadon = new SDL_Rect[CANTSPRITECLIPPATADON];
+	this->gSpritePatadon = new SDL_Rect[CANTSPRITECLIPPATADON];
 
-	gSpritePatadadon[0].x = 323;
-	gSpritePatadadon[0].y = 1297;
-	gSpritePatadadon[0].w = 261;
-	gSpritePatadadon[0].h = 150;
+	gSpritePatadon[0].x = 323;
+	gSpritePatadon[0].y = 1297;
+	gSpritePatadon[0].w = 261;
+	gSpritePatadon[0].h = 150;
 
-	gSpritePatadadon[1].x = 543;
-	gSpritePatadadon[1].y = 1296;
-	gSpritePatadadon[1].w = 261;
-	gSpritePatadadon[1].h = 150;
+	gSpritePatadon[1].x = 543;
+	gSpritePatadon[1].y = 1296;
+	gSpritePatadon[1].w = 261;
+	gSpritePatadon[1].h = 150;
 
-	gSpritePatadadon[2].x = 744;
-	gSpritePatadadon[2].y = 1293;
-	gSpritePatadadon[2].w = 261;
-	gSpritePatadadon[2].h = 150;
+	gSpritePatadon[2].x = 744;
+	gSpritePatadon[2].y = 1293;
+	gSpritePatadon[2].w = 261;
+	gSpritePatadon[2].h = 150;
 
-	gSpritePatadadon[3].x = 948;
-	gSpritePatadadon[3].y = 1296;
-	gSpritePatadadon[3].w = 261;
-	gSpritePatadadon[3].h = 150;
+	gSpritePatadon[3].x = 948;
+	gSpritePatadon[3].y = 1296;
+	gSpritePatadon[3].w = 261;
+	gSpritePatadon[3].h = 150;
 
-	gSpritePatadadon[4].x = 1183;
-	gSpritePatadadon[4].y = 1295;
-	gSpritePatadadon[4].w = 261;
-	gSpritePatadadon[4].h = 150;
+	gSpritePatadon[4].x = 1183;
+	gSpritePatadon[4].y = 1295;
+	gSpritePatadon[4].w = 261;
+	gSpritePatadon[4].h = 150;
 
-	gSpritePatadadon[5].x = 119;
-	gSpritePatadadon[5].y = 1490;
-	gSpritePatadadon[5].w = 261;
-	gSpritePatadadon[5].h = 150;
+	gSpritePatadon[5].x = 119;
+	gSpritePatadon[5].y = 1490;
+	gSpritePatadon[5].w = 261;
+	gSpritePatadon[5].h = 150;
 
 }
