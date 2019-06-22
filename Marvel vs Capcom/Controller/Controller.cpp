@@ -15,6 +15,7 @@
 #include "../Command/CommandCtrl/Defensa.h"
 #include "../Command/CommandCtrl/PatadaAgachado.h"
 #include "../Command/CommandCtrl/PinionAgachado.h"
+#include "../Command/CommandCtrl/Arrojar.h"
 #include <iostream>
 void Controller::SetModel(Model* model) {
 	this->model = model;
@@ -32,6 +33,7 @@ void Controller::SetModel(Model* model) {
 	this->commands[PATADA] = new Patada(model);
 	this->commands[PATADON] = new Patadon(model);
 	this->commands[DEFENSA] = new Defensa(model);
+	this->commands[ARROJAR] = new Arrojar(model);
 	this->commands[PATADA_AGACHADO ] = new PatadaAgachado(model);
 	this->commands[PINION_AGACHADO ] = new PinionAgachado(model);
 	this->quit = false;
@@ -113,6 +115,9 @@ int Controller::handleEventCliente(SDL_Event& e) {
 			break;
 		case  SDLK_h:
 			comando =  DEFENSA;
+			break;
+		case  SDLK_o:
+			comando =  ARROJAR;
 			break;
 		case SDLK_LCTRL:
 			comando =  CAMBIAR_PERSONAJE;

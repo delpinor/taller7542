@@ -89,6 +89,7 @@ public:
 	void Patada(Jugador * rival);
 	void Patadon(Jugador * rival);
 	void Patada_agachado(Jugador * rival);
+	void Arrojar(Jugador * rival);
 	void recibeDanio(int danio);
 	bool estaActivo();
 	bool estaAgachado();
@@ -125,5 +126,6 @@ public:
 	bool estaVivo();
 	void inicializarVida();
 	bool esInmortal();
+	void jugadorVolando();
 	};
 #endif

@@ -67,6 +67,7 @@ void Jugador::setDireccion(SDL_RendererFlip direccion) {
 }
 
 void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
+	jugadorVolando();
 	if( this->murio())
 		this->cambiarPersonaje();
 	if (this->estado->estaCambiandoPersonaje()){
@@ -187,6 +188,25 @@ void Jugador::Pinion(Jugador * rival) {
 			}
 	if(rival->collideConJugador(&mCollider))
 	rival->recibeDanio(this->estado->getDanioPinion());
+
+}
+
+void Jugador::Arrojar(Jugador * rival) {
+	this->estado->Arrojar();
+	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
+				this->setTipoGolpe(TIPO_GOLPE::GOLPE_ARROJAR);
+			}
+	int i = -1;
+	if (this->getDireccion()==SDL_FLIP_NONE)
+		i=1;
+
+	if((rival->collideConJugador(&mCollider))&&(rival->getTipoGolpe() == TIPO_GOLPE::NADA)){
+	rival->estado->setVelocidadX(40*i);
+	rival->estado->setVelocidadY(20);
+	rival->setTipoGolpe(TIPO_GOLPE::GOLPE_VOLAR);
+	rival->recibeDanio(this->estado->getDanioArrojar());
+	}
+
 }
 void Jugador::Pinion_agachado(Jugador * rival) {
 	this->estado->Pinion_agachado();
@@ -513,4 +533,19 @@ void Jugador::inicializarVida(){
 }
 bool Jugador::esInmortal(){
 	return this->inmortal;
+}
+
+void Jugador::jugadorVolando(){
+	if ((this->getTipoGolpe() == TIPO_GOLPE::GOLPE_VOLAR) ){
+		if (this->estado->getVelX()!=0){
+		if (this->estado->getVelX()>0)
+			this->estado->setVelocidadX(this->estado->getVelX()-1);
+		if (this->estado->getVelX()<0)
+			this->estado->setVelocidadX(this->estado->getVelX()+1);
+		}
+		if(this->estado->getVelX()==0){
+			this->setTipoGolpe(TIPO_GOLPE::NADA);
+		}
+
+	}
 }
