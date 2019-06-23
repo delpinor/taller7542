@@ -29,6 +29,7 @@ public:
 	void Pinia();
 	void Pinion();
 	void Arrojar();
+	void TirarPoder();
 	void Pinion_agachado();
 
 	void Patada();

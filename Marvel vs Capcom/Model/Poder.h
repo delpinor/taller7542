@@ -3,9 +3,10 @@
 
 class Poder {
 public:
-	Poder(int x, int y );
+	Poder(int x, int y ,int sentido);
 	int x;
 	int y;
+	int sentido;
 	void setPosInX(int x);
 	void setPosInY(int y);
 	void move();

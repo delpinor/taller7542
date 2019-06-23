@@ -149,6 +149,9 @@ void Equipo::jugadorActivoPinion(Jugador * rival) {
 void Equipo::jugadorActivoArrojar(Jugador * rival) {
 	this->jugadores[this->nroJugadorActivo]->Arrojar(rival);
 }
+void Equipo::jugadorActivoTirarPoder(Jugador * rival) {
+	this->jugadores[this->nroJugadorActivo]->TirarPoder(rival);
+}
 void Equipo::jugadorActivoPinion_agachado(Jugador * rival) {
 	this->jugadores[this->nroJugadorActivo]->Pinion_agachado(rival);
 }

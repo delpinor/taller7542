@@ -16,6 +16,7 @@
 #include "../Command/CommandCtrl/PatadaAgachado.h"
 #include "../Command/CommandCtrl/PinionAgachado.h"
 #include "../Command/CommandCtrl/Arrojar.h"
+#include "../Command/CommandCtrl/TirarPoder.h"
 #include <iostream>
 void Controller::SetModel(Model* model) {
 	this->model = model;
@@ -36,6 +37,7 @@ void Controller::SetModel(Model* model) {
 	this->commands[ARROJAR] = new Arrojar(model);
 	this->commands[PATADA_AGACHADO ] = new PatadaAgachado(model);
 	this->commands[PINION_AGACHADO ] = new PinionAgachado(model);
+	this->commands[PODER] = new TirarPoder(model);
 	this->quit = false;
 }
 Controller::Controller() {
@@ -118,6 +120,9 @@ int Controller::handleEventCliente(SDL_Event& e) {
 			break;
 		case  SDLK_o:
 			comando =  ARROJAR;
+			break;
+		case  SDLK_l:
+			comando =  PODER;
 			break;
 		case SDLK_LCTRL:
 			comando =  CAMBIAR_PERSONAJE;

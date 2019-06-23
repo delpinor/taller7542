@@ -103,6 +103,10 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 	//aca iria el contador
 	if (this->getTipoGolpe() == TIPO_GOLPE::GOLPE_ARROJAR)
 				this->setTipoGolpe(TIPO_GOLPE::NADA);
+	if(mipoder){
+		mipoder->move();
+		///this->collidePoder()
+	}
 }
 
 int Jugador::getPosX() {
@@ -251,6 +255,19 @@ void Jugador::Patada_agachado(Jugador * rival) {
 	//aca va el if del collide
 	if(rival->collideConJugador(&mCollider))
 	rival->recibeDanio(this->estado->getDanioPatada());
+}
+void Jugador::TirarPoder(Jugador * rival) {
+	this->estado->TirarPoder();
+	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
+
+			this->setTipoGolpe(TIPO_GOLPE::GOLPE_PODER);
+		}
+	int i = -1;
+	if (this->getDireccion()==SDL_FLIP_NONE)
+		i=1;
+	mipoder = new Poder(this->estado->getPosX(),this->estado->getPosY(),i);
+	std::cout << "PIUUUPIUUUUU" << std::endl;
+
 }
 
 void Jugador::recibeDanio(int danio) {

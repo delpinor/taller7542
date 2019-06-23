@@ -182,6 +182,9 @@ void Estado::Pinion() {
 void Estado::Arrojar() {
 
 }
+void Estado::TirarPoder() {
+
+}
 void Estado::Pinion_agachado() {
 
 }

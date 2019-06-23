@@ -10,6 +10,7 @@
 #include "../Model/CambiandoPersonaje.h"
 #include "../Model/EstadoCliente.h"
 #include "../Model/TipoGolpe.h"
+#include "../Model/Poder.h"
 #define VENOM 0x01
 #define CAPAMERICA 0x00
 
@@ -127,5 +128,7 @@ public:
 	void inicializarVida();
 	bool esInmortal();
 	void jugadorVolando();
+	void TirarPoder(Jugador * rival);
+	Poder * mipoder;
 	};
 #endif

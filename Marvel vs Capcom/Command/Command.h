@@ -16,8 +16,8 @@
 #define PATADA_AGACHADO  0x0D
 #define PINION_AGACHADO  0x1D
 #define ARROJAR  0x0E
-
-#define CANTCOMMANDS 15
+#define PODER  0x0F
+#define CANTCOMMANDS 18
 
 class Command {
 public:
