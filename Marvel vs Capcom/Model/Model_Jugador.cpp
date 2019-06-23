@@ -103,6 +103,8 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 	//aca iria el contador
 	if (this->getTipoGolpe() == TIPO_GOLPE::GOLPE_ARROJAR)
 				this->setTipoGolpe(TIPO_GOLPE::NADA);
+	if (this->getTipoGolpe() == TIPO_GOLPE::GOLPE_PODER)
+				this->setTipoGolpe(TIPO_GOLPE::NADA);
 	if(mipoder){
 		mipoder->move();
 		///this->collidePoder()
