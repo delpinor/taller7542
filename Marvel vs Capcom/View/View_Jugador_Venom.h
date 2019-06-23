@@ -28,8 +28,24 @@ protected:
 	void getSpritesSaltar();
 	void getSpritesAgachar();
 	void getSpritesCambioPersonaje();
+	//Parado
+	void getSpritesPiniaDebil();
+	void getSpritesPiniaFuerte();
+	void getSpritesPatadaDebil();
 	void getSpritesPatadaFuerte();
-
+	void getSpritesDefensa();
+	//Agachado
+	void getSpritesPiniaDebilAgachado();
+	void getSpritesPiniaFuerteAgachado();
+	void getSpritesPatadaDebilAgachado();
+	void getSpritesPatadaFuerteAgachado();
+	void getSpritesDefensaAgachado();
+	//Saltando
+	void getSpritesPiniaDebilSaltando();
+	void getSpritesPiniaFuerteSaltando();
+	void getSpritesPatadaDebilSaltando();
+	void getSpritesPatadaFuerteSaltando();
+	void getSpritesDefensaSaltando();
 };
 
 #endif
