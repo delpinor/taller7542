@@ -20,7 +20,10 @@ protected:
 	void getSpritesPatadaDebil();
 	void getSpritesPatadaDebilSaltando();
 	void getSpritesPatadaFuerteSaltando();
+	void getSpritesPatadaDebilAgachado();
+	void getSpritesPatadaFuerteAgachado();
 	void getSpritesPiniaDebil();
+
 };
 
 #endif

@@ -24,6 +24,8 @@ void View_Jugador_ChunLi::initialize(Jugador *model,
 	getSpritesPatadaDebil();
 	getSpritesPatadaDebilSaltando();
 	getSpritesPatadaFuerteSaltando();
+	getSpritesPatadaDebilAgachado();
+	getSpritesPatadaFuerteAgachado();
 	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
 }
 
@@ -141,7 +143,7 @@ void View_Jugador_ChunLi::getSpritesSaltar() {
 	CANTSPRITECLIPSALTA = 9;
 	MINFRAMESALTA = 0;
 	MAXFRAMESALTA = 8;
-	FACTORSALTA = 8;
+	FACTORSALTA = 2;
 	this->gSpriteSaltar = new SDL_Rect[CANTSPRITECLIPSALTA];
 
 	gSpriteSaltar[0].x = 297;
@@ -377,6 +379,54 @@ void View_Jugador_ChunLi::getSpritesPatadaFuerteSaltando() {
 	gSpritePatadonSaltando[2].y = 585;
 	gSpritePatadonSaltando[2].w = 261;
 	gSpritePatadonSaltando[2].h = 150;
+
+}
+
+void View_Jugador_ChunLi::getSpritesPatadaDebilAgachado() {
+	CANTSPRITECLIPPATADAAGACHADO = 3;
+	MINFRAMEPATADAAGACHADO = 0;
+	MAXFRAMEPATADAAGACHADO = 2;
+	FACTORPATADAAGACHADO = 2;
+	this->gSpritePatadaAgachado = new SDL_Rect[CANTSPRITECLIPPATADAAGACHADO];
+
+	gSpritePatadaAgachado[0].x = 32;
+	gSpritePatadaAgachado[0].y = 1626;
+	gSpritePatadaAgachado[0].w = 261;
+	gSpritePatadaAgachado[0].h = 150;
+
+	gSpritePatadaAgachado[1].x = 288;
+	gSpritePatadaAgachado[1].y = 1614;
+	gSpritePatadaAgachado[1].w = 261;
+	gSpritePatadaAgachado[1].h = 150;
+
+	gSpritePatadaAgachado[2].x = 610;
+	gSpritePatadaAgachado[2].y = 1620;
+	gSpritePatadaAgachado[2].w = 261;
+	gSpritePatadaAgachado[2].h = 150;
+
+}
+
+void View_Jugador_ChunLi::getSpritesPatadaFuerteAgachado() {
+	CANTSPRITECLIPPATADONAGACHADO = 3;
+	MINFRAMEPATADONAGACHADO = 0;
+	MAXFRAMEPATADONAGACHADO = 2;
+	FACTORPATADONAGACHADO = 2;
+	this->gSpritePatadonAgachado = new SDL_Rect[CANTSPRITECLIPPATADONAGACHADO];
+
+	gSpritePatadonAgachado[0].x = 9;
+	gSpritePatadonAgachado[0].y = 585;
+	gSpritePatadonAgachado[0].w = 261;
+	gSpritePatadonAgachado[0].h = 150;
+
+	gSpritePatadonAgachado[1].x = 199;
+	gSpritePatadonAgachado[1].y = 585;
+	gSpritePatadonAgachado[1].w = 261;
+		gSpritePatadonAgachado[1].h = 150;
+
+	gSpritePatadonAgachado[2].x = 436;
+	gSpritePatadonAgachado[2].y = 585;
+	gSpritePatadonAgachado[2].w = 261;
+	gSpritePatadonAgachado[2].h = 150;
 
 }
 

@@ -127,12 +127,14 @@ void Jugador::Agachar() {
 	if(this->estado->getVelY()==0){
 	this->agachado.copiarEstadoAgachar(this->estado);
 	this->estado = &(this->agachado);
+	this->tipoGolpe = TIPO_GOLPE::NADA;
 	}
 }
 void Jugador::Parar() {
 	if(this->estado->estaAgachado()){
 	this->activo.copiarEstadoAgachar(this->estado);
 	this->estado = &(this->activo);
+	this->tipoGolpe = TIPO_GOLPE::NADA;
 	}
 }
 
@@ -180,7 +182,9 @@ void Jugador::Saltar() {
 		this->estado->setVelocidadY(20);
 		this->saltando.copiarEstado(this->estado);
 		this->estado = &(this->saltando);
+		this->tipoGolpe = TIPO_GOLPE::NADA;
 		}
+
 }
 
 int Jugador::getVelX() {
@@ -221,15 +225,18 @@ void Jugador::activar() {
 	this->activo.copiarEstado(this->estado);
 	this->estado = &(this->activo);
 	this->detenerVelocidad();
+	this->tipoGolpe = TIPO_GOLPE::NADA;
 }
 void Jugador::desactivar() {
 	this->inactivo.copiarEstado(this->estado);
 	this->estado = &(this->inactivo);
 	this->detenerVelocidad();
+	this->tipoGolpe = TIPO_GOLPE::NADA;
 }
 void Jugador::terminarSalto() {
 	this->activo.copiarEstado(this->estado);
 	this->estado = &(this->activo);
+	this->tipoGolpe = TIPO_GOLPE::NADA;
 }
 bool Jugador::collide(SDL_Rect * camara) {
 

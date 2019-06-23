@@ -19,42 +19,71 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 		//printf("se pone gris la imagen!!!!\n");
 		this->grisar_imagen();
 	}
-	if ((this->jugador->estado->getVelY() == 0) && !(this->jugador->estado->estaSaltando())) {
-		std::cout << "tipoGolpe: " << this->jugador->getTipoGolpe() << std::endl;
-		if (this->jugador->getTipoGolpe() != TIPO_GOLPE::NADA) {
+	if ((this->jugador->estado->getVelY() == 0)
+			&& !(this->jugador->estado->estaSaltando())) {
+		std::cout << "tipoGolpe: " << this->jugador->getTipoGolpe()
+				<< std::endl;
+		if (this->jugador->estaAgachado()) {
+			if (this->jugador->getTipoGolpe() != TIPO_GOLPE::NADA) {
+				if (this->jugador->isIniciarGolpe()) {
+					std::cout << "se inicia la patada: " << std::endl;
+					frame = 0;
+					this->jugador->setIniciarGolpe(false);
+				}
+				if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADON) {
+					gSpriteGolpear = gSpritePatadonAgachado;
+					maxFrame = MAXFRAMEPATADONAGACHADO;
+					factor = FACTORPATADONAGACHADO;
+					std::cout << "PATADON parado" << std::endl;
+				} else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADA) {
+					gSpriteGolpear = gSpritePatadaAgachado;
+					maxFrame = MAXFRAMEPATADAAGACHADO;
+					factor = FACTORPATADAAGACHADO;
+					std::cout << "patada saltando" << std::endl;
+				}
+				if (frame / factor <= maxFrame) {
+					currentClip = &gSpriteGolpear[frame / factor];
+					++frame;
+				} else {
+					std::cout << "golpe terminado" << std::endl;
+					this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
+				}
+			} else
+				currentClip = &gSpriteAgachar[0];
+		} else if (this->jugador->getTipoGolpe() != TIPO_GOLPE::NADA) {
 			if (this->jugador->isIniciarGolpe()) {
 				std::cout << "se inicia la patada: " << std::endl;
 				frame = 0;
 				this->jugador->setIniciarGolpe(false);
-			}if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADON){
+			}
+			if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADON) {
 				gSpriteGolpear = gSpritePatadon;
 				maxFrame = MAXFRAMEPATADON;
 				factor = FACTORPATADON;
 				std::cout << "PATADON parado" << std::endl;
-			}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADA){
+			} else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADA) {
 				gSpriteGolpear = gSpritePatada;
 				maxFrame = MAXFRAMEPATADA;
 				factor = FACTORPATADA;
 				std::cout << "patada parado" << std::endl;
 			}
-			if (frame / factor <= maxFrame ) {
+			if (frame / factor <= maxFrame) {
 				currentClip = &gSpriteGolpear[frame / factor];
 				++frame;
 			} else {
 				std::cout << "golpe terminado" << std::endl;
 				this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
 			}
-		} else if (this->jugador->estaAgachado()) {
-			currentClip = &gSpriteAgachar[0];
-		} else if ((this->jugador->estado->getVelX() != 0)){
 
-			if (frame / FACTORCAMINA > MAXFRAMECAMINA ) {
+		} else if ((this->jugador->estado->getVelX() != 0)) {
+
+			if (frame / FACTORCAMINA > MAXFRAMECAMINA) {
 				frame = MINFRAMECAMINA;
 			}
 			currentClip = &gSpriteCaminar[frame / FACTORCAMINA];
 			++frame;
 		} else if ((this->jugador->estado->getVelX() == 0)) {
-			if (frame / FACTORANIMACION > MAXFRAMEANIMACION ) {
+			if (frame / FACTORANIMACION > MAXFRAMEANIMACION) {
 				frame = MINFRAMEANIMACION;
 			}
 			currentClip = &gSpriteAnimacion[frame / FACTORANIMACION];

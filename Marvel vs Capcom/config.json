@@ -22,9 +22,9 @@
 		},
 		{
 			"nombre" : "Chun Li",
-			"alto" : "200",
-			"ancho" : "120",
-			"rutaArchivoImagen" : "Images/Chun-Li.gif",
+			"alto" : "250",
+			"ancho" : "400",
+			"rutaArchivoImagen" : "Images/ChunLiSeparado.gif",
 			"zIndex" : "48"
 		},
 		{
