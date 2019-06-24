@@ -155,7 +155,10 @@ void Jugador::aumentarVelocidadY(int vel) {
 }
 
 void Jugador::Pinia() {
-	this->estado->Pinia();
+	if ((this->getTipoGolpe() == TIPO_GOLPE::NADA) && (this->estado->getVelY() > -10)) {
+		std::cout << "Agregar PINIA!!!!!: " << std::endl;
+		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PINIA);
+	}
 }
 
 void Jugador::Pinion() {

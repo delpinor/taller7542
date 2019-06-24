@@ -75,7 +75,12 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 				maxFrame = MAXFRAMEPATADA;
 				factor = FACTORPATADA;
 				std::cout << "patada parado" << std::endl;
-			} else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::ACTIVAR_DEFENSA) {
+			} else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADA) {
+					gSpriteGolpear = gSpritePinia;
+					maxFrame = MAXFRAMEPINIA;
+					factor = FACTORPINIA;
+					std::cout << "pinia debil parado" << std::endl;
+			}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::ACTIVAR_DEFENSA) {
 				gSpriteGolpear = gSpriteDefensa;
 				maxFrame = 1;
 				factor = 1;

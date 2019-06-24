@@ -26,6 +26,7 @@ void View_Jugador_ChunLi::initialize(Jugador *model,
 	getSpritesPatadaFuerteSaltando();
 	getSpritesPatadaDebilAgachado();
 	getSpritesPatadaFuerteAgachado();
+	getSpritesPiniaDebil();
 	getSpritesDefensa();
 	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
 }
@@ -422,7 +423,7 @@ void View_Jugador_ChunLi::getSpritesPatadaFuerteAgachado() {
 	gSpritePatadonAgachado[1].x = 199;
 	gSpritePatadonAgachado[1].y = 585;
 	gSpritePatadonAgachado[1].w = 261;
-		gSpritePatadonAgachado[1].h = 150;
+	gSpritePatadonAgachado[1].h = 150;
 
 	gSpritePatadonAgachado[2].x = 436;
 	gSpritePatadonAgachado[2].y = 585;
@@ -432,10 +433,10 @@ void View_Jugador_ChunLi::getSpritesPatadaFuerteAgachado() {
 }
 
 void View_Jugador_ChunLi::getSpritesPiniaDebil() {
-	CANTSPRITECLIPPINIA = 9;
+	CANTSPRITECLIPPINIA = 5;
 	MINFRAMEPINIA = 0;
-	MAXFRAMEPINIA = 8;
-	FACTORPINIA = 5;
+	MAXFRAMEPINIA = 4;
+	FACTORPINIA = 3;
 	this->gSpritePinia = new SDL_Rect[CANTSPRITECLIPPINIA];
 
 	gSpritePinia[0].x = 37;
