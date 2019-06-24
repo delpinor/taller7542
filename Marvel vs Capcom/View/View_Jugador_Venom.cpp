@@ -16,15 +16,32 @@ void View_Jugador_Venom::initialize(Jugador * model,
 	getSpritesAgachar();
 	getSpritesCambioPersonaje();
 	getSpritesAnimacion();
+	//Parado
+	getSpritesPiniaDebil();
+	getSpritesPiniaFuerte();
+	getSpritesPatadaDebil();
 	getSpritesPatadaFuerte();
+	getSpritesDefensa();
+	//Agachado
+	getSpritesPiniaDebilAgachado();
+	getSpritesPiniaFuerteAgachado();
+	getSpritesPatadaDebilAgachado();
+	getSpritesPatadaFuerteAgachado();
+	getSpritesDefensaAgachado();
+	//Saltando
+	getSpritesPiniaDebilSaltando();
+	getSpritesPiniaFuerteSaltando();
+	getSpritesPatadaDebilSaltando();
+	getSpritesPatadaFuerteSaltando();
+	getSpritesDefensaSaltando();
 	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
 
 	this->sonido_salto=new EfectoSonido(1);
-		this->sonido_ataque_pu=new EfectoSonido(1);
-		this->sonido_defensa=new EfectoSonido(1);
-		this->sonido_cambio=new EfectoSonido(1);
-		this->sonido_ataque_pu->loadMedia("../Sonidos/venom_atk1.wav");
-			this->sonido_salto->loadMedia("../Sonidos/salto_venom.wav");
+	this->sonido_ataque_pu=new EfectoSonido(1);
+	this->sonido_defensa=new EfectoSonido(1);
+	this->sonido_cambio=new EfectoSonido(1);
+	this->sonido_ataque_pu->loadMedia("../Sonidos/venom_atk1.wav");
+	this->sonido_salto->loadMedia("../Sonidos/salto_venom.wav");
 	this->sonido_cambio->loadMedia("../Sonidos/cambio_venom.wav");
 }
 void View_Jugador_Venom::reproducir_sonido_salto(){
@@ -291,29 +308,29 @@ void View_Jugador_Venom::getSpritesPiniaDebil(){
 
 
 	gSpritePinaDebil[0].x = 42;
-	gSpritePinaDebil[0].y = 455;
+	gSpritePinaDebil[0].y = 441;
 	gSpritePinaDebil[0].w = 261;
 	gSpritePinaDebil[0].h = 150;
 
 	gSpritePinaDebil[1].x = 316;
-	gSpritePinaDebil[1].y = 455;
+	gSpritePinaDebil[1].y = 441;
 	gSpritePinaDebil[1].w = 261;
 	gSpritePinaDebil[1].h = 150;
 
 	gSpritePinaDebil[2].x = 316;
-	gSpritePinaDebil[2].y = 455;
+	gSpritePinaDebil[2].y = 441;
 	gSpritePinaDebil[2].w = 261;
 	gSpritePinaDebil[2].h = 150;
 
 	gSpritePinaDebil[3].x = 316;
-	gSpritePinaDebil[3].y = 455;
+	gSpritePinaDebil[3].y = 441;
 	gSpritePinaDebil[3].w = 261;
 	gSpritePinaDebil[3].h = 150;
 
-	gSpritePinaDebil[3].x = 1208;
-	gSpritePinaDebil[3].y = 455;
-	gSpritePinaDebil[3].w = 261;
-	gSpritePinaDebil[3].h = 150;
+	gSpritePinaDebil[4].x = 1208;
+	gSpritePinaDebil[4].y = 441;
+	gSpritePinaDebil[4].w = 261;
+	gSpritePinaDebil[4].h = 150;
 }
 
 //TODO: ver que problemas va a traer el alto que es bastante grande, en caso de que deforme bastante y traiga complicaciones
