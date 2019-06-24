@@ -10,6 +10,7 @@
 #include <vector>
 #include <list>
 #include <stdio.h>
+#include <iostream>
 #include <stdlib.h>
 #include "Model_Jugador.h"
 #include "../Command/Command.h"
@@ -57,6 +58,8 @@ public:
 	virtual void jugadorActivoPatada_agachado(Jugador * rival);
 	virtual void jugadorActivoPatadon_agachado(Jugador * rival);
 	virtual void jugadorActivoPatadon(Jugador * rival);
+	virtual void jugadorActivoArrojar(Jugador * rival);
+	virtual void jugadorActivoTirarPoder(Jugador * rival);
 	virtual void jugadorActivoDisminuyeVelocidadEnX();
 	virtual void jugadorActivoAumentaVelocidadEnX(int vel);
 	virtual void jugadorActivoAumentaVelocidadEnY(int vel);

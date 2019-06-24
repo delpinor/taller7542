@@ -28,6 +28,8 @@ public:
 	void Saltar();
 	void Pinia();
 	void Pinion();
+	void Arrojar();
+	void TirarPoder();
 	void Pinion_agachado();
 
 	void Patada();
@@ -39,6 +41,7 @@ public:
 	int  getDanioPinion();
 	int  getDanioPatada();
 	int  getDanioPatadon();
+	int  getDanioArrojar();
 	void detenerVelocidad();
 	virtual void move() = 0;
 	virtual void moveVertical() = 0;

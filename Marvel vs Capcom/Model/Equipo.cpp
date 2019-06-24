@@ -82,6 +82,8 @@ void Equipo::move(SDL_Rect* camara){
 			getJugadorActivo()->terminarSalto();
 		}
 	}
+	///esto es turbio ::::
+	if (getJugadorActivo()->getTipoGolpe() != TIPO_GOLPE::GOLPE_VOLAR){
 	if (getJugadorActivo()->getTipoGolpe() != TIPO_GOLPE::NADA){
 		if (contadorGolpe < 10){
 			std::cout << "pegando patada!!!!!!!!!!!!!!!!" << std::endl;
@@ -91,6 +93,7 @@ void Equipo::move(SDL_Rect* camara){
 			getJugadorActivo()->setTipoGolpe(TIPO_GOLPE::NADA);
 			contadorGolpe = 0;
 		}
+	}
 	}
 	if (this->getJugadorActivo()->isFueraDePantalla()){
 		this->cambiarPersonaje(camara);
@@ -145,6 +148,12 @@ void Equipo::jugadorActivoPinia_agachado(Jugador * rival) {
 }
 void Equipo::jugadorActivoPinion(Jugador * rival) {
 	this->jugadores[this->nroJugadorActivo]->Pinion(rival);
+}
+void Equipo::jugadorActivoArrojar(Jugador * rival) {
+	this->jugadores[this->nroJugadorActivo]->Arrojar(rival);
+}
+void Equipo::jugadorActivoTirarPoder(Jugador * rival) {
+	this->jugadores[this->nroJugadorActivo]->TirarPoder(rival);
 }
 void Equipo::jugadorActivoPinion_agachado(Jugador * rival) {
 	this->jugadores[this->nroJugadorActivo]->Pinion_agachado(rival);

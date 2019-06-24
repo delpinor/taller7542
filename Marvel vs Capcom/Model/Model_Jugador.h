@@ -10,9 +10,11 @@
 #include "../Model/CambiandoPersonaje.h"
 #include "../Model/EstadoCliente.h"
 #include "../Model/TipoGolpe.h"
+#include "../Model/Poder.h"
 #define VENOM 0x01
 #define CAPAMERICA 0x00
 
+using namespace std;
 class Jugador {
 
 private:
@@ -58,6 +60,11 @@ public:
 	int get_alto();
 	int get_ancho();
 	int get_zindex();
+	int getCollideX();
+	int getCollideY();
+	int getCollideW();
+	int getCollideH();
+	bool collideConPoder(Poder * poder);
 	std::string getNombre();
 	std::string getPath();
 	void setColor(int,int,int);
@@ -90,7 +97,11 @@ public:
 	void Patada(Jugador * rival);
 	void Patadon(Jugador * rival);
 	void Patada_agachado(Jugador * rival);
+
 	void Patadon_agachado(Jugador * rival);
+
+	void Arrojar(Jugador * rival);
+
 	void recibeDanio(int danio);
 	bool estaActivo();
 	bool estaAgachado();
@@ -127,5 +138,8 @@ public:
 	bool estaVivo();
 	void inicializarVida();
 	bool esInmortal();
+	void jugadorVolando();
+	void TirarPoder(Jugador * rival);
+	Poder * mipoder;
 	};
 #endif

@@ -173,7 +173,16 @@ int  Estado::getDanioPatada(){
 int  Estado::getDanioPatadon(){
 	return 10;
 }
+int  Estado::getDanioArrojar(){
+	return 10;
+}
 void Estado::Pinion() {
+
+}
+void Estado::Arrojar() {
+
+}
+void Estado::TirarPoder() {
 
 }
 void Estado::Pinion_agachado() {
