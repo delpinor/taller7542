@@ -311,23 +311,23 @@ void View_Jugador_Venom::getSpritesPiniaDebil(){
 	gSpritePinaDebil[0].y = 441;
 	gSpritePinaDebil[0].w = 261;
 	gSpritePinaDebil[0].h = 150;
-
-	gSpritePinaDebil[1].x = 316;
+	// dif de 15
+	gSpritePinaDebil[1].x = 301;
 	gSpritePinaDebil[1].y = 441;
 	gSpritePinaDebil[1].w = 261;
 	gSpritePinaDebil[1].h = 150;
 
-	gSpritePinaDebil[2].x = 316;
+	gSpritePinaDebil[2].x = 301;
 	gSpritePinaDebil[2].y = 441;
 	gSpritePinaDebil[2].w = 261;
 	gSpritePinaDebil[2].h = 150;
 
-	gSpritePinaDebil[3].x = 316;
+	gSpritePinaDebil[3].x = 301;
 	gSpritePinaDebil[3].y = 441;
 	gSpritePinaDebil[3].w = 261;
 	gSpritePinaDebil[3].h = 150;
 
-	gSpritePinaDebil[4].x = 1208;
+	gSpritePinaDebil[4].x = 1193;
 	gSpritePinaDebil[4].y = 441;
 	gSpritePinaDebil[4].w = 261;
 	gSpritePinaDebil[4].h = 150;
