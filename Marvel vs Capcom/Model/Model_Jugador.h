@@ -59,6 +59,11 @@ public:
 	int get_alto();
 	int get_ancho();
 	int get_zindex();
+	int getCollideX();
+	int getCollideY();
+	int getCollideW();
+	int getCollideH();
+	bool collideConPoder(Poder * poder);
 	std::string getNombre();
 	std::string getPath();
 	void setColor(int,int,int);

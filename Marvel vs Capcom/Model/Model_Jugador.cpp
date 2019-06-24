@@ -18,8 +18,8 @@ Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &
 	this->zindex= zind;
 	this->nombre=nom;
 	this->pathImagen=path;
-	this->mCollider.w = width;
-	this->mCollider.h = height;
+	this->mCollider.w =this->estado->getPosX()+ width;
+	this->mCollider.h = this->estado->getPosY() +height;
 	this->vidaJugador = 100;
 	this->inmortal = inmortal;
 
@@ -42,6 +42,22 @@ int Jugador::get_zindex(){
 	return zindex;
 
 
+}
+
+int Jugador::getCollideX(){
+	return 	this->mCollider.x;
+}
+int Jugador::getCollideY(){
+	return 	this->mCollider.y;
+}
+int Jugador::getCollideW(){
+	return 	this->mCollider.w;
+}
+int Jugador::getCollideH(){
+	return 	this->mCollider.h;
+}
+bool Jugador::collideConPoder(Poder * poder){
+	return poder->colision(this->getCollideX(),this->getCollideY(),this->getCollideW(),this->getCollideH());;
 }
 std::string Jugador::getNombre(){
 
@@ -100,6 +116,8 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 	updateDirection(*jugadorRival);
 	this->mCollider.x = this->estado->getPosX();
 	this->mCollider.y = this->estado->getPosY();
+	this->mCollider.w =this->estado->getPosX()+ width;
+	this->mCollider.h = this->estado->getPosY() +height;
 	//aca iria el contador
 	if (this->getTipoGolpe() == TIPO_GOLPE::GOLPE_ARROJAR)
 				this->setTipoGolpe(TIPO_GOLPE::NADA);
@@ -107,7 +125,13 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 				this->setTipoGolpe(TIPO_GOLPE::NADA);
 	if(mipoder){
 		mipoder->move();
-		///this->collidePoder()
+		if (jugadorRival->collideConPoder(mipoder)){
+				std::cout<< "chocoooooooooooooooooooooooooooooooooo"<<std::endl;
+				std::cout<< "chocoooooooooooooooooooooooooooooooooo"<<std::endl;
+				std::cout<< "chocoooooooooooooooooooooooooooooooooo"<<std::endl;
+				jugadorRival->recibeDanio(10);
+				mipoder=NULL;
+		}
 	}
 }
 
@@ -178,6 +202,8 @@ void Jugador::Defensa() {
 			}
 
 }
+
+
 
 void Jugador::Pinia(Jugador * rival) {
 	this->estado->Pinia();
@@ -267,9 +293,10 @@ void Jugador::TirarPoder(Jugador * rival) {
 	int i = -1;
 	if (this->getDireccion()==SDL_FLIP_NONE)
 		i=1;
-	mipoder = new Poder(this->estado->getPosX(),this->estado->getPosY(),i);
-	std::cout << "PIUUUPIUUUUU" << std::endl;
-
+	mipoder = new Poder(getCollideX()+30,getCollideY()+30,i);
+	std::cout << "HADOOOOUUUUKENNNNNN" << std::endl;
+	std::cout << "HADOOOOUUUUKENNNNNN" << std::endl;
+	std::cout << "HADOOOOUUUUKENNNNNN" << std::endl;
 }
 
 void Jugador::recibeDanio(int danio) {
