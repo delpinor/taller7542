@@ -22,14 +22,21 @@ void View_Jugador_Spiderman::initialize(Jugador *model,
 	getSpritesPatadaDebil();
 	getSpritesPatadaDebilSaltando();
 	getSpritesPatadaDebilAgachado();
+
 	getSpritesPatadaFuerte();
 	getSpritesPatadaFuerteSaltando();
 	getSpritesPatadaFuerteAgachado();
 	//Piñas
 	getSpritesPiniaDebil();
-	getSpritesPiniaFuerte();
 	getSpritesPiniaDebilAgachado();
+	getSpritesPiniaDebilSaltando();
+
+	getSpritesPiniaFuerte();
 	getSpritesPiniaFuerteAgachado();
+	getSpritesPiniaFuerteSaltando();
+
+	//Defesa
+	getSpritesDefensa();
 
 	this->zIndex = model->get_zindex();
 	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
@@ -572,6 +579,101 @@ void View_Jugador_Spiderman::getSpritesPiniaDebilAgachado(){
 	gSpritePiniaAgachado[4].y = 1919;
 	gSpritePiniaAgachado[4].w = 261;
 	gSpritePiniaAgachado[4].h = 150;
+
+
+}
+void View_Jugador_Spiderman::getSpritesPiniaFuerteSaltando(){
+	CANTSPRITECLIPPINIONSALTANDO = 6;
+	MINFRAMEPINIONSALTANDO = 0;
+	MAXFRAMEPINIONSALTANDO = 5;
+	FACTORPINIONSALTANDO = 8;
+	this->gSpritePinionSaltando = new SDL_Rect[CANTSPRITECLIPPINIONSALTANDO];
+
+	gSpritePinionSaltando[0].x = 59;
+	gSpritePinionSaltando[0].y = 2619;
+	gSpritePinionSaltando[0].w = 261;
+	gSpritePinionSaltando[0].h = 150;
+
+	gSpritePinionSaltando[1].x = 320;
+	gSpritePinionSaltando[1].y = 2619;
+	gSpritePinionSaltando[1].w = 261;
+	gSpritePinionSaltando[1].h = 150;
+
+	gSpritePinionSaltando[2].x = 581;
+	gSpritePinionSaltando[2].y = 2619;
+	gSpritePinionSaltando[2].w = 261;
+	gSpritePinionSaltando[2].h = 150;
+
+	gSpritePinionSaltando[3].x = 842;
+	gSpritePinionSaltando[3].y = 2619;
+	gSpritePinionSaltando[3].w = 261;
+	gSpritePinionSaltando[3].h = 150;
+
+	gSpritePinionSaltando[4].x = 1103;
+	gSpritePinionSaltando[4].y = 2619;
+	gSpritePinionSaltando[4].w = 261;
+	gSpritePinionSaltando[4].h = 150;
+
+	gSpritePinionSaltando[5].x = 1364;
+	gSpritePinionSaltando[5].y = 2619;
+	gSpritePinionSaltando[5].w = 261;
+	gSpritePinionSaltando[5].h = 150;
+
+}
+void View_Jugador_Spiderman::getSpritesPiniaDebilSaltando(){
+	CANTSPRITECLIPPINIASALTANDO = 4;
+	MINFRAMEPINIASALTANDO = 0;
+	MAXFRAMEPINIASALTANDO = 3;
+	FACTORPINIASALTANDO = 10;
+	this->gSpritePiniaSaltando = new SDL_Rect[CANTSPRITECLIPPINIASALTANDO];
+
+	gSpritePiniaSaltando[0].x = 59;
+	gSpritePiniaSaltando[0].y = 2291;
+	gSpritePiniaSaltando[0].w = 261;
+	gSpritePiniaSaltando[0].h = 150;
+
+	gSpritePiniaSaltando[1].x = 320;
+	gSpritePiniaSaltando[1].y = 2291;
+	gSpritePiniaSaltando[1].w = 261;
+	gSpritePiniaSaltando[1].h = 150;
+
+	gSpritePiniaSaltando[2].x = 581;
+	gSpritePiniaSaltando[2].y = 2291;
+	gSpritePiniaSaltando[2].w = 261;
+	gSpritePiniaSaltando[2].h = 150;
+
+	gSpritePiniaSaltando[3].x = 842;
+	gSpritePiniaSaltando[3].y = 2291;
+	gSpritePiniaSaltando[3].w = 261;
+	gSpritePiniaSaltando[3].h = 150;
+
+}
+void View_Jugador_Spiderman::getSpritesDefensa(){
+	CANTSPRITECLIPDEFENSA = 4;
+	MINFRAMEDEFENSA = 0;
+	MAXFRAMEDEFENSA = 3;
+	FACTORDEFENSA = 10;
+	this->gSpriteDefensa = new SDL_Rect[CANTSPRITECLIPDEFENSA];
+
+	gSpriteDefensa[0].x = 45;
+	gSpriteDefensa[0].y = 2832;
+	gSpriteDefensa[0].w = 261;
+	gSpriteDefensa[0].h = 150;
+
+	gSpriteDefensa[1].x = 306;
+	gSpriteDefensa[1].y = 2832;
+	gSpriteDefensa[1].w = 261;
+	gSpriteDefensa[1].h = 150;
+
+	gSpriteDefensa[2].x = 567;
+	gSpriteDefensa[2].y = 2832;
+	gSpriteDefensa[2].w = 261;
+	gSpriteDefensa[2].h = 150;
+
+	gSpriteDefensa[3].x = 828;
+	gSpriteDefensa[3].y = 2832;
+	gSpriteDefensa[3].w = 261;
+	gSpriteDefensa[3].h = 150;
 
 
 }

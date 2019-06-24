@@ -34,6 +34,7 @@ public:
 	SDL_Rect  *gSpritePinionSaltando;
 	SDL_Rect  *gSpritePiniaAgachado;
 	SDL_Rect  *gSpritePinionAgachado;
+	SDL_Rect  *gSpriteDefensa;
 
 	SDL_Rect * gSprite;
 	int contador = 0;
@@ -103,6 +104,11 @@ public:
 	int MINFRAMEPINIONAGACHADO;
 	int MAXFRAMEPINIONAGACHADO;
 	int FACTORPINIONAGACHADO;
+
+	int CANTSPRITECLIPDEFENSA;
+	int MINFRAMEDEFENSA;
+	int MAXFRAMEDEFENSA;
+	int FACTORDEFENSA;
 
 	int maxFrame;
 	int factor;

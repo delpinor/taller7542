@@ -31,6 +31,10 @@ protected:
 	void getSpritesPiniaDebilAgachado();
 	void getSpritesPiniaFuerteAgachado();
 
+	void getSpritesPiniaFuerteSaltando();
+	void getSpritesPiniaDebilSaltando();
+	void getSpritesDefensa();
+
 };
 
 #endif
