@@ -13,6 +13,9 @@
 #include "../Command/CommandCtrl/Patada.h"
 #include "../Command/CommandCtrl/Patadon.h"
 #include <iostream>
+#include "../Command/CommandCtrl/ActivarDefensa.h"
+#include "../Command/CommandCtrl/DesactivarDefensa.h"
+
 void Controller::SetModel(Model* model) {
 	this->model = model;
 	this->commands = std::vector<CommandCtrl*>(CANTCOMMANDS);
@@ -28,6 +31,8 @@ void Controller::SetModel(Model* model) {
 	this->commands[PINION] = new Pinion(model);
 	this->commands[PATADA] = new Patada(model);
 	this->commands[PATADON] = new Patadon(model);
+	this->commands[ACTIVARDEFENSA] = new ActivarDefensa(model);
+	this->commands[DESACTIVARDEFENSA] = new DesactivarDefensa(model);
 	this->quit = false;
 }
 Controller::Controller() {
@@ -81,6 +86,9 @@ int Controller::handleEventCliente(SDL_Event& e) {
 		case SDLK_d:
 			comando =  INCVELX;
 			break;
+		case  SDLK_h:
+			comando =  ACTIVARDEFENSA;
+			break;
 		case SDLK_j:
 			comando =  PINIA;
 			break;
@@ -113,6 +121,9 @@ int Controller::handleEventCliente(SDL_Event& e) {
 			break;
 		case SDLK_d:
 			comando = DECVELX;
+			break;
+		case  SDLK_h:
+			comando =  DESACTIVARDEFENSA;
 			break;
 		}
 	}

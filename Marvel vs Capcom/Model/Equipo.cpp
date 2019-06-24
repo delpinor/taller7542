@@ -54,7 +54,7 @@ void Equipo::setJugadorActivo(int i) {
 }
 
 void Equipo::agregarCambio(Command* cambio) {
-	if (!this->getJugadorActivo()->estaCambiandoPersonaje() & cambio != NULL)
+//	if (!this->getJugadorActivo()->estaCambiandoPersonaje() & cambio != NULL)
 	if (!this->getJugadorActivo()->estaCambiandoPersonaje() && cambio != NULL)
 		this->cambios.push(cambio);
 	else
@@ -83,8 +83,10 @@ void Equipo::move(SDL_Rect* camara){
 		}
 	}
 	if (getJugadorActivo()->getTipoGolpe() != TIPO_GOLPE::NADA){
-		if (contadorGolpe < 10){
-			std::cout << "pegando patada!!!!!!!!!!!!!!!!" << std::endl;
+		if (getJugadorActivo()->getTipoGolpe() == TIPO_GOLPE::DESACTIVAR_DEFENSA ||
+				getJugadorActivo()->getTipoGolpe() == TIPO_GOLPE::ACTIVAR_DEFENSA)
+			cout << "Defensaaa: " << getJugadorActivo()->getTipoGolpe() << endl;
+		if (contadorGolpe < 6){
 			contadorGolpe++;
 		}
 		else{
@@ -147,6 +149,12 @@ void Equipo::jugadorActivoPatada() {
 }
 void Equipo::jugadorActivoPatadon() {
 	this->jugadores[this->nroJugadorActivo]->Patadon();
+}
+void Equipo::jugadorActivoActivarDefensa() {
+	this->jugadores[this->nroJugadorActivo]->ActivarDefensa();
+}
+void Equipo::jugadorActivoDesactivarDefensa() {
+	this->jugadores[this->nroJugadorActivo]->DesactivarDefensa();
 }
 void Equipo::jugadorActivoDisminuyeVelocidadEnX() {
 	this->jugadores[this->nroJugadorActivo]->disminuirVelocidadX();

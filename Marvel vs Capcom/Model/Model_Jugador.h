@@ -82,6 +82,8 @@ public:
 	void Pinion();
 	void Patada();
 	void Patadon();
+	void ActivarDefensa();
+	void DesactivarDefensa();
 	bool estaActivo();
 	bool estaAgachado();
 	bool estaCambiandoPersonaje();
@@ -110,6 +112,7 @@ public:
 	void setDebeTerminarSalto(bool debeTerminarSalto);
 	TIPO_GOLPE getTipoGolpe();
 	void setTipoGolpe(TIPO_GOLPE tipoGolpe);
+	void setTipoGolpeCliente(TIPO_GOLPE tipoGolpe);
 	bool isIniciarGolpe();
 	void setIniciarGolpe(bool iniciarGolpe);
 	};

@@ -176,6 +176,16 @@ void Jugador::Patadon() {
 	}
 }
 
+void Jugador::ActivarDefensa() {
+	std::cout << "Agregar DEFENSAAAAAAAAAAAA!!!!!: " << std::endl;
+	this->setTipoGolpe(TIPO_GOLPE::ACTIVAR_DEFENSA);
+}
+
+void Jugador::DesactivarDefensa() {
+	std::cout << "Terminar DEFENSAAAAAAAAAAAA!!!!!: " << std::endl;
+	this->setTipoGolpe(TIPO_GOLPE::DESACTIVAR_DEFENSA);
+}
+
 void Jugador::Saltar() {
 //	this->estado->Saltar();
 	if(!this->estado->estaSaltando()){
@@ -401,4 +411,12 @@ TIPO_GOLPE Jugador::getTipoGolpe(){
 }
 void Jugador::setTipoGolpe(TIPO_GOLPE tipoGolpe){
 	this->tipoGolpe = tipoGolpe;
+}
+void Jugador::setTipoGolpeCliente(TIPO_GOLPE tipoGolpe){
+	if (tipoGolpe == TIPO_GOLPE::DESACTIVAR_DEFENSA){
+		std::cout << "Defensa terminadaa##############" << std::endl;
+		this->tipoGolpe = TIPO_GOLPE::NADA;
+	}
+	else
+		this->tipoGolpe = tipoGolpe;
 }

@@ -53,6 +53,8 @@ public:
 	virtual void jugadorActivoPinion();
 	virtual void jugadorActivoPatada();
 	virtual void jugadorActivoPatadon();
+	virtual void jugadorActivoActivarDefensa();
+	virtual void jugadorActivoDesactivarDefensa();
 	virtual void jugadorActivoDisminuyeVelocidadEnX();
 	virtual void jugadorActivoAumentaVelocidadEnX(int vel);
 	virtual void jugadorActivoAumentaVelocidadEnY(int vel);
