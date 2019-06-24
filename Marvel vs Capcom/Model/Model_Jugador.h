@@ -84,11 +84,13 @@ public:
 	void Saltar();
 	void Defensa();
 	void Pinia(Jugador * rival);
+	void Pinia_agachado(Jugador * rival);
 	void Pinion(Jugador * rival);
 	void Pinion_agachado(Jugador * rival);
 	void Patada(Jugador * rival);
 	void Patadon(Jugador * rival);
 	void Patada_agachado(Jugador * rival);
+	void Patadon_agachado(Jugador * rival);
 	void recibeDanio(int danio);
 	bool estaActivo();
 	bool estaAgachado();

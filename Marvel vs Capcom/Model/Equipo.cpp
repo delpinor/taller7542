@@ -140,6 +140,9 @@ void Equipo::jugadorActivoSalta() {
 void Equipo::jugadorActivoPinia(Jugador * rival) {
 	this->jugadores[this->nroJugadorActivo]->Pinia(rival);
 }
+void Equipo::jugadorActivoPinia_agachado(Jugador * rival) {
+	this->jugadores[this->nroJugadorActivo]->Pinia_agachado(rival);
+}
 void Equipo::jugadorActivoPinion(Jugador * rival) {
 	this->jugadores[this->nroJugadorActivo]->Pinion(rival);
 }
@@ -151,6 +154,9 @@ void Equipo::jugadorActivoPatada(Jugador * rival) {
 }
 void Equipo::jugadorActivoPatada_agachado(Jugador * rival) {
 	this->jugadores[this->nroJugadorActivo]->Patada_agachado(rival);
+}
+void Equipo::jugadorActivoPatadon_agachado(Jugador * rival) {
+	this->jugadores[this->nroJugadorActivo]->Patadon_agachado(rival);
 }
 void Equipo::jugadorActivoPatadon(Jugador * rival) {
 	this->jugadores[this->nroJugadorActivo]->Patadon(rival);

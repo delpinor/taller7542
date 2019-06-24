@@ -33,6 +33,7 @@ public:
 	void Patada();
 	void Patada_agachado();
 	void Patadon();
+	void Patadon_agachado();
 	void Defensa();
 	int  getDanioPinia();
 	int  getDanioPinion();

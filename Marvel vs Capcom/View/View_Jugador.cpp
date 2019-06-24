@@ -92,7 +92,24 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 				std::cout << "golpe agachado terminado" << std::endl;
 				this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
 			}
-		}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_DEFENSA ){
+		}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINIA_AGACHADO ){
+			if (this->jugador->isIniciarGolpe()){
+				std::cout << "se inicia la piña AGACHADO: " << std::endl;
+				frame = 0;
+				this->jugador->setIniciarGolpe(false);
+			}
+			std::cout << "frame pegando piña DEBIL: " << frame << std::endl;
+			if (frame / MAXFRAMEPINADEBIL_agachado<= MAXFRAMEPINADEBIL_agachado ) {
+				currentClip = &gSpritePinaDebil_agachado[frame / MAXFRAMEPINADEBIL_agachado	];
+				++frame;
+			} else {
+				std::cout << "golpe agachado terminado" << std::endl;
+				this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
+			}
+		}
+
+
+		else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_DEFENSA ){
 			if (this->jugador->isIniciarGolpe()){
 				std::cout << "se inicia la DEFENSA parado: " << std::endl;
 				frame = 0;
@@ -122,6 +139,21 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 						this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
 					}
 				}
+		else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADON_AGACHADO  ){
+							if (this->jugador->isIniciarGolpe()){
+								std::cout << "se inicia el patadon agachado: " << std::endl;
+								frame = 0;
+								this->jugador->setIniciarGolpe(false);
+							}
+							std::cout << "frame esta haciendo el patadon  agachado: " << frame << std::endl;
+							if (frame / MAXFRAMEPATADON_agachado <= MAXFRAMEPATADON_agachado) {
+								currentClip = &gSpritePatadadon_agachado[frame / MAXFRAMEPATADON_agachado	];
+								++frame;
+							} else {
+								std::cout << "patada fuerte agachado terminado" << std::endl;
+								this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
+							}
+						}
 		else if (this->jugador->estaAgachado()){
 			currentClip = &gSpriteAgachar[0];
 		} else if ((this->jugador->estado->getVelX() != 0)){

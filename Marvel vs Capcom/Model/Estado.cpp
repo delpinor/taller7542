@@ -188,6 +188,9 @@ void Estado::Patada_agachado() {
 void Estado::Patadon() {
 
 }
+void Estado::Patadon_agachado() {
+
+}
 void Estado::Defensa(){
 
 }

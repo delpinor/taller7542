@@ -15,6 +15,8 @@
 #include "../Command/CommandCtrl/Defensa.h"
 #include "../Command/CommandCtrl/PatadaAgachado.h"
 #include "../Command/CommandCtrl/PinionAgachado.h"
+#include "../Command/CommandCtrl/PatadonAgachado.h"
+#include "../Command/CommandCtrl/PiniaAgachado.h"
 #include <iostream>
 void Controller::SetModel(Model* model) {
 	this->model = model;
@@ -34,6 +36,8 @@ void Controller::SetModel(Model* model) {
 	this->commands[DEFENSA] = new Defensa(model);
 	this->commands[PATADA_AGACHADO ] = new PatadaAgachado(model);
 	this->commands[PINION_AGACHADO ] = new PinionAgachado(model);
+	this->commands[PATADON_AGACHADO] = new PatadonAgachado(model);
+	this->commands[PINIA_AGACHADO] = new PiniaAgachado(model);
 	this->quit = false;
 }
 Controller::Controller() {
@@ -82,7 +86,14 @@ int Controller::handleEventCliente(SDL_Event& e) {
 	} else if((state[SDL_SCANCODE_S])&& (state[SDL_SCANCODE_U])){
 		comando=PINION_AGACHADO;
 
-	}else{
+	}else if((state[SDL_SCANCODE_S])&& (state[SDL_SCANCODE_I])){
+		comando=PATADON_AGACHADO;
+
+	}else if((state[SDL_SCANCODE_S])&& (state[SDL_SCANCODE_J])){
+		comando=PINIA_AGACHADO;
+
+	}
+	else{
 
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
 		switch (e.key.keysym.sym) {

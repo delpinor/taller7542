@@ -25,6 +25,9 @@ void View_Jugador_CapAmerica::initialize(Jugador *model,
 	getSpritesDefensa();
 	getSpritesPatadaDebil_agachado();
 	getSpritesPinaFuerte_agachado();
+	getSpritesPinaDebil_agachado();
+	getSpritesPatadaFuerte_agachado();
+
 
 	this->zIndex = model->get_zindex();
 	getSpritesCambioPersonaje();
@@ -490,7 +493,55 @@ void View_Jugador_CapAmerica::getSpritesDefensa(){
 
 }
 void View_Jugador_CapAmerica::getSpritesPatadaFuerte_agachado(){
+	CANTSPRITECLIPPATADON_agachado= 9;
 
+		MAXFRAMEPATADON_agachado= 8;
+		this->gSpritePatadadon_agachado = new SDL_Rect[CANTSPRITECLIPPATADON_agachado];
+
+		gSpritePatadadon_agachado[0].x = 17;
+		gSpritePatadadon_agachado[0].y = 363;
+		gSpritePatadadon_agachado[0].w = 261;
+		gSpritePatadadon_agachado[0].h = 150;
+
+		gSpritePatadadon_agachado[1].x = 785;
+		gSpritePatadadon_agachado[1].y = 1657;
+		gSpritePatadadon_agachado[1].w = 261;
+		gSpritePatadadon_agachado[1].h = 150;
+
+		gSpritePatadadon_agachado[2].x = 1505;
+		gSpritePatadadon_agachado[2].y = 1657;
+		gSpritePatadadon_agachado[2].w = 261;
+		gSpritePatadadon_agachado[2].h = 150;
+
+		gSpritePatadadon_agachado[3].x = 1236;
+		gSpritePatadadon_agachado[3].y = 1657;
+		gSpritePatadadon_agachado[3].w = 261;
+		gSpritePatadadon_agachado[3].h = 150;
+
+		gSpritePatadadon_agachado[4].x = 1010;
+		gSpritePatadadon_agachado[4].y = 1657;
+		gSpritePatadadon_agachado[4].w = 261;
+		gSpritePatadadon_agachado[4].h = 150;
+
+		gSpritePatadadon_agachado[5].x = 785;
+		gSpritePatadadon_agachado[5].y = 1657;
+		gSpritePatadadon_agachado[5].w = 261;
+		gSpritePatadadon_agachado[5].h = 150;
+
+		gSpritePatadadon_agachado[6].x = 1505;
+		gSpritePatadadon_agachado[6].y = 1657;
+		gSpritePatadadon_agachado[6].w = 261;
+		gSpritePatadadon_agachado[6].h = 150;
+
+		gSpritePatadadon_agachado[7].x = 1236;
+		gSpritePatadadon_agachado[7].y = 1657;
+		gSpritePatadadon_agachado[7].w = 261;
+		gSpritePatadadon_agachado[7].h = 150;
+
+		gSpritePatadadon_agachado[8].x = 1010;
+		gSpritePatadadon_agachado[8].y = 1657;
+		gSpritePatadadon_agachado[8].w = 261;
+		gSpritePatadadon_agachado[8].h = 150;
 
 
 
@@ -534,9 +585,9 @@ void View_Jugador_CapAmerica::getSpritesPatadaDebil_agachado(){
 
 }
 void View_Jugador_CapAmerica::getSpritesPinaFuerte_agachado(){
-	CANTSPRITEPINAFUERTE_agachado= 6;
+	CANTSPRITEPINAFUERTE_agachado= 9;
 		this->gSpritePinaFuerte_agachado = new SDL_Rect[CANTSPRITEPINAFUERTE_agachado];
-		MAXFRAMEPINAFUERTE_agachado= 5;
+		MAXFRAMEPINAFUERTE_agachado= 8;
 
 
 		gSpritePinaFuerte_agachado[0].x = 17;
@@ -545,33 +596,84 @@ void View_Jugador_CapAmerica::getSpritesPinaFuerte_agachado(){
 		gSpritePinaFuerte_agachado[0].h = 150;
 
 		gSpritePinaFuerte_agachado[1].x = 1150;
-		gSpritePinaFuerte_agachado[1].y = 585;
+		gSpritePinaFuerte_agachado[1].y = 572;
 		gSpritePinaFuerte_agachado[1].w = 261;
 		gSpritePinaFuerte_agachado[1].h = 150;
 
-		gSpritePinaFuerte_agachado[2].x = 1150;
-		gSpritePinaFuerte_agachado[2].y = 585;
+		gSpritePinaFuerte_agachado[2].x = 1614;
+		gSpritePinaFuerte_agachado[2].y = 572;
 		gSpritePinaFuerte_agachado[2].w = 261;
 		gSpritePinaFuerte_agachado[2].h = 150;
 
-		gSpritePinaFuerte_agachado[3].x = 1150;
-		gSpritePinaFuerte_agachado[3].y = 585;
+		gSpritePinaFuerte_agachado[3].x = 1857;
+		gSpritePinaFuerte_agachado[3].y = 572;
 		gSpritePinaFuerte_agachado[3].w = 261;
 		gSpritePinaFuerte_agachado[3].h = 150;
 
-		gSpritePinaFuerte_agachado[4].x = 1150;
-		gSpritePinaFuerte_agachado[4].y = 585;
+		gSpritePinaFuerte_agachado[4].x = 1857;
+		gSpritePinaFuerte_agachado[4].y = 572;
 		gSpritePinaFuerte_agachado[4].w = 261;
 		gSpritePinaFuerte_agachado[4].h = 150;
 
-		gSpritePinaFuerte_agachado[5].x = 17;
-		gSpritePinaFuerte_agachado[5].y = 363;
+		gSpritePinaFuerte_agachado[5].x = 1857;
+		gSpritePinaFuerte_agachado[5].y = 572;
 		gSpritePinaFuerte_agachado[5].w = 261;
 		gSpritePinaFuerte_agachado[5].h = 150;
+
+		gSpritePinaFuerte_agachado[6].x = 1857;
+		gSpritePinaFuerte_agachado[6].y = 572;
+		gSpritePinaFuerte_agachado[6].w = 261;
+		gSpritePinaFuerte_agachado[6].h = 150;
+
+		gSpritePinaFuerte_agachado[7].x = 2105;
+		gSpritePinaFuerte_agachado[7].y = 572;
+		gSpritePinaFuerte_agachado[7].w = 261;
+		gSpritePinaFuerte_agachado[7].h = 150;
+
+		gSpritePinaFuerte_agachado[8].x = 17;
+		gSpritePinaFuerte_agachado[8].y = 363;
+		gSpritePinaFuerte_agachado[8].w = 261;
+		gSpritePinaFuerte_agachado[8].h = 150;
 
 
 }
 void View_Jugador_CapAmerica::getSpritesPinaDebil_agachado(){
+
+	CANTSPRITEPINADEBIL_agachado= 6;
+			this->gSpritePinaDebil_agachado = new SDL_Rect[CANTSPRITEPINADEBIL_agachado];
+			MAXFRAMEPINADEBIL_agachado= 5;
+
+			gSpritePinaDebil_agachado [0].x = 17;
+			gSpritePinaDebil_agachado [0].y = 363;
+			gSpritePinaDebil_agachado [0].w = 261;
+			gSpritePinaDebil_agachado [0].h = 150;
+
+			gSpritePinaDebil_agachado [1].x = 1150;
+			gSpritePinaDebil_agachado [1].y = 576;
+			gSpritePinaDebil_agachado [1].w = 261;
+			gSpritePinaDebil_agachado [1].h = 150;
+
+			gSpritePinaDebil_agachado [2].x = 1150;
+			gSpritePinaDebil_agachado [2].y = 576;
+			gSpritePinaDebil_agachado [2].w = 261;
+			gSpritePinaDebil_agachado [2].h = 150;
+
+			gSpritePinaDebil_agachado [3].x = 1150;
+			gSpritePinaDebil_agachado [3].y = 576;
+			gSpritePinaDebil_agachado [3].w = 261;
+			gSpritePinaDebil_agachado [3].h = 150;
+
+			gSpritePinaDebil_agachado [4].x = 1150;
+			gSpritePinaDebil_agachado [4].y = 576;
+			gSpritePinaDebil_agachado [4].w = 261;
+			gSpritePinaDebil_agachado [4].h = 150;
+
+			gSpritePinaDebil_agachado [5].x = 17;
+			gSpritePinaDebil_agachado [5].y = 363;
+			gSpritePinaDebil_agachado [5].w = 261;
+			gSpritePinaDebil_agachado [5].h = 150;
+
+
 
 }
 void View_Jugador_CapAmerica::getSpritesDefensa_agachado(){

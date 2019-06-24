@@ -178,7 +178,15 @@ void Jugador::Pinia(Jugador * rival) {
 	if(rival->collideConJugador(&mCollider))
 	rival->recibeDanio(this->estado->getDanioPinia());
 }
+void Jugador::Pinia_agachado(Jugador * rival) {
+	this->estado->Pinia();
+	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
 
+				this->setTipoGolpe(TIPO_GOLPE::GOLPE_PINIA_AGACHADO);
+			}
+	if(rival->collideConJugador(&mCollider))
+	rival->recibeDanio(this->estado->getDanioPinia());
+}
 void Jugador::Pinion(Jugador * rival) {
 	this->estado->Pinion();
 	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
@@ -224,6 +232,16 @@ void Jugador::Patada_agachado(Jugador * rival) {
 	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
 
 			this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADA_AGACHADO);
+		}
+	//aca va el if del collide
+	if(rival->collideConJugador(&mCollider))
+	rival->recibeDanio(this->estado->getDanioPatada());
+}
+void Jugador::Patadon_agachado(Jugador * rival) {
+	this->estado->Patadon_agachado();
+	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
+
+			this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADON_AGACHADO);
 		}
 	//aca va el if del collide
 	if(rival->collideConJugador(&mCollider))
