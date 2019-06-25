@@ -55,10 +55,10 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					std::cout << "pinia agachado" << std::endl;
 				}
 				else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINION) {
-									gSpriteGolpear = gSpritePinionAgachado;
-									maxFrame = MAXFRAMEPINIONAGACHADO;
-									factor = FACTORPINIONAGACHADO;
-									std::cout << "pinion agachado" << std::endl;
+					gSpriteGolpear = gSpritePinionAgachado;
+					maxFrame = MAXFRAMEPINIONAGACHADO;
+					factor = FACTORPINIONAGACHADO;
+					std::cout << "pinion agachado" << std::endl;
 				}
 				if (frame / factor <= maxFrame) {
 					currentClip = &gSpriteGolpear[frame / factor];
@@ -99,16 +99,16 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 				std::cout << "pinia parado" << std::endl;
 			}
 			else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINION) {
-								gSpriteGolpear = gSpritePinion;
-								maxFrame = MAXFRAMEPINION;
-								factor = FACTORPINION;
-								std::cout << "pinion parado" << std::endl;
+				gSpriteGolpear = gSpritePinion;
+				maxFrame = MAXFRAMEPINION;
+				factor = FACTORPINION;
+				std::cout << "pinion parado" << std::endl;
 			}
 
 
-					if (frame / factor <= maxFrame) {
-						currentClip = &gSpriteGolpear[frame / factor];
-						++frame;
+			if (frame / factor <= maxFrame) {
+				currentClip = &gSpriteGolpear[frame / factor];
+				++frame;
 
 			} else {
 				std::cout << "golpe terminado" << std::endl;
@@ -150,24 +150,24 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					std::cout << "patada saltando" << std::endl;
 				}
 				else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINIA) {
-									gSpriteGolpear = gSpritePiniaSaltando;
-									maxFrame = MAXFRAMEPINIASALTANDO;
-									factor = FACTORPINIASALTANDO;
-									std::cout << "pinia saltando" << std::endl;
-					}
+					gSpriteGolpear = gSpritePiniaSaltando;
+					maxFrame = MAXFRAMEPINIASALTANDO;
+					factor = FACTORPINIASALTANDO;
+					std::cout << "pinia saltando" << std::endl;
+				}
 				else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINION) {
-									gSpriteGolpear = gSpritePinionSaltando;
-									maxFrame = MAXFRAMEPINIONSALTANDO;
-									factor = FACTORPINIONSALTANDO;
-									std::cout << "pinion saltando" << std::endl;
-					}
+					gSpriteGolpear = gSpritePinionSaltando;
+					maxFrame = MAXFRAMEPINIONSALTANDO;
+					factor = FACTORPINIONSALTANDO;
+					std::cout << "pinion saltando" << std::endl;
+				}
 				else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::ACTIVAR_DEFENSA) {
-									gSpriteGolpear = gSpriteDefensaSaltando;
-									maxFrame = 1;
-									factor = 1;
-									frame = 0;
-									std::cout << "defensa saltando" << std::endl;
-					}
+					gSpriteGolpear = gSpriteDefensaSaltando;
+					maxFrame = 1;
+					factor = 1;
+					frame = 0;
+					std::cout << "defensa saltando" << std::endl;
+				}
 				if (frame / factor <= maxFrame) {
 					currentClip = &gSpriteGolpear[frame / factor];
 					++frame;
