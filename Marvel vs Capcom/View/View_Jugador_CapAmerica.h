@@ -41,6 +41,7 @@ protected:
 	void getSpritesPatadaFuerteSaltando();
 	void getSpritesPinaFuerteSaltando();
 	void getSpritesPinaDebilSaltando();
+	void getSpritesRecibirDanio();
 
 };
 

@@ -42,23 +42,10 @@ public:
 	SDL_Rect  *gSpriteDefensaAgachado;
 	SDL_Rect  *gSpriteDefensaSaltando;
 
-//	SDL_Rect  *gSpritePatadadon;
-//	SDL_Rect  *gSpritePatadadebil;
-//	SDL_Rect  *gSpritePinaFuerte;
-//	SDL_Rect  *gSpritePinaDebil;
-//	SDL_Rect  *gSpriteDefensa;
+	//danio
+	SDL_Rect  *gSpriteRecibirDanio;
 
-//	SDL_Rect  *gSpritePatadadon_agachado;
-//	SDL_Rect  *gSpritePatadadebil_agachado;
-//	SDL_Rect  *gSpritePinaFuerte_agachado;
-//	SDL_Rect  *gSpritePinaDebil_agachado;
-//	SDL_Rect  *gSpriteDefensa_agachado;
-//
-//	SDL_Rect  *gSpritePatadadon_saltando;
-//	SDL_Rect  *gSpritePatadadebil_saltando;
-//	SDL_Rect  *gSpritePinaFuerte_saltando;
-//	SDL_Rect  *gSpritePinaDebil_saltando;
-//	SDL_Rect  *gSpriteDefensa_saltando;
+
 
 	SDL_Rect * gSprite;
 	int contador = 0;

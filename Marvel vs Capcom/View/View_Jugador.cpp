@@ -1,6 +1,7 @@
 #include "View_Jugador.h"
 
 #include <sstream>
+int contador=0;
 View_Jugador::View_Jugador() {
 }
 
@@ -48,7 +49,18 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					factor = 1;
 					frame = 0;
 					std::cout << "defensa agachado" << std::endl;
-				}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINIA) {
+				}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::RECIBIR_DANIO) {
+					gSpriteGolpear = gSpriteRecibirDanio;
+					maxFrame = 1;
+					factor = 1;
+					frame = 0;
+					contador++;
+					if (contador==5){
+						this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
+						contador=0;
+					}
+				}
+				else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINIA) {
 					gSpriteGolpear = gSpritePiniaAgachado;
 					maxFrame = MAXFRAMEPINIAAGACHADO;
 					factor = FACTORPINIAAGACHADO;
@@ -92,6 +104,18 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 				factor = 1;
 				frame = 0;
 				std::cout << "defensa parado" << std::endl;
+			}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::RECIBIR_DANIO) {
+				gSpriteGolpear = gSpriteRecibirDanio;
+				maxFrame = 1;
+				factor = 1;
+				frame = 0;
+				contador++;
+				if (contador==5){
+					this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
+					contador=0;
+
+				std::cout << "recibir danio" << std::endl;
+				}
 			}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINIA) {
 				gSpriteGolpear = gSpritePinia;
 				maxFrame = MAXFRAMEPINIA;
@@ -167,6 +191,16 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					factor = 1;
 					frame = 0;
 					std::cout << "defensa saltando" << std::endl;
+				}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::RECIBIR_DANIO) {
+					gSpriteGolpear = gSpriteRecibirDanio;
+					maxFrame = 1;
+					factor = 6;
+					frame = 0;
+					if (contador==5){
+						this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
+						contador=0;
+						std::cout << "recibir danio" << std::endl;
+					}
 				}
 				if (frame / factor <= maxFrame) {
 					currentClip = &gSpriteGolpear[frame / factor];

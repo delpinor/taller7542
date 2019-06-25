@@ -33,7 +33,7 @@ void View_Jugador_CapAmerica::initialize(Jugador *model,
 	getSpritesPatadaFuerteSaltando();
 	getSpritesPinaFuerteSaltando();
 	getSpritesPinaDebilSaltando();
-
+	getSpritesRecibirDanio();
 
 	this->zIndex = model->get_zindex();
 	getSpritesCambioPersonaje();
@@ -763,12 +763,11 @@ void View_Jugador_CapAmerica::getSpritesPinaDebilSaltando(){
 
 
 }
-//void View_Jugador_CapAmerica::getSpritesCambioPersonaje() {
-//
-//	this->gSpriteCambiarPersonaje = new SDL_Rect[1];
-//
-//	gSpriteCambiarPersonaje[0].x = 97;
-//	gSpriteCambiarPersonaje[0].y = 581;
-//	gSpriteCambiarPersonaje[0].w = 100;
-//	gSpriteCambiarPersonaje[0].h = 163;
-//}
+void View_Jugador_CapAmerica::getSpritesRecibirDanio() {
+	this->gSpriteRecibirDanio = new SDL_Rect[1];
+
+	gSpriteRecibirDanio[0].x = 762;
+	gSpriteRecibirDanio[0].y = 758;
+	gSpriteRecibirDanio[0].w = 261;
+	gSpriteRecibirDanio[0].h = 150;
+}
