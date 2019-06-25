@@ -29,6 +29,10 @@ void View_Jugador_CapAmerica::initialize(Jugador *model,
 	getSpritesPatadaFuerte_agachado();
 	getSpritesDefensaAgachado();
 	getSpritesDefensaSaltando();
+	getSpritesPatadaDebilSaltando();
+	getSpritesPatadaFuerteSaltando();
+	getSpritesPinaFuerteSaltando();
+	getSpritesPinaDebilSaltando();
 
 
 	this->zIndex = model->get_zindex();
@@ -307,7 +311,7 @@ void View_Jugador_CapAmerica::getSpritesPinaFuerte(){
 
 			CANTSPRITECLIPPINION = 8;
 			MINFRAMEPINION = 0;
-			MAXFRAMEPINION = 8;
+			MAXFRAMEPINION = 7;
 			FACTORPINION = 4;
 			this->gSpritePinion = new SDL_Rect[CANTSPRITECLIPPINION];
 
@@ -412,8 +416,8 @@ void View_Jugador_CapAmerica::getSpritesDefensa(){
 }
 void View_Jugador_CapAmerica::getSpritesDefensaSaltando() {
 	this->gSpriteDefensaSaltando = new SDL_Rect[1];
-	gSpriteDefensaSaltando[0].x = 368;
-	gSpriteDefensaSaltando[0].y = 3045;
+	gSpriteDefensaSaltando[0].x = 0;
+	gSpriteDefensaSaltando[0].y = 572;
 	gSpriteDefensaSaltando[0].w = 261;
 	gSpriteDefensaSaltando[0].h = 150;
 }
@@ -617,7 +621,148 @@ void View_Jugador_CapAmerica::getSpritesPinaDebil_agachado(){
 
 
 }
+void View_Jugador_CapAmerica::getSpritesPatadaDebilSaltando() {
+	CANTSPRITECLIPPATADASALTANDO = 3;
+	MINFRAMEPATADASALTANDO = 0;
+	MAXFRAMEPATADASALTANDO = 2;
+	FACTORPATADASALTANDO = 2;
+	this->gSpritePatadaSaltando = new SDL_Rect[CANTSPRITECLIPPATADASALTANDO];
 
+		gSpritePatadaSaltando[0].x = 323;
+		gSpritePatadaSaltando[0].y = 1297;
+		gSpritePatadaSaltando[0].w = 261;
+		gSpritePatadaSaltando[0].h = 150;
+
+		gSpritePatadaSaltando[1].x = 113;
+		gSpritePatadaSaltando[1].y = 1297;
+		gSpritePatadaSaltando[1].w = 261;
+		gSpritePatadaSaltando[1].h = 150;
+
+		gSpritePatadaSaltando[2].x = 113;
+		gSpritePatadaSaltando[2].y = 1297;
+		gSpritePatadaSaltando[2].w = 261;
+		gSpritePatadaSaltando[2].h = 150;
+
+
+
+
+}
+
+void View_Jugador_CapAmerica::getSpritesPatadaFuerteSaltando() {
+	CANTSPRITECLIPPATADONSALTANDO = 5;
+	MINFRAMEPATADONSALTANDO = 0;
+	MAXFRAMEPATADONSALTANDO = 4;
+	FACTORPATADONSALTANDO = 2;
+	this->gSpritePatadonSaltando = new SDL_Rect[CANTSPRITECLIPPATADONSALTANDO];
+
+	gSpritePatadonSaltando[0].x = 323;
+	gSpritePatadonSaltando[0].y = 1297;
+	gSpritePatadonSaltando[0].w = 261;
+	gSpritePatadonSaltando[0].h = 150;
+
+	gSpritePatadonSaltando[1].x = 543;
+	gSpritePatadonSaltando[1].y = 1296;
+	gSpritePatadonSaltando[1].w = 261;
+	gSpritePatadonSaltando[1].h = 150;
+
+	gSpritePatadonSaltando[2].x = 744;
+	gSpritePatadonSaltando[2].y = 1293;
+	gSpritePatadonSaltando[2].w = 261;
+	gSpritePatadonSaltando[2].h = 150;
+
+	gSpritePatadonSaltando[3].x = 948;
+	gSpritePatadonSaltando[3].y = 1296;
+	gSpritePatadonSaltando[3].w = 261;
+	gSpritePatadonSaltando[3].h = 150;
+
+	gSpritePatadonSaltando[4].x = 1183;
+	gSpritePatadonSaltando[4].y = 1295;
+	gSpritePatadonSaltando[4].w = 261;
+	gSpritePatadonSaltando[4].h = 150;
+
+}
+
+void View_Jugador_CapAmerica::getSpritesPinaFuerteSaltando(){
+
+			CANTSPRITECLIPPINIONSALTANDO = 8;
+			MINFRAMEPINIONSALTANDO = 0;
+			MAXFRAMEPINIONSALTANDO = 7;
+			FACTORPINIONSALTANDO = 2;
+			this->gSpritePinionSaltando = new SDL_Rect[CANTSPRITECLIPPINIONSALTANDO ];
+
+
+			gSpritePinionSaltando[0].x = 72;
+			gSpritePinionSaltando[0].y =  918;
+			gSpritePinionSaltando[0].w = 261;
+			gSpritePinionSaltando[0].h = 150;
+
+			gSpritePinionSaltando[1].x = 320;
+			gSpritePinionSaltando[1].y =  918;
+			gSpritePinionSaltando[1].w = 261;
+			gSpritePinionSaltando[1].h = 150;
+
+			gSpritePinionSaltando[2].x = 600;
+			gSpritePinionSaltando[2].y =  918;
+			gSpritePinionSaltando[2].w = 261;
+			gSpritePinionSaltando[2].h = 150;
+
+			gSpritePinionSaltando[3].x = 900;
+			gSpritePinionSaltando[3].y =  918;
+			gSpritePinionSaltando[3].w = 261;
+			gSpritePinionSaltando[3].h = 150;
+
+			gSpritePinionSaltando[4].x = 900;
+			gSpritePinionSaltando[4].y =  918;
+			gSpritePinionSaltando[4].w = 261;
+			gSpritePinionSaltando[4].h = 150;
+
+			gSpritePinionSaltando[5].x = 1230;
+			gSpritePinionSaltando[5].y =  918;
+			gSpritePinionSaltando[5].w = 261;
+			gSpritePinionSaltando[5].h = 150;
+
+			gSpritePinionSaltando[6].x = 1230;
+			gSpritePinionSaltando[6].y =  918;
+			gSpritePinionSaltando[6].w = 261;
+			gSpritePinionSaltando[6].h = 150;
+
+			gSpritePinionSaltando[7].x = 72;
+			gSpritePinionSaltando[7].y =  918;
+			gSpritePinionSaltando[7].w = 261;
+			gSpritePinionSaltando[7].h = 150;
+
+
+}
+void View_Jugador_CapAmerica::getSpritesPinaDebilSaltando(){
+	CANTSPRITECLIPPINIASALTANDO = 3;
+	MINFRAMEPINIASALTANDO = 0;
+	MAXFRAMEPINIASALTANDO = 2;
+	FACTORPINIASALTANDO = 2;
+	this->gSpritePiniaSaltando = new SDL_Rect[CANTSPRITECLIPPINIASALTANDO ];
+
+
+
+		gSpritePiniaSaltando[0].x = 490;
+		gSpritePiniaSaltando[0].y = 752;
+		gSpritePiniaSaltando[0].w = 261;
+		gSpritePiniaSaltando[0].h = 150;
+
+		gSpritePiniaSaltando[1].x = 240;
+		gSpritePiniaSaltando[1].y = 752;
+		gSpritePiniaSaltando[1].w = 261;
+		gSpritePiniaSaltando[1].h = 150;
+
+		gSpritePiniaSaltando[2].x = 240;
+		gSpritePiniaSaltando[2].y = 752;
+		gSpritePiniaSaltando[2].w = 261;
+		gSpritePiniaSaltando[2].h = 150;
+
+
+
+
+
+
+}
 //void View_Jugador_CapAmerica::getSpritesCambioPersonaje() {
 //
 //	this->gSpriteCambiarPersonaje = new SDL_Rect[1];

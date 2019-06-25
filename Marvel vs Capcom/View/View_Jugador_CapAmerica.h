@@ -37,6 +37,10 @@ protected:
 	void getSpritesDefensa_agachado();
 	void getSpritesDefensaAgachado();
 	void getSpritesDefensaSaltando();
+	void getSpritesPatadaDebilSaltando();
+	void getSpritesPatadaFuerteSaltando();
+	void getSpritesPinaFuerteSaltando();
+	void getSpritesPinaDebilSaltando();
 
 };
 
