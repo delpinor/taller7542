@@ -10,7 +10,7 @@ Pinia::~Pinia() {
 
 void Pinia::execute(int i) {
 
-	this->model->equipos[i]->jugadorActivoPinia();
+	this->model->equipos[i]->jugadorActivoPinia(this->model->equipos[i]->equipoRival->jugadores[this->model->equipos[i]->equipoRival->nroJugadorActivo]);
 
 }
 

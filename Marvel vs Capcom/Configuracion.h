@@ -40,6 +40,9 @@
 #define MAXIMO_JUGADORES 4
 #define NUM_JUGADORES_DEFAUT 2
 
+#define batalla_cantidad_default "3"
+#define batalla_tiempo_default "99"
+
 //----------------------------------------//
 
 class Configuracion {
@@ -50,10 +53,11 @@ private:
 	std::map<int, std::map<std::string, std::string> > mapFondoPantalla;
 	std::map<std::string, std::string>  mapNivel;
 	std::string nivelLog;
-	std::string anchoVentana, altoVentana;
+	std::string anchoVentana, altoVentana, tiempoBatalla, cantidadBatallas;
 	int num_jugadores;
 	std::vector<string> nombresPersonajes;
 	void ValidarConfigs(std::vector<string> *nombresPersonajes);
+	bool esModoTest;
 
 public:
 	Configuracion(char* filepath);
@@ -64,6 +68,9 @@ public:
 	int get_Config_AnchoVentana();
 	int get_Config_AltoVentana();
 	int get_NumJugadores();
+	int get_Config_TiempoBatalla();
+	int get_Config_CantidadBatallas();
+	bool get_Config_ModoTest();
 	virtual ~Configuracion();
 };
 

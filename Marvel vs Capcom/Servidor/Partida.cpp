@@ -1,14 +1,37 @@
 #include "Partida.h"
 #include <iostream>
+#define DURACIONMENSAJE 3
 void Partida::IniciarPartida() {
 	//listaJugadores = listaEspera;
 	//listaEspera.clear();
 	modelo->inicializar();
+	IniciarBatalla();
+	cout << "Esperando confimacion de carga de los clientes..." << endl;
+	while(!ClientesCargados()){
+		usleep(10);
+	}
+	cout << "Carga de clientes complete. Inicia la partida..." << endl;
+	partidaIniciada = true;
+
+}
+void Partida::IniciarBatalla(){
+	this->IniciarTitularidadClientes();
 	ActualizarModelo();
+	this->IniciarPosiciones();
+	this->IniciarCamara();
+	this->roundActual++;
+	cout << "Iniciando Batalla " << this->roundActual << endl;
+	this->cronometro = this->tiempoRound;
+	this->modelo->InicializarVidas();
+	this->roundCorriendo = true;
+}
+void Partida::IniciarPosiciones(){
 	modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(120 - 80);
 	modelo->getEquipoNro(0)->getJugadorActivo()->setPosY(931);
 	modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(780 - 80);
 	modelo->getEquipoNro(1)->getJugadorActivo()->setPosY(931);
+}
+void Partida::IniciarCamara(){
 	int CAMARAPOSICIONINICIALX = ANCHO_NIVEL / 2 - modelo->ancho_Pantalla / 2;
 	int CAMARAPOSICIONINICIALY = ALTO_NIVEL / 2 - modelo->alto_Pantalla / 2;
 	camaraStatic = {CAMARAPOSICIONINICIALX,CAMARAPOSICIONINICIALY, modelo->ancho_Pantalla, modelo->alto_Pantalla};
@@ -16,9 +39,25 @@ void Partida::IniciarPartida() {
 	modelo->setCamara(this->camara);
 	//	modelo->inicializarPosicionesEquipos();
 	AjustarCamara();
-	partidaIniciada = true;
-	cout << "Partida INICA#########################################################################DA!" << endl;
-
+}
+bool Partida::ClientesCargados(){
+	list<ClienteConectado>::iterator it;
+	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+		if (!it->cargaCompleta) {
+			return false;
+		}
+	}
+	return true;
+}
+void Partida::IniciarTitularidadClientes(){
+	list<ClienteConectado>::iterator it;
+	for (it = listaJugadores.begin(); it != listaJugadores.end(); it++) {
+		if (it->titularEquipo) {
+			it->titular = true;
+		}else{
+			it->titular = false;
+		}
+	}
 }
 void Partida::AjustarCamara() {
 	// Este codigo se puede mejorar.
@@ -87,6 +126,45 @@ ModeloEstado Partida::GetModeloEstado() {
 	unModelo.activoEquipo1 = modelo->equipos[0]->nroJugadorActivo;
 	unModelo.activoEquipo2 = modelo->equipos[1]->nroJugadorActivo;
 	return unModelo;
+}
+ModeloInGame Partida::GetModeloGame(){
+	ModeloInGame unModelo;
+	unModelo = modelo->GetModeloInGame();
+
+	if(tiempoRound < (cronometro+DURACIONMENSAJE)){
+		unModelo.tipoMensaje = READY;
+		std::string msg = "Ronda " + std::to_string(roundActual);
+		strcpy(unModelo.mensaje, msg.c_str());
+	}else{
+		unModelo.tipoMensaje = NINGUNO;
+	}
+
+	unModelo.resultadoEquipo0 = this->GetModeloResultadoEquipo(0);
+	unModelo.resultadoEquipo1 = this->GetModeloResultadoEquipo(1);
+
+	return unModelo;
+}
+ModeloResultadoEquipo Partida::GetModeloResultadoEquipo(int nroEquipo){
+	ResultadoEquipo resultado;
+	ModeloResultadoEquipo unModeloResultado;
+
+	if(nroEquipo == 0){
+		resultado = this->resultado.resultadoEquipo0;
+	}
+	else{
+		resultado = this->resultado.resultadoEquipo1;
+	}
+
+	std::list<int>::iterator itResultados;
+	std::list<int>::iterator itRounds;
+	int i = 0;
+	for (itRounds = resultado.nrosRound.begin(); itRounds != resultado.nrosRound.end(); itRounds++) {
+		unModeloResultado.NrosBatallasGanadas[i] = *itRounds;
+		i++;
+	}
+	unModeloResultado.cantidadResultados = resultado.nrosRound.size();
+
+	return unModeloResultado;
 }
 ModeloPersonajes Partida::GetModeloPersonajes(){
 	ModeloPersonajes unModelo;
@@ -297,7 +375,17 @@ ClienteConectado * Partida::GetDesconectado(string nombre){
 	}
 	return unCliente;
 }
-
+ClienteConectado * Partida::GetCliente(string nombre){
+	ClienteConectado * unCliente;
+	list<ClienteConectado>::iterator it;
+	for (it = listaJugadores.begin(); it != listaJugadores.end();
+			it++) {
+		if (it->nombre == nombre) {
+			unCliente = &(*it);
+		}
+	}
+	return unCliente;
+}
 void Partida::JugadorDesconectado(string nombre) {
 	ClienteConectado unCliente;
 	unCliente = GetClienteJugando(nombre);
@@ -423,8 +511,10 @@ void Partida::AgregarCliente(ClienteConectado * cliente) {
 		int cantidad = listaEspera.size();
 		if (cantidad < 2) {
 			cliente->titular = true;
+			cliente->titularEquipo = true;
 		} else {
 			cliente->titular = false;
+			cliente->titularEquipo = false;
 		}
 		// Seleccion de equipos
 		cantidad++;
@@ -815,3 +905,86 @@ ModeloResultadoSeleccionPersonaje Partida::getResultadoSeleccionPersonaje(){
 	return unModelo;
 }
 
+void Partida::SetConfiguracion(int tiempoBatalla, int cantidadBatallas, bool modoTest){
+	this->cantidadRounds = cantidadBatallas;
+	this->tiempoRound = tiempoBatalla;
+	this->modoTest = modoTest;
+}
+
+void Partida::AvanzarTiempo(){
+	if(this->cronometro > 0){
+		this->cronometro--;
+	}
+	modelo->SetTiempoJuego(this->cronometro);
+	cout
+	<< "PARTIDA - Tiempo:   " << this->cronometro << " | "
+	<< TimeHelper::getStringLocalTimeNow() << endl;
+}
+
+
+bool Partida::EstaEnEjecucionDeBatalla(){
+	return this->roundCorriendo;
+}
+
+bool Partida::DebeFinalizarBatalla(){
+	if(!this->EsModoTest() && (this->cronometro <= 0 || !this->modelo->EquiposEstanVivos())){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+void Partida::FinalizarBatalla(){
+	this->roundCorriendo = false;
+	this->SetResultadosBatallaTerminada();
+}
+bool Partida::HayBatallasPendientes(){
+	if(this->roundActual < this->cantidadRounds){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+int Partida::GetNroBatallaActual(){
+	return this->roundActual;
+}
+bool Partida::EsModoTest(){
+	return this->modoTest;
+}
+void Partida::SetResultadosBatallaTerminada(){
+	int nroEquipoGanador = -1;
+	int equipo0CantPersjVivos = this->modelo->GetEquipoCantidadJugadoresVivos(0);
+	int equipo1CantPersjVivos = this->modelo->GetEquipoCantidadJugadoresVivos(1);
+
+	if(equipo0CantPersjVivos == equipo1CantPersjVivos){
+		int equipo0Vida = this->modelo->GetVidaEquipo(0);
+		int equipo1Vida = this->modelo->GetVidaEquipo(1);
+
+		if(equipo0Vida > equipo1Vida){
+			nroEquipoGanador = 0;
+		}
+		else{
+			nroEquipoGanador = 1;
+		}
+	}
+	else
+	{
+		if(equipo0CantPersjVivos > equipo1CantPersjVivos){
+			nroEquipoGanador = 0;
+		}
+		else{
+			nroEquipoGanador = 1;
+		}
+	}
+
+	if(nroEquipoGanador == 0){
+		cout << "Equipo 0 GANÓ EL ROUND " << this->roundActual << endl;
+		this->resultado.resultadoEquipo0.nrosRound.push_back(this->roundActual);
+	}
+	else{
+		cout << "Equipo 1 GANÓ EL ROUND " << this->roundActual << endl;
+		this->resultado.resultadoEquipo1.nrosRound.push_back(this->roundActual);
+	}
+}

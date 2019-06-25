@@ -21,8 +21,14 @@ Model::Model() {
 	this->camara = NULL;
 	this->equipos[0] = new Equipo();
 	this->equipos[1] = new Equipo();
+	this->tiempoJuego = 0;
 }
-
+int Model::GetTiempoJuego(){
+	return tiempoJuego;
+}
+void Model::SetTiempoJuego(int tiempo){
+	tiempoJuego = tiempo;
+}
 void Model::set_equipos_with_jugador(int nroEquipo, int nroJugadorEquipo, int personajeId){
 	if (nroEquipo==1){
 
@@ -46,13 +52,15 @@ Jugador* Model::crearJugador(int personajeId){
 
 	int ancho, alto, zIndex;
 	std::string nombre, path;
+	bool inmortal;
 	ancho = jugadoresEquipo1[personajeId]->get_ancho();
 	alto = jugadoresEquipo1[personajeId]->get_alto();
 	zIndex = jugadoresEquipo1[personajeId]->get_zindex();
 	nombre = jugadoresEquipo1[personajeId]->getNombre();
 	path = jugadoresEquipo1[personajeId]->getPathImagen();
+	inmortal = jugadoresEquipo1[personajeId]->esInmortal();
 
-	Jugador* jNuevo = new Jugador(ancho, alto, zIndex, nombre, path);
+	Jugador* jNuevo = new Jugador(ancho, alto, zIndex, nombre, path, inmortal);
 	return jNuevo;
 }
 
@@ -156,7 +164,7 @@ void Model::CargarFondos(std::map<int, std::map<std::string, std::string> > &map
 	Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaFondos", "Carga finalizada");
 }
 void Model::cargar_Jugadores(
-		std::map<int, std::map<std::string, std::string> > &mapPersonajes) {
+		std::map<int, std::map<std::string, std::string> > &mapPersonajes, bool modoTest) {
 
 	int ancho, alto, zindex;
 	std::string nombre, path;
@@ -176,7 +184,8 @@ void Model::cargar_Jugadores(
 		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Ancho: " + std::to_string(ancho));
 		Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "zindex: " + std::to_string(zindex));
 		int personajeId = Personaje::getPersonajeId(nombre);
-		jugadoresEquipo1.insert(std::make_pair(personajeId,new Jugador(ancho, alto, zindex, nombre, path)));
+		bool inmortal = modoTest;
+		jugadoresEquipo1.insert(std::make_pair(personajeId,new Jugador(ancho, alto, zindex, nombre, path, inmortal)));
 	}
 	Logger::Log(LOGGER_NIVEL::DEBUG, "Model::CargaJugadores", "Carga Finalizada");
 }
@@ -229,6 +238,15 @@ void Model::inicializarPosicionesEquipos(){
 	this->equipos[0]->getJugadorActivo()->estado->setPosX(this->camara->x);
 	this->equipos[1]->getJugadorActivo()->estado->setPosX(this->camara->x + this->camara->w);//- this->equipos[1]->getJugadorActivo()->get_ancho());
 }
+ModeloInGame Model::GetModeloInGame(){
+	ModeloInGame inGame;
+	inGame.tiempo = this->GetTiempoJuego();
+	inGame.personajesEquipo0[0].vida = this->getEquipoNro(0)->getJugadorNro(0)->GetVida();
+	inGame.personajesEquipo0[1].vida = this->getEquipoNro(0)->getJugadorNro(1)->GetVida();
+	inGame.personajesEquipo1[0].vida = this->getEquipoNro(1)->getJugadorNro(0)->GetVida();
+	inGame.personajesEquipo1[1].vida = this->getEquipoNro(1)->getJugadorNro(1)->GetVida();
+	return inGame;
+}
 ModeloEstado Model::GetModelEstado(){
 	ModeloEstado unModeloEstado;
 	unModeloEstado.camara.posX = this->camara->x;
@@ -280,3 +298,34 @@ std::list<int> Model::GetIdsPersonajes(){
 
 	return idsPersonajes;
 };
+bool Model::EquiposEstanVivos(){
+	cout
+	<< "MODEL - EquiposEstanVivos:  | "
+	<< TimeHelper::getStringLocalTimeNow() << endl;
+	if(!this->getEquipoNro(0)->estaVivo() || !this->getEquipoNro(1)->estaVivo() ){
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+
+void Model::InicializarVidas(){
+	this->getEquipoNro(0)->inicializarVida();
+	this->getEquipoNro(1)->inicializarVida();
+}
+
+int Model::GetNroEquipoVivo(){
+	if(this->getEquipoNro(0)->estaVivo()){
+		return 0;
+	}
+	else{
+		return 1;
+	}
+}
+int Model::GetVidaEquipo(int nroEquipo){
+	return this->getEquipoNro(nroEquipo)->getVidaTotal();
+}
+int Model::GetEquipoCantidadJugadoresVivos(int nroEquipo){
+	return this->getEquipoNro(nroEquipo)->getCantidadJugadoresVivos();
+}

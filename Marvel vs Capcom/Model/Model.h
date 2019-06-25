@@ -24,17 +24,24 @@ public:// hay que pasar los parametros a pivados y generar los seters
 	std:: map<int, Jugador> jugadores;
 	std::map <int, std::string> fondos;
 	int ancho_Pantalla, alto_Pantalla;
+	int tiempoJuego;
 	std:: map<int, Jugador*> jugadoresEquipo1;
 	//std:: map<int, Jugador> jugadoresEquipo2;
 
 public:
 	Model();
+	int EquipoGanador;
+	int NumeroDeRonda;
+	TIPOLEYENDA TipoMensaje = NINGUNO;
+	std::string TextoMensaje = "!";
 	// metodo que crea y carga los personajes en un map
-	void cargar_Jugadores (std::map< int, std::map<std::string, std::string> > &mapPersonajes);
+	void cargar_Jugadores (std::map< int, std::map<std::string, std::string> > &mapPersonajes, bool modoTest);
 	void set_equipos_with_jugador(int equipo,int nroJugadorEquipo, int personajeId);
 	std::string get_pathImagenJugador(int equipo, int indice_jugador);
 	int GetAltoJugador(int equipo, int indice_jugador);
 	int GetAnchoJugador(int equipo, int indice_jugador);
+	int GetTiempoJuego();
+	void SetTiempoJuego(int tiempo);
 	void inicializar();
 	void cargar_Fondos(std::map<int, std::map<std::string, std::string> > &mapFondoPantalla);
 	std::string GetPathFondoParallax(int indice_Z);
@@ -50,6 +57,7 @@ public:
 	virtual void setCamara(SDL_Rect * camara);
 	void inicializarPosicionesEquipos();
 	ModeloEstado GetModelEstado();
+	ModeloInGame GetModeloInGame();
 	virtual void update();
 	virtual void updateCliente(bool servidor_vivo);
 	Equipo* getEquipoNro(int i);
@@ -58,6 +66,11 @@ public:
 	virtual void moverJuegoCliente();
 
 	std::list<int> GetIdsPersonajes();
+	bool EquiposEstanVivos();
+	void InicializarVidas();
+	int GetNroEquipoVivo();
+	int GetVidaEquipo(int nroEquipo);
+	int GetEquipoCantidadJugadoresVivos(int nroEquipo);
 private:
 	Jugador* crearJugador(int personajeId);
 };

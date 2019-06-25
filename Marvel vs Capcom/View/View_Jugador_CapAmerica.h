@@ -8,6 +8,15 @@ public:
 	View_Jugador_CapAmerica();
 	void initialize(Jugador *model, LTexture * texturaJugador);
 
+	void reproducir_sonido_salto();
+	void reproducir_sonido_cambio();
+	void reproducir_sonido_ataque_pu();
+	void reproducir_sonido_defensa();
+	EfectoSonido *sonido_salto;
+	EfectoSonido *sonido_ataque_pu; // sonido ataque puño
+	EfectoSonido *sonido_defensa;
+	EfectoSonido *sonido_cambio;
+
 protected:
 	//variable que uso para ajusatr la animacion
 
@@ -17,6 +26,17 @@ protected:
 	void getSpritesAgachar();
 	void getSpritesCambioPersonaje();
 	void getSpritesPatadaFuerte();
+	void getSpritesPatadaDebil();
+	void getSpritesPinaFuerte();
+	void getSpritesPinaDebil();
+	void getSpritesDefensa();
+	void getSpritesPatadaFuerte_agachado();
+	void getSpritesPatadaDebil_agachado();
+	void getSpritesPinaFuerte_agachado();
+	void getSpritesPinaDebil_agachado();
+	void getSpritesDefensa_agachado();
+
+
 };
 
 #endif

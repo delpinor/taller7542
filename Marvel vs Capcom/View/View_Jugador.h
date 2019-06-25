@@ -4,6 +4,7 @@
 #include "../Model/LTexture.h"
 #include "../Model/Model_Jugador.h"
 #include "../Logger/Logger.h"
+#include "../EfectoSonido.h"
 class View_Jugador { // @suppress("Class has a virtual method and non-virtual destructor")
 public:
 
@@ -36,6 +37,24 @@ public:
 	SDL_Rect  *gSpritePinionAgachado;
 	SDL_Rect  *gSpriteDefensa;
 
+	SDL_Rect  *gSpritePatadadon;
+	SDL_Rect  *gSpritePatadadebil;
+	SDL_Rect  *gSpritePinaFuerte;
+	SDL_Rect  *gSpritePinaDebil;
+	SDL_Rect  *gSpriteDefensa;
+
+	SDL_Rect  *gSpritePatadadon_agachado;
+	SDL_Rect  *gSpritePatadadebil_agachado;
+	SDL_Rect  *gSpritePinaFuerte_agachado;
+	SDL_Rect  *gSpritePinaDebil_agachado;
+	SDL_Rect  *gSpriteDefensa_agachado;
+
+	SDL_Rect  *gSpritePatadadon_saltando;
+	SDL_Rect  *gSpritePatadadebil_saltando;
+	SDL_Rect  *gSpritePinaFuerte_saltando;
+	SDL_Rect  *gSpritePinaDebil_saltando;
+	SDL_Rect  *gSpriteDefensa_saltando;
+
 	SDL_Rect * gSprite;
 	int contador = 0;
 
@@ -57,6 +76,24 @@ public:
 	int MAXFRAMEDEFENSA;
 	int FACTORDEFENSA;
 	int CANTSPRITECLIPPATADON;
+	int CANTSPRITECLIPPATADITA;
+	int CANTSPRITEPINADEBIL;
+	int CANTSPRITEPINAFUERTE;
+	int CANTSPRITEDEFENSA;
+
+	int CANTSPRITECLIPPATADON_agachado;
+	int CANTSPRITECLIPPATADITA_agachado;
+	int CANTSPRITEPINADEBIL_agachado;
+	int CANTSPRITEPINAFUERTE_agachado;
+	int CANTSPRITEDEFENSA_agachado;
+
+	int CANTSPRITECLIPPATADON_saltando;
+	int CANTSPRITECLIPPATADITA_saltando;
+	int CANTSPRITEPINADEBIL_saltando;
+	int CANTSPRITEPINAFUERTE_saltando;
+	int CANTSPRITEDEFENSA_saltando;
+
+
 	int MINFRAMEPATADON;
 	int MAXFRAMEPATADON;
 	int FACTORPATADON;
@@ -96,9 +133,42 @@ public:
 	int MINFRAMEPINIONSALTANDO;
 	int MAXFRAMEPINIONSALTANDO;
 	int FACTORPINIONSALTANDO;
+	int MINFRAMEPATADITA;
+	int MAXFRAMEPATADITA;
+	int MINFRAMEPINADEBIL;
+	int MAXFRAMEPINADEBIL;
+	int MINFRAMEPINAFUERTE;
+	int MAXFRAMEPINAFUERTE;
+	int MAXFRAMEDEFENSA;
 
-	int maxFrame;
-	int factor;
+
+	int MINFRAMEPATADON_agachado;
+	int MAXFRAMEPATADON_agachado;
+	int MINFRAMEPATADITA_agachado;
+	int MAXFRAMEPATADITA_agachado;
+	int MINFRAMEPINADEBIL_agachado;
+	int MAXFRAMEPINADEBIL_agachado;
+	int MINFRAMEPINAFUERTE_agachado;
+	int MAXFRAMEPINAFUERTE_agachado;
+	int MINFRAMEDEFENSA_agachado;
+	int MAXFRAMEDEFENSA_agachado;
+
+	int MINFRAMEPATADON_saltando;
+	int MAXFRAMEPATADON_saltando;
+	int MINFRAMEPATADITA_saltando;
+	int MAXFRAMEPATADITA_saltando;
+	int MINFRAMEPINADEBIL_saltando;
+	int MAXFRAMEPINADEBIL_saltando;
+	int MINFRAMEPINAFUERTE_saltando;
+	int MAXFRAMEPINAFUERTE_saltando;
+	int MINFRAMEDEFENSA_saltando;
+	int MAXFRAMEDEFENSA_saltando;
+
+
+	virtual void reproducir_sonido_salto(){};
+	virtual void reproducir_sonido_cambio(){};
+	virtual void reproducir_sonido_ataque_pu(){};
+	virtual void reproducir_sonido_defensa(){};
 
 protected:
 

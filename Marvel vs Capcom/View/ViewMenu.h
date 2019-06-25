@@ -6,7 +6,7 @@
 #include <list>
 #include <iterator>
 #include "../Helper/TimeHelper.h"
-
+#include "../EfectoSonido.h"
 
 struct ModeloPersonajeVistaSeleccion{
 	int jugadorId;
@@ -69,9 +69,15 @@ private:
 	int ancho_Pantalla, alto_Pantalla;
 	void personajeSiguiente();
 	void personajeAnterior();
+
+
+	EfectoSonido * sonido_cursor;
+	EfectoSonido * sonido_selection;
+
 public:
 	int getNombre_usuario(std::string &nombre);
 	bool loadText();
+	void MostrarMensaje(std::string mensaje);
 	std::string TextoMensaje = " ";
 	std::string TextoTitulo = "ESPERANDO OTROS JUGADORES...";
 	ViewMenu(int i);
@@ -84,6 +90,8 @@ public:
 	bool hayPersonajes();
 	list<ModeloPersonajeVistaSeleccion> getDataSeleccionada();
 	virtual ~ViewMenu();
+	void actualizarTitulo(std::string texto);
+	void actualizarMensaje(std::string texto);
 };
 
 #endif /* VIEWMENU_H_ */

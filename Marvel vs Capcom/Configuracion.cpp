@@ -43,8 +43,10 @@ Configuracion::Configuracion(char* filepath) {
 	parser.devolver_Map_Fondo(&mapFondoPantalla);
 	parser.devolver_Tam_Imagen(&anchoVentana,&altoVentana);
 	parser.devolver_Map_Nivel(&mapNivel);
+	parser.devolver_Config_Batalla(&tiempoBatalla,&cantidadBatallas);
 	this->num_jugadores=parser.devolverNumeroJugadores();
 	this->nivelLog = parser.devolver_Tipo_Log();
+	this->esModoTest = parser.devolver_Modo_Test();
 	this->ValidarConfigs(&nombresPersonajes);
 
 }
@@ -90,6 +92,18 @@ int Configuracion::get_Config_AnchoVentana(){
 int Configuracion::get_Config_AltoVentana(){
 	return NumericHelper::parseStringToInt(this->altoVentana);
 }
+
+int Configuracion::get_Config_TiempoBatalla(){
+	return NumericHelper::parseStringToInt(this->tiempoBatalla);
+}
+
+int Configuracion::get_Config_CantidadBatallas(){
+	return NumericHelper::parseStringToInt(this->cantidadBatallas);
+}
+
+bool Configuracion::get_Config_ModoTest(){
+	return this->esModoTest;
+};
 
 Configuracion::~Configuracion() {
 	// TODO Auto-generated destructor stub
@@ -237,4 +251,14 @@ void Configuracion::ValidarConfigs(vector<string> *nombresPersonajes){
 
 	}
 
+	//Batalla
+	if((!StringHelper::esUnNumero(this->tiempoBatalla) ) || (NumericHelper::parseStringToInt(this->tiempoBatalla) <= 0)){
+		Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se establace el tiempoBatalla default: " ,tiempoBatalla);
+		this->tiempoBatalla = batalla_tiempo_default;
+	}
+
+	if((!StringHelper::esUnNumero(this->cantidadBatallas)) || (NumericHelper::parseStringToInt(this->cantidadBatallas) <= 0)){
+		Logger::Log(LOGGER_NIVEL::ERROR, "Configuracion::Se establace el alto de ventana default: " ,cantidadBatallas);
+		this->cantidadBatallas = batalla_cantidad_default;
+	}
 }

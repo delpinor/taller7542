@@ -82,6 +82,8 @@ void Equipo::move(SDL_Rect* camara){
 			getJugadorActivo()->terminarSalto();
 		}
 	}
+	///esto es turbio ::::
+	if (getJugadorActivo()->getTipoGolpe() != TIPO_GOLPE::GOLPE_VOLAR){
 	if (getJugadorActivo()->getTipoGolpe() != TIPO_GOLPE::NADA){
 		if (getJugadorActivo()->getTipoGolpe() == TIPO_GOLPE::DESACTIVAR_DEFENSA ||
 				getJugadorActivo()->getTipoGolpe() == TIPO_GOLPE::ACTIVAR_DEFENSA)
@@ -93,6 +95,7 @@ void Equipo::move(SDL_Rect* camara){
 			getJugadorActivo()->setTipoGolpe(TIPO_GOLPE::NADA);
 			contadorGolpe = 0;
 		}
+	}
 	}
 	if (this->getJugadorActivo()->isFueraDePantalla()){
 		this->cambiarPersonaje(camara);
@@ -116,7 +119,8 @@ void Equipo::cambiarPersonaje(SDL_Rect* camara){
 }
 
 void Equipo::iniciarCambioPersonaje(){
-	this->jugadores[this->nroJugadorActivo]->cambiarPersonaje();
+		if(	!this->jugadores[getNumeroJugadorInactivo()]->murio())
+			this->jugadores[this->nroJugadorActivo]->cambiarPersonaje();
 }
 
 void Equipo::jugadorActivoAumentaVelocidadEnX() {
@@ -138,17 +142,35 @@ void Equipo::jugadorActivoAumentaVelocidadEnY(int vel) {
 void Equipo::jugadorActivoSalta() {
 	this->jugadores[this->nroJugadorActivo]->Saltar();
 }
-void Equipo::jugadorActivoPinia() {
-	this->jugadores[this->nroJugadorActivo]->Pinia();
+void Equipo::jugadorActivoPinia(Jugador * rival) {
+	this->jugadores[this->nroJugadorActivo]->Pinia(rival);
 }
-void Equipo::jugadorActivoPinion() {
-	this->jugadores[this->nroJugadorActivo]->Pinion();
+void Equipo::jugadorActivoPinia_agachado(Jugador * rival) {
+	this->jugadores[this->nroJugadorActivo]->Pinia_agachado(rival);
 }
-void Equipo::jugadorActivoPatada() {
-	this->jugadores[this->nroJugadorActivo]->Patada();
+void Equipo::jugadorActivoPinion(Jugador * rival) {
+	this->jugadores[this->nroJugadorActivo]->Pinion(rival);
 }
-void Equipo::jugadorActivoPatadon() {
-	this->jugadores[this->nroJugadorActivo]->Patadon();
+void Equipo::jugadorActivoArrojar(Jugador * rival) {
+	this->jugadores[this->nroJugadorActivo]->Arrojar(rival);
+}
+void Equipo::jugadorActivoTirarPoder(Jugador * rival) {
+	this->jugadores[this->nroJugadorActivo]->TirarPoder(rival);
+}
+void Equipo::jugadorActivoPinion_agachado(Jugador * rival) {
+	this->jugadores[this->nroJugadorActivo]->Pinion_agachado(rival);
+}
+void Equipo::jugadorActivoPatada(Jugador * rival) {
+	this->jugadores[this->nroJugadorActivo]->Patada(rival);
+}
+void Equipo::jugadorActivoPatada_agachado(Jugador * rival) {
+	this->jugadores[this->nroJugadorActivo]->Patada_agachado(rival);
+}
+void Equipo::jugadorActivoPatadon_agachado(Jugador * rival) {
+	this->jugadores[this->nroJugadorActivo]->Patadon_agachado(rival);
+}
+void Equipo::jugadorActivoPatadon(Jugador * rival) {
+	this->jugadores[this->nroJugadorActivo]->Patadon(rival);
 }
 void Equipo::jugadorActivoActivarDefensa() {
 	this->jugadores[this->nroJugadorActivo]->ActivarDefensa();
@@ -167,6 +189,9 @@ void Equipo::jugadorActivoDisminuyeVelocidadEnY() {
 void Equipo::jugadorActivoSeAgacha() {
 	this->jugadores[this->nroJugadorActivo]->Agachar();
 }
+void Equipo::jugadorActivoSeDefiende() {
+	this->jugadores[this->nroJugadorActivo]->Defensa();
+}
 
 void Equipo::jugadorActivoSePara() {
 	this->jugadores[this->nroJugadorActivo]->Parar();
@@ -182,4 +207,32 @@ void Equipo::setEquipoRival(Equipo* equipo_rival){
 
 Equipo* Equipo::getEquipoRival(){
 	return this->equipoRival;
+}
+bool Equipo::estaVivo(){
+	cout
+	<< "Equipo - estaVivo:  | "
+	<< endl;
+	if(this->getCantidadJugadoresVivos() == 0){
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+
+void Equipo::inicializarVida(){
+	this->jugadores[0]->inicializarVida();
+	this->jugadores[1]->inicializarVida();
+}
+int Equipo::getVidaTotal(){
+	return this->jugadores[0]->GetVida() + this->jugadores[1]->GetVida();
+}
+int Equipo::getCantidadJugadoresVivos(){
+	int cantidadVivos = 0;
+	for(int i = 0; i < 2; i++){
+		if(this->jugadores[i]->estaVivo()){
+			cantidadVivos++;
+		}
+	}
+	return cantidadVivos;
 }

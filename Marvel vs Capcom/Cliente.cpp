@@ -170,6 +170,11 @@ void Cliente::EnviarPing(){
 	IDMENSAJE idCabecera = PING;
 	send(this->getConexion()->getSocketCliente(), &idCabecera, sizeof(idCabecera), MSG_NOSIGNAL);
 }
+void Cliente::EnviarConfirmacion(){
+	IDMENSAJE idCabecera = CARGACOMPLETA;
+	send(this->getConexion()->getSocketCliente(), &idCabecera, sizeof(idCabecera), MSG_NOSIGNAL);
+	cout << "Enviado confirmacion..." << endl;
+}
 void Cliente::enviarDataSeleccionAServidor(DataSeleccionAlServidor data) {
 
 	int error = 0;
@@ -224,8 +229,7 @@ int Cliente::recibirModeloDelServidor() {
 
 							this->juegoCorriendo = false;
 							this->getConexion()->Cerrar();
-							//			this->getVista()->CajaMensaje("Equipos",
-							//					"Juego iniciado. No hay lugar");
+
 		}
 
 		//-------->Recibe JUEGO INICIADO
@@ -234,6 +238,13 @@ int Cliente::recibirModeloDelServidor() {
 			recv(this->getConexion()->getSocketCliente(), &unModelo, sizeof(unModelo), 0);
 			this->FinalizarSeleccionPersonaje();
 			this->ResultadoSeleccionPersonaje = unModelo;
+		}
+
+		//-------->Recibe JUEGO FINALIZADO
+		if (idMsg == JUEGOFINALIZADO){
+			pthread_mutex_lock(&mutexx);
+			this->JuegoFinalizado = true;
+			pthread_mutex_unlock(&mutexx);
 		}
 
 		//-------->Recibe MODELO
@@ -317,7 +328,33 @@ int Cliente::recibirModeloDelServidor() {
 				this->getVista()->model->equipos[1]->getJugadorActivo()->setIniciarGolpe(true);
 			}
 
+			this->getVista()->model->SetTiempoJuego(unModelo.tiempo);
 			pthread_mutex_unlock(&mutexx);
+		}
+		//-------->Datos IGAME
+		if (idMsg == INGAME && this->JuegoIniciado) {
+			ModeloInGame inGame;
+			recv(this->getConexion()->getSocketCliente(), &inGame, sizeof(inGame), 0);
+			this->getVista()->model->SetTiempoJuego(inGame.tiempo);
+
+			this->getVista()->model->TipoMensaje = inGame.tipoMensaje;
+			this->getVista()->model->TextoMensaje = inGame.mensaje;
+
+
+			this->getVista()->model->getEquipoNro(0)->getJugadorNro(0)->SetVida(inGame.personajesEquipo0[0].vida);
+			this->getVista()->model->getEquipoNro(0)->getJugadorNro(1)->SetVida(inGame.personajesEquipo0[1].vida);
+
+			this->getVista()->model->getEquipoNro(1)->getJugadorNro(0)->SetVida(inGame.personajesEquipo1[0].vida);
+			this->getVista()->model->getEquipoNro(1)->getJugadorNro(1)->SetVida(inGame.personajesEquipo1[1].vida);
+
+			cout << "Resultados Equipo0: Cantidad: " << inGame.resultadoEquipo0.cantidadResultados << endl;
+			for(int i = 0; i < inGame.resultadoEquipo0.cantidadResultados; i++){
+				cout << "Equipo0: Round: " << inGame.resultadoEquipo0.NrosBatallasGanadas[i] << endl;
+			}
+			cout << "Resultados Equipo1: Cantidad: " << inGame.resultadoEquipo1.cantidadResultados << endl;
+			for(int i = 0; i < inGame.resultadoEquipo1.cantidadResultados; i++){
+				cout << "Equipo1: Round: " << inGame.resultadoEquipo1.NrosBatallasGanadas[i] << endl;
+			}
 		}
 
 		//-------->Recibe DATA PERSONAJES

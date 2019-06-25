@@ -61,6 +61,27 @@ void * updateModelo(void *) {
 			corriendo = false;
 	}
 }
+void * controlBatalla(void *) {
+
+	while (1) {
+		if(miPartida.Iniciada() && !miPartida.Finalizada()){
+			if (miPartida.EstaEnEjecucionDeBatalla()){
+				sleep(1);
+				pthread_mutex_lock(&mutex_server);
+				miPartida.AvanzarTiempo();
+				pthread_mutex_unlock(&mutex_server);
+
+				if(miPartida.DebeFinalizarBatalla()){
+					pthread_mutex_lock(&mutex_server);
+					miPartida.FinalizarBatalla();
+					pthread_mutex_unlock(&mutex_server);
+				}
+			}
+		}
+
+		usleep(10);
+	}
+}
 // Hilo de control de partida. Finalizacion, inicio, etc.
 void * controlPartida(void *) {
 
@@ -70,8 +91,26 @@ void * controlPartida(void *) {
 			sleep(2);
 			miPartida.IniciarPartida();
 		}
-		if (miPartida.Finalizada()) {
-			miPartida.DetenerJugadores();
+		if (miPartida.Iniciada() && !miPartida.Finalizada()){
+			pthread_mutex_lock(&mutex_server);
+			if(miPartida.GetNroBatallaActual() >= 1 && !miPartida.EstaEnEjecucionDeBatalla()){
+//				cout
+//				<< "SERVIDOR - controlPartida: Ingresó en IF de GetNroBatallaActual() >= 1 y no EstaEnEjecucionDeBatalla  | "
+//				<< TimeHelper::getStringLocalTimeNow() << endl;
+
+				//TODO: aca con el correr del desarrollo se van a ir agregando otras condiciones.
+				if(miPartida.HayBatallasPendientes()){
+//					cout
+//					<< "SERVIDOR - controlPartida: Ingresó en IF de batallas pendientes | "
+//					<< TimeHelper::getStringLocalTimeNow() << endl;
+					miPartida.IniciarBatalla();
+				}
+				else{
+					miPartida.FinalizarPartida();
+					miPartida.DetenerJugadores();
+				}
+			}
+			pthread_mutex_unlock(&mutex_server);
 		}
 		usleep(10);
 	}
@@ -130,38 +169,38 @@ void * controlSeleccionPersonajes(void *) {
 //Hilo de loggeo de informacion
 void * loggeoPartida(void *) {
 	while (1) {
-		system("clear");
-		cout << "Inicio partida: "
-				<< (miPartida.Iniciada() == true ? "Iniciada" : "No iniciada")
-				<< endl;
-		cout << "Final partida: "
-				<< (miPartida.Finalizada() == true ?
-						"Finalizada" : "No finalizada") << endl;
-		cout << "Cantidad jugadores: " << miPartida.GetCantidadJugando()
-						<< endl;
-		cout << "Cantidad en espera: " << miPartida.GetCantidadEspera() << endl;
-		cout << "Cantidad en desconectados: "
-				<< miPartida.GetCantidadDesconectados() << endl;
-		cout << "Jugadores:" << endl;
-
-		list<ClienteConectado> lista = miPartida.GetListaJugadores();
-		list<ClienteConectado>::iterator it;
-		for (it = lista.begin(); it != lista.end(); it++) {
-			cout << "Socket: " << it->socket << endl;
-			cout << "Nombre: " << it->nombre << endl;
-			cout << "Numero de Jugador: " << it->numeroJugador << endl;
-			cout << "Equipo: " << it->equipo << endl;
-			cout << "Titular: "
-					<< (it->titular == true ? "Es titular" : "Es suplente")
-					<< endl;
-			cout << "------------------------" << endl;
-			cout << "------------------------" << endl;
-		}
-		if (miPartida.Finalizada()) {
-			cout << "Partida finalizada!" << it->nombre << endl;
-			pthread_exit(NULL);
-
-		}
+//		system("clear");
+//		cout << "Inicio partida: "
+//				<< (miPartida.Iniciada() == true ? "Iniciada" : "No iniciada")
+//				<< endl;
+//		cout << "Final partida: "
+//				<< (miPartida.Finalizada() == true ?
+//						"Finalizada" : "No finalizada") << endl;
+//		cout << "Cantidad jugadores: " << miPartida.GetCantidadJugando()
+//						<< endl;
+//		cout << "Cantidad en espera: " << miPartida.GetCantidadEspera() << endl;
+//		cout << "Cantidad en desconectados: "
+//				<< miPartida.GetCantidadDesconectados() << endl;
+//		cout << "Jugadores:" << endl;
+//
+//		list<ClienteConectado> lista = miPartida.GetListaJugadores();
+//		list<ClienteConectado>::iterator it;
+//		for (it = lista.begin(); it != lista.end(); it++) {
+//			cout << "Socket: " << it->socket << endl;
+//			cout << "Nombre: " << it->nombre << endl;
+//			cout << "Numero de Jugador: " << it->numeroJugador << endl;
+//			cout << "Equipo: " << it->equipo << endl;
+//			cout << "Titular: "
+//					<< (it->titular == true ? "Es titular" : "Es suplente")
+//					<< endl;
+//			cout << "------------------------" << endl;
+//			cout << "------------------------" << endl;
+//		}
+//		if (miPartida.Finalizada()) {
+//			cout << "Partida finalizada!" << it->nombre << endl;
+//			pthread_exit(NULL);
+//
+//		}
 
 		sleep(1);
 	}
@@ -286,7 +325,7 @@ void * enviarDatos(void * datos) {
 
 		}
 		//------->Envio de confirmacion de inicio de juego
-		if (miPartida.Iniciada() && !avisoJuegoIniciado) {
+		if (!avisoJuegoIniciado && miPartida.FinalizadaSeleccionPersonajes()) {
 			IDMENSAJE idModelo = JUEGOINICIADO;
 			ModeloResultadoSeleccionPersonaje unModelo = miPartida.getResultadoSeleccionPersonaje();
 			send(sock, &idModelo, sizeof(idModelo), 0);
@@ -303,6 +342,23 @@ void * enviarDatos(void * datos) {
 			send(sock, &idModelo, sizeof(idModelo), 0);
 			send(sock, &unModelo, sizeof(unModelo), 0);
 		}
+
+		//------->Envio de datos INGAME
+		if (miPartida.Iniciada()) {
+			IDMENSAJE idGame = INGAME;
+			pthread_mutex_lock(&mutex_server);
+			ModeloInGame unModeloGame = miPartida.GetModeloGame();
+			pthread_mutex_unlock(&mutex_server);
+			send(sock, &idGame, sizeof(idGame), 0);
+			send(sock, &unModeloGame, sizeof(unModeloGame), 0);
+		}
+
+		//------->Envio de finalizacion de juego
+		if (miPartida.Iniciada() && miPartida.Finalizada()){
+			IDMENSAJE idModelo = JUEGOFINALIZADO;
+			send(sock, &idModelo, sizeof(idModelo), 0);
+		}
+
 		usleep(18000);
 	}
 }
@@ -366,6 +422,12 @@ void * recibirDatos(void * datos) {
 				cout << " Mensaje: " << unMensaje.mensaje << endl;
 			}
 
+			//Mensaje de confirmacion de carga.
+			if (idMsg == CARGACOMPLETA) {
+				miPartida.GetCliente(unCliente.nombre)->cargaCompleta = true;
+				cout << "Confirmacion de cliente: " << unCliente.socket << endl;
+			}
+
 			if ((idMsg == COMANDO) && (miPartida.Iniciada())) {
 				ComandoAlServidor unComando;
 				recv(unCliente.socket, &unComando, sizeof(unComando), 0);
@@ -417,6 +479,13 @@ void Servidor::LanzarHiloUpdateModelo() {
 	pthread_t thread_update_modelo;
 	pthread_create(&thread_update_modelo, NULL, updateModelo, NULL);
 	pthread_detach(thread_update_modelo);
+}
+
+void Servidor::LanzarHiloBatalla() {
+	//Hilo de control
+	pthread_t thread_control_batalla;
+	pthread_create(&thread_control_batalla, NULL, controlBatalla, NULL);
+	pthread_detach(thread_control_batalla);
 }
 
 int Servidor::calcular_num_personajes(int orden_jugador) {
@@ -525,9 +594,12 @@ void Servidor::IniciarServidor(int maxClientes, char * puerto) {
 	LanzarHiloControlSeleccionPersonajes();
 	LanzarHiloLoggeo();
 	LanzarHiloUpdateModelo();
+	LanzarHiloBatalla();
 	AceptarClientes(maxClientes);
 
 }
 
-
+void Servidor::SetConfiguracion(int tiempoBatalla, int cantidadBatallas, bool modoTest){
+	miPartida.SetConfiguracion(tiempoBatalla, cantidadBatallas, modoTest);
+}
 

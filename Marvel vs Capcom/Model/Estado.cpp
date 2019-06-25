@@ -161,13 +161,46 @@ void Estado::Saltar() {
 void Estado::Pinia() {
 
 }
+int  Estado::getDanioPinia(){
+	return 10;
+}
+int  Estado::getDanioPinion(){
+	return 10;
+}
+int  Estado::getDanioPatada(){
+	return 10;
+}
+int  Estado::getDanioPatadon(){
+	return 10;
+}
+int  Estado::getDanioArrojar(){
+	return 10;
+}
 void Estado::Pinion() {
+
+}
+void Estado::Arrojar() {
+
+}
+void Estado::TirarPoder() {
+
+}
+void Estado::Pinion_agachado() {
 
 }
 void Estado::Patada() {
 
 }
+void Estado::Patada_agachado() {
+
+}
 void Estado::Patadon() {
+
+}
+void Estado::Patadon_agachado() {
+
+}
+void Estado::Defensa(){
 
 }
 void Estado::detenerVelocidad() {

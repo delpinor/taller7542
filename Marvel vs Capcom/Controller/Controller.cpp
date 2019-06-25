@@ -12,6 +12,16 @@
 #include "../Command/CommandCtrl/Pinion.h"
 #include "../Command/CommandCtrl/Patada.h"
 #include "../Command/CommandCtrl/Patadon.h"
+#include "../Command/CommandCtrl/Defensa.h"
+#include "../Command/CommandCtrl/PatadaAgachado.h"
+#include "../Command/CommandCtrl/PinionAgachado.h"
+
+#include "../Command/CommandCtrl/PatadonAgachado.h"
+#include "../Command/CommandCtrl/PiniaAgachado.h"
+
+#include "../Command/CommandCtrl/Arrojar.h"
+#include "../Command/CommandCtrl/TirarPoder.h"
+
 #include <iostream>
 #include "../Command/CommandCtrl/ActivarDefensa.h"
 #include "../Command/CommandCtrl/DesactivarDefensa.h"
@@ -33,6 +43,16 @@ void Controller::SetModel(Model* model) {
 	this->commands[PATADON] = new Patadon(model);
 	this->commands[ACTIVARDEFENSA] = new ActivarDefensa(model);
 	this->commands[DESACTIVARDEFENSA] = new DesactivarDefensa(model);
+	this->commands[DEFENSA] = new Defensa(model);
+	this->commands[ARROJAR] = new Arrojar(model);
+	this->commands[PATADA_AGACHADO ] = new PatadaAgachado(model);
+	this->commands[PINION_AGACHADO ] = new PinionAgachado(model);
+
+	this->commands[PATADON_AGACHADO] = new PatadonAgachado(model);
+	this->commands[PINIA_AGACHADO] = new PiniaAgachado(model);
+
+	this->commands[PODER] = new TirarPoder(model);
+
 	this->quit = false;
 }
 Controller::Controller() {
@@ -71,6 +91,24 @@ int Controller::processInputCliente() {
 
 int Controller::handleEventCliente(SDL_Event& e) {
 	int comando = 99;
+	  //Get the keystates
+//obtengo los estados de todas las teclas
+	const Uint8 *state =SDL_GetKeyboardState(NULL);
+//si esta presionada la s y la k . es decir si esta agachado y quiere hacer la patada
+	if  ((state[SDL_SCANCODE_S])&& (state[SDL_SCANCODE_K])){
+
+		comando=PATADA_AGACHADO;
+	} else if((state[SDL_SCANCODE_S])&& (state[SDL_SCANCODE_U])){
+		comando=PINION_AGACHADO;
+
+	}else if((state[SDL_SCANCODE_S])&& (state[SDL_SCANCODE_I])){
+		comando=PATADON_AGACHADO;
+
+	}else if((state[SDL_SCANCODE_S])&& (state[SDL_SCANCODE_J])){
+		comando=PINIA_AGACHADO;
+
+	}
+	else{
 
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
 		switch (e.key.keysym.sym) {
@@ -78,8 +116,9 @@ int Controller::handleEventCliente(SDL_Event& e) {
 			comando =  SALTAR;
 			break;
 		case SDLK_s:
-			comando =  AGACHAR;
-			break;
+						comando =  AGACHAR;
+
+						break;
 		case SDLK_a:
 			comando =  DECVELX;
 			break;
@@ -100,6 +139,15 @@ int Controller::handleEventCliente(SDL_Event& e) {
 			break;
 		case SDLK_i:
 			comando =  PATADON;
+			break;
+		case  SDLK_h:
+			comando =  DEFENSA;
+			break;
+		case  SDLK_o:
+			comando =  ARROJAR;
+			break;
+		case  SDLK_l:
+			comando =  PODER;
 			break;
 		case SDLK_LCTRL:
 			comando =  CAMBIAR_PERSONAJE;
@@ -126,6 +174,7 @@ int Controller::handleEventCliente(SDL_Event& e) {
 			comando =  DESACTIVARDEFENSA;
 			break;
 		}
+	}
 	}
 	return comando;
 }

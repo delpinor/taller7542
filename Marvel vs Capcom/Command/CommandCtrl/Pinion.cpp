@@ -10,7 +10,7 @@ Pinion::~Pinion() {
 
 void Pinion::execute(int i) {
 
-	this->model->equipos[i]->jugadorActivoPinion();
+	this->model->equipos[i]->jugadorActivoPinion(this->model->equipos[i]->equipoRival->jugadores[this->model->equipos[i]->equipoRival->nroJugadorActivo]);
 
 }
 

@@ -14,16 +14,38 @@
 #include <iterator>
 #include "../Model/TipoGolpe.h"
 
+//Mensajes a clientes
+enum TIPOLEYENDA{
+	READY = 901, YOUWIN = 902, YOULOSE = 903, RESULTADOS = 904, NINGUNO = 910
+};
 //Enumera de cabecera
 enum IDMENSAJE {
 	PING = 100, JUGADOR = 2, MENSAJE = 3, LOGIN = 4, COMPLETO = 5, EQUIPO = 6, TITULAR = 7, MODELO = 8, COMANDO = 9,
-	MODELOSELECCION = 10, DATASELECCION = 11, DATAPERSONAJES = 12, TEST = 13, JUEGOINICIADO = 14, SERVIDORMUERTO = 15,ACEPTADO = 16
+	MODELOSELECCION = 10, DATASELECCION = 11, DATAPERSONAJES = 12, TEST = 13, JUEGOINICIADO = 14, SERVIDORMUERTO = 15,ACEPTADO = 16,
+	INGAME = 17, JUEGOFINALIZADO = 18, CARGACOMPLETA = 19
 };
 struct JugadorLogin{
 	char usuario[20];
 
 };
 //Estructuras de envio
+struct PersonajeJugando{
+	int vida;
+};
+struct ModeloResultadoEquipo{
+	int cantidadResultados = 0;
+	int NrosBatallasGanadas[10];
+};
+struct ModeloInGame{
+	int tiempo;
+	char mensaje[200];
+	TIPOLEYENDA tipoMensaje; //1 READY - 2 YOU WIN - 3 YOULOSE - 10 NINGUNO
+	PersonajeJugando personajesEquipo0[2];
+	PersonajeJugando personajesEquipo1[2];
+	int cantidadResultados;
+	ModeloResultadoEquipo resultadoEquipo0;
+	ModeloResultadoEquipo resultadoEquipo1;
+};
 
 struct JugadorCliente {
 	int equipo;
@@ -37,11 +59,13 @@ struct JugadorCliente {
 	bool isSaltando = false;
 	TIPO_GOLPE tipoGolpe = TIPO_GOLPE::NADA;
 };
+
 struct CamaraCliente {
 	int posX;
 	int posY;
 };
 struct ModeloEstado {
+	int tiempo;
 	int activoEquipo1;
 	int activoEquipo2;
 	struct JugadorCliente jugadoresEquipo1;

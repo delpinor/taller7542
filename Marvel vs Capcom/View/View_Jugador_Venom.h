@@ -11,6 +11,16 @@ public:
 
 	~View_Jugador_Venom();
 
+
+	void reproducir_sonido_salto();
+	void reproducir_sonido_cambio();
+	void reproducir_sonido_ataque_pu();
+	void reproducir_sonido_defensa();
+	EfectoSonido *sonido_salto;
+	EfectoSonido *sonido_ataque_pu; // sonido ataque puño
+	EfectoSonido *sonido_defensa;
+	EfectoSonido *sonido_cambio;
+
 protected:
 
 	void getSpritesAnimacion();
@@ -18,8 +28,24 @@ protected:
 	void getSpritesSaltar();
 	void getSpritesAgachar();
 	void getSpritesCambioPersonaje();
+	//Parado
+	void getSpritesPiniaDebil();
+	void getSpritesPiniaFuerte();
+	void getSpritesPatadaDebil();
 	void getSpritesPatadaFuerte();
-
+	void getSpritesDefensa();
+	//Agachado
+	void getSpritesPiniaDebilAgachado();
+	void getSpritesPiniaFuerteAgachado();
+	void getSpritesPatadaDebilAgachado();
+	void getSpritesPatadaFuerteAgachado();
+	void getSpritesDefensaAgachado();
+	//Saltando
+	void getSpritesPiniaDebilSaltando();
+	void getSpritesPiniaFuerteSaltando();
+	void getSpritesPatadaDebilSaltando();
+	void getSpritesPatadaFuerteSaltando();
+	void getSpritesDefensaSaltando();
 };
 
 #endif

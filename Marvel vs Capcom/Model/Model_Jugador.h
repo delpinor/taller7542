@@ -10,9 +10,11 @@
 #include "../Model/CambiandoPersonaje.h"
 #include "../Model/EstadoCliente.h"
 #include "../Model/TipoGolpe.h"
+#include "../Model/Poder.h"
 #define VENOM 0x01
 #define CAPAMERICA 0x00
 
+using namespace std;
 class Jugador {
 
 private:
@@ -20,6 +22,7 @@ private:
 	 //int ALTO_JUGADOR = 120;
 	 std:: string nombre;
 	 std:: string pathImagen;
+	 int vidaJugador;
 	 int height;
 	 int width;
 	 int zindex;
@@ -41,19 +44,27 @@ private:
 	int personaje;
 	bool desconectado=false;
 	TIPO_GOLPE tipoGolpe = NADA;
+	bool inmortal;
 
 public:
 	Estado* estado;
 //	EstadoCliente * estado;
 
 	Jugador();
+	int GetVida();
+	void SetVida(int vida);
 	void set_desconectado();
 	void set_conectado();
 	bool get_estado_desconexion();
-	Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &pathImagen);
+	Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &pathImagen, bool &inmortal);
 	int get_alto();
 	int get_ancho();
 	int get_zindex();
+	int getCollideX();
+	int getCollideY();
+	int getCollideW();
+	int getCollideH();
+	bool collideConPoder(Poder * poder);
 	std::string getNombre();
 	std::string getPath();
 	void setColor(int,int,int);
@@ -84,6 +95,20 @@ public:
 	void Patadon();
 	void ActivarDefensa();
 	void DesactivarDefensa();
+	void Defensa();
+	void Pinia(Jugador * rival);
+	void Pinia_agachado(Jugador * rival);
+	void Pinion(Jugador * rival);
+	void Pinion_agachado(Jugador * rival);
+	void Patada(Jugador * rival);
+	void Patadon(Jugador * rival);
+	void Patada_agachado(Jugador * rival);
+
+	void Patadon_agachado(Jugador * rival);
+
+	void Arrojar(Jugador * rival);
+
+	void recibeDanio(int danio);
 	bool estaActivo();
 	bool estaAgachado();
 	bool estaCambiandoPersonaje();
@@ -94,6 +119,7 @@ public:
 	void terminarSalto();
 	void setDireccion(SDL_RendererFlip direccion);
 	bool collide(SDL_Rect * camara);
+	bool collideConJugador(SDL_Rect * camara);
 	bool collideDerecha(SDL_Rect * camara);
 	bool collideIzquierda(SDL_Rect * camara);
 	SDL_RendererFlip getDireccion();
@@ -115,5 +141,12 @@ public:
 	void setTipoGolpeCliente(TIPO_GOLPE tipoGolpe);
 	bool isIniciarGolpe();
 	void setIniciarGolpe(bool iniciarGolpe);
+	bool murio();
+	bool estaVivo();
+	void inicializarVida();
+	bool esInmortal();
+	void jugadorVolando();
+	void TirarPoder(Jugador * rival);
+	Poder * mipoder;
 	};
 #endif

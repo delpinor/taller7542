@@ -34,6 +34,7 @@ public:
 	bool Ping = false;
 	int CantidadEquipo = 0;
 	bool servidor_vivo=true;
+	bool JuegoFinalizado = false;
 	void LanzarHiloConexion();
 	int ConectarConServidor(char* hostname, char* puerto);
 	int NroJugador;
@@ -46,6 +47,7 @@ public:
 	int recibirModeloDelServidor();
 	void enviarComandoAServidor(ComandoAlServidor comando);
 	void EnviarPing();
+	void EnviarConfirmacion();
 	void LanzarHiloPing();
 	void PararHiloPing();
 	void lanzarHilosDelJuego();

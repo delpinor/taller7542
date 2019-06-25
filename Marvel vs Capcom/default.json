@@ -64,7 +64,13 @@
 	},
 	"server" : 
 	{
-		"players" : 4
+		"players" : 4,
+		"modeTest" : true
+	},
+	"batalla" :
+	{
+		"cantidad" : "3",
+		"tiempo" : "10"
 	}
 
 }
