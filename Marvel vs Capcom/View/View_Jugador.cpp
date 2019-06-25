@@ -106,9 +106,10 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 			}
 
 
-			if (frame / factor <= maxFrame) {
-				currentClip = &gSpriteGolpear[frame / factor];
-				++frame;
+					if (frame / factor <= maxFrame) {
+						currentClip = &gSpriteGolpear[frame / factor];
+						++frame;
+
 			} else {
 				std::cout << "golpe terminado" << std::endl;
 				this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
@@ -148,6 +149,25 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					factor = FACTORPATADASALTANDO;
 					std::cout << "patada saltando" << std::endl;
 				}
+				else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINIA) {
+									gSpriteGolpear = gSpritePiniaSaltando;
+									maxFrame = MAXFRAMEPINIASALTANDO;
+									factor = FACTORPINIASALTANDO;
+									std::cout << "pinia saltando" << std::endl;
+					}
+				else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINION) {
+									gSpriteGolpear = gSpritePinionSaltando;
+									maxFrame = MAXFRAMEPINIONSALTANDO;
+									factor = FACTORPINIONSALTANDO;
+									std::cout << "pinion saltando" << std::endl;
+					}
+				else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::ACTIVAR_DEFENSA) {
+									gSpriteGolpear = gSpriteDefensaSaltando;
+									maxFrame = 1;
+									factor = 1;
+									frame = 0;
+									std::cout << "defensa saltando" << std::endl;
+					}
 				if (frame / factor <= maxFrame) {
 					currentClip = &gSpriteGolpear[frame / factor];
 					++frame;
