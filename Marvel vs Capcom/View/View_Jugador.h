@@ -35,6 +35,12 @@ public:
 	SDL_Rect  *gSpritePiniaAgachado;
 	SDL_Rect  *gSpritePinionAgachado;
 	SDL_Rect  *gSpriteDefensa;
+	SDL_Rect  *gSpriteRecibirGolpe;
+	SDL_Rect  *gSpriteLanzarJugador;
+	SDL_Rect  *gSpriteJugadorLanzado;
+	SDL_Rect  *gSpriteLanzarPoder;
+	SDL_Rect  *gSpritePoder;
+
 
 	SDL_Rect * gSprite;
 	int contador = 0;
@@ -109,6 +115,32 @@ public:
 	int MINFRAMEDEFENSA;
 	int MAXFRAMEDEFENSA;
 	int FACTORDEFENSA;
+
+	int CANTSPRITECLIPRECIBIRGOLPE;
+	int MINFRAMERECIBIRGOLPE;
+	int MAXFRAMERECIBIRGOLPE;
+	int FACTORRECIBIRGOLPE;
+
+	//Especiales
+	int CANTSPRITECLIPLANZARJUGADOR;
+	int MINFRAMELANZARJUGADOR;
+	int MAXFRAMELANZARJUGADOR;
+	int FACTORLANZARJUGADOR;
+
+	int CANTSPRITECLIPJUGADORLANZADO;
+	int MINFRAMEJUGADORLANZADO;
+	int MAXFRAMEJUGADORLANZADO;
+	int FACTORJUGADORLANZADO;
+
+	int CANTSPRITECLIPLANZARPODER;
+	int MINFRAMELANZARPODER;
+	int MAXFRAMELANZARPODER;
+	int FACTORLANZARPODER;
+
+	int CANTSPRITECLIPPODER;
+	int MINFRAMEPODER;
+	int MAXFRAMEPODER;
+	int FACTORPODER;
 
 	int maxFrame;
 	int factor;
