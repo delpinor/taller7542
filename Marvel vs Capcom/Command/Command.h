@@ -14,12 +14,12 @@
 #define PATADON  0x0B
 #define DEFENSA 0x0C
 #define PATADA_AGACHADO  0x0D
-#define PINION_AGACHADO  0x1D
-#define PATADON_AGACHADO  0x2D
-#define PINIA_AGACHADO  0x3D
-#define ARROJAR  0x0E
-#define PODER  0x0F
-#define CANTCOMMANDS 19
+#define PINION_AGACHADO  0x0E
+#define PATADON_AGACHADO  0x0F
+#define PINIA_AGACHADO  0x10
+#define ARROJAR  0x11
+#define PODER  0x12
+#define CANTCOMMANDS 20
 
 
 class Command {
