@@ -8,7 +8,6 @@ View_Jugador_Venom::View_Jugador_Venom() {
 void View_Jugador_Venom::initialize(Jugador * model,
 		LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
-	this->gSpriteGolpear = new SDL_Rect[CANTSPRITECLIP];
 	this->jugador = model;
 	this->zIndex = model->get_zindex();
 	getSpritesCaminar();
