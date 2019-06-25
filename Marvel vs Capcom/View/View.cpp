@@ -119,7 +119,9 @@ void View::render() {
 			}
 			else
 				if((iter->second)[i][MAP_ELEMENTOS_CLAVE_TIPO_ELEMENTO] == TIPO_ELEMENTO_PERSONAJE){
-				this->viewModel->render((iter->second)[i][MAP_ELEMENTOS_CLAVE_EQUIPO], iter->first);
+				if(model->TipoMensaje != RESULTADOS){
+					this->viewModel->render((iter->second)[i][MAP_ELEMENTOS_CLAVE_EQUIPO], iter->first);
+				}
 			}
 		}
 	}
@@ -131,7 +133,10 @@ void View::render() {
 	timerJuego->render(model->GetTiempoJuego());
 
 	//Leyendas
-	leyendas->render(model->TipoMensaje, model->TextoMensaje);
+	leyendas->render(model->TipoMensaje, model->TextoMensaje, model->equipos);
+	if(model->TipoMensaje == RESULTADOS){
+		pantalla->PantallaFija = true;
+	}
 
 
 	SDL_RenderPresent(this->gRenderer);

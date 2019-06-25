@@ -259,7 +259,7 @@ int main(int argc, char* argv[]) {
 		//reproduzco sonido del juego
 		cliente.LanzarHiloConexion();
 		sonido_juego.reproducir_sonido();
-		while (!controller.quitPressed() && !cliente.JuegoFinalizado) {
+		while (!controller.quitPressed()){ //&& !cliente.JuegoFinalizado) {
 			if(!cliente.servidor_esta_vivo()){
 				return -1;
 			}
@@ -270,7 +270,9 @@ int main(int argc, char* argv[]) {
 			} else {
 				comandoParaServidor.comando = 99;
 			}
-			cliente.enviarComandoAServidor(comandoParaServidor);
+			if(!cliente.JuegoFinalizado){
+				cliente.enviarComandoAServidor(comandoParaServidor);
+			}
 			model.updateCliente(cliente.esta_conectado());
 			usleep(18000);
 			view.render();

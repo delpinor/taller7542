@@ -15,7 +15,12 @@ Equipo::Equipo() {
 void Equipo::agregar_Jugador(int num, Jugador * jugador){
 	this->jugadores[num]=jugador;
 }
-
+void Equipo::setRondasGanadas(int rondas){
+	this->rondasGanadas = rondas;
+}
+int Equipo::getRondasGanadas(){
+	return this->rondasGanadas;
+}
 void Equipo::inicializar(int numeroEquipo){
 	this->numeroEquipo = numeroEquipo;
 	this->setJugadorActivo(0);
