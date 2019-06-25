@@ -28,6 +28,7 @@ void View_Jugador_ChunLi::initialize(Jugador *model,
 	getSpritesPatadaFuerteAgachado();
 	getSpritesPiniaDebil();
 	getSpritesDefensa();
+	getSpritesDefensaAgachado();
 	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
 
 	this->sonido_salto=new EfectoSonido(1);
@@ -511,5 +512,17 @@ void View_Jugador_ChunLi::getSpritesDefensa(){
 	gSpriteDefensa[0].y = 950;
 	gSpriteDefensa[0].w = 261;
 	gSpriteDefensa[0].h = 150;
+}
+void View_Jugador_ChunLi::getSpritesDefensaAgachado(){
+	CANTSPRITECLIPDEFENSA = 1;
+	MINFRAMEDEFENSA = 0;
+	MAXFRAMEDEFENSA = 0;
+	FACTORDEFENSA = 1;
+	this->gSpriteDefensaAgachado= new SDL_Rect[CANTSPRITECLIPDEFENSA];
+
+	gSpriteDefensaAgachado[0].x = 1842;
+	gSpriteDefensaAgachado[0].y = 950;
+	gSpriteDefensaAgachado[0].w = 261;
+	gSpriteDefensaAgachado[0].h = 150;
 }
 

@@ -34,6 +34,7 @@ protected:
 	void getSpritesPatadaFuerteAgachado();
 	void getSpritesPiniaDebil();
 	void getSpritesDefensa();
+	void getSpritesDefensaAgachado();
 
 };
 

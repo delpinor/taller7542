@@ -411,19 +411,19 @@ void View_Jugador_CapAmerica::getSpritesDefensa(){
 		gSpriteDefensa [0].h = 150;
 }
 void View_Jugador_CapAmerica::getSpritesDefensaSaltando() {
-	this->gSpriteDefensaAgachado = new SDL_Rect[1];
-	gSpriteDefensaAgachado[0].x = 368;
-	gSpriteDefensaAgachado[0].y = 3045;
-	gSpriteDefensaAgachado[0].w = 261;
-	gSpriteDefensaAgachado[0].h = 150;
+	this->gSpriteDefensaSaltando = new SDL_Rect[1];
+	gSpriteDefensaSaltando[0].x = 368;
+	gSpriteDefensaSaltando[0].y = 3045;
+	gSpriteDefensaSaltando[0].w = 261;
+	gSpriteDefensaSaltando[0].h = 150;
 }
 
 void View_Jugador_CapAmerica::getSpritesDefensaAgachado() {
-	this->gSpriteDefensaSaltando = new SDL_Rect[1];
-	gSpriteDefensaSaltando[0].x = 53;
-	gSpriteDefensaSaltando[0].y = 3040;
-	gSpriteDefensaSaltando[0].w = 261;
-	gSpriteDefensaSaltando[0].h = 150;
+	this->gSpriteDefensaAgachado= new SDL_Rect[1];
+	gSpriteDefensaAgachado[0].x = 275;
+	gSpriteDefensaAgachado[0].y = 570;
+	gSpriteDefensaAgachado[0].w = 261;
+	gSpriteDefensaAgachado[0].h = 150;
 }
 void View_Jugador_CapAmerica::getSpritesPatadaFuerte_agachado(){
 	CANTSPRITECLIPPATADONAGACHADO = 9;
