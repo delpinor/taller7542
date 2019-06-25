@@ -33,6 +33,7 @@ protected:
 	void getSpritesPatadaDebilAgachado();
 	void getSpritesPatadaFuerteAgachado();
 	void getSpritesPiniaDebil();
+	void getSpritesPiniaFuerte();
 	void getSpritesDefensa();
 	void getSpritesDefensaAgachado();
 

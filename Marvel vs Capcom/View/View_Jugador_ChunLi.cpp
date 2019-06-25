@@ -479,23 +479,57 @@ void View_Jugador_ChunLi::getSpritesPiniaDebil() {
 	gSpritePinia[0].w = 261;
 	gSpritePinia[0].h = 150;
 
-	gSpritePinia[1].x = 303;
-	gSpritePinia[1].y = 950;
+	gSpritePinia[1].x = 299;
+	gSpritePinia[1].y = 1168;
 	gSpritePinia[1].w = 261;
 	gSpritePinia[1].h = 150;
 
-	gSpritePinia[2].x = 595;
-	gSpritePinia[2].y = 950;
+	gSpritePinia[2].x = 589;
+	gSpritePinia[2].y = 1168;
 	gSpritePinia[2].w = 261;
 	gSpritePinia[2].h = 150;
 
-	gSpritePinia[3].x = 887;
-	gSpritePinia[3].y = 950;
+	gSpritePinia[3].x = 881;
+	gSpritePinia[3].y = 1168;
 	gSpritePinia[3].w = 261;
 	gSpritePinia[3].h = 150;
 
-	gSpritePinia[4].x = 1197;
-	gSpritePinia[4].y = 950;
+	gSpritePinia[4].x = 1193;
+	gSpritePinia[4].y = 1168;
+	gSpritePinia[4].w = 261;
+	gSpritePinia[4].h = 150;
+
+}
+
+void View_Jugador_ChunLi::getSpritesPiniaFuerte() {
+	CANTSPRITECLIPPINION = 5;
+	MINFRAMEPINION = 0;
+	MAXFRAMEPINION = 4;
+	FACTORPINION = 3;
+	this->gSpritePinion = new SDL_Rect[CANTSPRITECLIPPINION];
+
+	gSpritePinia[0].x = 35;
+	gSpritePinia[0].y = 1392;
+	gSpritePinia[0].w = 261;
+	gSpritePinia[0].h = 150;
+
+	gSpritePinia[1].x = 344;
+	gSpritePinia[1].y = 1168;
+	gSpritePinia[1].w = 261;
+	gSpritePinia[1].h = 150;
+
+	gSpritePinia[2].x = 654;
+	gSpritePinia[2].y = 1168;
+	gSpritePinia[2].w = 261;
+	gSpritePinia[2].h = 150;
+
+	gSpritePinia[3].x = 971;
+	gSpritePinia[3].y = 1168;
+	gSpritePinia[3].w = 261;
+	gSpritePinia[3].h = 150;
+
+	gSpritePinia[4].x = 1248;
+	gSpritePinia[4].y = 1168;
 	gSpritePinia[4].w = 261;
 	gSpritePinia[4].h = 150;
 
