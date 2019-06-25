@@ -35,6 +35,8 @@ protected:
 	void getSpritesPiniaDebilSaltando();
 
 	void getSpritesDefensa();
+	void getSpritesDefensaAgachado();
+	void getSpritesDefensaSaltando();
 	void getSpritesRecibirGolpe();
 
 	void getSpritesLanzarJugador();

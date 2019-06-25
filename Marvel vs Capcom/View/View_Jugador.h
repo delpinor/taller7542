@@ -35,6 +35,8 @@ public:
 	SDL_Rect  *gSpritePiniaAgachado;
 	SDL_Rect  *gSpritePinionAgachado;
 	SDL_Rect  *gSpriteDefensa;
+	SDL_Rect  *gSpriteDefensaAgachado;
+	SDL_Rect  *gSpriteDefensaSaltando;
 	SDL_Rect  *gSpriteRecibirGolpe;
 	SDL_Rect  *gSpriteLanzarJugador;
 	SDL_Rect  *gSpriteJugadorLanzado;
@@ -115,6 +117,16 @@ public:
 	int MINFRAMEDEFENSA;
 	int MAXFRAMEDEFENSA;
 	int FACTORDEFENSA;
+
+	int CANTSPRITECLIPDEFENSAAGACHADO;
+	int MINFRAMEDEFENSAAGACHADO;
+	int MAXFRAMEDEFENSAAGACHADO;
+	int FACTORDEFENSAAGACHADO;
+
+	int CANTSPRITECLIPDEFENSASALTANDO;
+	int MINFRAMEDEFENSASALTANDO;
+	int MAXFRAMEDEFENSASALTANDO;
+	int FACTORDEFENSASALTANDO;
 
 	int CANTSPRITECLIPRECIBIRGOLPE;
 	int MINFRAMERECIBIRGOLPE;
