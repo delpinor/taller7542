@@ -145,9 +145,9 @@ void Equipo::jugadorActivoSalta() {
 void Equipo::jugadorActivoPinia(Jugador * rival) {
 	this->jugadores[this->nroJugadorActivo]->Pinia(rival);
 }
-void Equipo::jugadorActivoPinia_agachado(Jugador * rival) {
-	this->jugadores[this->nroJugadorActivo]->Pinia_agachado(rival);
-}
+//void Equipo::jugadorActivoPinia_agachado(Jugador * rival) {
+//	this->jugadores[this->nroJugadorActivo]->Pinia_agachado(rival);
+//}
 void Equipo::jugadorActivoPinion(Jugador * rival) {
 	this->jugadores[this->nroJugadorActivo]->Pinion(rival);
 }
@@ -157,18 +157,18 @@ void Equipo::jugadorActivoArrojar(Jugador * rival) {
 void Equipo::jugadorActivoTirarPoder(Jugador * rival) {
 	this->jugadores[this->nroJugadorActivo]->TirarPoder(rival);
 }
-void Equipo::jugadorActivoPinion_agachado(Jugador * rival) {
-	this->jugadores[this->nroJugadorActivo]->Pinion_agachado(rival);
-}
+//void Equipo::jugadorActivoPinion_agachado(Jugador * rival) {
+//	this->jugadores[this->nroJugadorActivo]->Pinion_agachado(rival);
+//}
 void Equipo::jugadorActivoPatada(Jugador * rival) {
 	this->jugadores[this->nroJugadorActivo]->Patada(rival);
 }
-void Equipo::jugadorActivoPatada_agachado(Jugador * rival) {
-	this->jugadores[this->nroJugadorActivo]->Patada_agachado(rival);
-}
-void Equipo::jugadorActivoPatadon_agachado(Jugador * rival) {
-	this->jugadores[this->nroJugadorActivo]->Patadon_agachado(rival);
-}
+//void Equipo::jugadorActivoPatada_agachado(Jugador * rival) {
+//	this->jugadores[this->nroJugadorActivo]->Patada_agachado(rival);
+//}
+//void Equipo::jugadorActivoPatadon_agachado(Jugador * rival) {
+//	this->jugadores[this->nroJugadorActivo]->Patadon_agachado(rival);
+//}
 void Equipo::jugadorActivoPatadon(Jugador * rival) {
 	this->jugadores[this->nroJugadorActivo]->Patadon(rival);
 }
@@ -189,9 +189,9 @@ void Equipo::jugadorActivoDisminuyeVelocidadEnY() {
 void Equipo::jugadorActivoSeAgacha() {
 	this->jugadores[this->nroJugadorActivo]->Agachar();
 }
-void Equipo::jugadorActivoSeDefiende() {
-	this->jugadores[this->nroJugadorActivo]->Defensa();
-}
+//void Equipo::jugadorActivoSeDefiende() {
+//	this->jugadores[this->nroJugadorActivo]->Defensa();
+//}
 
 void Equipo::jugadorActivoSePara() {
 	this->jugadores[this->nroJugadorActivo]->Parar();

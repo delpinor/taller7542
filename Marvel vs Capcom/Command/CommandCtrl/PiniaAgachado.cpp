@@ -18,6 +18,6 @@ PiniaAgachado::~PiniaAgachado() {
 
 void PiniaAgachado::execute(int i) {
 
-	this->model->equipos[i]->jugadorActivoPinia_agachado(this->model->equipos[i]->equipoRival->jugadores[this->model->equipos[i]->equipoRival->nroJugadorActivo]);
+//	this->model->equipos[i]->jugadorActivoPinia_agachado(this->model->equipos[i]->equipoRival->jugadores[this->model->equipos[i]->equipoRival->nroJugadorActivo]);
 
 }

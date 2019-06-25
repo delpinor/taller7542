@@ -12,7 +12,7 @@ CommandCtrl(model) {
 }
 void PinionAgachado::execute(int i) {
 
-	this->model->equipos[i]->jugadorActivoPinion_agachado(this->model->equipos[i]->equipoRival->jugadores[this->model->equipos[i]->equipoRival->nroJugadorActivo]);
+//	this->model->equipos[i]->jugadorActivoPinion_agachado(this->model->equipos[i]->equipoRival->jugadores[this->model->equipos[i]->equipoRival->nroJugadorActivo]);
 
 }
 

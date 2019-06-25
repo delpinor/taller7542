@@ -196,27 +196,34 @@ void Jugador::aumentarVelocidadY() {
 void Jugador::aumentarVelocidadY(int vel) {
 	this->estado->aumentarVelocidadY(vel);
 }
-void Jugador::Defensa() {
-	this->estado->Defensa();
-	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
+//void Jugador::Defensa() {
+//	this->estado->Defensa();
+//	if (this->getTipoGolpe() == TIPO_GOLPE::NADA) {
+//		std::cout << "Agregar PINIA!!!!!: " << std::endl;
+//		this->setTipoGolpe(TIPO_GOLPE::ACTIVAR_DEFENSA);
+//	}
+//
+//}
 
-void Jugador::Pinia() {
+void Jugador::Pinia(Jugador * rival) {
 	if ((this->getTipoGolpe() == TIPO_GOLPE::NADA) && (this->estado->getVelY() > -10)) {
 		std::cout << "Agregar PINIA!!!!!: " << std::endl;
 		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PINIA);
 	}
-}
-void Jugador::Pinia_agachado(Jugador * rival) {
-	this->estado->Pinia();
-	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
-
-				this->setTipoGolpe(TIPO_GOLPE::GOLPE_PINIA_AGACHADO);
-			}
 	if(rival->collideConJugador(&mCollider))
-	rival->recibeDanio(this->estado->getDanioPinia());
+		rival->recibeDanio(this->estado->getDanioPinia());
 }
+//void Jugador::Pinia_agachado(Jugador * rival) {
+//	this->estado->Pinia();
+//	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
+//
+//				this->setTipoGolpe(TIPO_GOLPE::GOLPE_PINIA_AGACHADO);
+//			}
+//	if(rival->collideConJugador(&mCollider))
+//	rival->recibeDanio(this->estado->getDanioPinia());
+//}
 void Jugador::Pinion(Jugador * rival) {
-	this->estado->Pinion();
+//	this->estado->Pinion();
 	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
 
 				this->setTipoGolpe(TIPO_GOLPE::GOLPE_PINION);
@@ -226,11 +233,14 @@ void Jugador::Pinion(Jugador * rival) {
 
 }
 
-void Jugador::Patada() {
+void Jugador::Patada(Jugador * rival) {
 	if ((this->getTipoGolpe() == TIPO_GOLPE::NADA) && (this->estado->getVelY() > -10)){
 		std::cout << "Agregar PATADA!!!!!: " << std::endl;
 		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADA);
 	}
+	if(rival->collideConJugador(&mCollider))
+		rival->recibeDanio(this->estado->getDanioPatada());
+}
 void Jugador::Arrojar(Jugador * rival) {
 	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
 	this->estado->Arrojar();
@@ -248,7 +258,7 @@ void Jugador::Arrojar(Jugador * rival) {
 	}
 }
 
-void Jugador::Patadon() {
+void Jugador::Patadon(Jugador * rival) {
 	if ((this->getTipoGolpe() == TIPO_GOLPE::NADA) && (this->estado->getVelY() > -10)){
 		std::cout << "Agregar PATADON!!!!!: " << std::endl;
 		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADON);
@@ -267,27 +277,27 @@ void Jugador::DesactivarDefensa() {
 	this->setTipoGolpe(TIPO_GOLPE::DESACTIVAR_DEFENSA);
 }
 
-void Jugador::Patada_agachado(Jugador * rival) {
-	this->estado->Patada_agachado();
-	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
+//void Jugador::Patada_agachado(Jugador * rival) {
+//	this->estado->Patada_agachado();
+//	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
+//
+//			this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADA_AGACHADO);
+//		}
+//	//aca va el if del collide
+//	if(rival->collideConJugador(&mCollider))
+//	rival->recibeDanio(this->estado->getDanioPatada());
+//}
 
-			this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADA_AGACHADO);
-		}
-	//aca va el if del collide
-	if(rival->collideConJugador(&mCollider))
-	rival->recibeDanio(this->estado->getDanioPatada());
-}
-
-void Jugador::Patadon_agachado(Jugador * rival) {
-	this->estado->Patadon_agachado();
-	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
-
-			this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADON_AGACHADO);
-		}
-	//aca va el if del collide
-	if(rival->collideConJugador(&mCollider))
-	rival->recibeDanio(this->estado->getDanioPatada());
-}
+//void Jugador::Patadon_agachado(Jugador * rival) {
+//	this->estado->Patadon_agachado();
+//	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
+//
+//			this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADON_AGACHADO);
+//		}
+//	//aca va el if del collide
+//	if(rival->collideConJugador(&mCollider))
+//	rival->recibeDanio(this->estado->getDanioPatada());
+//}
 void Jugador::TirarPoder(Jugador * rival) {
 	this->estado->TirarPoder();
 	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){

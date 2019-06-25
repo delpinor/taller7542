@@ -17,6 +17,6 @@ PatadonAgachado::~PatadonAgachado() {
 
 void PatadonAgachado::execute(int i) {
 
-	this->model->equipos[i]->jugadorActivoPatadon_agachado(this->model->equipos[i]->equipoRival->jugadores[this->model->equipos[i]->equipoRival->nroJugadorActivo]);
+//	this->model->equipos[i]->jugadorActivoPatadon_agachado(this->model->equipos[i]->equipoRival->jugadores[this->model->equipos[i]->equipoRival->nroJugadorActivo]);
 
 }
