@@ -147,6 +147,6 @@ public:
 	bool esInmortal();
 	void jugadorVolando();
 	void TirarPoder(Jugador * rival);
-	Poder * mipoder;
+	Poder  mipoder;
 	};
 #endif
