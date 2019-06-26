@@ -30,6 +30,11 @@ void View_Jugador_ChunLi::initialize(Jugador *model,
 	getSpritesPiniaFuerte();
 	getSpritesDefensa();
 	getSpritesDefensaAgachado();
+	getSpritesRecibirDanio();
+	getSpritesPinaFuerteSaltando();
+	getSpritesPinaDebilSaltando();
+	getSpritesPinaFuerteAgachado();
+	getSpritesPinaDebilAgachado();
 	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
 
 	this->sonido_salto=new EfectoSonido(1);
@@ -253,7 +258,7 @@ void View_Jugador_ChunLi::getSpritesPatadaFuerte() {
 	CANTSPRITECLIPPATADON = 12;
 	MINFRAMEPATADON = 0;
 	MAXFRAMEPATADON = 11;
-	FACTORPATADON = 5;
+	FACTORPATADON = 4;
 	this->gSpritePatadon = new SDL_Rect[CANTSPRITECLIPPATADON];
 
 	gSpritePatadon[0].x = 71;
@@ -514,28 +519,122 @@ void View_Jugador_ChunLi::getSpritesPiniaFuerte() {
 	gSpritePinion[0].w = 261;
 	gSpritePinion[0].h = 150;
 
-	gSpritePinion[1].x = 344;
+	gSpritePinion[1].x = 332;
 	gSpritePinion[1].y = 1392;
 	gSpritePinion[1].w = 261;
 	gSpritePinion[1].h = 150;
 
-	gSpritePinion[2].x = 650;
+	gSpritePinion[2].x = 635;
 	gSpritePinion[2].y = 1392;
 	gSpritePinion[2].w = 261;
 	gSpritePinion[2].h = 150;
 
-	gSpritePinion[3].x = 966;
+	gSpritePinion[3].x = 958;
 	gSpritePinion[3].y = 1392;
 	gSpritePinion[3].w = 261;
 	gSpritePinion[3].h = 150;
 
-	gSpritePinion[4].x = 1248;
+	gSpritePinion[4].x = 1280;
 	gSpritePinion[4].y = 1392;
 	gSpritePinion[4].w = 261;
 	gSpritePinion[4].h = 150;
 
 }
 
+
+void View_Jugador_ChunLi::getSpritesPinaFuerteSaltando() {
+
+	CANTSPRITECLIPPINIONSALTANDO = 3;
+	MINFRAMEPINIONSALTANDO = 0;
+	MAXFRAMEPINIONSALTANDO = 2;
+	FACTORPINIONSALTANDO = 3;
+	this->gSpritePinionSaltando = new SDL_Rect[CANTSPRITECLIPPINIONSALTANDO];
+
+	gSpritePinionSaltando[0].x = 341;
+	gSpritePinionSaltando[0].y = 1392;
+	gSpritePinionSaltando[0].w = 261;
+	gSpritePinionSaltando[0].h = 150;
+
+	gSpritePinionSaltando[1].x = 656;
+	gSpritePinionSaltando[1].y = 1392;
+	gSpritePinionSaltando[1].w = 261;
+	gSpritePinionSaltando[1].h = 150;
+
+	gSpritePinionSaltando[2].x = 969;
+	gSpritePinionSaltando[2].y = 1392;
+	gSpritePinionSaltando[2].w = 261;
+	gSpritePinionSaltando[2].h = 150;
+
+}
+void View_Jugador_ChunLi::getSpritesPinaDebilSaltando() {
+	CANTSPRITECLIPPINIASALTANDO = 3;
+	MINFRAMEPINIASALTANDO = 0;
+	MAXFRAMEPINIASALTANDO = 2;
+	FACTORPINIASALTANDO = 3;
+	this->gSpritePiniaSaltando = new SDL_Rect[CANTSPRITECLIPPINIASALTANDO];
+
+	gSpritePiniaSaltando[0].x = 35;
+	gSpritePiniaSaltando[0].y = 1168;
+	gSpritePiniaSaltando[0].w = 261;
+	gSpritePiniaSaltando[0].h = 150;
+
+	gSpritePiniaSaltando[1].x = 298;
+	gSpritePiniaSaltando[1].y = 1168;
+	gSpritePiniaSaltando[1].w = 261;
+	gSpritePiniaSaltando[1].h = 150;
+
+	gSpritePiniaSaltando[2].x = 1196;
+	gSpritePiniaSaltando[2].y = 1168;
+	gSpritePiniaSaltando[2].w = 261;
+	gSpritePiniaSaltando[2].h = 150;
+
+}
+void View_Jugador_ChunLi::getSpritesPinaDebilAgachado() {
+
+	CANTSPRITECLIPPINIAAGACHADO = 3;
+	MINFRAMEPINIAAGACHADO = 0;
+	MAXFRAMEPINIAAGACHADO = 2;
+	FACTORPINIAAGACHADO = 3;
+	this->gSpritePiniaAgachado = new SDL_Rect[CANTSPRITECLIPPINIAAGACHADO];
+
+	gSpritePiniaAgachado[0].x = 35;
+	gSpritePiniaAgachado[0].y = 1168;
+	gSpritePiniaAgachado[0].w = 261;
+	gSpritePiniaAgachado[0].h = 150;
+
+	gSpritePiniaAgachado[1].x = 298;
+	gSpritePiniaAgachado[1].y = 1168;
+	gSpritePiniaAgachado[1].w = 261;
+	gSpritePiniaAgachado[1].h = 150;
+
+	gSpritePiniaAgachado[2].x = 1196;
+	gSpritePiniaAgachado[2].y = 1168;
+	gSpritePiniaAgachado[2].w = 261;
+	gSpritePiniaAgachado[2].h = 150;
+
+}
+void View_Jugador_ChunLi::getSpritesPinaFuerteAgachado() {
+	CANTSPRITECLIPPINIONAGACHADO = 3;
+	MINFRAMEPINIONAGACHADO = 0;
+	MAXFRAMEPINIONAGACHADO = 2;
+	FACTORPINIONAGACHADO = 3;
+	this->gSpritePinionAgachado = new SDL_Rect[CANTSPRITECLIPPINIONAGACHADO];
+
+	gSpritePinionAgachado[0].x = 341;
+	gSpritePinionAgachado[0].y = 1392;
+	gSpritePinionAgachado[0].w = 261;
+	gSpritePinionAgachado[0].h = 150;
+
+	gSpritePinionAgachado[1].x = 656;
+	gSpritePinionAgachado[1].y = 1392;
+	gSpritePinionAgachado[1].w = 261;
+	gSpritePinionAgachado[1].h = 150;
+
+	gSpritePinionAgachado[2].x = 969;
+	gSpritePinionAgachado[2].y = 1392;
+	gSpritePinionAgachado[2].w = 261;
+	gSpritePinionAgachado[2].h = 150;
+}
 void View_Jugador_ChunLi::getSpritesDefensa(){
 	CANTSPRITECLIPDEFENSA = 1;
 	MINFRAMEDEFENSA = 0;
@@ -561,3 +660,11 @@ void View_Jugador_ChunLi::getSpritesDefensaAgachado(){
 	gSpriteDefensaAgachado[0].h = 150;
 }
 
+void View_Jugador_ChunLi::getSpritesRecibirDanio() {
+	this->gSpriteRecibirDanio = new SDL_Rect[1];
+
+	gSpriteRecibirDanio[0].x = 315;
+	gSpriteRecibirDanio[0].y = 2492;
+	gSpriteRecibirDanio[0].w = 261;
+	gSpriteRecibirDanio[0].h = 150;
+}
