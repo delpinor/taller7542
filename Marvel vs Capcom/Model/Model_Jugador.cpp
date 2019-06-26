@@ -18,8 +18,8 @@ Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &
 	this->zindex= zind;
 	this->nombre=nom;
 	this->pathImagen=path;
-	this->mCollider.w =this->estado->getPosX()+ width;
-	this->mCollider.h = this->estado->getPosY() +height;
+	this->mCollider.w =this->estado->getPosX()+ width / 4.5;
+	this->mCollider.h = this->estado->getPosY() +height ;
 	this->vidaJugador = 100;
 	this->inmortal = inmortal;
 
@@ -143,7 +143,8 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 	updateDirection(*jugadorRival);
 	this->mCollider.x = this->estado->getPosX();
 	this->mCollider.y = this->estado->getPosY();
-	this->mCollider.w =this->estado->getPosX()+ width;
+
+
 	this->mCollider.h = this->estado->getPosY() +height;
 	//aca iria el contador
 	if (this->getTipoGolpe() == TIPO_GOLPE::GOLPE_ARROJAR)
