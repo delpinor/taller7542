@@ -232,19 +232,19 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					this->jugador->getDireccion(), gRenderer);
 		}
 
-//	if (this->jugador->poderActivo()) {
-//		if (this->jugador->getSentidoPoder() == 1) {
-//			this->texturaJugador->render(this->jugador->getPosXPoder() - camX,
-//					this->jugador->getPosXPoder() - camY, currentClipPoder, 0, NULL,
-//					SDL_FLIP_NONE, gRenderer);
-//		} else {
-//				this->texturaJugador->render(
-//						this->jugador->getPosXPoder() - camX,
-//						this->jugador->getPosXPoder() - camY, currentClipPoder, 0,
-//						NULL, SDL_FLIP_HORIZONTAL, gRenderer);
-//		}
-//
-//	}
+	if (this->jugador->poderActivo()) {
+		if (this->jugador->getSentidoPoder() == 1) {
+			this->texturaJugador->render(this->jugador->getPosXPoder() - camX,
+					this->jugador->getPosYPoder() - camY, currentClip, 0, NULL,
+					SDL_FLIP_NONE, gRenderer);
+		} else {
+				this->texturaJugador->render(
+						this->jugador->getPosXPoder() - camX,
+						this->jugador->getPosXPoder() - camY, currentClip, 0,
+						NULL, SDL_FLIP_HORIZONTAL, gRenderer);
+		}
+
+	}
 }
 void View_Jugador::grisar_imagen(){
 
