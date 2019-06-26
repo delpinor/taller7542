@@ -6,6 +6,7 @@
 #include "Timer.h"
 #include "Barras.h"
 #include "Show.h"
+#include "Mensajes.h"
 
 #define MARGEN 0
 int posAnteriorX1, posAnteriorY1;
@@ -18,6 +19,7 @@ View::View(Model* model) {
 		if (!this->inicializar(model)) {
 			Logger::Log(LOGGER_NIVEL::ERROR, "View::View", "Erro al inicializar la vista.");
 		} else {
+
 			this->loadMedia(model);
 			this->model = model;
 
@@ -138,7 +140,6 @@ void View::render() {
 		pantalla->PantallaFija = true;
 	}
 
-
 	SDL_RenderPresent(this->gRenderer);
 }
 bool View::inicializar(Model *model) {
@@ -175,6 +176,12 @@ bool View::inicializar(Model *model) {
 						SDL_GetError());
 				exito = false;
 			} else {
+
+				//Mensaje Cargando
+				Mensajes msg(this->gRenderer);
+				msg.render();
+				SDL_RenderPresent(this->gRenderer);
+				msg.Apagar();
 
 				std::string pathZ1 = model->GetPathFondoParallaxByOrden(1);
 				std::string pathZ2 = model->GetPathFondoParallaxByOrden(2);
