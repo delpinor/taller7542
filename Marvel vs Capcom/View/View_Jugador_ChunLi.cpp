@@ -28,8 +28,14 @@ void View_Jugador_ChunLi::initialize(Jugador *model,
 	getSpritesPatadaFuerteAgachado();
 	getSpritesPiniaDebil();
 	getSpritesPiniaFuerte();
+	 getSpritesPinaFuerteSaltando();
+	getSpritesPinaDebilSaltando();
+	getSpritesPinaFuerteAgachado();
+	getSpritesPinaDebilAgachado();
 	getSpritesDefensa();
 	getSpritesDefensaAgachado();
+	getSpritesDefensaSaltando();
+	getSpritesRecibirDanio();
 	getSpritesPoder();
 	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
 
@@ -553,7 +559,99 @@ void View_Jugador_ChunLi::getSpritesPiniaFuerte() {
 	gSpritePinion[4].h = 150;
 
 }
+void View_Jugador_ChunLi::getSpritesPinaFuerteSaltando() {
 
+	CANTSPRITECLIPPINIONSALTANDO = 3;
+	MINFRAMEPINIONSALTANDO = 0;
+	MAXFRAMEPINIONSALTANDO = 2;
+	FACTORPINIONSALTANDO = 3;
+	this->gSpritePinionSaltando = new SDL_Rect[CANTSPRITECLIPPINIONSALTANDO];
+
+	gSpritePinionSaltando[0].x = 341;
+	gSpritePinionSaltando[0].y = 1392;
+	gSpritePinionSaltando[0].w = 261;
+	gSpritePinionSaltando[0].h = 150;
+
+	gSpritePinionSaltando[1].x = 656;
+	gSpritePinionSaltando[1].y = 1392;
+	gSpritePinionSaltando[1].w = 261;
+	gSpritePinionSaltando[1].h = 150;
+
+	gSpritePinionSaltando[2].x = 969;
+	gSpritePinionSaltando[2].y = 1392;
+	gSpritePinionSaltando[2].w = 261;
+	gSpritePinionSaltando[2].h = 150;
+
+}
+void View_Jugador_ChunLi::getSpritesPinaDebilSaltando() {
+	CANTSPRITECLIPPINIASALTANDO = 3;
+	MINFRAMEPINIASALTANDO = 0;
+	MAXFRAMEPINIASALTANDO = 2;
+	FACTORPINIASALTANDO = 3;
+	this->gSpritePiniaSaltando = new SDL_Rect[CANTSPRITECLIPPINIASALTANDO];
+
+	gSpritePiniaSaltando[0].x = 35;
+	gSpritePiniaSaltando[0].y = 1168;
+	gSpritePiniaSaltando[0].w = 261;
+	gSpritePiniaSaltando[0].h = 150;
+
+	gSpritePiniaSaltando[1].x = 298;
+	gSpritePiniaSaltando[1].y = 1168;
+	gSpritePiniaSaltando[1].w = 261;
+	gSpritePiniaSaltando[1].h = 150;
+
+	gSpritePiniaSaltando[2].x = 1196;
+	gSpritePiniaSaltando[2].y = 1168;
+	gSpritePiniaSaltando[2].w = 261;
+	gSpritePiniaSaltando[2].h = 150;
+
+}
+void View_Jugador_ChunLi::getSpritesPinaDebilAgachado() {
+
+	CANTSPRITECLIPPINIAAGACHADO = 3;
+	MINFRAMEPINIAAGACHADO = 0;
+	MAXFRAMEPINIAAGACHADO = 2;
+	FACTORPINIAAGACHADO = 3;
+	this->gSpritePiniaAgachado = new SDL_Rect[CANTSPRITECLIPPINIAAGACHADO];
+
+	gSpritePiniaAgachado[0].x = 35;
+	gSpritePiniaAgachado[0].y = 1168;
+	gSpritePiniaAgachado[0].w = 261;
+	gSpritePiniaAgachado[0].h = 150;
+
+	gSpritePiniaAgachado[1].x = 298;
+	gSpritePiniaAgachado[1].y = 1168;
+	gSpritePiniaAgachado[1].w = 261;
+	gSpritePiniaAgachado[1].h = 150;
+
+	gSpritePiniaAgachado[2].x = 1196;
+	gSpritePiniaAgachado[2].y = 1168;
+	gSpritePiniaAgachado[2].w = 261;
+	gSpritePiniaAgachado[2].h = 150;
+
+}
+void View_Jugador_ChunLi::getSpritesPinaFuerteAgachado() {
+	CANTSPRITECLIPPINIONAGACHADO = 3;
+	MINFRAMEPINIONAGACHADO = 0;
+	MAXFRAMEPINIONAGACHADO = 2;
+	FACTORPINIONAGACHADO = 3;
+	this->gSpritePinionAgachado = new SDL_Rect[CANTSPRITECLIPPINIONAGACHADO];
+
+	gSpritePinionAgachado[0].x = 341;
+	gSpritePinionAgachado[0].y = 1392;
+	gSpritePinionAgachado[0].w = 261;
+	gSpritePinionAgachado[0].h = 150;
+
+	gSpritePinionAgachado[1].x = 656;
+	gSpritePinionAgachado[1].y = 1392;
+	gSpritePinionAgachado[1].w = 261;
+	gSpritePinionAgachado[1].h = 150;
+
+	gSpritePinionAgachado[2].x = 969;
+	gSpritePinionAgachado[2].y = 1392;
+	gSpritePinionAgachado[2].w = 261;
+	gSpritePinionAgachado[2].h = 150;
+}
 void View_Jugador_ChunLi::getSpritesDefensa(){
 	CANTSPRITECLIPDEFENSA = 1;
 	MINFRAMEDEFENSA = 0;
@@ -577,6 +675,22 @@ void View_Jugador_ChunLi::getSpritesDefensaAgachado(){
 	gSpriteDefensaAgachado[0].y = 950;
 	gSpriteDefensaAgachado[0].w = 261;
 	gSpriteDefensaAgachado[0].h = 150;
+}
+void View_Jugador_ChunLi::getSpritesDefensaSaltando(){
+	this->gSpriteDefensaSaltando = new SDL_Rect[1];
+		gSpriteDefensaSaltando[0].x = 1842;
+		gSpriteDefensaSaltando[0].y = 950;
+		gSpriteDefensaSaltando[0].w = 261;
+		gSpriteDefensaSaltando[0].h = 150;
+
+}
+void View_Jugador_ChunLi::getSpritesRecibirDanio() {
+	this->gSpriteRecibirDanio = new SDL_Rect[1];
+
+	gSpriteRecibirDanio[0].x = 315;
+	gSpriteRecibirDanio[0].y = 2492;
+	gSpriteRecibirDanio[0].w = 261;
+	gSpriteRecibirDanio[0].h = 150;
 }
 void View_Jugador_ChunLi::getSpritesPoder(){
 	CANTSPRITECLIPPODER = 7;

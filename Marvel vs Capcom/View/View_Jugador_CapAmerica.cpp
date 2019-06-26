@@ -260,9 +260,9 @@ void View_Jugador_CapAmerica::getSpritesCambioPersonaje() {
 }
 
 void View_Jugador_CapAmerica::getSpritesPatadaFuerte() {
-	CANTSPRITECLIPPATADON = 6;
+	CANTSPRITECLIPPATADON = 5;
 	MINFRAMEPATADON = 0;
-	MAXFRAMEPATADON = 5;
+	MAXFRAMEPATADON = 4;
 	FACTORPATADON = 6;
 	this->gSpritePatadon = new SDL_Rect[CANTSPRITECLIPPATADON];
 
