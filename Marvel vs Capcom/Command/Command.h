@@ -16,7 +16,8 @@
 #define DESACTIVARDEFENSA 0x0D
 #define ARROJAR  0x0E
 #define PODER  0x0F
-#define CANTCOMMANDS 16
+#define SILENCIO  0x1F
+#define CANTCOMMANDS 17
 
 
 class Command {

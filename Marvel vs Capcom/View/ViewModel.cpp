@@ -17,6 +17,11 @@ ViewModel::ViewModel(Model* model, SDL_Renderer* gRenderer, SDL_Rect* camara, LT
 ViewModel::~ViewModel() {
 	delete[] this->viewEquipo;
 }
+void ViewModel::silenciar_juego(){
+	this->viewEquipo[0]->silenciar_juego();
+	this->viewEquipo[1]->silenciar_juego();
+
+}
 
 void ViewModel::render() {
 
