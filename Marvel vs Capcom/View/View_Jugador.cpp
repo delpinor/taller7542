@@ -240,7 +240,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 		} else {
 				this->texturaJugador->render(
 						this->jugador->getPosXPoder() - camX,
-						this->jugador->getPosXPoder() - camY, currentClip, 0,
+						this->jugador->getPosYPoder() - camY, currentClip, 0,
 						NULL, SDL_FLIP_HORIZONTAL, gRenderer);
 		}
 
