@@ -10,9 +10,16 @@ void View_Jugador::initialize(Jugador * model, LTexture * texturaJugador) {
 	this->jugador = model;
 	this->zIndex = model->get_zindex();
 }
+void View_Jugador::silenciar_efectos(){
+	if (silencio){
+		silencio=false;
+	}else{
+		silencio=true;
+	}
+}
 void View_Jugador::reproducir_efecto_sonido( int tipo_golpe){
 
-
+      if(!silencio){
 		  switch (tipo_golpe)
 		      {
 			 case GOLPE_PATADON:
@@ -34,7 +41,7 @@ void View_Jugador::reproducir_efecto_sonido( int tipo_golpe){
 				 reproducir_sonido_recibir_danio();
 				break;
 		      }
-
+      }
 
 
 }
@@ -82,6 +89,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					maxFrame = 1;
 					factor = 1;
 					frame = 0;
+					if(!silencio)
 					reproducir_efecto_sonido( this->jugador->getTipoGolpe());
 					std::cout << "defensa agachado" << std::endl;
 				}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::RECIBIR_DANIO) {
@@ -139,6 +147,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 				maxFrame = 1;
 				factor = 1;
 				frame = 0;
+				if(!silencio)
 				reproducir_efecto_sonido( this->jugador->getTipoGolpe());
 				std::cout << "defensa parado" << std::endl;
 			}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::RECIBIR_DANIO) {
@@ -194,6 +203,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 		}
 	} else {
 		if (this->jugador->estado->estaSaltando()) {
+			if(!silencio)
 			reproducir_sonido_salto();
 			if (this->jugador->getTipoGolpe() != TIPO_GOLPE::NADA) {
 				std::cout << "tipoGolpe: " << this->jugador->getTipoGolpe() << std::endl;
@@ -230,6 +240,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					maxFrame = 1;
 					factor = 1;
 					frame = 0;
+					if(!silencio)
 					reproducir_efecto_sonido( this->jugador->getTipoGolpe());
 					std::cout << "defensa saltando" << std::endl;
 				}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::RECIBIR_DANIO) {
@@ -265,6 +276,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 			}
 		} else if (this->jugador->estaCambiandoPersonaje()){
 			currentClip = &gSpriteCambiarPersonaje[0];
+			if(!silencio)
 			reproducir_sonido_cambio();
 			}
 		else

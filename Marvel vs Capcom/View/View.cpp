@@ -142,6 +142,10 @@ void View::render() {
 
 	SDL_RenderPresent(this->gRenderer);
 }
+void View::silenciar_juego(){
+	this->viewModel->silenciar_juego();
+
+}
 bool View::inicializar(Model *model) {
 	Uint32 startTime = 0;
 

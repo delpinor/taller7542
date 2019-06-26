@@ -266,11 +266,11 @@ int main(int argc, char* argv[]) {
 
 
 
-						sonido_final.loadMedia("Sonidos/musica_final_juego.mp3");
+		sonido_final.loadMedia("Sonidos/musica_final_juego.mp3");
 
 
 		bool yafinalizado=false;
-
+		bool silenciar_juego=false;
 		while (!controller.quitPressed()){ //&& !cliente.JuegoFinalizado) {
 			if(!cliente.servidor_esta_vivo()){
 				return -1;
@@ -282,10 +282,22 @@ int main(int argc, char* argv[]) {
 			} else {
 				comandoParaServidor.comando = 99;
 			}
-			if(!cliente.JuegoFinalizado){
+			if (comando==SILENCIO){
+				if(!silenciar_juego){
+					sonido_juego.parar_sonido();
+					view.silenciar_juego();
+
+					silenciar_juego=true;
+				}else{
+					sonido_juego.reproducir_sonido();
+					silenciar_juego=false;
+					view.silenciar_juego();
+				}
+
+			}else if((!cliente.JuegoFinalizado)){
 				cliente.enviarComandoAServidor(comandoParaServidor);
 			}else{
-				if(!yafinalizado){
+				if((!yafinalizado)&&(!silenciar_juego)){
 					sonido_juego.parar_sonido();
 					sonido_final.reproducir_sonido();
 					yafinalizado=true;

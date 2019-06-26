@@ -34,6 +34,11 @@ View_Jugador * ViewEquipo::cargarVistaPersonaje(std::string nombrePersonaje) {
 		return new View_Jugador_ChunLiBlack();
 return new View_Jugador_Default();
 }
+void ViewEquipo::silenciar_juego(){
+	this->viewJugadores[0]->silenciar_efectos();
+	this->viewJugadores[1]->silenciar_efectos();
+
+}
 
 void ViewEquipo::initialize(Equipo * equipo, LTexture texturaEquipo[]) {
 
