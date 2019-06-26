@@ -663,31 +663,46 @@ void View_Jugador_Spiderman::getSpritesPiniaFuerteSaltando(){
 
 }
 void View_Jugador_Spiderman::getSpritesPiniaDebilSaltando(){
-	CANTSPRITECLIPPINIASALTANDO = 4;
+	CANTSPRITECLIPPINIASALTANDO = 3;
 	MINFRAMEPINIASALTANDO = 0;
-	MAXFRAMEPINIASALTANDO = 3;
-	FACTORPINIASALTANDO = 10;
+	MAXFRAMEPINIASALTANDO = 2;
+	FACTORPINIASALTANDO = 4;
 	this->gSpritePiniaSaltando = new SDL_Rect[CANTSPRITECLIPPINIASALTANDO];
 
-	gSpritePiniaSaltando[0].x = 59;
-	gSpritePiniaSaltando[0].y = 2291;
+	gSpritePiniaSaltando[0].x = 23;
+	gSpritePiniaSaltando[0].y = 479;
 	gSpritePiniaSaltando[0].w = 261;
 	gSpritePiniaSaltando[0].h = 150;
 
-	gSpritePiniaSaltando[1].x = 320;
-	gSpritePiniaSaltando[1].y = 2291;
+	gSpritePiniaSaltando[1].x = 235;
+	gSpritePiniaSaltando[1].y = 479;
 	gSpritePiniaSaltando[1].w = 261;
 	gSpritePiniaSaltando[1].h = 150;
 
-	gSpritePiniaSaltando[2].x = 581;
-	gSpritePiniaSaltando[2].y = 2291;
+	gSpritePiniaSaltando[2].x = 452;
+	gSpritePiniaSaltando[2].y = 479;
 	gSpritePiniaSaltando[2].w = 261;
 	gSpritePiniaSaltando[2].h = 150;
 
-	gSpritePiniaSaltando[3].x = 842;
-	gSpritePiniaSaltando[3].y = 2291;
-	gSpritePiniaSaltando[3].w = 261;
-	gSpritePiniaSaltando[3].h = 150;
+//	gSpritePiniaSaltando[0].x = 59;
+//	gSpritePiniaSaltando[0].y = 2291;
+//	gSpritePiniaSaltando[0].w = 261;
+//	gSpritePiniaSaltando[0].h = 150;
+//
+//	gSpritePiniaSaltando[1].x = 320;
+//	gSpritePiniaSaltando[1].y = 2291;
+//	gSpritePiniaSaltando[1].w = 261;
+//	gSpritePiniaSaltando[1].h = 150;
+//
+//	gSpritePiniaSaltando[2].x = 581;
+//	gSpritePiniaSaltando[2].y = 2291;
+//	gSpritePiniaSaltando[2].w = 261;
+//	gSpritePiniaSaltando[2].h = 150;
+//
+//	gSpritePiniaSaltando[3].x = 842;
+//	gSpritePiniaSaltando[3].y = 2291;
+//	gSpritePiniaSaltando[3].w = 261;
+//	gSpritePiniaSaltando[3].h = 150;
 
 }
 void View_Jugador_Spiderman::getSpritesDefensa(){

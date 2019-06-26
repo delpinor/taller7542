@@ -36,7 +36,7 @@ void Timer::render(int tiempo){
 
 	}else{
 		if(tiempo < 10){
-			pxCentrar = 55;
+			pxCentrar = 54;
 		}else{
 			pxCentrar = 48;
 		}
