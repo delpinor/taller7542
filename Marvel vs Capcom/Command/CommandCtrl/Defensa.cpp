@@ -13,7 +13,7 @@ CommandCtrl(model) {
 
 void Defensa::execute(int i) {
 
-	this->model->equipos[i]->jugadorActivoSeDefiende() ;
+//	this->model->equipos[i]->jugadorActivoSeDefiende() ;
 
 }
 

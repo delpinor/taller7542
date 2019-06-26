@@ -284,7 +284,13 @@ int Cliente::recibirModeloDelServidor() {
 					unModelo.jugadoresEquipo1.isCambiandoPersonaje);
 			this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setEstaSaltando(
 					unModelo.jugadoresEquipo1.isSaltando);
-			if (unModelo.jugadoresEquipo1.tipoGolpe != TIPO_GOLPE::NADA &&
+			if (unModelo.jugadoresEquipo1.tipoGolpe == TIPO_GOLPE::ACTIVAR_DEFENSA ||
+					unModelo.jugadoresEquipo1.tipoGolpe == TIPO_GOLPE::DESACTIVAR_DEFENSA){
+					this->getVista()->model->equipos[0]->getJugadorActivo()->setTipoGolpeCliente(
+										unModelo.jugadoresEquipo1.tipoGolpe);
+					cout << "defensa: " << unModelo.jugadoresEquipo1.tipoGolpe << endl;
+			}
+			else if (unModelo.jugadoresEquipo1.tipoGolpe != TIPO_GOLPE::NADA &&
 					this->getVista()->model->equipos[0]->getJugadorActivo()->getTipoGolpe() == TIPO_GOLPE::NADA){
 				cout << "Jugador 1 esta pegando :  " << unModelo.jugadoresEquipo1.tipoGolpe <<endl;
 				this->getVista()->model->equipos[0]->getJugadorActivo()->setTipoGolpe(
@@ -308,7 +314,13 @@ int Cliente::recibirModeloDelServidor() {
 					unModelo.jugadoresEquipo2.isCambiandoPersonaje);
 			this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaSaltando(
 					unModelo.jugadoresEquipo2.isSaltando);
-			if (unModelo.jugadoresEquipo2.tipoGolpe != TIPO_GOLPE::NADA &&
+			if (unModelo.jugadoresEquipo2.tipoGolpe == TIPO_GOLPE::ACTIVAR_DEFENSA ||
+					unModelo.jugadoresEquipo2.tipoGolpe == TIPO_GOLPE::DESACTIVAR_DEFENSA){
+				this->getVista()->model->equipos[1]->getJugadorActivo()->setTipoGolpeCliente(
+									unModelo.jugadoresEquipo2.tipoGolpe);
+				cout << "defensa: " << unModelo.jugadoresEquipo2.tipoGolpe << endl;
+			}
+			else if (unModelo.jugadoresEquipo2.tipoGolpe != TIPO_GOLPE::NADA &&
 					this->getVista()->model->equipos[1]->getJugadorActivo()->getTipoGolpe() == TIPO_GOLPE::NADA){
 				cout << "Jugador 2 esta pegando:  " << unModelo.jugadoresEquipo2.tipoGolpe <<endl;
 				this->getVista()->model->equipos[1]->getJugadorActivo()->setTipoGolpe(

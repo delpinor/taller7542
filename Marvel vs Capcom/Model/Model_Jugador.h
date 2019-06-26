@@ -89,16 +89,22 @@ public:
 	void aumentarVelocidadX();
 	void aumentarVelocidadY();
 	void Saltar();
+	void Pinia();
+	void Pinion();
+	void Patada();
+	void Patadon();
+	void ActivarDefensa();
+	void DesactivarDefensa();
 	void Defensa();
 	void Pinia(Jugador * rival);
-	void Pinia_agachado(Jugador * rival);
+//	void Pinia_agachado(Jugador * rival);
 	void Pinion(Jugador * rival);
-	void Pinion_agachado(Jugador * rival);
+//	void Pinion_agachado(Jugador * rival);
 	void Patada(Jugador * rival);
 	void Patadon(Jugador * rival);
-	void Patada_agachado(Jugador * rival);
+//	void Patada_agachado(Jugador * rival);
 
-	void Patadon_agachado(Jugador * rival);
+//	void Patadon_agachado(Jugador * rival);
 
 	void Arrojar(Jugador * rival);
 
@@ -132,6 +138,7 @@ public:
 	void setDebeTerminarSalto(bool debeTerminarSalto);
 	TIPO_GOLPE getTipoGolpe();
 	void setTipoGolpe(TIPO_GOLPE tipoGolpe);
+	void setTipoGolpeCliente(TIPO_GOLPE tipoGolpe);
 	bool isIniciarGolpe();
 	void setIniciarGolpe(bool iniciarGolpe);
 	bool murio();
@@ -140,6 +147,6 @@ public:
 	bool esInmortal();
 	void jugadorVolando();
 	void TirarPoder(Jugador * rival);
-	Poder * mipoder;
+	Poder  mipoder;
 	};
 #endif

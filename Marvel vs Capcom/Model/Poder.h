@@ -4,7 +4,7 @@
 
 class Poder {
 public:
-	Poder(int x, int y ,int sentido);
+	Poder();
 	int izquierda;
 	int arriba;
 	int derecha;
@@ -12,7 +12,13 @@ public:
 	int sentido;
 	void setPosInX(int x);
 	void setPosInY(int y);
+	void setActivo();
+	void setInactivo();
 	void move();
+	void activarPoder(int x, int y ,int sentido);
+	bool estaActivo();
 	bool colision(int x , int y, int w, int h );
+	bool activo = false;
+
 	};
 #endif

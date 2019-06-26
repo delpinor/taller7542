@@ -8,7 +8,7 @@ View_Jugador_SpidermanBlack::View_Jugador_SpidermanBlack() {
 void View_Jugador_SpidermanBlack::initialize(Jugador *model,
 		LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
-	this->gSpriteGolpear = new SDL_Rect[CANTSPRITECLIP];
+//	this->gSpriteGolpear = new SDL_Rect[CANTSPRITECLIP];
 	this->jugador = model;
 	getSpritesCaminar();
 	getSpritesSaltar();

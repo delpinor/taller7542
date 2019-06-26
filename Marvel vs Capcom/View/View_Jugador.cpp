@@ -1,6 +1,7 @@
 #include "View_Jugador.h"
 
 #include <sstream>
+int contador=0;
 View_Jugador::View_Jugador() {
 }
 
@@ -19,180 +20,216 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 		//printf("se pone gris la imagen!!!!\n");
 		this->grisar_imagen();
 	}
-	if ((this->jugador->estado->getVelY() == 0)) {
-		std::cout << "tipoGolpe: " << this->jugador->getTipoGolpe() << std::endl;
-		if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADON){
-			if (this->jugador->isIniciarGolpe()){
+	if (this->jugador->getTipoGolpe() == TIPO_GOLPE::DESACTIVAR_DEFENSA) {
+		this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
+	}
+	if ((this->jugador->estado->getVelY() == 0)
+			&& !(this->jugador->estado->estaSaltando())) {
+		if (this->jugador->estaAgachado()) {
+			if (this->jugador->getTipoGolpe() != TIPO_GOLPE::NADA) {
+				std::cout << "tipoGolpe: " << this->jugador->getTipoGolpe() << std::endl;
+				if (this->jugador->isIniciarGolpe()) {
+					std::cout << "se inicia la patada: " << std::endl;
+					frame = 0;
+					this->jugador->setIniciarGolpe(false);
+				}
+				if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADON) {
+					gSpriteGolpear = gSpritePatadonAgachado;
+					maxFrame = MAXFRAMEPATADONAGACHADO;
+					factor = FACTORPATADONAGACHADO;
+					std::cout << "PATADON agachado" << std::endl;
+				} else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADA) {
+					gSpriteGolpear = gSpritePatadaAgachado;
+					maxFrame = MAXFRAMEPATADAAGACHADO;
+					factor = FACTORPATADAAGACHADO;
+					std::cout << "patada agachado" << std::endl;
+				} else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::ACTIVAR_DEFENSA) {
+					gSpriteGolpear = gSpriteDefensaAgachado;
+					maxFrame = 1;
+					factor = 1;
+					frame = 0;
+					std::cout << "defensa agachado" << std::endl;
+				}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::RECIBIR_DANIO) {
+					gSpriteGolpear = gSpriteRecibirDanio;
+					maxFrame = 1;
+					factor = 1;
+					frame = 0;
+					contador++;
+					if (contador==5){
+						this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
+						contador=0;
+					}
+				}
+				else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINIA) {
+					gSpriteGolpear = gSpritePiniaAgachado;
+					maxFrame = MAXFRAMEPINIAAGACHADO;
+					factor = FACTORPINIAAGACHADO;
+					std::cout << "pinia agachado" << std::endl;
+				}
+				else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINION) {
+					gSpriteGolpear = gSpritePinionAgachado;
+					maxFrame = MAXFRAMEPINIONAGACHADO;
+					factor = FACTORPINIONAGACHADO;
+					std::cout << "pinion agachado" << std::endl;
+				}
+				if (frame / factor <= maxFrame) {
+					currentClip = &gSpriteGolpear[frame / factor];
+					++frame;
+				} else {
+					std::cout << "golpe terminado" << std::endl;
+					this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
+				}
+			} else
+				currentClip = &gSpriteAgachar[0];
+		} else if (this->jugador->getTipoGolpe() != TIPO_GOLPE::NADA) {
+			std::cout << "tipoGolpe: " << this->jugador->getTipoGolpe() << std::endl;
+			if (this->jugador->isIniciarGolpe()) {
 				std::cout << "se inicia la patada: " << std::endl;
 				frame = 0;
 				this->jugador->setIniciarGolpe(false);
 			}
-			std::cout << "frame pegando patadon: " << frame << std::endl;
-			if (frame / MAXFRAMEPATADON <= MAXFRAMEPATADON ) {
-				currentClip = &gSpritePatadadon[frame / MAXFRAMEPATADON];
-				++frame;
-			} else {
-				std::cout << "golpe terminado" << std::endl;
-				this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
-			}
-		} else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADA){
-			if (this->jugador->isIniciarGolpe()){
-				std::cout << "se inicia la patada debil: " << std::endl;
+			if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADON) {
+				gSpriteGolpear = gSpritePatadon;
+				maxFrame = MAXFRAMEPATADON;
+				factor = FACTORPATADON;
+				std::cout << "PATADON parado" << std::endl;
+			} else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADA) {
+				gSpriteGolpear = gSpritePatada;
+				maxFrame = MAXFRAMEPATADA;
+				factor = FACTORPATADA;
+				std::cout << "patada parado" << std::endl;
+			}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::ACTIVAR_DEFENSA) {
+				gSpriteGolpear = gSpriteDefensa;
+				maxFrame = 1;
+				factor = 1;
 				frame = 0;
-				this->jugador->setIniciarGolpe(false);
-			}
-			std::cout << "frame pegando patadon: " << frame << std::endl;
-			if (frame / MAXFRAMEPATADITA <= MAXFRAMEPATADITA ) {
-				currentClip = &gSpritePatadadebil[frame / MAXFRAMEPATADITA	];
-				++frame;
-			} else {
-				std::cout << "golpe terminado" << std::endl;
-				this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
-			}
-		}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINIA){
-			if (this->jugador->isIniciarGolpe()){
-				std::cout << "se inicia la piña debil: " << std::endl;
+				std::cout << "defensa parado" << std::endl;
+			}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::RECIBIR_DANIO) {
+				gSpriteGolpear = gSpriteRecibirDanio;
+				maxFrame = 1;
+				factor = 1;
 				frame = 0;
-				this->jugador->setIniciarGolpe(false);
-			}
-			std::cout << "frame pegando piña debil: " << frame << std::endl;
-			if (frame / MAXFRAMEPINADEBIL <= MAXFRAMEPINADEBIL ) {
-				currentClip = &gSpritePinaDebil[frame / MAXFRAMEPINADEBIL	];
-				++frame;
-			} else {
-				std::cout << "golpe terminado" << std::endl;
-				this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
-			}
+				contador++;
+				if (contador==5){
+					this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
+					contador=0;
 
-		}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINION ){
-			if (this->jugador->isIniciarGolpe()){
-				std::cout << "se inicia la piña FUERTE: " << std::endl;
-				frame = 0;
-				this->jugador->setIniciarGolpe(false);
-			}
-			std::cout << "frame pegando piña fuerte: " << frame << std::endl;
-			if (frame / MAXFRAMEPINAFUERTE <= MAXFRAMEPINAFUERTE ) {
-				currentClip = &gSpritePinaFuerte[frame / MAXFRAMEPINAFUERTE	];
-				++frame;
-			} else {
-				std::cout << "golpe terminado" << std::endl;
-				this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
-			}
-		}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINION_AGACHADO ){
-			if (this->jugador->isIniciarGolpe()){
-				std::cout << "se inicia la piña FUERTE AGACHADO: " << std::endl;
-				frame = 0;
-				this->jugador->setIniciarGolpe(false);
-			}
-			std::cout << "frame pegando piña fuerte: " << frame << std::endl;
-			if (frame / MAXFRAMEPINAFUERTE_agachado<= MAXFRAMEPINAFUERTE_agachado ) {
-				currentClip = &gSpritePinaFuerte_agachado[frame / MAXFRAMEPINAFUERTE_agachado	];
-				++frame;
-			} else {
-				std::cout << "golpe agachado terminado" << std::endl;
-				this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
-			}
-		}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINIA_AGACHADO ){
-			if (this->jugador->isIniciarGolpe()){
-				std::cout << "se inicia la piña AGACHADO: " << std::endl;
-				frame = 0;
-				this->jugador->setIniciarGolpe(false);
-			}
-			std::cout << "frame pegando piña DEBIL: " << frame << std::endl;
-			if (frame / MAXFRAMEPINADEBIL_agachado<= MAXFRAMEPINADEBIL_agachado ) {
-				currentClip = &gSpritePinaDebil_agachado[frame / MAXFRAMEPINADEBIL_agachado	];
-				++frame;
-			} else {
-				std::cout << "golpe agachado terminado" << std::endl;
-				this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
-			}
-		}
-
-
-		else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_DEFENSA ){
-			if (this->jugador->isIniciarGolpe()){
-				std::cout << "se inicia la DEFENSA parado: " << std::endl;
-				frame = 0;
-				this->jugador->setIniciarGolpe(false);
-			}
-			std::cout << "frame se esta defendiendo: " << frame << std::endl;
-			if (frame / MAXFRAMEDEFENSA <= MAXFRAMEDEFENSA ) {
-				currentClip = &gSpriteDefensa[frame / MAXFRAMEDEFENSA	];
-				++frame;
-			} else {
-				std::cout << "DEFENSA terminadA" << std::endl;
-				this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
-			}
-		}
-		else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADA_AGACHADO ){
-					if (this->jugador->isIniciarGolpe()){
-						std::cout << "se inicia la patada agachado: " << std::endl;
-						frame = 0;
-						this->jugador->setIniciarGolpe(false);
-					}
-					std::cout << "frame esta haciendo la patada agachado: " << frame << std::endl;
-					if (frame / MAXFRAMEPATADITA_agachado <= MAXFRAMEPATADITA_agachado ) {
-						currentClip = &gSpritePatadadebil_agachado[frame / MAXFRAMEPATADITA_agachado	];
-						++frame;
-					} else {
-						std::cout << "patada debil agachado terminado" << std::endl;
-						this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
-					}
+				std::cout << "recibir danio" << std::endl;
 				}
-		else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADON_AGACHADO  ){
-							if (this->jugador->isIniciarGolpe()){
-								std::cout << "se inicia el patadon agachado: " << std::endl;
-								frame = 0;
-								this->jugador->setIniciarGolpe(false);
-							}
-							std::cout << "frame esta haciendo el patadon  agachado: " << frame << std::endl;
-							if (frame / MAXFRAMEPATADON_agachado <= MAXFRAMEPATADON_agachado) {
-								currentClip = &gSpritePatadadon_agachado[frame / MAXFRAMEPATADON_agachado	];
-								++frame;
-							} else {
-								std::cout << "patada fuerte agachado terminado" << std::endl;
-								this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
-							}
-						}
-		else if (this->jugador->estaAgachado()){
-			currentClip = &gSpriteAgachar[0];
-		} else if ((this->jugador->estado->getVelX() != 0)){
+			}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINIA) {
+				gSpriteGolpear = gSpritePinia;
+				maxFrame = MAXFRAMEPINIA;
+				factor = FACTORPINIA;
+				std::cout << "pinia parado" << std::endl;
+			}
+			else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINION) {
+				gSpriteGolpear = gSpritePinion;
+				maxFrame = MAXFRAMEPINION;
+				factor = FACTORPINION;
+				std::cout << "pinion parado" << std::endl;
+			}
 
-			if (frame / MAXFRAMECAMINA >= MAXFRAMECAMINA ) {
+
+			if (frame / factor <= maxFrame) {
+				currentClip = &gSpriteGolpear[frame / factor];
+				++frame;
+
+			} else {
+				std::cout << "golpe terminado" << std::endl;
+				this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
+			}
+
+		} else if ((this->jugador->estado->getVelX() != 0)) {
+
+			if (frame / FACTORCAMINA > MAXFRAMECAMINA) {
 				frame = MINFRAMECAMINA;
 			}
-			currentClip = &gSpriteCaminar[frame / MAXFRAMECAMINA];
+			currentClip = &gSpriteCaminar[frame / FACTORCAMINA];
 			++frame;
 		} else if ((this->jugador->estado->getVelX() == 0)) {
-			currentClip = &gSpriteAnimacion[frame / MAXFRAMEANIMACION];
-			if (frame / MAXFRAMEANIMACION >= MAXFRAMEANIMACION ) {
+			if (frame / FACTORANIMACION > MAXFRAMEANIMACION) {
 				frame = MINFRAMEANIMACION;
 			}
+			currentClip = &gSpriteAnimacion[frame / FACTORANIMACION];
 			++frame;
 		}
-	}else {
+	} else {
 		if (this->jugador->estado->estaSaltando()) {
-			if (this->jugador->estado->getVelY() >= 18) {
-				reproducir_sonido_salto();
-				frame = 0;
+			if (this->jugador->getTipoGolpe() != TIPO_GOLPE::NADA) {
+				std::cout << "tipoGolpe: " << this->jugador->getTipoGolpe() << std::endl;
+				if (this->jugador->isIniciarGolpe()) {
+					std::cout << "se inicia la patada: " << std::endl;
+					frame = 0;
+					this->jugador->setIniciarGolpe(false);
+				}
+				if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADON){
+					gSpriteGolpear = gSpritePatadonSaltando;
+					maxFrame = MAXFRAMEPATADONSALTANDO;
+					factor = FACTORPATADONSALTANDO;
+					std::cout << "PATADON parado" << std::endl;
+				} else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADA) {
+					gSpriteGolpear = gSpritePatadaSaltando;
+					maxFrame = MAXFRAMEPATADASALTANDO;
+					factor = FACTORPATADASALTANDO;
+					std::cout << "patada saltando" << std::endl;
+				}
+				else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINIA) {
+					gSpriteGolpear = gSpritePiniaSaltando;
+					maxFrame = MAXFRAMEPINIASALTANDO;
+					factor = FACTORPINIASALTANDO;
+					std::cout << "pinia saltando" << std::endl;
+				}
+				else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINION) {
+					gSpriteGolpear = gSpritePinionSaltando;
+					maxFrame = MAXFRAMEPINIONSALTANDO;
+					factor = FACTORPINIONSALTANDO;
+					std::cout << "pinion saltando" << std::endl;
+				}
+				else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::ACTIVAR_DEFENSA) {
+					gSpriteGolpear = gSpriteDefensaSaltando;
+					maxFrame = 1;
+					factor = 1;
+					frame = 0;
+					std::cout << "defensa saltando" << std::endl;
+				}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::RECIBIR_DANIO) {
+					gSpriteGolpear = gSpriteRecibirDanio;
+					maxFrame = 1;
+					factor = 6;
+					frame = 0;
+					if (contador==5){
+						this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
+						contador=0;
+						std::cout << "recibir danio" << std::endl;
+					}
+				}
+				if (frame / factor <= maxFrame) {
+					currentClip = &gSpriteGolpear[frame / factor];
+					++frame;
+				} else {
+					std::cout << "golpe terminado" << std::endl;
+					this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
+				}
+			} else {
+				if (this->jugador->estado->getVelY() >= 18) {
+					frame = 0;
+				}
+				if (frame / FACTORSALTA > MAXFRAMESALTA) {
+					frame = MINFRAMESALTA;
+				}
+				currentClip = &gSpriteSaltar[frame / FACTORSALTA];
+				++frame;
 			}
-			if (frame / MAXFRAMESALTA >= MAXFRAMESALTA) {
-				frame = MINFRAMESALTA;
-			}
-			currentClip = &gSpriteSaltar[frame / MAXFRAMESALTA];
-			++frame;
-		} else if (this->jugador->estaCambiandoPersonaje()){
-				currentClip = &gSpriteCambiarPersonaje[0];
-				reproducir_sonido_cambio();
-			}else
+		} else if (this->jugador->estaCambiandoPersonaje())
 			currentClip = &gSpriteCambiarPersonaje[0];
-		}
+		else
+			currentClip = &gSpriteCambiarPersonaje[0];
+	}
 
 	if (this->jugador->estaActivo()) {
-		this->texturaJugador->render(this->jugador->getPosX() - camX,
-				this->jugador->getPosY() - camY, currentClip, 0, NULL,
-				this->jugador->getDireccion(), gRenderer);
-	}
+			this->texturaJugador->render(this->jugador->getPosX() - camX,
+					this->jugador->getPosY() - camY, currentClip, 0, NULL,
+					this->jugador->getDireccion(), gRenderer);
+		}
 }
 void View_Jugador::grisar_imagen(){
 

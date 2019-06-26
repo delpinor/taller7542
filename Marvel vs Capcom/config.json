@@ -22,16 +22,16 @@
 		},
 		{
 			"nombre" : "Chun Li",
-			"alto" : "200",
-			"ancho" : "120",
-			"rutaArchivoImagen" : "Images/Chun-Li.gif",
+			"alto" : "250",
+			"ancho" : "400",
+			"rutaArchivoImagen" : "Images/ChunLiSeparado.gif",
 			"zIndex" : "48"
 		},
 		{
 			"nombre" : "Spiderman",
-			"alto" : "200",
-			"ancho" : "120",
-			"rutaArchivoImagen" : "Images/Spiderman.png",
+			"alto" : "250",
+			"ancho" : "400",
+			"rutaArchivoImagen" : "Images/SpidermanSeparado.gif",
 			"zIndex" : "47"
 		}
 	],
@@ -58,16 +58,17 @@
 	"log" : 
 	{
 		"nivel" : "DEBUG"
+		
 	},
 	"server" : 
 	{
 		"players" : 2,
-		"modeTest" : true
+		"modeTest" : false
 	},
 	"batalla" :
 	{
 		"cantidad" : "3",
-		"tiempo" : "10"
+		"tiempo" : "30"
 	}
 }
 		
