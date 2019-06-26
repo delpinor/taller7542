@@ -147,6 +147,14 @@ public:
 	bool esInmortal();
 	void jugadorVolando();
 	void TirarPoder(Jugador * rival);
+	int getPosXPoder();
+	int getPosYPoder();
+	int getSentidoPoder();
+	void setPosXPoder(int x);
+	void setPosYPoder(int y);
+	void setSentidoPoder(int z);
+	bool poderActivo();
+	void setEstadoPoder(bool estado);
 	Poder  mipoder;
 	};
 #endif

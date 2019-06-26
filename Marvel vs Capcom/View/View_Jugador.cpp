@@ -13,6 +13,7 @@ void View_Jugador::initialize(Jugador * model, LTexture * texturaJugador) {
 
 void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 	SDL_Rect* currentClip;
+	SDL_Rect* currentClipPoder;
 	if(this->jugador->get_estado_desconexion()==false){
 		//printf("No se pone gris la imagen!!!!\n");
 		this->desgrisar_imagen();
@@ -230,6 +231,20 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					this->jugador->getPosY() - camY, currentClip, 0, NULL,
 					this->jugador->getDireccion(), gRenderer);
 		}
+
+//	if (this->jugador->poderActivo()) {
+//		if (this->jugador->getSentidoPoder() == 1) {
+//			this->texturaJugador->render(this->jugador->getPosXPoder() - camX,
+//					this->jugador->getPosXPoder() - camY, currentClipPoder, 0, NULL,
+//					SDL_FLIP_NONE, gRenderer);
+//		} else {
+//				this->texturaJugador->render(
+//						this->jugador->getPosXPoder() - camX,
+//						this->jugador->getPosXPoder() - camY, currentClipPoder, 0,
+//						NULL, SDL_FLIP_HORIZONTAL, gRenderer);
+//		}
+//
+//	}
 }
 void View_Jugador::grisar_imagen(){
 

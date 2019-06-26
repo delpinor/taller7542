@@ -53,6 +53,10 @@ struct JugadorCliente {
 	int posY;
 	int velX;
 	int velY;
+	int posXpoder;
+	int posYpoder;
+	int sentidoPoder;
+	bool poderActivo = false;
 	bool isActivo = false;
 	bool isAgachado = false;
 	bool isCambiandoPersonaje = false;

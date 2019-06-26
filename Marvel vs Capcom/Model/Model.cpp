@@ -264,7 +264,10 @@ ModeloEstado Model::GetModelEstado(){
 	unModeloEstado.jugadoresEquipo1.posY = this->getEquipoNro(0)->getJugadorActivo()->getPosY();
 	unModeloEstado.jugadoresEquipo1.velX = this->getEquipoNro(0)->getJugadorActivo()->getVelX();
 	unModeloEstado.jugadoresEquipo1.velY = this->getEquipoNro(0)->getJugadorActivo()->getVelY();
-
+	unModeloEstado.jugadoresEquipo1.posYpoder = this->getEquipoNro(0)->getJugadorActivo()->getPosYPoder();
+	unModeloEstado.jugadoresEquipo1.posXpoder = this->getEquipoNro(0)->getJugadorActivo()->getPosXPoder();
+	unModeloEstado.jugadoresEquipo1.poderActivo = this->getEquipoNro(0)->getJugadorActivo()->poderActivo();
+	unModeloEstado.jugadoresEquipo1.sentidoPoder = this->getEquipoNro(0)->getJugadorActivo()->getSentidoPoder();
 
 	unModeloEstado.jugadoresEquipo2.equipo = 1;
 	unModeloEstado.jugadoresEquipo2.isActivo = this->getEquipoNro(1)->getJugadorActivo()->estaActivo();
@@ -278,6 +281,10 @@ ModeloEstado Model::GetModelEstado(){
 	unModeloEstado.jugadoresEquipo2.posY = this->getEquipoNro(1)->getJugadorActivo()->getPosY();
 	unModeloEstado.jugadoresEquipo2.velX = this->getEquipoNro(1)->getJugadorActivo()->getVelX();
 	unModeloEstado.jugadoresEquipo2.velY = this->getEquipoNro(1)->getJugadorActivo()->getVelY();
+	unModeloEstado.jugadoresEquipo2.posYpoder = this->getEquipoNro(1)->getJugadorActivo()->getPosYPoder();
+	unModeloEstado.jugadoresEquipo2.posXpoder = this->getEquipoNro(1)->getJugadorActivo()->getPosXPoder();
+	unModeloEstado.jugadoresEquipo2.poderActivo = this->getEquipoNro(1)->getJugadorActivo()->poderActivo();
+	unModeloEstado.jugadoresEquipo2.sentidoPoder = this->getEquipoNro(1)->getJugadorActivo()->getSentidoPoder();
 
 	return unModeloEstado;
 }

@@ -110,6 +110,14 @@ void Cliente::actualizarModelo(ModeloEstado modelo) {
 			modelo.jugadoresEquipo1.velX);
 	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setVelocidadY(
 			modelo.jugadoresEquipo1.velY);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->setPosXPoder(
+			modelo.jugadoresEquipo1.posXpoder);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->setPosYPoder(
+			modelo.jugadoresEquipo1.posXpoder);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->setEstadoPoder(
+				modelo.jugadoresEquipo1.poderActivo);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->setSentidoPoder(
+				modelo.jugadoresEquipo1.sentidoPoder);
 
 	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(
 			modelo.jugadoresEquipo2.isActivo);
@@ -125,9 +133,18 @@ void Cliente::actualizarModelo(ModeloEstado modelo) {
 			modelo.jugadoresEquipo2.velX);
 	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setVelocidadY(
 			modelo.jugadoresEquipo2.velY);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->setPosXPoder(
+			modelo.jugadoresEquipo2.posXpoder);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->setPosYPoder(
+			modelo.jugadoresEquipo2.posXpoder);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->setEstadoPoder(
+			modelo.jugadoresEquipo2.poderActivo);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->setSentidoPoder(
+			modelo.jugadoresEquipo2.sentidoPoder);
 
 	this->getVista()->getCamara()->x = modelo.camara.posX;
 	this->getVista()->getCamara()->y = modelo.camara.posY;
+
 	pthread_mutex_unlock(&mutexx);
 }
 

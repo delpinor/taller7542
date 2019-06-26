@@ -30,6 +30,33 @@ void Jugador::SetVida(int vida){
 int Jugador::GetVida(){
 	return this->vidaJugador;
 }
+int Jugador::getPosXPoder(){
+	return mipoder.getPosX();
+}
+int Jugador::getPosYPoder(){
+	return mipoder.getPosY();
+}
+int Jugador::getSentidoPoder(){
+	return mipoder.getSentido();
+}
+void Jugador::setPosYPoder(int y){
+	 mipoder.setPosY(y);
+}
+void Jugador::setPosXPoder(int x){
+	 mipoder.setPosX(x);
+}
+void Jugador::setSentidoPoder(int z){
+	 mipoder.setSentido(z);
+}
+bool Jugador::poderActivo(){
+	return mipoder.estaActivo();
+}
+void Jugador::setEstadoPoder(bool estado){
+	 mipoder.setInactivo();
+	if (estado)
+		 mipoder.setActivo();
+
+}
 int Jugador::get_alto(){
 
 	return height;
