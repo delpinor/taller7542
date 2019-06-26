@@ -253,7 +253,7 @@ void View_Jugador_Venom::getSpritesPatadaFuerte() {
 	CANTSPRITECLIPPATADON = 8;
 	MINFRAMEPATADON = 0;
 	MAXFRAMEPATADON = 7;
-	FACTORPATADON = 7;
+	FACTORPATADON = 9;
 	this->gSpritePatadon = new SDL_Rect[CANTSPRITECLIPPATADON];
 
 	gSpritePatadon[0].x = 24;
@@ -302,7 +302,7 @@ void View_Jugador_Venom::getSpritesPiniaDebil() {
 	CANTSPRITECLIPPINIA = 5;
 	MINFRAMEPINIA = 0;
 	MAXFRAMEPINIA = 4;
-	FACTORPINIA = 4;
+	FACTORPINIA = 7;
 	this->gSpritePinia = new SDL_Rect[CANTSPRITECLIPPINIA];
 
 	gSpritePinia[0].x = 42;
@@ -337,7 +337,7 @@ void View_Jugador_Venom::getSpritesPiniaFuerte() {
 	CANTSPRITECLIPPINION = 7;
 	MINFRAMEPINION = 0;
 	MAXFRAMEPINION = 6;
-	FACTORPINION = 4;
+	FACTORPINION = 7;
 	this->gSpritePinion = new SDL_Rect[CANTSPRITECLIPPINION];
 
 	gSpritePinion[0].x = 58;
@@ -408,26 +408,26 @@ void View_Jugador_Venom::getSpritesPiniaDebilAgachado() {
 	CANTSPRITECLIPPINIAAGACHADO = 4;
 	MINFRAMEPINIAAGACHADO = 0;
 	MAXFRAMEPINIAAGACHADO = 3;
-	FACTORPINIAAGACHADO = 2;
+	FACTORPINIAAGACHADO = 8;
 	this->gSpritePiniaAgachado = new SDL_Rect[CANTSPRITECLIPPINIAAGACHADO];
 
 	gSpritePiniaAgachado[0].x = 2;
-	gSpritePiniaAgachado[0].y = 3607;
+	gSpritePiniaAgachado[0].y = 3579;
 	gSpritePiniaAgachado[0].w = 261;
 	gSpritePiniaAgachado[0].h = 150;
 
-	gSpritePiniaAgachado[1].x = 315;
-	gSpritePiniaAgachado[1].y = 3607;
+	gSpritePiniaAgachado[1].x = 290;
+	gSpritePiniaAgachado[1].y = 3579;
 	gSpritePiniaAgachado[1].w = 261;
 	gSpritePiniaAgachado[1].h = 150;
 
-	gSpritePiniaAgachado[2].x = 315;
-	gSpritePiniaAgachado[2].y = 3607;
+	gSpritePiniaAgachado[2].x = 290;
+	gSpritePiniaAgachado[2].y = 3579;
 	gSpritePiniaAgachado[2].w = 261;
 	gSpritePiniaAgachado[2].h = 150;
 
 	gSpritePiniaAgachado[3].x = 907;
-	gSpritePiniaAgachado[3].y = 3607;
+	gSpritePiniaAgachado[3].y = 3579;
 	gSpritePiniaAgachado[3].w = 261;
 	gSpritePiniaAgachado[3].h = 150;
 
@@ -436,7 +436,7 @@ void View_Jugador_Venom::getSpritesPiniaFuerteAgachado() {
 	CANTSPRITECLIPPINIONAGACHADO = 8;
 	MINFRAMEPINIONAGACHADO = 0;
 	MAXFRAMEPINIONAGACHADO = 7;
-	FACTORPINIONAGACHADO = 3;
+	FACTORPINIONAGACHADO = 10;
 	this->gSpritePinionAgachado = new SDL_Rect[CANTSPRITECLIPPINIONAGACHADO];
 
 	gSpritePinionAgachado[0].x = 1;
@@ -449,7 +449,7 @@ void View_Jugador_Venom::getSpritesPiniaFuerteAgachado() {
 	gSpritePinionAgachado[1].w = 261;
 	gSpritePinionAgachado[1].h = 150;
 
-	gSpritePinionAgachado[2].x = 610;
+	gSpritePinionAgachado[2].x = 597;
 	gSpritePinionAgachado[2].y = 3893;
 	gSpritePinionAgachado[2].w = 261;
 	gSpritePinionAgachado[2].h = 150;
@@ -459,12 +459,12 @@ void View_Jugador_Venom::getSpritesPiniaFuerteAgachado() {
 	gSpritePinionAgachado[3].w = 285;
 	gSpritePinionAgachado[3].h = 150;
 
-	gSpritePinionAgachado[4].x = 1355;
+	gSpritePinionAgachado[4].x = 1350;
 	gSpritePinionAgachado[4].y = 3893;
 	gSpritePinionAgachado[4].w = 261;
 	gSpritePinionAgachado[4].h = 150;
 
-	gSpritePinionAgachado[5].x = 1675;
+	gSpritePinionAgachado[5].x = 1665;
 	gSpritePinionAgachado[5].y = 3893;
 	gSpritePinionAgachado[5].w = 261;
 	gSpritePinionAgachado[5].h = 150;
@@ -483,26 +483,26 @@ void View_Jugador_Venom::getSpritesPatadaDebilAgachado() {
 	CANTSPRITECLIPPATADAAGACHADO = 4;
 	MINFRAMEPATADAAGACHADO = 0;
 	MAXFRAMEPATADAAGACHADO = 3;
-	FACTORPATADAAGACHADO = 3;
+	FACTORPATADAAGACHADO = 8;
 	this->gSpritePatadaAgachado = new SDL_Rect[CANTSPRITECLIPPATADAAGACHADO];
 
 	gSpritePatadaAgachado[0].x = 40;
-	gSpritePatadaAgachado[0].y = 1705;
+	gSpritePatadaAgachado[0].y = 1680;
 	gSpritePatadaAgachado[0].w = 261;
 	gSpritePatadaAgachado[0].h = 150;
 
 	gSpritePatadaAgachado[1].x = 315;
-	gSpritePatadaAgachado[1].y = 1705;
+	gSpritePatadaAgachado[1].y = 1680;
 	gSpritePatadaAgachado[1].w = 261;
 	gSpritePatadaAgachado[1].h = 150;
 
 	gSpritePatadaAgachado[2].x = 600;
-	gSpritePatadaAgachado[2].y = 1705;
+	gSpritePatadaAgachado[2].y = 1680;
 	gSpritePatadaAgachado[2].w = 261;
 	gSpritePatadaAgachado[2].h = 150;
 
 	gSpritePatadaAgachado[3].x = 928;
-	gSpritePatadaAgachado[3].y = 1705;
+	gSpritePatadaAgachado[3].y = 1680;
 	gSpritePatadaAgachado[3].w = 261;
 	gSpritePatadaAgachado[3].h = 150;
 }
@@ -510,7 +510,7 @@ void View_Jugador_Venom::getSpritesPatadaFuerteAgachado() {
 	CANTSPRITECLIPPATADONAGACHADO = 8;
 	MINFRAMEPATADONAGACHADO = 0;
 	MAXFRAMEPATADONAGACHADO = 7;
-	FACTORPATADONAGACHADO = 3;
+	FACTORPATADONAGACHADO = 10;
 	this->gSpritePatadonAgachado = new SDL_Rect[CANTSPRITECLIPPATADONAGACHADO];
 
 	gSpritePatadonAgachado[0].x = 1;
@@ -555,10 +555,10 @@ void View_Jugador_Venom::getSpritesPatadaFuerteAgachado() {
 }
 
 void View_Jugador_Venom::getSpritesPiniaDebilSaltando() {
-	CANTSPRITECLIPPINIASALTANDO = 4;
+	CANTSPRITECLIPPINIASALTANDO = 5;
 	MINFRAMEPINIASALTANDO = 0;
-	MAXFRAMEPINIASALTANDO = 3;
-	FACTORPINIASALTANDO = 3;
+	MAXFRAMEPINIASALTANDO = 4;
+	FACTORPINIASALTANDO = 7;
 	this->gSpritePiniaSaltando = new SDL_Rect[CANTSPRITECLIPPINIASALTANDO];
 
 	gSpritePiniaSaltando[0].x = 30;
@@ -571,21 +571,26 @@ void View_Jugador_Venom::getSpritesPiniaDebilSaltando() {
 	gSpritePiniaSaltando[1].w = 261;
 	gSpritePiniaSaltando[1].h = 150;
 
-	gSpritePiniaSaltando[2].x = 573;
+	gSpritePiniaSaltando[2].x = 325;
 	gSpritePiniaSaltando[2].y = 1059;
 	gSpritePiniaSaltando[2].w = 261;
 	gSpritePiniaSaltando[2].h = 150;
 
-	gSpritePiniaSaltando[3].x = 823;
+	gSpritePiniaSaltando[3].x = 573;
 	gSpritePiniaSaltando[3].y = 1059;
 	gSpritePiniaSaltando[3].w = 261;
 	gSpritePiniaSaltando[3].h = 150;
+
+	gSpritePiniaSaltando[4].x = 823;
+	gSpritePiniaSaltando[4].y = 1059;
+	gSpritePiniaSaltando[4].w = 261;
+	gSpritePiniaSaltando[4].h = 150;
 }
 void View_Jugador_Venom::getSpritesPiniaFuerteSaltando() {
-	CANTSPRITECLIPPINIONSALTANDO = 11;
+	CANTSPRITECLIPPINIONSALTANDO = 4;
 	MINFRAMEPINIONSALTANDO = 0;
-	MAXFRAMEPINIONSALTANDO = 10;
-	FACTORPINIONSALTANDO = 3;
+	MAXFRAMEPINIONSALTANDO = 3;
+	FACTORPINIONSALTANDO = 5;
 	this->gSpritePinionSaltando = new SDL_Rect[CANTSPRITECLIPPINIONSALTANDO];
 
 	gSpritePinionSaltando[0].x = 25;
@@ -593,64 +598,69 @@ void View_Jugador_Venom::getSpritesPiniaFuerteSaltando() {
 	gSpritePinionSaltando[0].w = 261;
 	gSpritePinionSaltando[0].h = 150;
 
-	gSpritePinionSaltando[1].x = 225;
+//	gSpritePinionSaltando[1].x = 225;
+//	gSpritePinionSaltando[1].y = 4057;
+//	gSpritePinionSaltando[1].w = 261;
+//	gSpritePinionSaltando[1].h = 150;
+
+//	gSpritePinionSaltando[2].x = 420;
+//	gSpritePinionSaltando[2].y = 4057;
+//	gSpritePinionSaltando[2].w = 261;
+//	gSpritePinionSaltando[2].h = 150;
+
+	gSpritePinionSaltando[1].x = 663;
 	gSpritePinionSaltando[1].y = 4057;
 	gSpritePinionSaltando[1].w = 261;
 	gSpritePinionSaltando[1].h = 150;
 
-	gSpritePinionSaltando[2].x = 420;
+	gSpritePinionSaltando[2].x = 663;
 	gSpritePinionSaltando[2].y = 4057;
 	gSpritePinionSaltando[2].w = 261;
 	gSpritePinionSaltando[2].h = 150;
 
-	gSpritePinionSaltando[3].x = 663;
+//	gSpritePinionSaltando[2].x = 965;
+//	gSpritePinionSaltando[2].y = 4057;
+//	gSpritePinionSaltando[2].w = 261;
+//	gSpritePinionSaltando[2].h = 150;
+
+//	gSpritePinionSaltando[3].x = 1245;
+//	gSpritePinionSaltando[3].y = 4057;
+//	gSpritePinionSaltando[3].w = 261;
+//	gSpritePinionSaltando[3].h = 150;
+
+	gSpritePinionSaltando[3].x = 1540;
 	gSpritePinionSaltando[3].y = 4057;
 	gSpritePinionSaltando[3].w = 261;
 	gSpritePinionSaltando[3].h = 150;
 
-	gSpritePinionSaltando[4].x = 965;
-	gSpritePinionSaltando[4].y = 4057;
-	gSpritePinionSaltando[4].w = 261;
-	gSpritePinionSaltando[4].h = 150;
+//	gSpritePinionSaltando[5].x = 1835;
+//	gSpritePinionSaltando[5].y = 4057;
+//	gSpritePinionSaltando[5].w = 261;
+//	gSpritePinionSaltando[5].h = 150;
 
-	gSpritePinionSaltando[5].x = 1245;
-	gSpritePinionSaltando[5].y = 4057;
-	gSpritePinionSaltando[5].w = 261;
-	gSpritePinionSaltando[5].h = 150;
-
-	gSpritePinionSaltando[6].x = 1540;
-	gSpritePinionSaltando[6].y = 4057;
-	gSpritePinionSaltando[6].w = 261;
-	gSpritePinionSaltando[6].h = 150;
-
-	gSpritePinionSaltando[7].x = 1835;
-	gSpritePinionSaltando[7].y = 4057;
-	gSpritePinionSaltando[7].w = 261;
-	gSpritePinionSaltando[7].h = 150;
-
-	gSpritePinionSaltando[8].x = 2068;
-	gSpritePinionSaltando[8].y = 4057;
-	gSpritePinionSaltando[8].w = 261;
-	gSpritePinionSaltando[8].h = 150;
-
-	gSpritePinionSaltando[9].x = 2275;
-	gSpritePinionSaltando[9].y = 4057;
-	gSpritePinionSaltando[9].w = 261;
-	gSpritePinionSaltando[9].h = 150;
-
-	gSpritePinionSaltando[10].x = 2508;
-	gSpritePinionSaltando[10].y = 4057;
-	gSpritePinionSaltando[10].w = 261;
-	gSpritePinionSaltando[10].h = 150;
+//	gSpritePinionSaltando[8].x = 2068;
+//	gSpritePinionSaltando[8].y = 4057;
+//	gSpritePinionSaltando[8].w = 261;
+//	gSpritePinionSaltando[8].h = 150;
+//
+//	gSpritePinionSaltando[9].x = 2275;
+//	gSpritePinionSaltando[9].y = 4057;
+//	gSpritePinionSaltando[9].w = 261;
+//	gSpritePinionSaltando[9].h = 150;
+//
+//	gSpritePinionSaltando[10].x = 2508;
+//	gSpritePinionSaltando[10].y = 4057;
+//	gSpritePinionSaltando[10].w = 261;
+//	gSpritePinionSaltando[10].h = 150;
 }
 void View_Jugador_Venom::getSpritesPatadaDebilSaltando() {
-	CANTSPRITECLIPPATADASALTANDO = 4;
+	CANTSPRITECLIPPATADASALTANDO = 5;
 	MAXFRAMEPATADASALTANDO = 0;
-	MINFRAMEPATADASALTANDO = 3;
-	FACTORPATADASALTANDO = 3;
+	MINFRAMEPATADASALTANDO = 4;
+	FACTORPATADASALTANDO = 7;
 	this->gSpritePatadaSaltando = new SDL_Rect[CANTSPRITECLIPPATADASALTANDO];
 
-	gSpritePatadaSaltando[0].x = 5;
+	gSpritePatadaSaltando[0].x = 2;
 	gSpritePatadaSaltando[0].y = 2325;
 	gSpritePatadaSaltando[0].w = 261;
 	gSpritePatadaSaltando[0].h = 150;
@@ -660,21 +670,36 @@ void View_Jugador_Venom::getSpritesPatadaDebilSaltando() {
 	gSpritePatadaSaltando[1].w = 261;
 	gSpritePatadaSaltando[1].h = 150;
 
-	gSpritePatadaSaltando[2].x = 595;
+	gSpritePatadaSaltando[2].x = 308;
 	gSpritePatadaSaltando[2].y = 2325;
 	gSpritePatadaSaltando[2].w = 261;
 	gSpritePatadaSaltando[2].h = 150;
 
-	gSpritePatadaSaltando[3].x = 885;
+	gSpritePatadaSaltando[3].x = 308;
 	gSpritePatadaSaltando[3].y = 2325;
 	gSpritePatadaSaltando[3].w = 261;
 	gSpritePatadaSaltando[3].h = 150;
+
+	gSpritePatadaSaltando[4].x = 308;
+	gSpritePatadaSaltando[4].y = 2325;
+	gSpritePatadaSaltando[4].w = 261;
+	gSpritePatadaSaltando[4].h = 150;
+
+//	gSpritePatadaSaltando[4].x = 595;
+//	gSpritePatadaSaltando[4].y = 2325;
+//	gSpritePatadaSaltando[4].w = 261;
+//	gSpritePatadaSaltando[4].h = 150;
+
+//	gSpritePatadaSaltando[4].x = 885;
+//	gSpritePatadaSaltando[4].y = 2325;
+//	gSpritePatadaSaltando[4].w = 261;
+//	gSpritePatadaSaltando[4].h = 150;
 }
 void View_Jugador_Venom::getSpritesPatadaFuerteSaltando() {
-	CANTSPRITECLIPPATADONSALTANDO = 11;
+	CANTSPRITECLIPPATADONSALTANDO = 4;
 	MINFRAMEPATADONSALTANDO = 0;
-	MAXFRAMEPATADONSALTANDO = 10;
-	FACTORPATADONSALTANDO = 3;
+	MAXFRAMEPATADONSALTANDO = 3;
+	FACTORPATADONSALTANDO = 5;
 	this->gSpritePatadonSaltando = new SDL_Rect[CANTSPRITECLIPPATADONSALTANDO];
 
 	gSpritePatadonSaltando[0].x = 25;
@@ -682,56 +707,20 @@ void View_Jugador_Venom::getSpritesPatadaFuerteSaltando() {
 	gSpritePatadonSaltando[0].w = 261;
 	gSpritePatadonSaltando[0].h = 150;
 
-	gSpritePatadonSaltando[1].x = 225;
+	gSpritePatadonSaltando[1].x = 663;
 	gSpritePatadonSaltando[1].y = 4057;
 	gSpritePatadonSaltando[1].w = 261;
 	gSpritePatadonSaltando[1].h = 150;
 
-	gSpritePatadonSaltando[2].x = 420;
+	gSpritePatadonSaltando[2].x = 663;
 	gSpritePatadonSaltando[2].y = 4057;
 	gSpritePatadonSaltando[2].w = 261;
 	gSpritePatadonSaltando[2].h = 150;
 
-	gSpritePatadonSaltando[3].x = 663;
+	gSpritePatadonSaltando[3].x = 1540;
 	gSpritePatadonSaltando[3].y = 4057;
 	gSpritePatadonSaltando[3].w = 261;
 	gSpritePatadonSaltando[3].h = 150;
-
-	gSpritePatadonSaltando[4].x = 965;
-	gSpritePatadonSaltando[4].y = 4057;
-	gSpritePatadonSaltando[4].w = 261;
-	gSpritePatadonSaltando[4].h = 150;
-
-	gSpritePatadonSaltando[5].x = 1245;
-	gSpritePatadonSaltando[5].y = 4057;
-	gSpritePatadonSaltando[5].w = 261;
-	gSpritePatadonSaltando[5].h = 150;
-
-	gSpritePatadonSaltando[6].x = 1540;
-	gSpritePatadonSaltando[6].y = 4057;
-	gSpritePatadonSaltando[6].w = 261;
-	gSpritePatadonSaltando[6].h = 150;
-
-	gSpritePatadonSaltando[7].x = 1835;
-	gSpritePatadonSaltando[7].y = 4057;
-	gSpritePatadonSaltando[7].w = 261;
-	gSpritePatadonSaltando[7].h = 150;
-
-	gSpritePatadonSaltando[8].x = 2068;
-	gSpritePatadonSaltando[8].y = 4057;
-	gSpritePatadonSaltando[8].w = 261;
-	gSpritePatadonSaltando[8].h = 150;
-
-	gSpritePatadonSaltando[9].x = 2275;
-	gSpritePatadonSaltando[9].y = 4057;
-	gSpritePatadonSaltando[9].w = 261;
-	gSpritePatadonSaltando[9].h = 150;
-
-	gSpritePatadonSaltando[10].x = 2508;
-	gSpritePatadonSaltando[10].y = 4057;
-	gSpritePatadonSaltando[10].w = 261;
-	gSpritePatadonSaltando[10].h = 150;
-
 }
 
 void View_Jugador_Venom::getSpritesDefensa() {
