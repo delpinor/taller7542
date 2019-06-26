@@ -36,10 +36,16 @@ void View_Jugador_ChunLi::initialize(Jugador *model,
 		this->sonido_ataque_pu=new EfectoSonido(1);
 		this->sonido_defensa=new EfectoSonido(1);
 		this->sonido_cambio=new EfectoSonido(1);
+		this->sonido_danio=new EfectoSonido(1);
+		this->sonido_ataque_patada=new EfectoSonido(1);
 
-		this->sonido_ataque_pu->loadMedia("../Sonidos/chun_atk1.wav");
-			this->sonido_salto->loadMedia("../Sonidos/salto_chun.wav");
-	this->sonido_cambio->loadMedia("../Sonidos/cambio_chun.wav");
+
+		this->sonido_ataque_patada->loadMedia("../Sonidos/chun_patada.wav");
+		this->sonido_defensa->loadMedia("../Sonidos/chun_defensa.wav");
+		this->sonido_danio->loadMedia("../Sonidos/chun_danio.wav");
+		this->sonido_ataque_pu->loadMedia("../Sonidos/chun_punio.wav");
+		this->sonido_salto->loadMedia("../Sonidos/salto_chun.wav");
+		this->sonido_cambio->loadMedia("../Sonidos/cambio_chun.wav");
 
 }
 void  View_Jugador_ChunLi::reproducir_sonido_salto(){
@@ -63,6 +69,17 @@ void  View_Jugador_ChunLi::reproducir_sonido_cambio(){
 void   View_Jugador_ChunLi::reproducir_sonido_defensa(){
 
 		this->sonido_defensa->reproducir_sonido();
+
+
+}
+
+void View_Jugador_ChunLi::reproducir_sonido_ataque_patada(){
+	this->sonido_ataque_patada->reproducir_sonido();
+
+}
+
+void View_Jugador_ChunLi::reproducir_sonido_recibir_danio(){
+	this->sonido_danio->reproducir_sonido();
 
 
 }

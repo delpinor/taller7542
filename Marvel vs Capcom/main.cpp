@@ -259,6 +259,18 @@ int main(int argc, char* argv[]) {
 		//reproduzco sonido del juego
 		cliente.LanzarHiloConexion();
 		sonido_juego.reproducir_sonido();
+
+
+		Sonido sonido_final(0);
+
+
+
+
+						sonido_final.loadMedia("Sonidos/musica_final_juego.mp3");
+
+
+		bool yafinalizado=false;
+
 		while (!controller.quitPressed()){ //&& !cliente.JuegoFinalizado) {
 			if(!cliente.servidor_esta_vivo()){
 				return -1;
@@ -272,11 +284,24 @@ int main(int argc, char* argv[]) {
 			}
 			if(!cliente.JuegoFinalizado){
 				cliente.enviarComandoAServidor(comandoParaServidor);
+			}else{
+				if(!yafinalizado){
+					sonido_juego.parar_sonido();
+					sonido_final.reproducir_sonido();
+					yafinalizado=true;
+				}
+
 			}
 			model.updateCliente(cliente.esta_conectado());
 			usleep(18000);
 			view.render();
+
+			if(controller.quitPressed()){
+				sonido_final.parar_sonido();
+				view.close();
+			}
 		}
+
 
 		return 0;
 	}

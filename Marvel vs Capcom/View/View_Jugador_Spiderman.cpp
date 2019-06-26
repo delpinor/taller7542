@@ -55,8 +55,15 @@ void View_Jugador_Spiderman::initialize(Jugador *model,
 		this->sonido_ataque_pu=new EfectoSonido(1);
 		this->sonido_defensa=new EfectoSonido(1);
 		this->sonido_cambio=new EfectoSonido(1);
+		this->sonido_danio=new EfectoSonido(1);
+			this->sonido_ataque_patada=new EfectoSonido(1);
 
-		this->sonido_ataque_pu->loadMedia("../Sonidos/spider_Atk2.wav");
+			this->sonido_ataque_patada->loadMedia("../Sonidos/spider_patada.wav");
+			this->sonido_defensa->loadMedia("../Sonidos/spider_defensa.wav");
+			this->sonido_danio->loadMedia("../Sonidos/spider_danio.wav");
+
+
+		this->sonido_ataque_pu->loadMedia("../Sonidos/spider_punio.wav");
 			this->sonido_salto->loadMedia("../Sonidos/salto_spider.wav");
 	this->sonido_cambio->loadMedia("../Sonidos/cambio_spider.wav");
 }
@@ -81,6 +88,16 @@ void  View_Jugador_Spiderman::reproducir_sonido_cambio(){
 void   View_Jugador_Spiderman::reproducir_sonido_defensa(){
 
 		this->sonido_defensa->reproducir_sonido();
+
+
+}
+void View_Jugador_Spiderman::reproducir_sonido_ataque_patada(){
+	this->sonido_ataque_patada->reproducir_sonido();
+
+}
+
+void	View_Jugador_Spiderman::reproducir_sonido_recibir_danio(){
+	this->sonido_danio->reproducir_sonido();
 
 
 }

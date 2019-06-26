@@ -181,6 +181,13 @@ public:
 	virtual void reproducir_sonido_cambio(){};
 	virtual void reproducir_sonido_ataque_pu(){};
 	virtual void reproducir_sonido_defensa(){};
+	virtual void reproducir_sonido_ataque_patada(){};
+	virtual void reproducir_sonido_recibir_danio(){};
+
+
+	void reproducir_efecto_sonido(int tipo_golpe);
+
+
 
 protected:
 

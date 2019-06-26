@@ -40,7 +40,15 @@ void View_Jugador_Venom::initialize(Jugador * model,
 	this->sonido_ataque_pu = new EfectoSonido(1);
 	this->sonido_defensa = new EfectoSonido(1);
 	this->sonido_cambio = new EfectoSonido(1);
-	this->sonido_ataque_pu->loadMedia("../Sonidos/venom_atk1.wav");
+	this->sonido_danio=new EfectoSonido(1);
+	this->sonido_ataque_patada=new EfectoSonido(1);
+
+
+	this->sonido_ataque_patada->loadMedia("../Sonidos/venom_patada.wav");
+	this->sonido_defensa->loadMedia("../Sonidos/venom_defensa.wav");
+	this->sonido_danio->loadMedia("../Sonidos/venom_danio.wav");
+
+	this->sonido_ataque_pu->loadMedia("../Sonidos/venom_punio.wav");
 	this->sonido_salto->loadMedia("../Sonidos/salto_venom.wav");
 	this->sonido_cambio->loadMedia("../Sonidos/cambio_venom.wav");
 }
@@ -64,6 +72,18 @@ void View_Jugador_Venom::reproducir_sonido_defensa() {
 	this->sonido_defensa->reproducir_sonido();
 
 }
+
+void View_Jugador_Venom::reproducir_sonido_ataque_patada(){
+	this->sonido_ataque_patada->reproducir_sonido();
+
+}
+
+void	View_Jugador_Venom::reproducir_sonido_recibir_danio(){
+	this->sonido_danio->reproducir_sonido();
+
+
+}
+
 
 void View_Jugador_Venom::getSpritesAnimacion() {
 	CANTSPRITEANIMACION = 13;
@@ -747,6 +767,5 @@ void View_Jugador_Venom::getSpritesDefensaAgachado() {
 	gSpriteDefensaSaltando[0].h = 150;
 }
 
-View_Jugador_Venom::~View_Jugador_Venom() {
-}
+
 
