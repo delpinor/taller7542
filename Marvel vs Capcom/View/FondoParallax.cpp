@@ -33,6 +33,14 @@ void FondoParallax::refrescarPosicion(SDL_Rect * cam) {
 	pos_x_anterior = cam->x;
 }
 void FondoParallax::render(int fondoId){
+	if(PantallaFija){
+		SDL_Rect pos;
+		pos.w = 1204;
+		pos.h = 768;
+		pos.x = 0;
+		pos.y = 0;
+		SDL_RenderCopy(renderer, fondoZ3, &pos, &pos);
+	}else{
 	if(fondoId == 1){
 		SDL_RenderCopy(renderer, fondoZ1, &rectZ1_Desde, &rectZ1_Hasta);
 	}
@@ -41,6 +49,8 @@ void FondoParallax::render(int fondoId){
 	}
 	if(fondoId == 3){
 		SDL_RenderCopy(renderer, fondoZ3, &rectZ3_Desde, &rectZ3_Hasta);
+	}
+
 	}
 }
 

@@ -6,6 +6,7 @@
 #include "Timer.h"
 #include "Barras.h"
 #include "Show.h"
+#include "Mensajes.h"
 
 #define MARGEN 0
 int posAnteriorX1, posAnteriorY1;
@@ -18,6 +19,7 @@ View::View(Model* model) {
 		if (!this->inicializar(model)) {
 			Logger::Log(LOGGER_NIVEL::ERROR, "View::View", "Erro al inicializar la vista.");
 		} else {
+
 			this->loadMedia(model);
 			this->model = model;
 
@@ -119,7 +121,9 @@ void View::render() {
 			}
 			else
 				if((iter->second)[i][MAP_ELEMENTOS_CLAVE_TIPO_ELEMENTO] == TIPO_ELEMENTO_PERSONAJE){
-				this->viewModel->render((iter->second)[i][MAP_ELEMENTOS_CLAVE_EQUIPO], iter->first);
+				if(model->TipoMensaje != RESULTADOS){
+					this->viewModel->render((iter->second)[i][MAP_ELEMENTOS_CLAVE_EQUIPO], iter->first);
+				}
 			}
 		}
 	}
@@ -131,8 +135,10 @@ void View::render() {
 	timerJuego->render(model->GetTiempoJuego());
 
 	//Leyendas
-	leyendas->render(model->TipoMensaje, model->TextoMensaje);
-
+	leyendas->render(model->TipoMensaje, model->TextoMensaje, model->equipos);
+	if(model->TipoMensaje == RESULTADOS){
+		pantalla->PantallaFija = true;
+	}
 
 	SDL_RenderPresent(this->gRenderer);
 }
@@ -170,6 +176,12 @@ bool View::inicializar(Model *model) {
 						SDL_GetError());
 				exito = false;
 			} else {
+
+				//Mensaje Cargando
+				Mensajes msg(this->gRenderer);
+				msg.render();
+				SDL_RenderPresent(this->gRenderer);
+				msg.Apagar();
 
 				std::string pathZ1 = model->GetPathFondoParallaxByOrden(1);
 				std::string pathZ2 = model->GetPathFondoParallaxByOrden(2);

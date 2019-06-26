@@ -373,6 +373,13 @@ int Cliente::recibirModeloDelServidor() {
 			this->getVista()->model->TipoMensaje = inGame.tipoMensaje;
 			this->getVista()->model->TextoMensaje = inGame.mensaje;
 
+			this->getVista()->model->getEquipoNro(0)->setRondasGanadas(inGame.ganadosEquipo0);
+			this->getVista()->model->getEquipoNro(1)->setRondasGanadas(inGame.ganadosEquipo1);
+
+			cout << "Equipo 0:" << inGame.ganadosEquipo0 << endl;
+			cout << "Equipo 1:" << inGame.ganadosEquipo1 << endl;
+
+
 
 			this->getVista()->model->getEquipoNro(0)->getJugadorNro(0)->SetVida(inGame.personajesEquipo0[0].vida);
 			this->getVista()->model->getEquipoNro(0)->getJugadorNro(1)->SetVida(inGame.personajesEquipo0[1].vida);
@@ -380,14 +387,14 @@ int Cliente::recibirModeloDelServidor() {
 			this->getVista()->model->getEquipoNro(1)->getJugadorNro(0)->SetVida(inGame.personajesEquipo1[0].vida);
 			this->getVista()->model->getEquipoNro(1)->getJugadorNro(1)->SetVida(inGame.personajesEquipo1[1].vida);
 
-			cout << "Resultados Equipo0: Cantidad: " << inGame.resultadoEquipo0.cantidadResultados << endl;
-			for(int i = 0; i < inGame.resultadoEquipo0.cantidadResultados; i++){
-				cout << "Equipo0: Round: " << inGame.resultadoEquipo0.NrosBatallasGanadas[i] << endl;
-			}
-			cout << "Resultados Equipo1: Cantidad: " << inGame.resultadoEquipo1.cantidadResultados << endl;
-			for(int i = 0; i < inGame.resultadoEquipo1.cantidadResultados; i++){
-				cout << "Equipo1: Round: " << inGame.resultadoEquipo1.NrosBatallasGanadas[i] << endl;
-			}
+//			cout << "Resultados Equipo0: Cantidad: " << inGame.resultadoEquipo0.cantidadResultados << endl;
+//			for(int i = 0; i < inGame.resultadoEquipo0.cantidadResultados; i++){
+//				cout << "Equipo0: Round: " << inGame.resultadoEquipo0.NrosBatallasGanadas[i] << endl;
+//			}
+//			cout << "Resultados Equipo1: Cantidad: " << inGame.resultadoEquipo1.cantidadResultados << endl;
+//			for(int i = 0; i < inGame.resultadoEquipo1.cantidadResultados; i++){
+//				cout << "Equipo1: Round: " << inGame.resultadoEquipo1.NrosBatallasGanadas[i] << endl;
+//			}
 		}
 
 		//-------->Recibe DATA PERSONAJES

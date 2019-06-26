@@ -3,6 +3,7 @@
 #include "Model/Model.h"
 #include "View/View.h"
 #include "View/ViewMenu.h"
+#include "View/Mensajes.h"
 #include "Configuracion.h"
 #include "Logger/Logger.h"
 #include "Cliente.h"
@@ -245,7 +246,6 @@ int main(int argc, char* argv[]) {
 		cout << "Finalizo el seteo de los Personajes en el modelo | " << TimeHelper::getStringLocalTimeNow() << endl;
 		cliente.LanzarHiloPing();
 		View view(&model);
-
 		cliente.setVista(&view);
 		// Habilito a recibir el modelo
 		cliente.JuegoIniciado = true;
@@ -259,7 +259,7 @@ int main(int argc, char* argv[]) {
 		//reproduzco sonido del juego
 		cliente.LanzarHiloConexion();
 		sonido_juego.reproducir_sonido();
-		while (!controller.quitPressed() && !cliente.JuegoFinalizado) {
+		while (!controller.quitPressed()){ //&& !cliente.JuegoFinalizado) {
 			if(!cliente.servidor_esta_vivo()){
 				return -1;
 			}
@@ -270,7 +270,9 @@ int main(int argc, char* argv[]) {
 			} else {
 				comandoParaServidor.comando = 99;
 			}
-			cliente.enviarComandoAServidor(comandoParaServidor);
+			if(!cliente.JuegoFinalizado){
+				cliente.enviarComandoAServidor(comandoParaServidor);
+			}
 			model.updateCliente(cliente.esta_conectado());
 			usleep(18000);
 			view.render();

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project>
 <<<<<<< HEAD
+<<<<<<< HEAD
     	
     <configuration id="cdt.managedbuild.config.gnu.cross.exe.debug.1266188674" name="Debug">
         		
@@ -47,6 +48,8 @@
     </configuration>
     
 =======
+=======
+>>>>>>> develop-parte-3_delpinor
 	<configuration id="cdt.managedbuild.config.gnu.cross.exe.debug.1266188674" name="Debug">
 		<extension point="org.eclipse.cdt.core.LanguageSettingsProvider">
 			<provider copy-of="extension" id="org.eclipse.cdt.ui.UserLanguageSettingsProvider"/>
@@ -69,5 +72,8 @@
 			</provider>
 		</extension>
 	</configuration>
+<<<<<<< HEAD
 >>>>>>> develop-maciel-salto_spiderman
+=======
+>>>>>>> develop-parte-3_delpinor
 </project>
