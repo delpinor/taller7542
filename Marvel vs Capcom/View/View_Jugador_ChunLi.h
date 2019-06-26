@@ -45,6 +45,7 @@ protected:
 	void getSpritesPiniaFuerte();
 	void getSpritesDefensa();
 	void getSpritesDefensaAgachado();
+	void getSpritesPoder();
 
 };
 
