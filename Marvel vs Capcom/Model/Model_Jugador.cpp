@@ -110,13 +110,46 @@ void Jugador::setDireccion(SDL_RendererFlip direccion) {
 }
 
 void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
+	int nuevaposX;
+	int nuevaposY;
+
 	jugadorVolando();
 	if( this->murio())
 		this->cambiarPersonaje();
 	if (this->estado->estaCambiandoPersonaje()){
 		this->estado->move();
 	}
+	else if(collideConJugador(&(jugadorRival->mCollider))){
+
+		 //Move back
+		if(this->estado->getPosX()<=jugadorRival->estado->getPosX()){
+			if(this->estado->getVelX()>0)
+				nuevaposX= this->estado->getPosX() -this->estado->getVelX();
+			else
+				nuevaposX= this->estado->getPosX() +this->estado->getVelX() ;
+		}else{
+			if(this->estado->getVelX()>0)
+				nuevaposX= this->estado->getPosX() + this->estado->getVelX();
+			else
+				nuevaposX= this->estado->getPosX() - this->estado->getVelX();
+		}
+		if(this->estado->getPosY()>jugadorRival->estado->getPosY()){
+				if(this->estado->getVelY()>0)
+					nuevaposY= this->estado->getPosY() + this->estado->getVelY()+5;
+				else
+					nuevaposY= this->estado->getPosY() - this->estado->getVelY() ;
+			}else{
+					nuevaposY= this->estado->getPosY();
+			}
+		this->estado->setPosX( nuevaposX);
+		this->estado->setPosY( nuevaposY);
+		this->mCollider.x = this->estado->getPosX();
+		this->mCollider.y = this->estado->getPosY();
+
+		this->estado->move();
+			}
 	else if (movimientoDerecha()) {
+
 		if (!collideDerecha(camara)) {
 			this->estado->move();
 		} else {
