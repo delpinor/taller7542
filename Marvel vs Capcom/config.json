@@ -58,16 +58,17 @@
 	"log" : 
 	{
 		"nivel" : "DEBUG"
+		
 	},
 	"server" : 
 	{
 		"players" : 2,
-		"modeTest" : true
+		"modeTest" : false
 	},
 	"batalla" :
 	{
 		"cantidad" : "3",
-		"tiempo" : "10"
+		"tiempo" : "30"
 	}
 }
 		

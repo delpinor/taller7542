@@ -23,7 +23,37 @@ protected:
 	void getSpritesSaltar();
 	void getSpritesAgachar();
 	void getSpritesCambioPersonaje();
+
+	void getSpritesPatadaDebil();
+	void getSpritesPatadaDebilSaltando();
+	void getSpritesPatadaDebilAgachado();
+
+
 	void getSpritesPatadaFuerte();
+	void getSpritesPatadaFuerteSaltando();
+	void getSpritesPatadaFuerteAgachado();
+
+	void getSpritesPiniaDebil();
+	void getSpritesPiniaFuerte();
+
+	void getSpritesPiniaDebilAgachado();
+	void getSpritesPiniaFuerteAgachado();
+
+	void getSpritesPiniaFuerteSaltando();
+	void getSpritesPiniaDebilSaltando();
+
+	void getSpritesDefensa();
+	void getSpritesDefensaAgachado();
+	void getSpritesDefensaSaltando();
+	void getSpritesRecibirGolpe();
+
+	void getSpritesLanzarJugador();
+	void getSpritesJugadorLanzado();
+	void getSpritesLanzarPoder();
+	void getSpritesPoder();
+
+
+
 };
 
 #endif

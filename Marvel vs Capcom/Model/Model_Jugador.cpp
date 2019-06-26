@@ -57,7 +57,7 @@ int Jugador::getCollideH(){
 	return 	this->mCollider.h;
 }
 bool Jugador::collideConPoder(Poder * poder){
-	return poder->colision(this->getCollideX(),this->getCollideY(),this->getCollideW(),this->getCollideH());;
+	return poder->colision(this->getCollideX(),this->getCollideY(),this->getCollideW(),this->getCollideH());
 }
 std::string Jugador::getNombre(){
 
@@ -123,15 +123,8 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 				this->setTipoGolpe(TIPO_GOLPE::NADA);
 	if (this->getTipoGolpe() == TIPO_GOLPE::GOLPE_PODER)
 				this->setTipoGolpe(TIPO_GOLPE::NADA);
-	if(mipoder){
-		mipoder->move();
-		if (jugadorRival->collideConPoder(mipoder)){
-				std::cout<< "chocoooooooooooooooooooooooooooooooooo"<<std::endl;
-				std::cout<< "chocoooooooooooooooooooooooooooooooooo"<<std::endl;
-				std::cout<< "chocoooooooooooooooooooooooooooooooooo"<<std::endl;
+	if (jugadorRival->collideConPoder(&mipoder)){
 				jugadorRival->recibeDanio(10);
-				mipoder=NULL;
-		}
 	}
 }
 
@@ -305,9 +298,9 @@ void Jugador::TirarPoder(Jugador * rival) {
 			this->setTipoGolpe(TIPO_GOLPE::GOLPE_PODER);
 		}
 	if (this->getDireccion()==SDL_FLIP_NONE){
-		mipoder = new Poder(getCollideW(),getCollideY()+30,1);
+		mipoder.activarPoder(getCollideW(),getCollideY()+30,1);
 	}else{
-		mipoder = new Poder(getCollideX(),getCollideY()+30,-1);
+		mipoder.activarPoder(getCollideX(),getCollideY()+30,-1);
 	}
 	std::cout << "HADOOOOUUUUKENNNNNN" << std::endl;
 	std::cout << "HADOOOOUUUUKENNNNNN" << std::endl;
@@ -316,8 +309,10 @@ void Jugador::TirarPoder(Jugador * rival) {
 }
 
 void Jugador::recibeDanio(int danio) {
-	if (this->vidaJugador - danio >= 0)
+	if (this->vidaJugador - danio >= 0){
 		this->vidaJugador =this->vidaJugador - danio;
+		this->setTipoGolpe(TIPO_GOLPE::RECIBIR_DANIO);
+	}
 	//std::cout << "me pego y mi vida es : " + std::to_string(this->vidaJugador) << std::endl;
 }
 

@@ -27,7 +27,9 @@ void View_Jugador_ChunLi::initialize(Jugador *model,
 	getSpritesPatadaDebilAgachado();
 	getSpritesPatadaFuerteAgachado();
 	getSpritesPiniaDebil();
+	getSpritesPiniaFuerte();
 	getSpritesDefensa();
+	getSpritesDefensaAgachado();
 	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
 
 	this->sonido_salto=new EfectoSonido(1);
@@ -478,25 +480,59 @@ void View_Jugador_ChunLi::getSpritesPiniaDebil() {
 	gSpritePinia[0].w = 261;
 	gSpritePinia[0].h = 150;
 
-	gSpritePinia[1].x = 303;
-	gSpritePinia[1].y = 950;
+	gSpritePinia[1].x = 299;
+	gSpritePinia[1].y = 1168;
 	gSpritePinia[1].w = 261;
 	gSpritePinia[1].h = 150;
 
-	gSpritePinia[2].x = 595;
-	gSpritePinia[2].y = 950;
+	gSpritePinia[2].x = 589;
+	gSpritePinia[2].y = 1168;
 	gSpritePinia[2].w = 261;
 	gSpritePinia[2].h = 150;
 
-	gSpritePinia[3].x = 887;
-	gSpritePinia[3].y = 950;
+	gSpritePinia[3].x = 881;
+	gSpritePinia[3].y = 1168;
 	gSpritePinia[3].w = 261;
 	gSpritePinia[3].h = 150;
 
-	gSpritePinia[4].x = 1197;
-	gSpritePinia[4].y = 950;
+	gSpritePinia[4].x = 1193;
+	gSpritePinia[4].y = 1168;
 	gSpritePinia[4].w = 261;
 	gSpritePinia[4].h = 150;
+
+}
+
+void View_Jugador_ChunLi::getSpritesPiniaFuerte() {
+	CANTSPRITECLIPPINION = 5;
+	MINFRAMEPINION = 0;
+	MAXFRAMEPINION = 4;
+	FACTORPINION = 3;
+	this->gSpritePinion = new SDL_Rect[CANTSPRITECLIPPINION];
+
+	gSpritePinion[0].x = 35;
+	gSpritePinion[0].y = 1392;
+	gSpritePinion[0].w = 261;
+	gSpritePinion[0].h = 150;
+
+	gSpritePinion[1].x = 344;
+	gSpritePinion[1].y = 1392;
+	gSpritePinion[1].w = 261;
+	gSpritePinion[1].h = 150;
+
+	gSpritePinion[2].x = 650;
+	gSpritePinion[2].y = 1392;
+	gSpritePinion[2].w = 261;
+	gSpritePinion[2].h = 150;
+
+	gSpritePinion[3].x = 966;
+	gSpritePinion[3].y = 1392;
+	gSpritePinion[3].w = 261;
+	gSpritePinion[3].h = 150;
+
+	gSpritePinion[4].x = 1248;
+	gSpritePinion[4].y = 1392;
+	gSpritePinion[4].w = 261;
+	gSpritePinion[4].h = 150;
 
 }
 
@@ -511,5 +547,17 @@ void View_Jugador_ChunLi::getSpritesDefensa(){
 	gSpriteDefensa[0].y = 950;
 	gSpriteDefensa[0].w = 261;
 	gSpriteDefensa[0].h = 150;
+}
+void View_Jugador_ChunLi::getSpritesDefensaAgachado(){
+	CANTSPRITECLIPDEFENSA = 1;
+	MINFRAMEDEFENSA = 0;
+	MAXFRAMEDEFENSA = 0;
+	FACTORDEFENSA = 1;
+	this->gSpriteDefensaAgachado= new SDL_Rect[CANTSPRITECLIPDEFENSA];
+
+	gSpriteDefensaAgachado[0].x = 1842;
+	gSpriteDefensaAgachado[0].y = 950;
+	gSpriteDefensaAgachado[0].w = 261;
+	gSpriteDefensaAgachado[0].h = 150;
 }
 

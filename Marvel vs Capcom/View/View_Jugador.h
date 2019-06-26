@@ -37,29 +37,17 @@ public:
 	SDL_Rect  *gSpritePinionSaltando;
 	SDL_Rect  *gSpritePiniaAgachado;
 	SDL_Rect  *gSpritePinionAgachado;
-	//defensa
 	SDL_Rect  *gSpriteDefensa;
 	SDL_Rect  *gSpriteDefensaAgachado;
 	SDL_Rect  *gSpriteDefensaSaltando;
+	//defensa
+	SDL_Rect  *gSpriteLanzarJugador;
+	SDL_Rect  *gSpriteJugadorLanzado;
+	SDL_Rect  *gSpriteLanzarPoder;
+	SDL_Rect  *gSpritePoder;
 
-//	SDL_Rect  *gSpritePatadadon;
-//	SDL_Rect  *gSpritePatadadebil;
-//	SDL_Rect  *gSpritePinaFuerte;
-//	SDL_Rect  *gSpritePinaDebil;
-//	SDL_Rect  *gSpriteDefensa;
-
-//	SDL_Rect  *gSpritePatadadon_agachado;
-//	SDL_Rect  *gSpritePatadadebil_agachado;
-//	SDL_Rect  *gSpritePinaFuerte_agachado;
-//	SDL_Rect  *gSpritePinaDebil_agachado;
-//	SDL_Rect  *gSpriteDefensa_agachado;
-//
-//	SDL_Rect  *gSpritePatadadon_saltando;
-//	SDL_Rect  *gSpritePatadadebil_saltando;
-//	SDL_Rect  *gSpritePinaFuerte_saltando;
-//	SDL_Rect  *gSpritePinaDebil_saltando;
-//	SDL_Rect  *gSpriteDefensa_saltando;
-
+	//danio
+	SDL_Rect  *gSpriteRecibirDanio;
 	SDL_Rect * gSprite;
 	int contador = 0;
 
@@ -115,10 +103,12 @@ public:
 	int MINFRAMEPINION;
 	int MAXFRAMEPINION;
 	int FACTORPINION;
+
 	int CANTSPRITECLIPPINIASALTANDO;
 	int MINFRAMEPINIASALTANDO;
 	int MAXFRAMEPINIASALTANDO;
 	int FACTORPINIASALTANDO;
+
 	int CANTSPRITECLIPPINIONSALTANDO;
 	int MINFRAMEPINIONSALTANDO;
 	int MAXFRAMEPINIONSALTANDO;
@@ -131,6 +121,57 @@ public:
 	int MINFRAMEPINIAAGACHADO;
 	int MAXFRAMEPINIAAGACHADO;
 	int FACTORPINIAAGACHADO;
+
+	int CANTSPRITECLIPPINIAAGACHADO;
+	int MINFRAMEPINIAAGACHADO;
+	int MAXFRAMEPINIAAGACHADO;
+	int FACTORPINIAAGACHADO;
+
+	int CANTSPRITECLIPPINIONAGACHADO;
+	int MINFRAMEPINIONAGACHADO;
+	int MAXFRAMEPINIONAGACHADO;
+	int FACTORPINIONAGACHADO;
+
+	int CANTSPRITECLIPDEFENSA;
+	int MINFRAMEDEFENSA;
+	int MAXFRAMEDEFENSA;
+	int FACTORDEFENSA;
+
+	int CANTSPRITECLIPDEFENSAAGACHADO;
+	int MINFRAMEDEFENSAAGACHADO;
+	int MAXFRAMEDEFENSAAGACHADO;
+	int FACTORDEFENSAAGACHADO;
+
+	int CANTSPRITECLIPDEFENSASALTANDO;
+	int MINFRAMEDEFENSASALTANDO;
+	int MAXFRAMEDEFENSASALTANDO;
+	int FACTORDEFENSASALTANDO;
+
+	int CANTSPRITECLIPRECIBIRGOLPE;
+	int MINFRAMERECIBIRGOLPE;
+	int MAXFRAMERECIBIRGOLPE;
+	int FACTORRECIBIRGOLPE;
+
+	//Especiales
+	int CANTSPRITECLIPLANZARJUGADOR;
+	int MINFRAMELANZARJUGADOR;
+	int MAXFRAMELANZARJUGADOR;
+	int FACTORLANZARJUGADOR;
+
+	int CANTSPRITECLIPJUGADORLANZADO;
+	int MINFRAMEJUGADORLANZADO;
+	int MAXFRAMEJUGADORLANZADO;
+	int FACTORJUGADORLANZADO;
+
+	int CANTSPRITECLIPLANZARPODER;
+	int MINFRAMELANZARPODER;
+	int MAXFRAMELANZARPODER;
+	int FACTORLANZARPODER;
+
+	int CANTSPRITECLIPPODER;
+	int MINFRAMEPODER;
+	int MAXFRAMEPODER;
+	int FACTORPODER;
 
 	int maxFrame;
 	int factor;
