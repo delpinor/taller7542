@@ -1,5 +1,6 @@
 #include "Model.h"
 #include "../View/ViewModel.h"
+#include "../View/View.h"
 #include <algorithm>
 #include <stdio.h>
 #include <stdlib.h>
@@ -63,7 +64,58 @@ Jugador* Model::crearJugador(int personajeId){
 	Jugador* jNuevo = new Jugador(ancho, alto, zIndex, nombre, path, inmortal);
 	return jNuevo;
 }
+void Model::ajustarCamara(){
+	// Este codigo se puede mejorar.
+	int posXJugador1 = this->getEquipoNro(0)->getJugadorActivo()->getPosX();
+	//int posYJugador1 = this->getEquipoNro(0)->getJugadorActivo()->getPosY();
+	int posXJugador2 = this->getEquipoNro(1)->getJugadorActivo()->getPosX();
+//	int posYJugador2 = this->getEquipoNro(1)->getJugadorActivo()->getPosY();
+	//
+	int anchoJugador1 = this->getEquipoNro(0)->getJugadorActivo()->get_ancho();
 
+	int anchoJugador2 = this->getEquipoNro(1)->getJugadorActivo()->get_ancho();
+
+	//Chequeo que los jugadores no se salgan del escenario
+	if (posXJugador1 + anchoJugador1 > ANCHO_NIVEL)
+		this->getEquipoNro(0)->getJugadorActivo()->setPosX(ANCHO_NIVEL - anchoJugador1);
+
+	if (posXJugador2 + anchoJugador2 > ANCHO_NIVEL)
+		this->getEquipoNro(1)->getJugadorActivo()->setPosX(ANCHO_NIVEL - anchoJugador2);
+
+	if (posXJugador1 < 0) {
+		this->getEquipoNro(0)->getJugadorActivo()->setPosX(0);
+		posXJugador1 = 0;
+	}
+	if (posXJugador2 < 0) {
+		this->getEquipoNro(1)->getJugadorActivo()->setPosX(0);
+		posXJugador2 = 0;
+	}
+
+	//Muevo la cámara si algún jugador se está saliendo de ella
+	if (posXJugador1 + anchoJugador1 > this->camara->x + this->camara->w)
+		this->camara->x += this->getEquipoNro(0)->getJugadorActivo()->estado->getVelX();
+	else if (posXJugador1 < this->camara->x)
+		this->camara->x = posXJugador1;
+
+	if (posXJugador2 + anchoJugador2 > this->camara->x + this->camara->w)
+		this->camara->x += this->getEquipoNro(1)->getJugadorActivo()->estado->getVelX();
+	else if (posXJugador2 < this->camara->x)
+		this->camara->x = posXJugador2;
+
+	//Keep the this->camara->in bounds
+	if (this->camara->x < 0) {
+		this->camara->x = 0;
+	}
+	if (this->camara->y < 0) {
+		this->camara->y = 0;
+	}
+	if (this->camara->x > ANCHO_NIVEL - this->camara->w) {
+		this->camara->x = ANCHO_NIVEL - this->camara->w;
+	}
+	if (this->camara->y > ALTO_NIVEL - this->camara->h) {
+		this->camara->y = ALTO_NIVEL - this->camara->h;
+	}
+}
 void Model::cargar_Tam_Pantalla(int &ancho, int &alto) {
 	Logger::Log(LOGGER_NIVEL::DEBUG, "Mode::CargarTamañoPantalla", "Ancho: " + std::to_string(ancho));
 	Logger::Log(LOGGER_NIVEL::DEBUG, "Mode::CargarTamañoPantalla", "Alto: " + std::to_string(alto));
