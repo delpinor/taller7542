@@ -25,7 +25,7 @@ class View {
 public:
 	View(Model* model);
 	void SetPosicionInicialJugadores();
-	void ajustarCamara();
+	//void ajustarCamara();
 	void render();
 	void renderMensajes();
 	void CajaMensaje(string titulo, string cuerpo);

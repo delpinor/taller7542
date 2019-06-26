@@ -723,89 +723,89 @@ void View_Jugador_Spiderman::getSpritesPiniaDebilSaltando(){
 
 }
 void View_Jugador_Spiderman::getSpritesDefensa(){
-	CANTSPRITECLIPDEFENSA = 4;
+	CANTSPRITECLIPDEFENSA = 1;
 	MINFRAMEDEFENSA = 0;
-	MAXFRAMEDEFENSA = 3;
-	FACTORDEFENSA = 10;
+	MAXFRAMEDEFENSA = 0;
+	FACTORDEFENSA = 4;
 	this->gSpriteDefensa = new SDL_Rect[CANTSPRITECLIPDEFENSA];
 
-	gSpriteDefensa[0].x = 45;
+	gSpriteDefensa[0].x = 306;
 	gSpriteDefensa[0].y = 2832;
 	gSpriteDefensa[0].w = 261;
 	gSpriteDefensa[0].h = 150;
 
-	gSpriteDefensa[1].x = 306;
-	gSpriteDefensa[1].y = 2832;
-	gSpriteDefensa[1].w = 261;
-	gSpriteDefensa[1].h = 150;
-
-	gSpriteDefensa[2].x = 567;
-	gSpriteDefensa[2].y = 2832;
-	gSpriteDefensa[2].w = 261;
-	gSpriteDefensa[2].h = 150;
-
-	gSpriteDefensa[3].x = 828;
-	gSpriteDefensa[3].y = 2832;
-	gSpriteDefensa[3].w = 261;
-	gSpriteDefensa[3].h = 150;
+//	gSpriteDefensa[1].x = 306;
+//	gSpriteDefensa[1].y = 2832;
+//	gSpriteDefensa[1].w = 261;
+//	gSpriteDefensa[1].h = 150;
+//
+//	gSpriteDefensa[2].x = 567;
+//	gSpriteDefensa[2].y = 2832;
+//	gSpriteDefensa[2].w = 261;
+//	gSpriteDefensa[2].h = 150;
+//
+//	gSpriteDefensa[3].x = 828;
+//	gSpriteDefensa[3].y = 2832;
+//	gSpriteDefensa[3].w = 261;
+//	gSpriteDefensa[3].h = 150;
 
 
 }
 void View_Jugador_Spiderman::getSpritesDefensaAgachado(){
-	CANTSPRITECLIPDEFENSAAGACHADO = 4;
+	CANTSPRITECLIPDEFENSAAGACHADO = 1;
 	MINFRAMEDEFENSAAGACHADO = 0;
-	MAXFRAMEDEFENSAAGACHADO = 3;
-	FACTORDEFENSAAGACHADO = 10;
+	MAXFRAMEDEFENSAAGACHADO = 0;
+	FACTORDEFENSAAGACHADO = 5;
 	this->gSpriteDefensaAgachado = new SDL_Rect[CANTSPRITECLIPDEFENSAAGACHADO];
 
-	gSpriteDefensaAgachado[0].x = 45;
+	gSpriteDefensaAgachado[0].x = 306;
 	gSpriteDefensaAgachado[0].y = 2832;
 	gSpriteDefensaAgachado[0].w = 261;
 	gSpriteDefensaAgachado[0].h = 150;
 
-	gSpriteDefensaAgachado[1].x = 306;
-	gSpriteDefensaAgachado[1].y = 2832;
-	gSpriteDefensaAgachado[1].w = 261;
-	gSpriteDefensaAgachado[1].h = 150;
-
-	gSpriteDefensaAgachado[2].x = 567;
-	gSpriteDefensaAgachado[2].y = 2832;
-	gSpriteDefensaAgachado[2].w = 261;
-	gSpriteDefensaAgachado[2].h = 150;
-
-	gSpriteDefensaAgachado[3].x = 828;
-	gSpriteDefensaAgachado[3].y = 2832;
-	gSpriteDefensaAgachado[3].w = 261;
-	gSpriteDefensaAgachado[3].h = 150;
+//	gSpriteDefensaAgachado[1].x = 306;
+//	gSpriteDefensaAgachado[1].y = 2832;
+//	gSpriteDefensaAgachado[1].w = 261;
+//	gSpriteDefensaAgachado[1].h = 150;
+//
+//	gSpriteDefensaAgachado[2].x = 567;
+//	gSpriteDefensaAgachado[2].y = 2832;
+//	gSpriteDefensaAgachado[2].w = 261;
+//	gSpriteDefensaAgachado[2].h = 150;
+//
+//	gSpriteDefensaAgachado[3].x = 828;
+//	gSpriteDefensaAgachado[3].y = 2832;
+//	gSpriteDefensaAgachado[3].w = 261;
+//	gSpriteDefensaAgachado[3].h = 150;
 
 
 }
 void View_Jugador_Spiderman::getSpritesDefensaSaltando(){
-	CANTSPRITECLIPDEFENSASALTANDO = 4;
+	CANTSPRITECLIPDEFENSASALTANDO = 1;
 	MINFRAMEDEFENSASALTANDO = 0;
-	MAXFRAMEDEFENSASALTANDO = 3;
+	MAXFRAMEDEFENSASALTANDO = 0;
 	FACTORDEFENSASALTANDO = 5;
 	this->gSpriteDefensaSaltando = new SDL_Rect[CANTSPRITECLIPDEFENSASALTANDO];
 
-	gSpriteDefensaSaltando[0].x = 45;
+	gSpriteDefensaSaltando[0].x = 306;
 	gSpriteDefensaSaltando[0].y = 2832;
 	gSpriteDefensaSaltando[0].w = 261;
 	gSpriteDefensaSaltando[0].h = 150;
 
-	gSpriteDefensaSaltando[1].x = 306;
-	gSpriteDefensaSaltando[1].y = 2832;
-	gSpriteDefensaSaltando[1].w = 261;
-	gSpriteDefensaSaltando[1].h = 150;
-
-	gSpriteDefensaSaltando[2].x = 567;
-	gSpriteDefensaSaltando[2].y = 2832;
-	gSpriteDefensaSaltando[2].w = 261;
-	gSpriteDefensaSaltando[2].h = 150;
-
-	gSpriteDefensaSaltando[3].x = 828;
-	gSpriteDefensaSaltando[3].y = 2832;
-	gSpriteDefensaSaltando[3].w = 261;
-	gSpriteDefensaSaltando[3].h = 150;
+//	gSpriteDefensaSaltando[1].x = 306;
+//	gSpriteDefensaSaltando[1].y = 2832;
+//	gSpriteDefensaSaltando[1].w = 261;
+//	gSpriteDefensaSaltando[1].h = 150;
+//
+//	gSpriteDefensaSaltando[2].x = 567;
+//	gSpriteDefensaSaltando[2].y = 2832;
+//	gSpriteDefensaSaltando[2].w = 261;
+//	gSpriteDefensaSaltando[2].h = 150;
+//
+//	gSpriteDefensaSaltando[3].x = 828;
+//	gSpriteDefensaSaltando[3].y = 2832;
+//	gSpriteDefensaSaltando[3].w = 261;
+//	gSpriteDefensaSaltando[3].h = 150;
 
 
 }

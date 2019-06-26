@@ -60,62 +60,7 @@ void Partida::IniciarTitularidadClientes(){
 	}
 }
 void Partida::AjustarCamara() {
-	// Este codigo se puede mejorar.
-	int posXJugador1 = modelo->getEquipoNro(0)->getJugadorActivo()->getPosX();
-	int posYJugador1 = modelo->getEquipoNro(0)->getJugadorActivo()->getPosY();
-	int posXJugador2 = modelo->getEquipoNro(1)->getJugadorActivo()->getPosX();
-	int posYJugador2 = modelo->getEquipoNro(1)->getJugadorActivo()->getPosY();
-	//
-	int anchoJugador1 =
-			modelo->getEquipoNro(0)->getJugadorActivo()->get_ancho();
-
-	int anchoJugador2 =
-			modelo->getEquipoNro(1)->getJugadorActivo()->get_ancho();
-
-	//Chequeo que los jugadores no se salgan del escenario
-	if (posXJugador1 + anchoJugador1 > ANCHO_NIVEL)
-		modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(
-				ANCHO_NIVEL - anchoJugador1);
-
-	if (posXJugador2 + anchoJugador2 > ANCHO_NIVEL)
-		modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(
-				ANCHO_NIVEL - anchoJugador2);
-
-	if (posXJugador1 < 0) {
-		modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(0);
-		posXJugador1 = 0;
-	}
-	if (posXJugador2 < 0) {
-		modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(0);
-		posXJugador2 = 0;
-	}
-
-	//Muevo la cámara si algún jugador se está saliendo de ella
-	if (posXJugador1 + anchoJugador1 > this->camara->x + this->camara->w)
-		this->camara->x +=
-				modelo->getEquipoNro(0)->getJugadorActivo()->estado->getVelX();
-	else if (posXJugador1 < this->camara->x)
-		this->camara->x = posXJugador1;
-
-	if (posXJugador2 + anchoJugador2 > this->camara->x + this->camara->w)
-		this->camara->x +=
-				modelo->getEquipoNro(1)->getJugadorActivo()->estado->getVelX();
-	else if (posXJugador2 < this->camara->x)
-		this->camara->x = posXJugador2;
-
-	//Keep the this->camara->in bounds
-	if (this->camara->x < 0) {
-		this->camara->x = 0;
-	}
-	if (this->camara->y < 0) {
-		this->camara->y = 0;
-	}
-	if (this->camara->x > ANCHO_NIVEL - this->camara->w) {
-		this->camara->x = ANCHO_NIVEL - this->camara->w;
-	}
-	if (this->camara->y > ALTO_NIVEL - this->camara->h) {
-		this->camara->y = ALTO_NIVEL - this->camara->h;
-	}
+	modelo->ajustarCamara();
 }
 
 ModeloEstado Partida::GetModeloEstado() {
