@@ -231,6 +231,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					maxFrame = 1;
 					factor = 6;
 					frame = 0;
+					contador++;
 					if (contador==5){
 						this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
 						contador=0;
