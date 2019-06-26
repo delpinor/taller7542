@@ -8,6 +8,9 @@ View_Jugador_Spiderman::View_Jugador_Spiderman() {
 void View_Jugador_Spiderman::initialize(Jugador *model,
 		LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
+	CANTSPRITECLIP = 6;
+
+		this->gSpriteGolpear = new SDL_Rect[CANTSPRITECLIP];
 
 	this->jugador = model;
 	getSpritesCaminar();
@@ -779,27 +782,27 @@ void View_Jugador_Spiderman::getSpritesRecibirGolpe(){
 	MINFRAMERECIBIRGOLPE = 0;
 	MAXFRAMERECIBIRGOLPE = 3;
 	FACTORRECIBIRGOLPE = 10;
-	this->gSpriteRecibirGolpe = new SDL_Rect[CANTSPRITECLIPRECIBIRGOLPE];
+	this->gSpriteRecibirDanio = new SDL_Rect[CANTSPRITECLIPRECIBIRGOLPE];
 
-	gSpriteRecibirGolpe[0].x = 53;
-	gSpriteRecibirGolpe[0].y = 3100;
-	gSpriteRecibirGolpe[0].w = 261;
-	gSpriteRecibirGolpe[0].h = 150;
+	gSpriteRecibirDanio[0].x = 53;
+	gSpriteRecibirDanio[0].y = 3100;
+	gSpriteRecibirDanio[0].w = 261;
+	gSpriteRecibirDanio[0].h = 150;
 
-	gSpriteRecibirGolpe[1].x = 314;
-	gSpriteRecibirGolpe[1].y = 3100;
-	gSpriteRecibirGolpe[1].w = 261;
-	gSpriteRecibirGolpe[1].h = 150;
+	gSpriteRecibirDanio[1].x = 314;
+	gSpriteRecibirDanio[1].y = 3100;
+	gSpriteRecibirDanio[1].w = 261;
+	gSpriteRecibirDanio[1].h = 150;
 
-	gSpriteRecibirGolpe[2].x = 575;
-	gSpriteRecibirGolpe[2].y = 3100;
-	gSpriteRecibirGolpe[2].w = 261;
-	gSpriteRecibirGolpe[2].h = 150;
+	gSpriteRecibirDanio[2].x = 575;
+	gSpriteRecibirDanio[2].y = 3100;
+	gSpriteRecibirDanio[2].w = 261;
+	gSpriteRecibirDanio[2].h = 150;
 
-	gSpriteRecibirGolpe[3].x = 836;
-	gSpriteRecibirGolpe[3].y = 3100;
-	gSpriteRecibirGolpe[3].w = 261;
-	gSpriteRecibirGolpe[3].h = 150;
+	gSpriteRecibirDanio[3].x = 836;
+	gSpriteRecibirDanio[3].y = 3100;
+	gSpriteRecibirDanio[3].w = 261;
+	gSpriteRecibirDanio[3].h = 150;
 
 }
 void View_Jugador_Spiderman::getSpritesLanzarJugador(){
