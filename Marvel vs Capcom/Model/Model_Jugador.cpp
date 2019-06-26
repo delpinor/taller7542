@@ -338,8 +338,11 @@ void Jugador::TirarPoder(Jugador * rival) {
 void Jugador::recibeDanio(int danio) {
 	if (this->vidaJugador - danio >= 0){
 		this->vidaJugador =this->vidaJugador - danio;
-		if((this->getTipoGolpe())==!(TIPO_GOLPE::GOLPE_VOLAR))
-		this->setTipoGolpe(TIPO_GOLPE::RECIBIR_DANIO);
+
+		if((this->getTipoGolpe())==!(TIPO_GOLPE::GOLPE_VOLAR)){
+			this->setTipoGolpe(TIPO_GOLPE::RECIBIR_DANIO);
+			std::cout << "me pegaron!!!"<<endl;
+		}
 	}
 	//std::cout << "me pego y mi vida es : " + std::to_string(this->vidaJugador) << std::endl;
 }

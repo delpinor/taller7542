@@ -82,6 +82,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					maxFrame = 1;
 					factor = 1;
 					frame = 0;
+					reproducir_efecto_sonido( this->jugador->getTipoGolpe());
 					std::cout << "defensa agachado" << std::endl;
 				}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::RECIBIR_DANIO) {
 					gSpriteGolpear = gSpriteRecibirDanio;
@@ -90,6 +91,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					frame = 0;
 					contador++;
 					if (contador==5){
+
 						this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
 						contador=0;
 					}
@@ -137,6 +139,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 				maxFrame = 1;
 				factor = 1;
 				frame = 0;
+				reproducir_efecto_sonido( this->jugador->getTipoGolpe());
 				std::cout << "defensa parado" << std::endl;
 			}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::RECIBIR_DANIO) {
 				gSpriteGolpear = gSpriteRecibirDanio;
@@ -145,10 +148,12 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 				frame = 0;
 				contador++;
 				if (contador==5){
+
 					this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
 					contador=0;
 
-				std::cout << "recibir danio" << std::endl;
+
+					std::cout << "recibir danio" << std::endl;
 				}
 			}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINIA) {
 				gSpriteGolpear = gSpritePinia;
@@ -225,6 +230,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					maxFrame = 1;
 					factor = 1;
 					frame = 0;
+					reproducir_efecto_sonido( this->jugador->getTipoGolpe());
 					std::cout << "defensa saltando" << std::endl;
 				}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::RECIBIR_DANIO) {
 					gSpriteGolpear = gSpriteRecibirDanio;
@@ -233,8 +239,10 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					frame = 0;
 					contador++;
 					if (contador==5){
+
 						this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
 						contador=0;
+
 						std::cout << "recibir danio" << std::endl;
 					}
 				}

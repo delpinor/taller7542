@@ -26,13 +26,13 @@ void View_Jugador_Venom::initialize(Jugador * model,
 	getSpritesPiniaFuerteAgachado();
 	getSpritesPatadaDebilAgachado();
 	getSpritesPatadaFuerteAgachado();
-	//getSpritesDefensaAgachado();
+	getSpritesDefensaAgachado();
 	//Saltando
 	getSpritesPiniaDebilSaltando();
 	getSpritesPiniaFuerteSaltando();
 	getSpritesPatadaDebilSaltando();
 	getSpritesPatadaFuerteSaltando();
-	//getSpritesDefensaSaltando();
+	getSpritesDefensaSaltando();
 	//Daño
 	getSpritesRecibirDanio();
 
@@ -755,21 +755,21 @@ void View_Jugador_Venom::getSpritesDefensa() {
 	gSpriteDefensa[0].h = 150;
 }
 
-//void View_Jugador_Venom::getSpritesDefensaSaltando() {
-//	this->gSpriteDefensaAgachado = new SDL_Rect[1];
-//	gSpriteDefensaAgachado[0].x = 368;
-//	gSpriteDefensaAgachado[0].y = 3045;
-//	gSpriteDefensaAgachado[0].w = 261;
-//	gSpriteDefensaAgachado[0].h = 150;
-//}
-//
-//void View_Jugador_Venom::getSpritesDefensaAgachado() {
-//	this->gSpriteDefensaSaltando = new SDL_Rect[1];
-//	gSpriteDefensaSaltando[0].x = 53;
-//	gSpriteDefensaSaltando[0].y = 3040;
-//	gSpriteDefensaSaltando[0].w = 261;
-//	gSpriteDefensaSaltando[0].h = 150;
-//}
+void View_Jugador_Venom::getSpritesDefensaSaltando() {
+	this->gSpriteDefensaAgachado = new SDL_Rect[1];
+	gSpriteDefensaAgachado[0].x = 515;
+	gSpriteDefensaAgachado[0].y = 2992;
+	gSpriteDefensaAgachado[0].w = 261;
+	gSpriteDefensaAgachado[0].h = 150;
+}
+
+void View_Jugador_Venom::getSpritesDefensaAgachado() {
+	this->gSpriteDefensaSaltando = new SDL_Rect[1];
+	gSpriteDefensaSaltando[0].x = 515;
+	gSpriteDefensaSaltando[0].y = 2992;
+	gSpriteDefensaSaltando[0].w = 261;
+	gSpriteDefensaSaltando[0].h = 150;
+}
 
 void View_Jugador_Venom::getSpritesRecibirDanio() {
 	this->gSpriteRecibirDanio = new SDL_Rect[1];
