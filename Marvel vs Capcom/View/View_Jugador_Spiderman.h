@@ -13,6 +13,13 @@ public:
 	void reproducir_sonido_cambio();
 	void reproducir_sonido_ataque_pu();
 	void reproducir_sonido_defensa();
+	void reproducir_sonido_ataque_patada();
+	void reproducir_sonido_recibir_danio();
+	//virtual ~ View_Jugador_Spiderman();
+
+
+	EfectoSonido *sonido_ataque_patada;
+	EfectoSonido *sonido_danio;
 	EfectoSonido *sonido_salto;
 	EfectoSonido *sonido_ataque_pu; // sonido ataque puño
 	EfectoSonido *sonido_defensa;

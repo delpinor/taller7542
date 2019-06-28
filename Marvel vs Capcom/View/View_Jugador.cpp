@@ -1,4 +1,5 @@
 #include "View_Jugador.h"
+#define DISTANCIAPISO 360
 
 #include <sstream>
 int contador=0;
@@ -10,9 +11,44 @@ void View_Jugador::initialize(Jugador * model, LTexture * texturaJugador) {
 	this->jugador = model;
 	this->zIndex = model->get_zindex();
 }
+void View_Jugador::silenciar_efectos(){
+	if (silencio){
+		silencio=false;
+	}else{
+		silencio=true;
+	}
+}
+void View_Jugador::reproducir_efecto_sonido( int tipo_golpe){
 
+      if(!silencio){
+		  switch (tipo_golpe)
+		      {
+			 case GOLPE_PATADON:
+				 reproducir_sonido_ataque_patada();
+				break;
+			 case GOLPE_PATADA:
+				 reproducir_sonido_ataque_patada();
+				break;
+			 case GOLPE_PINIA:
+				 reproducir_sonido_ataque_pu();
+				break;
+			 case GOLPE_PINION:
+				 reproducir_sonido_ataque_pu();
+				break;
+			case ACTIVAR_DEFENSA:
+				 reproducir_sonido_defensa();
+				break;
+			 case RECIBIR_DANIO:
+				 reproducir_sonido_recibir_danio();
+				break;
+		      }
+      }
+
+
+}
 void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 	SDL_Rect* currentClip;
+	SDL_Rect* currentClipPoder;
 	if(this->jugador->get_estado_desconexion()==false){
 		//printf("No se pone gris la imagen!!!!\n");
 		this->desgrisar_imagen();
@@ -23,6 +59,12 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 	if (this->jugador->getTipoGolpe() == TIPO_GOLPE::DESACTIVAR_DEFENSA) {
 		this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
 	}
+	if(this->jugador->isIniciarGolpe()){
+
+		reproducir_efecto_sonido( this->jugador->getTipoGolpe());
+	}
+
+
 	if ((this->jugador->estado->getVelY() == 0)
 			&& !(this->jugador->estado->estaSaltando())) {
 		if (this->jugador->estaAgachado()) {
@@ -48,6 +90,8 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					maxFrame = 1;
 					factor = 1;
 					frame = 0;
+					if(!silencio)
+					reproducir_efecto_sonido( this->jugador->getTipoGolpe());
 					std::cout << "defensa agachado" << std::endl;
 				}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::RECIBIR_DANIO) {
 					gSpriteGolpear = gSpriteRecibirDanio;
@@ -56,6 +100,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					frame = 0;
 					contador++;
 					if (contador==5){
+
 						this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
 						contador=0;
 					}
@@ -103,6 +148,8 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 				maxFrame = 1;
 				factor = 1;
 				frame = 0;
+				if(!silencio)
+				reproducir_efecto_sonido( this->jugador->getTipoGolpe());
 				std::cout << "defensa parado" << std::endl;
 			}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::RECIBIR_DANIO) {
 				gSpriteGolpear = gSpriteRecibirDanio;
@@ -111,10 +158,12 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 				frame = 0;
 				contador++;
 				if (contador==5){
+
 					this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
 					contador=0;
 
-				std::cout << "recibir danio" << std::endl;
+
+					std::cout << "recibir danio" << std::endl;
 				}
 			}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINIA) {
 				gSpriteGolpear = gSpritePinia;
@@ -155,6 +204,8 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 		}
 	} else {
 		if (this->jugador->estado->estaSaltando()) {
+			if(!silencio)
+			reproducir_sonido_salto();
 			if (this->jugador->getTipoGolpe() != TIPO_GOLPE::NADA) {
 				std::cout << "tipoGolpe: " << this->jugador->getTipoGolpe() << std::endl;
 				if (this->jugador->isIniciarGolpe()) {
@@ -190,15 +241,20 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					maxFrame = 1;
 					factor = 1;
 					frame = 0;
+					if(!silencio)
+					reproducir_efecto_sonido( this->jugador->getTipoGolpe());
 					std::cout << "defensa saltando" << std::endl;
 				}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::RECIBIR_DANIO) {
 					gSpriteGolpear = gSpriteRecibirDanio;
 					maxFrame = 1;
 					factor = 6;
 					frame = 0;
+					contador++;
 					if (contador==5){
+
 						this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
 						contador=0;
+
 						std::cout << "recibir danio" << std::endl;
 					}
 				}
@@ -219,17 +275,35 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 				currentClip = &gSpriteSaltar[frame / FACTORSALTA];
 				++frame;
 			}
-		} else if (this->jugador->estaCambiandoPersonaje())
+		} else if (this->jugador->estaCambiandoPersonaje()){
 			currentClip = &gSpriteCambiarPersonaje[0];
+			if(!silencio)
+			reproducir_sonido_cambio();
+			}
 		else
 			currentClip = &gSpriteCambiarPersonaje[0];
 	}
 
 	if (this->jugador->estaActivo()) {
 			this->texturaJugador->render(this->jugador->getPosX() - camX,
-					this->jugador->getPosY() - camY, currentClip, 0, NULL,
+					this->jugador->getPosY()-camY -DISTANCIAPISO, currentClip, 0, NULL,
 					this->jugador->getDireccion(), gRenderer);
 		}
+
+	if (this->jugador->poderActivo()) {
+		currentClipPoder= &gSpritePoder[0];
+		if (this->jugador->getSentidoPoder() == 1) {
+			this->texturaJugador->render(this->jugador->getPosXPoder() - camX,
+					this->jugador->getPosYPoder()-camY-DISTANCIAPISO, currentClipPoder, 0, NULL,
+					SDL_FLIP_NONE, gRenderer);
+		} else {
+				this->texturaJugador->render(
+						this->jugador->getPosXPoder() -camX,
+						this->jugador->getPosYPoder()-camY-DISTANCIAPISO, currentClipPoder, 0,
+						NULL, SDL_FLIP_HORIZONTAL, gRenderer);
+		}
+
+	}
 }
 void View_Jugador::grisar_imagen(){
 
@@ -245,4 +319,5 @@ void View_Jugador::desgrisar_imagen(){
 int View_Jugador::getZIndex() {
 	return this->zIndex;
 }
+
 

@@ -33,6 +33,10 @@ void View_Jugador_Venom::initialize(Jugador * model,
 	getSpritesPatadaDebilSaltando();
 	getSpritesPatadaFuerteSaltando();
 	getSpritesDefensaSaltando();
+	//Daño
+	getSpritesRecibirDanio();
+
+	getSpritesPoder();
 	this->texturaJugador->setColor(this->jugador->getR(), this->jugador->getG(),
 			this->jugador->getB());
 
@@ -40,7 +44,15 @@ void View_Jugador_Venom::initialize(Jugador * model,
 	this->sonido_ataque_pu = new EfectoSonido(1);
 	this->sonido_defensa = new EfectoSonido(1);
 	this->sonido_cambio = new EfectoSonido(1);
-	this->sonido_ataque_pu->loadMedia("../Sonidos/venom_atk1.wav");
+	this->sonido_danio=new EfectoSonido(1);
+	this->sonido_ataque_patada=new EfectoSonido(1);
+
+
+	this->sonido_ataque_patada->loadMedia("../Sonidos/venom_patada.wav");
+	this->sonido_defensa->loadMedia("../Sonidos/venom_defensa.wav");
+	this->sonido_danio->loadMedia("../Sonidos/venom_danio.wav");
+
+	this->sonido_ataque_pu->loadMedia("../Sonidos/venom_punio.wav");
 	this->sonido_salto->loadMedia("../Sonidos/salto_venom.wav");
 	this->sonido_cambio->loadMedia("../Sonidos/cambio_venom.wav");
 }
@@ -64,6 +76,18 @@ void View_Jugador_Venom::reproducir_sonido_defensa() {
 	this->sonido_defensa->reproducir_sonido();
 
 }
+
+void View_Jugador_Venom::reproducir_sonido_ataque_patada(){
+	this->sonido_ataque_patada->reproducir_sonido();
+
+}
+
+void	View_Jugador_Venom::reproducir_sonido_recibir_danio(){
+	this->sonido_danio->reproducir_sonido();
+
+
+}
+
 
 void View_Jugador_Venom::getSpritesAnimacion() {
 	CANTSPRITEANIMACION = 13;
@@ -725,28 +749,78 @@ void View_Jugador_Venom::getSpritesPatadaFuerteSaltando() {
 
 void View_Jugador_Venom::getSpritesDefensa() {
 	this->gSpriteDefensa = new SDL_Rect[1];
-	gSpriteDefensa[0].x = 695;
-	gSpriteDefensa[0].y = 3028;
+	gSpriteDefensa[0].x = 16;
+	gSpriteDefensa[0].y = 2992;
 	gSpriteDefensa[0].w = 261;
 	gSpriteDefensa[0].h = 150;
 }
 
 void View_Jugador_Venom::getSpritesDefensaSaltando() {
 	this->gSpriteDefensaAgachado = new SDL_Rect[1];
-	gSpriteDefensaAgachado[0].x = 368;
-	gSpriteDefensaAgachado[0].y = 3045;
+	gSpriteDefensaAgachado[0].x = 515;
+	gSpriteDefensaAgachado[0].y = 2992;
 	gSpriteDefensaAgachado[0].w = 261;
 	gSpriteDefensaAgachado[0].h = 150;
 }
 
 void View_Jugador_Venom::getSpritesDefensaAgachado() {
 	this->gSpriteDefensaSaltando = new SDL_Rect[1];
-	gSpriteDefensaSaltando[0].x = 53;
-	gSpriteDefensaSaltando[0].y = 3040;
+	gSpriteDefensaSaltando[0].x = 515;
+	gSpriteDefensaSaltando[0].y = 2992;
 	gSpriteDefensaSaltando[0].w = 261;
 	gSpriteDefensaSaltando[0].h = 150;
 }
 
-View_Jugador_Venom::~View_Jugador_Venom() {
+void View_Jugador_Venom::getSpritesRecibirDanio() {
+	this->gSpriteRecibirDanio = new SDL_Rect[1];
+
+	gSpriteRecibirDanio[0].x = 253;
+	gSpriteRecibirDanio[0].y = 2995;
+	gSpriteRecibirDanio[0].w = 261;
+	gSpriteRecibirDanio[0].h = 170;
 }
+
+void View_Jugador_Venom::getSpritesPoder(){
+	CANTSPRITECLIPPODER = 7;
+	MINFRAMEPODER = 0;
+	MAXFRAMEPODER = 6;
+	FACTORPODER = 8;
+	this->gSpritePoder = new SDL_Rect[CANTSPRITECLIPPODER];
+
+	gSpritePoder[0].x = 59;
+	gSpritePoder[0].y = 3983;
+	gSpritePoder[0].w = 261;
+	gSpritePoder[0].h = 150;
+
+	gSpritePoder[1].x = 320;
+	gSpritePoder[1].y = 3983;
+	gSpritePoder[1].w = 261;
+	gSpritePoder[1].h = 150;
+
+	gSpritePoder[2].x = 581;
+	gSpritePoder[2].y = 3983;
+	gSpritePoder[2].w = 261;
+	gSpritePoder[2].h = 150;
+
+	gSpritePoder[3].x = 842;
+	gSpritePoder[3].y = 3983;
+	gSpritePoder[3].w = 261;
+	gSpritePoder[3].h = 150;
+
+	gSpritePoder[4].x = 1103;
+	gSpritePoder[4].y = 3983;
+	gSpritePoder[4].w = 261;
+	gSpritePoder[4].h = 150;
+
+	gSpritePoder[5].x = 1364;
+	gSpritePoder[5].y = 3983;
+	gSpritePoder[5].w = 261;
+	gSpritePoder[5].h = 150;
+
+	gSpritePoder[6].x = 1625;
+	gSpritePoder[6].y = 3983;
+	gSpritePoder[6].w = 261;
+	gSpritePoder[6].h = 150;
+}
+
 

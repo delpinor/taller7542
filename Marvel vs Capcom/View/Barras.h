@@ -25,9 +25,8 @@ private:
 	SDL_Renderer * gRenderer;
 
 	TTF_Font * gFont = NULL;
-	SDL_Color textColor = { 4, 147, 199, 255 };
 	std::stringstream nombrePersonaje;
-	void CargarTexto(std::string nombre);
+	void CargarTexto(std::string nombre, SDL_Color col);
 	void SetVida(int equipo, int jugador, int vida);
 	void ActulializarColores(Equipo * equipos[2]);
 

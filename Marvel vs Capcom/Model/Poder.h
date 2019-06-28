@@ -19,6 +19,11 @@ public:
 	bool estaActivo();
 	bool colision(int x , int y, int w, int h );
 	bool activo = false;
-
+	int getPosX();
+	int getPosY();
+	int getSentido();
+	void setPosX(int x);
+	void setPosY(int y);
+	void setSentido(int z);
 	};
 #endif

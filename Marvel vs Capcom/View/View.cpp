@@ -6,6 +6,7 @@
 #include "Timer.h"
 #include "Barras.h"
 #include "Show.h"
+#include "Mensajes.h"
 
 #define MARGEN 0
 int posAnteriorX1, posAnteriorY1;
@@ -18,6 +19,7 @@ View::View(Model* model) {
 		if (!this->inicializar(model)) {
 			Logger::Log(LOGGER_NIVEL::ERROR, "View::View", "Erro al inicializar la vista.");
 		} else {
+
 			this->loadMedia(model);
 			this->model = model;
 
@@ -41,60 +43,60 @@ View::~View() {
 	delete this->viewModel;
 	this->close();
 }
-
-void View::ajustarCamara() {
-
-	// Este codigo se puede mejorar.
-	int posXJugador1 = model->getEquipoNro(0)->getJugadorActivo()->getPosX();
-	int posYJugador1 = model->getEquipoNro(0)->getJugadorActivo()->getPosY();
-	int posXJugador2 = model->getEquipoNro(1)->getJugadorActivo()->getPosX();
-	int posYJugador2 = model->getEquipoNro(1)->getJugadorActivo()->getPosY();
-	//
-	int anchoJugador1 = model->getEquipoNro(0)->getJugadorActivo()->get_ancho();
-
-	int anchoJugador2 = model->getEquipoNro(1)->getJugadorActivo()->get_ancho();
-
-	//Chequeo que los jugadores no se salgan del escenario
-	if (posXJugador1 + anchoJugador1 > ANCHO_NIVEL)
-		model->getEquipoNro(0)->getJugadorActivo()->setPosX(ANCHO_NIVEL - anchoJugador1);
-
-	if (posXJugador2 + anchoJugador2 > ANCHO_NIVEL)
-		model->getEquipoNro(1)->getJugadorActivo()->setPosX(ANCHO_NIVEL - anchoJugador2);
-
-	if (posXJugador1 < 0) {
-		model->getEquipoNro(0)->getJugadorActivo()->setPosX(0);
-		posXJugador1 = 0;
-	}
-	if (posXJugador2 < 0) {
-		model->getEquipoNro(1)->getJugadorActivo()->setPosX(0);
-		posXJugador2 = 0;
-	}
-
-	//Muevo la cámara si algún jugador se está saliendo de ella
-	if (posXJugador1 + anchoJugador1 > this->camara->x + this->camara->w)
-		this->camara->x += model->getEquipoNro(0)->getJugadorActivo()->estado->getVelX();
-	else if (posXJugador1 < this->camara->x)
-		this->camara->x = posXJugador1;
-
-	if (posXJugador2 + anchoJugador2 > this->camara->x + this->camara->w)
-		this->camara->x += model->getEquipoNro(1)->getJugadorActivo()->estado->getVelX();
-	else if (posXJugador2 < this->camara->x)
-		this->camara->x = posXJugador2;
-
-	//Keep the this->camara->in bounds
-	if (this->camara->x < 0) {
-		this->camara->x = 0;
-	}
-	if (this->camara->y < 0) {
-		this->camara->y = 0;
-	}
-	if (this->camara->x > ANCHO_NIVEL - this->camara->w) {
-		this->camara->x = ANCHO_NIVEL - this->camara->w;
-	}
-	if (this->camara->y > ALTO_NIVEL - this->camara->h) {
-		this->camara->y = ALTO_NIVEL - this->camara->h;
-	}
-}
+//
+//void View::ajustarCamara() {
+//
+//	// Este codigo se puede mejorar.
+//	int posXJugador1 = model->getEquipoNro(0)->getJugadorActivo()->getPosX();
+//	int posYJugador1 = model->getEquipoNro(0)->getJugadorActivo()->getPosY();
+//	int posXJugador2 = model->getEquipoNro(1)->getJugadorActivo()->getPosX();
+//	int posYJugador2 = model->getEquipoNro(1)->getJugadorActivo()->getPosY();
+//	//
+//	int anchoJugador1 = model->getEquipoNro(0)->getJugadorActivo()->get_ancho();
+//
+//	int anchoJugador2 = model->getEquipoNro(1)->getJugadorActivo()->get_ancho();
+//
+//	//Chequeo que los jugadores no se salgan del escenario
+//	if (posXJugador1 + anchoJugador1 > ANCHO_NIVEL)
+//		model->getEquipoNro(0)->getJugadorActivo()->setPosX(ANCHO_NIVEL - anchoJugador1);
+//
+//	if (posXJugador2 + anchoJugador2 > ANCHO_NIVEL)
+//		model->getEquipoNro(1)->getJugadorActivo()->setPosX(ANCHO_NIVEL - anchoJugador2);
+//
+//	if (posXJugador1 < 0) {
+//		model->getEquipoNro(0)->getJugadorActivo()->setPosX(0);
+//		posXJugador1 = 0;
+//	}
+//	if (posXJugador2 < 0) {
+//		model->getEquipoNro(1)->getJugadorActivo()->setPosX(0);
+//		posXJugador2 = 0;
+//	}
+//
+//	//Muevo la cámara si algún jugador se está saliendo de ella
+//	if (posXJugador1 + anchoJugador1 > this->camara->x + this->camara->w)
+//		this->camara->x += model->getEquipoNro(0)->getJugadorActivo()->estado->getVelX();
+//	else if (posXJugador1 < this->camara->x)
+//		this->camara->x = posXJugador1;
+//
+//	if (posXJugador2 + anchoJugador2 > this->camara->x + this->camara->w)
+//		this->camara->x += model->getEquipoNro(1)->getJugadorActivo()->estado->getVelX();
+//	else if (posXJugador2 < this->camara->x)
+//		this->camara->x = posXJugador2;
+//
+//	//Keep the this->camara->in bounds
+//	if (this->camara->x < 0) {
+//		this->camara->x = 0;
+//	}
+//	if (this->camara->y < 0) {
+//		this->camara->y = 0;
+//	}
+//	if (this->camara->x > ANCHO_NIVEL - this->camara->w) {
+//		this->camara->x = ANCHO_NIVEL - this->camara->w;
+//	}
+//	if (this->camara->y > ALTO_NIVEL - this->camara->h) {
+//		this->camara->y = ALTO_NIVEL - this->camara->h;
+//	}
+//}
 void View::CajaMensaje(string titulo, string cuerpo) {
 	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,
 	                         titulo.c_str(),
@@ -103,7 +105,7 @@ void View::CajaMensaje(string titulo, string cuerpo) {
 }
 void View::render() {
 
-	this->ajustarCamara();
+//	model->ajustarCamara();
 	SDL_SetRenderDrawColor(this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
 	SDL_RenderClear(this->gRenderer);
@@ -119,7 +121,9 @@ void View::render() {
 			}
 			else
 				if((iter->second)[i][MAP_ELEMENTOS_CLAVE_TIPO_ELEMENTO] == TIPO_ELEMENTO_PERSONAJE){
-				this->viewModel->render((iter->second)[i][MAP_ELEMENTOS_CLAVE_EQUIPO], iter->first);
+				if(model->TipoMensaje != RESULTADOS){
+					this->viewModel->render((iter->second)[i][MAP_ELEMENTOS_CLAVE_EQUIPO], iter->first);
+				}
 			}
 		}
 	}
@@ -131,10 +135,16 @@ void View::render() {
 	timerJuego->render(model->GetTiempoJuego());
 
 	//Leyendas
-	leyendas->render(model->TipoMensaje, model->TextoMensaje);
-
+	leyendas->render(model->TipoMensaje, model->TextoMensaje, model->equipos);
+	if(model->TipoMensaje == RESULTADOS){
+		pantalla->PantallaFija = true;
+	}
 
 	SDL_RenderPresent(this->gRenderer);
+}
+void View::silenciar_juego(){
+	this->viewModel->silenciar_juego();
+
 }
 bool View::inicializar(Model *model) {
 	Uint32 startTime = 0;
@@ -170,6 +180,12 @@ bool View::inicializar(Model *model) {
 						SDL_GetError());
 				exito = false;
 			} else {
+
+				//Mensaje Cargando
+				Mensajes msg(this->gRenderer);
+				msg.render();
+				SDL_RenderPresent(this->gRenderer);
+				msg.Apagar();
 
 				std::string pathZ1 = model->GetPathFondoParallaxByOrden(1);
 				std::string pathZ2 = model->GetPathFondoParallaxByOrden(2);

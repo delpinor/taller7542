@@ -3,6 +3,7 @@
 #include "Model/Model.h"
 #include "View/View.h"
 #include "View/ViewMenu.h"
+#include "View/Mensajes.h"
 #include "Configuracion.h"
 #include "Logger/Logger.h"
 #include "Cliente.h"
@@ -245,7 +246,6 @@ int main(int argc, char* argv[]) {
 		cout << "Finalizo el seteo de los Personajes en el modelo | " << TimeHelper::getStringLocalTimeNow() << endl;
 		cliente.LanzarHiloPing();
 		View view(&model);
-
 		cliente.setVista(&view);
 		// Habilito a recibir el modelo
 		cliente.JuegoIniciado = true;
@@ -259,7 +259,19 @@ int main(int argc, char* argv[]) {
 		//reproduzco sonido del juego
 		cliente.LanzarHiloConexion();
 		sonido_juego.reproducir_sonido();
-		while (!controller.quitPressed() && !cliente.JuegoFinalizado) {
+
+
+		Sonido sonido_final(0);
+
+
+
+
+		sonido_final.loadMedia("Sonidos/musica_final_juego.mp3");
+
+
+		bool yafinalizado=false;
+		bool silenciar_juego=false;
+		while (!controller.quitPressed()){ //&& !cliente.JuegoFinalizado) {
 			if(!cliente.servidor_esta_vivo()){
 				return -1;
 			}
@@ -270,11 +282,38 @@ int main(int argc, char* argv[]) {
 			} else {
 				comandoParaServidor.comando = 99;
 			}
-			cliente.enviarComandoAServidor(comandoParaServidor);
+			if (comando==SILENCIO){
+				if(!silenciar_juego){
+					sonido_juego.parar_sonido();
+					view.silenciar_juego();
+
+					silenciar_juego=true;
+				}else{
+					sonido_juego.reproducir_sonido();
+					silenciar_juego=false;
+					view.silenciar_juego();
+				}
+
+			}else if((!cliente.JuegoFinalizado)){
+				cliente.enviarComandoAServidor(comandoParaServidor);
+			}else{
+				if((!yafinalizado)&&(!silenciar_juego)){
+					sonido_juego.parar_sonido();
+					sonido_final.reproducir_sonido();
+					yafinalizado=true;
+				}
+
+			}
 			model.updateCliente(cliente.esta_conectado());
 			usleep(18000);
 			view.render();
+
+			if(controller.quitPressed()){
+				sonido_final.parar_sonido();
+				view.close();
+			}
 		}
+
 
 		return 0;
 	}

@@ -15,7 +15,12 @@ Equipo::Equipo() {
 void Equipo::agregar_Jugador(int num, Jugador * jugador){
 	this->jugadores[num]=jugador;
 }
-
+void Equipo::setRondasGanadas(int rondas){
+	this->rondasGanadas = rondas;
+}
+int Equipo::getRondasGanadas(){
+	return this->rondasGanadas;
+}
 void Equipo::inicializar(int numeroEquipo){
 	this->numeroEquipo = numeroEquipo;
 	this->setJugadorActivo(0);
@@ -104,7 +109,7 @@ void Equipo::move(SDL_Rect* camara){
 
 void Equipo::moveCliente(SDL_Rect* camara){
 	for (int i = 0; i < 2; ++i) {
-//		this->jugadores[i]->move(this->equipoRival->getJugadorActivo(), camara);
+		//this->jugadores[i]->move(this->equipoRival->getJugadorActivo(), camara);
 		this->jugadores[nroJugadorActivo]->updateDirection(*this->equipoRival->getJugadorActivo());
 	}
 }

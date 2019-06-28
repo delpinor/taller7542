@@ -110,6 +110,14 @@ void Cliente::actualizarModelo(ModeloEstado modelo) {
 			modelo.jugadoresEquipo1.velX);
 	this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setVelocidadY(
 			modelo.jugadoresEquipo1.velY);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->setPosXPoder(
+			modelo.jugadoresEquipo1.posXpoder);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->setPosYPoder(
+			modelo.jugadoresEquipo1.posXpoder);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->setEstadoPoder(
+				modelo.jugadoresEquipo1.poderActivo);
+	this->getVista()->model->equipos[0]->getJugadorActivo()->setSentidoPoder(
+				modelo.jugadoresEquipo1.sentidoPoder);
 
 	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setEstaActivo(
 			modelo.jugadoresEquipo2.isActivo);
@@ -125,9 +133,18 @@ void Cliente::actualizarModelo(ModeloEstado modelo) {
 			modelo.jugadoresEquipo2.velX);
 	this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setVelocidadY(
 			modelo.jugadoresEquipo2.velY);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->setPosXPoder(
+			modelo.jugadoresEquipo2.posXpoder);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->setPosYPoder(
+			modelo.jugadoresEquipo2.posXpoder);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->setEstadoPoder(
+			modelo.jugadoresEquipo2.poderActivo);
+	this->getVista()->model->equipos[1]->getJugadorActivo()->setSentidoPoder(
+			modelo.jugadoresEquipo2.sentidoPoder);
 
 	this->getVista()->getCamara()->x = modelo.camara.posX;
 	this->getVista()->getCamara()->y = modelo.camara.posY;
+
 	pthread_mutex_unlock(&mutexx);
 }
 
@@ -272,6 +289,14 @@ int Cliente::recibirModeloDelServidor() {
 					unModelo.jugadoresEquipo1.posX);
 			this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setPosY(
 					unModelo.jugadoresEquipo1.posY);
+			this->getVista()->model->equipos[0]->getJugadorActivo()->setPosXPoder(
+					unModelo.jugadoresEquipo1.posXpoder);
+			this->getVista()->model->equipos[0]->getJugadorActivo()->setPosYPoder(
+					unModelo.jugadoresEquipo1.posYpoder);
+			this->getVista()->model->equipos[0]->getJugadorActivo()->setSentidoPoder(
+					unModelo.jugadoresEquipo1.sentidoPoder);
+			this->getVista()->model->equipos[0]->getJugadorActivo()->setEstadoPoder(
+					unModelo.jugadoresEquipo1.poderActivo);
 			this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setVelocidadX(
 					unModelo.jugadoresEquipo1.velX);
 			this->getVista()->model->equipos[0]->getJugadorActivo()->estado->setVelocidadY(
@@ -302,6 +327,14 @@ int Cliente::recibirModeloDelServidor() {
 					unModelo.jugadoresEquipo2.posX);
 			this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setPosY(
 					unModelo.jugadoresEquipo2.posY);
+			this->getVista()->model->equipos[1]->getJugadorActivo()->setPosXPoder(
+					unModelo.jugadoresEquipo2.posXpoder);
+			this->getVista()->model->equipos[1]->getJugadorActivo()->setPosYPoder(
+					unModelo.jugadoresEquipo2.posYpoder);
+			this->getVista()->model->equipos[1]->getJugadorActivo()->setSentidoPoder(
+					unModelo.jugadoresEquipo2.sentidoPoder);
+			this->getVista()->model->equipos[1]->getJugadorActivo()->setEstadoPoder(
+					unModelo.jugadoresEquipo2.poderActivo);
 			this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setVelocidadX(
 					unModelo.jugadoresEquipo2.velX);
 			this->getVista()->model->equipos[1]->getJugadorActivo()->estado->setVelocidadY(
@@ -340,6 +373,11 @@ int Cliente::recibirModeloDelServidor() {
 			this->getVista()->model->TipoMensaje = inGame.tipoMensaje;
 			this->getVista()->model->TextoMensaje = inGame.mensaje;
 
+			this->getVista()->model->getEquipoNro(0)->setRondasGanadas(inGame.ganadosEquipo0);
+			this->getVista()->model->getEquipoNro(1)->setRondasGanadas(inGame.ganadosEquipo1);
+
+
+
 
 			this->getVista()->model->getEquipoNro(0)->getJugadorNro(0)->SetVida(inGame.personajesEquipo0[0].vida);
 			this->getVista()->model->getEquipoNro(0)->getJugadorNro(1)->SetVida(inGame.personajesEquipo0[1].vida);
@@ -347,14 +385,14 @@ int Cliente::recibirModeloDelServidor() {
 			this->getVista()->model->getEquipoNro(1)->getJugadorNro(0)->SetVida(inGame.personajesEquipo1[0].vida);
 			this->getVista()->model->getEquipoNro(1)->getJugadorNro(1)->SetVida(inGame.personajesEquipo1[1].vida);
 
-			cout << "Resultados Equipo0: Cantidad: " << inGame.resultadoEquipo0.cantidadResultados << endl;
-			for(int i = 0; i < inGame.resultadoEquipo0.cantidadResultados; i++){
-				cout << "Equipo0: Round: " << inGame.resultadoEquipo0.NrosBatallasGanadas[i] << endl;
-			}
-			cout << "Resultados Equipo1: Cantidad: " << inGame.resultadoEquipo1.cantidadResultados << endl;
-			for(int i = 0; i < inGame.resultadoEquipo1.cantidadResultados; i++){
-				cout << "Equipo1: Round: " << inGame.resultadoEquipo1.NrosBatallasGanadas[i] << endl;
-			}
+//			cout << "Resultados Equipo0: Cantidad: " << inGame.resultadoEquipo0.cantidadResultados << endl;
+//			for(int i = 0; i < inGame.resultadoEquipo0.cantidadResultados; i++){
+//				cout << "Equipo0: Round: " << inGame.resultadoEquipo0.NrosBatallasGanadas[i] << endl;
+//			}
+//			cout << "Resultados Equipo1: Cantidad: " << inGame.resultadoEquipo1.cantidadResultados << endl;
+//			for(int i = 0; i < inGame.resultadoEquipo1.cantidadResultados; i++){
+//				cout << "Equipo1: Round: " << inGame.resultadoEquipo1.NrosBatallasGanadas[i] << endl;
+//			}
 		}
 
 		//-------->Recibe DATA PERSONAJES

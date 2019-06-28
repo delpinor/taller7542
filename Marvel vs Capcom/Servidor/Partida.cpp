@@ -1,6 +1,6 @@
 #include "Partida.h"
 #include <iostream>
-#define DURACIONMENSAJE 3
+#define DURACIONMENSAJE 2
 void Partida::IniciarPartida() {
 	//listaJugadores = listaEspera;
 	//listaEspera.clear();
@@ -17,7 +17,7 @@ void Partida::IniciarPartida() {
 void Partida::IniciarBatalla(){
 	this->IniciarTitularidadClientes();
 	ActualizarModelo();
-	this->IniciarPosiciones();
+	//this->IniciarPosiciones();
 	this->IniciarCamara();
 	this->roundActual++;
 	cout << "Iniciando Batalla " << this->roundActual << endl;
@@ -26,10 +26,10 @@ void Partida::IniciarBatalla(){
 	this->roundCorriendo = true;
 }
 void Partida::IniciarPosiciones(){
-	modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(120 - 80);
-	modelo->getEquipoNro(0)->getJugadorActivo()->setPosY(931);
-	modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(780 - 80);
-	modelo->getEquipoNro(1)->getJugadorActivo()->setPosY(931);
+	modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(-80);
+	modelo->getEquipoNro(0)->getJugadorActivo()->setPosY(933);
+	modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(500);
+	modelo->getEquipoNro(1)->getJugadorActivo()->setPosY(933);
 }
 void Partida::IniciarCamara(){
 	int CAMARAPOSICIONINICIALX = ANCHO_NIVEL / 2 - modelo->ancho_Pantalla / 2;
@@ -37,7 +37,7 @@ void Partida::IniciarCamara(){
 	camaraStatic = {CAMARAPOSICIONINICIALX,CAMARAPOSICIONINICIALY, modelo->ancho_Pantalla, modelo->alto_Pantalla};
 	camara = &(camaraStatic);
 	modelo->setCamara(this->camara);
-	//	modelo->inicializarPosicionesEquipos();
+	modelo->inicializarPosicionesEquipos();
 	AjustarCamara();
 }
 bool Partida::ClientesCargados(){
@@ -60,62 +60,7 @@ void Partida::IniciarTitularidadClientes(){
 	}
 }
 void Partida::AjustarCamara() {
-	// Este codigo se puede mejorar.
-	int posXJugador1 = modelo->getEquipoNro(0)->getJugadorActivo()->getPosX();
-	int posYJugador1 = modelo->getEquipoNro(0)->getJugadorActivo()->getPosY();
-	int posXJugador2 = modelo->getEquipoNro(1)->getJugadorActivo()->getPosX();
-	int posYJugador2 = modelo->getEquipoNro(1)->getJugadorActivo()->getPosY();
-	//
-	int anchoJugador1 =
-			modelo->getEquipoNro(0)->getJugadorActivo()->get_ancho();
-
-	int anchoJugador2 =
-			modelo->getEquipoNro(1)->getJugadorActivo()->get_ancho();
-
-	//Chequeo que los jugadores no se salgan del escenario
-	if (posXJugador1 + anchoJugador1 > ANCHO_NIVEL)
-		modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(
-				ANCHO_NIVEL - anchoJugador1);
-
-	if (posXJugador2 + anchoJugador2 > ANCHO_NIVEL)
-		modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(
-				ANCHO_NIVEL - anchoJugador2);
-
-	if (posXJugador1 < 0) {
-		modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(0);
-		posXJugador1 = 0;
-	}
-	if (posXJugador2 < 0) {
-		modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(0);
-		posXJugador2 = 0;
-	}
-
-	//Muevo la cámara si algún jugador se está saliendo de ella
-	if (posXJugador1 + anchoJugador1 > this->camara->x + this->camara->w)
-		this->camara->x +=
-				modelo->getEquipoNro(0)->getJugadorActivo()->estado->getVelX();
-	else if (posXJugador1 < this->camara->x)
-		this->camara->x = posXJugador1;
-
-	if (posXJugador2 + anchoJugador2 > this->camara->x + this->camara->w)
-		this->camara->x +=
-				modelo->getEquipoNro(1)->getJugadorActivo()->estado->getVelX();
-	else if (posXJugador2 < this->camara->x)
-		this->camara->x = posXJugador2;
-
-	//Keep the this->camara->in bounds
-	if (this->camara->x < 0) {
-		this->camara->x = 0;
-	}
-	if (this->camara->y < 0) {
-		this->camara->y = 0;
-	}
-	if (this->camara->x > ANCHO_NIVEL - this->camara->w) {
-		this->camara->x = ANCHO_NIVEL - this->camara->w;
-	}
-	if (this->camara->y > ALTO_NIVEL - this->camara->h) {
-		this->camara->y = ALTO_NIVEL - this->camara->h;
-	}
+	modelo->ajustarCamara();
 }
 
 ModeloEstado Partida::GetModeloEstado() {
@@ -123,6 +68,7 @@ ModeloEstado Partida::GetModeloEstado() {
 	unModelo = modelo->GetModelEstado();
 	//	unModelo.activoEquipo1 = GetTitularJugando(0).numeroJugador;
 	//	unModelo.activoEquipo2 = GetTitularJugando(1).numeroJugador;
+
 	unModelo.activoEquipo1 = modelo->equipos[0]->nroJugadorActivo;
 	unModelo.activoEquipo2 = modelo->equipos[1]->nroJugadorActivo;
 	return unModelo;
@@ -130,17 +76,24 @@ ModeloEstado Partida::GetModeloEstado() {
 ModeloInGame Partida::GetModeloGame(){
 	ModeloInGame unModelo;
 	unModelo = modelo->GetModeloInGame();
+	unModelo.ganadosEquipo0 = this->GetModeloResultadoEquipo(0).cantidadResultados;
+	unModelo.ganadosEquipo1 =  this->GetModeloResultadoEquipo(1).cantidadResultados;
+	if (Iniciada()){
+		if(tiempoRound < (cronometro+DURACIONMENSAJE)){
+				unModelo.tipoMensaje = READY;
+				std::string msg = "Ronda " + std::to_string(roundActual);
+				strcpy(unModelo.mensaje, msg.c_str());
+		}else{
+			unModelo.tipoMensaje = NINGUNO;
+		}
 
-	if(tiempoRound < (cronometro+DURACIONMENSAJE)){
-		unModelo.tipoMensaje = READY;
-		std::string msg = "Ronda " + std::to_string(roundActual);
-		strcpy(unModelo.mensaje, msg.c_str());
-	}else{
-		unModelo.tipoMensaje = NINGUNO;
+	}
+	if(Finalizada()){
+		unModelo.tipoMensaje = RESULTADOS;
 	}
 
-	unModelo.resultadoEquipo0 = this->GetModeloResultadoEquipo(0);
-	unModelo.resultadoEquipo1 = this->GetModeloResultadoEquipo(1);
+	//unModelo.resultadoEquipo0 = this->GetModeloResultadoEquipo(0);
+	//unModelo.resultadoEquipo1 = this-> this->GetModeloResultadoEquipo(0);
 
 	return unModelo;
 }

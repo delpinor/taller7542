@@ -6,7 +6,9 @@
 class View_Jugador_VenomBlack: public View_Jugador_Venom {
 public:
 	View_Jugador_VenomBlack();
+
 	void initialize(Jugador * model,
 		LTexture * texturaJugador);
+	//virtual ~View_Jugador_VenomBlack();
 };
 #endif

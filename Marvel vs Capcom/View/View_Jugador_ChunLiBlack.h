@@ -7,6 +7,7 @@ class View_Jugador_ChunLiBlack: public View_Jugador_ChunLi {
 public:
 	View_Jugador_ChunLiBlack();
 	void initialize(Jugador *model, LTexture * texturaJugador);
+	//virtual ~ View_Jugador_ChunLiBlack();
 
 };
 

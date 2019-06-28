@@ -15,6 +15,7 @@ public:
 	void render();
 	void render(int equipo, int zIndex);
 	bool hayAlgunJugadorActivoEnEspera();
+	void silenciar_juego();
 protected:
 
 private:

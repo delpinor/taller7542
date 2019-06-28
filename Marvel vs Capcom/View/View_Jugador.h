@@ -172,7 +172,7 @@ public:
 	int MINFRAMEPODER;
 	int MAXFRAMEPODER;
 	int FACTORPODER;
-
+	bool silencio=false;
 	int maxFrame;
 	int factor;
 
@@ -181,6 +181,14 @@ public:
 	virtual void reproducir_sonido_cambio(){};
 	virtual void reproducir_sonido_ataque_pu(){};
 	virtual void reproducir_sonido_defensa(){};
+	virtual void reproducir_sonido_ataque_patada(){};
+	virtual void reproducir_sonido_recibir_danio(){};
+	void silenciar_efectos();
+
+
+	void reproducir_efecto_sonido(int tipo_golpe);
+
+
 
 protected:
 

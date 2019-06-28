@@ -79,22 +79,12 @@ int Controller::handleEventCliente(SDL_Event& e) {
 	int comando = 99;
 	  //Get the keystates
 //obtengo los estados de todas las teclas
-//	const Uint8 *state =SDL_GetKeyboardState(NULL);
+	const Uint8 *state =SDL_GetKeyboardState(NULL);
 //si esta presionada la s y la k . es decir si esta agachado y quiere hacer la patada
-//	if  ((state[SDL_SCANCODE_S])&& (state[SDL_SCANCODE_K])){
-//
-//		comando=PATADA_AGACHADO;
-//	} else if((state[SDL_SCANCODE_S])&& (state[SDL_SCANCODE_U])){
-//		comando=PINION_AGACHADO;
-//
-//	}else if((state[SDL_SCANCODE_S])&& (state[SDL_SCANCODE_I])){
-//		comando=PATADON_AGACHADO;
-//
-//	}else if((state[SDL_SCANCODE_S])&& (state[SDL_SCANCODE_J])){
-//		comando=PINIA_AGACHADO;
-//
-//	}
-//	else{
+	if  ((state[SDL_SCANCODE_S])&& (state[SDL_SCANCODE_M])){
+
+		comando= SILENCIO;
+	} else{
 
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
 		switch (e.key.keysym.sym) {
@@ -156,6 +146,7 @@ int Controller::handleEventCliente(SDL_Event& e) {
 			comando =  DESACTIVARDEFENSA;
 			break;
 		}
+	}
 	}
 	return comando;
 }

@@ -25,7 +25,7 @@ class View {
 public:
 	View(Model* model);
 	void SetPosicionInicialJugadores();
-	void ajustarCamara();
+	//void ajustarCamara();
 	void render();
 	void renderMensajes();
 	void CajaMensaje(string titulo, string cuerpo);
@@ -37,7 +37,7 @@ public:
 	virtual ~View();
 
 	Model* model;
-
+	void silenciar_juego();
 private:
 
 	Jugador* jugadorAnterior;
@@ -60,6 +60,7 @@ private:
 	void setElementoFondo(int pZIndex, int id);
 	void setElementoPersonaje(Model* model);
 	void setElementoPersonaje(int pZIndex, int equipo);//, int jugador);
+
 
 };
 

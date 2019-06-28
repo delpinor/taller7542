@@ -8,5 +8,7 @@ public:
 	View_Jugador_SpidermanBlack();
 	void initialize(Jugador *model,
 		LTexture * texturaJugador);
+	//virtual ~ View_Jugador_SpidermanBlack();
+
 };
 #endif

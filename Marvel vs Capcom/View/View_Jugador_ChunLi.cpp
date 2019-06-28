@@ -28,23 +28,31 @@ void View_Jugador_ChunLi::initialize(Jugador *model,
 	getSpritesPatadaFuerteAgachado();
 	getSpritesPiniaDebil();
 	getSpritesPiniaFuerte();
-	getSpritesDefensa();
-	getSpritesDefensaAgachado();
-	getSpritesRecibirDanio();
-	getSpritesPinaFuerteSaltando();
+	 getSpritesPinaFuerteSaltando();
 	getSpritesPinaDebilSaltando();
 	getSpritesPinaFuerteAgachado();
 	getSpritesPinaDebilAgachado();
+	getSpritesDefensa();
+	getSpritesDefensaAgachado();
+	getSpritesDefensaSaltando();
+	getSpritesRecibirDanio();
+	getSpritesPoder();
 	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
 
 	this->sonido_salto=new EfectoSonido(1);
 		this->sonido_ataque_pu=new EfectoSonido(1);
 		this->sonido_defensa=new EfectoSonido(1);
 		this->sonido_cambio=new EfectoSonido(1);
+		this->sonido_danio=new EfectoSonido(1);
+		this->sonido_ataque_patada=new EfectoSonido(1);
 
-		this->sonido_ataque_pu->loadMedia("../Sonidos/chun_atk1.wav");
-			this->sonido_salto->loadMedia("../Sonidos/salto_chun.wav");
-	this->sonido_cambio->loadMedia("../Sonidos/cambio_chun.wav");
+
+		this->sonido_ataque_patada->loadMedia("../Sonidos/chun_patada.wav");
+		this->sonido_defensa->loadMedia("../Sonidos/chun_defensa.wav");
+		this->sonido_danio->loadMedia("../Sonidos/chun_danio.wav");
+		this->sonido_ataque_pu->loadMedia("../Sonidos/chun_punio.wav");
+		this->sonido_salto->loadMedia("../Sonidos/salto_chun.wav");
+		this->sonido_cambio->loadMedia("../Sonidos/cambio_chun.wav");
 
 }
 void  View_Jugador_ChunLi::reproducir_sonido_salto(){
@@ -68,6 +76,17 @@ void  View_Jugador_ChunLi::reproducir_sonido_cambio(){
 void   View_Jugador_ChunLi::reproducir_sonido_defensa(){
 
 		this->sonido_defensa->reproducir_sonido();
+
+
+}
+
+void View_Jugador_ChunLi::reproducir_sonido_ataque_patada(){
+	this->sonido_ataque_patada->reproducir_sonido();
+
+}
+
+void View_Jugador_ChunLi::reproducir_sonido_recibir_danio(){
+	this->sonido_danio->reproducir_sonido();
 
 
 }
@@ -540,8 +559,6 @@ void View_Jugador_ChunLi::getSpritesPiniaFuerte() {
 	gSpritePinion[4].h = 150;
 
 }
-
-
 void View_Jugador_ChunLi::getSpritesPinaFuerteSaltando() {
 
 	CANTSPRITECLIPPINIONSALTANDO = 3;
@@ -659,7 +676,14 @@ void View_Jugador_ChunLi::getSpritesDefensaAgachado(){
 	gSpriteDefensaAgachado[0].w = 261;
 	gSpriteDefensaAgachado[0].h = 150;
 }
+void View_Jugador_ChunLi::getSpritesDefensaSaltando(){
+	this->gSpriteDefensaSaltando = new SDL_Rect[1];
+		gSpriteDefensaSaltando[0].x = 1842;
+		gSpriteDefensaSaltando[0].y = 950;
+		gSpriteDefensaSaltando[0].w = 261;
+		gSpriteDefensaSaltando[0].h = 150;
 
+}
 void View_Jugador_ChunLi::getSpritesRecibirDanio() {
 	this->gSpriteRecibirDanio = new SDL_Rect[1];
 
@@ -668,3 +692,47 @@ void View_Jugador_ChunLi::getSpritesRecibirDanio() {
 	gSpriteRecibirDanio[0].w = 261;
 	gSpriteRecibirDanio[0].h = 150;
 }
+void View_Jugador_ChunLi::getSpritesPoder(){
+	CANTSPRITECLIPPODER = 7;
+	MINFRAMEPODER = 0;
+	MAXFRAMEPODER = 6;
+	FACTORPODER = 8;
+	this->gSpritePoder = new SDL_Rect[CANTSPRITECLIPPODER];
+
+	gSpritePoder[0].x = 59;
+	gSpritePoder[0].y = 3983;
+	gSpritePoder[0].w = 261;
+	gSpritePoder[0].h = 150;
+
+	gSpritePoder[1].x = 320;
+	gSpritePoder[1].y = 3983;
+	gSpritePoder[1].w = 261;
+	gSpritePoder[1].h = 150;
+
+	gSpritePoder[2].x = 581;
+	gSpritePoder[2].y = 3983;
+	gSpritePoder[2].w = 261;
+	gSpritePoder[2].h = 150;
+
+	gSpritePoder[3].x = 842;
+	gSpritePoder[3].y = 3983;
+	gSpritePoder[3].w = 261;
+	gSpritePoder[3].h = 150;
+
+	gSpritePoder[4].x = 1103;
+	gSpritePoder[4].y = 3983;
+	gSpritePoder[4].w = 261;
+	gSpritePoder[4].h = 150;
+
+	gSpritePoder[5].x = 1364;
+	gSpritePoder[5].y = 3983;
+	gSpritePoder[5].w = 261;
+	gSpritePoder[5].h = 150;
+
+	gSpritePoder[6].x = 1625;
+	gSpritePoder[6].y = 3983;
+	gSpritePoder[6].w = 261;
+	gSpritePoder[6].h = 150;
+}
+
+

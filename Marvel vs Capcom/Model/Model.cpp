@@ -1,5 +1,6 @@
 #include "Model.h"
 #include "../View/ViewModel.h"
+#include "../View/View.h"
 #include <algorithm>
 #include <stdio.h>
 #include <stdlib.h>
@@ -63,7 +64,67 @@ Jugador* Model::crearJugador(int personajeId){
 	Jugador* jNuevo = new Jugador(ancho, alto, zIndex, nombre, path, inmortal);
 	return jNuevo;
 }
+void Model::ajustarCamara(){
 
+	// Este codigo se puede mejorar.
+		int posXJugador1 = this->getEquipoNro(0)->getJugadorActivo()->estado->getPosX();
+		//int posYJugador1 = this->getEquipoNro(0)->getJugadorActivo()->getPosY();
+		int posXJugador2 = this->getEquipoNro(1)->getJugadorActivo()->estado->getPosX();
+	//	int posYJugador2 = this->getEquipoNro(1)->getJugadorActivo()->getPosY();
+		//
+		int collideW = this->getEquipoNro(0)->getJugadorActivo()->getCollideW();
+
+		int jugadorW = this->getEquipoNro(0)->getJugadorActivo()->get_ancho();
+
+		cout << "POS 1 X: " << posXJugador1 << endl;
+		cout << "POS 2 X: " << posXJugador2 << endl;
+		cout << "Cam X: " << camara->x << endl;
+		cout << "Ancho collide: " << collideW << endl;
+		cout << "====================" << endl;
+
+
+		//Chequeo que los jugadores no se salgan del escenario
+		if (posXJugador1 + jugadorW - collideW > ANCHO_NIVEL)
+			this->getEquipoNro(0)->getJugadorActivo()->estado->setPosX(ANCHO_NIVEL - jugadorW + collideW);
+
+		if (posXJugador2 + jugadorW - collideW > ANCHO_NIVEL)
+			this->getEquipoNro(1)->getJugadorActivo()->estado->setPosX(ANCHO_NIVEL - jugadorW + collideW);
+
+		if (posXJugador1 + collideW < 0) {
+			this->getEquipoNro(0)->getJugadorActivo()->estado->setPosX(-collideW);
+			posXJugador1 = -collideW;
+		}
+		if (posXJugador2 + collideW < 0) {
+			this->getEquipoNro(1)->getJugadorActivo()->estado->setPosX(-collideW);
+			posXJugador2 = -collideW;
+		}
+
+		//Muevo la cámara si algún jugador se está saliendo de ella
+		if (posXJugador1 + jugadorW - collideW > this->camara->x + this->camara->w)
+			this->camara->x += this->getEquipoNro(0)->getJugadorActivo()->estado->getVelX();
+		else if (posXJugador1 + collideW< this->camara->x)
+			this->camara->x = posXJugador1+collideW;
+
+		if (posXJugador2 + jugadorW - collideW> this->camara->x + this->camara->w)
+			this->camara->x += this->getEquipoNro(1)->getJugadorActivo()->estado->getVelX();
+		else if (posXJugador2 + collideW< this->camara->x)
+			this->camara->x = posXJugador2+collideW;
+
+		//Keep the this->camara->in bounds
+		if (this->camara->x < 0) {
+			this->camara->x = 0;
+		}
+		if (this->camara->y < 0) {
+			this->camara->y = 0;
+		}
+		if (this->camara->x > ANCHO_NIVEL - this->camara->w) {
+			this->camara->x = ANCHO_NIVEL - this->camara->w;
+		}
+		if (this->camara->y > ALTO_NIVEL - this->camara->h) {
+			this->camara->y = ALTO_NIVEL - this->camara->h;
+		}
+
+}
 void Model::cargar_Tam_Pantalla(int &ancho, int &alto) {
 	Logger::Log(LOGGER_NIVEL::DEBUG, "Mode::CargarTamañoPantalla", "Ancho: " + std::to_string(ancho));
 	Logger::Log(LOGGER_NIVEL::DEBUG, "Mode::CargarTamañoPantalla", "Alto: " + std::to_string(alto));
@@ -235,8 +296,8 @@ void Model::setCamara(SDL_Rect * camara) {
 }
 
 void Model::inicializarPosicionesEquipos(){
-	this->equipos[0]->getJugadorActivo()->estado->setPosX(this->camara->x);
-	this->equipos[1]->getJugadorActivo()->estado->setPosX(this->camara->x + this->camara->w);//- this->equipos[1]->getJugadorActivo()->get_ancho());
+	this->equipos[0]->getJugadorActivo()->estado->setPosX(0);
+	this->equipos[1]->getJugadorActivo()->estado->setPosX(602);//- this->equipos[1]->getJugadorActivo()->get_ancho());
 }
 ModeloInGame Model::GetModeloInGame(){
 	ModeloInGame inGame;
@@ -264,7 +325,10 @@ ModeloEstado Model::GetModelEstado(){
 	unModeloEstado.jugadoresEquipo1.posY = this->getEquipoNro(0)->getJugadorActivo()->getPosY();
 	unModeloEstado.jugadoresEquipo1.velX = this->getEquipoNro(0)->getJugadorActivo()->getVelX();
 	unModeloEstado.jugadoresEquipo1.velY = this->getEquipoNro(0)->getJugadorActivo()->getVelY();
-
+	unModeloEstado.jugadoresEquipo1.posYpoder = this->getEquipoNro(0)->getJugadorActivo()->getPosYPoder();
+	unModeloEstado.jugadoresEquipo1.posXpoder = this->getEquipoNro(0)->getJugadorActivo()->getPosXPoder();
+	unModeloEstado.jugadoresEquipo1.poderActivo = this->getEquipoNro(0)->getJugadorActivo()->poderActivo();
+	unModeloEstado.jugadoresEquipo1.sentidoPoder = this->getEquipoNro(0)->getJugadorActivo()->getSentidoPoder();
 
 	unModeloEstado.jugadoresEquipo2.equipo = 1;
 	unModeloEstado.jugadoresEquipo2.isActivo = this->getEquipoNro(1)->getJugadorActivo()->estaActivo();
@@ -278,6 +342,10 @@ ModeloEstado Model::GetModelEstado(){
 	unModeloEstado.jugadoresEquipo2.posY = this->getEquipoNro(1)->getJugadorActivo()->getPosY();
 	unModeloEstado.jugadoresEquipo2.velX = this->getEquipoNro(1)->getJugadorActivo()->getVelX();
 	unModeloEstado.jugadoresEquipo2.velY = this->getEquipoNro(1)->getJugadorActivo()->getVelY();
+	unModeloEstado.jugadoresEquipo2.posYpoder = this->getEquipoNro(1)->getJugadorActivo()->getPosYPoder();
+	unModeloEstado.jugadoresEquipo2.posXpoder = this->getEquipoNro(1)->getJugadorActivo()->getPosXPoder();
+	unModeloEstado.jugadoresEquipo2.poderActivo = this->getEquipoNro(1)->getJugadorActivo()->poderActivo();
+	unModeloEstado.jugadoresEquipo2.sentidoPoder = this->getEquipoNro(1)->getJugadorActivo()->getSentidoPoder();
 
 	return unModeloEstado;
 }

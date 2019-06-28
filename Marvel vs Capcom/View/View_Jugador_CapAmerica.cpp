@@ -34,20 +34,34 @@ void View_Jugador_CapAmerica::initialize(Jugador *model,
 	getSpritesPinaFuerteSaltando();
 	getSpritesPinaDebilSaltando();
 	getSpritesRecibirDanio();
+	getSpritesPoder();
 
 	this->zIndex = model->get_zindex();
 	getSpritesCambioPersonaje();
 	this->texturaJugador->setColor(this->jugador->getR(), this->jugador->getG(),
 			this->jugador->getB());
 
-	this->sonido_salto = new EfectoSonido(1);
-	this->sonido_ataque_pu = new EfectoSonido(1);
-	this->sonido_defensa = new EfectoSonido(1);
-	this->sonido_cambio = new EfectoSonido(1);
-	//this->sonido_ataque_pu->init();
-	this->sonido_ataque_pu->loadMedia("../Sonidos/cap_atk1.wav");
-	this->sonido_salto->loadMedia("../Sonidos/salto_captain.wav");
-	this->sonido_cambio->loadMedia("../Sonidos/cambio_captain.wav");
+		//efectos de sonido
+		this->sonido_salto=new EfectoSonido(1);
+		this->sonido_ataque_pu=new EfectoSonido(1);
+		this->sonido_defensa=new EfectoSonido(1);
+		this->sonido_cambio=new EfectoSonido(1);
+		this->sonido_danio=new EfectoSonido(1);
+		this->sonido_ataque_patada=new EfectoSonido(1);
+
+		this->sonido_ataque_pu->loadMedia("../Sonidos/cap_punio.wav");
+		this->sonido_salto->loadMedia("../Sonidos/salto_captain.wav");
+		this->sonido_cambio->loadMedia("../Sonidos/cambio_captain.wav");
+		this->sonido_ataque_patada->loadMedia("../Sonidos/cap_patada.wav");
+		this->sonido_defensa->loadMedia("../Sonidos/cap_defensa.wav");
+		this->sonido_danio->loadMedia("../Sonidos/cap_dmg.wav");
+
+
+
+
+
+
+
 
 }
 
@@ -123,6 +137,16 @@ void View_Jugador_CapAmerica::reproducir_sonido_ataque_pu() {
 void View_Jugador_CapAmerica::reproducir_sonido_defensa() {
 
 	this->sonido_defensa->reproducir_sonido();
+
+}
+void View_Jugador_CapAmerica::reproducir_sonido_ataque_patada(){
+	this->sonido_ataque_patada->reproducir_sonido();
+
+}
+
+void View_Jugador_CapAmerica::reproducir_sonido_recibir_danio(){
+	this->sonido_danio->reproducir_sonido();
+
 
 }
 
@@ -233,9 +257,9 @@ void View_Jugador_CapAmerica::getSpritesCambioPersonaje() {
 }
 
 void View_Jugador_CapAmerica::getSpritesPatadaFuerte() {
-	CANTSPRITECLIPPATADON = 6;
+	CANTSPRITECLIPPATADON = 5;
 	MINFRAMEPATADON = 0;
-	MAXFRAMEPATADON = 5;
+	MAXFRAMEPATADON = 4;
 	FACTORPATADON = 6;
 	this->gSpritePatadon = new SDL_Rect[CANTSPRITECLIPPATADON];
 
@@ -726,6 +750,20 @@ void View_Jugador_CapAmerica::getSpritesPinaDebilSaltando() {
 	gSpritePiniaSaltando[2].w = 261;
 	gSpritePiniaSaltando[2].h = 150;
 
+		gSpritePiniaSaltando[1].x = 240;
+		gSpritePiniaSaltando[1].y = 752;
+		gSpritePiniaSaltando[1].w = 261;
+		gSpritePiniaSaltando[1].h = 150;
+
+		gSpritePiniaSaltando[2].x = 240;
+		gSpritePiniaSaltando[2].y = 752;
+		gSpritePiniaSaltando[2].w = 261;
+		gSpritePiniaSaltando[2].h = 150;
+
+
+
+
+
 }
 void View_Jugador_CapAmerica::getSpritesRecibirDanio() {
 	this->gSpriteRecibirDanio = new SDL_Rect[1];
@@ -735,3 +773,59 @@ void View_Jugador_CapAmerica::getSpritesRecibirDanio() {
 	gSpriteRecibirDanio[0].w = 261;
 	gSpriteRecibirDanio[0].h = 150;
 }
+
+void View_Jugador_CapAmerica::getSpritesPoder(){
+	CANTSPRITECLIPPODER = 7;
+	MINFRAMEPODER = 0;
+	MAXFRAMEPODER = 6;
+	FACTORPODER = 8;
+	this->gSpritePoder = new SDL_Rect[CANTSPRITECLIPPODER];
+
+	gSpritePoder[0].x = 59;
+	gSpritePoder[0].y = 3983;
+	gSpritePoder[0].w = 261;
+	gSpritePoder[0].h = 150;
+
+	gSpritePoder[1].x = 320;
+	gSpritePoder[1].y = 3983;
+	gSpritePoder[1].w = 261;
+	gSpritePoder[1].h = 150;
+
+	gSpritePoder[2].x = 581;
+	gSpritePoder[2].y = 3983;
+	gSpritePoder[2].w = 261;
+	gSpritePoder[2].h = 150;
+
+	gSpritePoder[3].x = 842;
+	gSpritePoder[3].y = 3983;
+	gSpritePoder[3].w = 261;
+	gSpritePoder[3].h = 150;
+
+	gSpritePoder[4].x = 1103;
+	gSpritePoder[4].y = 3983;
+	gSpritePoder[4].w = 261;
+	gSpritePoder[4].h = 150;
+
+	gSpritePoder[5].x = 1364;
+	gSpritePoder[5].y = 3983;
+	gSpritePoder[5].w = 261;
+	gSpritePoder[5].h = 150;
+
+	gSpritePoder[6].x = 1625;
+	gSpritePoder[6].y = 3983;
+	gSpritePoder[6].w = 261;
+	gSpritePoder[6].h = 150;
+}
+
+
+/*
+View_Jugador_CapAmerica::~View_Jugador_CapAmerica(){
+
+	delete sonido_salto;
+	delete sonido_ataque_pu;
+	delete sonido_defensa;
+	delete sonido_cambio;
+	delete sonido_ataque_patada;
+	delete sonido_danio;
+}
+*/

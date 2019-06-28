@@ -25,33 +25,29 @@ void Poder::move() {
 bool Poder::colision(int izquierda , int arriba, int derecha, int abajo ) {
 	if(this->estaActivo()){
 	move();
-	std::cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"  << std::endl;
-	std::cout << "izquierda coll" + std::to_string(this->izquierda) + ">=" + "derecha rival" + std::to_string(derecha) << std::endl;
-	std::cout << "derecha coll" + std::to_string(this->derecha)+ "<="  + "izquierda rival" + std::to_string(izquierda) << std::endl;
-	std::cout << "arriba coll" + std::to_string(this->arriba)  + ">=" + "abajo rival" + std::to_string(abajo) << std::endl;
-	std::cout << "abajo coll" + std::to_string(this->abajo)  + "<="+ "arriba rival"  + std::to_string(arriba) << std::endl;
-	std::cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"  << std::endl;
+//	std::cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"  << std::endl;
+//	std::cout << "izquierda coll" + std::to_string(this->izquierda) + ">=" + "derecha rival" + std::to_string(derecha) << std::endl;
+//	std::cout << "derecha coll" + std::to_string(this->derecha)+ "<="  + "izquierda rival" + std::to_string(izquierda) << std::endl;
+//	std::cout << "arriba coll" + std::to_string(this->arriba)  + ">=" + "abajo rival" + std::to_string(abajo) << std::endl;
+//	std::cout << "abajo coll" + std::to_string(this->abajo)  + "<="+ "arriba rival"  + std::to_string(arriba) << std::endl;
+//	std::cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"  << std::endl;
 
 	if (this->abajo <= arriba) {
-		std::cout << "FALSE"  << std::endl;
 		return false;
 	}
 
 	if (this->arriba >= abajo) {
-		std::cout << "FALSE"  << std::endl;
 		return false;
 	}
 
 	if (this->derecha <= izquierda) {
-		std::cout << "FALSE"  << std::endl;
 		return false;
 	}
 
 	if (this->izquierda >= derecha) {
-		std::cout << "FALSE"  << std::endl;
 		return false;
 	}
-	std::cout << ">>>>>>>>CHOCO!<<<<<<<<"  << std::endl;
+	//std::cout << ">>>>>>>>CHOCO!<<<<<<<<"  << std::endl;
 	this->setInactivo();
 	return true;
 	}else{
@@ -76,3 +72,22 @@ void Poder::activarPoder(int x,int y,int sentido ) {
 	this->sentido=sentido;
 	this->setActivo();
 }
+int Poder::getPosX(){
+	return this->izquierda;
+}
+int Poder::getPosY(){
+	return this->arriba;
+}
+int Poder::getSentido(){
+	return this->sentido;
+}
+void Poder::setPosY(int y){
+	 this->arriba = y;
+}
+void Poder::setPosX(int x){
+	 this->izquierda = x;
+}
+void Poder::setSentido(int z){
+	 this->sentido = z;
+}
+
