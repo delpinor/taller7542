@@ -13,9 +13,9 @@ void Poder::setPosInY(int y) {
 
 void Poder::move() {
 	if(estaActivo()){
-	this->izquierda +=1 * sentido;
+	this->izquierda +=5 * sentido;
 	if ((izquierda < 0) || (izquierda + 10 >= ANCHO_NIVEL)) {
-		izquierda -= 1*sentido;
+		setInactivo();
 	}
 	this->derecha=this->izquierda+10;
 	this->abajo=this->arriba+10;
