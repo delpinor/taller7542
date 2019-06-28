@@ -273,7 +273,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 
 	if (this->jugador->estaActivo()) {
 			this->texturaJugador->render(this->jugador->getPosX() - camX,
-					this->jugador->getPosY() - camY, currentClip, 0, NULL,
+					this->jugador->getPosY()-camY -360, currentClip, 0, NULL,
 					this->jugador->getDireccion(), gRenderer);
 		}
 
@@ -281,12 +281,12 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 		currentClipPoder= &gSpritePoder[0];
 		if (this->jugador->getSentidoPoder() == 1) {
 			this->texturaJugador->render(this->jugador->getPosXPoder() - camX,
-					this->jugador->getPosYPoder() - camY, currentClipPoder, 0, NULL,
+					this->jugador->getPosYPoder()-camY-360, currentClipPoder, 0, NULL,
 					SDL_FLIP_NONE, gRenderer);
 		} else {
 				this->texturaJugador->render(
-						this->jugador->getPosXPoder() - camX,
-						this->jugador->getPosYPoder() - camY, currentClipPoder, 0,
+						this->jugador->getPosXPoder() -camX,
+						this->jugador->getPosYPoder()-camY-360, currentClipPoder, 0,
 						NULL, SDL_FLIP_HORIZONTAL, gRenderer);
 		}
 
