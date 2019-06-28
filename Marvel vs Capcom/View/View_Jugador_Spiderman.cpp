@@ -948,45 +948,45 @@ void View_Jugador_Spiderman::getSpritesLanzarPoder(){
 
 }
 void View_Jugador_Spiderman::getSpritesPoder(){
-	CANTSPRITECLIPPODER = 7;
+	CANTSPRITECLIPPODER = 6;
 	MINFRAMEPODER = 0;
-	MAXFRAMEPODER = 6;
+	MAXFRAMEPODER = 5;
 	FACTORPODER = 8;
 	this->gSpritePoder = new SDL_Rect[CANTSPRITECLIPPODER];
 
-	gSpritePoder[0].x = 59;
+//	gSpritePoder[0].x = 59;
+//	gSpritePoder[0].y = 3983;
+//	gSpritePoder[0].w = 261;
+//	gSpritePoder[0].h = 150;
+
+	gSpritePoder[0].x = 320;
 	gSpritePoder[0].y = 3983;
 	gSpritePoder[0].w = 261;
 	gSpritePoder[0].h = 150;
 
-	gSpritePoder[1].x = 320;
+	gSpritePoder[1].x = 581;
 	gSpritePoder[1].y = 3983;
 	gSpritePoder[1].w = 261;
 	gSpritePoder[1].h = 150;
 
-	gSpritePoder[2].x = 581;
+	gSpritePoder[2].x = 842;
 	gSpritePoder[2].y = 3983;
 	gSpritePoder[2].w = 261;
 	gSpritePoder[2].h = 150;
 
-	gSpritePoder[3].x = 842;
+	gSpritePoder[3].x = 1103;
 	gSpritePoder[3].y = 3983;
 	gSpritePoder[3].w = 261;
 	gSpritePoder[3].h = 150;
 
-	gSpritePoder[4].x = 1103;
+	gSpritePoder[4].x = 1364;
 	gSpritePoder[4].y = 3983;
 	gSpritePoder[4].w = 261;
 	gSpritePoder[4].h = 150;
 
-	gSpritePoder[5].x = 1364;
+	gSpritePoder[5].x = 1625;
 	gSpritePoder[5].y = 3983;
 	gSpritePoder[5].w = 261;
 	gSpritePoder[5].h = 150;
-
-	gSpritePoder[6].x = 1625;
-	gSpritePoder[6].y = 3983;
-	gSpritePoder[6].w = 261;
-	gSpritePoder[6].h = 150;
 }
 
