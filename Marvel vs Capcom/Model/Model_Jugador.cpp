@@ -202,12 +202,12 @@ cout<<"pos rival y:"<<jugadorRival->estado->getPosY()<<endl;
 
 
 	//aca iria el contador
-	if (this->getTipoGolpe() == TIPO_GOLPE::GOLPE_ARROJAR)
-		this->setTipoGolpe(TIPO_GOLPE::NADA);
-	if (this->getTipoGolpe() == TIPO_GOLPE::GOLPE_PODER)
-		this->setTipoGolpe(TIPO_GOLPE::NADA);
-	if (jugadorRival->collideConPoder(&mipoder)) {
-		jugadorRival->recibeDanio(10);
+//	if (this->getTipoGolpe() == TIPO_GOLPE::GOLPE_ARROJAR)
+//				this->setTipoGolpe(TIPO_GOLPE::NADA);
+//	if (this->getTipoGolpe() == TIPO_GOLPE::GOLPE_PODER)
+//				this->setTipoGolpe(TIPO_GOLPE::NADA);
+	if (jugadorRival->collideConPoder(&mipoder)){
+				jugadorRival->recibeDanio(10);
 	}
 }
 
@@ -322,18 +322,21 @@ void Jugador::Patada(Jugador * rival) {
 void Jugador::Arrojar(Jugador * rival) {
 	if (this->getTipoGolpe() == TIPO_GOLPE::NADA) {
 		this->estado->Arrojar();
+		std::cout << "ARROJJAAAAAAARRRRRR!!!!!: " << std::endl;
 		this->setTipoGolpe(TIPO_GOLPE::GOLPE_ARROJAR);
-	}
-	int i = -1;
-	if (this->getDireccion() == SDL_FLIP_NONE)
-		i = 1;
 
-	if ((rival->collideConJugador(&mCollider))
-			&& (rival->getTipoGolpe() == TIPO_GOLPE::NADA)) {
-		rival->estado->setVelocidadX(40 * i);
-		rival->estado->setVelocidadY(20);
-		rival->setTipoGolpe(TIPO_GOLPE::GOLPE_VOLAR);
-		rival->recibeDanio(this->estado->getDanioArrojar());
+		int i = -1;
+		if (this->getDireccion() == SDL_FLIP_NONE)
+			i = 1;
+
+		if ((rival->collideConJugador(&mCollider))
+				&& (rival->getTipoGolpe() == TIPO_GOLPE::NADA)) {
+			std::cout << "VOLANDOOOOOOOOOO!!!!!: " << std::endl;
+			rival->estado->setVelocidadX(20 * i);
+			rival->estado->setVelocidadY(20);
+			rival->setTipoGolpe(TIPO_GOLPE::GOLPE_VOLAR);
+			rival->recibeDanio(this->estado->getDanioArrojar());
+		}
 	}
 }
 

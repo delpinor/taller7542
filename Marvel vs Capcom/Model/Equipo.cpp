@@ -87,20 +87,34 @@ void Equipo::move(SDL_Rect* camara){
 			getJugadorActivo()->terminarSalto();
 		}
 	}
+	if (getJugadorActivo()->getTipoGolpe() == TIPO_GOLPE::GOLPE_VOLAR)
+		cout << "Estoy volandooo!!!!!!!!" << endl;
+	if (getJugadorActivo()->getTipoGolpe() == TIPO_GOLPE::GOLPE_ARROJAR)
+		cout << "Estoy arrojandooooooo############!!!!!!!!" << endl;
 	///esto es turbio ::::
-	if (getJugadorActivo()->getTipoGolpe() != TIPO_GOLPE::GOLPE_VOLAR){
-	if (getJugadorActivo()->getTipoGolpe() != TIPO_GOLPE::NADA){
-		if (getJugadorActivo()->getTipoGolpe() == TIPO_GOLPE::DESACTIVAR_DEFENSA ||
-				getJugadorActivo()->getTipoGolpe() == TIPO_GOLPE::ACTIVAR_DEFENSA)
-			cout << "Defensaaa: " << getJugadorActivo()->getTipoGolpe() << endl;
-		if (contadorGolpe < 6){
-			contadorGolpe++;
+	if (getJugadorActivo()->getTipoGolpe() != TIPO_GOLPE::GOLPE_VOLAR) {
+		if (getJugadorActivo()->getTipoGolpe() != TIPO_GOLPE::NADA) {
+//			if (getJugadorActivo()->getTipoGolpe()
+//					== TIPO_GOLPE::DESACTIVAR_DEFENSA
+//					|| getJugadorActivo()->getTipoGolpe()
+//							== TIPO_GOLPE::ACTIVAR_DEFENSA)
+//				cout << "Defensaaa: " << getJugadorActivo()->getTipoGolpe()
+//						<< endl;
+			if (contadorGolpe < 6) {
+				contadorGolpe++;
+			} else {
+				getJugadorActivo()->setTipoGolpe(TIPO_GOLPE::NADA);
+				contadorGolpe = 0;
+			}
 		}
-		else{
+	}else{
+		if (contadorGolpe < 1000) {
+			contadorGolpe++;
+		} else {
+			cout << "TERMINANDOOO ARROJAAAAARRR####################" << endl;
 			getJugadorActivo()->setTipoGolpe(TIPO_GOLPE::NADA);
 			contadorGolpe = 0;
 		}
-	}
 	}
 	if (this->getJugadorActivo()->isFueraDePantalla()){
 		this->cambiarPersonaje(camara);

@@ -62,19 +62,27 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 	if(this->jugador->isIniciarGolpe()){
 
 		reproducir_efecto_sonido( this->jugador->getTipoGolpe());
+
+						std::cout << "se inicia el golpeee!: " << std::endl;
+						frame = 0;
+						this->jugador->setIniciarGolpe(false);
+
 	}
+	if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_VOLAR) {
 
-
-	if ((this->jugador->estado->getVelY() == 0)
+		if (frame / FACTORJUGADORLANZADO <= MAXFRAMEJUGADORLANZADO) {
+			currentClip = &gSpriteJugadorLanzado[frame / FACTORJUGADORLANZADO];
+			++frame;
+		} else {
+			std::cout << "golpe terminado" << std::endl;
+			this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
+		}
+	} else if ((this->jugador->estado->getVelY() == 0)
 			&& !(this->jugador->estado->estaSaltando())) {
 		if (this->jugador->estaAgachado()) {
 			if (this->jugador->getTipoGolpe() != TIPO_GOLPE::NADA) {
 				std::cout << "tipoGolpe: " << this->jugador->getTipoGolpe() << std::endl;
-				if (this->jugador->isIniciarGolpe()) {
-					std::cout << "se inicia la patada: " << std::endl;
-					frame = 0;
-					this->jugador->setIniciarGolpe(false);
-				}
+
 				if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADON) {
 					gSpriteGolpear = gSpritePatadonAgachado;
 					maxFrame = MAXFRAMEPATADONAGACHADO;
@@ -121,18 +129,13 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					currentClip = &gSpriteGolpear[frame / factor];
 					++frame;
 				} else {
-					std::cout << "golpe terminado" << std::endl;
 					this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
 				}
 			} else
 				currentClip = &gSpriteAgachar[0];
 		} else if (this->jugador->getTipoGolpe() != TIPO_GOLPE::NADA) {
 			std::cout << "tipoGolpe: " << this->jugador->getTipoGolpe() << std::endl;
-			if (this->jugador->isIniciarGolpe()) {
-				std::cout << "se inicia la patada: " << std::endl;
-				frame = 0;
-				this->jugador->setIniciarGolpe(false);
-			}
+
 			if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADON) {
 				gSpriteGolpear = gSpritePatadon;
 				maxFrame = MAXFRAMEPATADON;
@@ -170,21 +173,28 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 				maxFrame = MAXFRAMEPINIA;
 				factor = FACTORPINIA;
 				std::cout << "pinia parado" << std::endl;
-			}
-			else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINION) {
+			}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PINION) {
 				gSpriteGolpear = gSpritePinion;
 				maxFrame = MAXFRAMEPINION;
 				factor = FACTORPINION;
 				std::cout << "pinion parado" << std::endl;
+			} else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PODER) {
+				gSpriteGolpear = gSpritePoder;
+				maxFrame = MAXFRAMEPODER;
+				factor = FACTORPODER;
+				std::cout << "podeeerrrrr" << std::endl;
+			}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_ARROJAR) {
+				gSpriteGolpear = gSpriteLanzarJugador;
+				maxFrame = MAXFRAMELANZARJUGADOR;
+				factor = FACTORLANZARJUGADOR;
+				std::cout << "arrojand jugadorr" << std::endl;
 			}
-
 
 			if (frame / factor <= maxFrame) {
 				currentClip = &gSpriteGolpear[frame / factor];
 				++frame;
 
 			} else {
-				std::cout << "golpe terminado" << std::endl;
 				this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
 			}
 
@@ -203,16 +213,13 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 			++frame;
 		}
 	} else {
+		std::cout << "en el aireeeeeee !!!!!" << std::endl;
 		if (this->jugador->estado->estaSaltando()) {
 			if(!silencio)
 			reproducir_sonido_salto();
 			if (this->jugador->getTipoGolpe() != TIPO_GOLPE::NADA) {
 				std::cout << "tipoGolpe: " << this->jugador->getTipoGolpe() << std::endl;
-				if (this->jugador->isIniciarGolpe()) {
-					std::cout << "se inicia la patada: " << std::endl;
-					frame = 0;
-					this->jugador->setIniciarGolpe(false);
-				}
+
 				if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PATADON){
 					gSpriteGolpear = gSpritePatadonSaltando;
 					maxFrame = MAXFRAMEPATADONSALTANDO;
@@ -262,7 +269,6 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					currentClip = &gSpriteGolpear[frame / factor];
 					++frame;
 				} else {
-					std::cout << "golpe terminado" << std::endl;
 					this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
 				}
 			} else {

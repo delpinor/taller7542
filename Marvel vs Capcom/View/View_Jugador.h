@@ -45,7 +45,6 @@ public:
 	SDL_Rect  *gSpriteJugadorLanzado;
 	SDL_Rect  *gSpriteLanzarPoder;
 	SDL_Rect  *gSpritePoder;
-
 	//danio
 	SDL_Rect  *gSpriteRecibirDanio;
 	SDL_Rect * gSprite;
