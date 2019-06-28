@@ -297,7 +297,7 @@ void Model::setCamara(SDL_Rect * camara) {
 
 void Model::inicializarPosicionesEquipos(){
 	this->equipos[0]->getJugadorActivo()->estado->setPosX(0);
-	this->equipos[1]->getJugadorActivo()->estado->setPosX(502);//- this->equipos[1]->getJugadorActivo()->get_ancho());
+	this->equipos[1]->getJugadorActivo()->estado->setPosX(602);//- this->equipos[1]->getJugadorActivo()->get_ancho());
 }
 ModeloInGame Model::GetModeloInGame(){
 	ModeloInGame inGame;
