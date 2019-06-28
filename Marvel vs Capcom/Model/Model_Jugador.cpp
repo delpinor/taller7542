@@ -388,7 +388,7 @@ void Jugador::TirarPoder(Jugador * rival) {
 		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PODER);
 	}
 	if (this->getDireccion() == SDL_FLIP_NONE) {
-		mipoder.activarPoder(getCollideW(), getCollideY() + 30, 1);
+		mipoder.activarPoder(getCollideX() + getCollideW(), getCollideY() + 30, 1);
 	} else {
 		mipoder.activarPoder(getCollideX(), getCollideY() + 30, -1);
 	}
