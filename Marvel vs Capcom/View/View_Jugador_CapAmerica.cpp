@@ -38,7 +38,8 @@ void View_Jugador_CapAmerica::initialize(Jugador *model,
 
 	this->zIndex = model->get_zindex();
 	getSpritesCambioPersonaje();
-	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
+	this->texturaJugador->setColor(this->jugador->getR(), this->jugador->getG(),
+			this->jugador->getB());
 
 		//efectos de sonido
 		this->sonido_salto=new EfectoSonido(1);
@@ -118,26 +119,24 @@ void View_Jugador_CapAmerica::getSpritesAnimacion() {
 
 }
 
-void  View_Jugador_CapAmerica::reproducir_sonido_salto(){
+void View_Jugador_CapAmerica::reproducir_sonido_salto() {
 
-		this->sonido_salto->reproducir_sonido();
-
-
-}
-void  View_Jugador_CapAmerica::reproducir_sonido_cambio(){
-
-		this->sonido_cambio->reproducir_sonido();
+	this->sonido_salto->reproducir_sonido();
 
 }
-	void  View_Jugador_CapAmerica::reproducir_sonido_ataque_pu(){
+void View_Jugador_CapAmerica::reproducir_sonido_cambio() {
 
-		this->sonido_ataque_pu->reproducir_sonido();
+	this->sonido_cambio->reproducir_sonido();
 
 }
-void  View_Jugador_CapAmerica::reproducir_sonido_defensa(){
+void View_Jugador_CapAmerica::reproducir_sonido_ataque_pu() {
 
-		this->sonido_defensa->reproducir_sonido();
+	this->sonido_ataque_pu->reproducir_sonido();
 
+}
+void View_Jugador_CapAmerica::reproducir_sonido_defensa() {
+
+	this->sonido_defensa->reproducir_sonido();
 
 }
 void View_Jugador_CapAmerica::reproducir_sonido_ataque_patada(){
@@ -189,8 +188,6 @@ void View_Jugador_CapAmerica::getSpritesCaminar() {
 	gSpriteCaminar[5].h = 150;
 
 }
-
-
 
 void View_Jugador_CapAmerica::getSpritesSaltar() {
 	CANTSPRITECLIPSALTA = 7;
@@ -292,7 +289,7 @@ void View_Jugador_CapAmerica::getSpritesPatadaFuerte() {
 	gSpritePatadon[4].h = 150;
 
 }
-void View_Jugador_CapAmerica::getSpritesPatadaDebil(){
+void View_Jugador_CapAmerica::getSpritesPatadaDebil() {
 	CANTSPRITECLIPPATADA = 5;
 	MINFRAMEPATADA = 0;
 	MAXFRAMEPATADA = 4;
@@ -324,119 +321,107 @@ void View_Jugador_CapAmerica::getSpritesPatadaDebil(){
 	gSpritePatada[4].w = 261;
 	gSpritePatada[4].h = 150;
 
+}
+void View_Jugador_CapAmerica::getSpritesPinaFuerte() {
 
+	CANTSPRITECLIPPINION = 8;
+	MINFRAMEPINION = 0;
+	MAXFRAMEPINION = 7;
+	FACTORPINION = 4;
+	this->gSpritePinion = new SDL_Rect[CANTSPRITECLIPPINION];
 
+	gSpritePinion[0].x = 72;
+	gSpritePinion[0].y = 918;
+	gSpritePinion[0].w = 261;
+	gSpritePinion[0].h = 150;
 
+	gSpritePinion[1].x = 320;
+	gSpritePinion[1].y = 918;
+	gSpritePinion[1].w = 261;
+	gSpritePinion[1].h = 150;
 
+	gSpritePinion[2].x = 600;
+	gSpritePinion[2].y = 918;
+	gSpritePinion[2].w = 261;
+	gSpritePinion[2].h = 150;
 
+	gSpritePinion[3].x = 900;
+	gSpritePinion[3].y = 918;
+	gSpritePinion[3].w = 261;
+	gSpritePinion[3].h = 150;
+
+	gSpritePinion[4].x = 900;
+	gSpritePinion[4].y = 918;
+	gSpritePinion[4].w = 261;
+	gSpritePinion[4].h = 150;
+
+	gSpritePinion[5].x = 1230;
+	gSpritePinion[5].y = 918;
+	gSpritePinion[5].w = 261;
+	gSpritePinion[5].h = 150;
+
+	gSpritePinion[6].x = 1230;
+	gSpritePinion[6].y = 918;
+	gSpritePinion[6].w = 261;
+	gSpritePinion[6].h = 150;
+
+	gSpritePinion[7].x = 72;
+	gSpritePinion[7].y = 918;
+	gSpritePinion[7].w = 261;
+	gSpritePinion[7].h = 150;
 
 }
-void View_Jugador_CapAmerica::getSpritesPinaFuerte(){
-
-			CANTSPRITECLIPPINION = 8;
-			MINFRAMEPINION = 0;
-			MAXFRAMEPINION = 7;
-			FACTORPINION = 4;
-			this->gSpritePinion = new SDL_Rect[CANTSPRITECLIPPINION];
-
-
-			gSpritePinion[0].x = 72;
-			gSpritePinion[0].y =  918;
-			gSpritePinion[0].w = 261;
-			gSpritePinion[0].h = 150;
-
-			gSpritePinion[1].x = 320;
-			gSpritePinion[1].y =  918;
-			gSpritePinion[1].w = 261;
-			gSpritePinion[1].h = 150;
-
-			gSpritePinion[2].x = 600;
-			gSpritePinion[2].y =  918;
-			gSpritePinion[2].w = 261;
-			gSpritePinion[2].h = 150;
-
-			gSpritePinion[3].x = 900;
-			gSpritePinion[3].y =  918;
-			gSpritePinion[3].w = 261;
-			gSpritePinion[3].h = 150;
-
-			gSpritePinion[4].x = 900;
-			gSpritePinion[4].y =  918;
-			gSpritePinion[4].w = 261;
-			gSpritePinion[4].h = 150;
-
-			gSpritePinion[5].x = 1230;
-			gSpritePinion[5].y =  918;
-			gSpritePinion[5].w = 261;
-			gSpritePinion[5].h = 150;
-
-			gSpritePinion[6].x = 1230;
-			gSpritePinion[6].y =  918;
-			gSpritePinion[6].w = 261;
-			gSpritePinion[6].h = 150;
-
-			gSpritePinion[7].x = 72;
-			gSpritePinion[7].y =  918;
-			gSpritePinion[7].w = 261;
-			gSpritePinion[7].h = 150;
-
-
-}
-void View_Jugador_CapAmerica::getSpritesPinaDebil(){
+void View_Jugador_CapAmerica::getSpritesPinaDebil() {
 	CANTSPRITECLIPPINIA = 7;
 	MINFRAMEPINIA = 0;
 	MAXFRAMEPINIA = 6;
 	FACTORPINIA = 4;
 	this->gSpritePinia = new SDL_Rect[CANTSPRITECLIPPINIA];
 
-		gSpritePinia[0].x = 0;
-		gSpritePinia[0].y = 752;
-		gSpritePinia[0].w = 261;
-		gSpritePinia[0].h = 150;
+	gSpritePinia[0].x = 0;
+	gSpritePinia[0].y = 752;
+	gSpritePinia[0].w = 261;
+	gSpritePinia[0].h = 150;
 
-		gSpritePinia[1].x = 490;
-		gSpritePinia[1].y = 752;
-		gSpritePinia[1].w = 261;
-		gSpritePinia[1].h = 150;
+	gSpritePinia[1].x = 490;
+	gSpritePinia[1].y = 752;
+	gSpritePinia[1].w = 261;
+	gSpritePinia[1].h = 150;
 
-		gSpritePinia[2].x = 490;
-		gSpritePinia[2].y = 752;
-		gSpritePinia[2].w = 261;
-		gSpritePinia[2].h = 150;
+	gSpritePinia[2].x = 490;
+	gSpritePinia[2].y = 752;
+	gSpritePinia[2].w = 261;
+	gSpritePinia[2].h = 150;
 
-		gSpritePinia[3].x = 240;
-		gSpritePinia[3].y = 752;
-		gSpritePinia[3].w = 261;
-		gSpritePinia[3].h = 150;
+	gSpritePinia[3].x = 240;
+	gSpritePinia[3].y = 752;
+	gSpritePinia[3].w = 261;
+	gSpritePinia[3].h = 150;
 
-		gSpritePinia[4].x = 240;
-		gSpritePinia[4].y = 752;
-		gSpritePinia[4].w = 261;
-		gSpritePinia[4].h = 150;
+	gSpritePinia[4].x = 240;
+	gSpritePinia[4].y = 752;
+	gSpritePinia[4].w = 261;
+	gSpritePinia[4].h = 150;
 
+	gSpritePinia[5].x = 240;
+	gSpritePinia[5].y = 752;
+	gSpritePinia[5].w = 261;
+	gSpritePinia[5].h = 150;
 
-		gSpritePinia[5].x = 240;
-		gSpritePinia[5].y = 752;
-		gSpritePinia[5].w = 261;
-		gSpritePinia[5].h = 150;
-
-		gSpritePinia[6].x = 490;
-		gSpritePinia[6].y = 752;
-		gSpritePinia[6].w = 261;
-		gSpritePinia[6].h = 150;
-
-
-
+	gSpritePinia[6].x = 490;
+	gSpritePinia[6].y = 752;
+	gSpritePinia[6].w = 261;
+	gSpritePinia[6].h = 150;
 
 }
-void View_Jugador_CapAmerica::getSpritesDefensa(){
+void View_Jugador_CapAmerica::getSpritesDefensa() {
 
-		this->gSpriteDefensa = new SDL_Rect[1];
+	this->gSpriteDefensa = new SDL_Rect[1];
 
-		gSpriteDefensa [0].x = 0;
-		gSpriteDefensa [0].y = 752;
-		gSpriteDefensa [0].w = 261;
-		gSpriteDefensa [0].h = 150;
+	gSpriteDefensa[0].x = 0;
+	gSpriteDefensa[0].y = 752;
+	gSpriteDefensa[0].w = 261;
+	gSpriteDefensa[0].h = 150;
 }
 void View_Jugador_CapAmerica::getSpritesDefensaSaltando() {
 	this->gSpriteDefensaSaltando = new SDL_Rect[1];
@@ -447,75 +432,71 @@ void View_Jugador_CapAmerica::getSpritesDefensaSaltando() {
 }
 
 void View_Jugador_CapAmerica::getSpritesDefensaAgachado() {
-	this->gSpriteDefensaAgachado= new SDL_Rect[1];
+	this->gSpriteDefensaAgachado = new SDL_Rect[1];
 	gSpriteDefensaAgachado[0].x = 275;
 	gSpriteDefensaAgachado[0].y = 570;
 	gSpriteDefensaAgachado[0].w = 261;
 	gSpriteDefensaAgachado[0].h = 150;
 }
-void View_Jugador_CapAmerica::getSpritesPatadaFuerte_agachado(){
+void View_Jugador_CapAmerica::getSpritesPatadaFuerte_agachado() {
 	CANTSPRITECLIPPATADONAGACHADO = 9;
 	MINFRAMEPATADONAGACHADO = 0;
 	MAXFRAMEPATADONAGACHADO = 8;
 	FACTORPATADONAGACHADO = 3;
 	this->gSpritePatadonAgachado = new SDL_Rect[CANTSPRITECLIPPATADONAGACHADO];
 
-		gSpritePatadonAgachado[0].x = 17;
-		gSpritePatadonAgachado[0].y = 363;
-		gSpritePatadonAgachado[0].w = 261;
-		gSpritePatadonAgachado[0].h = 150;
+	gSpritePatadonAgachado[0].x = 17;
+	gSpritePatadonAgachado[0].y = 363;
+	gSpritePatadonAgachado[0].w = 261;
+	gSpritePatadonAgachado[0].h = 150;
 
-		gSpritePatadonAgachado[1].x = 785;
-		gSpritePatadonAgachado[1].y = 1657;
-		gSpritePatadonAgachado[1].w = 261;
-		gSpritePatadonAgachado[1].h = 150;
+	gSpritePatadonAgachado[1].x = 785;
+	gSpritePatadonAgachado[1].y = 1657;
+	gSpritePatadonAgachado[1].w = 261;
+	gSpritePatadonAgachado[1].h = 150;
 
-		gSpritePatadonAgachado[2].x = 1505;
-		gSpritePatadonAgachado[2].y = 1657;
-		gSpritePatadonAgachado[2].w = 261;
-		gSpritePatadonAgachado[2].h = 150;
+	gSpritePatadonAgachado[2].x = 1505;
+	gSpritePatadonAgachado[2].y = 1657;
+	gSpritePatadonAgachado[2].w = 261;
+	gSpritePatadonAgachado[2].h = 150;
 
-		gSpritePatadonAgachado[3].x = 1236;
-		gSpritePatadonAgachado[3].y = 1657;
-		gSpritePatadonAgachado[3].w = 261;
-		gSpritePatadonAgachado[3].h = 150;
+	gSpritePatadonAgachado[3].x = 1236;
+	gSpritePatadonAgachado[3].y = 1657;
+	gSpritePatadonAgachado[3].w = 261;
+	gSpritePatadonAgachado[3].h = 150;
 
-		gSpritePatadonAgachado[4].x = 1010;
-		gSpritePatadonAgachado[4].y = 1657;
-		gSpritePatadonAgachado[4].w = 261;
-		gSpritePatadonAgachado[4].h = 150;
+	gSpritePatadonAgachado[4].x = 1010;
+	gSpritePatadonAgachado[4].y = 1657;
+	gSpritePatadonAgachado[4].w = 261;
+	gSpritePatadonAgachado[4].h = 150;
 
-		gSpritePatadonAgachado[5].x = 785;
-		gSpritePatadonAgachado[5].y = 1657;
-		gSpritePatadonAgachado[5].w = 261;
-		gSpritePatadonAgachado[5].h = 150;
+	gSpritePatadonAgachado[5].x = 785;
+	gSpritePatadonAgachado[5].y = 1657;
+	gSpritePatadonAgachado[5].w = 261;
+	gSpritePatadonAgachado[5].h = 150;
 
-		gSpritePatadonAgachado[6].x = 1505;
-		gSpritePatadonAgachado[6].y = 1657;
-		gSpritePatadonAgachado[6].w = 261;
-		gSpritePatadonAgachado[6].h = 150;
+	gSpritePatadonAgachado[6].x = 1505;
+	gSpritePatadonAgachado[6].y = 1657;
+	gSpritePatadonAgachado[6].w = 261;
+	gSpritePatadonAgachado[6].h = 150;
 
-		gSpritePatadonAgachado[7].x = 1236;
-		gSpritePatadonAgachado[7].y = 1657;
-		gSpritePatadonAgachado[7].w = 261;
-		gSpritePatadonAgachado[7].h = 150;
+	gSpritePatadonAgachado[7].x = 1236;
+	gSpritePatadonAgachado[7].y = 1657;
+	gSpritePatadonAgachado[7].w = 261;
+	gSpritePatadonAgachado[7].h = 150;
 
-		gSpritePatadonAgachado[8].x = 1010;
-		gSpritePatadonAgachado[8].y = 1657;
-		gSpritePatadonAgachado[8].w = 261;
-		gSpritePatadonAgachado[8].h = 150;
-
-
+	gSpritePatadonAgachado[8].x = 1010;
+	gSpritePatadonAgachado[8].y = 1657;
+	gSpritePatadonAgachado[8].w = 261;
+	gSpritePatadonAgachado[8].h = 150;
 
 }
-void View_Jugador_CapAmerica::getSpritesPatadaDebil_agachado(){
+void View_Jugador_CapAmerica::getSpritesPatadaDebil_agachado() {
 	CANTSPRITECLIPPATADAAGACHADO = 6;
 	MINFRAMEPATADAAGACHADO = 0;
 	MAXFRAMEPATADAAGACHADO = 5;
 	FACTORPATADAAGACHADO = 3;
 	this->gSpritePatadaAgachado = new SDL_Rect[CANTSPRITECLIPPATADAAGACHADO];
-
-
 
 	gSpritePatadaAgachado[0].x = 17;
 	gSpritePatadaAgachado[0].y = 363;
@@ -547,64 +528,61 @@ void View_Jugador_CapAmerica::getSpritesPatadaDebil_agachado(){
 	gSpritePatadaAgachado[5].w = 261;
 	gSpritePatadaAgachado[5].h = 150;
 
-
 }
-void View_Jugador_CapAmerica::getSpritesPinaFuerte_agachado(){
+void View_Jugador_CapAmerica::getSpritesPinaFuerte_agachado() {
 	CANTSPRITECLIPPINIONAGACHADO = 9;
 	MINFRAMEPINIONAGACHADO = 0;
 	MAXFRAMEPINIONAGACHADO = 8;
 	FACTORPINIONAGACHADO = 3;
 	this->gSpritePinionAgachado = new SDL_Rect[CANTSPRITECLIPPINIONAGACHADO];
 
+	gSpritePinionAgachado[0].x = 17;
+	gSpritePinionAgachado[0].y = 363;
+	gSpritePinionAgachado[0].w = 261;
+	gSpritePinionAgachado[0].h = 150;
 
-		gSpritePinionAgachado[0].x = 17;
-		gSpritePinionAgachado[0].y = 363;
-		gSpritePinionAgachado[0].w = 261;
-		gSpritePinionAgachado[0].h = 150;
+	gSpritePinionAgachado[1].x = 1150;
+	gSpritePinionAgachado[1].y = 572;
+	gSpritePinionAgachado[1].w = 261;
+	gSpritePinionAgachado[1].h = 150;
 
-		gSpritePinionAgachado[1].x = 1150;
-		gSpritePinionAgachado[1].y = 572;
-		gSpritePinionAgachado[1].w = 261;
-		gSpritePinionAgachado[1].h = 150;
+	gSpritePinionAgachado[2].x = 1614;
+	gSpritePinionAgachado[2].y = 572;
+	gSpritePinionAgachado[2].w = 261;
+	gSpritePinionAgachado[2].h = 150;
 
-		gSpritePinionAgachado[2].x = 1614;
-		gSpritePinionAgachado[2].y = 572;
-		gSpritePinionAgachado[2].w = 261;
-		gSpritePinionAgachado[2].h = 150;
+	gSpritePinionAgachado[3].x = 1857;
+	gSpritePinionAgachado[3].y = 572;
+	gSpritePinionAgachado[3].w = 261;
+	gSpritePinionAgachado[3].h = 150;
 
-		gSpritePinionAgachado[3].x = 1857;
-		gSpritePinionAgachado[3].y = 572;
-		gSpritePinionAgachado[3].w = 261;
-		gSpritePinionAgachado[3].h = 150;
+	gSpritePinionAgachado[4].x = 1857;
+	gSpritePinionAgachado[4].y = 572;
+	gSpritePinionAgachado[4].w = 261;
+	gSpritePinionAgachado[4].h = 150;
 
-		gSpritePinionAgachado[4].x = 1857;
-		gSpritePinionAgachado[4].y = 572;
-		gSpritePinionAgachado[4].w = 261;
-		gSpritePinionAgachado[4].h = 150;
+	gSpritePinionAgachado[5].x = 1857;
+	gSpritePinionAgachado[5].y = 572;
+	gSpritePinionAgachado[5].w = 261;
+	gSpritePinionAgachado[5].h = 150;
 
-		gSpritePinionAgachado[5].x = 1857;
-		gSpritePinionAgachado[5].y = 572;
-		gSpritePinionAgachado[5].w = 261;
-		gSpritePinionAgachado[5].h = 150;
+	gSpritePinionAgachado[6].x = 1857;
+	gSpritePinionAgachado[6].y = 572;
+	gSpritePinionAgachado[6].w = 261;
+	gSpritePinionAgachado[6].h = 150;
 
-		gSpritePinionAgachado[6].x = 1857;
-		gSpritePinionAgachado[6].y = 572;
-		gSpritePinionAgachado[6].w = 261;
-		gSpritePinionAgachado[6].h = 150;
+	gSpritePinionAgachado[7].x = 2105;
+	gSpritePinionAgachado[7].y = 572;
+	gSpritePinionAgachado[7].w = 261;
+	gSpritePinionAgachado[7].h = 150;
 
-		gSpritePinionAgachado[7].x = 2105;
-		gSpritePinionAgachado[7].y = 572;
-		gSpritePinionAgachado[7].w = 261;
-		gSpritePinionAgachado[7].h = 150;
-
-		gSpritePinionAgachado[8].x = 17;
-		gSpritePinionAgachado[8].y = 363;
-		gSpritePinionAgachado[8].w = 261;
-		gSpritePinionAgachado[8].h = 150;
-
+	gSpritePinionAgachado[8].x = 17;
+	gSpritePinionAgachado[8].y = 363;
+	gSpritePinionAgachado[8].w = 261;
+	gSpritePinionAgachado[8].h = 150;
 
 }
-void View_Jugador_CapAmerica::getSpritesPinaDebil_agachado(){
+void View_Jugador_CapAmerica::getSpritesPinaDebil_agachado() {
 
 	CANTSPRITECLIPPINIAAGACHADO = 6;
 	MINFRAMEPINIAAGACHADO = 0;
@@ -612,37 +590,35 @@ void View_Jugador_CapAmerica::getSpritesPinaDebil_agachado(){
 	FACTORPINIAAGACHADO = 2;
 	this->gSpritePiniaAgachado = new SDL_Rect[CANTSPRITECLIPPINIAAGACHADO];
 
-			gSpritePiniaAgachado [0].x = 17;
-			gSpritePiniaAgachado [0].y = 363;
-			gSpritePiniaAgachado [0].w = 261;
-			gSpritePiniaAgachado [0].h = 150;
+	gSpritePiniaAgachado[0].x = 17;
+	gSpritePiniaAgachado[0].y = 363;
+	gSpritePiniaAgachado[0].w = 261;
+	gSpritePiniaAgachado[0].h = 150;
 
-			gSpritePiniaAgachado [1].x = 1150;
-			gSpritePiniaAgachado [1].y = 576;
-			gSpritePiniaAgachado [1].w = 261;
-			gSpritePiniaAgachado [1].h = 150;
+	gSpritePiniaAgachado[1].x = 1150;
+	gSpritePiniaAgachado[1].y = 576;
+	gSpritePiniaAgachado[1].w = 261;
+	gSpritePiniaAgachado[1].h = 150;
 
-			gSpritePiniaAgachado [2].x = 1150;
-			gSpritePiniaAgachado [2].y = 576;
-			gSpritePiniaAgachado [2].w = 261;
-			gSpritePiniaAgachado [2].h = 150;
+	gSpritePiniaAgachado[2].x = 1150;
+	gSpritePiniaAgachado[2].y = 576;
+	gSpritePiniaAgachado[2].w = 261;
+	gSpritePiniaAgachado[2].h = 150;
 
-			gSpritePiniaAgachado [3].x = 1150;
-			gSpritePiniaAgachado [3].y = 576;
-			gSpritePiniaAgachado [3].w = 261;
-			gSpritePiniaAgachado [3].h = 150;
+	gSpritePiniaAgachado[3].x = 1150;
+	gSpritePiniaAgachado[3].y = 576;
+	gSpritePiniaAgachado[3].w = 261;
+	gSpritePiniaAgachado[3].h = 150;
 
-			gSpritePiniaAgachado [4].x = 1150;
-			gSpritePiniaAgachado [4].y = 576;
-			gSpritePiniaAgachado [4].w = 261;
-			gSpritePiniaAgachado [4].h = 150;
+	gSpritePiniaAgachado[4].x = 1150;
+	gSpritePiniaAgachado[4].y = 576;
+	gSpritePiniaAgachado[4].w = 261;
+	gSpritePiniaAgachado[4].h = 150;
 
-			gSpritePiniaAgachado [5].x = 17;
-			gSpritePiniaAgachado [5].y = 363;
-			gSpritePiniaAgachado [5].w = 261;
-			gSpritePiniaAgachado [5].h = 150;
-
-
+	gSpritePiniaAgachado[5].x = 17;
+	gSpritePiniaAgachado[5].y = 363;
+	gSpritePiniaAgachado[5].w = 261;
+	gSpritePiniaAgachado[5].h = 150;
 
 }
 void View_Jugador_CapAmerica::getSpritesPatadaDebilSaltando() {
@@ -652,23 +628,20 @@ void View_Jugador_CapAmerica::getSpritesPatadaDebilSaltando() {
 	FACTORPATADASALTANDO = 2;
 	this->gSpritePatadaSaltando = new SDL_Rect[CANTSPRITECLIPPATADASALTANDO];
 
-		gSpritePatadaSaltando[0].x = 323;
-		gSpritePatadaSaltando[0].y = 1297;
-		gSpritePatadaSaltando[0].w = 261;
-		gSpritePatadaSaltando[0].h = 150;
+	gSpritePatadaSaltando[0].x = 323;
+	gSpritePatadaSaltando[0].y = 1297;
+	gSpritePatadaSaltando[0].w = 261;
+	gSpritePatadaSaltando[0].h = 150;
 
-		gSpritePatadaSaltando[1].x = 113;
-		gSpritePatadaSaltando[1].y = 1297;
-		gSpritePatadaSaltando[1].w = 261;
-		gSpritePatadaSaltando[1].h = 150;
+	gSpritePatadaSaltando[1].x = 113;
+	gSpritePatadaSaltando[1].y = 1297;
+	gSpritePatadaSaltando[1].w = 261;
+	gSpritePatadaSaltando[1].h = 150;
 
-		gSpritePatadaSaltando[2].x = 113;
-		gSpritePatadaSaltando[2].y = 1297;
-		gSpritePatadaSaltando[2].w = 261;
-		gSpritePatadaSaltando[2].h = 150;
-
-
-
+	gSpritePatadaSaltando[2].x = 113;
+	gSpritePatadaSaltando[2].y = 1297;
+	gSpritePatadaSaltando[2].w = 261;
+	gSpritePatadaSaltando[2].h = 150;
 
 }
 
@@ -706,70 +679,76 @@ void View_Jugador_CapAmerica::getSpritesPatadaFuerteSaltando() {
 
 }
 
-void View_Jugador_CapAmerica::getSpritesPinaFuerteSaltando(){
+void View_Jugador_CapAmerica::getSpritesPinaFuerteSaltando() {
 
-			CANTSPRITECLIPPINIONSALTANDO = 8;
-			MINFRAMEPINIONSALTANDO = 0;
-			MAXFRAMEPINIONSALTANDO = 7;
-			FACTORPINIONSALTANDO = 2;
-			this->gSpritePinionSaltando = new SDL_Rect[CANTSPRITECLIPPINIONSALTANDO ];
+	CANTSPRITECLIPPINIONSALTANDO = 8;
+	MINFRAMEPINIONSALTANDO = 0;
+	MAXFRAMEPINIONSALTANDO = 7;
+	FACTORPINIONSALTANDO = 2;
+	this->gSpritePinionSaltando = new SDL_Rect[CANTSPRITECLIPPINIONSALTANDO];
 
+	gSpritePinionSaltando[0].x = 72;
+	gSpritePinionSaltando[0].y = 918;
+	gSpritePinionSaltando[0].w = 261;
+	gSpritePinionSaltando[0].h = 150;
 
-			gSpritePinionSaltando[0].x = 72;
-			gSpritePinionSaltando[0].y =  918;
-			gSpritePinionSaltando[0].w = 261;
-			gSpritePinionSaltando[0].h = 150;
+	gSpritePinionSaltando[1].x = 320;
+	gSpritePinionSaltando[1].y = 918;
+	gSpritePinionSaltando[1].w = 261;
+	gSpritePinionSaltando[1].h = 150;
 
-			gSpritePinionSaltando[1].x = 320;
-			gSpritePinionSaltando[1].y =  918;
-			gSpritePinionSaltando[1].w = 261;
-			gSpritePinionSaltando[1].h = 150;
+	gSpritePinionSaltando[2].x = 600;
+	gSpritePinionSaltando[2].y = 918;
+	gSpritePinionSaltando[2].w = 261;
+	gSpritePinionSaltando[2].h = 150;
 
-			gSpritePinionSaltando[2].x = 600;
-			gSpritePinionSaltando[2].y =  918;
-			gSpritePinionSaltando[2].w = 261;
-			gSpritePinionSaltando[2].h = 150;
+	gSpritePinionSaltando[3].x = 900;
+	gSpritePinionSaltando[3].y = 918;
+	gSpritePinionSaltando[3].w = 261;
+	gSpritePinionSaltando[3].h = 150;
 
-			gSpritePinionSaltando[3].x = 900;
-			gSpritePinionSaltando[3].y =  918;
-			gSpritePinionSaltando[3].w = 261;
-			gSpritePinionSaltando[3].h = 150;
+	gSpritePinionSaltando[4].x = 900;
+	gSpritePinionSaltando[4].y = 918;
+	gSpritePinionSaltando[4].w = 261;
+	gSpritePinionSaltando[4].h = 150;
 
-			gSpritePinionSaltando[4].x = 900;
-			gSpritePinionSaltando[4].y =  918;
-			gSpritePinionSaltando[4].w = 261;
-			gSpritePinionSaltando[4].h = 150;
+	gSpritePinionSaltando[5].x = 1230;
+	gSpritePinionSaltando[5].y = 918;
+	gSpritePinionSaltando[5].w = 261;
+	gSpritePinionSaltando[5].h = 150;
 
-			gSpritePinionSaltando[5].x = 1230;
-			gSpritePinionSaltando[5].y =  918;
-			gSpritePinionSaltando[5].w = 261;
-			gSpritePinionSaltando[5].h = 150;
+	gSpritePinionSaltando[6].x = 1230;
+	gSpritePinionSaltando[6].y = 918;
+	gSpritePinionSaltando[6].w = 261;
+	gSpritePinionSaltando[6].h = 150;
 
-			gSpritePinionSaltando[6].x = 1230;
-			gSpritePinionSaltando[6].y =  918;
-			gSpritePinionSaltando[6].w = 261;
-			gSpritePinionSaltando[6].h = 150;
-
-			gSpritePinionSaltando[7].x = 72;
-			gSpritePinionSaltando[7].y =  918;
-			gSpritePinionSaltando[7].w = 261;
-			gSpritePinionSaltando[7].h = 150;
-
+	gSpritePinionSaltando[7].x = 72;
+	gSpritePinionSaltando[7].y = 918;
+	gSpritePinionSaltando[7].w = 261;
+	gSpritePinionSaltando[7].h = 150;
 
 }
-void View_Jugador_CapAmerica::getSpritesPinaDebilSaltando(){
+void View_Jugador_CapAmerica::getSpritesPinaDebilSaltando() {
 	CANTSPRITECLIPPINIASALTANDO = 3;
 	MINFRAMEPINIASALTANDO = 0;
 	MAXFRAMEPINIASALTANDO = 2;
 	FACTORPINIASALTANDO = 2;
-	this->gSpritePiniaSaltando = new SDL_Rect[CANTSPRITECLIPPINIASALTANDO ];
+	this->gSpritePiniaSaltando = new SDL_Rect[CANTSPRITECLIPPINIASALTANDO];
 
+	gSpritePiniaSaltando[0].x = 490;
+	gSpritePiniaSaltando[0].y = 752;
+	gSpritePiniaSaltando[0].w = 261;
+	gSpritePiniaSaltando[0].h = 150;
 
+	gSpritePiniaSaltando[1].x = 240;
+	gSpritePiniaSaltando[1].y = 752;
+	gSpritePiniaSaltando[1].w = 261;
+	gSpritePiniaSaltando[1].h = 150;
 
-		gSpritePiniaSaltando[0].x = 490;
-		gSpritePiniaSaltando[0].y = 752;
-		gSpritePiniaSaltando[0].w = 261;
-		gSpritePiniaSaltando[0].h = 150;
+	gSpritePiniaSaltando[2].x = 240;
+	gSpritePiniaSaltando[2].y = 752;
+	gSpritePiniaSaltando[2].w = 261;
+	gSpritePiniaSaltando[2].h = 150;
 
 		gSpritePiniaSaltando[1].x = 240;
 		gSpritePiniaSaltando[1].y = 752;

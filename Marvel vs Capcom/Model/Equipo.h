@@ -29,6 +29,7 @@ public:
 	std::queue<Command*> cambios;
 	int contadorGolpe = 0;
 	int rondasGanadas = 0;
+	int constanteVolar = 0;
 
 public:
 	Equipo();
