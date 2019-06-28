@@ -91,7 +91,7 @@ int Jugador::getCollideH() {
 }
 bool Jugador::collideConPoder(Poder * poder) {
 	return poder->colision(this->getCollideX(), this->getCollideY(),
-			this->getCollideW(), this->getCollideH());
+			this->getCollideW()+this->getCollideX(), this->getCollideH() +this->getCollideY());
 }
 std::string Jugador::getNombre() {
 
