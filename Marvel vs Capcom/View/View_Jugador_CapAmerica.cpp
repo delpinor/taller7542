@@ -35,6 +35,7 @@ void View_Jugador_CapAmerica::initialize(Jugador *model,
 	getSpritesPinaDebilSaltando();
 	getSpritesRecibirDanio();
 	getSpritesPoder();
+	getSpritesLanzarPoder();
 
 	this->zIndex = model->get_zindex();
 	getSpritesCambioPersonaje();
@@ -774,6 +775,45 @@ void View_Jugador_CapAmerica::getSpritesRecibirDanio() {
 	gSpriteRecibirDanio[0].h = 150;
 }
 
+void View_Jugador_CapAmerica::getSpritesLanzarPoder(){
+	CANTSPRITECLIPLANZARPODER = 2;
+	MINFRAMELANZARPODER = 0;
+	MAXFRAMELANZARPODER = 1;
+	FACTORLANZARPODER = 10;
+	this->gSpriteLanzarPoder = new SDL_Rect[CANTSPRITECLIPLANZARPODER];
+
+	gSpriteLanzarPoder[0].x = 81;
+	gSpriteLanzarPoder[0].y = 1081;
+	gSpriteLanzarPoder[0].w = 261;
+	gSpriteLanzarPoder[0].h = 150;
+
+	gSpriteLanzarPoder[1].x = 374;
+	gSpriteLanzarPoder[1].y = 1081;
+	gSpriteLanzarPoder[1].w = 261;
+	gSpriteLanzarPoder[1].h = 150;
+
+//	gSpriteLanzarPoder[2].x = 81;
+//	gSpriteLanzarPoder[2].y = 1081;
+//	gSpriteLanzarPoder[2].w = 261;
+//	gSpriteLanzarPoder[2].h = 150;
+//
+//	gSpriteLanzarPoder[3].x = 81;
+//	gSpriteLanzarPoder[3].y = 1081;
+//	gSpriteLanzarPoder[3].w = 261;
+//	gSpriteLanzarPoder[3].h = 150;
+//
+//	gSpriteLanzarPoder[4].x = 81;
+//	gSpriteLanzarPoder[4].y = 1081;
+//	gSpriteLanzarPoder[4].w = 261;
+//	gSpriteLanzarPoder[4].h = 150;
+//
+//	gSpriteLanzarPoder[5].x = 81;
+//	gSpriteLanzarPoder[5].y = 1081;
+//	gSpriteLanzarPoder[5].w = 261;
+//	gSpriteLanzarPoder[5].h = 150;
+
+}
+
 void View_Jugador_CapAmerica::getSpritesPoder(){
 	CANTSPRITECLIPPODER = 7;
 	MINFRAMEPODER = 0;
@@ -781,38 +821,38 @@ void View_Jugador_CapAmerica::getSpritesPoder(){
 	FACTORPODER = 8;
 	this->gSpritePoder = new SDL_Rect[CANTSPRITECLIPPODER];
 
-	gSpritePoder[0].x = 59;
-	gSpritePoder[0].y = 3983;
+	gSpritePoder[0].x = 758;
+	gSpritePoder[0].y = 1104;
 	gSpritePoder[0].w = 261;
 	gSpritePoder[0].h = 150;
 
-	gSpritePoder[1].x = 320;
-	gSpritePoder[1].y = 3983;
+	gSpritePoder[1].x = 758;
+	gSpritePoder[1].y = 1104;
 	gSpritePoder[1].w = 261;
 	gSpritePoder[1].h = 150;
 
-	gSpritePoder[2].x = 581;
-	gSpritePoder[2].y = 3983;
+	gSpritePoder[2].x = 758;
+	gSpritePoder[2].y = 1104;
 	gSpritePoder[2].w = 261;
 	gSpritePoder[2].h = 150;
 
-	gSpritePoder[3].x = 842;
-	gSpritePoder[3].y = 3983;
+	gSpritePoder[3].x = 758;
+	gSpritePoder[3].y = 1104;
 	gSpritePoder[3].w = 261;
 	gSpritePoder[3].h = 150;
 
-	gSpritePoder[4].x = 1103;
-	gSpritePoder[4].y = 3983;
+	gSpritePoder[4].x = 758;
+	gSpritePoder[4].y = 1104;
 	gSpritePoder[4].w = 261;
 	gSpritePoder[4].h = 150;
 
-	gSpritePoder[5].x = 1364;
-	gSpritePoder[5].y = 3983;
+	gSpritePoder[5].x = 758;
+	gSpritePoder[5].y = 1104;
 	gSpritePoder[5].w = 261;
 	gSpritePoder[5].h = 150;
 
-	gSpritePoder[6].x = 1625;
-	gSpritePoder[6].y = 3983;
+	gSpritePoder[6].x = 758;
+	gSpritePoder[6].y = 1104;
 	gSpritePoder[6].w = 261;
 	gSpritePoder[6].h = 150;
 }

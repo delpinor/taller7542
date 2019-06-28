@@ -49,6 +49,7 @@ protected:
 	void getSpritesPinaDebilSaltando();
 	void getSpritesRecibirDanio();
 	void getSpritesPoder();
+	void getSpritesLanzarPoder();
 
 };
 
