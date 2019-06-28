@@ -193,6 +193,7 @@ protected:
 
 	LTexture * texturaJugador;
 	int frame = 0;
+	int framePoder = 0;
 	SDL_RendererFlip direccion;
 	void getSpritesCaminar();
 	int zIndex;

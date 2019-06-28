@@ -297,7 +297,12 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 		}
 
 	if (this->jugador->poderActivo()) {
-		currentClipPoder= &gSpritePoder[0];
+		if (framePoder / FACTORPODER > MAXFRAMEPODER) {
+						framePoder= MINFRAMEPODER;
+					}
+
+		currentClipPoder= &gSpritePoder[framePoder / FACTORPODER];
+		framePoder++;
 		if (this->jugador->getSentidoPoder() == 1) {
 			this->texturaJugador->render(this->jugador->getPosXPoder() - camX,
 					this->jugador->getPosYPoder()-camY-DISTANCIAPISO, currentClipPoder, 0, NULL,
