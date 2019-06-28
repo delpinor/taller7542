@@ -24,7 +24,7 @@ Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &
 	this->zindex= zind;
 	this->nombre=nom;
 	this->pathImagen=path;
-	this->mCollider.w =60;
+	this->mCollider.w =100;
 
 	this->mCollider.h = 100 ;
 
