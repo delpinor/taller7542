@@ -37,6 +37,7 @@ void View_Jugador_ChunLi::initialize(Jugador *model,
 	getSpritesDefensaSaltando();
 	getSpritesRecibirDanio();
 	getSpritesPoder();
+	getSpritesLanzarPoder();
 	getSpritesArrojando();
 	getSpritesVolando();
 	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
@@ -694,6 +695,51 @@ void View_Jugador_ChunLi::getSpritesRecibirDanio() {
 	gSpriteRecibirDanio[0].w = 261;
 	gSpriteRecibirDanio[0].h = 150;
 }
+
+void View_Jugador_ChunLi::getSpritesLanzarPoder(){
+	CANTSPRITECLIPLANZARPODER = 7;
+	MINFRAMELANZARPODER = 0;
+	MAXFRAMELANZARPODER = 6;
+	FACTORLANZARPODER = 3;
+	this->gSpriteLanzarPoder = new SDL_Rect[CANTSPRITECLIPLANZARPODER];
+
+	gSpriteLanzarPoder[0].x = 4;
+	gSpriteLanzarPoder[0].y = 384;
+	gSpriteLanzarPoder[0].w = 261;
+	gSpriteLanzarPoder[0].h = 150;
+
+	gSpriteLanzarPoder[1].x = 202;
+	gSpriteLanzarPoder[1].y = 384;
+	gSpriteLanzarPoder[1].w = 261;
+	gSpriteLanzarPoder[1].h = 150;
+
+	gSpriteLanzarPoder[2].x = 416;
+	gSpriteLanzarPoder[2].y = 384;
+	gSpriteLanzarPoder[2].w = 261;
+	gSpriteLanzarPoder[2].h = 150;
+
+	gSpriteLanzarPoder[3].x = 633;
+	gSpriteLanzarPoder[3].y = 384;
+	gSpriteLanzarPoder[3].w = 261;
+	gSpriteLanzarPoder[3].h = 150;
+
+	gSpriteLanzarPoder[4].x = 828;
+	gSpriteLanzarPoder[4].y = 384;
+	gSpriteLanzarPoder[4].w = 261;
+	gSpriteLanzarPoder[4].h = 150;
+
+	gSpriteLanzarPoder[5].x = 1073;
+	gSpriteLanzarPoder[5].y = 384;
+	gSpriteLanzarPoder[5].w = 261;
+	gSpriteLanzarPoder[5].h = 150;
+
+	gSpriteLanzarPoder[6].x = 1320;
+	gSpriteLanzarPoder[6].y = 384;
+	gSpriteLanzarPoder[6].w = 261;
+	gSpriteLanzarPoder[6].h = 150;
+
+}
+
 void View_Jugador_ChunLi::getSpritesPoder(){
 	CANTSPRITECLIPPODER = 7;
 	MINFRAMEPODER = 0;
@@ -701,7 +747,7 @@ void View_Jugador_ChunLi::getSpritesPoder(){
 	FACTORPODER = 3;
 	this->gSpritePoder = new SDL_Rect[CANTSPRITECLIPPODER];
 
-	gSpritePoder[0].x = 4;
+	gSpritePoder[0].x = 1787;
 	gSpritePoder[0].y = 384;
 	gSpritePoder[0].w = 261;
 	gSpritePoder[0].h = 150;

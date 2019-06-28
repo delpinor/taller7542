@@ -179,9 +179,9 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 				factor = FACTORPINION;
 				std::cout << "pinion parado" << std::endl;
 			} else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PODER) {
-				gSpriteGolpear = gSpritePoder;
-				maxFrame = MAXFRAMEPODER;
-				factor = FACTORPODER;
+				gSpriteGolpear = gSpriteLanzarPoder;
+				maxFrame = MAXFRAMELANZARPODER;
+				factor = FACTORLANZARPODER;
 				std::cout << "podeeerrrrr" << std::endl;
 			}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_ARROJAR) {
 				gSpriteGolpear = gSpriteLanzarJugador;

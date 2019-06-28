@@ -922,27 +922,27 @@ void View_Jugador_Spiderman::getSpritesLanzarPoder(){
 	gSpriteLanzarPoder[0].h = 150;
 
 	gSpriteLanzarPoder[1].x = 316;
-	gSpriteLanzarPoder[1].y = 3983;
+	gSpriteLanzarPoder[1].y = 3775;
 	gSpriteLanzarPoder[1].w = 261;
 	gSpriteLanzarPoder[1].h = 150;
 
 	gSpriteLanzarPoder[2].x = 577;
-	gSpriteLanzarPoder[2].y = 3983;
+	gSpriteLanzarPoder[2].y = 3775;
 	gSpriteLanzarPoder[2].w = 261;
 	gSpriteLanzarPoder[2].h = 150;
 
 	gSpriteLanzarPoder[3].x = 838;
-	gSpriteLanzarPoder[3].y = 3983;
+	gSpriteLanzarPoder[3].y = 3775;
 	gSpriteLanzarPoder[3].w = 261;
 	gSpriteLanzarPoder[3].h = 150;
 
 	gSpriteLanzarPoder[4].x = 1099;
-	gSpriteLanzarPoder[4].y = 3983;
+	gSpriteLanzarPoder[4].y = 3775;
 	gSpriteLanzarPoder[4].w = 261;
 	gSpriteLanzarPoder[4].h = 150;
 
 	gSpriteLanzarPoder[5].x = 1360;
-	gSpriteLanzarPoder[5].y = 3983;
+	gSpriteLanzarPoder[5].y = 3775;
 	gSpriteLanzarPoder[5].w = 261;
 	gSpriteLanzarPoder[5].h = 150;
 
