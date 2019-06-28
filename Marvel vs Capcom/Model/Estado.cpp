@@ -2,8 +2,8 @@
 #include "../View/View.h"
 #include "GeneralPantalla.h"
 
-#define VELOCIDAD_JUGADOR 3
-#define VELOCIDAD_JUGADOR_SALTO 20
+#define VELOCIDAD_JUGADOR 6
+#define VELOCIDAD_JUGADOR_SALTO 25
 
 Estado::Estado() {
 	this->posInitX = 10;

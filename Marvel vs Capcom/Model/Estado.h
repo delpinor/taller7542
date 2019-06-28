@@ -66,8 +66,9 @@ public:
 	virtual void setEstaSaltando(bool estaSaltando) = 0;
 
 protected:
-	int mPosX, mPosY;
 	int posInitX, posInitY;
+	int mPosX, mPosY;
+
 	int mVelX, mVelY;
 	int aceleracion;
 	bool acelero;

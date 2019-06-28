@@ -6,6 +6,8 @@ Jugador::Jugador() {
 
 }*/
 Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &path, bool &inmortal) {
+//	this->estado->setPosInitY(0);
+
 	this->estado = &(this->inactivo);
 	this->mCollider.x = this->estado->getPosX();
 	this->mCollider.y = this->estado->getPosY();
@@ -18,8 +20,9 @@ Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &
 	this->zindex= zind;
 	this->nombre=nom;
 	this->pathImagen=path;
-	this->mCollider.w =this->estado->getPosX()+ width / 4.5;
-	this->mCollider.h = this->estado->getPosY() +height ;
+	this->mCollider.w =60;
+
+	this->mCollider.h = 100 ;
 	this->vidaJugador = 100;
 	this->inmortal = inmortal;
 
@@ -120,10 +123,16 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 		this->estado->move();
 	}
 	else if(collideConJugador(&(jugadorRival->mCollider))){
+		cout<<"colider x:"<<this->mCollider.x <<endl;
+		cout<<"colider y:"<<this->mCollider.y <<endl;
+cout<<"pos x:"<<this->estado->getPosX()<<endl;
+cout<<"pos y:"<<this->estado->getPosY()<<endl;
+cout<<"pos rival x:"<<jugadorRival->estado->getPosX()<<endl;
+cout<<"pos rival y:"<<jugadorRival->estado->getPosY()<<endl;
 
 		 //Move back
 		if(this->estado->getPosX()<=jugadorRival->estado->getPosX()){
-			if(this->estado->getVelX()>0)
+			if(this->estado->getVelX()>=0)
 				nuevaposX= this->estado->getPosX() -this->estado->getVelX();
 			else
 				nuevaposX= this->estado->getPosX() +this->estado->getVelX() ;
@@ -133,20 +142,25 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 			else
 				nuevaposX= this->estado->getPosX() - this->estado->getVelX();
 		}
-		if(this->estado->getPosY()>jugadorRival->estado->getPosY()){
+		/*
+		if(this->estado->getPosY()>=jugadorRival->estado->getPosY()){
 				if(this->estado->getVelY()>0)
-					nuevaposY= this->estado->getPosY() + this->estado->getVelY()+5;
+					nuevaposY= this->estado->getPosY() + this->estado->getVelY();
 				else
-					nuevaposY= this->estado->getPosY() - this->estado->getVelY() ;
+					nuevaposY= this->estado->getPosY()- this->estado->getVelY()  ;
 			}else{
 					nuevaposY= this->estado->getPosY();
 			}
+			*/
+
+		nuevaposY= this->estado->getPosY();
 		this->estado->setPosX( nuevaposX);
 		this->estado->setPosY( nuevaposY);
 		this->mCollider.x = this->estado->getPosX();
 		this->mCollider.y = this->estado->getPosY();
 
 		this->estado->move();
+
 			}
 	else if (movimientoDerecha()) {
 
@@ -178,7 +192,7 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 	this->mCollider.y = this->estado->getPosY();
 
 
-	this->mCollider.h = this->estado->getPosY() +height;
+	//this->mCollider.h = this->estado->getPosY();
 	//aca iria el contador
 	if (this->getTipoGolpe() == TIPO_GOLPE::GOLPE_ARROJAR)
 				this->setTipoGolpe(TIPO_GOLPE::NADA);
@@ -384,7 +398,7 @@ void Jugador::recibeDanio(int danio) {
 void Jugador::Saltar() {
 //	this->estado->Saltar();
 	if(!this->estado->estaSaltando()){
-		this->estado->setVelocidadY(20);
+		this->estado->setVelocidadY(25);
 		this->saltando.copiarEstado(this->estado);
 		this->estado = &(this->saltando);
 		this->tipoGolpe = TIPO_GOLPE::NADA;
