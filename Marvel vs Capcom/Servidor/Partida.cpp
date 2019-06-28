@@ -17,7 +17,7 @@ void Partida::IniciarPartida() {
 void Partida::IniciarBatalla(){
 	this->IniciarTitularidadClientes();
 	ActualizarModelo();
-	this->IniciarPosiciones();
+	//this->IniciarPosiciones();
 	this->IniciarCamara();
 	this->roundActual++;
 	cout << "Iniciando Batalla " << this->roundActual << endl;
@@ -26,10 +26,10 @@ void Partida::IniciarBatalla(){
 	this->roundCorriendo = true;
 }
 void Partida::IniciarPosiciones(){
-	modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(120 - 80);
-	modelo->getEquipoNro(0)->getJugadorActivo()->setPosY(931);
-	modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(780 - 80);
-	modelo->getEquipoNro(1)->getJugadorActivo()->setPosY(931);
+	modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(-80);
+	modelo->getEquipoNro(0)->getJugadorActivo()->setPosY(933);
+	modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(500);
+	modelo->getEquipoNro(1)->getJugadorActivo()->setPosY(933);
 }
 void Partida::IniciarCamara(){
 	int CAMARAPOSICIONINICIALX = ANCHO_NIVEL / 2 - modelo->ancho_Pantalla / 2;
@@ -37,7 +37,7 @@ void Partida::IniciarCamara(){
 	camaraStatic = {CAMARAPOSICIONINICIALX,CAMARAPOSICIONINICIALY, modelo->ancho_Pantalla, modelo->alto_Pantalla};
 	camara = &(camaraStatic);
 	modelo->setCamara(this->camara);
-	//	modelo->inicializarPosicionesEquipos();
+	modelo->inicializarPosicionesEquipos();
 	AjustarCamara();
 }
 bool Partida::ClientesCargados(){
