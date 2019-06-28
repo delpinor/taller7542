@@ -540,7 +540,7 @@ bool Jugador::collideDerecha(SDL_Rect * camara) {
 	bottomCam = camara->y + camara->h - MARGENDESELECCION;
 
 	leftJugador = this->mCollider.x;
-	rightJugador = this->mCollider.x + this->width - this->mCollider.w;
+	rightJugador = this->mCollider.x + this->width - this->mCollider.w+10;
 	topJugador = this->mCollider.y;
 	bottomJugador = this->mCollider.y + this->mCollider.h;
 
@@ -566,22 +566,16 @@ bool Jugador::collideIzquierda(SDL_Rect * camara) {
 
 	bottomCam = camara->y + camara->h - MARGENDESELECCION;
 
-	leftJugador = this->mCollider.x + this->mCollider.w ;
+	leftJugador = this->mCollider.x + this->mCollider.w - 10;
 	rightJugador = this->mCollider.x + this->mCollider.w;
 	topJugador = this->mCollider.y;
 	bottomJugador = this->mCollider.y + this->mCollider.h;
 
 	if (leftJugador <= leftCam) {
 
-		cout << "Colide derecha: true" << endl;
-		cout << "ancho: " << mCollider.w << endl;
-		cout << "x: " << mCollider.x << endl;
 		return true;
 	}
 
-	cout << "Colide derecha: false" << endl;
-	cout << "ancho: " << mCollider.w << endl;
-	cout << "x: " << mCollider.x << endl;
 	return false;
 }
 
