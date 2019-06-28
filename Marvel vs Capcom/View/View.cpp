@@ -105,7 +105,7 @@ void View::CajaMensaje(string titulo, string cuerpo) {
 }
 void View::render() {
 
-	model->ajustarCamara();
+//	model->ajustarCamara();
 	SDL_SetRenderDrawColor(this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
 	SDL_RenderClear(this->gRenderer);

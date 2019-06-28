@@ -376,8 +376,6 @@ int Cliente::recibirModeloDelServidor() {
 			this->getVista()->model->getEquipoNro(0)->setRondasGanadas(inGame.ganadosEquipo0);
 			this->getVista()->model->getEquipoNro(1)->setRondasGanadas(inGame.ganadosEquipo1);
 
-			cout << "Equipo 0:" << inGame.ganadosEquipo0 << endl;
-			cout << "Equipo 1:" << inGame.ganadosEquipo1 << endl;
 
 
 

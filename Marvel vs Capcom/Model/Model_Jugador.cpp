@@ -1,12 +1,9 @@
 #include "Model_Jugador.h"
 # include "../Logger/Logger.h"
 #define MARGENDESELECCION 0
-/*
-Jugador::Jugador() {
 
-}*/
-Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &path, bool &inmortal) {
-//	this->estado->setPosInitY(0);
+Jugador::Jugador(int &ancho, int &alto, int &zind, std::string &nom,
+		std::string &path, bool &inmortal) {
 
 	this->estado = &(this->inactivo);
 	this->mCollider.x = this->estado->getPosX();
@@ -23,77 +20,78 @@ Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &
 	this->mCollider.w =60;
 
 	this->mCollider.h = 100 ;
+
 	this->vidaJugador = 100;
 	this->inmortal = inmortal;
 
 }
-void Jugador::SetVida(int vida){
+void Jugador::SetVida(int vida) {
 	this->vidaJugador = vida;
 }
-int Jugador::GetVida(){
+int Jugador::GetVida() {
 	return this->vidaJugador;
 }
-int Jugador::getPosXPoder(){
+int Jugador::getPosXPoder() {
 	return mipoder.getPosX();
 }
-int Jugador::getPosYPoder(){
+int Jugador::getPosYPoder() {
 	return mipoder.getPosY();
 }
-int Jugador::getSentidoPoder(){
+int Jugador::getSentidoPoder() {
 	return mipoder.getSentido();
 }
-void Jugador::setPosYPoder(int y){
-	 mipoder.setPosY(y);
+void Jugador::setPosYPoder(int y) {
+	mipoder.setPosY(y);
 }
-void Jugador::setPosXPoder(int x){
-	 mipoder.setPosX(x);
+void Jugador::setPosXPoder(int x) {
+	mipoder.setPosX(x);
 }
-void Jugador::setSentidoPoder(int z){
-	 mipoder.setSentido(z);
+void Jugador::setSentidoPoder(int z) {
+	mipoder.setSentido(z);
 }
-bool Jugador::poderActivo(){
+bool Jugador::poderActivo() {
 	return mipoder.estaActivo();
 }
-void Jugador::setEstadoPoder(bool estado){
-	 mipoder.setInactivo();
+void Jugador::setEstadoPoder(bool estado) {
+	mipoder.setInactivo();
 	if (estado)
-		 mipoder.setActivo();
+		mipoder.setActivo();
 
 }
-int Jugador::get_alto(){
+int Jugador::get_alto() {
 
 	return height;
 }
-int Jugador::get_ancho(){
+int Jugador::get_ancho() {
 	return width;
 
 }
-int Jugador::get_zindex(){
+int Jugador::get_zindex() {
 	return zindex;
 
-
 }
 
-int Jugador::getCollideX(){
-	return 	this->mCollider.x;
+int Jugador::getCollideX() {
+	return this->mCollider.x;
 }
-int Jugador::getCollideY(){
-	return 	this->mCollider.y;
+int Jugador::getCollideY() {
+	return this->mCollider.y;
 }
-int Jugador::getCollideW(){
-	return 	this->mCollider.w;
+int Jugador::getCollideW() {
+	return this->mCollider.w;
 }
-int Jugador::getCollideH(){
-	return 	this->mCollider.h;
+int Jugador::getCollideH() {
+	return this->mCollider.h;
 }
-bool Jugador::collideConPoder(Poder * poder){
-	return poder->colision(this->getCollideX(),this->getCollideY(),this->getCollideW(),this->getCollideH());
+bool Jugador::collideConPoder(Poder * poder) {
+	return poder->colision(this->getCollideX(), this->getCollideY(),
+			this->getCollideW(), this->getCollideH());
 }
-std::string Jugador::getNombre(){
+std::string Jugador::getNombre() {
 
 	return nombre;
 }
-std::string Jugador::getPathImagen(){
+std::string Jugador::getPathImagen() {
 	return pathImagen;
 
 }
@@ -108,19 +106,21 @@ void Jugador::setPosInitY(int posY) {
 }
 
 void Jugador::setDireccion(SDL_RendererFlip direccion) {
-	Logger::Log(DEBUG,"Jugador:: setea la direccion ","");
+	Logger::Log(DEBUG, "Jugador:: setea la direccion ", "");
 	this->direccion = direccion;
 }
 
 void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
+
 	int nuevaposX;
 	int nuevaposY;
 
 	jugadorVolando();
-	if( this->murio())
+	if (this->murio())
 		this->cambiarPersonaje();
-	if (this->estado->estaCambiandoPersonaje()){
+	if (this->estado->estaCambiandoPersonaje()) {
 		this->estado->move();
+
 	}
 	else if(collideConJugador(&(jugadorRival->mCollider))){
 		cout<<"colider x:"<<this->mCollider.x <<endl;
@@ -130,60 +130,53 @@ cout<<"pos y:"<<this->estado->getPosY()<<endl;
 cout<<"pos rival x:"<<jugadorRival->estado->getPosX()<<endl;
 cout<<"pos rival y:"<<jugadorRival->estado->getPosY()<<endl;
 
+
+
 		 //Move back
 		if(this->estado->getPosX()<=jugadorRival->estado->getPosX()){
 			if(this->estado->getVelX()>=0)
 				nuevaposX= this->estado->getPosX() -this->estado->getVelX();
+
 			else
-				nuevaposX= this->estado->getPosX() +this->estado->getVelX() ;
-		}else{
-			if(this->estado->getVelX()>0)
-				nuevaposX= this->estado->getPosX() + this->estado->getVelX();
+				nuevaposX = this->estado->getPosX() + this->estado->getVelX();
+		} else {
+			if (this->estado->getVelX() > 0)
+				nuevaposX = this->estado->getPosX() + this->estado->getVelX();
 			else
-				nuevaposX= this->estado->getPosX() - this->estado->getVelX();
+				nuevaposX = this->estado->getPosX() - this->estado->getVelX();
 		}
-		/*
-		if(this->estado->getPosY()>=jugadorRival->estado->getPosY()){
-				if(this->estado->getVelY()>0)
-					nuevaposY= this->estado->getPosY() + this->estado->getVelY();
-				else
-					nuevaposY= this->estado->getPosY()- this->estado->getVelY()  ;
-			}else{
-					nuevaposY= this->estado->getPosY();
-			}
-			*/
+
 
 		nuevaposY= this->estado->getPosY();
 		this->estado->setPosX( nuevaposX);
 		this->estado->setPosY( nuevaposY);
+
 		this->mCollider.x = this->estado->getPosX();
 		this->mCollider.y = this->estado->getPosY();
 
 		this->estado->move();
 
-			}
-	else if (movimientoDerecha()) {
+	} else if (movimientoDerecha()) {
 
 		if (!collideDerecha(camara)) {
 			this->estado->move();
 		} else {
 			if (!jugadorRival->collideIzquierda(camara)) {
 				this->estado->move();
-			}
-			else{
+			} else {
 				this->estado->moveVertical();
 			}
 		}
 	} else if (movimientoIzquierda()) {
-			if (!collideIzquierda(camara)) {
+		if (!collideIzquierda(camara)) {
+			this->estado->move();
+		} else {
+			if (!jugadorRival->collideDerecha(camara)) {
 				this->estado->move();
 			} else {
-				if (!jugadorRival->collideDerecha(camara)) {
-					this->estado->move();
-				} else {
-					this->estado->moveVertical();
-				}
+				this->estado->moveVertical();
 			}
+		}
 	} else {
 		this->estado->move();
 	}
@@ -192,14 +185,13 @@ cout<<"pos rival y:"<<jugadorRival->estado->getPosY()<<endl;
 	this->mCollider.y = this->estado->getPosY();
 
 
-	//this->mCollider.h = this->estado->getPosY();
 	//aca iria el contador
 	if (this->getTipoGolpe() == TIPO_GOLPE::GOLPE_ARROJAR)
-				this->setTipoGolpe(TIPO_GOLPE::NADA);
+		this->setTipoGolpe(TIPO_GOLPE::NADA);
 	if (this->getTipoGolpe() == TIPO_GOLPE::GOLPE_PODER)
-				this->setTipoGolpe(TIPO_GOLPE::NADA);
-	if (jugadorRival->collideConPoder(&mipoder)){
-				jugadorRival->recibeDanio(10);
+		this->setTipoGolpe(TIPO_GOLPE::NADA);
+	if (jugadorRival->collideConPoder(&mipoder)) {
+		jugadorRival->recibeDanio(10);
 	}
 }
 
@@ -227,25 +219,25 @@ void Jugador::disminuirVelocidadY() {
 }
 
 void Jugador::cambiarPersonaje() {
-	if(this->estado->getVelY()==0){
-	this->estado->aumentarVelocidadY(20);
-	this->cambiandoPersonaje.copiarEstadoCambiarPersonaje(this->estado);
-	this->estado = &(this->cambiandoPersonaje);
+	if (this->estado->getVelY() == 0) {
+		this->estado->aumentarVelocidadY(20);
+		this->cambiandoPersonaje.copiarEstadoCambiarPersonaje(this->estado);
+		this->estado = &(this->cambiandoPersonaje);
 	}
 }
 
 void Jugador::Agachar() {
-	if(this->estado->getVelY()==0){
-	this->agachado.copiarEstadoAgachar(this->estado);
-	this->estado = &(this->agachado);
-	this->tipoGolpe = TIPO_GOLPE::NADA;
+	if (this->estado->getVelY() == 0) {
+		this->agachado.copiarEstadoAgachar(this->estado);
+		this->estado = &(this->agachado);
+		this->tipoGolpe = TIPO_GOLPE::NADA;
 	}
 }
 void Jugador::Parar() {
-	if(this->estado->estaAgachado()){
-	this->activo.copiarEstadoAgachar(this->estado);
-	this->estado = &(this->activo);
-	this->tipoGolpe = TIPO_GOLPE::NADA;
+	if (this->estado->estaAgachado()) {
+		this->activo.copiarEstadoAgachar(this->estado);
+		this->estado = &(this->activo);
+		this->tipoGolpe = TIPO_GOLPE::NADA;
 	}
 }
 
@@ -274,11 +266,12 @@ void Jugador::aumentarVelocidadY(int vel) {
 //}
 
 void Jugador::Pinia(Jugador * rival) {
-	if ((this->getTipoGolpe() == TIPO_GOLPE::NADA) && (this->estado->getVelY() > -10)) {
+	if ((this->getTipoGolpe() == TIPO_GOLPE::NADA)
+			&& (this->estado->getVelY() > -10)) {
 		std::cout << "Agregar PINIA!!!!!: " << std::endl;
 		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PINIA);
 	}
-	if(rival->collideConJugador(&mCollider))
+	if (rival->collideConJugador(&mCollider))
 		rival->recibeDanio(this->estado->getDanioPinia());
 }
 //void Jugador::Pinia_agachado(Jugador * rival) {
@@ -292,47 +285,50 @@ void Jugador::Pinia(Jugador * rival) {
 //}
 void Jugador::Pinion(Jugador * rival) {
 //	this->estado->Pinion();
-	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
+	if (this->getTipoGolpe() == TIPO_GOLPE::NADA) {
 
-				this->setTipoGolpe(TIPO_GOLPE::GOLPE_PINION);
-			}
-	if(rival->collideConJugador(&mCollider))
-	rival->recibeDanio(this->estado->getDanioPinion());
+		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PINION);
+	}
+	if (rival->collideConJugador(&mCollider))
+		rival->recibeDanio(this->estado->getDanioPinion());
 
 }
 
 void Jugador::Patada(Jugador * rival) {
-	if ((this->getTipoGolpe() == TIPO_GOLPE::NADA) && (this->estado->getVelY() > -10)){
+	if ((this->getTipoGolpe() == TIPO_GOLPE::NADA)
+			&& (this->estado->getVelY() > -10)) {
 		std::cout << "Agregar PATADA!!!!!: " << std::endl;
 		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADA);
 	}
-	if(rival->collideConJugador(&mCollider))
+	if (rival->collideConJugador(&mCollider))
 		rival->recibeDanio(this->estado->getDanioPatada());
 }
 void Jugador::Arrojar(Jugador * rival) {
-	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
-	this->estado->Arrojar();
-				this->setTipoGolpe(TIPO_GOLPE::GOLPE_ARROJAR);
-			}
+	if (this->getTipoGolpe() == TIPO_GOLPE::NADA) {
+		this->estado->Arrojar();
+		this->setTipoGolpe(TIPO_GOLPE::GOLPE_ARROJAR);
+	}
 	int i = -1;
-	if (this->getDireccion()==SDL_FLIP_NONE)
-		i=1;
+	if (this->getDireccion() == SDL_FLIP_NONE)
+		i = 1;
 
-	if((rival->collideConJugador(&mCollider))&&(rival->getTipoGolpe() == TIPO_GOLPE::NADA)){
-	rival->estado->setVelocidadX(40*i);
-	rival->estado->setVelocidadY(20);
-	rival->setTipoGolpe(TIPO_GOLPE::GOLPE_VOLAR);
-	rival->recibeDanio(this->estado->getDanioArrojar());
+	if ((rival->collideConJugador(&mCollider))
+			&& (rival->getTipoGolpe() == TIPO_GOLPE::NADA)) {
+		rival->estado->setVelocidadX(40 * i);
+		rival->estado->setVelocidadY(20);
+		rival->setTipoGolpe(TIPO_GOLPE::GOLPE_VOLAR);
+		rival->recibeDanio(this->estado->getDanioArrojar());
 	}
 }
 
 void Jugador::Patadon(Jugador * rival) {
-	if ((this->getTipoGolpe() == TIPO_GOLPE::NADA) && (this->estado->getVelY() > -10)){
+	if ((this->getTipoGolpe() == TIPO_GOLPE::NADA)
+			&& (this->estado->getVelY() > -10)) {
 		std::cout << "Agregar PATADON!!!!!: " << std::endl;
 		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADON);
 	}
-	if(rival->collideConJugador(&mCollider))
-	rival->recibeDanio(this->estado->getDanioPatadon());
+	if (rival->collideConJugador(&mCollider))
+		rival->recibeDanio(this->estado->getDanioPatadon());
 }
 
 void Jugador::ActivarDefensa() {
@@ -368,14 +364,14 @@ void Jugador::DesactivarDefensa() {
 //}
 void Jugador::TirarPoder(Jugador * rival) {
 	this->estado->TirarPoder();
-	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
+	if (this->getTipoGolpe() == TIPO_GOLPE::NADA) {
 
-			this->setTipoGolpe(TIPO_GOLPE::GOLPE_PODER);
-		}
-	if (this->getDireccion()==SDL_FLIP_NONE){
-		mipoder.activarPoder(getCollideW(),getCollideY()+30,1);
-	}else{
-		mipoder.activarPoder(getCollideX(),getCollideY()+30,-1);
+		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PODER);
+	}
+	if (this->getDireccion() == SDL_FLIP_NONE) {
+		mipoder.activarPoder(getCollideW(), getCollideY() + 30, 1);
+	} else {
+		mipoder.activarPoder(getCollideX(), getCollideY() + 30, -1);
 	}
 	std::cout << "HADOOOOUUUUKENNNNNN" << std::endl;
 	std::cout << "HADOOOOUUUUKENNNNNN" << std::endl;
@@ -384,12 +380,12 @@ void Jugador::TirarPoder(Jugador * rival) {
 }
 
 void Jugador::recibeDanio(int danio) {
-	if (this->vidaJugador - danio >= 0){
-		this->vidaJugador =this->vidaJugador - danio;
+	if (this->vidaJugador - danio >= 0) {
+		this->vidaJugador = this->vidaJugador - danio;
 
-		if((this->getTipoGolpe())==!(TIPO_GOLPE::GOLPE_VOLAR)){
+		if ((this->getTipoGolpe()) == !(TIPO_GOLPE::GOLPE_VOLAR)) {
 			this->setTipoGolpe(TIPO_GOLPE::RECIBIR_DANIO);
-			std::cout << "me pegaron!!!"<<endl;
+			std::cout << "me pegaron!!!" << endl;
 		}
 	}
 	//std::cout << "me pego y mi vida es : " + std::to_string(this->vidaJugador) << std::endl;
@@ -397,12 +393,13 @@ void Jugador::recibeDanio(int danio) {
 
 void Jugador::Saltar() {
 //	this->estado->Saltar();
+
 	if(!this->estado->estaSaltando()){
 		this->estado->setVelocidadY(25);
 		this->saltando.copiarEstado(this->estado);
 		this->estado = &(this->saltando);
 		this->tipoGolpe = TIPO_GOLPE::NADA;
-		}
+	}
 
 }
 
@@ -413,15 +410,15 @@ int Jugador::getVelX() {
 int Jugador::getVelY() {
 	return this->estado->getVelY();
 }
-void Jugador::set_desconectado(){
-this->desconectado=true;
+void Jugador::set_desconectado() {
+	this->desconectado = true;
 
 }
-void Jugador::set_conectado(){
-	this->desconectado=false;
+void Jugador::set_conectado() {
+	this->desconectado = false;
 
 }
-bool Jugador::get_estado_desconexion(){
+bool Jugador::get_estado_desconexion() {
 
 	return desconectado;
 }
@@ -551,7 +548,7 @@ bool Jugador::collideDerecha(SDL_Rect * camara) {
 	bottomCam = camara->y + camara->h - MARGENDESELECCION;
 
 	leftJugador = this->mCollider.x;
-	rightJugador = this->mCollider.x + this->mCollider.w;
+	rightJugador = this->mCollider.x + this->width - this->mCollider.w;
 	topJugador = this->mCollider.y;
 	bottomJugador = this->mCollider.y + this->mCollider.h;
 
@@ -577,15 +574,22 @@ bool Jugador::collideIzquierda(SDL_Rect * camara) {
 
 	bottomCam = camara->y + camara->h - MARGENDESELECCION;
 
-	leftJugador = this->mCollider.x;
+	leftJugador = this->mCollider.x + this->mCollider.w ;
 	rightJugador = this->mCollider.x + this->mCollider.w;
 	topJugador = this->mCollider.y;
 	bottomJugador = this->mCollider.y + this->mCollider.h;
 
 	if (leftJugador <= leftCam) {
+
+		cout << "Colide derecha: true" << endl;
+		cout << "ancho: " << mCollider.w << endl;
+		cout << "x: " << mCollider.x << endl;
 		return true;
 	}
 
+	cout << "Colide derecha: false" << endl;
+	cout << "ancho: " << mCollider.w << endl;
+	cout << "x: " << mCollider.x << endl;
 	return false;
 }
 
@@ -597,14 +601,13 @@ void Jugador::updateDirection(Jugador &oponente) {
 
 	if (this->estado->getVelX() > 0) {
 		direccion = SDL_FLIP_NONE;
-	}else if (this->estado->getVelX() < 0) {
+	} else if (this->estado->getVelX() < 0) {
 		direccion = SDL_FLIP_HORIZONTAL;
-	}else if (this->getPosX()> oponente.getPosX()){
+	} else if (this->getPosX() > oponente.getPosX()) {
 		direccion = SDL_FLIP_HORIZONTAL;
-	}else{
+	} else {
 		direccion = SDL_FLIP_NONE;
 	}
-
 
 }
 int Jugador::Personaje() {
@@ -614,32 +617,32 @@ void Jugador::setPersonaje(int p) {
 	this->personaje = p;
 }
 
-bool Jugador::isFueraDePantalla(){
+bool Jugador::isFueraDePantalla() {
 	return this->estado->isFueraDePantalla();
 }
 
-bool Jugador::movimientoDerecha(){
+bool Jugador::movimientoDerecha() {
 	return (this->estado->getVelX() > 0);
 }
 
-bool Jugador::movimientoIzquierda(){
+bool Jugador::movimientoIzquierda() {
 	return (this->estado->getVelX() < 0);
 }
 
-void Jugador::setColor(int red,int green,int blue){
-	this->r=red;
-	this->g=green;
-	this->b=blue;
+void Jugador::setColor(int red, int green, int blue) {
+	this->r = red;
+	this->g = green;
+	this->b = blue;
 }
 
-int Jugador::getR(){
-return r;
+int Jugador::getR() {
+	return r;
 }
-int Jugador::getG(){
-return g;
+int Jugador::getG() {
+	return g;
 }
-int Jugador::getB(){
-return b;
+int Jugador::getB() {
+	return b;
 }
 bool Jugador::isDebeTerminarSalto() {
 	return debeTerminarSalto;
@@ -648,54 +651,52 @@ bool Jugador::isDebeTerminarSalto() {
 void Jugador::setDebeTerminarSalto(bool debeTerminarSalto) {
 	this->debeTerminarSalto = debeTerminarSalto;
 }
-bool Jugador::isIniciarGolpe(){
+bool Jugador::isIniciarGolpe() {
 	return this->iniciarGolpe;
 }
-void Jugador::setIniciarGolpe(bool iniciarGolpe){
+void Jugador::setIniciarGolpe(bool iniciarGolpe) {
 	this->iniciarGolpe = iniciarGolpe;
 }
-TIPO_GOLPE Jugador::getTipoGolpe(){
+TIPO_GOLPE Jugador::getTipoGolpe() {
 	return this->tipoGolpe;
 }
-void Jugador::setTipoGolpe(TIPO_GOLPE tipoGolpe){
+void Jugador::setTipoGolpe(TIPO_GOLPE tipoGolpe) {
 	this->tipoGolpe = tipoGolpe;
 }
-void Jugador::setTipoGolpeCliente(TIPO_GOLPE tipoGolpe){
-	if (tipoGolpe == TIPO_GOLPE::DESACTIVAR_DEFENSA){
+void Jugador::setTipoGolpeCliente(TIPO_GOLPE tipoGolpe) {
+	if (tipoGolpe == TIPO_GOLPE::DESACTIVAR_DEFENSA) {
 		std::cout << "Defensa terminadaa##############" << std::endl;
 		this->tipoGolpe = TIPO_GOLPE::NADA;
-	}
-	else
+	} else
 		this->tipoGolpe = tipoGolpe;
 }
-bool Jugador::murio(){
-	if(this->inmortal){
+bool Jugador::murio() {
+	if (this->inmortal) {
 		return false;
-	}
-	else{
-		return this->vidaJugador==0;
+	} else {
+		return this->vidaJugador == 0;
 	}
 }
-bool Jugador::estaVivo(){
+bool Jugador::estaVivo() {
 	return !this->murio();
 }
 
-void Jugador::inicializarVida(){
+void Jugador::inicializarVida() {
 	this->vidaJugador = 100;
 }
-bool Jugador::esInmortal(){
+bool Jugador::esInmortal() {
 	return this->inmortal;
 }
 
-void Jugador::jugadorVolando(){
-	if ((this->getTipoGolpe() == TIPO_GOLPE::GOLPE_VOLAR) ){
-		if (this->estado->getVelX()!=0){
-		if (this->estado->getVelX()>0)
-			this->estado->setVelocidadX(this->estado->getVelX()-1);
-		if (this->estado->getVelX()<0)
-			this->estado->setVelocidadX(this->estado->getVelX()+1);
+void Jugador::jugadorVolando() {
+	if ((this->getTipoGolpe() == TIPO_GOLPE::GOLPE_VOLAR)) {
+		if (this->estado->getVelX() != 0) {
+			if (this->estado->getVelX() > 0)
+				this->estado->setVelocidadX(this->estado->getVelX() - 1);
+			if (this->estado->getVelX() < 0)
+				this->estado->setVelocidadX(this->estado->getVelX() + 1);
 		}
-		if(this->estado->getVelX()==0){
+		if (this->estado->getVelX() == 0) {
 			this->setTipoGolpe(TIPO_GOLPE::NADA);
 		}
 
