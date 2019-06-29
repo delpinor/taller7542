@@ -173,6 +173,7 @@ cout<<"pos rival y:"<<jugadorRival->estado->getPosY()<<endl;
 
 
 		if (!collideDerecha(camara)) {
+			cout << "Mov derecha: " << endl;
 			this->estado->move();
 		} else {
 			if (!jugadorRival->collideIzquierda(camara)) {

@@ -11,7 +11,7 @@
 #include "Barras.h"
 #include "Show.h"
 
-#define ANCHO_JUGADOR 50
+#define ANCHO_JUGADOR 100
 #define ALTO_JUGADOR 146
 #define ANCHO_NIVEL 1040
 #define ALTO_NIVEL 1080

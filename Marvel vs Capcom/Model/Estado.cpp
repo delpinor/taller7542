@@ -24,8 +24,8 @@ void Estado::move() {
 //	quieto=false;
 
 		this->mPosX += this->mVelX * aceleracion;
-		if ((mPosX < 0) || (mPosX + ANCHO_JUGADOR >= ANCHO_NIVEL)) {
-			mPosX -= mVelX * aceleracion;
+		if ((mPosX + ANCHO_JUGADOR < 0) || (mPosX + ANCHO_JUGADOR > ANCHO_NIVEL)) {
+			//mPosX -= mVelX * aceleracion;
 		}
 		mVelY -= aceleracion;
 		mPosY -= mVelY;
