@@ -36,6 +36,8 @@ void View_Jugador_CapAmerica::initialize(Jugador *model,
 	getSpritesRecibirDanio();
 	getSpritesPoder();
 	getSpritesLanzarPoder();
+	getSpritesVolando();
+	getSpritesArrojando();
 
 	this->zIndex = model->get_zindex();
 	getSpritesCambioPersonaje();
@@ -776,27 +778,27 @@ void View_Jugador_CapAmerica::getSpritesRecibirDanio() {
 }
 
 void View_Jugador_CapAmerica::getSpritesLanzarPoder(){
-	CANTSPRITECLIPLANZARPODER = 2;
+	CANTSPRITECLIPLANZARPODER = 3;
 	MINFRAMELANZARPODER = 0;
-	MAXFRAMELANZARPODER = 1;
-	FACTORLANZARPODER = 10;
+	MAXFRAMELANZARPODER = 2;
+	FACTORLANZARPODER = 5;
 	this->gSpriteLanzarPoder = new SDL_Rect[CANTSPRITECLIPLANZARPODER];
 
 	gSpriteLanzarPoder[0].x = 81;
-	gSpriteLanzarPoder[0].y = 1081;
+	gSpriteLanzarPoder[0].y = 1088;
 	gSpriteLanzarPoder[0].w = 261;
 	gSpriteLanzarPoder[0].h = 150;
 
-	gSpriteLanzarPoder[1].x = 374;
-	gSpriteLanzarPoder[1].y = 1081;
+	gSpriteLanzarPoder[1].x = 383;
+	gSpriteLanzarPoder[1].y = 1088;
 	gSpriteLanzarPoder[1].w = 261;
 	gSpriteLanzarPoder[1].h = 150;
 
-//	gSpriteLanzarPoder[2].x = 81;
-//	gSpriteLanzarPoder[2].y = 1081;
-//	gSpriteLanzarPoder[2].w = 261;
-//	gSpriteLanzarPoder[2].h = 150;
-//
+	gSpriteLanzarPoder[2].x = 1048;
+	gSpriteLanzarPoder[2].y = 1088;
+	gSpriteLanzarPoder[2].w = 261;
+	gSpriteLanzarPoder[2].h = 150;
+
 //	gSpriteLanzarPoder[3].x = 81;
 //	gSpriteLanzarPoder[3].y = 1081;
 //	gSpriteLanzarPoder[3].w = 261;
@@ -857,6 +859,98 @@ void View_Jugador_CapAmerica::getSpritesPoder(){
 	gSpritePoder[6].h = 150;
 }
 
+void View_Jugador_CapAmerica::getSpritesVolando() {
+	CANTSPRITECLIPJUGADORLANZADO = 7;
+	MINFRAMEJUGADORLANZADO = 0;
+	MAXFRAMEJUGADORLANZADO = 6;
+	FACTORJUGADORLANZADO = 9;
+	this->gSpriteJugadorLanzado = new SDL_Rect[CANTSPRITECLIPJUGADORLANZADO];
+
+	gSpriteJugadorLanzado[0].x = 84;
+	gSpriteJugadorLanzado[0].y = 1870;
+	gSpriteJugadorLanzado[0].w = 261;
+	gSpriteJugadorLanzado[0].h = 150;
+
+	gSpriteJugadorLanzado[1].x = 300;
+	gSpriteJugadorLanzado[1].y = 1870;
+	gSpriteJugadorLanzado[1].w = 261;
+	gSpriteJugadorLanzado[1].h = 150;
+
+	gSpriteJugadorLanzado[2].x = 566;
+	gSpriteJugadorLanzado[2].y = 1870;
+	gSpriteJugadorLanzado[2].w = 261;
+	gSpriteJugadorLanzado[2].h = 150;
+
+	gSpriteJugadorLanzado[3].x = 778;
+	gSpriteJugadorLanzado[3].y = 1870;
+	gSpriteJugadorLanzado[3].w = 261;
+	gSpriteJugadorLanzado[3].h = 150;
+
+	gSpriteJugadorLanzado[4].x = 1002;
+	gSpriteJugadorLanzado[4].y = 1870;
+	gSpriteJugadorLanzado[4].w = 261;
+	gSpriteJugadorLanzado[4].h = 150;
+
+	gSpriteJugadorLanzado[5].x = 1246;
+	gSpriteJugadorLanzado[5].y = 1870;
+	gSpriteJugadorLanzado[5].w = 261;
+	gSpriteJugadorLanzado[5].h = 150;
+
+	gSpriteJugadorLanzado[6].x = 1458;
+	gSpriteJugadorLanzado[6].y = 1870;
+	gSpriteJugadorLanzado[6].w = 261;
+	gSpriteJugadorLanzado[6].h = 150;
+
+}
+
+
+void View_Jugador_CapAmerica::getSpritesArrojando(){
+	CANTSPRITECLIPLANZARJUGADOR = 8;
+	MINFRAMELANZARJUGADOR = 0;
+	MAXFRAMELANZARJUGADOR = 7;
+	FACTORLANZARJUGADOR = 3;
+	this->gSpriteLanzarJugador = new SDL_Rect[CANTSPRITECLIPLANZARJUGADOR];
+
+	gSpriteLanzarJugador[0].x = 72;
+		gSpriteLanzarJugador[0].y = 918;
+		gSpriteLanzarJugador[0].w = 261;
+		gSpriteLanzarJugador[0].h = 150;
+
+		gSpriteLanzarJugador[1].x = 320;
+		gSpriteLanzarJugador[1].y = 918;
+		gSpriteLanzarJugador[1].w = 261;
+		gSpriteLanzarJugador[1].h = 150;
+
+		gSpriteLanzarJugador[2].x = 600;
+		gSpriteLanzarJugador[2].y = 918;
+		gSpriteLanzarJugador[2].w = 261;
+		gSpriteLanzarJugador[2].h = 150;
+
+		gSpriteLanzarJugador[3].x = 900;
+		gSpriteLanzarJugador[3].y = 918;
+		gSpriteLanzarJugador[3].w = 261;
+		gSpriteLanzarJugador[3].h = 150;
+
+		gSpriteLanzarJugador[4].x = 900;
+		gSpriteLanzarJugador[4].y = 918;
+		gSpriteLanzarJugador[4].w = 261;
+		gSpriteLanzarJugador[4].h = 150;
+
+		gSpriteLanzarJugador[5].x = 1230;
+		gSpriteLanzarJugador[5].y = 918;
+		gSpriteLanzarJugador[5].w = 261;
+		gSpriteLanzarJugador[5].h = 150;
+
+		gSpriteLanzarJugador[6].x = 1230;
+		gSpriteLanzarJugador[6].y = 918;
+		gSpriteLanzarJugador[6].w = 261;
+		gSpriteLanzarJugador[6].h = 150;
+
+		gSpriteLanzarJugador[7].x = 72;
+		gSpriteLanzarJugador[7].y = 918;
+		gSpriteLanzarJugador[7].w = 261;
+		gSpriteLanzarJugador[7].h = 150;
+}
 
 /*
 View_Jugador_CapAmerica::~View_Jugador_CapAmerica(){
