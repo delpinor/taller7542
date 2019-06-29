@@ -281,51 +281,82 @@ void View_Jugador_Venom::getSpritesCambioPersonaje() {
 }
 
 void View_Jugador_Venom::getSpritesPatadaFuerte() {
-	CANTSPRITECLIPPATADON = 8;
+	CANTSPRITECLIPPATADON = 6;
 	MINFRAMEPATADON = 0;
-	MAXFRAMEPATADON = 7;
-	FACTORPATADON = 9;
+	MAXFRAMEPATADON = 5;
+	FACTORPATADON = 5;
 	this->gSpritePatadon = new SDL_Rect[CANTSPRITECLIPPATADON];
 
-	gSpritePatadon[0].x = 24;
-	gSpritePatadon[0].y = 2541;
+	gSpritePatadon[0].x = 900;
+	gSpritePatadon[0].y = 3740;
 	gSpritePatadon[0].w = 261;
 	gSpritePatadon[0].h = 150;
 
-	gSpritePatadon[1].x = 304;
-	gSpritePatadon[1].y = 2541;
+	gSpritePatadon[1].x = 1260;
+	gSpritePatadon[1].y = 3740;
 	gSpritePatadon[1].w = 261;
 	gSpritePatadon[1].h = 150;
 
-	gSpritePatadon[2].x = 601;
-	gSpritePatadon[2].y = 2541;
-	gSpritePatadon[2].w = 304;
+	gSpritePatadon[2].x = 1570;
+	gSpritePatadon[2].y = 3740;
+	gSpritePatadon[2].w = 261;
 	gSpritePatadon[2].h = 150;
 
-	gSpritePatadon[3].x = 1020;
-	gSpritePatadon[3].y = 2541;
-	gSpritePatadon[3].w = 337;
+	gSpritePatadon[3].x = 1840;
+	gSpritePatadon[3].y = 3740;
+	gSpritePatadon[3].w = 261;
 	gSpritePatadon[3].h = 150;
 
-	gSpritePatadon[4].x = 44;
-	gSpritePatadon[4].y = 2799;
-	gSpritePatadon[4].w = 321;
+	gSpritePatadon[4].x = 2090;
+	gSpritePatadon[4].y = 3740;
+	gSpritePatadon[4].w = 261;
 	gSpritePatadon[4].h = 150;
 
-	gSpritePatadon[5].x = 425;
-	gSpritePatadon[5].y = 2799;
+	gSpritePatadon[5].x = 2320;
+	gSpritePatadon[5].y = 3740;
 	gSpritePatadon[5].w = 261;
 	gSpritePatadon[5].h = 150;
 
-	gSpritePatadon[6].x = 755;
-	gSpritePatadon[6].y = 2799;
-	gSpritePatadon[6].w = 261;
-	gSpritePatadon[6].h = 150;
 
-	gSpritePatadon[7].x = 1059;
-	gSpritePatadon[7].y = 2799;
-	gSpritePatadon[7].w = 261;
-	gSpritePatadon[7].h = 150;
+//	gSpritePatadon[0].x = 24;
+//	gSpritePatadon[0].y = 2541;
+//	gSpritePatadon[0].w = 261;
+//	gSpritePatadon[0].h = 150;
+//
+//	gSpritePatadon[1].x = 304;
+//	gSpritePatadon[1].y = 2541;
+//	gSpritePatadon[1].w = 261;
+//	gSpritePatadon[1].h = 150;
+//
+//	gSpritePatadon[2].x = 601;
+//	gSpritePatadon[2].y = 2541;
+//	gSpritePatadon[2].w = 304;
+//	gSpritePatadon[2].h = 150;
+//
+//	gSpritePatadon[3].x = 1020;
+//	gSpritePatadon[3].y = 2541;
+//	gSpritePatadon[3].w = 337;
+//	gSpritePatadon[3].h = 150;
+//
+//	gSpritePatadon[4].x = 44;
+//	gSpritePatadon[4].y = 2799;
+//	gSpritePatadon[4].w = 321;
+//	gSpritePatadon[4].h = 150;
+//
+//	gSpritePatadon[5].x = 425;
+//	gSpritePatadon[5].y = 2799;
+//	gSpritePatadon[5].w = 261;
+//	gSpritePatadon[5].h = 150;
+//
+//	gSpritePatadon[6].x = 755;
+//	gSpritePatadon[6].y = 2799;
+//	gSpritePatadon[6].w = 261;
+//	gSpritePatadon[6].h = 150;
+//
+//	gSpritePatadon[7].x = 1059;
+//	gSpritePatadon[7].y = 2799;
+//	gSpritePatadon[7].w = 261;
+//	gSpritePatadon[7].h = 150;
 
 }
 
