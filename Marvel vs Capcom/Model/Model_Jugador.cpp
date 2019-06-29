@@ -239,6 +239,7 @@ void Jugador::cambiarPersonaje() {
 		this->estado->aumentarVelocidadY(20);
 		this->cambiandoPersonaje.copiarEstadoCambiarPersonaje(this->estado);
 		this->estado = &(this->cambiandoPersonaje);
+		mipoder.setInactivo();
 	}
 }
 
