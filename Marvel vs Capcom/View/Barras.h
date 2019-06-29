@@ -19,6 +19,11 @@ private:
 	LTexture gFondoDerecha;
 	LTexture gFondoDerechaInf;
 
+	//
+	LTexture gFotoSpider;
+	LTexture gFotoChunli;
+	LTexture gFotoVenom;
+	LTexture gFotoAmerica;
 
 
 	LTexture gTextoPersonaje;
@@ -42,5 +47,7 @@ public:
 	void Reset();
 	void Apagar();
 	void render(Equipo * equipos[2]);
+	void RenderFoto(int x, int y, std::string nombre);
+
 
 };

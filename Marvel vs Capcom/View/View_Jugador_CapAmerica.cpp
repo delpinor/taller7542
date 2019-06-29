@@ -194,7 +194,7 @@ void View_Jugador_CapAmerica::getSpritesSaltar() {
 	CANTSPRITECLIPSALTA = 7;
 	MINFRAMESALTA = 0;
 	MAXFRAMESALTA = 6;
-	FACTORSALTA = 2;
+	FACTORSALTA = 4;
 	this->gSpriteSaltar = new SDL_Rect[CANTSPRITECLIPSALTA];
 
 //	gSpriteSaltar[0].x = 17;
@@ -225,7 +225,7 @@ void View_Jugador_CapAmerica::getSpritesSaltar() {
 	gSpriteSaltar[4].x = 855;
 	gSpriteSaltar[4].y = 374;
 	gSpriteSaltar[4].w = 261;
-	gSpriteSaltar[2].h = 150;
+	gSpriteSaltar[4].h = 150;
 
 	gSpriteSaltar[5].x = 211;
 	gSpriteSaltar[5].y = 357;

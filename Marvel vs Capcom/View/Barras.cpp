@@ -1,7 +1,7 @@
 #include "../Model/LTexture.h"
 #include "Barras.h"
 using namespace std;
-#define ANCHO_VIDA 324
+#define ANCHO_VIDA 279
 Barras::Barras(SDL_Renderer * gRen){
 		//Set renderer
 		gRenderer = gRen;
@@ -11,16 +11,21 @@ Barras::Barras(SDL_Renderer * gRen){
 		if( gFont == NULL )	{
 				printf( "DL_ttf Error: %s\n", TTF_GetError() );
 			}
+		//Fotos personajes
+		gFotoSpider.loadFromFile("Images/pj_spider.gif", gRenderer, 60, 60);
+		gFotoChunli.loadFromFile("Images/pj_chunli.gif", gRenderer, 60, 60);
+		gFotoVenom.loadFromFile("Images/pj_venom.gif", gRenderer, 60, 60);
+		gFotoAmerica.loadFromFile("Images/pj_america.gif", gRenderer, 60, 60);
 
 
-		gBordeIzquierda.loadFromFile("Images/barra_borde_izquierda.png", gRenderer, 350, 30);
+		gBordeIzquierda.loadFromFile("Images/barra_borde_izquierda.png", gRenderer, 300, 30);
 		gFondoIzquierda.loadFromFile("Images/barra_vida_b.png", gRenderer, ANCHO_VIDA, 25);
 
-		gBordeDerecha.loadFromFile("Images/barra_borde_derecha.png", gRenderer, 350, 30);
+		gBordeDerecha.loadFromFile("Images/barra_borde_derecha.png", gRenderer, 300, 30);
 		gFondoDerecha.loadFromFile("Images/barra_vida_b.png", gRenderer, ANCHO_VIDA, 25);
 
-		gBordeIzquierdaInf.loadFromFile("Images/barra_borde_izquierda.png", gRenderer, 300, 30);
-		gBordeDerechaInf.loadFromFile("Images/barra_borde_derecha.png", gRenderer, 300, 30);
+		gBordeIzquierdaInf.loadFromFile("Images/barra_borde_izquierda.png", gRenderer, 250, 30);
+		gBordeDerechaInf.loadFromFile("Images/barra_borde_derecha.png", gRenderer, 250, 30);
 
 		gFondoIzquierdaInf.loadFromFile("Images/barra_vida_b.png", gRenderer, ANCHO_VIDA, 25);
 		gFondoDerechaInf.loadFromFile("Images/barra_vida_b.png", gRenderer, ANCHO_VIDA, 25);
@@ -49,19 +54,36 @@ void Barras::CargarTexto(string nombre, SDL_Color color){
 }
 void Barras::SetVida(int equipo, int jugador, int vida){
 	// 324 es una parte de 100.
-	double vidaBarra = (3.24)*vida;
+	double vidaBarra = (2.79)*vida;
 	if(equipo == 0){
 		if(jugador == 0){
 			vidaEquipo0_titular = vidaBarra;
 		}else{
-			vidaEquipo0_suplente = vidaBarra*0.86;
+			vidaEquipo0_suplente = vidaBarra*0.83;
 		}
 	}else{
 		if(jugador == 0){
 			vidaEquipo1_titular = vidaBarra;
 		}else{
-			vidaEquipo1_suplente = vidaBarra*0.86;
+			vidaEquipo1_suplente = vidaBarra*0.83;
 		}
+	}
+}
+void Barras::RenderFoto(int x, int y, std::string nombre){
+	if( nombre == "Captain America"){
+		gFotoAmerica.render(x, y, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
+	}
+
+	if( nombre == "Venom"){
+		gFotoVenom.render(x,y, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
+	}
+
+	if( nombre == "Spiderman"){
+		gFotoSpider.render(x, y, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
+	}
+
+	if( nombre == "Chun Li"){
+		gFotoChunli.render(x, y, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	}
 }
 void Barras::ActulializarColores(Equipo * equipos[2]){
@@ -120,7 +142,7 @@ void Barras::render(Equipo * equipos[2]){
 	int rondasEquipo1 = equipos[1]->getRondasGanadas();
 
 	//Posicionescde las barras de vida
-	int posXIzquierdo = 2;
+	int posXIzquierdo = 52;
 	int posXDerecha = 448;
 
     SDL_Rect barras;
@@ -145,7 +167,7 @@ void Barras::render(Equipo * equipos[2]){
 	gTextoPersonaje.render(posXIzquierdo+115, 11, NULL,0.0, NULL, SDL_FLIP_NONE,gRenderer);
 
 
-	gFondoDerecha.render(posXDerecha+16+ANCHO_VIDA-vidaEquipo1_titular, 11,vidaEquipo1_titular ,24,&vida, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
+	gFondoDerecha.render(posXDerecha+13+ANCHO_VIDA-vidaEquipo1_titular, 11,vidaEquipo1_titular ,24,&vida, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	gBordeDerecha.render(posXDerecha, 10, &barras, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	CargarTexto(nombreEquipo1Titular, colorNombres);
 	gTextoPersonaje.render(posXDerecha+135, 11, NULL,0.0, NULL, SDL_FLIP_NONE,gRenderer);
@@ -156,7 +178,7 @@ void Barras::render(Equipo * equipos[2]){
 	CargarTexto(nombreEquipo0Suplente, colorNombres);
 	gTextoPersonaje.render(posXIzquierdo+115, 11+30, NULL,0.0, NULL, SDL_FLIP_NONE,gRenderer);
 
-	gFondoDerechaInf.render(posXDerecha+16+ANCHO_VIDA-vidaEquipo1_suplente, 41,vidaEquipo1_suplente ,24,&vida, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
+	gFondoDerechaInf.render(posXDerecha+13+ANCHO_VIDA-vidaEquipo1_suplente, 41,vidaEquipo1_suplente ,24,&vida, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	gBordeDerechaInf.render(posXDerecha+50, 40, &barras, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	CargarTexto(nombreEquipo1Suplente, colorNombres);
 	gTextoPersonaje.render(posXDerecha+135, 11+30, NULL,0.0, NULL, SDL_FLIP_NONE,gRenderer);
@@ -166,8 +188,11 @@ void Barras::render(Equipo * equipos[2]){
 	CargarTexto(std::to_string(rondasEquipo0) + " : " + std::to_string(rondasEquipo1), colorScore);
 	gTextoPersonaje.render(386, 60,30,24, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 
+	//Foto Equipo 0
+	RenderFoto(1, 11, nombreEquipo0Titular);
 
-
+	//Foto Equipo 1
+	RenderFoto(739, 11, nombreEquipo1Titular);
 
 
 }
@@ -182,4 +207,9 @@ Barras::~Barras(){
 	gFondoDerecha.free();
 	gFondoDerechaInf.free();
 	gBordeDerechaInf.free();
+
+	gFotoSpider.free();
+	gFotoChunli.free();
+	gFotoVenom.free();
+	gFotoAmerica.free();
 }

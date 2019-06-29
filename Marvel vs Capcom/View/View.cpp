@@ -245,8 +245,6 @@ SDL_Rect* View::getCamara(){
 
 void View::close() {
 
-	timerJuego->Apagar();
-
 	//Destroy this->window}
 
 	SDL_DestroyRenderer(this->gRenderer);

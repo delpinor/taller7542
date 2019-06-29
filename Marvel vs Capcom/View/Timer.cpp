@@ -13,15 +13,10 @@ Timer::Timer(SDL_Renderer * gRen){
 		//Set text color as black
 		textColor = { 0,255, 0, 0 };
 
-		//Set startTime
-		startTime = SDL_GetTicks();
 
 		//Load timer background
 		gFondoTimer.loadFromFile("Images/timer.png", gRenderer, 100, 100);
 
-}
-void Timer::Reset(){
-	startTime = SDL_GetTicks();
 }
 void Timer::render(int tiempo){
 
@@ -38,7 +33,7 @@ void Timer::render(int tiempo){
 		if(tiempo < 10){
 			pxCentrar = 54;
 		}else{
-			pxCentrar = 48;
+			pxCentrar = 49;
 		}
 	}
 
@@ -52,17 +47,17 @@ void Timer::render(int tiempo){
 
 
 	//Alinear cuando el valor del timepo es menor a 100 y 10.
-	int posX = (ANCHO_PANTALLA/2 - 58);
-	gFondoTimer.render(posX,  0, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
+	gFondoTimer.render(342, -6, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 
-	gTimeTextTexture.render(posX+pxCentrar, 16, NULL,0.0, NULL, SDL_FLIP_NONE,gRenderer);
+	gTimeTextTexture.render(342+pxCentrar, 10, NULL,0.0, NULL, SDL_FLIP_NONE,gRenderer);
 
 
 
 }
-void Timer::Apagar(){
+Timer::~Timer(){
 	//Free loaded images
 	gTimeTextTexture.free();
+	gFondoTimer.free();
 
 	//Free global font
 	TTF_CloseFont( gFont );
