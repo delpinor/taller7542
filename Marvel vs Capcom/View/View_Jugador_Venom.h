@@ -55,7 +55,10 @@ protected:
 	void getSpritesDefensaSaltando();
 	//Daño
 	void getSpritesRecibirDanio();
+	//Poder
 	void getSpritesPoder();
+	//Volando
+	void getSpritesVolando();
 };
 
 #endif
