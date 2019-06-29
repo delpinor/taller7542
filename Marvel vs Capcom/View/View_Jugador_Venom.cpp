@@ -749,24 +749,27 @@ void View_Jugador_Venom::getSpritesPatadaFuerteSaltando() {
 
 void View_Jugador_Venom::getSpritesDefensa() {
 	this->gSpriteDefensa = new SDL_Rect[1];
-	gSpriteDefensa[0].x = 16;
-	gSpriteDefensa[0].y = 2992;
+
+	gSpriteDefensa[0].x = 1360;
+	gSpriteDefensa[0].y = 2984;
 	gSpriteDefensa[0].w = 261;
-	gSpriteDefensa[0].h = 150;
+	gSpriteDefensa[0].h = 170;
 }
 
 void View_Jugador_Venom::getSpritesDefensaSaltando() {
 	this->gSpriteDefensaAgachado = new SDL_Rect[1];
-	gSpriteDefensaAgachado[0].x = 515;
-	gSpriteDefensaAgachado[0].y = 2992;
+
+	gSpriteDefensaAgachado[0].x = 1132;
+	gSpriteDefensaAgachado[0].y = 2994;
 	gSpriteDefensaAgachado[0].w = 261;
 	gSpriteDefensaAgachado[0].h = 150;
 }
 
 void View_Jugador_Venom::getSpritesDefensaAgachado() {
 	this->gSpriteDefensaSaltando = new SDL_Rect[1];
-	gSpriteDefensaSaltando[0].x = 515;
-	gSpriteDefensaSaltando[0].y = 2992;
+
+	gSpriteDefensaSaltando[0].x = 1132;
+	gSpriteDefensaSaltando[0].y = 2994;
 	gSpriteDefensaSaltando[0].w = 261;
 	gSpriteDefensaSaltando[0].h = 150;
 }
