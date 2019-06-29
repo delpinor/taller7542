@@ -39,6 +39,7 @@ void View_Jugador_Venom::initialize(Jugador * model,
 	getSpritesVolando();
 	//Poder
 	getSpritesPoder();
+	getSpritesLanzarPoder();
 	//Arrojando
 	getSpritesArrojando();
 
@@ -794,50 +795,6 @@ void View_Jugador_Venom::getSpritesRecibirDanio() {
 	gSpriteRecibirDanio[0].h = 150;
 }
 
-void View_Jugador_Venom::getSpritesPoder(){
-	CANTSPRITECLIPPODER = 7;
-	MINFRAMEPODER = 0;
-	MAXFRAMEPODER = 6;
-	FACTORPODER = 8;
-	this->gSpritePoder = new SDL_Rect[CANTSPRITECLIPPODER];
-
-	gSpritePoder[0].x = 59;
-	gSpritePoder[0].y = 3983;
-	gSpritePoder[0].w = 261;
-	gSpritePoder[0].h = 150;
-
-	gSpritePoder[1].x = 320;
-	gSpritePoder[1].y = 3983;
-	gSpritePoder[1].w = 261;
-	gSpritePoder[1].h = 150;
-
-	gSpritePoder[2].x = 581;
-	gSpritePoder[2].y = 3983;
-	gSpritePoder[2].w = 261;
-	gSpritePoder[2].h = 150;
-
-	gSpritePoder[3].x = 842;
-	gSpritePoder[3].y = 3983;
-	gSpritePoder[3].w = 261;
-	gSpritePoder[3].h = 150;
-
-	gSpritePoder[4].x = 1103;
-	gSpritePoder[4].y = 3983;
-	gSpritePoder[4].w = 261;
-	gSpritePoder[4].h = 150;
-
-	gSpritePoder[5].x = 1364;
-	gSpritePoder[5].y = 3983;
-	gSpritePoder[5].w = 261;
-	gSpritePoder[5].h = 150;
-
-	gSpritePoder[6].x = 1625;
-	gSpritePoder[6].y = 3983;
-	gSpritePoder[6].w = 261;
-	gSpritePoder[6].h = 150;
-}
-
-
 void View_Jugador_Venom::getSpritesVolando(){
 	CANTSPRITECLIPJUGADORLANZADO = 9;
 	MINFRAMEJUGADORLANZADO = 0;
@@ -930,3 +887,90 @@ void View_Jugador_Venom::getSpritesArrojando(){
 	gSpriteLanzarJugador[3].w = 261;
 	gSpriteLanzarJugador[3].h = 150;
 }
+
+void View_Jugador_Venom::getSpritesPoder(){
+	CANTSPRITECLIPPODER = 8;
+	MINFRAMEPODER = 0;
+	MAXFRAMEPODER = 7;
+	FACTORPODER = 5;
+	this->gSpritePoder = new SDL_Rect[CANTSPRITECLIPPODER];
+
+	gSpritePoder[0].x = 15;
+	gSpritePoder[0].y = 3190;
+	gSpritePoder[0].w = 261;
+	gSpritePoder[0].h = 150;
+
+	gSpritePoder[1].x = 15;
+	gSpritePoder[1].y = 3190;
+	gSpritePoder[1].w = 261;
+	gSpritePoder[1].h = 150;
+
+	gSpritePoder[2].x = 335;
+	gSpritePoder[2].y = 3190;
+	gSpritePoder[2].w = 261;
+	gSpritePoder[2].h = 150;
+
+	gSpritePoder[3].x = 335;
+	gSpritePoder[3].y = 3190;
+	gSpritePoder[3].w = 261;
+	gSpritePoder[3].h = 150;
+
+	gSpritePoder[4].x = 650;
+	gSpritePoder[4].y = 3190;
+	gSpritePoder[4].w = 261;
+	gSpritePoder[4].h = 150;
+
+	gSpritePoder[5].x = 650;
+	gSpritePoder[5].y = 3190;
+	gSpritePoder[5].w = 261;
+	gSpritePoder[5].h = 150;
+
+	gSpritePoder[6].x = 980;
+	gSpritePoder[6].y = 3190;
+	gSpritePoder[6].w = 261;
+	gSpritePoder[6].h = 150;
+
+	gSpritePoder[7].x = 980;
+	gSpritePoder[7].y = 3190;
+	gSpritePoder[7].w = 261;
+	gSpritePoder[7].h = 150;
+}
+
+void View_Jugador_Venom::getSpritesLanzarPoder(){
+	CANTSPRITECLIPLANZARPODER = 3;
+	MINFRAMELANZARPODER = 0;
+	MAXFRAMELANZARPODER = 2;
+	FACTORLANZARPODER = 3;
+	this->gSpriteLanzarPoder = new SDL_Rect[CANTSPRITECLIPLANZARPODER];
+
+//	gSpriteLanzarPoder[0].x = 1518;
+//	gSpriteLanzarPoder[0].y = 3192;
+//	gSpriteLanzarPoder[0].w = 261;
+//	gSpriteLanzarPoder[0].h = 150;
+
+//	gSpriteLanzarPoder[1].x = 1520;
+//	gSpriteLanzarPoder[1].y = 3192;
+//	gSpriteLanzarPoder[1].w = 261;
+//	gSpriteLanzarPoder[1].h = 150;
+//
+//	gSpriteLanzarPoder[2].x = 1790;
+//	gSpriteLanzarPoder[2].y = 3192;
+//	gSpriteLanzarPoder[2].w = 261;
+//	gSpriteLanzarPoder[2].h = 150;
+
+	gSpriteLanzarPoder[0].x = 1790;
+	gSpriteLanzarPoder[0].y = 3192;
+	gSpriteLanzarPoder[0].w = 261;
+	gSpriteLanzarPoder[0].h = 150;
+
+	gSpriteLanzarPoder[1].x = 2100;
+	gSpriteLanzarPoder[1].y = 3192;
+	gSpriteLanzarPoder[1].w = 261;
+	gSpriteLanzarPoder[1].h = 150;
+
+	gSpriteLanzarPoder[2].x = 2100;
+	gSpriteLanzarPoder[2].y = 3192;
+	gSpriteLanzarPoder[2].w = 261;
+	gSpriteLanzarPoder[2].h = 150;
+
+};

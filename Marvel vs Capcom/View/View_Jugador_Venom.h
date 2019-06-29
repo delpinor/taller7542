@@ -57,6 +57,7 @@ protected:
 	void getSpritesRecibirDanio();
 	//Poder
 	void getSpritesPoder();
+	void getSpritesLanzarPoder();
 	//Volando
 	void getSpritesVolando();
 	//Arrojando
