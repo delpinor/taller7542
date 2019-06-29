@@ -39,6 +39,8 @@ void View_Jugador_Venom::initialize(Jugador * model,
 	getSpritesVolando();
 	//Poder
 	getSpritesPoder();
+	//Arrojando
+	getSpritesArrojando();
 
 
 	this->texturaJugador->setColor(this->jugador->getR(), this->jugador->getG(),
@@ -887,4 +889,44 @@ void View_Jugador_Venom::getSpritesVolando(){
 	gSpriteJugadorLanzado[8].y = 47;
 	gSpriteJugadorLanzado[8].w = 261;
 	gSpriteJugadorLanzado[8].h = 150;
+}
+
+void View_Jugador_Venom::getSpritesArrojando(){
+
+	CANTSPRITECLIPLANZARJUGADOR = 4;
+	MINFRAMELANZARJUGADOR = 0;
+	MAXFRAMELANZARJUGADOR = 3;
+	FACTORLANZARJUGADOR = 3;
+	this->gSpriteLanzarJugador = new SDL_Rect[CANTSPRITECLIPLANZARJUGADOR];
+
+
+	gSpriteLanzarJugador[0].x = 250;
+	gSpriteLanzarJugador[0].y = 2122;
+	gSpriteLanzarJugador[0].w = 261;
+	gSpriteLanzarJugador[0].h = 150;
+
+	gSpriteLanzarJugador[1].x = 468;
+	gSpriteLanzarJugador[1].y = 2122;
+	gSpriteLanzarJugador[1].w = 261;
+	gSpriteLanzarJugador[1].h = 150;
+
+//	gSpriteLanzarJugador[2].x = 695;
+//	gSpriteLanzarJugador[2].y = 2122;
+//	gSpriteLanzarJugador[2].w = 261;
+//	gSpriteLanzarJugador[2].h = 150;
+//
+//	gSpriteLanzarJugador[3].x = 908;
+//	gSpriteLanzarJugador[3].y = 2122;
+//	gSpriteLanzarJugador[3].w = 261;
+//	gSpriteLanzarJugador[3].h = 150;
+
+	gSpriteLanzarJugador[2].x = 1170;
+	gSpriteLanzarJugador[2].y = 2122;
+	gSpriteLanzarJugador[2].w = 261;
+	gSpriteLanzarJugador[2].h = 150;
+
+	gSpriteLanzarJugador[3].x = 1170;
+	gSpriteLanzarJugador[3].y = 2122;
+	gSpriteLanzarJugador[3].w = 261;
+	gSpriteLanzarJugador[3].h = 150;
 }
