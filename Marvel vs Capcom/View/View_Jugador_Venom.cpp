@@ -781,10 +781,15 @@ void View_Jugador_Venom::getSpritesDefensaAgachado() {
 void View_Jugador_Venom::getSpritesRecibirDanio() {
 	this->gSpriteRecibirDanio = new SDL_Rect[1];
 
-	gSpriteRecibirDanio[0].x = 253;
-	gSpriteRecibirDanio[0].y = 2995;
+//	gSpriteRecibirDanio[0].x = 253;
+//	gSpriteRecibirDanio[0].y = 2995;
+//	gSpriteRecibirDanio[0].w = 261;
+//	gSpriteRecibirDanio[0].h = 170;
+
+	gSpriteRecibirDanio[0].x = 950;
+	gSpriteRecibirDanio[0].y = 1460;
 	gSpriteRecibirDanio[0].w = 261;
-	gSpriteRecibirDanio[0].h = 170;
+	gSpriteRecibirDanio[0].h = 150;
 }
 
 void View_Jugador_Venom::getSpritesPoder(){
