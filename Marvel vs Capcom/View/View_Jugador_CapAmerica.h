@@ -50,7 +50,8 @@ protected:
 	void getSpritesRecibirDanio();
 	void getSpritesPoder();
 	void getSpritesLanzarPoder();
-
+	void getSpritesVolando();
+	void getSpritesArrojando();
 };
 
 #endif
