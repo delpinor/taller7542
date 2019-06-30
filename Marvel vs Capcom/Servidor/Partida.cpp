@@ -248,13 +248,18 @@ void Partida::SwapTitularSuplente(int equipo) {
 }
 void Partida::SetComando(int equipo, int comando) {
 	if (comando != 99) {
-		if (comando == CAMBIAR_PERSONAJE) {
-			if (TieneSuplente(equipo)) {
-				SwapTitularSuplente(equipo);
-			}
-		}
-		controlador->SetComando(equipo, comando);
 
+		if(comando == MODO_TEST){
+			this->setModoTest();
+		}
+		else{
+			if (comando == CAMBIAR_PERSONAJE) {
+				if (TieneSuplente(equipo)) {
+					SwapTitularSuplente(equipo);
+				}
+			}
+			controlador->SetComando(equipo, comando);
+		}
 	}
 
 	//	modelo->update();
@@ -961,5 +966,13 @@ void Partida::SetResultadosBatallaTerminada(){
 	else{
 		cout << "Equipo 1 GANÓ EL ROUND " << this->roundActual << endl;
 		this->resultado.resultadoEquipo1.nrosRound.push_back(this->roundActual);
+	}
+}
+
+void Partida::setModoTest(){
+
+	if(!this->EsModoTest()){
+		this->modoTest = true;
+		this->modelo->setModoTest(true);
 	}
 }

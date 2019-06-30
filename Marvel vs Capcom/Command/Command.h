@@ -17,6 +17,7 @@
 #define ARROJAR  0x0E
 #define PODER  0x0F
 #define SILENCIO  0x1F
+#define MODO_TEST  0x20
 #define CANTCOMMANDS 17
 
 

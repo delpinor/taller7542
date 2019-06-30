@@ -124,6 +124,9 @@ int Controller::handleEventCliente(SDL_Event& e) {
 		case SDLK_LCTRL:
 			comando =  CAMBIAR_PERSONAJE;
 			break;
+		case SDLK_t:
+			comando =  MODO_TEST;
+			break;
 		}
 	}
 	//If a key was released

@@ -91,6 +91,7 @@ public:
 	void inicializarVida();
 	int getVidaTotal();
 	int getCantidadJugadoresVivos();
+	void setModoTest(bool valor);
 };
 
 #endif /* MODEL_EQUIPO_H_ */
