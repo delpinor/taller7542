@@ -49,12 +49,17 @@ void View_Jugador::reproducir_efecto_sonido( int tipo_golpe){
 void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 	SDL_Rect* currentClip;
 	SDL_Rect* currentClipPoder;
+
+
 	if(this->jugador->get_estado_desconexion()==false){
 		//printf("No se pone gris la imagen!!!!\n");
 		this->desgrisar_imagen();
 	}else{
 		//printf("se pone gris la imagen!!!!\n");
 		this->grisar_imagen();
+	}
+	if (this->jugador->getTipoGolpe() != TIPO_GOLPE::ACTIVAR_DEFENSA){
+		sonido_defensa_reproducido=false;
 	}
 	if (this->jugador->getTipoGolpe() == TIPO_GOLPE::DESACTIVAR_DEFENSA) {
 		this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
@@ -98,8 +103,10 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					maxFrame = 1;
 					factor = 1;
 					frame = 0;
-					if(!silencio)
-					reproducir_efecto_sonido( this->jugador->getTipoGolpe());
+					if((!silencio) && (!sonido_defensa_reproducido)){
+						reproducir_efecto_sonido( this->jugador->getTipoGolpe());
+						sonido_defensa_reproducido=true;
+					}
 					std::cout << "defensa agachado" << std::endl;
 				}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::RECIBIR_DANIO) {
 					gSpriteGolpear = gSpriteRecibirDanio;
@@ -151,8 +158,10 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 				maxFrame = 1;
 				factor = 1;
 				frame = 0;
-				if(!silencio)
-				reproducir_efecto_sonido( this->jugador->getTipoGolpe());
+				if((!silencio) && (!sonido_defensa_reproducido)){
+					reproducir_efecto_sonido( this->jugador->getTipoGolpe());
+					sonido_defensa_reproducido=true;
+				}
 				std::cout << "defensa parado" << std::endl;
 			}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::RECIBIR_DANIO) {
 				gSpriteGolpear = gSpriteRecibirDanio;
@@ -248,8 +257,10 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					maxFrame = 1;
 					factor = 1;
 					frame = 0;
-					if(!silencio)
-					reproducir_efecto_sonido( this->jugador->getTipoGolpe());
+					if((!silencio) && (!sonido_defensa_reproducido)){
+						reproducir_efecto_sonido( this->jugador->getTipoGolpe());
+						sonido_defensa_reproducido=true;
+					}
 					std::cout << "defensa saltando" << std::endl;
 				}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::RECIBIR_DANIO) {
 					gSpriteGolpear = gSpriteRecibirDanio;

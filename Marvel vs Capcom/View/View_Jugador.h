@@ -172,6 +172,7 @@ public:
 	int MAXFRAMEPODER;
 	int FACTORPODER;
 	bool silencio=false;
+	bool sonido_defensa_reproducido=false;
 	int maxFrame;
 	int factor;
 

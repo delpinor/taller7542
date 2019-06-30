@@ -129,6 +129,7 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 
 	}
 	else if(collideConJugador(&(jugadorRival->mCollider))){
+
 		cout<<"colider x:"<<this->mCollider.x <<endl;
 		cout<<"colider y:"<<this->mCollider.y <<endl;
 cout<<"pos x:"<<this->estado->getPosX()<<endl;
@@ -139,15 +140,27 @@ cout<<"pos rival y:"<<jugadorRival->estado->getPosY()<<endl;
 
 //Move back
 		if(this->estado->getPosX()<=jugadorRival->estado->getPosX()){
-			if(this->estado->getVelX()>=0)
+			if((this->estado->getVelY()!=0) && (!collideDerecha(camara)) && (!collideIzquierda(camara)))
+				nuevaposX= this->estado->getPosX() -50;
+			else if((this->estado->getVelY()!=0) && (collideDerecha(camara)) && (!collideIzquierda(camara)))
+							nuevaposX= this->estado->getPosX() -100;
+			else if((this->estado->getVelY()!=0) && (collideIzquierda(camara)))
+									nuevaposX= this->estado->getPosX() +100;
+			else if(this->estado->getVelX()>=0)
 				nuevaposX= this->estado->getPosX() -this->estado->getVelX();
 			else
 				nuevaposX= this->estado->getPosX() +this->estado->getVelX() ;
+
 		}else{
-			if(this->estado->getVelX()>0)
-				nuevaposX= this->estado->getPosX() + this->estado->getVelX();
+			if((this->estado->getVelY()!=0) && (!collideIzquierda(camara)))
+				nuevaposX= this->estado->getPosX() +50;
+			else if((this->estado->getVelY()!=0) && (collideIzquierda(camara)))
+				nuevaposX= this->estado->getPosX() +100;
+			else if(this->estado->getVelX()>=0)
+				nuevaposX= this->estado->getPosX() +this->estado->getVelX();
 			else
-				nuevaposX= this->estado->getPosX() - this->estado->getVelX();
+				nuevaposX= this->estado->getPosX() -this->estado->getVelX() ;
+
 		}
 		/*
 		if(this->estado->getPosY()>=jugadorRival->estado->getPosY()){
