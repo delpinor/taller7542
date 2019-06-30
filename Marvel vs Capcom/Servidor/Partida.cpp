@@ -1,6 +1,5 @@
 #include "Partida.h"
 #include <iostream>
-#define DURACIONMENSAJE 2
 void Partida::IniciarPartida() {
 	//listaJugadores = listaEspera;
 	//listaEspera.clear();
@@ -73,18 +72,34 @@ ModeloEstado Partida::GetModeloEstado() {
 	unModelo.activoEquipo2 = modelo->equipos[1]->nroJugadorActivo;
 	return unModelo;
 }
+int Partida::GetTiempoPausa(){
+	return this->tiempoPausa;
+}
+void Partida::SetTiempoPausa(int segundos){
+	this->tiempoPausa = segundos;
+}
 ModeloInGame Partida::GetModeloGame(){
 	ModeloInGame unModelo;
 	unModelo = modelo->GetModeloInGame();
 	unModelo.ganadosEquipo0 = this->GetModeloResultadoEquipo(0).cantidadResultados;
 	unModelo.ganadosEquipo1 =  this->GetModeloResultadoEquipo(1).cantidadResultados;
 	if (Iniciada()){
-		if(tiempoRound < (cronometro+DURACIONMENSAJE)){
+		if(tiempoRound == cronometro){
 				unModelo.tipoMensaje = READY;
 				std::string msg = "Ronda " + std::to_string(roundActual);
 				strcpy(unModelo.mensaje, msg.c_str());
+				SetTiempoPausa(2);
+
 		}else{
-			unModelo.tipoMensaje = NINGUNO;
+			if(modelo->equipos[0]->getJugadorActivo()->murio() || modelo->equipos[1]->getJugadorActivo()->murio() ){
+				unModelo.tipoMensaje = KO ;
+				SetTiempoPausa(2);
+
+			}else{
+				unModelo.tipoMensaje = NINGUNO;
+				SetTiempoPausa(0);
+
+			}
 		}
 
 	}
@@ -861,6 +876,7 @@ ModeloResultadoSeleccionPersonaje Partida::getResultadoSeleccionPersonaje(){
 void Partida::SetConfiguracion(int tiempoBatalla, int cantidadBatallas, bool modoTest){
 	this->cantidadRounds = cantidadBatallas;
 	this->tiempoRound = tiempoBatalla;
+	this->modelo->SetTiempoJuego(tiempoBatalla);
 	this->modoTest = modoTest;
 }
 
@@ -869,9 +885,9 @@ void Partida::AvanzarTiempo(){
 		this->cronometro--;
 	}
 	modelo->SetTiempoJuego(this->cronometro);
-	cout
-	<< "PARTIDA - Tiempo:   " << this->cronometro << " | "
-	<< TimeHelper::getStringLocalTimeNow() << endl;
+//	cout
+//	<< "PARTIDA - Tiempo:   " << this->cronometro << " | "
+//	<< TimeHelper::getStringLocalTimeNow() << endl;
 }
 
 
@@ -892,7 +908,13 @@ void Partida::FinalizarBatalla(){
 	this->SetResultadosBatallaTerminada();
 }
 bool Partida::HayBatallasPendientes(){
-	if(this->roundActual < this->cantidadRounds){
+	int roundMitad =  (cantidadRounds / 2)+1;
+	if((this->roundActual < this->cantidadRounds)){
+		if(roundMitad == roundActual){
+			if(!this->GetModeloResultadoEquipo(0).cantidadResultados || !this->GetModeloResultadoEquipo(1).cantidadResultados ){
+				return false;
+			}
+		}
 		return true;
 	}
 	else{

@@ -16,7 +16,7 @@
 
 //Mensajes a clientes
 enum TIPOLEYENDA{
-	READY = 901, YOUWIN = 902, YOULOSE = 903, RESULTADOS = 904, NINGUNO = 910
+	READY = 901, YOUWIN = 902, YOULOSE = 903, RESULTADOS = 904, KO = 905, NINGUNO = 910
 };
 //Enumera de cabecera
 enum IDMENSAJE {

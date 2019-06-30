@@ -10,6 +10,9 @@ Show::Show(SDL_Renderer * gRen){
 	//Mensaje de Inicio de batalla
 	gLose.loadFromFile("Images/lose.png", gRenderer, 300, 131);
 
+	//Mensaje KO
+	gKO.loadFromFile("Images/ko.gif", gRenderer, 300, 131);
+
 	//Mensaje de resultados
 	gAmerica.loadFromFile("Images/america-foto.png", gRenderer, 320, 107);
 	//Mensaje de resultados
@@ -40,7 +43,9 @@ void Show::render(TIPOLEYENDA tipo, std::string mensaje, Equipo * equipos[2]){
 		gTexto.render(300, 100, NULL,0.0, NULL, SDL_FLIP_NONE,gRenderer);
 		gReady.render(155, 200, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	}
-
+	if(tipo == KO){
+		gKO.render(290, 200, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
+	}
 	//bool ganoEquipo0 = false;
 	if(tipo == RESULTADOS){
 			if(equipos[0]->getRondasGanadas() > equipos[1]->getRondasGanadas()){
@@ -89,4 +94,5 @@ Show::~Show(){
 	gSpider.free();
 	gWin.free();
 	gLose.free();
+	gKO.free();
 }

@@ -71,6 +71,8 @@ void * controlBatalla(void *) {
 				miPartida.AvanzarTiempo();
 				pthread_mutex_unlock(&mutex_server);
 
+				sleep(miPartida.GetTiempoPausa());
+
 				if(miPartida.DebeFinalizarBatalla()){
 					pthread_mutex_lock(&mutex_server);
 					miPartida.FinalizarBatalla();
@@ -88,7 +90,7 @@ void * controlPartida(void *) {
 	while (1) {
 		signal(SIGINT, sigintHandler);
 		if (miPartida.FinalizadaSeleccionPersonajes() && !miPartida.Iniciada()) {//if (miPartida.EquipoCompleto()) {
-			sleep(2);
+			//sleep(2);
 			miPartida.IniciarPartida();
 		}
 		if (miPartida.Iniciada() && !miPartida.Finalizada()){
@@ -160,7 +162,7 @@ void * controlSeleccionPersonajes(void *) {
 		}
 		//	cout << "Personajes seleccion compelta: " << miPartida.IniciadaSeleccionPersonajes() << endl;
 		//Por que no muere éste hilo?
-
+	usleep(50);
 	}
 	cout << "SERVIDOR - controlSeleccionPersonajes: FIN de ciclo" << " | "
 			<< TimeHelper::getStringLocalTimeNow() << endl;
@@ -196,11 +198,10 @@ void * loggeoPartida(void *) {
 //			cout << "------------------------" << endl;
 //			cout << "------------------------" << endl;
 //		}
-//		if (miPartida.Finalizada()) {
-//			cout << "Partida finalizada!" << it->nombre << endl;
-//			pthread_exit(NULL);
-//
-//		}
+		if (miPartida.Finalizada()) {
+			pthread_exit(NULL);
+
+		}
 
 		sleep(1);
 	}

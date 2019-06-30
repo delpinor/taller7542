@@ -12,6 +12,7 @@ private:
 	LTexture gReady;
 	LTexture gWin;
 	LTexture gLose;
+	LTexture gKO;
 
 	LTexture gAmerica;
 	LTexture gChunlee;

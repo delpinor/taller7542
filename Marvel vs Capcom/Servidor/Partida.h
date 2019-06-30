@@ -10,6 +10,8 @@
 #include "../Enums/Personajes.h"
 #define ANCHO_NIVEL 1040
 #define ALTO_NIVEL 1080
+#define DURACIONMENSAJE 2
+#define DURACIONPAUSA 2
 using namespace std;
 // Estructura de Cliente
 struct ClienteConectado{
@@ -65,6 +67,7 @@ private:
 	int cronometro = 0;
 	int cantidadRounds;
 	int roundActual = 0;
+	int tiempoPausa = 0;
 	bool roundCorriendo = false;
 	bool modoTest;
 	ResultadoPartida resultado;
@@ -73,6 +76,8 @@ private:
 	void ResetTitularidadClientes();
 	void SetResultadosBatallaTerminada();
 public:
+	int GetTiempoPausa();
+	void SetTiempoPausa(int segundos);
 	bool ClientesCargados();
 	list<ClienteConectado> GetListaJugadores();
 	list<ClienteConectado> GetListaEspera();

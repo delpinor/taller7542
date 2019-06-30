@@ -242,6 +242,7 @@ int main(int argc, char* argv[]) {
 		model.inicializar();
 		model.getEquipoNro(0)->setJugadorActivo(0);
 		model.getEquipoNro(1)->setJugadorActivo(0);
+		model.SetTiempoJuego(tiempoBatalla);
 
 		cout << "Finalizo el seteo de los Personajes en el modelo | " << TimeHelper::getStringLocalTimeNow() << endl;
 		cliente.LanzarHiloPing();
