@@ -162,18 +162,21 @@ void Equipo::jugadorActivoSalta() {
 	this->jugadores[this->nroJugadorActivo]->Saltar();
 }
 void Equipo::jugadorActivoPinia(Jugador * rival) {
+	if (this->jugadores[this->nroJugadorActivo]->estaSaltando() || this->jugadores[this->nroJugadorActivo]->getVelX()==0)
 	this->jugadores[this->nroJugadorActivo]->Pinia(rival);
 }
 //void Equipo::jugadorActivoPinia_agachado(Jugador * rival) {
 //	this->jugadores[this->nroJugadorActivo]->Pinia_agachado(rival);
 //}
 void Equipo::jugadorActivoPinion(Jugador * rival) {
+	if (this->jugadores[this->nroJugadorActivo]->estaSaltando() || this->jugadores[this->nroJugadorActivo]->getVelX()==0)
 	this->jugadores[this->nroJugadorActivo]->Pinion(rival);
 }
 void Equipo::jugadorActivoArrojar(Jugador * rival) {
 	this->jugadores[this->nroJugadorActivo]->Arrojar(rival);
 }
 void Equipo::jugadorActivoTirarPoder(Jugador * rival) {
+	if (this->jugadores[this->nroJugadorActivo]->estaSaltando() || this->jugadores[this->nroJugadorActivo]->getVelX()==0)
 	if (!this->jugadores[this->nroJugadorActivo]->estaAgachado())
 	this->jugadores[this->nroJugadorActivo]->TirarPoder(rival);
 }
@@ -181,6 +184,7 @@ void Equipo::jugadorActivoTirarPoder(Jugador * rival) {
 //	this->jugadores[this->nroJugadorActivo]->Pinion_agachado(rival);
 //}
 void Equipo::jugadorActivoPatada(Jugador * rival) {
+	if (this->jugadores[this->nroJugadorActivo]->estaSaltando() || this->jugadores[this->nroJugadorActivo]->getVelX()==0)
 	this->jugadores[this->nroJugadorActivo]->Patada(rival);
 }
 //void Equipo::jugadorActivoPatada_agachado(Jugador * rival) {
@@ -190,9 +194,11 @@ void Equipo::jugadorActivoPatada(Jugador * rival) {
 //	this->jugadores[this->nroJugadorActivo]->Patadon_agachado(rival);
 //}
 void Equipo::jugadorActivoPatadon(Jugador * rival) {
+	if (this->jugadores[this->nroJugadorActivo]->estaSaltando() || this->jugadores[this->nroJugadorActivo]->getVelX()==0)
 	this->jugadores[this->nroJugadorActivo]->Patadon(rival);
 }
 void Equipo::jugadorActivoActivarDefensa() {
+	if (this->jugadores[this->nroJugadorActivo]->estaSaltando() || this->jugadores[this->nroJugadorActivo]->getVelX()==0)
 	this->jugadores[this->nroJugadorActivo]->ActivarDefensa();
 }
 void Equipo::jugadorActivoDesactivarDefensa() {
