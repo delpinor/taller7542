@@ -48,6 +48,8 @@ public:
 	SDL_Rect  *gSpriteJugadorLanzado;
 	SDL_Rect  *gSpriteLanzarPoder;
 	SDL_Rect  *gSpritePoder;
+	//poder especial
+	SDL_Rect  *gSpritePoderEspecial;
 	//danio
 	SDL_Rect  *gSpriteRecibirDanio;
 	SDL_Rect * gSprite;
@@ -169,6 +171,11 @@ public:
 	int MINFRAMELANZARPODER;
 	int MAXFRAMELANZARPODER;
 	int FACTORLANZARPODER;
+
+	int CANTSPRITECLIPPODER_especial;
+	int MINFRAMEPODER_especial;
+	int MAXFRAMEPODER_especial;
+	int FACTORPODER_especial;
 
 	int CANTSPRITECLIPPODER;
 	int MINFRAMEPODER;

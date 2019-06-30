@@ -135,7 +135,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					factor = 1;
 					frame = 0;
 					contador++;
-					if (contador==5){
+					if (contador==8){
 
 						this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
 						contador=0;
@@ -190,7 +190,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 				factor = 1;
 				frame = 0;
 				contador++;
-				if (contador==5){
+				if (contador==8){
 
 					this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
 					contador=0;
@@ -289,7 +289,7 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					factor = 6;
 					frame = 0;
 					contador++;
-					if (contador==5){
+					if (contador==8){
 
 						this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
 						contador=0;

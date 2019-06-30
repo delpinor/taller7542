@@ -122,9 +122,11 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 	int nuevaposY;
 
 	jugadorVolando();
-	if (this->murio())
+	if ((this->murio()) && (!jugadorRival->murio())){
+
 		this->cambiarPersonaje();
-	if (this->estado->estaCambiandoPersonaje()) {
+	}
+	if (this->estado->estaCambiandoPersonaje()&& !jugadorRival->murio()) {
 		this->estado->move();
 
 	}

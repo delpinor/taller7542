@@ -38,6 +38,7 @@ void View_Jugador_CapAmerica::initialize(Jugador *model,
 	getSpritesLanzarPoder();
 	getSpritesVolando();
 	getSpritesArrojando();
+	getSpritesPoderEspecial();
 
 	this->zIndex = model->get_zindex();
 	getSpritesCambioPersonaje();
@@ -967,15 +968,17 @@ void View_Jugador_CapAmerica::getSpritesArrojando(){
 		gSpriteLanzarJugador[7].w = 261;
 		gSpriteLanzarJugador[7].h = 150;
 }
+void View_Jugador_CapAmerica::getSpritesPoderEspecial(){
+	CANTSPRITECLIPPODER_especial = 7;
+	MINFRAMEPODER_especial = 0;
+	MAXFRAMEPODER_especial = 6;
+	FACTORPODER_especial = 8;
+	this->gSpritePoderEspecial = new SDL_Rect[CANTSPRITECLIPPODER_especial];
 
-/*
-View_Jugador_CapAmerica::~View_Jugador_CapAmerica(){
+	gSpritePoderEspecial[0].x = 758;
+	gSpritePoderEspecial[0].y = 1104;
+	gSpritePoderEspecial[0].w = 261;
+	gSpritePoderEspecial[0].h = 150;
 
-	delete sonido_salto;
-	delete sonido_ataque_pu;
-	delete sonido_defensa;
-	delete sonido_cambio;
-	delete sonido_ataque_patada;
-	delete sonido_danio;
 }
-*/
+
