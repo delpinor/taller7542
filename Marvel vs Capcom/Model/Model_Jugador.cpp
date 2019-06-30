@@ -24,7 +24,7 @@ Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &
 	this->zindex= zind;
 	this->nombre=nom;
 	this->pathImagen=path;
-	this->mCollider.w =100;
+	this->mCollider.w =130;
 
 	this->mCollider.h = 100 ;
 
@@ -414,14 +414,21 @@ void Jugador::TirarPoder(Jugador * rival) {
 }
 
 void Jugador::recibeDanio(int danio) {
-	//if (this->vidaJugador - danio >= 0) {
+	if ((this->getTipoGolpe()) ==(TIPO_GOLPE::ACTIVAR_DEFENSA)){
+		danio=danio*0.2; // si esta activada la defensa el danio es el 20 %
+	}
+
+	if (this->vidaJugador - danio > 0) {
 		this->vidaJugador = this->vidaJugador - danio;
+	}else{
+		this->vidaJugador =0;
+	}
 
 		if ((this->getTipoGolpe()) == !(TIPO_GOLPE::GOLPE_VOLAR)) {
 			this->setTipoGolpe(TIPO_GOLPE::RECIBIR_DANIO);
 			std::cout << "me pegaron!!!" << endl;
 		}
-	//}
+
 	//std::cout << "me pego y mi vida es : " + std::to_string(this->vidaJugador) << std::endl;
 }
 

@@ -4,12 +4,17 @@
 #include <sstream>
 int contador=0;
 View_Jugador::View_Jugador() {
+	this->sonido_KO=new EfectoSonido(1);
+	this->sonido_KO->loadMedia("../Sonidos/ko.wav");
 }
 
 void View_Jugador::initialize(Jugador * model, LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
 	this->jugador = model;
 	this->zIndex = model->get_zindex();
+
+
+
 }
 void View_Jugador::silenciar_efectos(){
 	if (silencio){
@@ -17,6 +22,9 @@ void View_Jugador::silenciar_efectos(){
 	}else{
 		silencio=true;
 	}
+}
+void View_Jugador::reproducir_sonido_KO(){
+	this->sonido_KO->reproducir_sonido();
 }
 void View_Jugador::reproducir_efecto_sonido( int tipo_golpe){
 
@@ -38,9 +46,15 @@ void View_Jugador::reproducir_efecto_sonido( int tipo_golpe){
 			case ACTIVAR_DEFENSA:
 				 reproducir_sonido_defensa();
 				break;
+			 case GOLPE_ARROJAR:
+				 reproducir_sonido_agarre();
+				break;
+			 case GOLPE_PODER:
+				 reproducir_sonido_poder();
+			break;
 			 case RECIBIR_DANIO:
 				 reproducir_sonido_recibir_danio();
-				break;
+			break;
 		      }
       }
 
@@ -50,6 +64,13 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 	SDL_Rect* currentClip;
 	SDL_Rect* currentClipPoder;
 
+	if((this->jugador->GetVida()<=0) &&(!sonido_KO_reproducido)){
+
+		this->reproducir_sonido_KO();
+		sonido_KO_reproducido=true;
+	}else if((this->jugador->GetVida()>0)){
+		sonido_KO_reproducido=false;;
+	}
 
 	if(this->jugador->get_estado_desconexion()==false){
 		//printf("No se pone gris la imagen!!!!\n");

@@ -9,7 +9,7 @@ public:
 	void initialize(Jugador * model,
 		LTexture * texturaJugador);
 
-	//virtual ~View_Jugador_Venom();
+
 
 
 	void reproducir_sonido_salto();
@@ -18,7 +18,11 @@ public:
 	void reproducir_sonido_defensa();
 	void reproducir_sonido_ataque_patada();
 	void reproducir_sonido_recibir_danio();
+	void reproducir_sonido_poder();
+		void reproducir_sonido_agarre();
 
+		EfectoSonido *sonido_poder;
+		EfectoSonido *sonido_agarre;
 
 
 	EfectoSonido *sonido_danio;

@@ -14,6 +14,11 @@ public:
 	void reproducir_sonido_defensa();
 	void reproducir_sonido_ataque_patada();
 	void reproducir_sonido_recibir_danio();
+	void reproducir_sonido_poder();
+	void reproducir_sonido_agarre();
+
+	EfectoSonido *sonido_poder;
+	EfectoSonido *sonido_agarre;
 
 
 	EfectoSonido *sonido_salto;

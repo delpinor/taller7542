@@ -17,6 +17,9 @@ public:
 	void getSpriteByGolpe(SDL_Rect* currentClip, int &frame, TIPO_GOLPE tipoGolpe);
 	Jugador *jugador;
 	int getZIndex();
+
+
+
 	SDL_Rect * gSpriteCaminar;
 	SDL_Rect * gSpriteCambiarPersonaje;
 	SDL_Rect  *gSpriteSaltar;
@@ -176,13 +179,17 @@ public:
 	int maxFrame;
 	int factor;
 
-
+	bool sonido_KO_reproducido=false;
+	EfectoSonido *sonido_KO;
+	void reproducir_sonido_KO();
 	virtual void reproducir_sonido_salto(){};
 	virtual void reproducir_sonido_cambio(){};
 	virtual void reproducir_sonido_ataque_pu(){};
 	virtual void reproducir_sonido_defensa(){};
 	virtual void reproducir_sonido_ataque_patada(){};
 	virtual void reproducir_sonido_recibir_danio(){};
+	virtual void reproducir_sonido_poder(){};
+	virtual void reproducir_sonido_agarre(){};
 	void silenciar_efectos();
 
 

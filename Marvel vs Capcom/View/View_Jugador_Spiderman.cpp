@@ -56,16 +56,19 @@ void View_Jugador_Spiderman::initialize(Jugador *model,
 		this->sonido_defensa=new EfectoSonido(1);
 		this->sonido_cambio=new EfectoSonido(1);
 		this->sonido_danio=new EfectoSonido(1);
-			this->sonido_ataque_patada=new EfectoSonido(1);
+		this->sonido_ataque_patada=new EfectoSonido(1);
+		this->sonido_poder=new EfectoSonido(1);
+		this->sonido_agarre=new EfectoSonido(1);
 
-			this->sonido_ataque_patada->loadMedia("../Sonidos/spider_patada.wav");
-			this->sonido_defensa->loadMedia("../Sonidos/spider_defensa.wav");
-			this->sonido_danio->loadMedia("../Sonidos/spider_danio.wav");
+		this->sonido_poder->loadMedia("../Sonidos/spider_poder.wav");
+		this->sonido_agarre->loadMedia("../Sonidos/spider_agarre.wav");
 
-
+		this->sonido_ataque_patada->loadMedia("../Sonidos/spider_patada.wav");
+		this->sonido_defensa->loadMedia("../Sonidos/spider_defensa.wav");
+		this->sonido_danio->loadMedia("../Sonidos/spider_danio.wav");
 		this->sonido_ataque_pu->loadMedia("../Sonidos/spider_punio.wav");
-			this->sonido_salto->loadMedia("../Sonidos/salto_spider.wav");
-	this->sonido_cambio->loadMedia("../Sonidos/cambio_spider.wav");
+		this->sonido_salto->loadMedia("../Sonidos/salto_spider.wav");
+		this->sonido_cambio->loadMedia("../Sonidos/cambio_spider.wav");
 }
 void  View_Jugador_Spiderman::reproducir_sonido_salto(){
 
@@ -98,6 +101,16 @@ void View_Jugador_Spiderman::reproducir_sonido_ataque_patada(){
 
 void	View_Jugador_Spiderman::reproducir_sonido_recibir_danio(){
 	this->sonido_danio->reproducir_sonido();
+
+
+}
+void View_Jugador_Spiderman::reproducir_sonido_poder(){
+	this->sonido_poder->reproducir_sonido();
+
+}
+
+void	View_Jugador_Spiderman::reproducir_sonido_agarre(){
+	this->sonido_agarre->reproducir_sonido();
 
 
 }

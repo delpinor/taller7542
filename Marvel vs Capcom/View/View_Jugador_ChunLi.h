@@ -16,7 +16,11 @@ public:
 
 	void reproducir_sonido_ataque_patada();
 	void reproducir_sonido_recibir_danio();
+	void reproducir_sonido_poder();
+	void reproducir_sonido_agarre();
 
+	EfectoSonido *sonido_poder;
+	EfectoSonido *sonido_agarre;
 
 
 
@@ -26,6 +30,7 @@ public:
 	EfectoSonido *sonido_ataque_pu; // sonido ataque puño
 	EfectoSonido *sonido_defensa;
 	EfectoSonido *sonido_cambio;
+
 
 protected:
 	//variable que uso para ajusatr la animacion
