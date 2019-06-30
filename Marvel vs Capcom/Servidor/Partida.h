@@ -154,6 +154,7 @@ public:
 	bool HayBatallasPendientes();
 	int GetNroBatallaActual();
 	bool EsModoTest();
+	void setModoTest();
 
 	ModeloResultadoEquipo GetModeloResultadoEquipo(int nroEquipo);
 };

@@ -156,5 +156,6 @@ public:
 	bool poderActivo();
 	void setEstadoPoder(bool estado);
 	Poder  mipoder;
+	void setEsInmortal(bool valor);
 	};
 #endif

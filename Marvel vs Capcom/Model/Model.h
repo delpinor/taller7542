@@ -72,6 +72,7 @@ public:
 	int GetNroEquipoVivo();
 	int GetVidaEquipo(int nroEquipo);
 	int GetEquipoCantidadJugadoresVivos(int nroEquipo);
+	void setModoTest(bool valor);
 private:
 	Jugador* crearJugador(int personajeId);
 };

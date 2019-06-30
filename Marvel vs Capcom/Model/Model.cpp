@@ -397,3 +397,8 @@ int Model::GetVidaEquipo(int nroEquipo){
 int Model::GetEquipoCantidadJugadoresVivos(int nroEquipo){
 	return this->getEquipoNro(nroEquipo)->getCantidadJugadoresVivos();
 }
+
+void Model::setModoTest(bool valor){
+	this->getEquipoNro(0)->setModoTest(valor);
+	this->getEquipoNro(1)->setModoTest(valor);
+}

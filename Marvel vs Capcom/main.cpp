@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
 	LOGGER_SALIDA salida = ARCHIVO;
 
 	int anchoVentana, altoVentana, tiempoBatalla, cantidadBatallas;
-	bool modoTest;
+	bool modoTest = false;
 	/*Se inicia el logger en modeo debug*/
 	Logger::Inicio(nivelLog, salida);
 	Logger::Log(nivelLog, "INICIO", "Iniciando el programa...");
@@ -49,7 +49,7 @@ int main(int argc, char* argv[]) {
 	nivelLog = appConfig.get_Config_NivelLog();
 	tiempoBatalla = appConfig.get_Config_TiempoBatalla();
 	cantidadBatallas = appConfig.get_Config_CantidadBatallas();
-	modoTest = appConfig.get_Config_ModoTest();
+	//modoTest = appConfig.get_Config_ModoTest();
 	//mapBatalla = appConfig.get_Config_Batalla();
 
 	Logger::Cambiar_nivelLog(nivelLog);

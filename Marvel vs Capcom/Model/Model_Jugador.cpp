@@ -709,7 +709,7 @@ void Jugador::setTipoGolpeCliente(TIPO_GOLPE tipoGolpe) {
 		this->tipoGolpe = tipoGolpe;
 }
 bool Jugador::murio() {
-	if (this->inmortal) {
+	if (this->esInmortal()) {
 		return false;
 	} else {
 		return this->vidaJugador == 0;
@@ -724,6 +724,10 @@ void Jugador::inicializarVida() {
 }
 bool Jugador::esInmortal() {
 	return this->inmortal;
+}
+
+void Jugador::setEsInmortal(bool valor) {
+	this->inmortal = valor;
 }
 
 void Jugador::jugadorVolando() {

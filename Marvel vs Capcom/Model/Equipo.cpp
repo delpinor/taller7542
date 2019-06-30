@@ -262,3 +262,8 @@ int Equipo::getCantidadJugadoresVivos(){
 	}
 	return cantidadVivos;
 }
+
+void Equipo::setModoTest(bool valor){
+	this->jugadores[0]->setEsInmortal(valor);
+	this->jugadores[1]->setEsInmortal(valor);
+}
