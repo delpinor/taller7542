@@ -115,7 +115,7 @@ void View_Jugador_Venom::getSpritesAnimacion() {
 	CANTSPRITEANIMACION = 13;
 	MINFRAMEANIMACION = 0;
 	MAXFRAMEANIMACION = 12;
-	FACTORANIMACION = 12;
+	FACTORANIMACION = 9;
 	this->gSpriteAnimacion = new SDL_Rect[CANTSPRITEANIMACION];
 
 	gSpriteAnimacion[0].x = 42;
@@ -379,7 +379,7 @@ void View_Jugador_Venom::getSpritesPiniaDebil() {
 	CANTSPRITECLIPPINIA = 5;
 	MINFRAMEPINIA = 0;
 	MAXFRAMEPINIA = 4;
-	FACTORPINIA = 7;
+	FACTORPINIA = 5;
 	this->gSpritePinia = new SDL_Rect[CANTSPRITECLIPPINIA];
 
 	gSpritePinia[0].x = 42;
@@ -414,7 +414,7 @@ void View_Jugador_Venom::getSpritesPiniaFuerte() {
 	CANTSPRITECLIPPINION = 7;
 	MINFRAMEPINION = 0;
 	MAXFRAMEPINION = 4;
-	FACTORPINION = 7;
+	FACTORPINION = 5;
 	this->gSpritePinion = new SDL_Rect[CANTSPRITECLIPPINION];
 
 	gSpritePinion[0].x = 58;
@@ -485,7 +485,7 @@ void View_Jugador_Venom::getSpritesPiniaDebilAgachado() {
 	CANTSPRITECLIPPINIAAGACHADO = 4;
 	MINFRAMEPINIAAGACHADO = 0;
 	MAXFRAMEPINIAAGACHADO = 3;
-	FACTORPINIAAGACHADO = 8;
+	FACTORPINIAAGACHADO = 5;
 	this->gSpritePiniaAgachado = new SDL_Rect[CANTSPRITECLIPPINIAAGACHADO];
 
 	gSpritePiniaAgachado[0].x = 2;
@@ -600,7 +600,7 @@ void View_Jugador_Venom::getSpritesPatadaDebilAgachado() {
 	CANTSPRITECLIPPATADAAGACHADO = 4;
 	MINFRAMEPATADAAGACHADO = 0;
 	MAXFRAMEPATADAAGACHADO = 3;
-	FACTORPATADAAGACHADO = 8;
+	FACTORPATADAAGACHADO = 5;
 	this->gSpritePatadaAgachado = new SDL_Rect[CANTSPRITECLIPPATADAAGACHADO];
 
 	gSpritePatadaAgachado[0].x = 40;
@@ -675,7 +675,7 @@ void View_Jugador_Venom::getSpritesPiniaDebilSaltando() {
 	CANTSPRITECLIPPINIASALTANDO = 5;
 	MINFRAMEPINIASALTANDO = 0;
 	MAXFRAMEPINIASALTANDO = 4;
-	FACTORPINIASALTANDO = 7;
+	FACTORPINIASALTANDO = 5;
 	this->gSpritePiniaSaltando = new SDL_Rect[CANTSPRITECLIPPINIASALTANDO];
 
 	gSpritePiniaSaltando[0].x = 30;
@@ -774,7 +774,7 @@ void View_Jugador_Venom::getSpritesPatadaDebilSaltando() {
 	CANTSPRITECLIPPATADASALTANDO = 5;
 	MAXFRAMEPATADASALTANDO = 0;
 	MINFRAMEPATADASALTANDO = 4;
-	FACTORPATADASALTANDO = 7;
+	FACTORPATADASALTANDO = 5;
 	this->gSpritePatadaSaltando = new SDL_Rect[CANTSPRITECLIPPATADASALTANDO];
 
 	gSpritePatadaSaltando[0].x = 2;
