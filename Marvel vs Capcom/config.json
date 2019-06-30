@@ -25,14 +25,14 @@
 			"alto" : "250",
 			"ancho" : "400",
 			"rutaArchivoImagen" : "Images/ChunLiSeparado.gif",
-			"zIndex" : "48"
+			"zIndex" : "47"
 		},
 		{
 			"nombre" : "Spiderman",
 			"alto" : "250",
 			"ancho" : "400",
 			"rutaArchivoImagen" : "Images/SpidermanSeparado.gif",
-			"zIndex" : "47"
+			"zIndex" : "48"
 		}
 	],
 	"fondosPantalla" :

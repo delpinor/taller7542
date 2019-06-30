@@ -47,26 +47,29 @@ void View_Jugador_Spiderman::initialize(Jugador *model,
 	getSpritesLanzarPoder();
 	getSpritesPoder();
 
-	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
+	this->texturaJugador->setColor(this->jugador->getR(), this->jugador->getG(),
+				this->jugador->getB());
 
-	this->sonido_salto=new EfectoSonido(1);
-		this->sonido_ataque_pu=new EfectoSonido(1);
-		this->sonido_defensa=new EfectoSonido(1);
-		this->sonido_cambio=new EfectoSonido(1);
+		this->sonido_salto = new EfectoSonido(1);
+		this->sonido_ataque_pu = new EfectoSonido(1);
+		this->sonido_defensa = new EfectoSonido(1);
+		this->sonido_cambio = new EfectoSonido(1);
 		this->sonido_danio=new EfectoSonido(1);
 		this->sonido_ataque_patada=new EfectoSonido(1);
 		this->sonido_poder=new EfectoSonido(1);
 		this->sonido_agarre=new EfectoSonido(1);
 
-		this->sonido_poder->loadMedia("../Sonidos/spider_poder.wav");
-		this->sonido_agarre->loadMedia("../Sonidos/spider_agarre.wav");
+		this->sonido_poder->loadMedia("../Sonidos/venom_poder.wav");
+		this->sonido_agarre->loadMedia("../Sonidos/venom_agarre.wav");
 
-		this->sonido_ataque_patada->loadMedia("../Sonidos/spider_patada.wav");
-		this->sonido_defensa->loadMedia("../Sonidos/spider_defensa.wav");
-		this->sonido_danio->loadMedia("../Sonidos/spider_danio.wav");
-		this->sonido_ataque_pu->loadMedia("../Sonidos/spider_punio.wav");
-		this->sonido_salto->loadMedia("../Sonidos/salto_spider.wav");
-		this->sonido_cambio->loadMedia("../Sonidos/cambio_spider.wav");
+
+		this->sonido_ataque_patada->loadMedia("../Sonidos/venom_patada.wav");
+		this->sonido_defensa->loadMedia("../Sonidos/venom_defensa.wav");
+		this->sonido_danio->loadMedia("../Sonidos/venom_danio.wav");
+
+		this->sonido_ataque_pu->loadMedia("../Sonidos/venom_punio.wav");
+		this->sonido_salto->loadMedia("../Sonidos/salto_venom.wav");
+		this->sonido_cambio->loadMedia("../Sonidos/cambio_venom.wav");
 }
 void  View_Jugador_Spiderman::reproducir_sonido_salto(){
 
@@ -118,7 +121,7 @@ void View_Jugador_Spiderman::getSpritesAnimacion() {
 	CANTSPRITEANIMACION = 10;
 	MINFRAMEANIMACION = 0;
 	MAXFRAMEANIMACION = 9;
-	FACTORANIMACION = 10;
+	FACTORANIMACION = 7;
 	this->gSpriteAnimacion = new SDL_Rect[CANTSPRITEANIMACION];
 
 	gSpriteAnimacion[0].x = 31;
@@ -246,7 +249,7 @@ void View_Jugador_Spiderman::getSpritesSaltar() {
 	CANTSPRITECLIPSALTA = 8;
 	MINFRAMESALTA = 0;
 	MAXFRAMESALTA = 7;
-	FACTORSALTA = 10;
+	FACTORSALTA = 6;
 	this->gSpriteSaltar = new SDL_Rect[CANTSPRITECLIPSALTA];
 
 	gSpriteSaltar[0].x = 1;
@@ -312,7 +315,7 @@ void View_Jugador_Spiderman::getSpritesPatadaFuerte() {
 	CANTSPRITECLIPPATADON = 8;
 	MINFRAMEPATADON = 0;
 	MAXFRAMEPATADON = 7;
-	FACTORPATADON = 12;
+	FACTORPATADON = 4;
 	this->gSpritePatadon = new SDL_Rect[CANTSPRITECLIPPATADON];
 
 	gSpritePatadon[0].x = 43;
@@ -360,7 +363,7 @@ void View_Jugador_Spiderman::getSpritesPatadaDebil() {
 	CANTSPRITECLIPPATADA = 5;
 	MINFRAMEPATADA = 0;
 	MAXFRAMEPATADA = 4;
-	FACTORPATADA = 5;
+	FACTORPATADA = 4;
 	this->gSpritePatada = new SDL_Rect[CANTSPRITECLIPPATADA];
 
 	gSpritePatada[0].x = 6;
@@ -393,7 +396,7 @@ void View_Jugador_Spiderman::getSpritesPatadaDebilSaltando() {
 	CANTSPRITECLIPPATADASALTANDO = 3;
 	MINFRAMEPATADASALTANDO = 0;
 	MAXFRAMEPATADASALTANDO = 2;
-	FACTORPATADASALTANDO = 5;
+	FACTORPATADASALTANDO = 4;
 	this->gSpritePatadaSaltando = new SDL_Rect[CANTSPRITECLIPPATADASALTANDO];
 
 	gSpritePatadaSaltando[0].x = 799;
@@ -416,7 +419,7 @@ void View_Jugador_Spiderman::getSpritesPatadaFuerteSaltando() {
 	CANTSPRITECLIPPATADONSALTANDO = 4;
 	MINFRAMEPATADONSALTANDO = 0;
 	MAXFRAMEPATADONSALTANDO = 3;
-	FACTORPATADONSALTANDO = 5;
+	FACTORPATADONSALTANDO = 4;
 	this->gSpritePatadonSaltando = new SDL_Rect[CANTSPRITECLIPPATADONSALTANDO];
 
 	gSpritePatadonSaltando[0].x = 72;
@@ -544,7 +547,7 @@ void View_Jugador_Spiderman::getSpritesPiniaFuerte(){
 	CANTSPRITECLIPPINION = 6;
 	MINFRAMEPINION = 0;
 	MAXFRAMEPINION = 5;
-	FACTORPINION = 8;
+	FACTORPINION = 5;
 	this->gSpritePinion = new SDL_Rect[CANTSPRITECLIPPINION];
 
 	gSpritePinion[0].x = 895;
@@ -583,7 +586,7 @@ void View_Jugador_Spiderman::getSpritesPiniaFuerteAgachado(){
 	CANTSPRITECLIPPINIONAGACHADO = 6;
 	MINFRAMEPINIONAGACHADO = 0;
 	MAXFRAMEPINIONAGACHADO = 5;
-	FACTORPINIONAGACHADO = 8;
+	FACTORPINIONAGACHADO = 4;
 	this->gSpritePinionAgachado = new SDL_Rect[CANTSPRITECLIPPINIONAGACHADO];
 
 	gSpritePinionAgachado[0].x = 57;
@@ -622,7 +625,7 @@ void View_Jugador_Spiderman::getSpritesPiniaDebilAgachado(){
 	CANTSPRITECLIPPINIAAGACHADO = 5;
 	MINFRAMEPINIAAGACHADO = 0;
 	MAXFRAMEPINIAAGACHADO = 4;
-	FACTORPINIAAGACHADO = 5;
+	FACTORPINIAAGACHADO = 4;
 	this->gSpritePiniaAgachado = new SDL_Rect[CANTSPRITECLIPPINIAAGACHADO];
 
 	gSpritePiniaAgachado[0].x = 58;
@@ -656,7 +659,7 @@ void View_Jugador_Spiderman::getSpritesPiniaFuerteSaltando(){
 	CANTSPRITECLIPPINIONSALTANDO = 6;
 	MINFRAMEPINIONSALTANDO = 0;
 	MAXFRAMEPINIONSALTANDO = 5;
-	FACTORPINIONSALTANDO = 5;
+	FACTORPINIONSALTANDO = 4;
 	this->gSpritePinionSaltando = new SDL_Rect[CANTSPRITECLIPPINIONSALTANDO];
 
 	gSpritePinionSaltando[0].x = 59;
@@ -821,31 +824,31 @@ void View_Jugador_Spiderman::getSpritesDefensaSaltando(){
 
 }
 void View_Jugador_Spiderman::getSpritesRecibirGolpe(){
-	CANTSPRITECLIPRECIBIRGOLPE = 4;
+	CANTSPRITECLIPRECIBIRGOLPE = 1;
 	MINFRAMERECIBIRGOLPE = 0;
-	MAXFRAMERECIBIRGOLPE = 3;
-	FACTORRECIBIRGOLPE = 5;
+	MAXFRAMERECIBIRGOLPE = 0;
+	//FACTORRECIBIRGOLPE = 5;
 	this->gSpriteRecibirDanio = new SDL_Rect[CANTSPRITECLIPRECIBIRGOLPE];
 
-	gSpriteRecibirDanio[0].x = 53;
+//	gSpriteRecibirDanio[0].x = 53;
+//	gSpriteRecibirDanio[0].y = 3100;
+//	gSpriteRecibirDanio[0].w = 261;
+//	gSpriteRecibirDanio[0].h = 150;
+//
+//	gSpriteRecibirDanio[1].x = 314;
+//	gSpriteRecibirDanio[1].y = 3100;
+//	gSpriteRecibirDanio[1].w = 260
+//	gSpriteRecibirDanio[1].h = 150;
+
+	gSpriteRecibirDanio[0].x = 575;
 	gSpriteRecibirDanio[0].y = 3100;
 	gSpriteRecibirDanio[0].w = 261;
 	gSpriteRecibirDanio[0].h = 150;
 
-	gSpriteRecibirDanio[1].x = 314;
-	gSpriteRecibirDanio[1].y = 3100;
-	gSpriteRecibirDanio[1].w = 261;
-	gSpriteRecibirDanio[1].h = 150;
-
-	gSpriteRecibirDanio[2].x = 575;
-	gSpriteRecibirDanio[2].y = 3100;
-	gSpriteRecibirDanio[2].w = 261;
-	gSpriteRecibirDanio[2].h = 150;
-
-	gSpriteRecibirDanio[3].x = 836;
-	gSpriteRecibirDanio[3].y = 3100;
-	gSpriteRecibirDanio[3].w = 261;
-	gSpriteRecibirDanio[3].h = 150;
+//	gSpriteRecibirDanio[3].x = 836;
+//	gSpriteRecibirDanio[3].y = 3100;
+//	gSpriteRecibirDanio[3].w = 261;
+//	gSpriteRecibirDanio[3].h = 150;
 
 }
 void View_Jugador_Spiderman::getSpritesLanzarJugador(){
@@ -924,7 +927,7 @@ void View_Jugador_Spiderman::getSpritesLanzarPoder(){
 	CANTSPRITECLIPLANZARPODER = 6;
 	MINFRAMELANZARPODER = 0;
 	MAXFRAMELANZARPODER = 5;
-	FACTORLANZARPODER = 5;
+	FACTORLANZARPODER = 4;
 	this->gSpriteLanzarPoder = new SDL_Rect[CANTSPRITECLIPLANZARPODER];
 
 	gSpriteLanzarPoder[0].x = 55;
@@ -962,7 +965,7 @@ void View_Jugador_Spiderman::getSpritesPoder(){
 	CANTSPRITECLIPPODER = 6;
 	MINFRAMEPODER = 0;
 	MAXFRAMEPODER = 5;
-	FACTORPODER = 5;
+	FACTORPODER = 4;
 	this->gSpritePoder = new SDL_Rect[CANTSPRITECLIPPODER];
 
 //	gSpritePoder[0].x = 59;
