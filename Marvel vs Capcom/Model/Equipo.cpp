@@ -78,6 +78,11 @@ void Equipo::move(SDL_Rect* camara){
 	for (int i = 0; i < 2; ++i) {
 		this->jugadores[i]->move(this->equipoRival->getJugadorActivo(), camara);
 	}
+	// Cambio de jugador si el suplente no murio.
+	if (this->getJugadorActivo()->murio() && !this->getJugadorInactivo()->murio()){
+
+			this->getJugadorActivo()->cambiarPersonaje();
+	}
 	if (getJugadorActivo()->estado->estaSaltando()
 			&& getJugadorActivo()->estado->getVelY() == 0) {
 		if (!getJugadorActivo()->isDebeTerminarSalto()) {

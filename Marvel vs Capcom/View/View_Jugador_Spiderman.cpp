@@ -7,12 +7,11 @@ View_Jugador_Spiderman::View_Jugador_Spiderman() {
 
 void View_Jugador_Spiderman::initialize(Jugador *model,
 		LTexture * texturaJugador) {
+
 	this->texturaJugador = texturaJugador;
-	CANTSPRITECLIP = 6;
-
-		this->gSpriteGolpear = new SDL_Rect[CANTSPRITECLIP];
-
 	this->jugador = model;
+	this->zIndex = model->get_zindex();
+
 	getSpritesCaminar();
 	getSpritesSaltar();
 	getSpritesAgachar();
@@ -48,7 +47,6 @@ void View_Jugador_Spiderman::initialize(Jugador *model,
 	getSpritesLanzarPoder();
 	getSpritesPoder();
 
-	this->zIndex = model->get_zindex();
 	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
 
 	this->sonido_salto=new EfectoSonido(1);
@@ -120,7 +118,7 @@ void View_Jugador_Spiderman::getSpritesAnimacion() {
 	CANTSPRITEANIMACION = 10;
 	MINFRAMEANIMACION = 0;
 	MAXFRAMEANIMACION = 9;
-	FACTORANIMACION = 9;
+	FACTORANIMACION = 10;
 	this->gSpriteAnimacion = new SDL_Rect[CANTSPRITEANIMACION];
 
 	gSpriteAnimacion[0].x = 31;
@@ -314,7 +312,7 @@ void View_Jugador_Spiderman::getSpritesPatadaFuerte() {
 	CANTSPRITECLIPPATADON = 8;
 	MINFRAMEPATADON = 0;
 	MAXFRAMEPATADON = 7;
-	FACTORPATADON = 5;
+	FACTORPATADON = 12;
 	this->gSpritePatadon = new SDL_Rect[CANTSPRITECLIPPATADON];
 
 	gSpritePatadon[0].x = 43;
