@@ -397,7 +397,8 @@ void Jugador::DesactivarDefensa() {
 //	rival->recibeDanio(this->estado->getDanioPatada());
 //}
 void Jugador::TirarPoder(Jugador * rival) {
-	this->estado->TirarPoder();
+	if(!this->mipoder.estaActivo()){
+		this->estado->TirarPoder();
 	if (this->getTipoGolpe() == TIPO_GOLPE::NADA) {
 
 		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PODER);
@@ -410,6 +411,7 @@ void Jugador::TirarPoder(Jugador * rival) {
 	std::cout << "HADOOOOUUUUKENNNNNN" << std::endl;
 	std::cout << "HADOOOOUUUUKENNNNNN" << std::endl;
 	std::cout << "HADOOOOUUUUKENNNNNN" << std::endl;
+	}
 
 }
 
