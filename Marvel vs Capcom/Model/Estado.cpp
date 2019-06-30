@@ -162,19 +162,19 @@ void Estado::Pinia() {
 
 }
 int  Estado::getDanioPinia(){
-	return 10;
+	return 3;
 }
 int  Estado::getDanioPinion(){
-	return 10;
+	return 5;
 }
 int  Estado::getDanioPatada(){
-	return 10;
+	return 4;
 }
 int  Estado::getDanioPatadon(){
-	return 10;
+	return 6;
 }
 int  Estado::getDanioArrojar(){
-	return 10;
+	return 7;
 }
 void Estado::Pinion() {
 

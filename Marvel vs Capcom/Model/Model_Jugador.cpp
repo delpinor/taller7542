@@ -418,7 +418,7 @@ void Jugador::TirarPoder(Jugador * rival) {
 }
 
 void Jugador::recibeDanio(int danio) {
-	if ((this->getTipoGolpe()) ==(TIPO_GOLPE::ACTIVAR_DEFENSA)){
+	if (this->getTipoGolpe() == TIPO_GOLPE::ACTIVAR_DEFENSA){
 		danio=danio*0.2; // si esta activada la defensa el danio es el 20 %
 	}
 
