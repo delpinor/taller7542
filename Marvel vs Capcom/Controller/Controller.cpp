@@ -6,6 +6,8 @@
 #include "../Command/CommandCtrl/AumentarVelocidadY.h"
 #include "../Command/CommandCtrl/DisminuirVelocidadX.h"
 #include "../Command/CommandCtrl/AumentarVelocidadX.h"
+#include "../Command/CommandCtrl/DisminuirVelocidadXKeyUp.h"
+#include "../Command/CommandCtrl/AumentarVelocidadXKeyUp.h"
 #include "../Command/CommandCtrl/Saltar.h"
 #include "../Command/CommandCtrl/CambiarPersonaje.h"
 #include "../Command/CommandCtrl/Pinia.h"
@@ -22,8 +24,10 @@ void Controller::SetModel(Model* model) {
 	this->model = model;
 	this->commands = std::vector<CommandCtrl*>(CANTCOMMANDS);
 	this->commands[DECVELX] = new DisminuirVelocidadX(model);
+	this->commands[DECVELXK] = new DisminuirVelocidadXKeyUp(model);
 	this->commands[DECVELY] = new DisminuirVelocidadY(model);
 	this->commands[INCVELX] = new AumentarVelocidadX(model);
+	this->commands[INCVELXK] = new AumentarVelocidadXKeyUp(model);
 	this->commands[INCVELY] = new AumentarVelocidadY(model);
 	this->commands[AGACHAR] = new Agachar(model);
 	this->commands[PARAR] = new Parar(model);
@@ -140,10 +144,10 @@ int Controller::handleEventCliente(SDL_Event& e) {
 			comando =  PARAR;
 			break;
 		case SDLK_a:
-			comando =  INCVELX;
+			comando =  INCVELXK;
 			break;
 		case SDLK_d:
-			comando = DECVELX;
+			comando = DECVELXK;
 			break;
 		case  SDLK_h:
 			comando =  DESACTIVARDEFENSA;
