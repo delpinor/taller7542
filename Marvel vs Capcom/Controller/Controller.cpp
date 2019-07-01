@@ -93,36 +93,45 @@ int Controller::handleEventCliente(SDL_Event& e) {
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
 		switch (e.key.keysym.sym) {
 		case SDLK_w:
+			if  (!state[SDL_SCANCODE_H])
 			comando =  SALTAR;
 			break;
 		case SDLK_s:
 			comando =  AGACHAR;
 			break;
 		case SDLK_a:
+			if  (!state[SDL_SCANCODE_H])
 			comando =  DECVELX;
 			break;
 		case SDLK_d:
+			if  (!state[SDL_SCANCODE_H])
 			comando =  INCVELX;
 			break;
 		case  SDLK_h:
 			comando =  ACTIVARDEFENSA;
 			break;
 		case SDLK_j:
+			if  (!state[SDL_SCANCODE_H])
 			comando =  PINIA;
 			break;
 		case SDLK_k:
+			if  (!state[SDL_SCANCODE_H])
 			comando =  PATADA;
 			break;
 		case SDLK_u:
+			if  (!state[SDL_SCANCODE_H])
 			comando =  PINION;
 			break;
 		case SDLK_i:
+			if  (!state[SDL_SCANCODE_H])
 			comando =  PATADON;
 			break;
 		case  SDLK_o:
+			if  (!state[SDL_SCANCODE_H])
 			comando =  ARROJAR;
 			break;
 		case  SDLK_l:
+			if  (!state[SDL_SCANCODE_H])
 			comando =  PODER;
 			break;
 		case SDLK_LCTRL:
