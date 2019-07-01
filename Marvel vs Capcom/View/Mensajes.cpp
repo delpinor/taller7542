@@ -13,7 +13,7 @@ Mensajes::Mensajes(SDL_Renderer * gRen){
 		textColor = { 225 ,255, 255, 0 };
 }
 void Mensajes::render(){
-
+	SDL_RenderClear(this->gRenderer);
 	//Set text to be rendered
 	texto.str( "" );
 	texto << MENSAJECARGA;
@@ -22,6 +22,7 @@ void Mensajes::render(){
 		printf("Carga texto");
 	}
 
+	//gFondoTexture.render(0, 0, NULL, 0.0, NULL, SDL_FLIP_NONE, gRenderer);
 	gTextTexture.render(340, 280, NULL,0.0, NULL, SDL_FLIP_NONE,gRenderer);
 
 }
