@@ -178,7 +178,8 @@ void Equipo::jugadorActivoPinion(Jugador * rival) {
 	this->jugadores[this->nroJugadorActivo]->Pinion(rival);
 }
 void Equipo::jugadorActivoArrojar(Jugador * rival) {
-	this->jugadores[this->nroJugadorActivo]->Arrojar(rival);
+	if (!this->jugadores[this->nroJugadorActivo]->estaAgachado() && !this->jugadores[this->nroJugadorActivo]->estaSaltando())
+		this->jugadores[this->nroJugadorActivo]->Arrojar(rival);
 }
 void Equipo::jugadorActivoTirarPoder(Jugador * rival) {
 	if (this->jugadores[this->nroJugadorActivo]->estaSaltando() || this->jugadores[this->nroJugadorActivo]->getVelX()==0)
