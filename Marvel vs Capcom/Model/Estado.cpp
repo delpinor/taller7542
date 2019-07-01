@@ -7,7 +7,7 @@
 
 Estado::Estado() {
 	this->posInitX = 10;
-	this->posInitY = 480;
+	this->posInitY = 933;
 	this->mPosX = this->posInitX;
 	this->mPosY = this->posInitY;
 	this->mVelX = 0;
