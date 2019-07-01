@@ -98,13 +98,10 @@ void Equipo::move(SDL_Rect* camara){
 		cout << "Estoy arrojandooooooo############!!!!!!!!" << endl;
 	///esto es turbio ::::
 	if (getJugadorActivo()->getTipoGolpe() != TIPO_GOLPE::GOLPE_VOLAR) {
-		if (getJugadorActivo()->getTipoGolpe() != TIPO_GOLPE::NADA) {
-//			if (getJugadorActivo()->getTipoGolpe()
-//					== TIPO_GOLPE::DESACTIVAR_DEFENSA
-//					|| getJugadorActivo()->getTipoGolpe()
-//							== TIPO_GOLPE::ACTIVAR_DEFENSA)
-//				cout << "Defensaaa: " << getJugadorActivo()->getTipoGolpe()
-//						<< endl;
+		if (getJugadorActivo()->getTipoGolpe() == TIPO_GOLPE::ACTIVAR_DEFENSA)
+				cout << "Estoy DEFENDIENDOOOOO############!!!!!!!!" << endl;
+		else if (getJugadorActivo()->getTipoGolpe() != TIPO_GOLPE::NADA) {
+
 			if (contadorGolpe < 6) {
 				contadorGolpe++;
 			} else {
@@ -113,7 +110,10 @@ void Equipo::move(SDL_Rect* camara){
 			}
 		}
 	}else{
-		if (contadorGolpe < 1000) {
+		//dejo correr el golpe Volar hasta que se detenga en el método jugadorVolando() de Model_Jugador
+		if (contadorGolpe < 300) {
+			cout << "sumo +1 golpe volaaaarr" << endl;
+			cout << "contadorGolpe: " << contadorGolpe << endl;
 			contadorGolpe++;
 		} else {
 			cout << "TERMINANDOOO ARROJAAAAARRR####################" << endl;
