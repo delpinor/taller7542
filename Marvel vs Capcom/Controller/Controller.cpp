@@ -153,10 +153,19 @@ int Controller::handleEventCliente(SDL_Event& e) {
 			comando =  PARAR;
 			break;
 		case SDLK_a:
-			comando =  INCVELXK;
+			if(state[SDL_SCANCODE_D]){
+				comando =  INCVELX;
+			}else{
+				comando =  INCVELXK;
+			}
+
 			break;
 		case SDLK_d:
-			comando = DECVELXK;
+			if(state[SDL_SCANCODE_A]){
+				comando =  DECVELX;
+			}else{
+				comando =  DECVELXK;
+			}
 			break;
 		case  SDLK_h:
 			comando =  DESACTIVARDEFENSA;
