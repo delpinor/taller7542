@@ -49,6 +49,8 @@ private:
 public:
 	Estado* estado;
 //	EstadoCliente * estado;
+	int extension_colider_golpe=0;
+
 
 	Jugador();
 	int GetVida();
@@ -65,6 +67,7 @@ public:
 	int getCollideW();
 	int getCollideH();
 	bool collideConPoder(Poder * poder);
+	bool collideConGolpe(SDL_Rect * jugador, int factor_golpe);
 	std::string getNombre();
 	std::string getPath();
 	void setColor(int,int,int);

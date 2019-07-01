@@ -9,7 +9,7 @@
 
 Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &path, bool &inmortal) {
 //	this->estado->setPosInitY(0);
-
+	extension_colider_golpe=(ancho -400)*2;
 
 	this->estado = &(this->inactivo);
 	this->mCollider.x = this->estado->getPosX();
@@ -24,7 +24,7 @@ Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &
 	this->zindex= zind;
 	this->nombre=nom;
 	this->pathImagen=path;
-	this->mCollider.w =130;
+	this->mCollider.w =130 +(ancho -400);
 
 	this->mCollider.h = 100 ;
 
@@ -289,14 +289,7 @@ void Jugador::aumentarVelocidadY() {
 void Jugador::aumentarVelocidadY(int vel) {
 	this->estado->aumentarVelocidadY(vel);
 }
-//void Jugador::Defensa() {
-//	this->estado->Defensa();
-//	if (this->getTipoGolpe() == TIPO_GOLPE::NADA) {
-//		std::cout << "Agregar PINIA!!!!!: " << std::endl;
-//		this->setTipoGolpe(TIPO_GOLPE::ACTIVAR_DEFENSA);
-//	}
-//
-//}
+
 
 void Jugador::Pinia(Jugador * rival) {
 	if ((this->getTipoGolpe() == TIPO_GOLPE::NADA)
@@ -304,25 +297,19 @@ void Jugador::Pinia(Jugador * rival) {
 		std::cout << "Agregar PINIA!!!!!: " << std::endl;
 		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PINIA);
 	}
-	if (rival->collideConJugador(&mCollider))
+
+		if (this->collideConGolpe(&(rival->mCollider),1.95))
 		rival->recibeDanio(this->estado->getDanioPinia());
 }
-//void Jugador::Pinia_agachado(Jugador * rival) {
-//	this->estado->Pinia();
-//	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
-//
-//				this->setTipoGolpe(TIPO_GOLPE::GOLPE_PINIA_AGACHADO);
-//			}
-//	if(rival->collideConJugador(&mCollider))
-//	rival->recibeDanio(this->estado->getDanioPinia());
-//}
+
 void Jugador::Pinion(Jugador * rival) {
 //	this->estado->Pinion();
 	if (this->getTipoGolpe() == TIPO_GOLPE::NADA) {
 
 		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PINION);
 	}
-	if (rival->collideConJugador(&mCollider))
+
+		if (collideConGolpe(&(rival->mCollider),1.1))
 		rival->recibeDanio(this->estado->getDanioPinion());
 
 }
@@ -333,7 +320,8 @@ void Jugador::Patada(Jugador * rival) {
 		std::cout << "Agregar PATADA!!!!!: " << std::endl;
 		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADA);
 	}
-	if (rival->collideConJugador(&mCollider))
+
+		if (collideConGolpe(&(rival->mCollider),1.4))
 		rival->recibeDanio(this->estado->getDanioPatada());
 }
 void Jugador::Arrojar(Jugador * rival) {
@@ -363,7 +351,8 @@ void Jugador::Patadon(Jugador * rival) {
 		std::cout << "Agregar PATADON!!!!!: " << std::endl;
 		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADON);
 	}
-	if (rival->collideConJugador(&mCollider))
+	//if (rival->collideConJugador(&mCollider))
+		if (collideConGolpe(&(rival->mCollider),1.5))
 		rival->recibeDanio(this->estado->getDanioPatadon());
 }
 
@@ -377,27 +366,7 @@ void Jugador::DesactivarDefensa() {
 	this->setTipoGolpe(TIPO_GOLPE::DESACTIVAR_DEFENSA);
 }
 
-//void Jugador::Patada_agachado(Jugador * rival) {
-//	this->estado->Patada_agachado();
-//	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
-//
-//			this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADA_AGACHADO);
-//		}
-//	//aca va el if del collide
-//	if(rival->collideConJugador(&mCollider))
-//	rival->recibeDanio(this->estado->getDanioPatada());
-//}
 
-//void Jugador::Patadon_agachado(Jugador * rival) {
-//	this->estado->Patadon_agachado();
-//	if (this->getTipoGolpe() == TIPO_GOLPE::NADA){
-//
-//			this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADON_AGACHADO);
-//		}
-//	//aca va el if del collide
-//	if(rival->collideConJugador(&mCollider))
-//	rival->recibeDanio(this->estado->getDanioPatada());
-//}
 void Jugador::TirarPoder(Jugador * rival) {
 	if(!this->mipoder.estaActivo()){
 		this->estado->TirarPoder();
@@ -556,6 +525,44 @@ bool Jugador::collideConJugador(SDL_Rect * jugador) {
 
 	leftJugador = this->mCollider.x;
 	rightJugador = this->mCollider.x + this->mCollider.w;
+	topJugador = this->mCollider.y;
+	bottomJugador = this->mCollider.y + this->mCollider.h;
+
+	if (bottomJugador <= topRival) {
+		return false;
+	}
+
+	if (topJugador >= bottomRival) {
+		return false;
+	}
+
+	if (leftJugador >= rightRival) {
+		return false;
+	}
+
+	if (rightJugador <= leftRival) {
+		return false;
+	}
+
+	return true;
+}
+bool Jugador::collideConGolpe(SDL_Rect * jugador, int factor_golpe) {
+
+	int leftRival, leftJugador;
+	int rightRival, rightJugador;
+	int topRival, topJugador;
+	int bottomRival, bottomJugador;
+
+	leftRival = jugador->x;
+
+	rightRival = jugador->x + jugador->w ;
+
+	topRival = jugador->y;
+
+	bottomRival = jugador->y + jugador->h;
+
+	leftJugador = this->mCollider.x- extension_colider_golpe*factor_golpe;
+	rightJugador = this->mCollider.x + this->mCollider.w + extension_colider_golpe*factor_golpe;
 	topJugador = this->mCollider.y;
 	bottomJugador = this->mCollider.y + this->mCollider.h;
 
