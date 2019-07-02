@@ -76,11 +76,11 @@ void Model::ajustarCamara(){
 
 		int jugadorW = this->getEquipoNro(0)->getJugadorActivo()->get_ancho();
 
-//		cout << "POS 1 X: " << posXJugador1 << endl;
-//		cout << "POS 2 X: " << posXJugador2 << endl;
-//		cout << "Cam X: " << camara->x << endl;
-//		cout << "Ancho collide: " << collideW << endl;
-//		cout << "====================" << endl;
+		cout << "POS 1 X: " << posXJugador1 << endl;
+		cout << "POS 2 X: " << posXJugador2 << endl;
+		cout << "Cam X: " << camara->x << endl;
+		cout << "Ancho collide: " << collideW << endl;
+		cout << "====================" << endl;
 
 
 		//Chequeo que los jugadores no se salgan del escenario

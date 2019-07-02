@@ -126,15 +126,28 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 //
 //		this->cambiarPersonaje();
 //	}
+	int distancia_jugadores= abs(this->estado->getPosX()-jugadorRival->estado->getPosX());
 	if (this->estado->estaCambiandoPersonaje()&& !jugadorRival->murio()) {
 		this->estado->move();
 
-	}else if(this->estado->getPosX()>980){
+	}else if(this->estado->getPosX()>jugadorRival->estado->getPosX() && this->estado->getVelX()>0 && distancia_jugadores>600 ){
 
+
+		cout<<" No te vayas!!!!!!"<<endl;
 		nuevaposX=this->estado->getPosX()-this->estado->getVelX();
+		//nuevaposX=this->estado->getPosX();
 		this->estado->setPosX(nuevaposX);
 		this->estado->move();
 
+
+	}else if(this->estado->getPosX()<jugadorRival->estado->getPosX() && this->estado->getVelX()<0 && distancia_jugadores>600 ){
+
+
+		cout<<" No te vayas!!!!!!"<<endl;
+		nuevaposX=this->estado->getPosX()-this->estado->getVelX();
+		//nuevaposX=this->estado->getPosX();
+		this->estado->setPosX(nuevaposX);
+		this->estado->move();
 	}
 	else if(collideConJugador(&(jugadorRival->mCollider))){
 
