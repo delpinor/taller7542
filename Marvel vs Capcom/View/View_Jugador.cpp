@@ -304,13 +304,12 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
 				}
 			} else {
-				if (this->jugador->estado->getVelY() >= 18) {
-					frame = this->jugador->estado->getVelY();
+				cout <<this->jugador->estado->getVelY() / MAXFRAMESALTA << endl;
+				frame = jugador->estado->getVelY() / MAXFRAMESALTA ;
+				if(frame<0){
+					frame= frame*-1;
 				}
-				if (frame / FACTORSALTA > MAXFRAMESALTA) {
-					frame = MINFRAMESALTA;
-				}
-				currentClip = &gSpriteSaltar[frame / FACTORSALTA];
+				currentClip = &gSpriteSaltar[frame];
 				//++frame;
 			}
 		} else if (this->jugador->estaCambiandoPersonaje()){
