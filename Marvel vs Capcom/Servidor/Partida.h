@@ -75,6 +75,7 @@ private:
 	void IniciarCamara();
 	void ResetTitularidadClientes();
 	void SetResultadosBatallaTerminada();
+	int GetEquipoGanadorId();
 public:
 	int GetTiempoPausa();
 	void SetTiempoPausa(int segundos);
@@ -157,5 +158,6 @@ public:
 	void setModoTest();
 
 	ModeloResultadoEquipo GetModeloResultadoEquipo(int nroEquipo);
+	bool EstanEquiposEmpatados();
 };
 

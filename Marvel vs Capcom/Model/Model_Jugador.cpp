@@ -151,12 +151,12 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 	}
 	else if(collideConJugador(&(jugadorRival->mCollider))){
 
-		cout<<"colider x:"<<this->mCollider.x <<endl;
-		cout<<"colider y:"<<this->mCollider.y <<endl;
-cout<<"pos x:"<<this->estado->getPosX()<<endl;
-cout<<"pos y:"<<this->estado->getPosY()<<endl;
-cout<<"pos rival x:"<<jugadorRival->estado->getPosX()<<endl;
-cout<<"pos rival y:"<<jugadorRival->estado->getPosY()<<endl;
+//		cout<<"colider x:"<<this->mCollider.x <<endl;
+//		cout<<"colider y:"<<this->mCollider.y <<endl;
+//cout<<"pos x:"<<this->estado->getPosX()<<endl;
+//cout<<"pos y:"<<this->estado->getPosY()<<endl;
+//cout<<"pos rival x:"<<jugadorRival->estado->getPosX()<<endl;
+//cout<<"pos rival y:"<<jugadorRival->estado->getPosY()<<endl;
 
 
 //Move back
