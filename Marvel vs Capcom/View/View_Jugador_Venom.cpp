@@ -248,35 +248,35 @@ void View_Jugador_Venom::getSpritesSaltar() {
 	MAXFRAMESALTA = 3;
 	FACTORSALTA = 5;
 	this->gSpriteSaltar = new SDL_Rect[CANTSPRITECLIPSALTA];
-	gSpriteSaltar[0].x = 24;
-	gSpriteSaltar[0].y = 1924;
-	gSpriteSaltar[0].w = 261;
-	gSpriteSaltar[0].h = 150;
+	gSpriteSaltar[3].x = 24;
+	gSpriteSaltar[3].y = 1924;
+	gSpriteSaltar[3].w = 261;
+	gSpriteSaltar[3].h = 150;
 
 //	gSpriteSaltar[1].x = 24;
 //	gSpriteSaltar[1].y = 1924;
 //	gSpriteSaltar[1].w = 261;
 //	gSpriteSaltar[1].h = 150;
 
-	gSpriteSaltar[1].x = 870;
-	gSpriteSaltar[1].y = 1924;
-	gSpriteSaltar[1].w = 261;
-	gSpriteSaltar[1].h = 150;
-
-	gSpriteSaltar[2].x = 559;
-	gSpriteSaltar[2].y = 1928;
+	gSpriteSaltar[2].x = 870;
+	gSpriteSaltar[2].y = 1924;
 	gSpriteSaltar[2].w = 261;
 	gSpriteSaltar[2].h = 150;
+
+	gSpriteSaltar[1].x = 559;
+	gSpriteSaltar[1].y = 1928;
+	gSpriteSaltar[1].w = 261;
+	gSpriteSaltar[1].h = 150;
 
 //	gSpriteSaltar[4].x = 870;
 //	gSpriteSaltar[4].y = 1936;
 //	gSpriteSaltar[4].w = 261;
 //	gSpriteSaltar[4].h = 150;
 
-	gSpriteSaltar[3].x = 1137;
-	gSpriteSaltar[3].y = 1921;
-	gSpriteSaltar[3].w = 261;
-	gSpriteSaltar[3].h = 150;
+	gSpriteSaltar[0].x = 1137;
+	gSpriteSaltar[0].y = 1921;
+	gSpriteSaltar[0].w = 261;
+	gSpriteSaltar[0].h = 150;
 }
 
 void View_Jugador_Venom::getSpritesAgachar() {

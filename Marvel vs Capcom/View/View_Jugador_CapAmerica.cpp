@@ -210,9 +210,9 @@ void View_Jugador_CapAmerica::getSpritesCaminar() {
 }
 
 void View_Jugador_CapAmerica::getSpritesSaltar() {
-	CANTSPRITECLIPSALTA = 7;
+	CANTSPRITECLIPSALTA = 4;
 	MINFRAMESALTA = 0;
-	MAXFRAMESALTA = 6;
+	MAXFRAMESALTA = 3;
 	FACTORSALTA = 4;
 	this->gSpriteSaltar = new SDL_Rect[CANTSPRITECLIPSALTA];
 
@@ -221,40 +221,40 @@ void View_Jugador_CapAmerica::getSpritesSaltar() {
 //	gSpriteSaltar[0].w = 261;
 //	gSpriteSaltar[0].h = 150;
 
-	gSpriteSaltar[0].x = 211;
-	gSpriteSaltar[0].y = 357;
-	gSpriteSaltar[0].w = 261;
-	gSpriteSaltar[0].h = 150;
-
-	gSpriteSaltar[1].x = 409;
-	gSpriteSaltar[1].y = 364;
-	gSpriteSaltar[1].w = 261;
-	gSpriteSaltar[1].h = 150;
-
-	gSpriteSaltar[2].x = 855;
-	gSpriteSaltar[2].y = 374;
-	gSpriteSaltar[2].w = 261;
-	gSpriteSaltar[2].h = 150;
-
-	gSpriteSaltar[3].x = 627;
-	gSpriteSaltar[3].y = 384;
+	gSpriteSaltar[3].x = 211;
+	gSpriteSaltar[3].y = 357;
 	gSpriteSaltar[3].w = 261;
 	gSpriteSaltar[3].h = 150;
 
-	gSpriteSaltar[4].x = 855;
-	gSpriteSaltar[4].y = 374;
-	gSpriteSaltar[4].w = 261;
-	gSpriteSaltar[4].h = 150;
+	gSpriteSaltar[2].x = 409;
+	gSpriteSaltar[2].y = 364;
+	gSpriteSaltar[2].w = 261;
+	gSpriteSaltar[2].h = 150;
 
-	gSpriteSaltar[5].x = 211;
-	gSpriteSaltar[5].y = 357;
-	gSpriteSaltar[5].w = 261;
-	gSpriteSaltar[5].h = 150;
+	gSpriteSaltar[1].x = 855;
+	gSpriteSaltar[1].y = 374;
+	gSpriteSaltar[1].w = 261;
+	gSpriteSaltar[1].h = 150;
 
-	gSpriteSaltar[6].x = 17;
-	gSpriteSaltar[6].y = 363;
-	gSpriteSaltar[6].w = 261;
-	gSpriteSaltar[6].h = 157;
+	gSpriteSaltar[0].x = 627;
+	gSpriteSaltar[0].y = 384;
+	gSpriteSaltar[0].w = 261;
+	gSpriteSaltar[0].h = 150;
+//
+//	gSpriteSaltar[4].x = 855;
+//	gSpriteSaltar[4].y = 374;
+//	gSpriteSaltar[4].w = 261;
+//	gSpriteSaltar[4].h = 150;
+//
+//	gSpriteSaltar[5].x = 211;
+//	gSpriteSaltar[5].y = 357;
+//	gSpriteSaltar[5].w = 261;
+//	gSpriteSaltar[5].h = 150;
+//
+//	gSpriteSaltar[6].x = 17;
+//	gSpriteSaltar[6].y = 363;
+//	gSpriteSaltar[6].w = 261;
+//	gSpriteSaltar[6].h = 157;
 }
 
 void View_Jugador_CapAmerica::getSpritesAgachar() {
