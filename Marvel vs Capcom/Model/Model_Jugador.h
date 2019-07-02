@@ -33,6 +33,7 @@ private:
 	 int b = 255;
 	static const int VELOCIDAD_JUGADOR = 1;
 
+
 	SDL_Rect mCollider;
 
 	CambiandoPersonaje cambiandoPersonaje;
@@ -50,6 +51,8 @@ public:
 	Estado* estado;
 //	EstadoCliente * estado;
 	int extension_colider_golpe=0;
+	int mColliderOffsetX = 0;
+	int mColliderOffsetY = 0;
 
 
 	Jugador();
@@ -160,5 +163,7 @@ public:
 	void setEstadoPoder(bool estado);
 	Poder  mipoder;
 	void setEsInmortal(bool valor);
+	bool hayLugarAIzquierda(Jugador* jugador, Jugador* jugadorRival, SDL_Rect* camara);
+	bool hayLugarADerecha(Jugador* jugador, Jugador* jugadorRival, SDL_Rect* camara);
 	};
 #endif

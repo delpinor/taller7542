@@ -28,6 +28,9 @@ Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &
 
 	this->mCollider.h = 100 ;
 
+	mColliderOffsetX = (ancho - mCollider.w)/2;
+	mColliderOffsetY = alto - mCollider.h;
+
 	this->vidaJugador = 100;
 	this->inmortal = inmortal;
 
@@ -126,24 +129,31 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 //
 //		this->cambiarPersonaje();
 //	}
+
+	if (this->estaActivo()){
+	cout<<"=========================================" <<endl;
+	cout<<"colider x: "<<this->mCollider.x <<endl;
+	cout<<"colider y: "<<this->mCollider.y <<endl;
+	cout<<"colider h: "<<this->mCollider.h <<endl;
+	cout<<"colider w: "<<this->mCollider.w <<endl;
+	cout<<"pos x: "<<this->estado->getPosX()<<endl;
+	cout<<"pos y: "<<this->estado->getPosY()<<endl;
+	cout<<"colliderOfsetX: "<< mColliderOffsetX <<endl;
+	cout<<"colliderOfsetY: "<< mColliderOffsetY <<endl;
+	cout<<"========================================="<<endl;
+	}
+
 	if (this->estado->estaCambiandoPersonaje()&& !jugadorRival->murio()) {
 		this->estado->move();
 
 	}
 	else if(collideConJugador(&(jugadorRival->mCollider))){
 
-		cout<<"colider x:"<<this->mCollider.x <<endl;
-		cout<<"colider y:"<<this->mCollider.y <<endl;
-cout<<"pos x:"<<this->estado->getPosX()<<endl;
-cout<<"pos y:"<<this->estado->getPosY()<<endl;
-cout<<"pos rival x:"<<jugadorRival->estado->getPosX()<<endl;
-cout<<"pos rival y:"<<jugadorRival->estado->getPosY()<<endl;
-
-
 //Move back
 		if(this->estado->getPosX()<=jugadorRival->estado->getPosX()){
-			if((this->estado->getVelY()!=0) && (!collideDerecha(camara)) && (!collideIzquierda(camara)))
-				nuevaposX= this->estado->getPosX() -50;
+//			if((this->estado->getVelY()!=0) && (!collideDerecha(camara)) && (!collideIzquierda(camara)))
+			if((this->estaSaltando()) && hayLugarAIzquierda(this, jugadorRival, camara))
+				nuevaposX= jugadorRival->mCollider.x -this->mCollider.w -10;
 			else if((this->estado->getVelY()!=0) && (collideDerecha(camara)) && (!collideIzquierda(camara)))
 							nuevaposX= this->estado->getPosX() -100;
 			else if((this->estado->getVelY()!=0) && (collideIzquierda(camara)))
@@ -154,8 +164,8 @@ cout<<"pos rival y:"<<jugadorRival->estado->getPosY()<<endl;
 				nuevaposX= this->estado->getPosX() +this->estado->getVelX() ;
 
 		}else{
-			if((this->estado->getVelY()!=0) && (!collideIzquierda(camara)))
-				nuevaposX= this->estado->getPosX() +50;
+			if((this->estaSaltando()) && hayLugarADerecha(this, jugadorRival, camara))
+				nuevaposX= jugadorRival->mCollider.x + jugadorRival->mCollider.w +10;
 			else if((this->estado->getVelY()!=0) && (collideIzquierda(camara)))
 				nuevaposX= this->estado->getPosX() +100;
 			else if(this->estado->getVelX()>=0)
@@ -178,8 +188,8 @@ cout<<"pos rival y:"<<jugadorRival->estado->getPosY()<<endl;
 		nuevaposY= this->estado->getPosY();
 		this->estado->setPosX( nuevaposX);
 		this->estado->setPosY( nuevaposY);
-		this->mCollider.x = this->estado->getPosX();
-		this->mCollider.y = this->estado->getPosY();
+		this->mCollider.x = this->estado->getPosX() - mColliderOffsetX;
+		this->mCollider.y = this->estado->getPosY() + mColliderOffsetY;
 
 		this->estado->move();
 
@@ -211,8 +221,8 @@ cout<<"pos rival y:"<<jugadorRival->estado->getPosY()<<endl;
 		this->estado->move();
 	}
 	updateDirection(*jugadorRival);
-	this->mCollider.x = this->estado->getPosX();
-	this->mCollider.y = this->estado->getPosY();
+	this->mCollider.x = this->estado->getPosX() + mColliderOffsetX;
+	this->mCollider.y = this->estado->getPosY() + mColliderOffsetY;
 
 
 
@@ -225,6 +235,20 @@ cout<<"pos rival y:"<<jugadorRival->estado->getPosY()<<endl;
 	if (jugadorRival->collideConPoder(&mipoder)){
 				jugadorRival->recibeDanio(10);
 	}
+}
+
+bool Jugador::hayLugarADerecha(Jugador* jugador, Jugador* jugadorRival, SDL_Rect* camara){
+	int bordeDerCamara = camara->x + camara->w;
+	int bordeDerechoRival = jugadorRival->mCollider.x + jugadorRival->mCollider.w;
+
+	return (bordeDerCamara - bordeDerechoRival) > jugador->mCollider.w;
+}
+
+bool Jugador::hayLugarAIzquierda(Jugador* jugador, Jugador* jugadorRival, SDL_Rect* camara){
+	int bordeIzqCamara = camara->x;
+	int bordeIzqRival = jugadorRival->mCollider.x;
+
+	return (bordeIzqRival - bordeIzqCamara) > jugador->mCollider.w;
 }
 
 int Jugador::getPosX() {
