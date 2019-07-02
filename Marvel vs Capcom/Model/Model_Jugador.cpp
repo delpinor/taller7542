@@ -143,10 +143,10 @@ cout<<"pos rival y:"<<jugadorRival->estado->getPosY()<<endl;
 //Move back
 		if(this->estado->getPosX()<=jugadorRival->estado->getPosX()){
 			if((this->estado->getVelY()!=0) && (!collideDerecha(camara)) && (!collideIzquierda(camara)))
-				nuevaposX= this->estado->getPosX() -50;
+				nuevaposX= this->estado->getPosX() -100;
 			else if((this->estado->getVelY()!=0) && (collideDerecha(camara)) && (!collideIzquierda(camara)))
 							nuevaposX= this->estado->getPosX() -100;
-			else if((this->estado->getVelY()!=0) && (collideIzquierda(camara)))
+			else if((this->estado->getVelY()!=0) )
 									nuevaposX= this->estado->getPosX() +100;
 			else if(this->estado->getVelX()>=0)
 				nuevaposX= this->estado->getPosX() -this->estado->getVelX();
@@ -154,26 +154,19 @@ cout<<"pos rival y:"<<jugadorRival->estado->getPosY()<<endl;
 				nuevaposX= this->estado->getPosX() +this->estado->getVelX() ;
 
 		}else{
-			if((this->estado->getVelY()!=0) && (!collideIzquierda(camara)))
-				nuevaposX= this->estado->getPosX() +50;
+			if((this->estado->getVelY()!=0) && (!collideIzquierda(camara))&& (!collideDerecha(camara)))
+				nuevaposX= this->estado->getPosX() +100;
 			else if((this->estado->getVelY()!=0) && (collideIzquierda(camara)))
 				nuevaposX= this->estado->getPosX() +100;
+			else if((this->estado->getVelY()!=0) )
+				nuevaposX= this->estado->getPosX()-100;
 			else if(this->estado->getVelX()>=0)
 				nuevaposX= this->estado->getPosX() +this->estado->getVelX();
 			else
 				nuevaposX= this->estado->getPosX() -this->estado->getVelX() ;
 
 		}
-		/*
-		if(this->estado->getPosY()>=jugadorRival->estado->getPosY()){
-				if(this->estado->getVelY()>0)
-					nuevaposY= this->estado->getPosY() + this->estado->getVelY();
-				else
-					nuevaposY= this->estado->getPosY()- this->estado->getVelY()  ;
-			}else{
-					nuevaposY= this->estado->getPosY();
-			}
-			*/
+
 
 		nuevaposY= this->estado->getPosY();
 		this->estado->setPosX( nuevaposX);
