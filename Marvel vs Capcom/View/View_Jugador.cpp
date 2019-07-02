@@ -305,13 +305,13 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 				}
 			} else {
 				if (this->jugador->estado->getVelY() >= 18) {
-					frame = 0;
+					frame = this->jugador->estado->getVelY();
 				}
 				if (frame / FACTORSALTA > MAXFRAMESALTA) {
 					frame = MINFRAMESALTA;
 				}
 				currentClip = &gSpriteSaltar[frame / FACTORSALTA];
-				++frame;
+				//++frame;
 			}
 		} else if (this->jugador->estaCambiandoPersonaje()){
 			currentClip = &gSpriteCambiarPersonaje[0];
