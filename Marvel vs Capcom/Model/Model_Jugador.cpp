@@ -129,6 +129,12 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 	if (this->estado->estaCambiandoPersonaje()&& !jugadorRival->murio()) {
 		this->estado->move();
 
+	}else if(this->estado->getPosX()>980){
+
+		nuevaposX=this->estado->getPosX()-this->estado->getVelX();
+		this->estado->setPosX(nuevaposX);
+		this->estado->move();
+
 	}
 	else if(collideConJugador(&(jugadorRival->mCollider))){
 
@@ -141,6 +147,7 @@ cout<<"pos rival y:"<<jugadorRival->estado->getPosY()<<endl;
 
 
 //Move back
+
 		if(this->estado->getPosX()<=jugadorRival->estado->getPosX()){
 			if((this->estado->getVelY()!=0) && (!collideDerecha(camara)) && (!collideIzquierda(camara)))
 				nuevaposX= this->estado->getPosX() -100;
