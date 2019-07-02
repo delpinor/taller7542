@@ -163,11 +163,11 @@ cout<<"pos rival y:"<<jugadorRival->estado->getPosY()<<endl;
 
 		if(this->estado->getPosX()<=jugadorRival->estado->getPosX()){
 			if((this->estado->getVelY()!=0) && (!collideDerecha(camara)) && (!collideIzquierda(camara)))
-				nuevaposX= this->estado->getPosX() -100;
+				nuevaposX= this->estado->getPosX() -80;
 			else if((this->estado->getVelY()!=0) && (collideDerecha(camara)) && (!collideIzquierda(camara)))
-							nuevaposX= this->estado->getPosX() -100;
+							nuevaposX= this->estado->getPosX() -80;
 			else if((this->estado->getVelY()!=0) )
-									nuevaposX= this->estado->getPosX() +100;
+									nuevaposX= this->estado->getPosX() +80;
 			else if(this->estado->getVelX()>=0)
 				nuevaposX= this->estado->getPosX() -this->estado->getVelX();
 			else
@@ -175,11 +175,11 @@ cout<<"pos rival y:"<<jugadorRival->estado->getPosY()<<endl;
 
 		}else{
 			if((this->estado->getVelY()!=0) && (!collideIzquierda(camara))&& (!collideDerecha(camara)))
-				nuevaposX= this->estado->getPosX() +100;
+				nuevaposX= this->estado->getPosX() +80;
 			else if((this->estado->getVelY()!=0) && (collideIzquierda(camara)))
-				nuevaposX= this->estado->getPosX() +100;
+				nuevaposX= this->estado->getPosX() +80;
 			else if((this->estado->getVelY()!=0) )
-				nuevaposX= this->estado->getPosX()-100;
+				nuevaposX= this->estado->getPosX()-80;
 			else if(this->estado->getVelX()>=0)
 				nuevaposX= this->estado->getPosX() +this->estado->getVelX();
 			else
@@ -614,7 +614,7 @@ bool Jugador::collideDerecha(SDL_Rect * camara) {
 	bottomCam = camara->y + camara->h - MARGENDESELECCION;
 
 	leftJugador = this->mCollider.x;
-	rightJugador = this->mCollider.x + this->width - this->mCollider.w+10;
+	rightJugador = this->mCollider.x + this->width - this->mCollider.w+ 30;
 	topJugador = this->mCollider.y;
 	bottomJugador = this->mCollider.y + this->mCollider.h;
 
@@ -634,13 +634,13 @@ bool Jugador::collideIzquierda(SDL_Rect * camara) {
 
 	leftCam = camara->x + MARGENDESELECCION;
 
-	rightCam = camara->x + camara->w - MARGENDESELECCION;
+	rightCam = camara->x + camara->w - MARGENDESELECCION ;
 
 	topCam = camara->y + MARGENDESELECCION;
 
 	bottomCam = camara->y + camara->h - MARGENDESELECCION;
 
-	leftJugador = this->mCollider.x + this->mCollider.w - 10;
+	leftJugador = this->mCollider.x + this->mCollider.w - 30;
 	rightJugador = this->mCollider.x + this->mCollider.w;
 	topJugador = this->mCollider.y;
 	bottomJugador = this->mCollider.y + this->mCollider.h;
