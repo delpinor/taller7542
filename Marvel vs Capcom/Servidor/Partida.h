@@ -8,7 +8,7 @@
 #include "../Controller/Controller.h"
 #include "../View/View.h"
 #include "../Enums/Personajes.h"
-#define ANCHO_NIVEL 1040
+#define ANCHO_NIVEL 1500
 #define ALTO_NIVEL 1080
 #define DURACIONMENSAJE 2
 #define DURACIONPAUSA 2
