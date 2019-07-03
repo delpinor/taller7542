@@ -463,9 +463,9 @@ void Jugador::TirarPoder(Jugador * rival) {
 		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PODER);
 	}
 	if (this->getDireccion() == SDL_FLIP_NONE) {
-		mipoder.activarPoder(getCollideX() + getCollideW(), getCollideY() , 1);
+		mipoder.activarPoder(this->getPosX(), this->getPosY() , 1);
 	} else {
-		mipoder.activarPoder(getCollideX(), getCollideY(), -1);
+		mipoder.activarPoder(this->getPosX(), this->getPosY(), -1);
 	}
 	std::cout << "HADOOOOUUUUKENNNNNN" << std::endl;
 	std::cout << "HADOOOOUUUUKENNNNNN" << std::endl;
