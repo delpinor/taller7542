@@ -23,11 +23,11 @@ FondoParallax::~FondoParallax() {
 void FondoParallax::refrescarPosicion(SDL_Rect * cam) {
 	SDL_RenderClear(renderer);
 	if (cam->x > pos_x_anterior) {
-		moverDerecha(1);
+		moverDerecha(2);
 		Logger::Log(LOGGER_NIVEL::DEBUG, "Parallax:Refrescar", "CámaraPosX:"+ std::to_string(cam->x));
 	}
 	if (cam->x < pos_x_anterior) {
-		moverIzquierda(1);
+		moverIzquierda(2);
 		Logger::Log(LOGGER_NIVEL::DEBUG, "Parallax:Refrescar", "CámaraPosX:"+ std::to_string(cam->x));
 	}
 	pos_x_anterior = cam->x;

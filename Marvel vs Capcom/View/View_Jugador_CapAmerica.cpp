@@ -841,37 +841,37 @@ void View_Jugador_CapAmerica::getSpritesPoder(){
 	this->gSpritePoder = new SDL_Rect[CANTSPRITECLIPPODER];
 
 	gSpritePoder[0].x = 758;
-	gSpritePoder[0].y = 1104;
+	gSpritePoder[0].y = 1088;
 	gSpritePoder[0].w = 261;
 	gSpritePoder[0].h = 150;
 
 	gSpritePoder[1].x = 758;
-	gSpritePoder[1].y = 1104;
+	gSpritePoder[1].y = 1088;
 	gSpritePoder[1].w = 261;
 	gSpritePoder[1].h = 150;
 
 	gSpritePoder[2].x = 758;
-	gSpritePoder[2].y = 1104;
+	gSpritePoder[2].y = 1088;
 	gSpritePoder[2].w = 261;
 	gSpritePoder[2].h = 150;
 
 	gSpritePoder[3].x = 758;
-	gSpritePoder[3].y = 1104;
+	gSpritePoder[3].y = 1088;
 	gSpritePoder[3].w = 261;
 	gSpritePoder[3].h = 150;
 
 	gSpritePoder[4].x = 758;
-	gSpritePoder[4].y = 1104;
+	gSpritePoder[4].y = 1088;
 	gSpritePoder[4].w = 261;
 	gSpritePoder[4].h = 150;
 
 	gSpritePoder[5].x = 758;
-	gSpritePoder[5].y = 1104;
+	gSpritePoder[5].y = 1088;
 	gSpritePoder[5].w = 261;
 	gSpritePoder[5].h = 150;
 
 	gSpritePoder[6].x = 758;
-	gSpritePoder[6].y = 1104;
+	gSpritePoder[6].y = 1088;
 	gSpritePoder[6].w = 261;
 	gSpritePoder[6].h = 150;
 }
