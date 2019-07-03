@@ -130,23 +130,27 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 	if (this->estado->estaCambiandoPersonaje()&& !jugadorRival->murio()) {
 		this->estado->move();
 
-	}else if(this->estado->getPosX()>jugadorRival->estado->getPosX() && this->estado->getVelX()>0 && distancia_jugadores>600 ){
+	}else if( this->estado->getPosX()>jugadorRival->estado->getPosX() && this->estado->getVelX()>0 && distancia_jugadores>580 ){
 
 
 		cout<<" No te vayas!!!!!!"<<endl;
 		nuevaposX=this->estado->getPosX()-this->estado->getVelX();
-		//nuevaposX=this->estado->getPosX();
+
 		this->estado->setPosX(nuevaposX);
+		this->mCollider.x = this->estado->getPosX();
+		this->mCollider.y = this->estado->getPosY();
 		this->estado->move();
 
 
-	}else if(this->estado->getPosX()<jugadorRival->estado->getPosX() && this->estado->getVelX()<0 && distancia_jugadores>600 ){
+	}else if(this->estado->getPosX()<jugadorRival->estado->getPosX() && this->estado->getVelX()<0 && distancia_jugadores>580 ){
 
 
 		cout<<" No te vayas!!!!!!"<<endl;
 		nuevaposX=this->estado->getPosX()-this->estado->getVelX();
-		//nuevaposX=this->estado->getPosX();
+
 		this->estado->setPosX(nuevaposX);
+		this->mCollider.x = this->estado->getPosX();
+		this->mCollider.y = this->estado->getPosY();
 		this->estado->move();
 	}
 	else if(collideConJugador(&(jugadorRival->mCollider))){
@@ -167,7 +171,7 @@ cout<<"pos rival y:"<<jugadorRival->estado->getPosY()<<endl;
 			else if((this->estado->getVelY()!=0) && (collideDerecha(camara)) && (!collideIzquierda(camara)))
 							nuevaposX= this->estado->getPosX() -80;
 			else if((this->estado->getVelY()!=0) )
-									nuevaposX= this->estado->getPosX() +80;
+									nuevaposX= this->estado->getPosX() +100;
 			else if(this->estado->getVelX()>=0)
 				nuevaposX= this->estado->getPosX() -this->estado->getVelX();
 			else
@@ -179,10 +183,10 @@ cout<<"pos rival y:"<<jugadorRival->estado->getPosY()<<endl;
 			else if((this->estado->getVelY()!=0) && (collideIzquierda(camara)))
 				nuevaposX= this->estado->getPosX() +80;
 			else if((this->estado->getVelY()!=0) )
-				nuevaposX= this->estado->getPosX()-80;
+				nuevaposX= this->estado->getPosX()-100;
 			else if(this->estado->getVelX()>=0)
 				nuevaposX= this->estado->getPosX() +this->estado->getVelX();
-			else
+			else  if(this->estado->getVelX()<0)
 				nuevaposX= this->estado->getPosX() -this->estado->getVelX() ;
 
 		}
@@ -202,25 +206,39 @@ cout<<"pos rival y:"<<jugadorRival->estado->getPosY()<<endl;
 
 		if (!collideDerecha(camara)) {
 			cout << "Mov derecha: " << endl;
+			this->mCollider.x = this->estado->getPosX();
+				this->mCollider.y = this->estado->getPosY();
 			this->estado->move();
 		} else {
 			if (!jugadorRival->collideIzquierda(camara)) {
+				this->mCollider.x = this->estado->getPosX();
+					this->mCollider.y = this->estado->getPosY();
 				this->estado->move();
 			} else {
+				this->mCollider.x = this->estado->getPosX();
+					this->mCollider.y = this->estado->getPosY();
 				this->estado->moveVertical();
 			}
 		}
 	} else if (movimientoIzquierda()) {
 		if (!collideIzquierda(camara)) {
+			this->mCollider.x = this->estado->getPosX();
+				this->mCollider.y = this->estado->getPosY();
 			this->estado->move();
 		} else {
 			if (!jugadorRival->collideDerecha(camara)) {
+				this->mCollider.x = this->estado->getPosX();
+					this->mCollider.y = this->estado->getPosY();
 				this->estado->move();
 			} else {
+				this->mCollider.x = this->estado->getPosX();
+					this->mCollider.y = this->estado->getPosY();
 				this->estado->moveVertical();
 			}
 		}
 	} else {
+		this->mCollider.x = this->estado->getPosX();
+			this->mCollider.y = this->estado->getPosY();
 		this->estado->move();
 	}
 	updateDirection(*jugadorRival);
