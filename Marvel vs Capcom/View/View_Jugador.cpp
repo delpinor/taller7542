@@ -64,11 +64,11 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 	SDL_Rect* currentClip;
 	SDL_Rect* currentClipPoder;
 
-	if((this->jugador->GetVida()<=0) &&(!sonido_KO_reproducido)){
+	if((this->jugador->GetVida()<=0) &&(!sonido_KO_reproducido) && (!silencio)){
 
 		this->reproducir_sonido_KO();
 		sonido_KO_reproducido=true;
-	}else if((this->jugador->GetVida()>0)){
+	}else if((this->jugador->GetVida()>0)  ){
 		sonido_KO_reproducido=false;;
 	}
 

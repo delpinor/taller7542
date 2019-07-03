@@ -9,7 +9,12 @@
 
 Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &path, bool &inmortal) {
 //	this->estado->setPosInitY(0);
-	extension_colider_golpe=(ancho -400)*1.2+40;
+
+	int reduccion=0;
+	if (ancho==430){
+		reduccion=20;
+	}
+	extension_colider_golpe=(ancho -400)*1.2+40-reduccion/2;
 
 	this->estado = &(this->inactivo);
 	this->mCollider.x = this->estado->getPosX();
@@ -24,7 +29,7 @@ Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &
 	this->zindex= zind;
 	this->nombre=nom;
 	this->pathImagen=path;
-	this->mCollider.w =110 +(ancho -400);
+	this->mCollider.w =110 +(ancho -400) -reduccion;
 
 	this->mCollider.h = 100 ;
 
@@ -445,7 +450,7 @@ void Jugador::Patadon(Jugador * rival) {
 
 void Jugador::ActivarDefensa() {
 	std::cout << "Agregar DEFENSAAAAAAAAAAAA!!!!!: " << std::endl;
-	if(!this->estado->estaSaltando())
+//	if(!this->estado->estaSaltando())
 	this->setTipoGolpe(TIPO_GOLPE::ACTIVAR_DEFENSA);
 }
 
