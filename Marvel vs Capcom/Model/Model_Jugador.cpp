@@ -9,7 +9,7 @@
 
 Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &path, bool &inmortal) {
 //	this->estado->setPosInitY(0);
-	extension_colider_golpe=(ancho -400)*2;
+	extension_colider_golpe=(ancho -400)*1.2+40;
 
 	this->estado = &(this->inactivo);
 	this->mCollider.x = this->estado->getPosX();
@@ -24,7 +24,7 @@ Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &
 	this->zindex= zind;
 	this->nombre=nom;
 	this->pathImagen=path;
-	this->mCollider.w =130 +(ancho -400);
+	this->mCollider.w =110 +(ancho -400);
 
 	this->mCollider.h = 100 ;
 
@@ -158,9 +158,28 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 //	cout<<"========================================="<<endl;
 //	}
 
+	int distancia_jugadores= abs(this->estado->getPosX()-jugadorRival->estado->getPosX());
 	if (this->estado->estaCambiandoPersonaje()&& !jugadorRival->murio()) {
 		this->estado->move();
 
+	}else if(this->estado->getPosX()>jugadorRival->estado->getPosX() && this->estado->getVelX()>0 && distancia_jugadores>600 ){
+
+
+		cout<<" No te vayas!!!!!!"<<endl;
+		nuevaposX=this->estado->getPosX()-this->estado->getVelX();
+		//nuevaposX=this->estado->getPosX();
+		this->estado->setPosX(nuevaposX);
+		this->estado->move();
+
+
+	}else if(this->estado->getPosX()<jugadorRival->estado->getPosX() && this->estado->getVelX()<0 && distancia_jugadores>600 ){
+
+
+		cout<<" No te vayas!!!!!!"<<endl;
+		nuevaposX=this->estado->getPosX()-this->estado->getVelX();
+		//nuevaposX=this->estado->getPosX();
+		this->estado->setPosX(nuevaposX);
+		this->estado->move();
 	}
 	else if(collideConJugador(&(jugadorRival->mCollider))){
 
@@ -198,16 +217,7 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 				nuevaposX= this->estado->getPosX() -this->estado->getVelX();
 
 		}
-		/*
-		if(this->estado->getPosY()>=jugadorRival->estado->getPosY()){
-				if(this->estado->getVelY()>0)
-					nuevaposY= this->estado->getPosY() + this->estado->getVelY();
-				else
-					nuevaposY= this->estado->getPosY()- this->estado->getVelY()  ;
-			}else{
-					nuevaposY= this->estado->getPosY();
-			}
-			*/
+
 
 		nuevaposY= this->estado->getPosY();
 		this->estado->setPosX( nuevaposX);
@@ -373,7 +383,7 @@ void Jugador::Pinia(Jugador * rival) {
 		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PINIA);
 	}
 
-		if (this->collideConGolpe(&(rival->mCollider),1.95))
+		if (this->collideConGolpe(&(rival->mCollider),1.2))
 		rival->recibeDanio(this->estado->getDanioPinia());
 }
 
@@ -427,12 +437,13 @@ void Jugador::Patadon(Jugador * rival) {
 		this->setTipoGolpe(TIPO_GOLPE::GOLPE_PATADON);
 	}
 	//if (rival->collideConJugador(&mCollider))
-		if (collideConGolpe(&(rival->mCollider),1.5))
+		if (collideConGolpe(&(rival->mCollider),1.3))
 		rival->recibeDanio(this->estado->getDanioPatadon());
 }
 
 void Jugador::ActivarDefensa() {
 	std::cout << "Agregar DEFENSAAAAAAAAAAAA!!!!!: " << std::endl;
+	if(!this->estado->estaSaltando())
 	this->setTipoGolpe(TIPO_GOLPE::ACTIVAR_DEFENSA);
 }
 
@@ -706,7 +717,7 @@ bool Jugador::collideIzquierda(SDL_Rect * camara) {
 
 	leftCam = camara->x + MARGENDESELECCION;
 
-	rightCam = camara->x + camara->w - MARGENDESELECCION;
+	rightCam = camara->x + camara->w - MARGENDESELECCION ;
 
 	topCam = camara->y + MARGENDESELECCION;
 

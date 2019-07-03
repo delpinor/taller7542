@@ -272,8 +272,12 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					maxFrame = MAXFRAMEPINIONSALTANDO;
 					factor = FACTORPINIONSALTANDO;
 					std::cout << "pinion saltando" << std::endl;
-				}
-				else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::ACTIVAR_DEFENSA) {
+				}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_PODER) {
+					gSpriteGolpear = gSpriteLanzarPoder;
+					maxFrame = MAXFRAMELANZARPODER;
+					factor = FACTORLANZARPODER;
+					std::cout << "podeeerrrrr" << std::endl;
+				}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::ACTIVAR_DEFENSA) {
 					gSpriteGolpear = gSpriteDefensaSaltando;
 					maxFrame = 1;
 					factor = 1;
@@ -304,14 +308,10 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 					this->jugador->setTipoGolpe(TIPO_GOLPE::NADA);
 				}
 			} else {
-				if (this->jugador->estado->getVelY() >= 18) {
-					frame = 0;
-				}
-				if (frame / FACTORSALTA > MAXFRAMESALTA) {
-					frame = MINFRAMESALTA;
-				}
-				currentClip = &gSpriteSaltar[frame / FACTORSALTA];
-				++frame;
+
+				frame = CANTSPRITECLIPSALTA *(abs(this->jugador->estado->getVelY())/25.00);
+				currentClip = &gSpriteSaltar[frame ];
+
 			}
 		} else if (this->jugador->estaCambiandoPersonaje()){
 			currentClip = &gSpriteCambiarPersonaje[0];

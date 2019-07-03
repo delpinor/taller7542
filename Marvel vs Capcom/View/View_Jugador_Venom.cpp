@@ -248,35 +248,35 @@ void View_Jugador_Venom::getSpritesSaltar() {
 	MAXFRAMESALTA = 3;
 	FACTORSALTA = 5;
 	this->gSpriteSaltar = new SDL_Rect[CANTSPRITECLIPSALTA];
-	gSpriteSaltar[0].x = 24;
-	gSpriteSaltar[0].y = 1924;
-	gSpriteSaltar[0].w = 261;
-	gSpriteSaltar[0].h = 150;
+	gSpriteSaltar[3].x = 24;
+	gSpriteSaltar[3].y = 1924;
+	gSpriteSaltar[3].w = 261;
+	gSpriteSaltar[3].h = 150;
 
 //	gSpriteSaltar[1].x = 24;
 //	gSpriteSaltar[1].y = 1924;
 //	gSpriteSaltar[1].w = 261;
 //	gSpriteSaltar[1].h = 150;
 
-	gSpriteSaltar[1].x = 870;
-	gSpriteSaltar[1].y = 1924;
-	gSpriteSaltar[1].w = 261;
-	gSpriteSaltar[1].h = 150;
-
-	gSpriteSaltar[2].x = 559;
-	gSpriteSaltar[2].y = 1928;
+	gSpriteSaltar[2].x = 870;
+	gSpriteSaltar[2].y = 1924;
 	gSpriteSaltar[2].w = 261;
 	gSpriteSaltar[2].h = 150;
+
+	gSpriteSaltar[1].x = 559;
+	gSpriteSaltar[1].y = 1928;
+	gSpriteSaltar[1].w = 261;
+	gSpriteSaltar[1].h = 150;
 
 //	gSpriteSaltar[4].x = 870;
 //	gSpriteSaltar[4].y = 1936;
 //	gSpriteSaltar[4].w = 261;
 //	gSpriteSaltar[4].h = 150;
 
-	gSpriteSaltar[3].x = 1137;
-	gSpriteSaltar[3].y = 1921;
-	gSpriteSaltar[3].w = 261;
-	gSpriteSaltar[3].h = 150;
+	gSpriteSaltar[0].x = 1137;
+	gSpriteSaltar[0].y = 1921;
+	gSpriteSaltar[0].w = 261;
+	gSpriteSaltar[0].h = 150;
 }
 
 void View_Jugador_Venom::getSpritesAgachar() {
@@ -376,81 +376,81 @@ void View_Jugador_Venom::getSpritesPatadaFuerte() {
 }
 
 void View_Jugador_Venom::getSpritesPiniaDebil() {
-	CANTSPRITECLIPPINIA = 5;
+	CANTSPRITECLIPPINIA = 7;
 	MINFRAMEPINIA = 0;
-	MAXFRAMEPINIA = 4;
+	MAXFRAMEPINIA = 6;
 	FACTORPINIA = 5;
 	this->gSpritePinia = new SDL_Rect[CANTSPRITECLIPPINIA];
 
-	gSpritePinia[0].x = 42;
-	gSpritePinia[0].y = 441;
+	gSpritePinia[0].x = 58;
+	gSpritePinia[0].y = 238;
 	gSpritePinia[0].w = 261;
-	gSpritePinia[0].h = 150;
-	// dif de 15
-	gSpritePinia[1].x = 301;
-	gSpritePinia[1].y = 441;
+	gSpritePinia[0].h = 190;
+
+	gSpritePinia[1].x = 315;
+	gSpritePinia[1].y = 238;
 	gSpritePinia[1].w = 261;
-	gSpritePinia[1].h = 150;
+	gSpritePinia[1].h = 190;
 
-	gSpritePinia[2].x = 301;
-	gSpritePinia[2].y = 441;
+	gSpritePinia[2].x = 579;
+	gSpritePinia[2].y = 238;
 	gSpritePinia[2].w = 261;
-	gSpritePinia[2].h = 150;
+	gSpritePinia[2].h = 190;
 
-	gSpritePinia[3].x = 301;
-	gSpritePinia[3].y = 441;
+	gSpritePinia[3].x = 870;
+	gSpritePinia[3].y = 238;
 	gSpritePinia[3].w = 261;
-	gSpritePinia[3].h = 150;
+	gSpritePinia[3].h = 190;
 
-	gSpritePinia[4].x = 1193;
-	gSpritePinia[4].y = 441;
+	gSpritePinia[4].x = 1145;
+	gSpritePinia[4].y = 238;
 	gSpritePinia[4].w = 261;
-	gSpritePinia[4].h = 150;
+	gSpritePinia[4].h = 190;
+
+	gSpritePinia[5].x = 1400;
+	gSpritePinia[5].y = 238;
+	gSpritePinia[5].w = 261;
+	gSpritePinia[5].h = 190;
+
+	gSpritePinia[6].x = 1640;
+	gSpritePinia[6].y = 238;
+	gSpritePinia[6].w = 261;
+	gSpritePinia[6].h = 190;
 }
 
 //TODO: ver que problemas va a traer el alto que es bastante grande, en caso de que deforme bastante y traiga complicaciones
 //usar como pinia fuerte el de patadaFuerte
 void View_Jugador_Venom::getSpritesPiniaFuerte() {
-	CANTSPRITECLIPPINION = 7;
+	CANTSPRITECLIPPINION = 5;
 	MINFRAMEPINION = 0;
 	MAXFRAMEPINION = 4;
 	FACTORPINION = 5;
 	this->gSpritePinion = new SDL_Rect[CANTSPRITECLIPPINION];
 
-	gSpritePinion[0].x = 58;
-	gSpritePinion[0].y = 238;
+	gSpritePinion[0].x = 42;
+	gSpritePinion[0].y = 441;
 	gSpritePinion[0].w = 261;
-	gSpritePinion[0].h = 190;
-
-	gSpritePinion[1].x = 315;
-	gSpritePinion[1].y = 238;
+	gSpritePinion[0].h = 150;
+		// dif de 15
+	gSpritePinion[1].x = 301;
+	gSpritePinion[1].y = 441;
 	gSpritePinion[1].w = 261;
-	gSpritePinion[1].h = 190;
+	gSpritePinion[1].h = 150;
 
-	gSpritePinion[2].x = 579;
-	gSpritePinion[2].y = 238;
+	gSpritePinion[2].x = 301;
+	gSpritePinion[2].y = 441;
 	gSpritePinion[2].w = 261;
-	gSpritePinion[2].h = 190;
+	gSpritePinion[2].h = 150;
 
-	gSpritePinion[3].x = 870;
-	gSpritePinion[3].y = 238;
+	gSpritePinion[3].x = 301;
+	gSpritePinion[3].y = 441;
 	gSpritePinion[3].w = 261;
-	gSpritePinion[3].h = 190;
+	gSpritePinion[3].h = 150;
 
-	gSpritePinion[4].x = 1145;
-	gSpritePinion[4].y = 238;
+	gSpritePinion[4].x = 1193;
+	gSpritePinion[4].y = 441;
 	gSpritePinion[4].w = 261;
-	gSpritePinion[4].h = 190;
-
-	gSpritePinion[5].x = 1400;
-	gSpritePinion[5].y = 238;
-	gSpritePinion[5].w = 261;
-	gSpritePinion[5].h = 190;
-
-	gSpritePinion[6].x = 1640;
-	gSpritePinion[6].y = 238;
-	gSpritePinion[6].w = 261;
-	gSpritePinion[6].h = 190;
+	gSpritePinion[4].h = 150;
 }
 
 void View_Jugador_Venom::getSpritesPatadaDebil() {

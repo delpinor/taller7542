@@ -220,56 +220,56 @@ void View_Jugador_ChunLi::getSpritesCaminar() {
 
 
 void View_Jugador_ChunLi::getSpritesSaltar() {
-	CANTSPRITECLIPSALTA = 9;
+	CANTSPRITECLIPSALTA = 5;
 	MINFRAMESALTA = 0;
-	MAXFRAMESALTA = 8;
+	MAXFRAMESALTA = 4;
 	FACTORSALTA = 2;
 	this->gSpriteSaltar = new SDL_Rect[CANTSPRITECLIPSALTA];
 
-	gSpriteSaltar[0].x = 297;
-	gSpriteSaltar[0].y = 2697;
-	gSpriteSaltar[0].w = 261;
-	gSpriteSaltar[0].h = 150;
+	gSpriteSaltar[4].x = 297;
+	gSpriteSaltar[4].y = 2697;
+	gSpriteSaltar[4].w = 261;
+	gSpriteSaltar[4].h = 150;
 
-	gSpriteSaltar[1].x = 556;
-	gSpriteSaltar[1].y = 2697;
-	gSpriteSaltar[1].w = 261;
-	gSpriteSaltar[1].h = 150;
+	gSpriteSaltar[3].x = 556;
+	gSpriteSaltar[3].y = 2697;
+	gSpriteSaltar[3].w = 261;
+	gSpriteSaltar[3].h = 150;
 
 	gSpriteSaltar[2].x = 789;
 	gSpriteSaltar[2].y = 2697;
 	gSpriteSaltar[2].w = 261;
 	gSpriteSaltar[2].h = 150;
 
-	gSpriteSaltar[3].x = 1045;
-	gSpriteSaltar[3].y = 2697;
-	gSpriteSaltar[3].w = 261;
-	gSpriteSaltar[3].h = 150;
+	gSpriteSaltar[1].x = 1045;
+	gSpriteSaltar[1].y = 2697;
+	gSpriteSaltar[1].w = 261;
+	gSpriteSaltar[1].h = 150;
 
-	gSpriteSaltar[4].x = 1267;
-	gSpriteSaltar[4].y = 2697;
-	gSpriteSaltar[4].w = 261;
-	gSpriteSaltar[4].h = 150;
+	gSpriteSaltar[0].x = 1267;
+	gSpriteSaltar[0].y = 2697;
+	gSpriteSaltar[0].w = 261;
+	gSpriteSaltar[0].h = 150;
 
-	gSpriteSaltar[5].x = 1495;
-	gSpriteSaltar[5].y = 2697;
-	gSpriteSaltar[5].w = 65;
-	gSpriteSaltar[5].h = 150;
-
-	gSpriteSaltar[6].x = 1719;
-	gSpriteSaltar[6].y = 2697;
-	gSpriteSaltar[6].w = 261;
-	gSpriteSaltar[6].h = 150;
-
-	gSpriteSaltar[7].x = 1945;
-	gSpriteSaltar[7].y = 2697;
-	gSpriteSaltar[7].w = 261;
-	gSpriteSaltar[7].h = 150;
-
-	gSpriteSaltar[8].x = 2145;
-	gSpriteSaltar[8].y = 2697;
-	gSpriteSaltar[8].w = 261;
-	gSpriteSaltar[8].h = 150;
+//	gSpriteSaltar[5].x = 1495;
+//	gSpriteSaltar[5].y = 2697;
+//	gSpriteSaltar[5].w = 65;
+//	gSpriteSaltar[5].h = 150;
+//
+//	gSpriteSaltar[6].x = 1719;
+//	gSpriteSaltar[6].y = 2697;
+//	gSpriteSaltar[6].w = 261;
+//	gSpriteSaltar[6].h = 150;
+//
+//	gSpriteSaltar[7].x = 1945;
+//	gSpriteSaltar[7].y = 2697;
+//	gSpriteSaltar[7].w = 261;
+//	gSpriteSaltar[7].h = 150;
+//
+//	gSpriteSaltar[8].x = 2145;
+//	gSpriteSaltar[8].y = 2697;
+//	gSpriteSaltar[8].w = 261;
+//	gSpriteSaltar[8].h = 150;
 }
 
 void View_Jugador_ChunLi::getSpritesAgachar() {

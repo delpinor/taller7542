@@ -246,51 +246,51 @@ void View_Jugador_Spiderman::getSpritesCaminar() {
 }
 
 void View_Jugador_Spiderman::getSpritesSaltar() {
-	CANTSPRITECLIPSALTA = 8;
+	CANTSPRITECLIPSALTA = 5;
 	MINFRAMESALTA = 0;
-	MAXFRAMESALTA = 7;
+	MAXFRAMESALTA = 4;
 	FACTORSALTA = 6;
 	this->gSpriteSaltar = new SDL_Rect[CANTSPRITECLIPSALTA];
 
-	gSpriteSaltar[0].x = 1;
-	gSpriteSaltar[0].y = 297;
-	gSpriteSaltar[0].w = 261;
-	gSpriteSaltar[0].h = 150;
+	gSpriteSaltar[4].x = 1;
+	gSpriteSaltar[4].y = 297;
+	gSpriteSaltar[4].w = 261;
+	gSpriteSaltar[4].h = 150;
 
-	gSpriteSaltar[1].x = 225;
-	gSpriteSaltar[1].y = 327;
-	gSpriteSaltar[1].w = 261;
-	gSpriteSaltar[1].h = 150;
+	gSpriteSaltar[3].x = 225;
+	gSpriteSaltar[3].y = 327;
+	gSpriteSaltar[3].w = 261;
+	gSpriteSaltar[3].h = 150;
 
 	gSpriteSaltar[2].x = 453;
 	gSpriteSaltar[2].y = 302;
 	gSpriteSaltar[2].w = 261;
 	gSpriteSaltar[2].h = 150;
 
-	gSpriteSaltar[3].x = 663;
-	gSpriteSaltar[3].y = 303;
-	gSpriteSaltar[3].w = 261;
-	gSpriteSaltar[3].h = 150;
+	gSpriteSaltar[1].x = 663;
+	gSpriteSaltar[1].y = 303;
+	gSpriteSaltar[1].w = 261;
+	gSpriteSaltar[1].h = 150;
 
-	gSpriteSaltar[4].x = 1291;
-	gSpriteSaltar[4].y = 307;
-	gSpriteSaltar[4].w = 261;
-	gSpriteSaltar[4].h = 150;
+	gSpriteSaltar[0].x = 1291;
+	gSpriteSaltar[0].y = 307;
+	gSpriteSaltar[0].w = 261;
+	gSpriteSaltar[0].h = 150;
 
-	gSpriteSaltar[5].x = 1493;
-	gSpriteSaltar[5].y = 321;
-	gSpriteSaltar[5].w = 261;
-	gSpriteSaltar[5].h = 150;
-
-	gSpriteSaltar[6].x = 1705;
-	gSpriteSaltar[6].y = 305;
-	gSpriteSaltar[6].w = 261;
-	gSpriteSaltar[6].h = 150;
-
-	gSpriteSaltar[7].x = 453;
-	gSpriteSaltar[7].y = 302;
-	gSpriteSaltar[7].w = 261;
-	gSpriteSaltar[7].h = 150;
+//	gSpriteSaltar[5].x = 1493;
+//	gSpriteSaltar[5].y = 321;
+//	gSpriteSaltar[5].w = 261;
+//	gSpriteSaltar[5].h = 150;
+//
+//	gSpriteSaltar[6].x = 1705;
+//	gSpriteSaltar[6].y = 305;
+//	gSpriteSaltar[6].w = 261;
+//	gSpriteSaltar[6].h = 150;
+//
+//	gSpriteSaltar[7].x = 453;
+//	gSpriteSaltar[7].y = 302;
+//	gSpriteSaltar[7].w = 261;
+//	gSpriteSaltar[7].h = 150;
 
 }
 void View_Jugador_Spiderman::getSpritesAgachar() {
