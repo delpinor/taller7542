@@ -295,7 +295,7 @@ void View_Jugador_ChunLi::getSpritesPatadaFuerte() {
 	CANTSPRITECLIPPATADON = 12;
 	MINFRAMEPATADON = 0;
 	MAXFRAMEPATADON = 11;
-	FACTORPATADON = 4;
+	FACTORPATADON = 3;
 	this->gSpritePatadon = new SDL_Rect[CANTSPRITECLIPPATADON];
 
 	gSpritePatadon[0].x = 71;
@@ -364,7 +364,7 @@ void View_Jugador_ChunLi::getSpritesPatadaDebil() {
 	CANTSPRITECLIPPATADA = 9;
 	MINFRAMEPATADA = 0;
 	MAXFRAMEPATADA = 8;
-	FACTORPATADA = 5;
+	FACTORPATADA = 3;
 	this->gSpritePatada = new SDL_Rect[CANTSPRITECLIPPATADA];
 
 	gSpritePatada[0].x = 222;

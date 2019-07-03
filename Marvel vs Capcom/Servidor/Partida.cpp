@@ -16,7 +16,7 @@ void Partida::IniciarPartida() {
 void Partida::IniciarBatalla(){
 	this->IniciarTitularidadClientes();
 	ActualizarModelo();
-	//this->IniciarPosiciones();
+//	this->IniciarPosiciones();
 	this->IniciarCamara();
 	this->roundActual++;
 	cout << "Iniciando Batalla " << this->roundActual << endl;
@@ -25,7 +25,7 @@ void Partida::IniciarBatalla(){
 	this->roundCorriendo = true;
 }
 void Partida::IniciarPosiciones(){
-	modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(-80);
+	modelo->getEquipoNro(0)->getJugadorActivo()->setPosX(-50);
 	modelo->getEquipoNro(0)->getJugadorActivo()->setPosY(933);
 	modelo->getEquipoNro(1)->getJugadorActivo()->setPosX(500);
 	modelo->getEquipoNro(1)->getJugadorActivo()->setPosY(933);

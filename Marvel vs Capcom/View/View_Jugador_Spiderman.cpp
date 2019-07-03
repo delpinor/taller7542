@@ -315,7 +315,7 @@ void View_Jugador_Spiderman::getSpritesPatadaFuerte() {
 	CANTSPRITECLIPPATADON = 8;
 	MINFRAMEPATADON = 0;
 	MAXFRAMEPATADON = 7;
-	FACTORPATADON = 4;
+	FACTORPATADON = 3;
 	this->gSpritePatadon = new SDL_Rect[CANTSPRITECLIPPATADON];
 
 	gSpritePatadon[0].x = 43;
@@ -547,7 +547,7 @@ void View_Jugador_Spiderman::getSpritesPiniaFuerte(){
 	CANTSPRITECLIPPINION = 6;
 	MINFRAMEPINION = 0;
 	MAXFRAMEPINION = 5;
-	FACTORPINION = 5;
+	FACTORPINION = 3;
 	this->gSpritePinion = new SDL_Rect[CANTSPRITECLIPPINION];
 
 	gSpritePinion[0].x = 895;

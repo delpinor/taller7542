@@ -280,7 +280,7 @@ void View_Jugador_CapAmerica::getSpritesPatadaFuerte() {
 	CANTSPRITECLIPPATADON = 5;
 	MINFRAMEPATADON = 0;
 	MAXFRAMEPATADON = 4;
-	FACTORPATADON = 6;
+	FACTORPATADON = 4;
 	this->gSpritePatadon = new SDL_Rect[CANTSPRITECLIPPATADON];
 
 	gSpritePatadon[0].x = 323;
@@ -347,7 +347,7 @@ void View_Jugador_CapAmerica::getSpritesPinaFuerte() {
 	CANTSPRITECLIPPINION = 8;
 	MINFRAMEPINION = 0;
 	MAXFRAMEPINION = 7;
-	FACTORPINION = 4;
+	FACTORPINION = 3;
 	this->gSpritePinion = new SDL_Rect[CANTSPRITECLIPPINION];
 
 	gSpritePinion[0].x = 72;
@@ -841,37 +841,37 @@ void View_Jugador_CapAmerica::getSpritesPoder(){
 	this->gSpritePoder = new SDL_Rect[CANTSPRITECLIPPODER];
 
 	gSpritePoder[0].x = 758;
-	gSpritePoder[0].y = 1104;
+	gSpritePoder[0].y = 1088;
 	gSpritePoder[0].w = 261;
 	gSpritePoder[0].h = 150;
 
 	gSpritePoder[1].x = 758;
-	gSpritePoder[1].y = 1104;
+	gSpritePoder[1].y = 1088;
 	gSpritePoder[1].w = 261;
 	gSpritePoder[1].h = 150;
 
 	gSpritePoder[2].x = 758;
-	gSpritePoder[2].y = 1104;
+	gSpritePoder[2].y = 1088;
 	gSpritePoder[2].w = 261;
 	gSpritePoder[2].h = 150;
 
 	gSpritePoder[3].x = 758;
-	gSpritePoder[3].y = 1104;
+	gSpritePoder[3].y = 1088;
 	gSpritePoder[3].w = 261;
 	gSpritePoder[3].h = 150;
 
 	gSpritePoder[4].x = 758;
-	gSpritePoder[4].y = 1104;
+	gSpritePoder[4].y = 1088;
 	gSpritePoder[4].w = 261;
 	gSpritePoder[4].h = 150;
 
 	gSpritePoder[5].x = 758;
-	gSpritePoder[5].y = 1104;
+	gSpritePoder[5].y = 1088;
 	gSpritePoder[5].w = 261;
 	gSpritePoder[5].h = 150;
 
 	gSpritePoder[6].x = 758;
-	gSpritePoder[6].y = 1104;
+	gSpritePoder[6].y = 1088;
 	gSpritePoder[6].w = 261;
 	gSpritePoder[6].h = 150;
 }
