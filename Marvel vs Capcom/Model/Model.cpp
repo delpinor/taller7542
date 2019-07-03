@@ -106,7 +106,7 @@ void Model::ajustarCamara(){
 		}
 
 		//Muevo la cámara si algún jugador se está saliendo de ella
-		if (colliderXJugador1 + colliderWJugador1 > this->camara->x + this->camara->w)
+		if (colliderXJugador1 + colliderWJugador1> this->camara->x + this->camara->w)
 //			this->camara->x += this->getEquipoNro(0)->getJugadorActivo()->estado->getVelX();
 			this->camara->x += colliderXJugador1 + colliderWJugador1 - this->camara->x - this->camara->w;
 		else if (colliderXJugador1 < this->camara->x)
