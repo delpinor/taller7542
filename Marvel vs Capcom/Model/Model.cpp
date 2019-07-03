@@ -13,6 +13,8 @@
 #include "../Model/GeneralPantalla.h"
 #include "../Enums/Personajes.h"
 
+#define MARGENDCAMARA 20
+#define MARGENDNIVEL 0
 #define CANTJUGADORESTOTALES 2
 #define LOCALES 1
 
@@ -88,35 +90,41 @@ void Model::ajustarCamara(){
 
 
 		//Chequeo que los jugadores no se salgan del escenario
-		if (colliderXJugador1 + colliderWJugador1 > ANCHO_NIVEL)
+		if (colliderXJugador1 + colliderWJugador1 > ANCHO_NIVEL - MARGENDNIVEL){
 			this->getEquipoNro(0)->getJugadorActivo()->estado->setPosX(ANCHO_NIVEL - colliderWJugador1 -
-					this->getEquipoNro(0)->getJugadorActivo()->mColliderOffsetX);
-
-		if (colliderXJugador2 + colliderWJugador2 > ANCHO_NIVEL)
-			this->getEquipoNro(1)->getJugadorActivo()->estado->setPosX(ANCHO_NIVEL - colliderWJugador2 -
-					this->getEquipoNro(1)->getJugadorActivo()->mColliderOffsetX);
-
-		if (colliderXJugador1 < 0) {
-			this->getEquipoNro(0)->getJugadorActivo()->estado->setPosX(0 - this->getEquipoNro(0)->getJugadorActivo()->mColliderOffsetX);
-			posXJugador1 = 0 - this->getEquipoNro(0)->getJugadorActivo()->mColliderOffsetX;
+				this->getEquipoNro(0)->getJugadorActivo()->mColliderOffsetX - MARGENDNIVEL);
+//			posXJugador1 = ANCHO_NIVEL - colliderWJugador1 -
+//				this->getEquipoNro(0)->getJugadorActivo()->mColliderOffsetX - MARGENDCAMARA;
 		}
-		if (colliderXJugador2 < 0) {
-			this->getEquipoNro(1)->getJugadorActivo()->estado->setPosX(0 - this->getEquipoNro(1)->getJugadorActivo()->mColliderOffsetX);
-			posXJugador2 = 0 - this->getEquipoNro(1)->getJugadorActivo()->mColliderOffsetX;
+
+		if (colliderXJugador2 + colliderWJugador2 > ANCHO_NIVEL - MARGENDNIVEL){
+			this->getEquipoNro(1)->getJugadorActivo()->estado->setPosX(ANCHO_NIVEL - colliderWJugador2 -
+				this->getEquipoNro(1)->getJugadorActivo()->mColliderOffsetX - MARGENDNIVEL);
+//			posXJugador2 = ANCHO_NIVEL - colliderWJugador2 -
+//				this->getEquipoNro(1)->getJugadorActivo()->mColliderOffsetX - MARGENDCAMARA;
+			}
+
+		if (colliderXJugador1 < 0 + MARGENDNIVEL) {
+			this->getEquipoNro(0)->getJugadorActivo()->estado->setPosX(0 - this->getEquipoNro(0)->getJugadorActivo()->mColliderOffsetX + MARGENDNIVEL);
+//			posXJugador1 = 0 - this->getEquipoNro(0)->getJugadorActivo()->mColliderOffsetX + MARGENDCAMARA;
+		}
+		if (colliderXJugador2 < 0 + MARGENDNIVEL) {
+			this->getEquipoNro(1)->getJugadorActivo()->estado->setPosX(0 - this->getEquipoNro(1)->getJugadorActivo()->mColliderOffsetX + MARGENDNIVEL);
+//			posXJugador2 = 0 - this->getEquipoNro(1)->getJugadorActivo()->mColliderOffsetX + MARGENDCAMARA;
 		}
 
 		//Muevo la cámara si algún jugador se está saliendo de ella
-		if (colliderXJugador1 + colliderWJugador1> this->camara->x + this->camara->w)
+		if (colliderXJugador1 + colliderWJugador1> this->camara->x + this->camara->w - MARGENDCAMARA)
 //			this->camara->x += this->getEquipoNro(0)->getJugadorActivo()->estado->getVelX();
-			this->camara->x += colliderXJugador1 + colliderWJugador1 - this->camara->x - this->camara->w;
-		else if (colliderXJugador1 < this->camara->x)
-			this->camara->x = colliderXJugador1;
+			this->camara->x += colliderXJugador1 + colliderWJugador1 - this->camara->x - this->camara->w + MARGENDCAMARA;
+		else if (colliderXJugador1 < this->camara->x + MARGENDCAMARA)
+			this->camara->x = colliderXJugador1 - MARGENDCAMARA;
 
-		if (colliderXJugador2 + colliderWJugador2 > this->camara->x + this->camara->w)
+		if (colliderXJugador2 + colliderWJugador2 > this->camara->x + this->camara->w - MARGENDCAMARA)
 //			this->camara->x += this->getEquipoNro(1)->getJugadorActivo()->estado->getVelX();
-			this->camara->x += colliderXJugador2 + colliderWJugador2 - this->camara->x - this->camara->w;
-		else if (colliderXJugador2 < this->camara->x)
-			this->camara->x = colliderXJugador2;
+			this->camara->x += colliderXJugador2 + colliderWJugador2 - this->camara->x - this->camara->w + MARGENDCAMARA;
+		else if (colliderXJugador2 < this->camara->x + MARGENDCAMARA)
+			this->camara->x = colliderXJugador2 - MARGENDCAMARA;
 
 		//Keep the this->camara->in bounds
 		if (this->camara->x < 0) {
@@ -304,8 +312,8 @@ void Model::setCamara(SDL_Rect * camara) {
 }
 
 void Model::inicializarPosicionesEquipos(){
-	this->equipos[0]->getJugadorActivo()->estado->setPosX(50);
-	this->equipos[1]->getJugadorActivo()->estado->setPosX(600);//- this->equipos[1]->getJugadorActivo()->get_ancho());
+	this->equipos[0]->getJugadorActivo()->estado->setPosX(40);
+	this->equipos[1]->getJugadorActivo()->estado->setPosX(400);//- this->equipos[1]->getJugadorActivo()->get_ancho());
 }
 ModeloInGame Model::GetModeloInGame(){
 	ModeloInGame inGame;

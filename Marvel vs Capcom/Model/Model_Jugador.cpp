@@ -1,6 +1,6 @@
 #include "Model_Jugador.h"
 # include "../Logger/Logger.h"
-#define MARGENDESELECCION 0
+#define MARGENDESELECCION 20
 /*
  Jugador::Jugador() {
 
