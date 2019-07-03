@@ -9,7 +9,7 @@
 
 Jugador::Jugador(int &ancho, int &alto, int &zind,std::string &nom,std::string &path, bool &inmortal) {
 //	this->estado->setPosInitY(0);
-	extension_colider_golpe=(ancho -400)*1.5+30;
+	extension_colider_golpe=(ancho -400)*1.2+40;
 
 	this->estado = &(this->inactivo);
 	this->mCollider.x = this->estado->getPosX();
