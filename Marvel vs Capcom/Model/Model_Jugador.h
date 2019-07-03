@@ -47,12 +47,15 @@ private:
 	TIPO_GOLPE tipoGolpe = NADA;
 	bool inmortal;
 
+
 public:
 	Estado* estado;
 //	EstadoCliente * estado;
 	int extension_colider_golpe=0;
 	int mColliderOffsetX = 0;
 	int mColliderOffsetY = 0;
+
+	bool recibiendoGolpesConDefensa=false;
 
 
 	Jugador();
