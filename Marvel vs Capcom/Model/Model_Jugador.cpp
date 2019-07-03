@@ -371,6 +371,7 @@ void Jugador::Patadon(Jugador * rival) {
 
 void Jugador::ActivarDefensa() {
 	std::cout << "Agregar DEFENSAAAAAAAAAAAA!!!!!: " << std::endl;
+	if(!this->estado->estaSaltando())
 	this->setTipoGolpe(TIPO_GOLPE::ACTIVAR_DEFENSA);
 }
 
