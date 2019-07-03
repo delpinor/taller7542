@@ -985,8 +985,16 @@ void Partida::SetResultadosBatallaTerminada(){
 
 void Partida::setModoTest(){
 
+	bool modoTest;
 	if(!this->EsModoTest()){
-		this->modoTest = true;
-		this->modelo->setModoTest(true);
+		modoTest = true;
+//		this->modoTest = true;
+//		this->modelo->setModoTest(true);
 	}
+	else
+	{
+		modoTest = false;
+	}
+	this->modoTest = modoTest;
+	this->modelo->setModoTest(modoTest);
 }
