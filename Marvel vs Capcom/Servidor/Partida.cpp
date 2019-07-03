@@ -901,7 +901,7 @@ bool Partida::EstaEnEjecucionDeBatalla(){
 }
 
 bool Partida::DebeFinalizarBatalla(){
-	if(!this->EsModoTest() && (this->cronometro <= 0 || !this->modelo->EquiposEstanVivos())){
+	if(!this->EsModoTest() && ( (this->cronometro <= 0 && !this->EstanEquiposEmpatados()) || !this->modelo->EquiposEstanVivos())){
 		return true;
 	}
 	else{
@@ -933,7 +933,16 @@ int Partida::GetNroBatallaActual(){
 bool Partida::EsModoTest(){
 	return this->modoTest;
 }
-void Partida::SetResultadosBatallaTerminada(){
+bool Partida::EstanEquiposEmpatados(){
+	int nroEquipoGanador = this->GetEquipoGanadorId();
+	if(nroEquipoGanador == -1){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+int Partida::GetEquipoGanadorId(){
 	int nroEquipoGanador = -1;
 	int equipo0CantPersjVivos = this->modelo->GetEquipoCantidadJugadoresVivos(0);
 	int equipo1CantPersjVivos = this->modelo->GetEquipoCantidadJugadoresVivos(1);
@@ -945,7 +954,7 @@ void Partida::SetResultadosBatallaTerminada(){
 		if(equipo0Vida > equipo1Vida){
 			nroEquipoGanador = 0;
 		}
-		else{
+		else if(equipo1Vida > equipo0Vida){
 			nroEquipoGanador = 1;
 		}
 	}
@@ -954,11 +963,16 @@ void Partida::SetResultadosBatallaTerminada(){
 		if(equipo0CantPersjVivos > equipo1CantPersjVivos){
 			nroEquipoGanador = 0;
 		}
-		else{
+		else if(equipo1CantPersjVivos > equipo0CantPersjVivos){
 			nroEquipoGanador = 1;
 		}
 	}
+	cout << "Equipo GANADOR ID " << nroEquipoGanador << endl;
+	return nroEquipoGanador;
+}
+void Partida::SetResultadosBatallaTerminada(){
 
+	int nroEquipoGanador = this->GetEquipoGanadorId();
 	if(nroEquipoGanador == 0){
 		cout << "Equipo 0 GANÓ EL ROUND " << this->roundActual << endl;
 		this->resultado.resultadoEquipo0.nrosRound.push_back(this->roundActual);
