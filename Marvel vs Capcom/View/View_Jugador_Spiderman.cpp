@@ -743,8 +743,8 @@ void View_Jugador_Spiderman::getSpritesDefensa(){
 	FACTORDEFENSA = 4;
 	this->gSpriteDefensa = new SDL_Rect[CANTSPRITECLIPDEFENSA];
 
-	gSpriteDefensa[0].x = 306;
-	gSpriteDefensa[0].y = 2832;
+	gSpriteDefensa[0].x = 1977;
+	gSpriteDefensa[0].y = 3931;
 	gSpriteDefensa[0].w = 261;
 	gSpriteDefensa[0].h = 150;
 
@@ -772,8 +772,8 @@ void View_Jugador_Spiderman::getSpritesDefensaAgachado(){
 	FACTORDEFENSAAGACHADO = 5;
 	this->gSpriteDefensaAgachado = new SDL_Rect[CANTSPRITECLIPDEFENSAAGACHADO];
 
-	gSpriteDefensaAgachado[0].x = 306;
-	gSpriteDefensaAgachado[0].y = 2832;
+	gSpriteDefensaAgachado[0].x = 1977;
+	gSpriteDefensaAgachado[0].y = 3931;
 	gSpriteDefensaAgachado[0].w = 261;
 	gSpriteDefensaAgachado[0].h = 150;
 
@@ -801,8 +801,8 @@ void View_Jugador_Spiderman::getSpritesDefensaSaltando(){
 	FACTORDEFENSASALTANDO = 5;
 	this->gSpriteDefensaSaltando = new SDL_Rect[CANTSPRITECLIPDEFENSASALTANDO];
 
-	gSpriteDefensaSaltando[0].x = 306;
-	gSpriteDefensaSaltando[0].y = 2832;
+	gSpriteDefensaSaltando[0].x = 1977;
+	gSpriteDefensaSaltando[0].y = 3931;
 	gSpriteDefensaSaltando[0].w = 261;
 	gSpriteDefensaSaltando[0].h = 150;
 
