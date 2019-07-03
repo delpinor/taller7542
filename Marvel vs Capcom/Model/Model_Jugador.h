@@ -69,6 +69,10 @@ public:
 	int getCollideY();
 	int getCollideW();
 	int getCollideH();
+	int setCollideX(int collX);
+	int setCollideY(int collY);
+	int setCollideW(int collW);
+	int setCollideH(int collH);
 	bool collideConPoder(Poder * poder);
 	bool collideConGolpe(SDL_Rect * jugador, int factor_golpe);
 	std::string getNombre();
@@ -165,5 +169,6 @@ public:
 	void setEsInmortal(bool valor);
 	bool hayLugarAIzquierda(Jugador* jugador, Jugador* jugadorRival, SDL_Rect* camara);
 	bool hayLugarADerecha(Jugador* jugador, Jugador* jugadorRival, SDL_Rect* camara);
+	bool collideVertical(SDL_Rect* camJugador, SDL_Rect* camJugadorRival);
 	};
 #endif

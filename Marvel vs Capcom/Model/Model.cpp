@@ -67,9 +67,13 @@ Jugador* Model::crearJugador(int personajeId){
 void Model::ajustarCamara(){
 
 	// Este codigo se puede mejorar.
-		int posXJugador1 = this->getEquipoNro(0)->getJugadorActivo()->estado->getPosX();
+		int posXJugador1 = this->getEquipoNro(0)->getJugadorActivo()->getPosX();
+		int colliderXJugador1 = this->getEquipoNro(0)->getJugadorActivo()->getCollideX();
+		int colliderWJugador1 = this->getEquipoNro(0)->getJugadorActivo()->getCollideW();
 		//int posYJugador1 = this->getEquipoNro(0)->getJugadorActivo()->getPosY();
-		int posXJugador2 = this->getEquipoNro(1)->getJugadorActivo()->estado->getPosX();
+		int posXJugador2 = this->getEquipoNro(1)->getJugadorActivo()->getPosX();
+		int colliderXJugador2 = this->getEquipoNro(1)->getJugadorActivo()->getCollideX();
+		int colliderWJugador2 = this->getEquipoNro(1)->getJugadorActivo()->getCollideW();
 	//	int posYJugador2 = this->getEquipoNro(1)->getJugadorActivo()->getPosY();
 		//
 		int collideW = this->getEquipoNro(0)->getJugadorActivo()->getCollideW();
@@ -84,31 +88,35 @@ void Model::ajustarCamara(){
 
 
 		//Chequeo que los jugadores no se salgan del escenario
-		if (posXJugador1 + jugadorW - collideW > ANCHO_NIVEL)
-			this->getEquipoNro(0)->getJugadorActivo()->estado->setPosX(ANCHO_NIVEL - jugadorW + collideW);
+		if (colliderXJugador1 + colliderWJugador1 > ANCHO_NIVEL)
+			this->getEquipoNro(0)->getJugadorActivo()->estado->setPosX(ANCHO_NIVEL - colliderWJugador1 -
+					this->getEquipoNro(0)->getJugadorActivo()->mColliderOffsetX);
 
-		if (posXJugador2 + jugadorW - collideW > ANCHO_NIVEL)
-			this->getEquipoNro(1)->getJugadorActivo()->estado->setPosX(ANCHO_NIVEL - jugadorW + collideW);
+		if (colliderXJugador2 + colliderWJugador2 > ANCHO_NIVEL)
+			this->getEquipoNro(1)->getJugadorActivo()->estado->setPosX(ANCHO_NIVEL - colliderWJugador2 -
+					this->getEquipoNro(1)->getJugadorActivo()->mColliderOffsetX);
 
-		if (posXJugador1 + collideW < 0) {
-			this->getEquipoNro(0)->getJugadorActivo()->estado->setPosX(-collideW);
-			posXJugador1 = -collideW;
+		if (colliderXJugador1 < 0) {
+			this->getEquipoNro(0)->getJugadorActivo()->estado->setPosX(0 - this->getEquipoNro(0)->getJugadorActivo()->mColliderOffsetX);
+			posXJugador1 = 0 - this->getEquipoNro(0)->getJugadorActivo()->mColliderOffsetX;
 		}
-		if (posXJugador2 + collideW < 0) {
-			this->getEquipoNro(1)->getJugadorActivo()->estado->setPosX(-collideW);
-			posXJugador2 = -collideW;
+		if (colliderXJugador2 < 0) {
+			this->getEquipoNro(1)->getJugadorActivo()->estado->setPosX(0 - this->getEquipoNro(1)->getJugadorActivo()->mColliderOffsetX);
+			posXJugador2 = 0 - this->getEquipoNro(1)->getJugadorActivo()->mColliderOffsetX;
 		}
 
 		//Muevo la cámara si algún jugador se está saliendo de ella
-		if (posXJugador1 + jugadorW - collideW > this->camara->x + this->camara->w)
-			this->camara->x += this->getEquipoNro(0)->getJugadorActivo()->estado->getVelX();
-		else if (posXJugador1 + collideW< this->camara->x)
-			this->camara->x = posXJugador1+collideW;
+		if (colliderXJugador1 + colliderWJugador1 > this->camara->x + this->camara->w)
+//			this->camara->x += this->getEquipoNro(0)->getJugadorActivo()->estado->getVelX();
+			this->camara->x += colliderXJugador1 + colliderWJugador1 - this->camara->x - this->camara->w;
+		else if (colliderXJugador1 < this->camara->x)
+			this->camara->x = colliderXJugador1;
 
-		if (posXJugador2 + jugadorW - collideW> this->camara->x + this->camara->w)
-			this->camara->x += this->getEquipoNro(1)->getJugadorActivo()->estado->getVelX();
-		else if (posXJugador2 + collideW< this->camara->x)
-			this->camara->x = posXJugador2+collideW;
+		if (colliderXJugador2 + colliderWJugador2 > this->camara->x + this->camara->w)
+//			this->camara->x += this->getEquipoNro(1)->getJugadorActivo()->estado->getVelX();
+			this->camara->x += colliderXJugador2 + colliderWJugador2 - this->camara->x - this->camara->w;
+		else if (colliderXJugador2 < this->camara->x)
+			this->camara->x = colliderXJugador2;
 
 		//Keep the this->camara->in bounds
 		if (this->camara->x < 0) {

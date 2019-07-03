@@ -92,6 +92,19 @@ int Jugador::getCollideW() {
 int Jugador::getCollideH() {
 	return this->mCollider.h;
 }
+
+int Jugador::setCollideX(int collPosX) {
+	 this->mCollider.x = collPosX;
+}
+int Jugador::setCollideY(int collPosY) {
+	 this->mCollider.y = collPosY;
+}
+int Jugador::setCollideW(int collPosW) {
+	 this->mCollider.w = collPosW;
+}
+int Jugador::setCollideH(int collPosH) {
+	 this->mCollider.h = collPosH;
+}
 bool Jugador::collideConPoder(Poder * poder) {
 	return poder->colision(this->getCollideX(), this->getCollideY(),
 			this->getCollideW()+this->getCollideX(), this->getCollideH() +this->getCollideY());
@@ -130,18 +143,20 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 //		this->cambiarPersonaje();
 //	}
 
-	if (this->estaActivo()){
-	cout<<"=========================================" <<endl;
-	cout<<"colider x: "<<this->mCollider.x <<endl;
-	cout<<"colider y: "<<this->mCollider.y <<endl;
-	cout<<"colider h: "<<this->mCollider.h <<endl;
-	cout<<"colider w: "<<this->mCollider.w <<endl;
-	cout<<"pos x: "<<this->estado->getPosX()<<endl;
-	cout<<"pos y: "<<this->estado->getPosY()<<endl;
-	cout<<"colliderOfsetX: "<< mColliderOffsetX <<endl;
-	cout<<"colliderOfsetY: "<< mColliderOffsetY <<endl;
-	cout<<"========================================="<<endl;
-	}
+//	if (this->estaActivo()){
+//	cout<<"=========================================" <<endl;
+//	cout<<"colider x: "<<this->mCollider.x <<endl;
+//	cout<<"colider y: "<<this->mCollider.y <<endl;
+//	cout<<"colider h: "<<this->mCollider.h <<endl;
+//	cout<<"colider w: "<<this->mCollider.w <<endl;
+//	cout<<"pos x: "<<this->estado->getPosX()<<endl;
+//	cout<<"pos y: "<<this->estado->getPosY()<<endl;
+//	cout<<"colliderOfsetX: "<< mColliderOffsetX <<endl;
+//	cout<<"colliderOfsetY: "<< mColliderOffsetY <<endl;
+//	cout<<"camara X IZQ: "<< camara->x << endl;
+//	cout<<"camara X DER: "<< camara->x + camara->w << endl;
+//	cout<<"========================================="<<endl;
+//	}
 
 	if (this->estado->estaCambiandoPersonaje()&& !jugadorRival->murio()) {
 		this->estado->move();
@@ -149,29 +164,38 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 	}
 	else if(collideConJugador(&(jugadorRival->mCollider))){
 
+		cout<<"Hay coliisiooooonnn!!!!$%$%#%#$%#$%$#$%$#$" << endl;
 //Move back
-		if(this->estado->getPosX()<=jugadorRival->estado->getPosX()){
+		if(this->mCollider.x <= jugadorRival->mCollider.x){
 //			if((this->estado->getVelY()!=0) && (!collideDerecha(camara)) && (!collideIzquierda(camara)))
-			if((this->estaSaltando()) && hayLugarAIzquierda(this, jugadorRival, camara))
-				nuevaposX= jugadorRival->mCollider.x -this->mCollider.w -10;
-			else if((this->estado->getVelY()!=0) && (collideDerecha(camara)) && (!collideIzquierda(camara)))
-							nuevaposX= this->estado->getPosX() -100;
-			else if((this->estado->getVelY()!=0) && (collideIzquierda(camara)))
-									nuevaposX= this->estado->getPosX() +100;
-			else if(this->estado->getVelX()>=0)
+			if(collideVertical(&this->mCollider, &jugadorRival->mCollider)){
+				if (hayLugarAIzquierda(this, jugadorRival, camara))
+					nuevaposX= jugadorRival->mCollider.x - this->mCollider.w -10;
+				else
+					nuevaposX= jugadorRival->mCollider.x + jugadorRival->mCollider.w +10;
+			}
+//			else if((this->estado->getVelY() < 0) && (collideDerecha(camara)) && (!collideIzquierda(camara)))
+//							nuevaposX= this->estado->getPosX() -100;
+//			else if((this->estado->getVelY()!=0) && (collideIzquierda(camara)))
+//									nuevaposX= this->estado->getPosX() +100;
+			else if(this->estado->getVelX() >= 0)
 				nuevaposX= this->estado->getPosX() -this->estado->getVelX();
 			else
 				nuevaposX= this->estado->getPosX() +this->estado->getVelX() ;
 
 		}else{
-			if((this->estaSaltando()) && hayLugarADerecha(this, jugadorRival, camara))
-				nuevaposX= jugadorRival->mCollider.x + jugadorRival->mCollider.w +10;
-			else if((this->estado->getVelY()!=0) && (collideIzquierda(camara)))
-				nuevaposX= this->estado->getPosX() +100;
-			else if(this->estado->getVelX()>=0)
+			if (collideVertical(&this->mCollider, &jugadorRival->mCollider)) {
+				if (hayLugarADerecha(this, jugadorRival, camara))
+					nuevaposX = jugadorRival->mCollider.x - this->mCollider.w - 10;
+				else
+					nuevaposX = jugadorRival->mCollider.x + jugadorRival->mCollider.w + 10;
+			}
+//			else if((this->estado->getVelY()!=0) && (collideIzquierda(camara)))
+//				nuevaposX= this->estado->getPosX() +100;
+			else if(this->estado->getVelX() >= 0)
 				nuevaposX= this->estado->getPosX() +this->estado->getVelX();
 			else
-				nuevaposX= this->estado->getPosX() -this->estado->getVelX() ;
+				nuevaposX= this->estado->getPosX() -this->estado->getVelX();
 
 		}
 		/*
@@ -188,9 +212,6 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 		nuevaposY= this->estado->getPosY();
 		this->estado->setPosX( nuevaposX);
 		this->estado->setPosY( nuevaposY);
-		this->mCollider.x = this->estado->getPosX() - mColliderOffsetX;
-		this->mCollider.y = this->estado->getPosY() + mColliderOffsetY;
-
 		this->estado->move();
 
 
@@ -249,6 +270,33 @@ bool Jugador::hayLugarAIzquierda(Jugador* jugador, Jugador* jugadorRival, SDL_Re
 	int bordeIzqRival = jugadorRival->mCollider.x;
 
 	return (bordeIzqRival - bordeIzqCamara) > jugador->mCollider.w;
+}
+
+bool Jugador::collideVertical(SDL_Rect* camJugador, SDL_Rect* camJugadorRival){
+	int pisoJugador = camJugador->y + camJugador->h;
+	int techoRival = camJugadorRival->y;
+
+	std::cout << "pisoJugador: " << pisoJugador << std::endl;
+	std::cout << "techoRival: " << techoRival << std::endl;
+
+	if (pisoJugador == techoRival){
+		std::cout << "Collide verticaaaaaaalllll CARAJOOOOOOOO ################!!!!" << std::endl;
+		if (camJugador->x < camJugadorRival->x){
+			if (camJugador->x + camJugador->w > camJugadorRival->x)
+				std::cout << "Collide verticaaaaaaalllll por IZQUIERDAA!!!!" << std::endl;
+				return true;
+		}
+		else if (camJugador->x > camJugadorRival->x){
+			if (camJugadorRival->x + camJugadorRival->w > camJugador->x)
+				std::cout << "Collide verticaaaaaaalllll por DERECHAAAAA!!!!" << std::endl;
+				return true;
+		}
+		else{
+			std::cout << "Collide verticaaaaaaalllll por CENTROOO!!!!" << std::endl;
+			return true;
+		}
+	}
+	return false;
 }
 
 int Jugador::getPosX() {
@@ -513,61 +561,74 @@ bool Jugador::collide(SDL_Rect * camara) {
 	topJugador = this->mCollider.y;
 	bottomJugador = this->mCollider.y + this->mCollider.h;
 
-	if (bottomJugador <= topCam) {
+//	if (bottomJugador <= topCam) {
+//		return false;
+//	}
+//
+//	if (topJugador >= bottomCam) {
+//		return false;
+//	}
+
+	if (leftJugador >= leftCam) {
 		return false;
 	}
 
-	if (topJugador >= bottomCam) {
-		return false;
-	}
-
-	if (leftJugador >= rightCam) {
-		return false;
-	}
-
-	if (rightJugador <= leftCam) {
+	if (rightJugador <= rightCam) {
 		return false;
 	}
 
 	return true;
 }
 
-bool Jugador::collideConJugador(SDL_Rect * jugador) {
+bool Jugador::collideConJugador(SDL_Rect * rival) {
 
 	int leftRival, leftJugador;
 	int rightRival, rightJugador;
 	int topRival, topJugador;
 	int bottomRival, bottomJugador;
 
-	leftRival = jugador->x;
+	leftRival = rival->x;
 
-	rightRival = jugador->x + jugador->w;
+	rightRival = rival->x + rival->w;
 
-	topRival = jugador->y;
+	topRival = rival->y;
 
-	bottomRival = jugador->y + jugador->h;
-
+	bottomRival = rival->y + rival->h;
+	cout<<"================================" <<endl;
+	cout<<"colider x: "<<this->mCollider.x <<endl;
+	cout<<"colider y: "<<this->mCollider.y <<endl;
+	cout<<"colider h: "<<this->mCollider.h <<endl;
+	cout<<"colider w: "<<this->mCollider.w <<endl;
+	cout<<"================================" <<endl;
+	cout<<"rival x: "<<rival->x <<endl;
+	cout<<"rival y: "<<rival->y <<endl;
+	cout<<"rival h: "<<rival->h <<endl;
+	cout<<"rival w: "<<rival->w <<endl;
+	cout<<"================================" <<endl;
 	leftJugador = this->mCollider.x;
 	rightJugador = this->mCollider.x + this->mCollider.w;
 	topJugador = this->mCollider.y;
 	bottomJugador = this->mCollider.y + this->mCollider.h;
 
-	if (bottomJugador <= topRival) {
+	if (bottomJugador < topRival) {
+		return false;
+	}
+	if (bottomJugador == topRival) {
+		return collideVertical(&this->mCollider, rival);
+	}
+
+//	if (topJugador >= bottomRival) {
+//		return false;
+//	}
+
+	if (leftJugador > rightRival) {
 		return false;
 	}
 
-	if (topJugador >= bottomRival) {
+	if (rightJugador < leftRival) {
 		return false;
 	}
-
-	if (leftJugador >= rightRival) {
-		return false;
-	}
-
-	if (rightJugador <= leftRival) {
-		return false;
-	}
-
+	cout<<"Hay coliision por descarte" << endl;
 	return true;
 }
 bool Jugador::collideConGolpe(SDL_Rect * jugador, int factor_golpe) {
@@ -617,15 +678,12 @@ bool Jugador::collideDerecha(SDL_Rect * camara) {
 	int bottomCam, bottomJugador;
 
 	leftCam = camara->x + MARGENDESELECCION;
-
 	rightCam = camara->x + camara->w - MARGENDESELECCION;
-
 	topCam = camara->y + MARGENDESELECCION;
-
 	bottomCam = camara->y + camara->h - MARGENDESELECCION;
 
 	leftJugador = this->mCollider.x;
-	rightJugador = this->mCollider.x + this->width - this->mCollider.w+10;
+	rightJugador = this->mCollider.x + this->mCollider.w+10;
 	topJugador = this->mCollider.y;
 	bottomJugador = this->mCollider.y + this->mCollider.h;
 
@@ -651,7 +709,7 @@ bool Jugador::collideIzquierda(SDL_Rect * camara) {
 
 	bottomCam = camara->y + camara->h - MARGENDESELECCION;
 
-	leftJugador = this->mCollider.x + this->mCollider.w - 10;
+	leftJugador = this->mCollider.x;
 	rightJugador = this->mCollider.x + this->mCollider.w;
 	topJugador = this->mCollider.y;
 	bottomJugador = this->mCollider.y + this->mCollider.h;
