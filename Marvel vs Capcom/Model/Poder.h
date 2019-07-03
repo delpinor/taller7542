@@ -10,6 +10,8 @@ public:
 	int derecha;
 	int abajo;
 	int sentido;
+	int x;
+	int y;
 	void setPosInX(int x);
 	void setPosInY(int y);
 	void setActivo();
