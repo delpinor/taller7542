@@ -379,7 +379,7 @@ void View_Jugador_Venom::getSpritesPiniaDebil() {
 	CANTSPRITECLIPPINIA = 7;
 	MINFRAMEPINIA = 0;
 	MAXFRAMEPINIA = 6;
-	FACTORPINIA = 5;
+	FACTORPINIA = 4;
 	this->gSpritePinia = new SDL_Rect[CANTSPRITECLIPPINIA];
 
 	gSpritePinia[0].x = 58;
@@ -424,7 +424,7 @@ void View_Jugador_Venom::getSpritesPiniaFuerte() {
 	CANTSPRITECLIPPINION = 5;
 	MINFRAMEPINION = 0;
 	MAXFRAMEPINION = 4;
-	FACTORPINION = 5;
+	FACTORPINION = 3;
 	this->gSpritePinion = new SDL_Rect[CANTSPRITECLIPPINION];
 
 	gSpritePinion[0].x = 42;

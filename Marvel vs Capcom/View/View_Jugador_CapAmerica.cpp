@@ -280,7 +280,7 @@ void View_Jugador_CapAmerica::getSpritesPatadaFuerte() {
 	CANTSPRITECLIPPATADON = 5;
 	MINFRAMEPATADON = 0;
 	MAXFRAMEPATADON = 4;
-	FACTORPATADON = 6;
+	FACTORPATADON = 4;
 	this->gSpritePatadon = new SDL_Rect[CANTSPRITECLIPPATADON];
 
 	gSpritePatadon[0].x = 323;
@@ -347,7 +347,7 @@ void View_Jugador_CapAmerica::getSpritesPinaFuerte() {
 	CANTSPRITECLIPPINION = 8;
 	MINFRAMEPINION = 0;
 	MAXFRAMEPINION = 7;
-	FACTORPINION = 4;
+	FACTORPINION = 3;
 	this->gSpritePinion = new SDL_Rect[CANTSPRITECLIPPINION];
 
 	gSpritePinion[0].x = 72;
