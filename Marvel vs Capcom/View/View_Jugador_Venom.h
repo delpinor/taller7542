@@ -67,6 +67,8 @@ protected:
 	//Lanzar
 	//void getSpritesArrojando();
 	void getSpritesLanzarJugador();
+	//Tomado
+	void getSpritesTomado();
 
 };
 

@@ -42,6 +42,8 @@ void View_Jugador_Venom::initialize(Jugador * model,
 	getSpritesLanzarPoder();
 	//Lanzar jugaor
 	getSpritesLanzarJugador();
+	//Tomado
+	getSpritesTomado();
 
 
 	this->texturaJugador->setColor(this->jugador->getR(), this->jugador->getG(),
@@ -1089,4 +1091,32 @@ void View_Jugador_Venom::getSpritesLanzarJugador(){
 	gSpriteLanzarJugador[4].y = 1660;
 	gSpriteLanzarJugador[4].w = 261;
 	gSpriteLanzarJugador[4].h = 150;
+}
+
+void View_Jugador_Venom::getSpritesTomado() {
+	CANTSPRITECLIPTOMADO = 4;
+	MINFRAMETOMADO = 0;
+	MAXFRAMETOMADO = 3;
+	FACTORTOMADO = 12;
+	this->gSpriteTomado = new SDL_Rect[CANTSPRITECLIPTOMADO];
+
+	gSpriteTomado[0].x = 1790;
+	gSpriteTomado[0].y = 1898;
+	gSpriteTomado[0].w = 261;
+	gSpriteTomado[0].h = 150;
+
+	gSpriteTomado[1].x = 1786;
+	gSpriteTomado[1].y = 1898;
+	gSpriteTomado[1].w = 261;
+	gSpriteTomado[1].h = 150;
+
+	gSpriteTomado[2].x = 1779;
+	gSpriteTomado[2].y = 1898;
+	gSpriteTomado[2].w = 261;
+	gSpriteTomado[2].h = 150;
+
+	gSpriteTomado[3].x = 1772;
+	gSpriteTomado[3].y = 1898;
+	gSpriteTomado[3].w = 261;
+	gSpriteTomado[3].h = 150;
 }
