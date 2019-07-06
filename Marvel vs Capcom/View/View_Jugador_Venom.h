@@ -64,8 +64,9 @@ protected:
 	void getSpritesLanzarPoder();
 	//Volando
 	void getSpritesVolando();
-	//Arrojando
-	void getSpritesArrojando();
+	//Lanzar
+	//void getSpritesArrojando();
+	void getSpritesLanzarJugador();
 
 };
 
