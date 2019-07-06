@@ -40,8 +40,10 @@ void View_Jugador_Venom::initialize(Jugador * model,
 	//Poder
 	getSpritesPoder();
 	getSpritesLanzarPoder();
-	//Arrojando
-	getSpritesArrojando();
+	//Lanzar jugaor
+	getSpritesLanzarJugador();
+	//Tomado
+	getSpritesTomado();
 
 
 	this->texturaJugador->setColor(this->jugador->getR(), this->jugador->getG(),
@@ -924,45 +926,45 @@ void View_Jugador_Venom::getSpritesVolando(){
 	gSpriteJugadorLanzado[8].h = 150;
 }
 
-void View_Jugador_Venom::getSpritesArrojando(){
-
-	CANTSPRITECLIPLANZARJUGADOR = 4;
-	MINFRAMELANZARJUGADOR = 0;
-	MAXFRAMELANZARJUGADOR = 3;
-	FACTORLANZARJUGADOR = 3;
-	this->gSpriteLanzarJugador = new SDL_Rect[CANTSPRITECLIPLANZARJUGADOR];
-
-
-	gSpriteLanzarJugador[0].x = 250;
-	gSpriteLanzarJugador[0].y = 2122;
-	gSpriteLanzarJugador[0].w = 261;
-	gSpriteLanzarJugador[0].h = 150;
-
-	gSpriteLanzarJugador[1].x = 468;
-	gSpriteLanzarJugador[1].y = 2122;
-	gSpriteLanzarJugador[1].w = 261;
-	gSpriteLanzarJugador[1].h = 150;
-
-//	gSpriteLanzarJugador[2].x = 695;
+//void View_Jugador_Venom::getSpritesArrojando(){
+//
+//	CANTSPRITECLIPLANZARJUGADOR = 4;
+//	MINFRAMELANZARJUGADOR = 0;
+//	MAXFRAMELANZARJUGADOR = 3;
+//	FACTORLANZARJUGADOR = 3;
+//	this->gSpriteLanzarJugador = new SDL_Rect[CANTSPRITECLIPLANZARJUGADOR];
+//
+//
+//	gSpriteLanzarJugador[0].x = 250;
+//	gSpriteLanzarJugador[0].y = 2122;
+//	gSpriteLanzarJugador[0].w = 261;
+//	gSpriteLanzarJugador[0].h = 150;
+//
+//	gSpriteLanzarJugador[1].x = 468;
+//	gSpriteLanzarJugador[1].y = 2122;
+//	gSpriteLanzarJugador[1].w = 261;
+//	gSpriteLanzarJugador[1].h = 150;
+//
+////	gSpriteLanzarJugador[2].x = 695;
+////	gSpriteLanzarJugador[2].y = 2122;
+////	gSpriteLanzarJugador[2].w = 261;
+////	gSpriteLanzarJugador[2].h = 150;
+////
+////	gSpriteLanzarJugador[3].x = 908;
+////	gSpriteLanzarJugador[3].y = 2122;
+////	gSpriteLanzarJugador[3].w = 261;
+////	gSpriteLanzarJugador[3].h = 150;
+//
+//	gSpriteLanzarJugador[2].x = 1170;
 //	gSpriteLanzarJugador[2].y = 2122;
 //	gSpriteLanzarJugador[2].w = 261;
 //	gSpriteLanzarJugador[2].h = 150;
 //
-//	gSpriteLanzarJugador[3].x = 908;
+//	gSpriteLanzarJugador[3].x = 1170;
 //	gSpriteLanzarJugador[3].y = 2122;
 //	gSpriteLanzarJugador[3].w = 261;
 //	gSpriteLanzarJugador[3].h = 150;
-
-	gSpriteLanzarJugador[2].x = 1170;
-	gSpriteLanzarJugador[2].y = 2122;
-	gSpriteLanzarJugador[2].w = 261;
-	gSpriteLanzarJugador[2].h = 150;
-
-	gSpriteLanzarJugador[3].x = 1170;
-	gSpriteLanzarJugador[3].y = 2122;
-	gSpriteLanzarJugador[3].w = 261;
-	gSpriteLanzarJugador[3].h = 150;
-}
+//}
 
 void View_Jugador_Venom::getSpritesPoder(){
 	CANTSPRITECLIPPODER = 8;
@@ -1050,3 +1052,71 @@ void View_Jugador_Venom::getSpritesLanzarPoder(){
 	gSpriteLanzarPoder[2].h = 150;
 
 };
+
+void View_Jugador_Venom::getSpritesLanzarJugador(){
+
+	CANTSPRITECLIPLANZARJUGADOR = 5;
+	MINFRAMELANZARJUGADOR = 0;
+	MAXFRAMELANZARJUGADOR = 4;
+	FACTORLANZARJUGADOR = 6;
+	this->gSpriteLanzarJugador = new SDL_Rect[CANTSPRITECLIPLANZARJUGADOR];
+
+
+//	gSpriteLanzarJugador[0].x = 1310;
+//	gSpriteLanzarJugador[0].y = 1660;
+//	gSpriteLanzarJugador[0].w = 261;
+//	gSpriteLanzarJugador[0].h = 150;
+
+	gSpriteLanzarJugador[0].x = 1304;
+	gSpriteLanzarJugador[0].y = 1495;
+	gSpriteLanzarJugador[0].w = 261;
+	gSpriteLanzarJugador[0].h = 150;
+
+	gSpriteLanzarJugador[1].x = 1648;
+	gSpriteLanzarJugador[1].y = 1660;
+	gSpriteLanzarJugador[1].w = 261;
+	gSpriteLanzarJugador[1].h = 150;
+
+	gSpriteLanzarJugador[2].x = 2030;
+	gSpriteLanzarJugador[2].y = 1660;
+	gSpriteLanzarJugador[2].w = 261;
+	gSpriteLanzarJugador[2].h = 150;
+
+	gSpriteLanzarJugador[3].x = 2360;
+	gSpriteLanzarJugador[3].y = 1660;
+	gSpriteLanzarJugador[3].w = 261;
+	gSpriteLanzarJugador[3].h = 150;
+
+	gSpriteLanzarJugador[4].x = 2690;
+	gSpriteLanzarJugador[4].y = 1660;
+	gSpriteLanzarJugador[4].w = 261;
+	gSpriteLanzarJugador[4].h = 150;
+}
+
+void View_Jugador_Venom::getSpritesTomado() {
+	CANTSPRITECLIPTOMADO = 4;
+	MINFRAMETOMADO = 0;
+	MAXFRAMETOMADO = 3;
+	FACTORTOMADO = 12;
+	this->gSpriteTomado = new SDL_Rect[CANTSPRITECLIPTOMADO];
+
+	gSpriteTomado[0].x = 1790;
+	gSpriteTomado[0].y = 1898;
+	gSpriteTomado[0].w = 261;
+	gSpriteTomado[0].h = 150;
+
+	gSpriteTomado[1].x = 1786;
+	gSpriteTomado[1].y = 1898;
+	gSpriteTomado[1].w = 261;
+	gSpriteTomado[1].h = 150;
+
+	gSpriteTomado[2].x = 1779;
+	gSpriteTomado[2].y = 1898;
+	gSpriteTomado[2].w = 261;
+	gSpriteTomado[2].h = 150;
+
+	gSpriteTomado[3].x = 1772;
+	gSpriteTomado[3].y = 1898;
+	gSpriteTomado[3].w = 261;
+	gSpriteTomado[3].h = 150;
+}

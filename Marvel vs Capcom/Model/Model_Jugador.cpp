@@ -471,7 +471,7 @@ void Jugador::Volar() {
 //		if ((rival->collideConJugador(&mCollider))
 //				&& (rival->getTipoGolpe() == TIPO_GOLPE::NADA)) {
 //			std::cout << "TOMADOOO!!!!!!!!!: " << std::endl;
-			this->estado->setVelocidadX(30*i);
+			this->estado->setVelocidadX(35*i);
 			this->estado->setVelocidadY(20);
 			this->recibeDanio(this->estado->getDanioArrojar());
 	}
