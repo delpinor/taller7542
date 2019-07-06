@@ -120,6 +120,8 @@ public:
 //	void Patadon_agachado(Jugador * rival);
 
 	void Arrojar(Jugador * rival);
+	void Tomar(Jugador * rival);
+	void Volar();
 
 	void recibeDanio(int danio);
 	bool estaActivo();

@@ -67,7 +67,8 @@ public:
 //	virtual void jugadorActivoPatada_agachado(Jugador * rival);
 //	virtual void jugadorActivoPatadon_agachado(Jugador * rival);
 	virtual void jugadorActivoPatadon(Jugador * rival);
-	virtual void jugadorActivoArrojar(Jugador * rival);
+//	virtual void jugadorActivoArrojar(Jugador * rival);
+	virtual void jugadorActivoTomar(Jugador * rival);
 	virtual void jugadorActivoTirarPoder(Jugador * rival);
 	virtual void jugadorActivoDisminuyeVelocidadEnX();
 	virtual void jugadorActivoAumentaVelocidadEnX(int vel);

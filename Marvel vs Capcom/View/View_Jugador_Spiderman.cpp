@@ -851,34 +851,74 @@ void View_Jugador_Spiderman::getSpritesRecibirGolpe(){
 //	gSpriteRecibirDanio[3].h = 150;
 
 }
+//void View_Jugador_Spiderman::getSpritesLanzarJugador(){
+//	CANTSPRITECLIPLANZARJUGADOR = 4;
+//	MINFRAMELANZARJUGADOR = 0;
+//	MAXFRAMELANZARJUGADOR = 3;
+//	FACTORLANZARJUGADOR = 5;
+//	this->gSpriteLanzarJugador = new SDL_Rect[CANTSPRITECLIPLANZARJUGADOR];
+//
+//	gSpriteLanzarJugador[0].x = 54;
+//	gSpriteLanzarJugador[0].y = 3400;
+//	gSpriteLanzarJugador[0].w = 261;
+//	gSpriteLanzarJugador[0].h = 150;
+//
+//	gSpriteLanzarJugador[1].x = 315;
+//	gSpriteLanzarJugador[1].y = 3400;
+//	gSpriteLanzarJugador[1].w = 261;
+//	gSpriteLanzarJugador[1].h = 150;
+//
+//	gSpriteLanzarJugador[2].x = 576;
+//	gSpriteLanzarJugador[2].y = 3400;
+//	gSpriteLanzarJugador[2].w = 261;
+//	gSpriteLanzarJugador[2].h = 150;
+//
+//	gSpriteLanzarJugador[3].x = 837;
+//	gSpriteLanzarJugador[3].y = 3400;
+//	gSpriteLanzarJugador[3].w = 261;
+//	gSpriteLanzarJugador[3].h = 150;
+//
+//}
+
 void View_Jugador_Spiderman::getSpritesLanzarJugador(){
-	CANTSPRITECLIPLANZARJUGADOR = 4;
+	CANTSPRITECLIPLANZARJUGADOR = 6;
 	MINFRAMELANZARJUGADOR = 0;
-	MAXFRAMELANZARJUGADOR = 3;
-	FACTORLANZARJUGADOR = 5;
+	MAXFRAMELANZARJUGADOR = 5;
+	FACTORLANZARJUGADOR = 6;
 	this->gSpriteLanzarJugador = new SDL_Rect[CANTSPRITECLIPLANZARJUGADOR];
 
-	gSpriteLanzarJugador[0].x = 54;
-	gSpriteLanzarJugador[0].y = 3400;
+	gSpriteLanzarJugador[0].x = 496;
+	gSpriteLanzarJugador[0].y = 4133;
 	gSpriteLanzarJugador[0].w = 261;
 	gSpriteLanzarJugador[0].h = 150;
 
-	gSpriteLanzarJugador[1].x = 315;
-	gSpriteLanzarJugador[1].y = 3400;
+	gSpriteLanzarJugador[1].x = 838;
+	gSpriteLanzarJugador[1].y = 4133;
 	gSpriteLanzarJugador[1].w = 261;
 	gSpriteLanzarJugador[1].h = 150;
 
-	gSpriteLanzarJugador[2].x = 576;
-	gSpriteLanzarJugador[2].y = 3400;
+	gSpriteLanzarJugador[2].x = 1112;
+	gSpriteLanzarJugador[2].y = 4133;
 	gSpriteLanzarJugador[2].w = 261;
 	gSpriteLanzarJugador[2].h = 150;
 
-	gSpriteLanzarJugador[3].x = 837;
-	gSpriteLanzarJugador[3].y = 3400;
+	gSpriteLanzarJugador[3].x = 1094;
+	gSpriteLanzarJugador[3].y = 479;
 	gSpriteLanzarJugador[3].w = 261;
 	gSpriteLanzarJugador[3].h = 150;
 
+	gSpriteLanzarJugador[4].x = 1315;
+	gSpriteLanzarJugador[4].y = 479;
+	gSpriteLanzarJugador[4].w = 261;
+	gSpriteLanzarJugador[4].h = 150;
+
+	gSpriteLanzarJugador[5].x = 1506;
+	gSpriteLanzarJugador[5].y = 660;
+	gSpriteLanzarJugador[5].w = 261;
+	gSpriteLanzarJugador[5].h = 150;
+
 }
+
 void View_Jugador_Spiderman::getSpritesJugadorLanzado(){
 	CANTSPRITECLIPJUGADORLANZADO = 7;
 	MINFRAMEJUGADORLANZADO = 0;

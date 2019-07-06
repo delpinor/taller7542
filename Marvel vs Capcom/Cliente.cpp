@@ -314,6 +314,10 @@ int Cliente::recibirModeloDelServidor() {
 					this->getVista()->model->equipos[0]->getJugadorActivo()->setTipoGolpeCliente(
 										unModelo.jugadoresEquipo1.tipoGolpe);
 					cout << "defensa: " << unModelo.jugadoresEquipo1.tipoGolpe << endl;
+			}else if (unModelo.jugadoresEquipo1.tipoGolpe == TIPO_GOLPE::GOLPE_VOLAR){
+				this->getVista()->model->equipos[0]->getJugadorActivo()->setTipoGolpe(
+									unModelo.jugadoresEquipo1.tipoGolpe);
+				this->getVista()->model->equipos[0]->getJugadorActivo()->setIniciarGolpe(true);
 			}
 			else if (unModelo.jugadoresEquipo1.tipoGolpe != TIPO_GOLPE::NADA &&
 					this->getVista()->model->equipos[0]->getJugadorActivo()->getTipoGolpe() == TIPO_GOLPE::NADA){
@@ -352,6 +356,10 @@ int Cliente::recibirModeloDelServidor() {
 				this->getVista()->model->equipos[1]->getJugadorActivo()->setTipoGolpeCliente(
 									unModelo.jugadoresEquipo2.tipoGolpe);
 				cout << "defensa: " << unModelo.jugadoresEquipo2.tipoGolpe << endl;
+			}else if (unModelo.jugadoresEquipo2.tipoGolpe == TIPO_GOLPE::GOLPE_VOLAR){
+				this->getVista()->model->equipos[1]->getJugadorActivo()->setTipoGolpe(
+									unModelo.jugadoresEquipo2.tipoGolpe);
+				this->getVista()->model->equipos[1]->getJugadorActivo()->setIniciarGolpe(true);
 			}
 			else if (unModelo.jugadoresEquipo2.tipoGolpe != TIPO_GOLPE::NADA &&
 					this->getVista()->model->equipos[1]->getJugadorActivo()->getTipoGolpe() == TIPO_GOLPE::NADA){

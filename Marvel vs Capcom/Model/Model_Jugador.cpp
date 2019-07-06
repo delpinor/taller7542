@@ -190,7 +190,7 @@ void Jugador::move(Jugador* jugadorRival, SDL_Rect* camara) {
 //	}
 	else if(collideConJugador(&(jugadorRival->mCollider))){
 
-		cout<<"Hay coliisiooooonnn!!!!$%$%#%#$%#$%$#$%$#$" << endl;
+//		cout<<"Hay coliisiooooonnn!!!!$%$%#%#$%#$%$#$%$#$" << endl;
 //Move back
 		if(this->mCollider.x <= jugadorRival->mCollider.x){
 //			if((this->estado->getVelY()!=0) && (!collideDerecha(camara)) && (!collideIzquierda(camara)))
@@ -416,9 +416,30 @@ void Jugador::Patada(Jugador * rival) {
 		if (collideConGolpe(&(rival->mCollider),1.4))
 		rival->recibeDanio(this->estado->getDanioPatada());
 }
+//void Jugador::Arrojar(Jugador * rival) {
+//	if (this->getTipoGolpe() == TIPO_GOLPE::NADA) {
+//		this->estado->Arrojar();
+//		std::cout << "ARROJJAAAAAAARRRRRR!!!!!: " << std::endl;
+//		this->setTipoGolpe(TIPO_GOLPE::GOLPE_ARROJAR);
+//
+//		int i = -1;
+//		if (this->getDireccion() == SDL_FLIP_NONE)
+//			i = 1;
+//
+//		if ((rival->collideConJugador(&mCollider))
+//				&& (rival->getTipoGolpe() == TIPO_GOLPE::NADA)) {
+//			std::cout << "TOMADOOO!!!!!!!!!: " << std::endl;
+//			rival->estado->setVelocidadX(20 * i);
+//			rival->estado->setVelocidadY(20);
+//			rival->setTipoGolpe(TIPO_GOLPE::GOLPE_TOMADO);
+//			rival->recibeDanio(this->estado->getDanioArrojar());
+//		}
+//	}
+//}
+
 void Jugador::Arrojar(Jugador * rival) {
 	if (this->getTipoGolpe() == TIPO_GOLPE::NADA) {
-		this->estado->Arrojar();
+
 		std::cout << "ARROJJAAAAAAARRRRRR!!!!!: " << std::endl;
 		this->setTipoGolpe(TIPO_GOLPE::GOLPE_ARROJAR);
 
@@ -428,11 +449,44 @@ void Jugador::Arrojar(Jugador * rival) {
 
 		if ((rival->collideConJugador(&mCollider))
 				&& (rival->getTipoGolpe() == TIPO_GOLPE::NADA)) {
-			std::cout << "VOLANDOOOOOOOOOO!!!!!: " << std::endl;
+			std::cout << "TOMADOOO!!!!!!!!!: " << std::endl;
 			rival->estado->setVelocidadX(20 * i);
 			rival->estado->setVelocidadY(20);
 			rival->setTipoGolpe(TIPO_GOLPE::GOLPE_VOLAR);
 			rival->recibeDanio(this->estado->getDanioArrojar());
+		}
+	}
+}
+
+void Jugador::Volar() {
+	if (this->getTipoGolpe() == TIPO_GOLPE::NADA) {
+
+		std::cout << "Y VOLAAAAAAAAARRRRRRR!!!!!: " << std::endl;
+		this->setTipoGolpe(TIPO_GOLPE::GOLPE_VOLAR);
+
+		int i = -1;
+		if (this->getDireccion() == SDL_FLIP_NONE)
+			i = 1;
+
+//		if ((rival->collideConJugador(&mCollider))
+//				&& (rival->getTipoGolpe() == TIPO_GOLPE::NADA)) {
+//			std::cout << "TOMADOOO!!!!!!!!!: " << std::endl;
+			this->estado->setVelocidadX(30*i);
+			this->estado->setVelocidadY(20);
+			this->recibeDanio(this->estado->getDanioArrojar());
+	}
+}
+
+void Jugador::Tomar(Jugador * rival) {
+	if (this->getTipoGolpe() == TIPO_GOLPE::NADA) {
+		this->estado->Arrojar();
+		std::cout << "AGARRARRRR!!!!!: " << std::endl;
+		this->setTipoGolpe(TIPO_GOLPE::GOLPE_ARROJAR);
+
+		if ((rival->collideConJugador(&mCollider))
+				&& (rival->getTipoGolpe() == TIPO_GOLPE::NADA)) {
+			std::cout << "TOMADOOOO!!!!!: " << std::endl;
+			rival->setTipoGolpe(TIPO_GOLPE::GOLPE_TOMADO);
 		}
 	}
 }
@@ -616,17 +670,17 @@ bool Jugador::collideConJugador(SDL_Rect * rival) {
 	topRival = rival->y;
 
 	bottomRival = rival->y + rival->h;
-	cout<<"================================" <<endl;
-	cout<<"colider x: "<<this->mCollider.x <<endl;
-	cout<<"colider y: "<<this->mCollider.y <<endl;
-	cout<<"colider h: "<<this->mCollider.h <<endl;
-	cout<<"colider w: "<<this->mCollider.w <<endl;
-	cout<<"================================" <<endl;
-	cout<<"rival x: "<<rival->x <<endl;
-	cout<<"rival y: "<<rival->y <<endl;
-	cout<<"rival h: "<<rival->h <<endl;
-	cout<<"rival w: "<<rival->w <<endl;
-	cout<<"================================" <<endl;
+//	cout<<"================================" <<endl;
+//	cout<<"colider x: "<<this->mCollider.x <<endl;
+//	cout<<"colider y: "<<this->mCollider.y <<endl;
+//	cout<<"colider h: "<<this->mCollider.h <<endl;
+//	cout<<"colider w: "<<this->mCollider.w <<endl;
+//	cout<<"================================" <<endl;
+//	cout<<"rival x: "<<rival->x <<endl;
+//	cout<<"rival y: "<<rival->y <<endl;
+//	cout<<"rival h: "<<rival->h <<endl;
+//	cout<<"rival w: "<<rival->w <<endl;
+//	cout<<"================================" <<endl;
 	leftJugador = this->mCollider.x;
 	rightJugador = this->mCollider.x + this->mCollider.w;
 	topJugador = this->mCollider.y;
@@ -650,7 +704,7 @@ bool Jugador::collideConJugador(SDL_Rect * rival) {
 	if (rightJugador < leftRival) {
 		return false;
 	}
-	cout<<"Hay coliision por descarte" << endl;
+//	cout<<"Hay coliision por descarte" << endl;
 	return true;
 }
 bool Jugador::collideConGolpe(SDL_Rect * jugador, int factor_golpe) {

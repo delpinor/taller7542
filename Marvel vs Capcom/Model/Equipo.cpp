@@ -97,11 +97,25 @@ void Equipo::move(SDL_Rect* camara){
 		cout << "Estoy volandooo!!!!!!!!" << endl;
 	if (getJugadorActivo()->getTipoGolpe() == TIPO_GOLPE::GOLPE_ARROJAR)
 		cout << "Estoy arrojandooooooo############!!!!!!!!" << endl;
+	if (getJugadorActivo()->getTipoGolpe() == TIPO_GOLPE::NADA)
+		contadorGolpe = 0;
 	///esto es turbio ::::
 	if (getJugadorActivo()->getTipoGolpe() != TIPO_GOLPE::GOLPE_VOLAR) {
 		if (getJugadorActivo()->getTipoGolpe() == TIPO_GOLPE::ACTIVAR_DEFENSA)
 				cout << "Estoy DEFENDIENDOOOOO############!!!!!!!!" << endl;
-		else if (getJugadorActivo()->getTipoGolpe() != TIPO_GOLPE::NADA) {
+		else if (getJugadorActivo()->getTipoGolpe() == TIPO_GOLPE::GOLPE_TOMADO) {
+
+			if (contadorGolpe < 25) {
+				cout << "Estoy SIENDO TOMADOOOOOOO############!!!!!!!!" << endl;
+				cout << "contador TOMADO: " << contadorGolpe << endl;
+				contadorGolpe++;
+			} else {
+				getJugadorActivo()->setTipoGolpe(TIPO_GOLPE::NADA);
+				cout << "TOMA TERMINADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA############!!!!!!!!" << endl;
+				contadorGolpe = 0;
+				getJugadorActivo()->Volar();
+			}
+		}else if (getJugadorActivo()->getTipoGolpe() != TIPO_GOLPE::NADA) {
 
 			if (contadorGolpe < 6) {
 				contadorGolpe++;
@@ -189,9 +203,9 @@ void Equipo::jugadorActivoPinion(Jugador * rival) {
 		this->jugadores[this->nroJugadorActivo]->aumentarVelocidadX();
 	}
 }
-void Equipo::jugadorActivoArrojar(Jugador * rival) {
+void Equipo::jugadorActivoTomar(Jugador * rival) {
 	if (!this->jugadores[this->nroJugadorActivo]->estaAgachado() && !this->jugadores[this->nroJugadorActivo]->estaSaltando())
-		this->jugadores[this->nroJugadorActivo]->Arrojar(rival);
+		this->jugadores[this->nroJugadorActivo]->Tomar(rival);
 	if (!this->jugadores[this->nroJugadorActivo]->estaSaltando() ){
 	if (this->jugadores[this->nroJugadorActivo]->getVelX()>0)
 		this->jugadores[this->nroJugadorActivo]->disminuirVelocidadX();
@@ -199,6 +213,7 @@ void Equipo::jugadorActivoArrojar(Jugador * rival) {
 		this->jugadores[this->nroJugadorActivo]->aumentarVelocidadX();
 	}
 }
+
 void Equipo::jugadorActivoTirarPoder(Jugador * rival) {
 	if (!this->jugadores[this->nroJugadorActivo]->estaAgachado())
 	this->jugadores[this->nroJugadorActivo]->TirarPoder(rival);
@@ -279,9 +294,9 @@ Equipo* Equipo::getEquipoRival(){
 	return this->equipoRival;
 }
 bool Equipo::estaVivo(){
-	cout
-	<< "Equipo - estaVivo:  | "
-	<< endl;
+//	cout
+//	<< "Equipo - estaVivo:  | "
+//	<< endl;
 	if(this->getCantidadJugadoresVivos() == 0){
 		return false;
 	}

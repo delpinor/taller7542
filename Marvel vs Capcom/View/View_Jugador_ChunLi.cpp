@@ -40,6 +40,8 @@ void View_Jugador_ChunLi::initialize(Jugador *model,
 	getSpritesLanzarPoder();
 	getSpritesArrojando();
 	getSpritesVolando();
+    getSpritesTomado();
+
 	this->texturaJugador->setColor(this->jugador->getR(),  this->jugador->getG() , this->jugador->getB());
 
 	this->sonido_salto=new EfectoSonido(1);
@@ -900,4 +902,30 @@ void View_Jugador_ChunLi::getSpritesVolando() {
 	gSpriteJugadorLanzado[8].w = 261;
 	gSpriteJugadorLanzado[8].h = 150;
 }
+void View_Jugador_ChunLi::getSpritesTomado() {
+	CANTSPRITECLIPTOMADO = 4;
+	MINFRAMETOMADO = 0;
+	MAXFRAMETOMADO = 3;
+	FACTORTOMADO = 12;
+	this->gSpriteTomado = new SDL_Rect[CANTSPRITECLIPTOMADO];
 
+	gSpriteTomado[0].x = 103;
+	gSpriteTomado[0].y = 3302;
+	gSpriteTomado[0].w = 261;
+	gSpriteTomado[0].h = 150;
+
+	gSpriteTomado[1].x = 100;
+	gSpriteTomado[1].y = 3302;
+	gSpriteTomado[1].w = 261;
+	gSpriteTomado[1].h = 150;
+
+	gSpriteTomado[2].x = 93;
+	gSpriteTomado[2].y = 3302;
+	gSpriteTomado[2].w = 261;
+	gSpriteTomado[2].h = 150;
+
+	gSpriteTomado[3].x = 85;
+	gSpriteTomado[3].y = 3302;
+	gSpriteTomado[3].w = 261;
+	gSpriteTomado[3].h = 150;
+}

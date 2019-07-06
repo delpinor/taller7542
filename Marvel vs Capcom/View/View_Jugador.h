@@ -48,6 +48,7 @@ public:
 	SDL_Rect  *gSpriteJugadorLanzado;
 	SDL_Rect  *gSpriteLanzarPoder;
 	SDL_Rect  *gSpritePoder;
+	SDL_Rect * gSpriteTomado;
 	//poder especial
 	SDL_Rect  *gSpritePoderEspecial;
 	//danio
@@ -181,6 +182,13 @@ public:
 	int MINFRAMEPODER;
 	int MAXFRAMEPODER;
 	int FACTORPODER;
+
+
+	int CANTSPRITECLIPTOMADO;
+	int MINFRAMETOMADO;
+	int MAXFRAMETOMADO;
+	int FACTORTOMADO;
+
 	bool silencio=false;
 	bool sonido_defensa_reproducido=false;
 	int maxFrame;

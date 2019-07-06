@@ -3,6 +3,7 @@
 
 #include <sstream>
 int contador=0;
+
 View_Jugador::View_Jugador() {
 	this->sonido_KO=new EfectoSonido(1);
 	this->sonido_KO->loadMedia("../Sonidos/ko.wav");
@@ -12,10 +13,8 @@ void View_Jugador::initialize(Jugador * model, LTexture * texturaJugador) {
 	this->texturaJugador = texturaJugador;
 	this->jugador = model;
 	this->zIndex = model->get_zindex();
-
-
-
 }
+
 void View_Jugador::silenciar_efectos(){
 	if (silencio){
 		silencio=false;
@@ -57,9 +56,8 @@ void View_Jugador::reproducir_efecto_sonido( int tipo_golpe){
 			break;
 		      }
       }
-
-
 }
+
 void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 	SDL_Rect* currentClip;
 	SDL_Rect* currentClipPoder;
@@ -226,6 +224,11 @@ void View_Jugador::render(int camX, int camY, SDL_Renderer * gRenderer) {
 				maxFrame = MAXFRAMELANZARJUGADOR;
 				factor = FACTORLANZARJUGADOR;
 				std::cout << "arrojand jugadorr" << std::endl;
+			}else if (this->jugador->getTipoGolpe() == TIPO_GOLPE::GOLPE_TOMADO) {
+				gSpriteGolpear = gSpriteTomado;
+				maxFrame = MAXFRAMETOMADO;
+				factor = FACTORTOMADO;
+				std::cout << "tomaaandooo jugadorr" << std::endl;
 			}
 
 			if (frame / factor <= maxFrame) {

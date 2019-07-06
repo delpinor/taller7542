@@ -967,7 +967,7 @@ int Partida::GetEquipoGanadorId(){
 			nroEquipoGanador = 1;
 		}
 	}
-	cout << "Equipo GANADOR ID " << nroEquipoGanador << endl;
+//	cout << "Equipo GANADOR ID " << nroEquipoGanador << endl;
 	return nroEquipoGanador;
 }
 void Partida::SetResultadosBatallaTerminada(){

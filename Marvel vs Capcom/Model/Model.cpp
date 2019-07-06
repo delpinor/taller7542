@@ -383,9 +383,9 @@ std::list<int> Model::GetIdsPersonajes(){
 	return idsPersonajes;
 };
 bool Model::EquiposEstanVivos(){
-	cout
-	<< "MODEL - EquiposEstanVivos:  | "
-	<< TimeHelper::getStringLocalTimeNow() << endl;
+//	cout
+//	<< "MODEL - EquiposEstanVivos:  | "
+//	<< TimeHelper::getStringLocalTimeNow() << endl;
 	if(!this->getEquipoNro(0)->estaVivo() || !this->getEquipoNro(1)->estaVivo() ){
 		return false;
 	}
