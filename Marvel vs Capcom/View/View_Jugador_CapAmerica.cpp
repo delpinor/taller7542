@@ -38,6 +38,7 @@ void View_Jugador_CapAmerica::initialize(Jugador *model,
 	getSpritesLanzarPoder();
 	getSpritesVolando();
 	getSpritesArrojando();
+	getSpritesTomado();
 	getSpritesPoderEspecial();
 
 	this->zIndex = model->get_zindex();
@@ -919,54 +920,80 @@ void View_Jugador_CapAmerica::getSpritesVolando() {
 	gSpriteJugadorLanzado[6].h = 150;
 
 }
-
-
 void View_Jugador_CapAmerica::getSpritesArrojando(){
-	CANTSPRITECLIPLANZARJUGADOR = 8;
+	CANTSPRITECLIPLANZARJUGADOR = 6;
 	MINFRAMELANZARJUGADOR = 0;
-	MAXFRAMELANZARJUGADOR = 7;
-	FACTORLANZARJUGADOR = 3;
+	MAXFRAMELANZARJUGADOR = 5;
+	FACTORLANZARJUGADOR = 12;
 	this->gSpriteLanzarJugador = new SDL_Rect[CANTSPRITECLIPLANZARJUGADOR];
 
-	gSpriteLanzarJugador[0].x = 72;
-		gSpriteLanzarJugador[0].y = 918;
-		gSpriteLanzarJugador[0].w = 261;
-		gSpriteLanzarJugador[0].h = 150;
+	gSpriteLanzarJugador[0].x = 97;
+	gSpriteLanzarJugador[0].y = 2555;
+	gSpriteLanzarJugador[0].w = 261;
+	gSpriteLanzarJugador[0].h = 150;
 
-		gSpriteLanzarJugador[1].x = 320;
-		gSpriteLanzarJugador[1].y = 918;
-		gSpriteLanzarJugador[1].w = 261;
-		gSpriteLanzarJugador[1].h = 150;
+	gSpriteLanzarJugador[1].x = 97;
+	gSpriteLanzarJugador[1].y = 2555;
+	gSpriteLanzarJugador[1].w = 261;
+	gSpriteLanzarJugador[1].h = 150;
 
-		gSpriteLanzarJugador[2].x = 600;
-		gSpriteLanzarJugador[2].y = 918;
-		gSpriteLanzarJugador[2].w = 261;
-		gSpriteLanzarJugador[2].h = 150;
+	gSpriteLanzarJugador[2].x = 389;
+	gSpriteLanzarJugador[2].y = 2555;
+	gSpriteLanzarJugador[2].w = 261;
+	gSpriteLanzarJugador[2].h = 150;
 
-		gSpriteLanzarJugador[3].x = 900;
-		gSpriteLanzarJugador[3].y = 918;
-		gSpriteLanzarJugador[3].w = 261;
-		gSpriteLanzarJugador[3].h = 150;
+	gSpriteLanzarJugador[3].x = 389;
+	gSpriteLanzarJugador[3].y = 2555;
+	gSpriteLanzarJugador[3].w = 261;
+	gSpriteLanzarJugador[3].h = 150;
 
-		gSpriteLanzarJugador[4].x = 900;
-		gSpriteLanzarJugador[4].y = 918;
-		gSpriteLanzarJugador[4].w = 261;
-		gSpriteLanzarJugador[4].h = 150;
+	gSpriteLanzarJugador[4].x = 650;
+	gSpriteLanzarJugador[4].y = 2555;
+	gSpriteLanzarJugador[4].w = 261;
+	gSpriteLanzarJugador[4].h = 150;
 
-		gSpriteLanzarJugador[5].x = 1230;
-		gSpriteLanzarJugador[5].y = 918;
-		gSpriteLanzarJugador[5].w = 261;
-		gSpriteLanzarJugador[5].h = 150;
+	gSpriteLanzarJugador[5].x = 911;
+	gSpriteLanzarJugador[5].y = 2555;
+	gSpriteLanzarJugador[5].w = 261;
+	gSpriteLanzarJugador[5].h = 150;
 
-		gSpriteLanzarJugador[6].x = 1230;
-		gSpriteLanzarJugador[6].y = 918;
-		gSpriteLanzarJugador[6].w = 261;
-		gSpriteLanzarJugador[6].h = 150;
+	gSpriteLanzarJugador[4].x = 1172;
+	gSpriteLanzarJugador[4].y = 2555;
+	gSpriteLanzarJugador[4].w = 261;
+	gSpriteLanzarJugador[4].h = 150;
 
-		gSpriteLanzarJugador[7].x = 72;
-		gSpriteLanzarJugador[7].y = 918;
-		gSpriteLanzarJugador[7].w = 261;
-		gSpriteLanzarJugador[7].h = 150;
+//	gSpriteLanzarJugador[5].x = 1230;
+//	gSpriteLanzarJugador[5].y = 918;
+//	gSpriteLanzarJugador[5].w = 261;
+//	gSpriteLanzarJugador[5].h = 150;
+//
+//	gSpriteLanzarJugador[6].x = 1230;
+//	gSpriteLanzarJugador[6].y = 918;
+//	gSpriteLanzarJugador[6].w = 261;
+//	gSpriteLanzarJugador[6].h = 150;
+//
+//	gSpriteLanzarJugador[7].x = 72;
+//	gSpriteLanzarJugador[7].y = 918;
+//	gSpriteLanzarJugador[7].w = 261;
+//	gSpriteLanzarJugador[7].h = 150;
+}
+void View_Jugador_CapAmerica::getSpritesTomado() {
+	CANTSPRITECLIPTOMADO = 2;
+	MINFRAMETOMADO = 0;
+	MAXFRAMETOMADO = 1;
+	FACTORTOMADO = 12;
+	this->gSpriteTomado = new SDL_Rect[CANTSPRITECLIPTOMADO];
+
+	gSpriteTomado[0].x = 128;
+	gSpriteTomado[0].y = 2855;
+	gSpriteTomado[0].w = 261;
+	gSpriteTomado[0].h = 150;
+
+	gSpriteTomado[1].x = 128;
+	gSpriteTomado[1].y = 2855;
+	gSpriteTomado[1].w = 261;
+	gSpriteTomado[1].h = 150;
+
 }
 void View_Jugador_CapAmerica::getSpritesPoderEspecial(){
 	CANTSPRITECLIPPODER_especial = 7;

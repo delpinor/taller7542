@@ -77,6 +77,7 @@ public:
 	int setCollideW(int collW);
 	int setCollideH(int collH);
 	bool collideConPoder(Poder * poder);
+	bool collideConJugadorAgarre(SDL_Rect * rival);
 	bool collideConGolpe(SDL_Rect * jugador, int factor_golpe);
 	std::string getNombre();
 	std::string getPath();

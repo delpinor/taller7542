@@ -483,7 +483,7 @@ void Jugador::Tomar(Jugador * rival) {
 		std::cout << "AGARRARRRR!!!!!: " << std::endl;
 		this->setTipoGolpe(TIPO_GOLPE::GOLPE_ARROJAR);
 
-		if ((rival->collideConJugador(&mCollider))
+		if ((rival->collideConJugadorAgarre(&mCollider))
 				&& (rival->getTipoGolpe() == TIPO_GOLPE::NADA)) {
 			std::cout << "TOMADOOOO!!!!!: " << std::endl;
 			rival->setTipoGolpe(TIPO_GOLPE::GOLPE_TOMADO);
@@ -705,6 +705,58 @@ bool Jugador::collideConJugador(SDL_Rect * rival) {
 		return false;
 	}
 //	cout<<"Hay coliision por descarte" << endl;
+	return true;
+}
+bool Jugador::collideConJugadorAgarre(SDL_Rect * rival) {
+
+	int leftRival, leftJugador;
+	int rightRival, rightJugador;
+	int topRival, topJugador;
+	int bottomRival, bottomJugador;
+	int borde = 90;
+
+	leftRival = rival->x;
+
+	rightRival = rival->x + rival->w;
+
+	topRival = rival->y;
+
+	bottomRival = rival->y + rival->h;
+//	cout<<"================================" <<endl;
+//	cout<<"colider x: "<<this->mCollider.x <<endl;
+//	cout<<"colider y: "<<this->mCollider.y <<endl;
+//	cout<<"colider h: "<<this->mCollider.h <<endl;
+//	cout<<"colider w: "<<this->mCollider.w <<endl;
+//	cout<<"================================" <<endl;
+//	cout<<"rival x: "<<rival->x <<endl;
+//	cout<<"rival y: "<<rival->y <<endl;
+//	cout<<"rival h: "<<rival->h <<endl;
+//	cout<<"rival w: "<<rival->w <<endl;
+//	cout<<"================================" <<endl;
+	leftJugador = this->mCollider.x  - borde;
+	rightJugador = this->mCollider.x + this->mCollider.w + borde;
+	topJugador = this->mCollider.y;
+	bottomJugador = this->mCollider.y + this->mCollider.h;
+
+	if (bottomJugador < topRival) {
+		return false;
+	}
+	if (bottomJugador == topRival) {
+		return collideVertical(&this->mCollider, rival);
+	}
+
+//	if (topJugador >= bottomRival) {
+//		return false;
+//	}
+
+	if (leftJugador > rightRival) {
+		return false;
+	}
+
+	if (rightJugador < leftRival) {
+		return false;
+	}
+	cout<<"Hay coliision por descarte" << endl;
 	return true;
 }
 bool Jugador::collideConGolpe(SDL_Rect * jugador, int factor_golpe) {
