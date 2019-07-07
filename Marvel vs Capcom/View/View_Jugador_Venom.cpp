@@ -1053,11 +1053,51 @@ void View_Jugador_Venom::getSpritesLanzarPoder(){
 
 };
 
+//void View_Jugador_Venom::getSpritesLanzarJugador(){
+//
+//	CANTSPRITECLIPLANZARJUGADOR = 5;
+//	MINFRAMELANZARJUGADOR = 0;
+//	MAXFRAMELANZARJUGADOR = 4;
+//	FACTORLANZARJUGADOR = 6;
+//	this->gSpriteLanzarJugador = new SDL_Rect[CANTSPRITECLIPLANZARJUGADOR];
+//
+//
+////	gSpriteLanzarJugador[0].x = 1310;
+////	gSpriteLanzarJugador[0].y = 1660;
+////	gSpriteLanzarJugador[0].w = 261;
+////	gSpriteLanzarJugador[0].h = 150;
+//
+//	gSpriteLanzarJugador[0].x = 1304;
+//	gSpriteLanzarJugador[0].y = 1495;
+//	gSpriteLanzarJugador[0].w = 261;
+//	gSpriteLanzarJugador[0].h = 150;
+//
+//	gSpriteLanzarJugador[1].x = 1648;
+//	gSpriteLanzarJugador[1].y = 1660;
+//	gSpriteLanzarJugador[1].w = 261;
+//	gSpriteLanzarJugador[1].h = 150;
+//
+//	gSpriteLanzarJugador[2].x = 2030;
+//	gSpriteLanzarJugador[2].y = 1660;
+//	gSpriteLanzarJugador[2].w = 261;
+//	gSpriteLanzarJugador[2].h = 150;
+//
+//	gSpriteLanzarJugador[3].x = 2360;
+//	gSpriteLanzarJugador[3].y = 1660;
+//	gSpriteLanzarJugador[3].w = 261;
+//	gSpriteLanzarJugador[3].h = 150;
+//
+//	gSpriteLanzarJugador[4].x = 2690;
+//	gSpriteLanzarJugador[4].y = 1660;
+//	gSpriteLanzarJugador[4].w = 261;
+//	gSpriteLanzarJugador[4].h = 150;
+//}
+
 void View_Jugador_Venom::getSpritesLanzarJugador(){
 
-	CANTSPRITECLIPLANZARJUGADOR = 5;
+	CANTSPRITECLIPLANZARJUGADOR = 6;
 	MINFRAMELANZARJUGADOR = 0;
-	MAXFRAMELANZARJUGADOR = 4;
+	MAXFRAMELANZARJUGADOR = 5;
 	FACTORLANZARJUGADOR = 6;
 	this->gSpriteLanzarJugador = new SDL_Rect[CANTSPRITECLIPLANZARJUGADOR];
 
@@ -1067,30 +1107,35 @@ void View_Jugador_Venom::getSpritesLanzarJugador(){
 //	gSpriteLanzarJugador[0].w = 261;
 //	gSpriteLanzarJugador[0].h = 150;
 
-	gSpriteLanzarJugador[0].x = 1304;
-	gSpriteLanzarJugador[0].y = 1495;
+	gSpriteLanzarJugador[0].x = 1164;
+	gSpriteLanzarJugador[0].y = 2323;
 	gSpriteLanzarJugador[0].w = 261;
 	gSpriteLanzarJugador[0].h = 150;
 
-	gSpriteLanzarJugador[1].x = 1648;
-	gSpriteLanzarJugador[1].y = 1660;
+	gSpriteLanzarJugador[1].x = 1420;
+	gSpriteLanzarJugador[1].y = 2323;
 	gSpriteLanzarJugador[1].w = 261;
 	gSpriteLanzarJugador[1].h = 150;
 
-	gSpriteLanzarJugador[2].x = 2030;
-	gSpriteLanzarJugador[2].y = 1660;
+	gSpriteLanzarJugador[2].x = 1700;
+	gSpriteLanzarJugador[2].y = 2323;
 	gSpriteLanzarJugador[2].w = 261;
 	gSpriteLanzarJugador[2].h = 150;
 
-	gSpriteLanzarJugador[3].x = 2360;
-	gSpriteLanzarJugador[3].y = 1660;
+	gSpriteLanzarJugador[3].x = 1995;
+	gSpriteLanzarJugador[3].y = 2323;
 	gSpriteLanzarJugador[3].w = 261;
 	gSpriteLanzarJugador[3].h = 150;
 
-	gSpriteLanzarJugador[4].x = 2690;
-	gSpriteLanzarJugador[4].y = 1660;
+	gSpriteLanzarJugador[4].x = 2320;
+	gSpriteLanzarJugador[4].y = 2323;
 	gSpriteLanzarJugador[4].w = 261;
 	gSpriteLanzarJugador[4].h = 150;
+
+	gSpriteLanzarJugador[5].x = 2580;
+	gSpriteLanzarJugador[5].y = 2323;
+	gSpriteLanzarJugador[5].w = 261;
+	gSpriteLanzarJugador[5].h = 150;
 }
 
 void View_Jugador_Venom::getSpritesTomado() {
