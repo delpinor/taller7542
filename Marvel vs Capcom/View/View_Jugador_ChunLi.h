@@ -61,6 +61,7 @@ protected:
 	void getSpritesVolando();
 	void getSpritesArrojando();
 	void getSpritesTomado();
+	void getSpritesLanzarJugador();
 };
 
 #endif
