@@ -921,12 +921,12 @@ void View_Jugador_CapAmerica::getSpritesVolando() {
 
 }
 void View_Jugador_CapAmerica::getSpritesArrojando(){
-	CANTSPRITECLIPLANZARJUGADOR = 6;
+	CANTSPRITECLIPLANZARJUGADOR = 5;
 	MINFRAMELANZARJUGADOR = 0;
-	MAXFRAMELANZARJUGADOR = 5;
+	MAXFRAMELANZARJUGADOR = 4;
 	FACTORLANZARJUGADOR = 8;
 	this->gSpriteLanzarJugador = new SDL_Rect[CANTSPRITECLIPLANZARJUGADOR];
-
+/*
 	gSpriteLanzarJugador[0].x = 97;
 	gSpriteLanzarJugador[0].y = 2555;
 	gSpriteLanzarJugador[0].w = 261;
@@ -936,26 +936,26 @@ void View_Jugador_CapAmerica::getSpritesArrojando(){
 	gSpriteLanzarJugador[1].y = 2555;
 	gSpriteLanzarJugador[1].w = 261;
 	gSpriteLanzarJugador[1].h = 150;
+*/
+	gSpriteLanzarJugador[0].x = 389;
+	gSpriteLanzarJugador[0].y = 2555;
+	gSpriteLanzarJugador[0].w = 261;
+	gSpriteLanzarJugador[0].h = 150;
 
-	gSpriteLanzarJugador[2].x = 389;
+	gSpriteLanzarJugador[1].x = 389;
+	gSpriteLanzarJugador[1].y = 2555;
+	gSpriteLanzarJugador[1].w = 261;
+	gSpriteLanzarJugador[1].h = 150;
+
+	gSpriteLanzarJugador[2].x = 650;
 	gSpriteLanzarJugador[2].y = 2555;
 	gSpriteLanzarJugador[2].w = 261;
 	gSpriteLanzarJugador[2].h = 150;
 
-	gSpriteLanzarJugador[3].x = 389;
+	gSpriteLanzarJugador[3].x = 911;
 	gSpriteLanzarJugador[3].y = 2555;
 	gSpriteLanzarJugador[3].w = 261;
 	gSpriteLanzarJugador[3].h = 150;
-
-	gSpriteLanzarJugador[4].x = 650;
-	gSpriteLanzarJugador[4].y = 2555;
-	gSpriteLanzarJugador[4].w = 261;
-	gSpriteLanzarJugador[4].h = 150;
-
-	gSpriteLanzarJugador[5].x = 911;
-	gSpriteLanzarJugador[5].y = 2555;
-	gSpriteLanzarJugador[5].w = 261;
-	gSpriteLanzarJugador[5].h = 150;
 
 	gSpriteLanzarJugador[4].x = 1172;
 	gSpriteLanzarJugador[4].y = 2555;

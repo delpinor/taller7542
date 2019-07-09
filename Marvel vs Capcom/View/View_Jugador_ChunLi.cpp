@@ -911,12 +911,12 @@ void View_Jugador_ChunLi::getSpritesTomado() {
 	this->gSpriteTomado = new SDL_Rect[CANTSPRITECLIPTOMADO];
 
 
-	gSpriteTomado[0].x = 93;
+	gSpriteTomado[0].x = 123;
 	gSpriteTomado[0].y = 3771;
 	gSpriteTomado[0].w = 261;
 	gSpriteTomado[0].h = 150;
 
-	gSpriteTomado[1].x = 93;
+	gSpriteTomado[1].x = 123;
 	gSpriteTomado[1].y = 3771;
 	gSpriteTomado[1].w = 261;
 	gSpriteTomado[1].h = 150;
@@ -968,9 +968,9 @@ void View_Jugador_ChunLi::getSpritesTomado() {
 }
 void View_Jugador_ChunLi::getSpritesLanzarJugador(){
 
-	CANTSPRITECLIPLANZARJUGADOR = 9;
+	CANTSPRITECLIPLANZARJUGADOR = 7;
 	MINFRAMELANZARJUGADOR = 0;
-	MAXFRAMELANZARJUGADOR = 8;
+	MAXFRAMELANZARJUGADOR = 6;
 	FACTORLANZARJUGADOR = 6;
 	this->gSpriteLanzarJugador = new SDL_Rect[CANTSPRITECLIPLANZARJUGADOR];
 
@@ -1012,7 +1012,7 @@ void View_Jugador_ChunLi::getSpritesLanzarJugador(){
 	gSpriteLanzarJugador[6].w = 261;
 	gSpriteLanzarJugador[6].h = 151;
 
-
+/*
 	gSpriteLanzarJugador[7].x = 711;
 	gSpriteLanzarJugador[7].y = 3534;
 	gSpriteLanzarJugador[7].w = 261;
@@ -1023,7 +1023,7 @@ void View_Jugador_ChunLi::getSpritesLanzarJugador(){
 	gSpriteLanzarJugador[8].y = 3534;
 	gSpriteLanzarJugador[8].w = 261;
 	gSpriteLanzarJugador[8].h = 151;
-
+*/
 
 }
 
