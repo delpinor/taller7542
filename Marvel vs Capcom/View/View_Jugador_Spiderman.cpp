@@ -47,6 +47,8 @@ void View_Jugador_Spiderman::initialize(Jugador *model,
 	getSpritesLanzarPoder();
 	getSpritesPoder();
 
+	getSpritesTomado();
+
 	this->texturaJugador->setColor(this->jugador->getR(), this->jugador->getG(),
 				this->jugador->getB());
 
@@ -1044,3 +1046,31 @@ void View_Jugador_Spiderman::getSpritesPoder(){
 	gSpritePoder[5].h = 150;
 }
 
+void View_Jugador_Spiderman::getSpritesTomado() {
+	CANTSPRITECLIPTOMADO = 3;
+	MINFRAMETOMADO = 0;
+	MAXFRAMETOMADO = 2;
+	FACTORTOMADO = 12;
+	this->gSpriteTomado = new SDL_Rect[CANTSPRITECLIPTOMADO];
+
+//	gSpriteTomado[0].x = 1112;
+//	gSpriteTomado[0].y = 3116;
+//	gSpriteTomado[0].w = 261;
+//	gSpriteTomado[0].h = 150;
+
+	gSpriteTomado[0].x = 1322;
+	gSpriteTomado[0].y = 3116;
+	gSpriteTomado[0].w = 261;
+	gSpriteTomado[0].h = 150;
+
+	gSpriteTomado[1].x = 1542;
+	gSpriteTomado[1].y = 3116;
+	gSpriteTomado[1].w = 261;
+	gSpriteTomado[1].h = 150;
+
+	gSpriteTomado[2].x = 1796;
+	gSpriteTomado[2].y = 3116;
+	gSpriteTomado[2].w = 261;
+	gSpriteTomado[2].h = 150;
+
+}

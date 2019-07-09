@@ -62,6 +62,7 @@ protected:
 	void getSpritesJugadorLanzado();
 	void getSpritesLanzarPoder();
 	void getSpritesPoder();
+	void getSpritesTomado();
 
 
 
