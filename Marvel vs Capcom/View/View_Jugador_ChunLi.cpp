@@ -911,12 +911,12 @@ void View_Jugador_ChunLi::getSpritesTomado() {
 	this->gSpriteTomado = new SDL_Rect[CANTSPRITECLIPTOMADO];
 
 
-	gSpriteTomado[0].x = 123;
+	gSpriteTomado[0].x = 153;
 	gSpriteTomado[0].y = 3771;
 	gSpriteTomado[0].w = 261;
 	gSpriteTomado[0].h = 150;
 
-	gSpriteTomado[1].x = 123;
+	gSpriteTomado[1].x = 153;
 	gSpriteTomado[1].y = 3771;
 	gSpriteTomado[1].w = 261;
 	gSpriteTomado[1].h = 150;
